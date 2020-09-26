@@ -5,7 +5,12 @@ site: bookdown::bookdown_site
 documentclass: book
 output:
   bookdown::gitbook:
- bookdown::pdf_book: 
+    dev: svglite
+    css: css/style.css
+    split_by: section
+    split_bib: true
+    number_sections: true
+  bookdown::pdf_book
 ---
 
 # This will contain material for the course.
