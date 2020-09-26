@@ -4,8 +4,8 @@ author: "Katie McCabe"
 site: bookdown::bookdown_site
 documentclass: book
 output:
-  bookdown::gitbook: default
-  #bookdown::pdf_book: default
+  bookdown::gitbook
+  bookdown::pdf_book
 ---
 
 # This will contain material for the course.

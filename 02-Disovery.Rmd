@@ -1,0 +1,32 @@
+# Description {#descrip}
+
+One goal of social science is description-- describing the social world.
+
+What are things we want to describe in political science?
+
+  * Unemployment rate, GDP
+  * Voter turnout, vote share for a party in an election
+  * Percentage of women in the labor force
+  * Inequality over time
+  * Poverty rates over time
+  * What else?
+  
+Why description? How is this useful?
+
+  * Identify tendencies
+  * Identify patterns or trends
+  * Identify relationships between two or more factors
+  * Help us generalize from anecdotes, what is common vs. uncommon? 
+  * Diagnose demand, needs, potential problems, likely outcomes
+  * Detect anomalies
+
+How do we go about doing the work?
+  
+  * Start with a question (e.g., How is the economy doing?)
+  * Find outcome data relevant to that question (e.g., GDP)
+  * Find multiple units to compare (e.g., over time or across space)
+    ** Multiple years of data (e.g., Compare U.S., from 1900 to 2020)
+    ** Multiple countries from one year (e.g., Compare U.S. to Germany to other countries)
+  * Summarize the data to help answer the question
+
+Example: What is the direction of the country?  

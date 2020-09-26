@@ -1,0 +1,55 @@
+---
+title: "MLE for Political Science"
+author: "Katie McCabe"
+site: bookdown::bookdown_site
+documentclass: book
+output:
+  bookdown::gitbook:
+ bookdown::pdf_book: 
+---
+
+# This will contain material for the course.
+
+It will include important links and course notes.
+
+<!-- If you need PDF output, uncomment bookdown::pdf_book above in YAML. You will need a LaTeX installation, e.g., https://yihui.name/tinytex/ -->
+
+<!-- Instructions: https://ontheline.trincoll.edu/bookdown.html -->
+
+<!--chapter:end:index.Rmd-->
+
+# Description {#descrip}
+
+One goal of social science is description-- describing the social world.
+
+What are things we want to describe in political science?
+
+  * Unemployment rate, GDP
+  * Voter turnout, vote share for a party in an election
+  * Percentage of women in the labor force
+  * Inequality over time
+  * Poverty rates over time
+  * What else?
+  
+Why description? How is this useful?
+
+  * Identify tendencies
+  * Identify patterns or trends
+  * Identify relationships between two or more factors
+  * Help us generalize from anecdotes, what is common vs. uncommon? 
+  * Diagnose demand, needs, potential problems, likely outcomes
+  * Detect anomalies
+
+How do we go about doing the work?
+  
+  * Start with a question (e.g., How is the economy doing?)
+  * Find outcome data relevant to that question (e.g., GDP)
+  * Find multiple units to compare (e.g., over time or across space)
+    ** Multiple years of data (e.g., Compare U.S., from 1900 to 2020)
+    ** Multiple countries from one year (e.g., Compare U.S. to Germany to other countries)
+  * Summarize the data to help answer the question
+
+Example: What is the direction of the country?  
+
+<!--chapter:end:02-Disovery.Rmd-->
+
