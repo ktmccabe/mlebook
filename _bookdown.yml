@@ -1,5 +1,7 @@
 book_filename: "mlebook"
 language:
+  label:
+    fig: "Image "
   ui:
     chapter_name: "Chapter "
 delete_merged_file: true
