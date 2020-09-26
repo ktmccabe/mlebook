@@ -5,7 +5,6 @@ site: bookdown::bookdown_site
 documentclass: book
 date: "`r Sys.Date()`"
 output: bookdown::gitbook
-documentclass: book
 bibliography: [book.bib]
 biblio-style: apalike
 link-citations: yes
