@@ -1,9 +1,13 @@
 [
-["index.html", "MLE for Political Science Chapter 1 This will contain material for the course.", " MLE for Political Science Katie McCabe Chapter 1 This will contain material for the course. It will include important links and course notes. "],
-["descrip.html", "Chapter 2 Description", " Chapter 2 Description One goal of social science is description– describing the social world. What are things we want to describe in political science? Unemployment rate, GDP Voter turnout, vote share for a party in an election Percentage of women in the labor force Inequality over time Poverty rates over time What else? Why description? How is this useful? Identify tendencies Identify patterns or trends Identify relationships between two or more factors Help us generalize from anecdotes, what is common vs. uncommon? Diagnose demand, needs, potential problems, likely outcomes Detect anomalies How do we go about doing the work? Start with a question (e.g., How is the economy doing?) Find outcome data relevant to that question (e.g., GDP) Find multiple units to compare (e.g., over time or across space) ** Multiple years of data (e.g., Compare U.S., from 1900 to 2020) ** Multiple countries from one year (e.g., Compare U.S. to Germany to other countries) Summarize the data to help answer the question Example: What is the direction of the country? "],
-["methods.html", "Chapter 3 Methods", " Chapter 3 Methods We describe our methods in this chapter. "],
-["applications.html", "Chapter 4 Applications", " Chapter 4 Applications Some significant applications are demonstrated in this chapter. "],
-["example-one.html", "4.1 Example one", " 4.1 Example one "],
-["example-two.html", "4.2 Example two", " 4.2 Example two "],
-["final-words.html", "Chapter 5 Final Words", " Chapter 5 Final Words We have finished a nice book. "]
+["index.html", "MLE for Political Science Chapter 1 Course Overview", " MLE for Political Science Katie McCabe Chapter 1 Course Overview This document will include important links and course notes. "],
+["rover.html", "Chapter 2 R Overview", " Chapter 2 R Overview This section will provide links to useful tutorials in R. "],
+["math.html", "Chapter 3 The MATH", " Chapter 3 The MATH This section will provide an overview of mathematical skills that will be useful in the course. "],
+["ols.html", "Chapter 4 Review of OLS", " Chapter 4 Review of OLS This section will provide a review of OLS to help relate it to MLE. "],
+["mle.html", "Chapter 5 Introduction to MLE", " Chapter 5 Introduction to MLE This will provide an overview of MLE. "],
+["binary.html", "Chapter 6 Binary Dependent Variables", " Chapter 6 Binary Dependent Variables This section will cover logistic and probit regression. "],
+["qoi.html", "Chapter 7 Quantities of Interest", " Chapter 7 Quantities of Interest This section will provide information about calculating predicted probabilities and computing uncertainty. "],
+["ordinal.html", "Chapter 8 Ordinal and Nominal Outcomes", " Chapter 8 Ordinal and Nominal Outcomes This section will cover ordinal logit and probit, and multinomial regression. "],
+["ml.html", "Chapter 9 Prediction and Classification", " Chapter 9 Prediction and Classification This section will describe how MLE tools can be useful in prediction and classification exercises, common to machine learning. "],
+["long.html", "Chapter 10 Longitudinal or Hierarchical Data", " Chapter 10 Longitudinal or Hierarchical Data This will provide a brief overview of tools for complex data structures. "],
+["surv.html", "Chapter 11 Survival Analysis", " Chapter 11 Survival Analysis This will provide a brief overview of tools for survival analysis. "]
 ]
