@@ -1,0 +1,3 @@
+# Binary Dependent Variables {#binary}
+
+This section will cover logistic and probit regression.

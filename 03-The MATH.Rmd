@@ -1,0 +1,3 @@
+# The MATH {#math}
+
+This section will provide an overview of mathematical skills that will be useful in the course.

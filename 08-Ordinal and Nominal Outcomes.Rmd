@@ -1,0 +1,3 @@
+# Ordinal and Nominal Outcomes {#ordinal}
+
+This section will cover ordinal logit and probit, and multinomial regression.
