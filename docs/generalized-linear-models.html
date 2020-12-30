@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science</title>
-  <meta name="description" content="Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science" />
+  <title>5.3 Generalized Linear Models | MLE for Political Science</title>
+  <meta name="description" content="5.3 Generalized Linear Models | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science" />
+  <meta property="og:title" content="5.3 Generalized Linear Models | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science" />
+  <meta name="twitter:title" content="5.3 Generalized Linear Models | MLE for Political Science" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="ml.html"/>
-<link rel="next" href="surv.html"/>
+<link rel="prev" href="steps-for-maximum-likelihood.html"/>
+<link rel="next" href="binary.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -176,18 +176,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="long" class="section level1" number="10">
-<h1><span class="header-section-number">Chapter 10</span> Longitudinal or Hierarchical Data</h1>
-<p>This will provide a brief overview of tools for complex data structures.</p>
+<div id="generalized-linear-models" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Generalized Linear Models</h2>
+<p>Link Functions.</p>
+<ul>
+<li>Logistic link (``logit’’):
+<span class="math display">\[\Pr(Y_i=1|X_i)=\frac{exp(X_i \beta)}{1+exp(X_i \beta)}\]</span>
+<span class="math display">\[=\frac{1}{1+exp(-X_i \beta)}\]</span></li>
+<li>Probit link (``probit’’):
+<span class="math display">\[\Pr(Y_i=1|X_i)=\Phi(X_i\beta)\]</span></li>
+<li>Commonality
+<ul>
+<li>As <span class="math inline">\(X_i \beta \rightarrow -\infty,\;\Pr(Y_i=1|X_i) \rightarrow 0\)</span></li>
+<li>As <span class="math inline">\(X_i \beta \rightarrow \infty,\;\Pr(Y_i=1|X_i) \rightarrow 1\)</span></li>
+<li><span class="math inline">\(X_i \beta =0 \Rightarrow \Pr(Y_i=1|X_i) =0.5\)</span></li>
+</ul></li>
+<li>Binomial Distribution
+<ul>
+<li>Used for: Binary outcomes</li>
+<li><span class="math inline">\(f(Y_i|\theta_i)=Pr(Y_i|X_i) =\mathcal L(\theta_i|Y_i, X_i)= \theta_i^{Y_i} \cdot (1-\theta_i)^{1-Y_i}\)</span></li>
+<li>Link function to linearize the model:
+<span class="math display">\[ \theta_i = \frac{1}{1+e^{-X_i \beta}} \l( = \frac{ e^{X_i \beta}}{1+e^{X_i \beta}}  \r)\]</span></li>
+</ul></li>
+</ul>
 
 </div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="ml.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="surv.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="steps-for-maximum-likelihood.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="binary.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

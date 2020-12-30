@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science</title>
-  <meta name="description" content="Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science" />
+  <title>5.1 Demystifying Likelihood | MLE for Political Science</title>
+  <meta name="description" content="5.1 Demystifying Likelihood | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science" />
+  <meta property="og:title" content="5.1 Demystifying Likelihood | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science" />
+  <meta name="twitter:title" content="5.1 Demystifying Likelihood | MLE for Political Science" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="ml.html"/>
-<link rel="next" href="surv.html"/>
+<link rel="prev" href="mle.html"/>
+<link rel="next" href="steps-for-maximum-likelihood.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -176,18 +176,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="long" class="section level1" number="10">
-<h1><span class="header-section-number">Chapter 10</span> Longitudinal or Hierarchical Data</h1>
-<p>This will provide a brief overview of tools for complex data structures.</p>
-
+<div id="demystifying-likelihood" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Demystifying Likelihood</h2>
+<p>What values of the unknown parameters make the data we see least surprising?</p>
+<p>Take the UK population of 70 million. We have a sample of this. What is the probability that an individual is male, given that we only have a sample of the population? We can suppose there is some probability distribution function that determine the probability is a male or female. Take <span class="math inline">\(f(x_i | p)\)</span> <span class="math inline">\(x_i = 1\)</span> if male, 0 if female. p is the probability an individual is male. <span class="math inline">\(p^{x_i}(1 - p)^{1-x_i}\)</span></p>
+<p><span class="math inline">\(f(1|p) = p^1(1-p)^{1-1} = p\)</span> \</p>
+<p><span class="math inline">\(f(0 |p) p ^0(1-p)^{1-0} = 1-p\)</span> probability individual is female</p>
+<p>f() tells us the probability we would have gotten the observation if we think of our observation as toss of coin.</p>
+<p>What if we have n observations? <span class="math inline">\(f(x_1, x_2, ... x_n | p)\)</span> It will be the individual probabilities multipled together. = $ L = P(X_1 = x_1, X_2=x_2, …, X_n = x_n)= _{i=1}^n p^x_i(1 - p)^{1-x_i}$</p>
+<p>This answers what is the probability that <span class="math inline">\(X_1\)</span> took on the value <span class="math inline">\(x_1\)</span> <span class="math inline">\(L = P(X_1 = x_1, X_2=x_2, ..., X_n = x_n)\)</span> This joint probability is the likelihood. Generally, we don’t know p. We are trying to estimate it.</p>
+<p>What we want to do is choose the probability to maximize the likelihood that we would have gotten this set of observations given that <span class="math inline">\(X_i\)</span> has a probability distribution as specified.</p>
+<p>We are going to choose an estimator <span class="math inline">\(\hat{p}\)</span> to estimate. To do so, we differentiate L with respect to p, set it to 0, to give us <span class="math inline">\(\hat{p}\)</span>.</p>
+<p>Our issue is that products are tough to differentiate. A chain rule disaster. Instead, we use a trick of taking the log of the likelihood. L = log L = log <span class="math inline">\(\prod ()\)</span>. Why does this work? It has to do with the shape of the log (always increasing). Details are beyond the scope.</p>
+<p>Benefit: it turns it into a sum, much easier. <span class="math inline">\(log ab = log a + log b\)</span></p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="ml.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="surv.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="mle.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="steps-for-maximum-likelihood.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

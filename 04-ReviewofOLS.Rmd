@@ -1,3 +1,140 @@
+
+```{r, include=F}
+knitr::knit_exit()
+```
+
 # Review of OLS {#ols}
 
 This section will provide a review of OLS to help relate it to MLE.
+
+
+## OLS Regression 
+
+OLS is the workhorse of empirical political science. We will learn a lot beyond OLS, but OLS is often "good enough" and sometimes preferable. AKA: Never forget where you came from.
+
+The regression method describes how one variable depends on one or more other variables. OLS regression is a linear model with the matrix representation:
+
+
+$Y = \alpha + X\beta + \epsilon$
+
+
+Given values of X, the model predicts the average of Y. 
+
+  - Y is the outcome variable (n x 1). $\alpha$ is the intercept. $\beta$ is the slope/marginal effect (k x 1), and $\epsilon$ is the error term (n x 1).
+  - We estimate a line of best fit to predict $\hat{Y}$ values for different values of X: 
+    
+    * $\hat{Y} = \hat{\alpha} + X\hat{\beta}$. 
+    * When you see a "$\hat{hat}$" on top of a letter, that means it is an estimate. 
+
+What we say is "Associated with each one unit increase in X, there is a $\hat{\beta}$ estimated average increase in y. We will instead often use the language "expected" increase. More on this later.
+
+
+A few more details on the equation above and how to derive OLS Estimates
+
+OLS in Matrix Form:
+Let X be an $n \times k$ matrix where we have observations on k independent variables for n observations. Since our model will usually contain a constant term, one of the columns in the X matrix will contain only ones. This column should be treated exactly the same as any other column in the X matrix.
+\begin{itemize}
+\item Let Y be an $n \times 1$ vector of observations on the dependent variable.
+\item Let $\epsilon$ be an $n \times 1$ vector of disturbances or errors.
+\item Let $\beta$ be an $k \times 1$ vector of unknown population parameters that we want to estimate.
+\end{itemize}
+
+
+$\begin{pmatrix} y_1 \\ y_2 \\ y_3 \\ y_4 \\ ... \\ y_n \end{pmatrix}$ = $\begin{pmatrix}   1 & x_{11} & x_{12} & x_{13} & ... & x_{1k}\\ 
+1 & x_{21} & x_{22} & x_{23} & ... &  x_{2k} \\ 
+1 & x_{31} & x_{32} & x_{33} & ... & x_{3k}\\
+1 & x_{41} & x_{42} & x_{43} & ... & x_{4k} \\
+... & ... & ... & ... & ... & ... \\
+1 & x_{n1} & x_{n2} & x_{n3} & ... & x_{nk}\end{pmatrix}$ X $\begin{pmatrix} \alpha \\ \beta_1 \\ \beta_2 \\ \beta_3 \\  ... \\ \beta_k \end{pmatrix}$ + $\begin{pmatrix} \epsilon_1 \\ \epsilon_2 \\ \epsilon_3 \\ \epsilon_4 \\ ... \\ \epsilon_n \end{pmatrix}$
+
+We want to minimize the sum of squared "residuals." What is a residual? It's the difference between y and our estimate of y.
+
+\begin{align*}
+e'e &= (Y' - \hat{\beta}'X')(Y - X\hat{\beta})\\
+&=Y'Y - \hat{\beta}'X'Y - Y'X\hat{\beta} + \hat{\beta}'X'X\hat{\beta} \\
+&= Y'Y - 2\hat{\beta}'X'Y + \hat{\beta}'X'X\hat{\beta}
+\end{align*}
+
+Now we minimize by taking the derivative wrt $\beta$
+$\frac{de'e}{d\beta} = -2X'Y + 2X'X\hat{\beta}$
+
+ 
+
+## Assumptions
+
+Linearity: Linearity implies that the marginal effect does not depend on the level of regressors. 
+
+Exogeneity: The regressors are independent of the error term. (Strict) The expectation (mean) of the error term, conditional on all observations is 0. 
+
+  - $\E(\epsilon_i | X) = 0$. 
+  -  This implies the unconditional mean of the error term is also 0. $\E(\epsilon_i)=0$. 
+  -  Each regressor (x) is also orthogonal to the error term for all observations: $\E(x\epsilon_i) = 0$. 
+  -  Strict exogeneiy means the error term is uncorrelated with regressor for all observations, not just the same observation.
+
+No Multicollinearity. The rank of the n X K data matrix X is K. K columns must be linearly independent. There must be at least as many observations as regressors. The K columns of regressors cannot be linearly dependent. 
+
+  - For example, if you were interested in the effect of years-in-grad school on life satisfaction, but you also thought knowledge might influence this. If everyone with 2 years in grad school has the same knowledge (and 3, 4, etc.) these columns would be dependent. 
+
+Spherical error variance/homoskedasticity. 
+  
+  - $\E(\epsilon_i^2 | X) = \sigma^2$ and $\E(\epsilon_i\epsilon_j)| X) = 0$. 
+  - $Var(\epsilon_ | X) = \E(\epsilon_i^2 | X) - \E(\epsilon_i | X)^2 = \E(\epsilon_i^2 | X)$ by strict exogeneity. 
+  - $\E(\epsilon \epsilon' | X) = \sigma^2I_n$
+
+
+
+## Properties and Potential Sources of Bias
+
+Unbiasedness: on average true. $E(\hat{\beta}) = \beta$
+
+Consistency: $p\lim \hat{\beta} =\beta$ As $n \rightarrow \inf P(\hat{\beta} - \beta > h) \rightarrow 0$.Convergence in probability: the probability that the absolute difference between the estimate and parameter being larger
+than e goes to zero as n gets bigger. Which means that this probability could be non-zero
+while n is not large.
+
+Efficiency: smallest variance relative to other potential estimators
+
+Potential Biases
+
+Omitted Variable Bias
+
+Collider Bias: Y $\rightarrow$ W, X $\rightarrow$ W
+
+Simpson's Paradox, type of OVB: The trend of the whole can be different from or the opposite of the trend of the constituent parts. Example: on average women were less likely to be admitted BUT occurred because women disproportionately applied to departments with low acceptance rates, as shown in the table above, while men disproportionately applied to departments with high acceptance rates. 
+
+Measurement Error (Noise to the DV, attenuation to the IV, other systematic bias in coefficients if not random)
+
+
+You can also perform diagnostics to make sure there are no outliers, influential observations, assess the errors, etc.
+
+## Relationship to Correlation
+
+Correlation and regression are related, but not the same. A correlation tells you how much one variable tends to change when the other one does. Regression finds the best line that predicts y from x.
+
+$\hat{\beta} = \hat{\rho}_{xy} \frac{\hat{\sigma_y}}{\hat{\sigma_x}}$
+
+
+## R-squared
+
+
+While the regression coefficients and predicted values focus on the mean. R-squared represents the scatter around the regression line.
+
+  - the percentage of variance in $Y$ accounted for by a model.
+  - Another way of saying this: How much does $\hat Y$ vary from the mean of $Y$ over how much does $Y$ vary from the mean of $Y$
+  - Colloquially, a high R-squared value signifies that your model explains a good proportion of the variability in the dependent variable.
+  - Rules of Thumb:
+    * If the data are highly variable, the denominator will be large
+    * If our estimates are pretty close to the observed values, the fraction should be close to 1
+    * Low R-squared values can warn of imprecise predictions, but better to use mean-squared error for this.
+    * R-squared cannot be compared between a model with untransformed Y and one with transformed Y, or between different transformations of Y. 
+    * R-squared can be affected by changes in the range of $X$
+
+
+R-squared is not everything, and often we do not rely on this measure for a lot of "explanatory" social science (or at least we do not solely rely on this). That's because even when R-squared is low, low p values still indicate a real relationship between the significant predictors and the response variable.
+
+
+Moreover, R-squared values, on their own, can be misleading.
+
+
+
+
+

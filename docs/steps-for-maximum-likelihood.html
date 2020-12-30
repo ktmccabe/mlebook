@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science</title>
-  <meta name="description" content="Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science" />
+  <title>5.2 Steps for Maximum Likelihood | MLE for Political Science</title>
+  <meta name="description" content="5.2 Steps for Maximum Likelihood | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science" />
+  <meta property="og:title" content="5.2 Steps for Maximum Likelihood | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science" />
+  <meta name="twitter:title" content="5.2 Steps for Maximum Likelihood | MLE for Political Science" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="ml.html"/>
-<link rel="next" href="surv.html"/>
+<link rel="prev" href="demystifying-likelihood.html"/>
+<link rel="next" href="generalized-linear-models.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -176,18 +176,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="long" class="section level1" number="10">
-<h1><span class="header-section-number">Chapter 10</span> Longitudinal or Hierarchical Data</h1>
-<p>This will provide a brief overview of tools for complex data structures.</p>
-
+<div id="steps-for-maximum-likelihood" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Steps for Maximum Likelihood</h2>
+<p>Initial Setup</p>
+<ol style="list-style-type: decimal">
+<li>What is the data generating process? This means think about the structure of the dependent variable. Is it continuous, is it a count, is it binary, is it ordered? Based on this, describe the probability distribution for <span class="math inline">\(Y_i\)</span>.</li>
+<li>Define the likelihood for a single observation</li>
+<li>Define the likelihood for all observations</li>
+<li>Find the log-likelihood</li>
+</ol>
+<p>Example: Count Data</p>
+<ol style="list-style-type: decimal">
+<li><p>DGP and pdf
+<span class="math display">\[\begin{align*}
+&amp;Y_i \iid Pois(\lambda)\Rightarrow\\
+&amp;\Pr(Y=Y_i|\lambda)=\lambda \frac{exp(-\lambda) \lambda^{Y_i}}{Y_i!}
+\end{align*}\]</span></p></li>
+<li><p>What is the likelihood for a single observation?
+<span class="math display">\[\begin{align*}
+\mathcal L(\lambda|Y_i)=\Pr(Y=Y_i|\lambda)
+\end{align*}\]</span></p></li>
+<li><p>What is the likelihood for all observations?
+<span class="math display">\[\begin{align*}
+\mathcal L(\lambda|Y)&amp;=\mathcal L(\lambda|Y_1)\times\mathcal  L(\lambda|Y_2)\times \ldots \times \mathcal L(\lambda|Y_{10})\\
+\mathcal L(\lambda|Y)&amp;=\prod_{i=1}^N\mathcal L(\lambda|Y_i)\\
+\end{align*}\]</span></p></li>
+<li><p>Easier to work with log-likelihood
+<span class="math display">\[\begin{align*}
+\ell(\lambda|Y)&amp;=\sum_{i=1}^N\mathcal \log(\mathcal L(\lambda|Y_i))\\
+\end{align*}\]</span></p></li>
+</ol>
+<p>Given observed data <span class="math inline">\(Y\)</span>, what is the likelihood it was generated from <span class="math inline">\(\lambda\)</span>?</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="ml.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="surv.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="demystifying-likelihood.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="generalized-linear-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

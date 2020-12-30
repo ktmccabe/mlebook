@@ -1,5 +1,6 @@
 output_dir: "docs"
 book_filename: "mlebookout"
+delete_merged_file: true
 language:
   label:
     fig: "Image "

@@ -1,3 +1,36 @@
 # R Overview {#rover}
 
-This section will provide links to useful tutorials in R.
+This course will primarily use R for analysis, though we will briefly discuss a few areas where Stata may be more efficient.
+
+Learning to program in R is not a primary goal of this course, but in proceeding through the course, you will gain and/or get practice with a lot of R skills.
+
+For those brand new to R, I strongly recommend you complete the following tutorials prior to or at the beginning of the course.
+
+**Goal**
+By the end of the first week of the course, you will want to have R and RStudio installed on your computer (both free) and feel comfortable using R as a calculator and loading datasets into R.
+
+R installation:
+
+  - This video from Christopher Bail explains the R and RStudio installation process. This involves
+    1. Going to [cran](https://cran.r-project.org/), select the link that matches your operating system, and
+then follow the installation instructions, and 
+    2. Visiting [RStudio](http://www.rstudio.com/) and follow the download and installation instructions. 
+    
+    <iframe width="560" height="315" src="http://www.youtube.com/embed/ulIv0NiVTs4?rel=0" frameborder="0" allowfullscreen></iframe>
+
+  - You can also follow along with Christopher Bail's [R Basics](https://www.youtube.com/watch?v=vVcH_OvrLEM) and [Data Wrangling](https://www.youtube.com/watch?v=sXVP9256JSQ) videos to learn the basic functionality of R.
+  
+  - To supplement the above resources, I would recommend playing around with one of the following:
+      1. An additional great resource is Kosuke Imai's book *Quantitative Social Science.* The [first chapter](https://assets.press.princeton.edu/chapters/s11025.pdf) provides a written overview of installing R and the basic functions of R and R Studio, including loading data and packages into R. Data for the book is available at the bottom of this [page](https://qss.princeton.press/student-resources-for-quantitative-social-science/). Alternate coding in tidyverse for the book is available [here](https://jrnold.github.io/qss-tidy/).
+      2. If you were having difficulties following Chris Bail or Kosuke Imai's instructions for installation, you can try following the first couple of Rutgers Data Librarian Ryan Womack's videos, which similarly start from the point of installation. They are [here](https://www.youtube.com/watch?v=5rOR31bmoL8&list=PLCj1LhGni3hNxsLsVNHX6V1LICyklHl2a&ab_channel=librarianwomack). He goes at a slow pace and codes along in the videos. He also has a number of videos on more advanced data analysis topics. 
+      3. [R for Data Science](https://r4ds.had.co.nz/) is another great resource and focuses on "tidyverse" code in R, which can be particularly helpful in data wrangling and visualization.
+  
+Note: Much of the code used in the course will rely on "base R" functions (functions that already exist in R). People have also developed [tidyverse](https://www.tidyverse.org/) packages that can be easily installed in R, which supplements base R tools with alternative functions and a syntax based on a particular design philosophy, grammar, and data structure that they find preferable to base R. Using base R vs. tidyverse is often just a matter of personal taste. Either is fine to use in this course, and you will get exposure to code that relies on both.
+
+This is a lot of information to digest all at once. Don't worry. No one remembers everything. Plan on going back to these resources often throughout the course and beyond. We will have office hours the first week of the course to help troubleshoot issues. 
+
+## Using R and RStudio
+
+This next section provides a few notes on using R and RStudio now that you have installed it. This is mostly repetitive of the other resources. This includes only the bare essential information for opening an R script and digging into using R as a calculator, which we will do in chapter 3.
+
+

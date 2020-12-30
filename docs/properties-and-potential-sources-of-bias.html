@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science</title>
-  <meta name="description" content="Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science" />
+  <title>4.3 Properties and Potential Sources of Bias | MLE for Political Science</title>
+  <meta name="description" content="4.3 Properties and Potential Sources of Bias | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science" />
+  <meta property="og:title" content="4.3 Properties and Potential Sources of Bias | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science" />
+  <meta name="twitter:title" content="4.3 Properties and Potential Sources of Bias | MLE for Political Science" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="ml.html"/>
-<link rel="next" href="surv.html"/>
+<link rel="prev" href="assumptions.html"/>
+<link rel="next" href="relationship-to-correlation.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -176,18 +176,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="long" class="section level1" number="10">
-<h1><span class="header-section-number">Chapter 10</span> Longitudinal or Hierarchical Data</h1>
-<p>This will provide a brief overview of tools for complex data structures.</p>
-
+<div id="properties-and-potential-sources-of-bias" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Properties and Potential Sources of Bias</h2>
+<p>Unbiasedness: on average true. <span class="math inline">\(E(\hat{\beta}) = \beta\)</span></p>
+<p>Consistency: <span class="math inline">\(p\lim \hat{\beta} =\beta\)</span> As <span class="math inline">\(n \rightarrow \inf P(\hat{\beta} - \beta &gt; h) \rightarrow 0\)</span>.Convergence in probability: the probability that the absolute difference between the estimate and parameter being larger
+than e goes to zero as n gets bigger. Which means that this probability could be non-zero
+while n is not large.</p>
+<p>Efficiency: smallest variance relative to other potential estimators</p>
+<p>Potential Biases</p>
+<p>Omitted Variable Bias</p>
+<p>Collider Bias: Y <span class="math inline">\(\rightarrow\)</span> W, X <span class="math inline">\(\rightarrow\)</span> W</p>
+<p>Simpson’s Paradox, type of OVB: The trend of the whole can be different from or the opposite of the trend of the constituent parts. Example: on average women were less likely to be admitted BUT occurred because women disproportionately applied to departments with low acceptance rates, as shown in the table above, while men disproportionately applied to departments with high acceptance rates.</p>
+<p>Measurement Error (Noise to the DV, attenuation to the IV, other systematic bias in coefficients if not random)</p>
+<p>You can also perform diagnostics to make sure there are no outliers, influential observations, assess the errors, etc.</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="ml.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="surv.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="assumptions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="relationship-to-correlation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

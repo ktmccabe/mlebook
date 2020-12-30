@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4.3 Properties | MLE for Political Science</title>
+  <meta name="description" content="4.3 Properties | MLE for Political Science" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4.3 Properties | MLE for Political Science" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4.3 Properties | MLE for Political Science" />
+  
+  
+  
+
+<meta name="author" content="Katie McCabe" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="assumptions.html"/>
+<link rel="next" href="where-can-regression-go-wrong.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Course Overview</a></li>
+<li class="chapter" data-level="2" data-path="rover.html"><a href="rover.html"><i class="fa fa-check"></i><b>2</b> R Overview</a></li>
+<li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a></li>
+<li class="chapter" data-level="4" data-path="ols.html"><a href="ols.html"><i class="fa fa-check"></i><b>4</b> Review of OLS</a><ul>
+<li class="chapter" data-level="4.1" data-path="ols-regression.html"><a href="ols-regression.html"><i class="fa fa-check"></i><b>4.1</b> OLS Regression</a></li>
+<li class="chapter" data-level="4.2" data-path="assumptions.html"><a href="assumptions.html"><i class="fa fa-check"></i><b>4.2</b> Assumptions</a></li>
+<li class="chapter" data-level="4.3" data-path="properties.html"><a href="properties.html"><i class="fa fa-check"></i><b>4.3</b> Properties</a></li>
+<li class="chapter" data-level="4.4" data-path="where-can-regression-go-wrong.html"><a href="where-can-regression-go-wrong.html"><i class="fa fa-check"></i><b>4.4</b> Where Can Regression Go Wrong</a></li>
+<li class="chapter" data-level="4.5" data-path="relationship-to-correlation.html"><a href="relationship-to-correlation.html"><i class="fa fa-check"></i><b>4.5</b> Relationship to Correlation</a></li>
+<li class="chapter" data-level="4.6" data-path="r-squared.html"><a href="r-squared.html"><i class="fa fa-check"></i><b>4.6</b> R-squared</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="mle.html"><a href="mle.html"><i class="fa fa-check"></i><b>5</b> Introduction to MLE</a></li>
+<li class="chapter" data-level="6" data-path="binary.html"><a href="binary.html"><i class="fa fa-check"></i><b>6</b> Binary Dependent Variables</a></li>
+<li class="chapter" data-level="7" data-path="qoi.html"><a href="qoi.html"><i class="fa fa-check"></i><b>7</b> Quantities of Interest</a></li>
+<li class="chapter" data-level="8" data-path="ordinal.html"><a href="ordinal.html"><i class="fa fa-check"></i><b>8</b> Ordinal and Nominal Outcomes</a></li>
+<li class="chapter" data-level="9" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>9</b> Prediction and Classification</a></li>
+<li class="chapter" data-level="10" data-path="long.html"><a href="long.html"><i class="fa fa-check"></i><b>10</b> Longitudinal or Hierarchical Data</a></li>
+<li class="chapter" data-level="11" data-path="surv.html"><a href="surv.html"><i class="fa fa-check"></i><b>11</b> Survival Analysis</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">MLE for Political Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="properties" class="section level2">
+<h2><span class="header-section-number">4.3</span> Properties</h2>
+<p>Unbiasedness: on average true. <span class="math inline">\(E(\hat{\beta}) = \beta\)</span></p>
+<p>Consistency: <span class="math inline">\(p\lim \hat{\beta} =\beta\)</span> As <span class="math inline">\(n \rightarrow \inf P(\hat{\beta} - \beta &gt; h) \rightarrow 0\)</span>.Convergence in probability: the probability that the absolute difference between the estimate and parameter being larger
+than e goes to zero as n gets bigger. Which means that this probability could be non-zero
+while n is not large.</p>
+<p>Efficiency: smallest variance relative to other potential estimators</p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="assumptions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="where-can-regression-go-wrong.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

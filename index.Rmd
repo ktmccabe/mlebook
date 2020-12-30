@@ -1,6 +1,6 @@
 ---
 title: "MLE for Political Science"
-author: "Katie McCabe"
+author: "Instructor: Katie McCabe"
 site: bookdown::bookdown_site
 documentclass: book
 output:
@@ -14,7 +14,10 @@ output:
 
 # Course Overview
 
-This document will include important links and course notes.
+This document will include important links and course notes for 16:790:677:01: Maximum Likelihood Estimation.
+
+  - This will be updated throughout the semester with new content. This initial content in Chapters 2 and 3 is optional, but encouraged, and includes tutorials and resources for basics in R and mathematical concepts used in the course.
+  - This is a new and living document. If you spot errors or have questions or suggestions, please email me at k.mccabe@rutgers.edu.
 
 <!-- If you need PDF output, uncomment bookdown::pdf_book above in YAML. You will need a LaTeX installation, e.g., https://yihui.name/tinytex/ -->
 

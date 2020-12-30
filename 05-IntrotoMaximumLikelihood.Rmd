@@ -1,3 +1,89 @@
 # Introduction to MLE {#mle}
 
 This will provide an overview of MLE.
+
+## Demystifying Likelihood
+
+What values of the unknown parameters make the data we see least surprising?
+
+Take the UK population of 70 million. We have a sample of this. What is the probability that an individual is male, given that we only have a sample of the population? We can suppose there is some probability distribution function that determine the probability is a male or female. Take $f(x_i | p)$ $x_i = 1$ if male, 0 if female. p is the probability an individual is male. $p^{x_i}(1 - p)^{1-x_i}$
+
+$f(1|p) = p^1(1-p)^{1-1} = p$  \\
+
+$f(0 |p) p ^0(1-p)^{1-0} = 1-p$ probability individual is female
+
+f() tells us the probability we would have gotten the observation if we think of our observation as toss of coin.
+
+What if we have n observations? $f(x_1, x_2, ... x_n | p)$ It will be the individual probabilities multipled together. = $ L = P(X_1 = x_1, X_2=x_2, ..., X_n = x_n)= \prod_{i=1}^n p^x_i(1 - p)^{1-x_i}$
+
+This answers what is the probability that $X_1$ took on the value $x_1$ $L = P(X_1 = x_1, X_2=x_2, ..., X_n = x_n)$ This joint probability is the likelihood. Generally, we don't know p. We are trying to estimate it.
+
+What we want to do is choose the probability to maximize the likelihood that we would have gotten this set of observations given that $X_i$ has a probability distribution as specified.
+
+We are going to choose an estimator $\hat{p}$ to estimate. To do so, we differentiate L with respect to p, set it to 0, to give us $\hat{p}$.
+
+Our issue is that products are tough to differentiate. A chain rule disaster. Instead, we use a trick of taking the log of the likelihood. L = log L = log $\prod ()$. Why does this work? It has to do with the shape of the log (always increasing). Details are beyond the scope.
+
+Benefit: it turns it into a sum, much easier. $log ab = log a + log b$
+
+
+## Steps for Maximum Likelihood
+
+Initial Setup
+
+  1. What is the data generating process? This means think about the structure of the dependent variable. Is it continuous, is it a count, is it binary, is it ordered?  Based on this, describe the probability distribution for $Y_i$.
+  2. Define the likelihood for a single observation
+  3. Define the likelihood for all observations
+  4. Find the log-likelihood
+
+Example: Count Data
+
+  1. DGP and pdf
+\begin{align*}
+&Y_i \iid Pois(\lambda)\Rightarrow\\
+&\Pr(Y=Y_i|\lambda)=\lambda \frac{exp(-\lambda) \lambda^{Y_i}}{Y_i!}
+\end{align*}
+
+  2. What is the likelihood for a single observation?
+\begin{align*}
+\mathcal L(\lambda|Y_i)=\Pr(Y=Y_i|\lambda)
+\end{align*}
+
+  3.  What is the likelihood for all observations?
+\begin{align*}
+\mathcal L(\lambda|Y)&=\mathcal L(\lambda|Y_1)\times\mathcal  L(\lambda|Y_2)\times \ldots \times \mathcal L(\lambda|Y_{10})\\
+\mathcal L(\lambda|Y)&=\prod_{i=1}^N\mathcal L(\lambda|Y_i)\\
+\end{align*}
+
+  4.  Easier to work with log-likelihood
+\begin{align*}
+\ell(\lambda|Y)&=\sum_{i=1}^N\mathcal \log(\mathcal L(\lambda|Y_i))\\
+\end{align*}
+
+Given observed data $Y$, what is the likelihood it was generated from $\lambda$?
+
+
+
+
+## Generalized Linear Models
+
+Link Functions. 
+
+  -  Logistic link (``logit''):
+$$\Pr(Y_i=1|X_i)=\frac{exp(X_i \beta)}{1+exp(X_i \beta)}$$
+$$=\frac{1}{1+exp(-X_i \beta)}$$
+  - Probit link (``probit''):
+$$\Pr(Y_i=1|X_i)=\Phi(X_i\beta)$$
+  - Commonality
+    * As $X_i \beta \rightarrow -\infty,\;\Pr(Y_i=1|X_i) \rightarrow 0$
+    * As $X_i \beta \rightarrow \infty,\;\Pr(Y_i=1|X_i) \rightarrow 1$
+    * $X_i \beta =0 \Rightarrow \Pr(Y_i=1|X_i) =0.5$
+
+  - Binomial Distribution
+    * Used for: Binary outcomes 
+    * $f(Y_i|\theta_i)=Pr(Y_i|X_i) =\mathcal  L(\theta_i|Y_i, X_i)= \theta_i^{Y_i} \cdot (1-\theta_i)^{1-Y_i}$
+    * Link function to linearize the model:
+$$ \theta_i = \frac{1}{1+e^{-X_i \beta}} \l( = \frac{ e^{X_i \beta}}{1+e^{X_i \beta}}  \r)$$
+
+
+

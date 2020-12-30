@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science</title>
-  <meta name="description" content="Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science" />
+  <title>4.5 R-squared | MLE for Political Science</title>
+  <meta name="description" content="4.5 R-squared | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science" />
+  <meta property="og:title" content="4.5 R-squared | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science" />
+  <meta name="twitter:title" content="4.5 R-squared | MLE for Political Science" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="ml.html"/>
-<link rel="next" href="surv.html"/>
+<link rel="prev" href="relationship-to-correlation.html"/>
+<link rel="next" href="mle.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -176,18 +176,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="long" class="section level1" number="10">
-<h1><span class="header-section-number">Chapter 10</span> Longitudinal or Hierarchical Data</h1>
-<p>This will provide a brief overview of tools for complex data structures.</p>
+<div id="r-squared" class="section level2" number="4.5">
+<h2><span class="header-section-number">4.5</span> R-squared</h2>
+<p>While the regression coefficients and predicted values focus on the mean. R-squared represents the scatter around the regression line.</p>
+<ul>
+<li>the percentage of variance in <span class="math inline">\(Y\)</span> accounted for by a model.</li>
+<li>Another way of saying this: How much does <span class="math inline">\(\hat Y\)</span> vary from the mean of <span class="math inline">\(Y\)</span> over how much does <span class="math inline">\(Y\)</span> vary from the mean of <span class="math inline">\(Y\)</span></li>
+<li>Colloquially, a high R-squared value signifies that your model explains a good proportion of the variability in the dependent variable.</li>
+<li>Rules of Thumb:
+<ul>
+<li>If the data are highly variable, the denominator will be large</li>
+<li>If our estimates are pretty close to the observed values, the fraction should be close to 1</li>
+<li>Low R-squared values can warn of imprecise predictions, but better to use mean-squared error for this.</li>
+<li>R-squared cannot be compared between a model with untransformed Y and one with transformed Y, or between different transformations of Y.</li>
+<li>R-squared can be affected by changes in the range of <span class="math inline">\(X\)</span></li>
+</ul></li>
+</ul>
+<p>R-squared is not everything, and often we do not rely on this measure for a lot of “explanatory” social science (or at least we do not solely rely on this). That’s because even when R-squared is low, low p values still indicate a real relationship between the significant predictors and the response variable.</p>
+<p>Moreover, R-squared values, on their own, can be misleading.</p>
 
 </div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="ml.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="surv.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="relationship-to-correlation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mle.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

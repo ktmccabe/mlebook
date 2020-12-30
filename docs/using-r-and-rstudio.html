@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science</title>
-  <meta name="description" content="Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science" />
+  <title>2.1 Using R and RStudio | MLE for Political Science</title>
+  <meta name="description" content="2.1 Using R and RStudio | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science" />
+  <meta property="og:title" content="2.1 Using R and RStudio | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,12 +16,12 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science" />
+  <meta name="twitter:title" content="2.1 Using R and RStudio | MLE for Political Science" />
   
   
   
 
-<meta name="author" content="Katie McCabe" />
+<meta name="author" content="Instructor: Katie McCabe" />
 
 
 
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="ml.html"/>
-<link rel="next" href="surv.html"/>
+<link rel="prev" href="rover.html"/>
+<link rel="next" href="math.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -130,7 +130,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Course Overview</a></li>
-<li class="chapter" data-level="2" data-path="rover.html"><a href="rover.html"><i class="fa fa-check"></i><b>2</b> R Overview</a></li>
+<li class="chapter" data-level="2" data-path="rover.html"><a href="rover.html"><i class="fa fa-check"></i><b>2</b> R Overview</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="using-r-and-rstudio.html"><a href="using-r-and-rstudio.html"><i class="fa fa-check"></i><b>2.1</b> Using R and RStudio</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="mathematical-operations.html"><a href="mathematical-operations.html"><i class="fa fa-check"></i><b>3.1</b> Mathematical Operations</a></li>
@@ -139,26 +142,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4" data-path="vectors-and-matrices.html"><a href="vectors-and-matrices.html"><i class="fa fa-check"></i><b>3.4</b> Vectors and Matrices</a></li>
 <li class="chapter" data-level="3.5" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html"><i class="fa fa-check"></i><b>3.5</b> Additional Matrix Tidbits that Will Come Up</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="ols.html"><a href="ols.html"><i class="fa fa-check"></i><b>4</b> Review of OLS</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="ols-regression.html"><a href="ols-regression.html"><i class="fa fa-check"></i><b>4.1</b> OLS Regression</a></li>
-<li class="chapter" data-level="4.2" data-path="assumptions.html"><a href="assumptions.html"><i class="fa fa-check"></i><b>4.2</b> Assumptions</a></li>
-<li class="chapter" data-level="4.3" data-path="properties-and-potential-sources-of-bias.html"><a href="properties-and-potential-sources-of-bias.html"><i class="fa fa-check"></i><b>4.3</b> Properties and Potential Sources of Bias</a></li>
-<li class="chapter" data-level="4.4" data-path="relationship-to-correlation.html"><a href="relationship-to-correlation.html"><i class="fa fa-check"></i><b>4.4</b> Relationship to Correlation</a></li>
-<li class="chapter" data-level="4.5" data-path="r-squared.html"><a href="r-squared.html"><i class="fa fa-check"></i><b>4.5</b> R-squared</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="mle.html"><a href="mle.html"><i class="fa fa-check"></i><b>5</b> Introduction to MLE</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="demystifying-likelihood.html"><a href="demystifying-likelihood.html"><i class="fa fa-check"></i><b>5.1</b> Demystifying Likelihood</a></li>
-<li class="chapter" data-level="5.2" data-path="steps-for-maximum-likelihood.html"><a href="steps-for-maximum-likelihood.html"><i class="fa fa-check"></i><b>5.2</b> Steps for Maximum Likelihood</a></li>
-<li class="chapter" data-level="5.3" data-path="generalized-linear-models.html"><a href="generalized-linear-models.html"><i class="fa fa-check"></i><b>5.3</b> Generalized Linear Models</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="binary.html"><a href="binary.html"><i class="fa fa-check"></i><b>6</b> Binary Dependent Variables</a></li>
-<li class="chapter" data-level="7" data-path="qoi.html"><a href="qoi.html"><i class="fa fa-check"></i><b>7</b> Quantities of Interest</a></li>
-<li class="chapter" data-level="8" data-path="ordinal.html"><a href="ordinal.html"><i class="fa fa-check"></i><b>8</b> Ordinal and Nominal Outcomes</a></li>
-<li class="chapter" data-level="9" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>9</b> Prediction and Classification</a></li>
-<li class="chapter" data-level="10" data-path="long.html"><a href="long.html"><i class="fa fa-check"></i><b>10</b> Longitudinal or Hierarchical Data</a></li>
-<li class="chapter" data-level="11" data-path="surv.html"><a href="surv.html"><i class="fa fa-check"></i><b>11</b> Survival Analysis</a></li>
 </ul>
 
       </nav>
@@ -176,18 +159,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="long" class="section level1" number="10">
-<h1><span class="header-section-number">Chapter 10</span> Longitudinal or Hierarchical Data</h1>
-<p>This will provide a brief overview of tools for complex data structures.</p>
+<div id="using-r-and-rstudio" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Using R and RStudio</h2>
+<p>This next section provides a few notes on using R and RStudio now that you have installed it. This is mostly repetitive of the other resources. This includes only the bare essential information for opening an R script and digging into using R as a calculator, which we will do in chapter 3.</p>
 
 </div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="ml.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="surv.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="rover.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="math.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

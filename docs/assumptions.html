@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science</title>
-  <meta name="description" content="Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science" />
+  <title>4.2 Assumptions | MLE for Political Science</title>
+  <meta name="description" content="4.2 Assumptions | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science" />
+  <meta property="og:title" content="4.2 Assumptions | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 10 Longitudinal or Hierarchical Data | MLE for Political Science" />
+  <meta name="twitter:title" content="4.2 Assumptions | MLE for Political Science" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="ml.html"/>
-<link rel="next" href="surv.html"/>
+<link rel="prev" href="ols-regression.html"/>
+<link rel="next" href="properties-and-potential-sources-of-bias.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -176,18 +176,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="long" class="section level1" number="10">
-<h1><span class="header-section-number">Chapter 10</span> Longitudinal or Hierarchical Data</h1>
-<p>This will provide a brief overview of tools for complex data structures.</p>
-
+<div id="assumptions" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Assumptions</h2>
+<p>Linearity: Linearity implies that the marginal effect does not depend on the level of regressors.</p>
+<p>Exogeneity: The regressors are independent of the error term. (Strict) The expectation (mean) of the error term, conditional on all observations is 0.</p>
+<ul>
+<li><span class="math inline">\(\E(\epsilon_i | X) = 0\)</span>.</li>
+<li>This implies the unconditional mean of the error term is also 0. <span class="math inline">\(\E(\epsilon_i)=0\)</span>.</li>
+<li>Each regressor (x) is also orthogonal to the error term for all observations: <span class="math inline">\(\E(x\epsilon_i) = 0\)</span>.</li>
+<li>Strict exogeneiy means the error term is uncorrelated with regressor for all observations, not just the same observation.</li>
+</ul>
+<p>No Multicollinearity. The rank of the n X K data matrix X is K. K columns must be linearly independent. There must be at least as many observations as regressors. The K columns of regressors cannot be linearly dependent.</p>
+<ul>
+<li>For example, if you were interested in the effect of years-in-grad school on life satisfaction, but you also thought knowledge might influence this. If everyone with 2 years in grad school has the same knowledge (and 3, 4, etc.) these columns would be dependent.</li>
+</ul>
+<p>Spherical error variance/homoskedasticity.</p>
+<ul>
+<li><span class="math inline">\(\E(\epsilon_i^2 | X) = \sigma^2\)</span> and <span class="math inline">\(\E(\epsilon_i\epsilon_j)| X) = 0\)</span>.</li>
+<li><span class="math inline">\(Var(\epsilon_ | X) = \E(\epsilon_i^2 | X) - \E(\epsilon_i | X)^2 = \E(\epsilon_i^2 | X)\)</span> by strict exogeneity.</li>
+<li><span class="math inline">\(\E(\epsilon \epsilon&#39; | X) = \sigma^2I_n\)</span></li>
+</ul>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="ml.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="surv.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="ols-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="properties-and-potential-sources-of-bias.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
