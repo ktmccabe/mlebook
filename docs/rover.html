@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="index.html"/>
-<link rel="next" href="using-r-and-rstudio.html"/>
+<link rel="next" href="first-time-with-r-and-rstudio.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -132,7 +132,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Course Overview</a></li>
 <li class="chapter" data-level="2" data-path="rover.html"><a href="rover.html"><i class="fa fa-check"></i><b>2</b> R Overview</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="using-r-and-rstudio.html"><a href="using-r-and-rstudio.html"><i class="fa fa-check"></i><b>2.1</b> Using R and RStudio</a></li>
+<li class="chapter" data-level="2.1" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html"><i class="fa fa-check"></i><b>2.1</b> First Time with R and RStudio</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
 <ul>
@@ -164,25 +164,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This course will primarily use R for analysis, though we will briefly discuss a few areas where Stata may be more efficient.</p>
 <p>Learning to program in R is not a primary goal of this course, but in proceeding through the course, you will gain and/or get practice with a lot of R skills.</p>
 <p>For those brand new to R, I strongly recommend you complete the following tutorials prior to or at the beginning of the course.</p>
-<p><strong>Goal</strong>
-By the end of the first week of the course, you will want to have R and RStudio installed on your computer (both free) and feel comfortable using R as a calculator and loading datasets into R.</p>
-<p>R installation:</p>
+<p><strong>Goal</strong></p>
+<p>By the end of the first week of the course, you will want to have R and RStudio installed on your computer (both free) and feel comfortable using R as a calculator and loading datasets into R.</p>
+<p><strong>R and RStudio Installation</strong></p>
 <ul>
-<li><p>This video from Christopher Bail explains the R and RStudio installation process. This involves</p>
+<li>This <a href="http://www.youtube.com/embed/ulIv0NiVTs4?rel=0">video</a> from Christopher Bail explains the R and RStudio installation process. This involves
 <ol style="list-style-type: decimal">
 <li>Going to <a href="https://cran.r-project.org/">cran</a>, select the link that matches your operating system, and
 then follow the installation instructions, and</li>
 <li>Visiting <a href="http://www.rstudio.com/">RStudio</a> and follow the download and installation instructions.</li>
-</ol>
-<iframe width="560" height="315" src="http://www.youtube.com/embed/ulIv0NiVTs4?rel=0" frameborder="0" allowfullscreen>
-</iframe></li>
-<li><p>You can also follow along with Christopher Bail’s <a href="https://www.youtube.com/watch?v=vVcH_OvrLEM">R Basics</a> and <a href="https://www.youtube.com/watch?v=sXVP9256JSQ">Data Wrangling</a> videos to learn the basic functionality of R.</p></li>
-<li><p>To supplement the above resources, I would recommend playing around with one of the following:</p>
-<ol style="list-style-type: decimal">
+</ol></li>
+<li>You can also follow along with Christopher Bail’s <a href="https://www.youtube.com/watch?v=vVcH_OvrLEM">R Basics</a> and <a href="https://www.youtube.com/watch?v=sXVP9256JSQ">Data Wrangling</a> videos to learn the basic functionality of R.</li>
+</ul>
+<p><strong>Supplemental Resources</strong></p>
+<p>To supplement the above resources, I would recommend playing around with one of the following:</p>
+<ul>
 <li>An additional great resource is Kosuke Imai’s book <em>Quantitative Social Science.</em> The <a href="https://assets.press.princeton.edu/chapters/s11025.pdf">first chapter</a> provides a written overview of installing R and the basic functions of R and R Studio, including loading data and packages into R. Data for the book is available at the bottom of this <a href="https://qss.princeton.press/student-resources-for-quantitative-social-science/">page</a>. Alternate coding in tidyverse for the book is available <a href="https://jrnold.github.io/qss-tidy/">here</a>.</li>
 <li>If you were having difficulties following Chris Bail or Kosuke Imai’s instructions for installation, you can try following the first couple of Rutgers Data Librarian Ryan Womack’s videos, which similarly start from the point of installation. They are <a href="https://www.youtube.com/watch?v=5rOR31bmoL8&amp;list=PLCj1LhGni3hNxsLsVNHX6V1LICyklHl2a&amp;ab_channel=librarianwomack">here</a>. He goes at a slow pace and codes along in the videos. He also has a number of videos on more advanced data analysis topics.</li>
 <li><a href="https://r4ds.had.co.nz/">R for Data Science</a> is another great resource and focuses on “tidyverse” code in R, which can be particularly helpful in data wrangling and visualization.</li>
-</ol></li>
 </ul>
 <p>Note: Much of the code used in the course will rely on “base R” functions (functions that already exist in R). People have also developed <a href="https://www.tidyverse.org/">tidyverse</a> packages that can be easily installed in R, which supplements base R tools with alternative functions and a syntax based on a particular design philosophy, grammar, and data structure that they find preferable to base R. Using base R vs. tidyverse is often just a matter of personal taste. Either is fine to use in this course, and you will get exposure to code that relies on both.</p>
 <p>This is a lot of information to digest all at once. Don’t worry. No one remembers everything. Plan on going back to these resources often throughout the course and beyond. We will have office hours the first week of the course to help troubleshoot issues.</p>
@@ -193,7 +192,7 @@ then follow the installation instructions, and</li>
         </div>
       </div>
 <a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="using-r-and-rstudio.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="first-time-with-r-and-rstudio.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

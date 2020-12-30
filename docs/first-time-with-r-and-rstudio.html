@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2.1 Using R and RStudio | MLE for Political Science</title>
-  <meta name="description" content="2.1 Using R and RStudio | MLE for Political Science" />
+  <title>2.1 First Time with R and RStudio | MLE for Political Science</title>
+  <meta name="description" content="2.1 First Time with R and RStudio | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2.1 Using R and RStudio | MLE for Political Science" />
+  <meta property="og:title" content="2.1 First Time with R and RStudio | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2.1 Using R and RStudio | MLE for Political Science" />
+  <meta name="twitter:title" content="2.1 First Time with R and RStudio | MLE for Political Science" />
   
   
   
@@ -132,7 +132,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Course Overview</a></li>
 <li class="chapter" data-level="2" data-path="rover.html"><a href="rover.html"><i class="fa fa-check"></i><b>2</b> R Overview</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="using-r-and-rstudio.html"><a href="using-r-and-rstudio.html"><i class="fa fa-check"></i><b>2.1</b> Using R and RStudio</a></li>
+<li class="chapter" data-level="2.1" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html"><i class="fa fa-check"></i><b>2.1</b> First Time with R and RStudio</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
 <ul>
@@ -159,9 +159,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="using-r-and-rstudio" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Using R and RStudio</h2>
-<p>This next section provides a few notes on using R and RStudio now that you have installed it. This is mostly repetitive of the other resources. This includes only the bare essential information for opening an R script and digging into using R as a calculator, which we will do in chapter 3. In this handout, we cover the following materials:</p>
+<div id="first-time-with-r-and-rstudio" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> First Time with R and RStudio</h2>
+<p>This next section provides a few notes on using R and RStudio now that you have installed it. This is mostly repetitive of the other resources. This includes only the bare essential information for opening an R script and digging into using R as a calculator, which we will do in chapter 3. In this section, we cover the following materials:</p>
 <ul>
 <li>Using R as a calculator and assigning objects using <code>&lt;-</code></li>
 <li>Setting your working directory and the <code>setwd()</code> function.</li>
@@ -175,18 +175,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>To do this, in RStudio, click on File, New, and then R script. This will open a blank document for text editing in the upper left of the RStudio window. We will return to this window in a moment.</li>
 </ul>
 <p><strong>Using R as a Calculator</strong></p>
-<p>The <em>bottom left</em> window in your RStudio is the Console. You can type in this window to use R as a calculator or to try out commands. It will show the raw output of any commands you type. For example, we can try to use R as a calculator. Type the following in the Console (the bottom left window) and hit <code>enter" or</code>return" on your keyboard:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="using-r-and-rstudio.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">+</span> <span class="dv">3</span></span></code></pre></div>
+<p>The <em>bottom left</em> window in your RStudio is the Console. You can type in this window to use R as a calculator or to try out commands. It will show the raw output of any commands you type. For example, we can try to use R as a calculator. Type the following in the Console (the bottom left window) and hit “enter” or “return” on your keyboard:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="first-time-with-r-and-rstudio.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">+</span> <span class="dv">3</span></span></code></pre></div>
 <pre><code>## [1] 8</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="using-r-and-rstudio.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">-</span> <span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="first-time-with-r-and-rstudio.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">-</span> <span class="dv">3</span></span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="using-r-and-rstudio.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="first-time-with-r-and-rstudio.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
 <pre><code>## [1] 25</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="using-r-and-rstudio.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">*</span> <span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="first-time-with-r-and-rstudio.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">*</span> <span class="dv">3</span></span></code></pre></div>
 <pre><code>## [1] 15</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="using-r-and-rstudio.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">/</span><span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="first-time-with-r-and-rstudio.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">/</span><span class="dv">3</span></span></code></pre></div>
 <pre><code>## [1] 1.666667</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="using-r-and-rstudio.html#cb11-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">5</span> <span class="sc">+</span> <span class="dv">3</span>) <span class="sc">*</span> <span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="first-time-with-r-and-rstudio.html#cb11-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">5</span> <span class="sc">+</span> <span class="dv">3</span>) <span class="sc">*</span> <span class="dv">2</span></span></code></pre></div>
 <pre><code>## [1] 16</code></pre>
 <p>In the other RStudio windows, the upper right will show a history of commands that you have sent from the text editor to the R console, along with other items. The lower right will show graphs, help documents and other features. These will be useful later in the course.</p>
 <p><strong>Working in an R Script</strong></p>
@@ -199,14 +199,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Note: when you selected your directory, code came out in the bottom left Console window. This is the <code>setwd()</code> command which can also be used directly to set your working directory in the future.</li>
 <li>If you aren’t sure where your directory has been set, you can also type <code>getwd()</code> in your Console. Try it now</li>
 </ul>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="using-r-and-rstudio.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example of where my directory was</span></span>
-<span id="cb13-2"><a href="using-r-and-rstudio.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="first-time-with-r-and-rstudio.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example of where my directory was</span></span>
+<span id="cb13-2"><a href="first-time-with-r-and-rstudio.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div>
 <p>If I want to change the working directory, I can go to the top toolbar of my computer and use Session <span class="math inline">\(\rightarrow\)</span> Set Working Directory <span class="math inline">\(\rightarrow\)</span> Choose Directory or just type my file pathway using the <code>setwd()</code> below:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="using-r-and-rstudio.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example of setting the working directory using setwd().</span></span>
-<span id="cb14-2"><a href="using-r-and-rstudio.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Your computer will have your own file path.</span></span>
-<span id="cb14-3"><a href="using-r-and-rstudio.html#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;/Users/ktmccabe/Dropbox/Rutgers Teaching/&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="first-time-with-r-and-rstudio.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example of setting the working directory using setwd().</span></span>
+<span id="cb14-2"><a href="first-time-with-r-and-rstudio.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Your computer will have your own file path.</span></span>
+<span id="cb14-3"><a href="first-time-with-r-and-rstudio.html#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;/Users/ktmccabe/Dropbox/Rutgers Teaching/&quot;</span>)</span></code></pre></div>
+<p><strong>Saving the R Script</strong></p>
 <p>Let’s now save our R script to our working directory and give it an informative name. To do so, go to File, then Save As, make sure you are in the same folder on your computer as the folder you chose for your working directory.</p>
-<p>Give the file an informative name, such as: “McCabeWeek1.R.” Note: all of your R scripts will have the .R extension.</p>
+<p>Give the file an informative name, such as: “McCabeWeek1.R”. Note: all of your R scripts will have the .R extension.</p>
 <p><strong>Preparing your R script</strong></p>
 <p>Now that we have saved our R script, let’s work inside of it. Remember, we are in the top-left RStudio window now.</p>
 <ul>
@@ -229,46 +230,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Try it: Type <code>5 + 3</code> in the R script. Then, try to execute <code>5 + 3</code>. It should look something like this:</p>
 <p><img src="images/rtemplate2.png" /></p>
 <p>After you executed the code, you should see it pop out in your Console:</p>
-<p>Note: The symbol # also allows for annotation behind commands or on a separate line. Everything that follows # will be ignored by R. You can annotate your own code so that you and others can understand what each part of the code is designed to do.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="using-r-and-rstudio.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example</span></span>
-<span id="cb15-2"><a href="using-r-and-rstudio.html#cb15-2" aria-hidden="true" tabindex="-1"></a>sum53 <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">3</span> <span class="co"># example of assigning an addition calculation</span></span></code></pre></div>
-<p><strong>Objects</strong></p>
-<p>Sometimes we will want to store our calculations as ``objects" in R. We use {} to assign objects by placing it to the left of what we want to store. For example, let’s store the calculation {} as an object named {}:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="using-r-and-rstudio.html#cb16-1" aria-hidden="true" tabindex="-1"></a>sum53 <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">3</span></span></code></pre></div>
-<p>After we execute this code, {} now stores the calculation. This means, that if we execute a line of code that just has {}, it will output 8. Try it:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="using-r-and-rstudio.html#cb17-1" aria-hidden="true" tabindex="-1"></a>sum53</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="first-time-with-r-and-rstudio.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">+</span> <span class="dv">3</span></span></code></pre></div>
 <pre><code>## [1] 8</code></pre>
-<p>Now we no longer have to type {}, we can just type {}. For example, let’s say we wanted to subtract 2 from this calculation. We could do:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="using-r-and-rstudio.html#cb19-1" aria-hidden="true" tabindex="-1"></a>sum53 <span class="sc">-</span> <span class="dv">2</span></span></code></pre></div>
+<p>Note: The symbol # also allows for annotation behind commands or on a separate line. Everything that follows # will be ignored by R. You can annotate your own code so that you and others can understand what each part of the code is designed to do.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="first-time-with-r-and-rstudio.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example</span></span>
+<span id="cb17-2"><a href="first-time-with-r-and-rstudio.html#cb17-2" aria-hidden="true" tabindex="-1"></a>sum53 <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">3</span> <span class="co"># example of assigning an addition calculation</span></span></code></pre></div>
+<p><strong>Objects</strong></p>
+<p>Sometimes we will want to store our calculations as “objects” in R. We use <code>&lt;-</code> to assign objects by placing it <a href="https://www.youtube.com/watch?v=vLZA67L7gIo&amp;ab_channel=BeyonceSasha1">to the left</a> of what we want to store. For example, let’s store the calculation <code>5 + 3</code> as an object named <code>sum53</code>:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="first-time-with-r-and-rstudio.html#cb18-1" aria-hidden="true" tabindex="-1"></a>sum53 <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">3</span></span></code></pre></div>
+<p>After we execute this code, <code>sum53 now stores the calculation. This means, that if we execute a line of code that just has</code>sum53`, it will output 8. Try it:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="first-time-with-r-and-rstudio.html#cb19-1" aria-hidden="true" tabindex="-1"></a>sum53</span></code></pre></div>
+<pre><code>## [1] 8</code></pre>
+<p>Now we no longer have to type <code>5 + 3</code>, we can just type <code>sum53</code>. For example, let’s say we wanted to subtract 2 from this calculation. We could do:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="first-time-with-r-and-rstudio.html#cb21-1" aria-hidden="true" tabindex="-1"></a>sum53 <span class="sc">-</span> <span class="dv">2</span></span></code></pre></div>
 <pre><code>## [1] 6</code></pre>
 <p>Let’s say we wanted to divide two stored calculations:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="using-r-and-rstudio.html#cb21-1" aria-hidden="true" tabindex="-1"></a>ten <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">5</span></span>
-<span id="cb21-2"><a href="using-r-and-rstudio.html#cb21-2" aria-hidden="true" tabindex="-1"></a>two <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb21-3"><a href="using-r-and-rstudio.html#cb21-3" aria-hidden="true" tabindex="-1"></a>ten <span class="sc">/</span> two</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="first-time-with-r-and-rstudio.html#cb23-1" aria-hidden="true" tabindex="-1"></a>ten <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">5</span></span>
+<span id="cb23-2"><a href="first-time-with-r-and-rstudio.html#cb23-2" aria-hidden="true" tabindex="-1"></a>two <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb23-3"><a href="first-time-with-r-and-rstudio.html#cb23-3" aria-hidden="true" tabindex="-1"></a>ten <span class="sc">/</span> two</span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
 <p>The information stored does not have to be numeric. For example, it can be a word, or what we would call a character string, in which case you need to use quotation marks.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="using-r-and-rstudio.html#cb23-1" aria-hidden="true" tabindex="-1"></a>mccabe <span class="ot">&lt;-</span> <span class="st">&quot;professor for this course&quot;</span></span>
-<span id="cb23-2"><a href="using-r-and-rstudio.html#cb23-2" aria-hidden="true" tabindex="-1"></a>mccabe</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="first-time-with-r-and-rstudio.html#cb25-1" aria-hidden="true" tabindex="-1"></a>mccabe <span class="ot">&lt;-</span> <span class="st">&quot;professor for this course&quot;</span></span>
+<span id="cb25-2"><a href="first-time-with-r-and-rstudio.html#cb25-2" aria-hidden="true" tabindex="-1"></a>mccabe</span></code></pre></div>
 <pre><code>## [1] &quot;professor for this course&quot;</code></pre>
 <p><em>Note:</em> Object names cannot begin with numbers and no spacing is allowed. Avoid using special characters such as % and $, which have specific meanings in R. Finally, use concise and intuitive object names.}</p>
 <ul>
-<li>GOOD CODE: {}</li>
-<li>BAD CODE: {}</li>
+<li>GOOD CODE: <code>practice.calc &lt;- 5 + 3</code></li>
+<li>BAD CODE: <code>meaningless.and.unnecessarily.long.name &lt;- 5 + 3</code></li>
 </ul>
 <p>While these are simple examples, we will use objects all the time for more complicated things to store (e.g., like full datasets!) throughout the course.</p>
 <p>We can also store an array or “vector” of information using <code>c()</code></p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="using-r-and-rstudio.html#cb25-1" aria-hidden="true" tabindex="-1"></a>somenumbers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">9</span>)</span>
-<span id="cb25-2"><a href="using-r-and-rstudio.html#cb25-2" aria-hidden="true" tabindex="-1"></a>somenumbers</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="first-time-with-r-and-rstudio.html#cb27-1" aria-hidden="true" tabindex="-1"></a>somenumbers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">9</span>)</span>
+<span id="cb27-2"><a href="first-time-with-r-and-rstudio.html#cb27-2" aria-hidden="true" tabindex="-1"></a>somenumbers</span></code></pre></div>
 <pre><code>## [1] 3 6 8 9</code></pre>
-<p>** Importance of Clean Code**</p>
+<p><strong>Importance of Clean Code</strong></p>
 <p>Ideally, when you are done with your R script, you should be able to highlight the entire script and execute it without generating any error messages. This means your code is clean. Code with typos in it may generate a red error message in the Console upon execution. This can happen when there are typos or commands are misused.</p>
 <p>For example, R is case sensitive. Let’s say we assigned our object like before:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="using-r-and-rstudio.html#cb27-1" aria-hidden="true" tabindex="-1"></a>sum53 <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">3</span></span></code></pre></div>
-<p>However, when we went to execute {}, we accidentally typed {}:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="using-r-and-rstudio.html#cb28-1" aria-hidden="true" tabindex="-1"></a>Sum53</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="first-time-with-r-and-rstudio.html#cb29-1" aria-hidden="true" tabindex="-1"></a>sum53 <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">3</span></span></code></pre></div>
+<p>However, when we went to execute <code>sum53</code>, we accidentally typed <code>Sum53</code>:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="first-time-with-r-and-rstudio.html#cb30-1" aria-hidden="true" tabindex="-1"></a>Sum53</span></code></pre></div>
 <pre><code>## Error in eval(expr, envir, enclos): object &#39;Sum53&#39; not found</code></pre>
 <p>Only certain types of objects can be used in mathematical calculations. Let’s say we tried to divide <code>mccabe</code> by 2:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="using-r-and-rstudio.html#cb30-1" aria-hidden="true" tabindex="-1"></a>mccabe <span class="sc">/</span> <span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="first-time-with-r-and-rstudio.html#cb32-1" aria-hidden="true" tabindex="-1"></a>mccabe <span class="sc">/</span> <span class="dv">2</span></span></code></pre></div>
 <pre><code>## Error in mccabe/2: non-numeric argument to binary operator</code></pre>
 <p>A big part of learning to use R will be learning how to troubleshoot and detect typos in your code that generate error messages.</p>
 <p><img src="images/punctuation.png" /></p>
@@ -276,7 +279,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Below is an exercise that will demonstrate you are able to use R as a calculator and create R scripts.</p>
 <ol style="list-style-type: decimal">
 <li>Create an R script saved as ``LastnameSetup1.R" (use your last name). Within the R script, follow the example from this handout and title the script.</li>
-<li>Set your working directory, and include the file pathway (within {}) at the top of your .R script.</li>
+<li>Set your working directory, and include the file pathway (within <code>setwd()</code>) at the top of your .R script.</li>
 <li>Do the calculation 4 + 3 - 2 in R. Store it as an object with an informative name.</li>
 <li>Do the calculation 5 <span class="math inline">\(\times\)</span> 4 in R. Store it as an object with an informative name.</li>
 <li>Add these two calculations together. In R, try to do this by adding together the objects you created, not the underlying raw calculations.</li>

@@ -81,7 +81,7 @@ We will also encounter the product symbol in this course: $\prod$. This is simil
 
 In this class, we will generally assume that $\log$ takes the natural base $e$, which is a mathematical constant equal to 2.718.... In other books, the base might be 10 by default.
 
-  - If we have, $\log_10 x = 2$, this is like saying 10^2 = 100.
+  - If we have, $\log_{10} x = 2$, this is like saying 10^2 = 100.
   - With base $e$, we have $\log_e x =2$, which is $e^2 = 7.389$.
   - We are just going to write $\log_e$ as $\log$ but know that the $e$ is there.
 
@@ -255,9 +255,11 @@ log(a) - log(b)
 
 ## Derivatives
 
-We will need to take some derivatives in the course. The reason is because a derivative gets us closer to understanding how to minimize and maximize certain functions, where a function maps elements of $X$ into elements of $Y$. This is useful in social science, with methods such as linear regression and maximum likelihood estimation because it helps us estimate the values that we think will best describe the relationship between our independent variables and a dependent variable. 
+We will need to take some derivatives in the course. The reason is because a derivative gets us closer to understanding how to minimize and maximize certain functions, where a function maps elements of $X$ into elements of $Y$. 
 
-For example, in ordinary least squares (linear regression), we estimate coefficients, which describe the relationship between the independent and dependent variables (*for every 1 unit change in x, we estimate \hat \beta amount of change in y*), based on a method that tries to *minimize* the squared error between our estimated outcomes and the actual outcomes. In MLE, we will have a different quantity, which we will try to maximize.
+This is useful in social science, with methods such as linear regression and maximum likelihood estimation because it helps us estimate the values that we think will best describe the relationship between our independent variables and a dependent variable. 
+
+For example, in ordinary least squares (linear regression), we estimate coefficients, which describe the relationship between the independent and dependent variables (*for every 1 unit change in x, we estimate $\hat \beta$ amount of change in y*), based on a method that tries to *minimize* the squared error between our estimated outcomes and the actual outcomes. In MLE, we will have a different quantity, which we will try to maximize.
 
 To understand derivatives, we will briefly define limits.
 
@@ -285,9 +287,9 @@ For slope at a specific point $x$ (the derivative of f(x) at x), we just make th
 
   - $f'(x)= \lim_{h \rightarrow 0}\frac{f(a + h) - f(a)}{h}$ 
 
-Example $f(x) = 2x + 3. 
+Example $f(x) = 2x + 3$. 
 
-  - f'(x) = \lim_{h \rightarrow 0}\frac{2(x + h) + 3 - 2x + 3}{h} = \lim_{h \rightarrow 0}\frac{2x + 2h - 2x}{h} = \lim_{h \rightarrow 0}2 = 2$
+  - $f'(x) = \lim_{h \rightarrow 0}\frac{2(x + h) + 3 - 2x + 3}{h} = \lim_{h \rightarrow 0}\frac{2x + 2h - 2x}{h} = \lim_{h \rightarrow 0}2 = 2$
 
 
 This [twitter thread](https://twitter.com/allison_horst/status/1307538146121244674) by the brilliant teacher and statistician Allison Horst, provides a nice cartoon-based example of the derivative. (Note that sometimes the interval $h$ is written as $\Delta x$, the change in $x$).
@@ -447,7 +449,7 @@ Dimensions
   - A matrix with $m$ rows and $n$ columns is defined as ($m$ x $n$). What is the dimensionality of the matrix **A** below?
 
 
-$**A** = \begin{pmatrix} a_{11} & a_{12} & a_{13}\\ a_{21} & a_{22} & a_{23} \\ a_{31} & a_{32} & a_{33}  \\ a_{41} & a_{42} & a_{43} \end{pmatrix}$
+$A = \begin{pmatrix} a_{11} & a_{12} & a_{13}\\ a_{21} & a_{22} & a_{23} \\ a_{31} & a_{32} & a_{33}  \\ a_{41} & a_{42} & a_{43} \end{pmatrix}$
 
 
 In R, we can think of a matrix as a set of vectors. For example, we could combine the vectors `u` and `v` we created above into a matrix defined as W.
