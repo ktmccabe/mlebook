@@ -714,7 +714,7 @@ Remember the derivative of a sum is the sum of derivatives. This allows us to fo
     * The output is needs to be $k \times 1$ like $\mathbf{b}$, which is what $2 * X'\mathbf{y}$ is.
   - The derivative is $-2X'\mathbf{y}$
  
-Another useful rule when a matrix $A$ is  $\frac{d}{dx} \mathbf{x}^TA\mathbf{x} = 2A\mathbf{x}$.
+Another useful rule when a matrix $A$ is symmetric: $\frac{d}{dx} \mathbf{x}^TA\mathbf{x} = 2A\mathbf{x}$.
 
   - Let's say we want to take the derivative of $\mathbf{b}'X'X\mathbf{b}$ with respect to $\mathbf{b}$.
   - We can think of $X'X$ as if it is $A$.
