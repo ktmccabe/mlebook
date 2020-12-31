@@ -39,7 +39,7 @@ These are some additional resources that may help supplement the sections to fol
 
 In this first section, we will review mathematical operations that you have probably encountered before. In many cases, this will be a refresher on the rules and how to read notation.
 
-**Order of Operations**
+### **Order of Operations**
 
 Many of you may have learned the phrase, "Please Excuse My Dear Aunt Sally" which stands for Parentheses (and other grouping symbols), followed by Exponents, followed by Multiplication and Division from left to right, followed by Addition and Subtraction from left to right.
 
@@ -51,7 +51,7 @@ To get the answer, we focused on respecting the parentheses first, identifying t
 
 Note how this is different from the answer to $1 + (2^3)^2 = 1 + 8^2 = 65$, where the addition is no longer part of the parentheses.
 
-**Exponents**
+### **Exponents**
 
 Here is a cheat sheet of some basic rules for exponents. These can be hard to remember if you haven't used them in a long time. Think of $a$ in this case as a number, e.g., 4, and $b$, $k$, and $l$, as other numbers.
 
@@ -66,7 +66,7 @@ These last two rules can be somewhat tricky. Note that a negative exponent can b
   - $a^{-k} = \frac{1}{a^k}$
   - $a^{1/2} = \sqrt{a}$
 
-**Summations and Products**
+### **Summations and Products**
 
 The symbol $\sum$ can be read "take the sum of" whatever is to the right of the symbol. This is used to make the written computation of a sum much shorter than it might be otherwise. For example, instead of writing the addition operations separately in the example below, we can simplify it with the $\sum$ symbol. This is especially helpful if you would need to add together 100 or 1000 or more things. We will see these appear a lot in the course, for better or worse, so getting comfortable with the notation will be useful. 
 
@@ -78,7 +78,7 @@ We will also encounter the product symbol in this course: $\prod$. This is simil
 
 - Example: $\prod_{k = 1}^3 k^2 = 1^2 \times 2^2 \times 3^2 = 36$
 
-**Logarithms**
+### **Logarithms**
 
 In this class, we will generally assume that $\log$ takes the natural base $e$, which is a mathematical constant equal to 2.718.... In other books, the base might be 10 by default.
 
@@ -108,16 +108,15 @@ Why logarithms? There are many different reasons why social scientists use logs.
 
 We will use R for this course, and these operations are all available with R code, allowing R to become a calculator for you. Here are some examples applying the tools above.
 
+### PEMDAS
+
 ```{r}
-## PEMDAS
 ((1+2)^3)^2 
 
 1 + (2^3)^2 
 ```
 
-```{r, results='hold'}
-## Exponents
-```
+### Exponents
 
 You can compare the computation below to match with the rules above. Note how the caret ^ symbol is used for exponents, and the asterisk * is used for multiplication. We also have a function `sqrt()` for taking the square root.
 
@@ -175,9 +174,7 @@ a^(1/2)
 sqrt(a)
 ```
 
-```{r, results='hold'}
-## Summations
-```
+### Summations
 
 Summations and products are a little more nuanced in R, depending on what you want to accomplish. But here is one example.
 
@@ -208,9 +205,7 @@ sum((ourlist + 1)^2)
 
 If instead we wanted the product, multiplying each element of the inside together, we could use `prod()`. We won't use that function very much in this course.
 
-```{r}
-## Logarithms
-```
+### Logarithms
 
 R also has functions related to logarithms, called `log()` and `exp()` for the for the natural base $e$. By default, the natural exponential is the base in the `log()` R function.
 
@@ -272,7 +267,7 @@ A limit describes how a function behaves as it approaches (gets very close to) a
 
 Example: $\lim_{x \rightarrow 3} x^2 = 9$ The limit of this function as $x$ approaches three, is 9. Limits will appear in the expression for calculating derivatives.
 
-**Derivatives** 
+### **Derivatives** 
 
 For intuition on a derivative, watch this [video](https://www.youtube.com/watch?v=i48KWnuAi4Q) from The Math Sorcerer.
 
@@ -314,7 +309,7 @@ url8 <- "https://github.com/allisonhorst/stats-illustrations/raw/master/other-st
 
 
 
-**Critical Points for Minima or Maxima** 
+### **Critical Points for Minima or Maxima** 
 
 
 
@@ -357,7 +352,7 @@ abline(h=1, col = "red", lwd=2)
 ```
 
 
-**Common Derivative Rules** 
+### **Common Derivative Rules** 
 
 Below is a cheat sheet of rules for quickly identifying the derivatives of functions.
 
@@ -512,6 +507,8 @@ u
 u[2] # second element in the u vector
 ```
 
+### Matrix Operations
+
 *Matrix Addition*
 
   - To be able to add matrix **A** and matrix **B**, they must have the same dimensions.
@@ -628,7 +625,7 @@ We will not do much solving for inverses in this course. However, the inverse wi
 
 
 
-**Transpose**
+### **Transpose**
 
 When we transpose a matrix, we flip the $i$ and $j$ components.
 
@@ -662,7 +659,7 @@ solve(AtA)
 ```
 
 
-**Additional Matrix Properties and Rules**
+### **Additional Matrix Properties and Rules**
 
 These are a few additional properties and rules that will be useful to us at various points in the course:
 
@@ -687,7 +684,7 @@ What is the trace of this matrix?
 sum(diag(D))
 ```
 
-### *Matrix Rules*
+### **Matrix Rules**
 
 Due to conformability and other considerations, matrix operations are somewhat more restrictive, particularly when it comes to commutativity.
 
