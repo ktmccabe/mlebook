@@ -718,7 +718,7 @@ Let's say we have $y  = \mathbf{x}'\mathbf{a}$. This process is explained [here]
   - $\frac{\delta y}{\delta x} = \begin{pmatrix}\frac{\delta y}{\delta x_1} \\ \frac{\delta y}{\delta x_2} \\ \vdots \\ \frac{dy}{dx_p} \end{pmatrix}$
   - $y$ will have dimensions $1 \times 1$. $y$ is a scalar.
     
-    * Note: $y = a_1x_1 + a_2x_2 + ... + a_px_p$. From this expression:
+    * Note: $y = a_1x_1 + a_2x_2 + ... + a_px_p$. From this expression, we can take a set of "partial derivatives":
     * $\frac{\delta y}{\delta x_1} = a_1$
     * $\frac{\delta y}{\delta x_2} = a_2$, and so on
     * $\frac{\delta y}{\delta x} = \begin{pmatrix}\frac{\delta y}{\delta x_1} \\ \frac{\delta y}{\delta x_2} \\ \vdots \\ \frac{\delta y}{\delta x_p} \end{pmatrix} = \begin{pmatrix} a_1 \\ a_2 \\ \vdots \\ a_p \end{pmatrix}$ 
