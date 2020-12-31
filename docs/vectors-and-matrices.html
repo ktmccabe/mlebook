@@ -50,6 +50,7 @@
 
 
 
+<link href="libs/vembedr-0.1.4/css/vembedr.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -191,7 +192,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="vectors-and-matrices.html#cb81-1" aria-hidden="true" tabindex="-1"></a>lambda <span class="sc">*</span> u</span></code></pre></div>
 <pre><code>[1]  99 132  66  33</code></pre>
 <p><em>Element-wise Multiplication</em></p>
-<p>Note: When you multiply two vectors together in R, it will take each element of one vector and multiply it by each element of the other vector. This is different from what happens in matrix multiplication, describe below.</p>
+<p>Note: When you multiply two vectors together in R, it will take each element of one vector and multiply it by each element of the other vector.</p>
 <ul>
 <li><code>u * v</code> <span class="math inline">\(= (u_1 * v_1, u_2 * v_2, \dots u_n * v_n)\)</span></li>
 </ul>
@@ -237,7 +238,7 @@ v    6    7    8    2</code></pre>
 <p>The element <span class="math inline">\(a_{ij}\)</span> signifies the element is in the <span class="math inline">\(i\)</span>th row and <span class="math inline">\(j\)</span>th column of matrix A. For example, <span class="math inline">\(a_{12}\)</span> is in the first row and second column.</p>
 <ul>
 <li>Square matrices have the same number of rows and columns</li>
-<li>Vectors have just one row or one column (e.g., <span class="math inline">\(x_1\)</span> element of <span class="math inline">\(X\)</span> vector)</li>
+<li>Vectors have just one row or one column (e.g., <span class="math inline">\(x_1\)</span> element of <span class="math inline">\(\mathbf{x}\)</span> vector)</li>
 </ul>
 <p>In R, we can use brackets to extract a specific <span class="math inline">\(ij\)</span> element of a matrix or vector.</p>
 <div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="vectors-and-matrices.html#cb101-1" aria-hidden="true" tabindex="-1"></a>Wcol</span></code></pre></div>
@@ -284,6 +285,10 @@ v    6    7    8    2</code></pre>
 <li>Their product C = AB is the <span class="math inline">\(m\)</span> x <span class="math inline">\(n\)</span> matrix where:</li>
 <li><span class="math inline">\(c_{ij} =a_{i1}b_{1j} + a_{i2}b_{2j} + \dots + a_{ik}b_{kj}\)</span></li>
 </ul>
+<p><em>Example:</em> This <span class="math inline">\(2 \times 3\)</span> matrix is multiplied by a <span class="math inline">\(3 \times 2\)</span> matrix, resulting in the <span class="math inline">\(2 \times 2\)</span> matrix.</p>
+<p><span class="math inline">\(\begin{pmatrix} 4 &amp; 6 &amp; 1\\ 3 &amp; 2 &amp; 8 \end{pmatrix}\)</span> <span class="math inline">\(\times\)</span> <span class="math inline">\(\begin{pmatrix} 8 &amp; 12 \\ 6 &amp; 4 \\ 7 &amp; 10 \end{pmatrix}\)</span> =
+<span class="math inline">\(\begin{pmatrix} (4*8 + 6*6 + 1*7) &amp; (4*12 + 6*4 + 1*10) \\ (3*8 + 2*6 + 8*7) &amp; (3*12 + 2*4 + 8*10) \end{pmatrix}\)</span></p>
+<p>For example, the entry in the first row and second column of the new matrix <span class="math inline">\(c_{12} = (a_{11} = 4* b_{11} = 12) + (a_{12} = 6*b_{21} = 4) + (a_{13} = 1*b_{31} = 10)\)</span></p>
 <p>We can also do matrix multiplication in R.</p>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="vectors-and-matrices.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Create a 3 x 2 matrix A</span></span>
 <span id="cb113-2"><a href="vectors-and-matrices.html#cb113-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">6</span>), <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">8</span>))</span>

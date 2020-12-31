@@ -16,6 +16,13 @@ By the end of the first week of the course, you will want to have R and RStudio 
     1. Going to [cran](https://cran.r-project.org/), select the link that matches your operating system, and
 then follow the installation instructions, and 
     2. Visiting [RStudio](http://www.rstudio.com/) and follow the download and installation instructions. 
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library("vembedr")
+
+embed_url("https://www.youtube.com/watch?v=ulIv0NiVTs4")
+```
+
   - You can also follow along with Christopher Bail's [R Basics](https://www.youtube.com/watch?v=vVcH_OvrLEM) and [Data Wrangling](https://www.youtube.com/watch?v=sXVP9256JSQ) videos to learn the basic functionality of R.
   
 **Supplemental Resources**

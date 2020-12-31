@@ -50,6 +50,7 @@
 
 
 
+<link href="libs/vembedr-0.1.4/css/vembedr.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -196,7 +197,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>Images by Allison Horst</em></p>
 <p><strong>Critical Points for Minima or Maxima</strong></p>
 <p>In both OLS and MLE, we reach points where take what are called “first order conditions.” This means we take the derivative with respect to a parameter of interest and then set the derivative = 0 and solve for the parameter to get an expression for our estimator. (E.g., In OLS, we take the derivative of the sum of squared residuals, set it equal to zero, and solve to get an expression for <span class="math inline">\(\hat \beta\)</span>).</p>
-<p>The reason we are interested in when the derivative is zero, is because this is when the instanaeous rate of change is zero, i.e., the slope at a particular point is zero. When does this happen? At a critical point– critical points are points where the derivative is zero (maximum or minimum). Think about it– at the top of a mountain, there is no more rise (and no decline). You are completing flat. The slope is zero.</p>
+<p>The reason we are interested in when the derivative is zero, is because this is when the instanaeous rate of change is zero, i.e., the slope at a particular point is zero. When does this happen? At a critical point- maximum or minimum. Think about it– at the top of a mountain, there is no more rise (and no decline). You are completing level on the mountaintop. The slope at that point is zero.</p>
 <p>Let’s take an example. The function <span class="math inline">\(f(x) = x^2 + 1\)</span> has the derivative <span class="math inline">\(f&#39;(x) = 2x\)</span>. This is zero when <span class="math inline">\(x = 0\)</span>.</p>
 <p>The question remains: How do we know if it is a maximum or minimum?</p>
 <p>We need to figure out if our function is concave or convex around this critical value. Convex is a “U” shape, meaning we are at a minimum, while concavity is an upside-down-U, which means we are at a maximum. We do so by taking the second derivative. This just means we take the derivative of the expression we already have for our first derivative. In our case, <span class="math inline">\(f&#39;&#39;(x) = 2\)</span>. So what? Well the key thing we are looking for is if this result is positive or negative. Here, it is positive, which means our function is convex at this critical value, and therefore, we are at a minimum.</p>
@@ -210,7 +211,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb76-7"><a href="derivatives.html#cb76-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> x, <span class="at">y=</span>fx, </span>
 <span id="cb76-8"><a href="derivatives.html#cb76-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,</span>
 <span id="cb76-9"><a href="derivatives.html#cb76-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;f(x) = x^2 + 1&quot;</span>)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-37-1.svg" width="672" /></p>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-38-1.svg" width="672" /></p>
 <p>Notice that when x=0, we are indeed at a minimum, just as the positive value of the second derivative would suggest.</p>
 <p>A different example: <span class="math inline">\(f(x) = -2x^2 +1\)</span>. <span class="math inline">\(f&#39;(x) = -4x\)</span> When we set this equal to 0 we find a critical value at <span class="math inline">\(x = 0\)</span>. <span class="math inline">\(f&#39;&#39;(x) = -4\)</span>. Here, the value is negative, and we know it is concave. Sure enough, let’s plot it:</p>
 <div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="derivatives.html#cb77-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">3</span><span class="sc">:</span><span class="dv">3</span></span>
@@ -219,7 +220,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb77-4"><a href="derivatives.html#cb77-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">&quot;f(x)&quot;</span>,</span>
 <span id="cb77-5"><a href="derivatives.html#cb77-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,</span>
 <span id="cb77-6"><a href="derivatives.html#cb77-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;f(x) = -2x^2 + 1&quot;</span>)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-38-1.svg" width="672" /></p>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-39-1.svg" width="672" /></p>
 <p><strong>Common Derivative Rules</strong></p>
 <p>Below is a cheat sheet of rules for quickly identifying the derivatives of functions.</p>
 <p>The derivative of a constant is 0.</p>
