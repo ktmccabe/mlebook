@@ -241,7 +241,7 @@ Below is an exercise that will demonstrate you are able to use R as a calculator
 
 ## Tutorials
 
-Occasionally in this course, there will be some interactive tutorials you can do to practice the concepts and R skills.
+Occasionally in this course, there will be some interactive tutorials I've created that you can do to practice the concepts and R skills.
 
 In order to be able to run the tutorials, you need to run the following in your R script.
 
@@ -255,10 +255,10 @@ Our first tutorial is practicing R skills to load and manipulate dataframes. You
 
 To close out of a tutorial, you can click the stop sign or type "Escape" in the console. 
 
-If you encounter an error, you may need to install a package or application that is indicated in the error message. This is a brand new program, so feel free to email if you encounter bugs.
+If you encounter an error, you may need to install a package or application that is indicated in the error message. 
 
   - `learnr::run_tutorial("rintro", package="interactivepack")`
 
 
-
+This is a new program that I am using in this course for the first time to create tutorials, so feel free to email if you encounter bugs!! 
 
