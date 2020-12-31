@@ -141,7 +141,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3" data-path="derivatives.html"><a href="derivatives.html"><i class="fa fa-check"></i><b>3.3</b> Derivatives</a></li>
 <li class="chapter" data-level="3.4" data-path="vectors-and-matrices.html"><a href="vectors-and-matrices.html"><i class="fa fa-check"></i><b>3.4</b> Vectors and Matrices</a></li>
 <li class="chapter" data-level="3.5" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html"><i class="fa fa-check"></i><b>3.5</b> Additional Matrix Tidbits that Will Come Up</a></li>
-<li class="chapter" data-level="3.6" data-path="practice-problems.html"><a href="practice-problems.html"><i class="fa fa-check"></i><b>3.6</b> Practice Problems</a></li>
+<li class="chapter" data-level="3.6" data-path="matrix-calculus-just-a-little.html"><a href="matrix-calculus-just-a-little.html"><i class="fa fa-check"></i><b>3.6</b> Matrix Calculus- just a little</a></li>
+<li class="chapter" data-level="3.7" data-path="practice-problems.html"><a href="practice-problems.html"><i class="fa fa-check"></i><b>3.7</b> Practice Problems</a></li>
 </ul></li>
 </ul>
 
@@ -252,6 +253,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The chain rule below looks a bit tricky, but it can be very helpful for simplifying the way you take a derivative. See this <a href="https://www.youtube.com/watch?v=H-ybCx8gt-8&amp;ab_channel=NancyPi">video</a> from NancyPi for a helpful explainer, as well as a follow-up for more complex applications <a href="https://www.youtube.com/watch?v=U_qp0isxQYU&amp;ab_channel=NancyPi">here</a>.</p>
 <ul>
 <li>Chain Rule: <span class="math inline">\(f(x) = g(h(x)); f&#39;(x) = g&#39;(h(x))h&#39;(x)\)</span></li>
+</ul>
+<p>Example: What is the derivative of <span class="math inline">\(f(x) = \log 5x\)</span>?</p>
+<ul>
+<li>First, we will apply the rule which tells us the derivative of a <span class="math inline">\(\log x\)</span>
+is <span class="math inline">\(\frac{1}{x}\)</span>.</li>
+<li>However, here, we do not just have <span class="math inline">\(x\)</span>, we have <span class="math inline">\(5x\)</span>. We are in chain rule territory.</li>
+<li>After we apply the derivative to the log, which is <span class="math inline">\(\frac{1}{5x}\)</span>, we then have to take the derivative of <span class="math inline">\(5x\)</span> and multiply the two expressions together.</li>
+<li>The derivative of <span class="math inline">\(5x\)</span> is <span class="math inline">\(5\)</span>.</li>
+<li>So, putting this together, our full derivative is f′(x) = 5 ∗ <span class="math inline">\(\frac{1}{5x}\)</span> = <span class="math inline">\(\frac{1}{x}\)</span>.</li>
 </ul>
 </div>
             </section>

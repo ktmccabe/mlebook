@@ -386,6 +386,14 @@ The chain rule below looks a bit tricky, but it can be very helpful for simplify
 
   - Chain Rule: $f(x) = g(h(x)); f'(x) = g'(h(x))h'(x)$
 
+Example: What is the derivative of $f(x) = \log 5x$?
+
+  - First, we will apply the rule which tells us the derivative of a $\log x$
+is $\frac{1}{x}$. 
+  - However, here, we do not just have $x$, we have $5x$. We are in chain rule territory.
+  - After we apply the derivative to the log, which is $\frac{1}{5x}$, we then have to take the derivative of $5x$ and multiply the two expressions together.
+  - The derivative of $5x$ is $5$.
+  - So, putting this together, our full derivative is f′(x) = 5 ∗ $\frac{1}{5x}$ = $\frac{1}{x}$.
 
 ## Vectors and Matrices
 
@@ -592,8 +600,12 @@ An $n$ x $n$ matrix A is invertible if there exists an $n$ x $n$ inverse matrix 
   - $AA^{-1} = A^{-1}A = I_n$
   - where $I_n$ is the identity matrix ($n$ x $n$), that takes diagonal elements of 1 and off-diagonal elements of 0. Example:
   
+  
 
 $I_n = \begin{pmatrix} 1_{11} & 0 & \dots & 0\\ 0& 1_{22} & \dots & 0 \\ \vdots & \vdots & \ddots & \vdots  \\ 0 & 0 & \dots & 1_{nn} \end{pmatrix}$
+
+  - Multiplying a matrix by the identity matrix returns in the matrix itself: $AI_n = A$
+    * It's like the matrix version of multiplying a number by one.
 
 
 Note: A matrix must be square $n$ x $n$ to be invertible. (But not all square matrices are invertible.)
@@ -668,6 +680,9 @@ These rules will be helpful for simplifying expressions. Treat $A$, $B$, and $C$
   - $(AB)^{-1} = B^{-1} A^{-1}$ 
   - $(ABCD)^{-1} = D^{-1} C^{-1} B^{-1} A^{-1}$ 
 
+
+## Matrix Calculus- just a little
+
 ## Practice Problems
 
   1. What is $24/3 + 5^2 - (8 -4)$?
@@ -675,4 +690,10 @@ These rules will be helpful for simplifying expressions. Treat $A$, $B$, and $C$
   3. Take the derivative of $f(x) = e^{2x + 3}$ with respect to $x$.
   4. Take the derivative of $f(x) = log (x + 3)^2$ with respect to $x$.
 
+Given $X$ is an $n$ x $k$ matrix,
 
+  5. $(X^{T}X)^{-1}X^{T}X$ can be simplified to?
+  6. $((X^{T}X)^{-1}X^{T})^{T} =$ ?
+  7. If $\nu$ is a constant, how does $(X^{T}X)^{-1}X^{T} \nu X(X^{T}X)^{-1}$ simplify?
+  8. If a matrix $P$ is idempotent, $PP =$ ?
+    
