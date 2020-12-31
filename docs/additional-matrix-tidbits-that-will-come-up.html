@@ -176,7 +176,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>It’s like the matrix version of multiplying a number by one.</li>
 </ul></li>
 </ul>
-<p>Note: A matrix must be square <span class="math inline">\(n\)</span> x <span class="math inline">\(n\)</span> to be invertible. (But not all square matrices are invertible.) A matrix is invertible if and only if its columns are linearly independent. This is important for understanding why you cannot have two perfectly collinear variables in a regression model.</p>
+<p>Note: A matrix must be square <span class="math inline">\(n\)</span> x <span class="math inline">\(n\)</span> to be invertible. (But not all square matrices are invertible.) A matrix is invertible if and only if its columns are linearly independent. This is important for understanding why you cannot have two perfectly colinear variables in a regression model.</p>
 <p>We will not do much solving for inverses in this course. However, the inverse will be useful in solving for and simplifying expressions.</p>
 <p><strong>Transpose</strong></p>
 <p>When we transpose a matrix, we flip the <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> components.</p>
@@ -294,6 +294,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 <p>Why on earth would we care about this? For one, it helps us understand how we get to our estimates for <span class="math inline">\(\hat \beta\)</span> in linear regression. When we have multiple variables, we don’t just want the best estimate for one coefficient, but a vector of coefficients. See more <a href="https://www.youtube.com/watch?v=qeezdYISDlU&amp;ab_channel=BenLambert">here</a>.</p>
+<p>In MLE, we will find the gradient of the log likelihood function. We will further go into the second derivatives to arrive at what is called the Hessian. More on that later.</p>
 </div>
             </section>
 

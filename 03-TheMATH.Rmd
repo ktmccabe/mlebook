@@ -344,7 +344,7 @@ plot(x = x, y=fx,
 
 Notice that when x=0, we are indeed at a minimum, just as the positive value of the second derivative would suggest.
 
-A different example: $f(x) = -2x^2 +1$. $f'(x) = -4x$ When we set this equal to 0 we find a critical value at $x = 0$. $f''(x) = -4$. Here, the value is negative, and we know it is concave. Sure enough, let's plot it:
+A different example: $f(x) = -2x^2 +1$. $f'(x) = -4x$ When we set this equal to 0 we find a critical value at $x = 0$. $f''(x) = -4$. Here, the value is negative, and we know it is concave. Sure enough, let's plot it, and notice how we can draw a horiztonal line at the maximum, representing that zero slope at the critical point:
 
 ```{r}
 x <- -3:3
@@ -353,6 +353,7 @@ plot(x = x, y = fx,
     ylab = "f(x)",
      xlab = "x", type = "l",
      main = "f(x) = -2x^2 + 1")
+abline(h=1, col = "red", lwd=2)
 ```
 
 
@@ -404,7 +405,7 @@ For our purposes, a vector is a list or "array" of numbers. For example, this mi
 
 *Addition*
   
-  - If we have two vectors U and V, where 
+  - If we have two vectors \mathbf{u} and \mathbf{v}, where 
     * $\mathbf{u} \ = \ (u_1, u_2, \dots u_n)$ and 
     * $\mathbf{v} \ = \ (v_1, v_2, \dots v_n)$, 
     * $\mathbf{u} + \mathbf{v}  = (u_1 + v_1, u_2 + v_2, \dots u_n + v_n)$
@@ -453,7 +454,7 @@ u * v
 
 **Matrix Basics**
 
-Dimensions
+A matrix represents arrays of numbers in a rectangle, with rows and columns.
   
   - A matrix with $m$ rows and $n$ columns is defined as ($m$ x $n$). What is the dimensionality of the matrix **A** below?
 
@@ -620,7 +621,7 @@ $I_n = \begin{pmatrix} 1_{11} & 0 & \dots & 0\\ 0& 1_{22} & \dots & 0 \\ \vdots 
     * It's like the matrix version of multiplying a number by one.
 
 
-Note: A matrix must be square $n$ x $n$ to be invertible. (But not all square matrices are invertible.) A matrix is invertible if and only if its columns are linearly independent. This is important for understanding why you cannot have two perfectly collinear variables in a regression model.
+Note: A matrix must be square $n$ x $n$ to be invertible. (But not all square matrices are invertible.) A matrix is invertible if and only if its columns are linearly independent. This is important for understanding why you cannot have two perfectly colinear variables in a regression model.
 
 We will not do much solving for inverses in this course. However, the inverse will be useful in solving for and simplifying expressions.
 
@@ -753,6 +754,8 @@ Another useful rule when a matrix $A$ is symmetric: $\frac{d}{dx} \mathbf{x}^TA\
     * This gives us $2X'X\mathbf{b}$ as the result.
 
 Why on earth would we care about this? For one, it helps us understand how we get to our estimates for $\hat \beta$ in linear regression. When we have multiple variables, we don't just want the best estimate for one coefficient, but a vector of coefficients. See more [here](https://www.youtube.com/watch?v=qeezdYISDlU&ab_channel=BenLambert).
+
+In MLE, we will find the gradient of the log likelihood function. We will further go into the second derivatives to arrive at what is called the Hessian. More on that later.
 
 ## Practice Problems
 
