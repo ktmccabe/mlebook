@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.6 Practice Problems | MLE for Political Science</title>
-  <meta name="description" content="3.6 Practice Problems | MLE for Political Science" />
+  <title>2.2 Tutorials | MLE for Political Science</title>
+  <meta name="description" content="2.2 Tutorials | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.6 Practice Problems | MLE for Political Science" />
+  <meta property="og:title" content="2.2 Tutorials | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.6 Practice Problems | MLE for Political Science" />
+  <meta name="twitter:title" content="2.2 Tutorials | MLE for Political Science" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="additional-matrix-tidbits-that-will-come-up.html"/>
-
+<link rel="prev" href="first-time-with-r-and-rstudio.html"/>
+<link rel="next" href="math.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -178,22 +178,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="practice-problems" class="section level2" number="3.6">
-<h2><span class="header-section-number">3.6</span> Practice Problems</h2>
-<ol style="list-style-type: decimal">
-<li>What is <span class="math inline">\(24/3 + 5^2 - (8 -4)\)</span>?</li>
-<li>What is <span class="math inline">\(\sum_{i = 1}^5 (i*3)\)</span>?</li>
-<li>Take the derivative of <span class="math inline">\(f(x) =v(4x^2 + 6)^2\)</span> with respect to <span class="math inline">\(x\)</span>.</li>
-<li>Take the derivative of <span class="math inline">\(f(x) = e^{2x + 3}\)</span> with respect to <span class="math inline">\(x\)</span>.</li>
-<li>Take the derivative of <span class="math inline">\(f(x) = log (x + 3)^2\)</span> with respect to <span class="math inline">\(x\)</span>.</li>
-</ol>
-<p>Given <span class="math inline">\(X\)</span> is an <span class="math inline">\(n\)</span> x <span class="math inline">\(k\)</span> matrix,</p>
-<ol start="6" style="list-style-type: decimal">
-<li><span class="math inline">\((X^{T}X)^{-1}X^{T}X\)</span> can be simplified to?</li>
-<li><span class="math inline">\(((X^{T}X)^{-1}X^{T})^{T} =\)</span> ?</li>
-<li>If <span class="math inline">\(\nu\)</span> is a constant, how does <span class="math inline">\((X^{T}X)^{-1}X^{T} \nu X(X^{T}X)^{-1}\)</span> simplify?</li>
-<li>If a matrix <span class="math inline">\(P\)</span> is idempotent, <span class="math inline">\(PP =\)</span> ?</li>
-</ol>
+<div id="tutorials" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Tutorials</h2>
+<p>Occasionally in this course, there will be some interactive tutorials you can do to practice the concepts and R skills.</p>
+<p>In order to be able to run the tutorials, you need to run the following in your R script.</p>
+<ul>
+<li><code>install.packages("devtools", dependencies=T)</code></li>
+</ul>
+<p>After <code>devtools</code> is installed, you shouldn’t have to run that line of code again. However, you will need to run the below line each time there is a new tutorial, as this package will be updated throughout the course.</p>
+<ul>
+<li><code>devtools::install_github("ktmccabe/interactivepack", dependencies = T)</code></li>
+</ul>
+<p>Our first tutorial is practicing R skills to load and manipulate dataframes. You should be able to complete that after reviewing the Chris Bail and Kosuke Imai resources. The tutorial is based on information provided in Imai Chapter 1. To load the tutorial, run the line of code below in your RStudio Console. It should open up a web browser on your local machine with the tutorial. If you encounter an error, you may need to install a package or application that is indicated in the error message. This is a brand new program, so feel free to email if you encounter bugs.</p>
+<ul>
+<li><code>learnr::run_tutorial("rintro", package="interactivepack")</code></li>
+</ul>
 
 </div>
 <!-- </div> -->
@@ -202,8 +201,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="additional-matrix-tidbits-that-will-come-up.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="first-time-with-r-and-rstudio.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="math.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

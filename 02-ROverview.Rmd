@@ -45,7 +45,7 @@ This next section provides a few notes on using R and RStudio now that you have 
   - Setting your working directory and the `setwd()` function.
   - Creating and saving an R script
 
-**Open RStudio**
+### **Open RStudio**
 
 RStudio is an open-source and free program that greatly facilitates the use of R, especially for users new to programming. Once you have downloaded and installed R and RStudio, to work in R, all you need to do now is open RStudio (it will open R). It should look like this, though your version number may be different: (*Image from Kosuke Imai's Quantitative Social Science Figure 1.1*)
 
@@ -56,7 +56,7 @@ RStudio is an open-source and free program that greatly facilitates the use of R
   - To do this, in RStudio, click on File, New, and then R script. This will open a blank document for text editing in the upper left of the RStudio window. We will return to this window in a moment.
 
 
-**Using R as a Calculator**
+### **Using R as a Calculator**
 
 The *bottom left* window in your RStudio is the Console. You can type in this window to use R as a calculator or to try out commands. It will show the raw output of any commands you type. For example, we can try to use R as a calculator. Type the following in the Console (the bottom left window) and hit "enter" or "return" on your keyboard:
 
@@ -76,7 +76,7 @@ The *bottom left* window in your RStudio is the Console. You can type in this wi
 
 In the other RStudio windows, the upper right will show a history of commands that you have sent from the text editor to the R console, along with other items. The lower right will show graphs, help documents and other features. These will be useful later in the course.
 
-**Working in an R Script**
+### **Working in an R Script**
 
 Earlier, I asked you to open an R script in the upper left window by doing File, then New File, then R Script. Let's go back to working in that window.
 
@@ -113,7 +113,7 @@ Let's now save our R script to our working directory and give it an informative 
 Give the file an informative name, such as: "McCabeWeek1.R". Note: all of your R scripts will have the .R extension.
 
 
-**Preparing your R script**
+### **Preparing your R script**
 
 Now that we have saved our R script, let's work inside of it. Remember, we are in the top-left RStudio window now.
 
@@ -127,7 +127,7 @@ Now that we have saved our R script, let's work inside of it. Remember, we are i
   - Think of the R script as where you write the final draft of your paper. In the Console (the bottom-left window), you can mess around and try different things, like you might when you are taking notes or outlining an essay. Then, write the final programming steps that lead you to your answer in the R script. For example, if I wanted to add 5 + 3, I might try different ways of typing it in the Console, and then when I found out `5 + 3` is the right approach, I would type that into my script.
 
 
-**Executing Commands in your R script**
+### **Executing Commands in your R script**
 
 The last thing we will note in this initial handout is how to execute commands in your R script.
 
@@ -155,7 +155,7 @@ Note: The symbol \# also allows for annotation behind commands or on a separate 
 sum53 <- 5 + 3 # example of assigning an addition calculation
 ```
 
-**Objects**
+### **Objects**
 
 Sometimes we will want to store our calculations as "objects" in R. We use `<-` to assign objects by placing it [to the left](https://www.youtube.com/watch?v=vLZA67L7gIo&ab_channel=BeyonceSasha1) of what we want to store. For example, let's store the calculation `5 + 3` as an object named `sum53`:
 
@@ -226,10 +226,10 @@ mccabe / 2
 
 A big part of learning to use R will be learning how to troubleshoot and detect typos in your code that generate error messages.
 
-![](images/punctuation.png)
+![](images/punctuation.png){width=80%}
 
 
-**Practice** 
+### **Practice** 
 
 Below is an exercise that will demonstrate you are able to use R as a calculator and create R scripts.
 
@@ -238,6 +238,23 @@ Below is an exercise that will demonstrate you are able to use R as a calculator
   3. Do the calculation 4 + 3 - 2 in R. Store it as an object with an informative name.
   4. Do the calculation 5 $\times$ 4 in R. Store it as an object with an informative name.
   5. Add these two calculations together. In R, try to do this by adding together the objects you created, not the underlying raw calculations. 
+
+## Tutorials
+
+Occasionally in this course, there will be some interactive tutorials you can do to practice the concepts and R skills.
+
+In order to be able to run the tutorials, you need to run the following in your R script.
+
+  - `install.packages("devtools", dependencies=T)`
+
+After `devtools` is installed, you shouldn't have to run that line of code again. However, you will need to run the below line each time there is a new tutorial, as this package will be updated throughout the course. 
+
+  - `devtools::install_github("ktmccabe/interactivepack", dependencies = T)`
+  
+Our first tutorial is practicing R skills to load and manipulate dataframes. You should be able to complete that after reviewing the Chris Bail and Kosuke Imai resources. The tutorial is based on information provided in Imai Chapter 1. To load the tutorial, run the line of code below in your RStudio Console. It should open up a web browser on your local machine with the tutorial. If you encounter an error, you may need to install a package or application that is indicated in the error message. This is a brand new program, so feel free to email if you encounter bugs.
+
+  - `learnr::run_tutorial("rintro", package="interactivepack")`
+
 
 
 
