@@ -255,11 +255,11 @@ log(a) - log(b)
 
 ## Derivatives
 
-We will need to take some derivatives in the course. The reason is because a derivative gets us closer to understanding how to minimize and maximize certain functions, where a function maps elements of $X$ into elements of $Y$. 
+We will need to take some derivatives in the course. The reason is because a derivative gets us closer to understanding how to minimize and maximize certain functions, where a function is a relationship that maps elements of a set of inputs into a set of outputs, where each input is related to one output. 
 
 This is useful in social science, with methods such as linear regression and maximum likelihood estimation because it helps us estimate the values that we think will best describe the relationship between our independent variables and a dependent variable. 
 
-For example, in ordinary least squares (linear regression), we estimate coefficients, which describe the relationship between the independent and dependent variables (*for every 1 unit change in x, we estimate $\hat \beta$ amount of change in y*), based on a method that tries to *minimize* the squared error between our estimated outcomes and the actual outcomes. In MLE, we will have a different quantity, which we will try to maximize.
+For example, in ordinary least squares (linear regression), we choose coefficients, which describe the relationship between the independent and dependent variables (*for every 1 unit change in x, we estimate $\hat \beta$ amount of change in y*), based on a method that tries to *minimize* the squared error between our estimated outcomes and the actual outcomes. In MLE, we will have a different quantity, which we will try to maximize.
 
 To understand derivatives, we will briefly define limits.
 
@@ -587,7 +587,7 @@ In social science, one matrix of interest is often a rectangular dataset that in
 
 **Inverse**
 
-An $n$ x $n$ matrix A is invertible if there exists an $n$ x $n$ inverse matrix $ A^{-1}$ such that:
+An $n$ x $n$ matrix A is invertible if there exists an $n$ x $n$ inverse matrix $A^{-1}$ such that:
 
   - $AA^{-1} = A^{-1}A = I_n$
   - where $I_n$ is the identity matrix ($n$ x $n$), that takes diagonal elements of 1 and off-diagonal elements of 0. Example:
@@ -601,12 +601,14 @@ Note: A matrix must be square $n$ x $n$ to be invertible. (But not all square ma
 We will not do much solving for inverses in this course. However, the inverse will be useful in solving for and simplifying expressions.
 
 
+
+
 **Transpose**
 
 When we transpose a matrix, we flip the $i$ and $j$ components.
 
   - Example: Take a 4 X 3 matrix A and find the 3 X 4 matrix $A^{T}$.
-  - A transpose is usually denoted with as $A^{T}$ or $A^'$
+  - A transpose is usually denoted with as $A^{T}$ or $A'$
 
 
 $A = \begin{pmatrix} a_{11} & a_{12} & a_{13}\\ a_{21} & a_{22} & a_{23} \\ a_{31} & a_{32} & a_{33}  \\ a_{41} & a_{42} & a_{43} \end{pmatrix}$ then $A^T = \begin{pmatrix} a'_{11} & a'_{12} & a'_{13} & a'_{14}\\ a'_{21} & a'_{22} & a'_{23} & a'_{24} \\ a'_{31} & a'_{32} & a'_{33} & a'_{34}  \end{pmatrix}$
@@ -616,10 +618,22 @@ If $A = \begin{pmatrix} 1 & 4 & 2 \\ 3 & 1 & 11 \\ 5 & 9 & 4  \\ 2 & 11& 4 \end{
 
 Check for yourself: What was in the first row ($i=1$), second column ($j=2$) is now in the second row ($i=2$), first column ($j=1$). That is $a_{12} =4 = a'_{21}$.
 
-We can transpose matrices in R using `t()`. For example, take our matrix `B`:
+We can transpose matrices in R using `t()`. For example, take our matrix `A`:
 ```{r}
-B
-t(B)
+A
+t(A)
+```
+
+In R, you can find the inverse of a square matrix with `solve()`
+
+```{r, error=T}
+solve(A)
+```
+Note, while `A` is not square A'A is square:
+```{r}
+AtA <- t(A) %*% A
+
+solve(AtA)
 ```
 
 
@@ -637,8 +651,8 @@ These are a few additional properties and rules that will be useful to us at var
 Due to conformability and other considerations, matrix operations are somewhat more restrictive, particularly when it comes to commutativity.
 
   - Associative $(A +  B) +  C =  A + (B +  C)$ and $(AB) C =  A(BC)$
-  - Commutative $ A +  B =  B +  A$
-  - Distributive $ A(B +  C) =  AB +  AC $ and $ (A +  B) C =  AC +  BC$
+  - Commutative $A +  B =  B +  A$
+  - Distributive $A(B +  C) =  AB +  AC$ and $(A +  B) C =  AC +  BC$
   - Commutative law for multiplication does not hold-- the order of multiplication matters: $ AB \neq  BA$
 
 
@@ -653,5 +667,12 @@ These rules will be helpful for simplifying expressions. Treat $A$, $B$, and $C$
   - $(A^T)^{-1} = (A^{-1})^T$
   - $(AB)^{-1} = B^{-1} A^{-1}$ 
   - $(ABCD)^{-1} = D^{-1} C^{-1} B^{-1} A^{-1}$ 
+
+## Practice Problems
+
+  1. What is $24/3 + 5^2 - (8 -4)$?
+  2. Take the derivative of $f(x) =v(4x^2 + 6)^2$ with respect to $x$.
+  3. Take the derivative of $f(x) = e^{2x + 3}$ with respect to $x$.
+  4. Take the derivative of $f(x) = log (x + 3)^2$ with respect to $x$.
 
 
