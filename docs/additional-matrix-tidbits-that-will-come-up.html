@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="vectors-and-matrices.html"/>
-<link rel="next" href="matrix-calculus-just-a-little.html"/>
+<link rel="next" href="practice-problems.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -141,8 +141,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3" data-path="derivatives.html"><a href="derivatives.html"><i class="fa fa-check"></i><b>3.3</b> Derivatives</a></li>
 <li class="chapter" data-level="3.4" data-path="vectors-and-matrices.html"><a href="vectors-and-matrices.html"><i class="fa fa-check"></i><b>3.4</b> Vectors and Matrices</a></li>
 <li class="chapter" data-level="3.5" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html"><i class="fa fa-check"></i><b>3.5</b> Additional Matrix Tidbits that Will Come Up</a></li>
-<li class="chapter" data-level="3.6" data-path="matrix-calculus-just-a-little.html"><a href="matrix-calculus-just-a-little.html"><i class="fa fa-check"></i><b>3.6</b> Matrix Calculus- just a little</a></li>
-<li class="chapter" data-level="3.7" data-path="practice-problems.html"><a href="practice-problems.html"><i class="fa fa-check"></i><b>3.7</b> Practice Problems</a></li>
+<li class="chapter" data-level="3.6" data-path="practice-problems.html"><a href="practice-problems.html"><i class="fa fa-check"></i><b>3.6</b> Practice Problems</a></li>
 </ul></li>
 </ul>
 
@@ -233,6 +232,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><span class="math inline">\((AB)^{-1} = B^{-1} A^{-1}\)</span></li>
 <li><span class="math inline">\((ABCD)^{-1} = D^{-1} C^{-1} B^{-1} A^{-1}\)</span></li>
 </ul>
+<p><strong>Derivatives with Matrices and Vectors</strong></p>
+<p>Let’s say we have a <span class="math inline">\(p \times 1\)</span> “column” vector <span class="math inline">\(\mathbf{x}\)</span> and another <span class="math inline">\(p \times 1\)</span> vector <span class="math inline">\(\mathbf{a}\)</span>.</p>
+<p>Taking the derivative with respect to vector <span class="math inline">\(\mathbf{x}\)</span>.</p>
+<p>Let’s say we have <span class="math inline">\(y = \mathbf{x}&#39;\mathbf{a}\)</span>. This process is explained <a href="https://www.youtube.com/watch?v=iWxY7VdcSH8&amp;ab_channel=BenLambert">here</a>.</p>
+<ul>
+<li><p><span class="math inline">\(\frac{dy}{dx} = \begin{pmatrix}\frac{dy}{dx_1} \\ \frac{dy}{dx_2} \\ \vdots \\ \frac{dy}{dx_p} \end{pmatrix}\)</span></p></li>
+<li><p><span class="math inline">\(y\)</span> will have dimensions <span class="math inline">\(1 \times 1\)</span>. <span class="math inline">\(y\)</span> is a scalar.</p>
+<ul>
+<li>Note: <span class="math inline">\(y = a_1x_1 + a_2x_2 + ... + a_px_p\)</span></li>
+</ul></li>
+<li><p><span class="math inline">\(\frac{dy}{dx_1} = a_1\)</span></p></li>
+<li><p><span class="math inline">\(\frac{dy}{dx_2} = a_2\)</span>, and so on</p></li>
+<li><p><span class="math inline">\(\frac{dy}{dx} = \begin{pmatrix}\frac{dy}{dx_1} \\ \frac{dy}{dx_2} \\ \vdots \\ \frac{dy}{dx_p} \end{pmatrix} = \begin{pmatrix} a_1 \\ a_2 \\ \vdots \\ a_p \end{pmatrix}\)</span></p></li>
+<li><p>Well, this is just vector <span class="math inline">\(\mathbf{a}\)</span></p></li>
+</ul>
+<p>Answer: <span class="math inline">\(\frac{d}{dx} \mathbf{x}^T\mathbf{a} = \mathbf{a}\)</span>. We can apply this general rule in other situations.</p>
+<p>Let’s say we want to differentiate the following where vector <span class="math inline">\(\mathbf{y}\)</span> is <span class="math inline">\(n \times 1\)</span>, <span class="math inline">\(X\)</span> is <span class="math inline">\(n \times k\)</span>, and <span class="math inline">\(\mathbf{b}\)</span> is <span class="math inline">\(k \times 1\)</span>. Take the derivative with respect to <span class="math inline">\(b\)</span>.</p>
+<ul>
+<li><span class="math inline">\(\mathbf{y}&#39;\mathbf{y} - 2\mathbf{b}&#39;X&#39;\mathbf{y}\)</span></li>
+<li>Note that the dimensions of the output are <span class="math inline">\(1 \times 1\)</span>, a scalar quantity.</li>
+</ul>
+<p>Remember the derivative of a sum is the sum of derivatives. This allows us to focus on particular terms.</p>
+<ul>
+<li>The first term has no <span class="math inline">\(\mathbf{b}\)</span> in it, so this will contribute 0.</li>
+<li>The second term is <span class="math inline">\(2\mathbf{b}&#39;X&#39;\mathbf{y}\)</span>. We can think about this like the previous example
+<ul>
+<li><span class="math inline">\(\frac{d}{db} 2\mathbf{b}&#39;X&#39;\mathbf{y} = \begin{pmatrix} \frac{d}{db_1}\\ \frac{d}{db_2} \\ \vdots \\ \frac{d}{db_k} \end{pmatrix}\)</span></li>
+<li>The output is needs to be <span class="math inline">\(k \times 1\)</span> like <span class="math inline">\(\mathbf{b}\)</span>, which is what <span class="math inline">\(2 * X&#39;\mathbf{y}\)</span> is.</li>
+</ul></li>
+<li>The derivative is <span class="math inline">\(-2X&#39;\mathbf{y}\)</span></li>
+</ul>
+<p>Another useful rule when a matrix <span class="math inline">\(A\)</span> is <span class="math inline">\(\frac{d}{dx} \mathbf{x}^TA\mathbf{x} = 2A\mathbf{x}\)</span>.</p>
+<ul>
+<li>Let’s say we want to take the derivative of <span class="math inline">\(\mathbf{b}&#39;X&#39;X\mathbf{b}\)</span> with respect to <span class="math inline">\(\mathbf{b}\)</span>.</li>
+<li>We can think of <span class="math inline">\(X&#39;X\)</span> as if it is <span class="math inline">\(A\)</span>.
+<ul>
+<li>This gives us <span class="math inline">\(2X&#39;X\mathbf{b}\)</span> as the result.</li>
+</ul></li>
+</ul>
 </div>
             </section>
 
@@ -240,7 +278,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="vectors-and-matrices.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="matrix-calculus-just-a-little.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="practice-problems.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

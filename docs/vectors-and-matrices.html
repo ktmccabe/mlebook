@@ -141,8 +141,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3" data-path="derivatives.html"><a href="derivatives.html"><i class="fa fa-check"></i><b>3.3</b> Derivatives</a></li>
 <li class="chapter" data-level="3.4" data-path="vectors-and-matrices.html"><a href="vectors-and-matrices.html"><i class="fa fa-check"></i><b>3.4</b> Vectors and Matrices</a></li>
 <li class="chapter" data-level="3.5" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html"><i class="fa fa-check"></i><b>3.5</b> Additional Matrix Tidbits that Will Come Up</a></li>
-<li class="chapter" data-level="3.6" data-path="matrix-calculus-just-a-little.html"><a href="matrix-calculus-just-a-little.html"><i class="fa fa-check"></i><b>3.6</b> Matrix Calculus- just a little</a></li>
-<li class="chapter" data-level="3.7" data-path="practice-problems.html"><a href="practice-problems.html"><i class="fa fa-check"></i><b>3.7</b> Practice Problems</a></li>
+<li class="chapter" data-level="3.6" data-path="practice-problems.html"><a href="practice-problems.html"><i class="fa fa-check"></i><b>3.6</b> Practice Problems</a></li>
 </ul></li>
 </ul>
 
@@ -169,19 +168,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>If we have two vectors U and V, where
 <ul>
-<li><span class="math inline">\(u \ = \ (u_1, u_2, \dots u_n)\)</span> and</li>
-<li><span class="math inline">\(v \ = \ (v_1, v_2, \dots v_n)\)</span>,</li>
-<li><span class="math inline">\(u + v = (u_1 + v_1, u_2 + v_2, \dots u_n + v_n)\)</span></li>
+<li><span class="math inline">\(\mathbf{u} \ = \ (u_1, u_2, \dots u_n)\)</span> and</li>
+<li><span class="math inline">\(\mathbf{v} \ = \ (v_1, v_2, \dots v_n)\)</span>,</li>
+<li><span class="math inline">\(\mathbf{u} + \mathbf{v} = (u_1 + v_1, u_2 + v_2, \dots u_n + v_n)\)</span></li>
 </ul></li>
-<li>Note: u and v must be of the same dimensionality - number of elements in each must be the same - for addition.</li>
+<li>Note: <span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span> must be of the same dimensionality - number of elements in each must be the same - for addition.</li>
 </ul>
 <p><em>Scalar multiplication</em></p>
 <ul>
-<li>If we have a scalar (i.e., a single number) <span class="math inline">\(\lambda\)</span> and a vector <span class="math inline">\(u\)</span></li>
-<li><span class="math inline">\(\lambda u = (\lambda u_1, \lambda u_2, \dots \lambda u_n)\)</span></li>
+<li>If we have a scalar (i.e., a single number) <span class="math inline">\(\lambda\)</span> and a vector <span class="math inline">\(\mathbf{u}\)</span></li>
+<li><span class="math inline">\(\lambda \mathbf{u} = (\lambda u_1, \lambda u_2, \dots \lambda u_n)\)</span></li>
 </ul>
 <p>We can implement vector addition and scalar multiplication in R.</p>
-<p>Let’s create a vector u, a vector v, and a number lambda.</p>
+<p>Let’s create a vector <span class="math inline">\(\mathbf{u}\)</span>, a vector <span class="math inline">\(\mathbf{v}\)</span>, and a number lambda.</p>
 <div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="vectors-and-matrices.html#cb78-1" aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">33</span>, <span class="dv">44</span>, <span class="dv">22</span>, <span class="dv">11</span>)</span>
 <span id="cb78-2"><a href="vectors-and-matrices.html#cb78-2" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">2</span>)</span>
 <span id="cb78-3"><a href="vectors-and-matrices.html#cb78-3" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="dv">3</span></span></code></pre></div>

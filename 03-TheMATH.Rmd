@@ -8,6 +8,7 @@
 \usepackage{url}
 \usepackage{framed}
 \usepackage{amsmath}
+\usepackage{bm}
 \usepackage[T1]{fontenc} 
 
 ```{r include=FALSE}
@@ -404,19 +405,19 @@ For our purposes, a vector is a list or "array" of numbers. For example, this mi
 *Addition*
   
   - If we have two vectors U and V, where 
-    * $u \ = \ (u_1, u_2, \dots u_n)$ and 
-    * $v \ = \ (v_1, v_2, \dots v_n)$, 
-    * $u + v  = (u_1 + v_1, u_2 + v_2, \dots u_n + v_n)$
-  - Note: u and v must be of the same dimensionality - number of elements in each must be the same - for addition.
+    * $\mathbf{u} \ = \ (u_1, u_2, \dots u_n)$ and 
+    * $\mathbf{v} \ = \ (v_1, v_2, \dots v_n)$, 
+    * $\mathbf{u} + \mathbf{v}  = (u_1 + v_1, u_2 + v_2, \dots u_n + v_n)$
+  - Note: $\mathbf{u}$ and $\mathbf{v}$ must be of the same dimensionality - number of elements in each must be the same - for addition.
   
 *Scalar multiplication*
 
-  -  If we have a scalar (i.e., a single number) $\lambda$ and a vector $u$
-  -  $\lambda u  =  (\lambda u_1, \lambda u_2, \dots \lambda u_n)$
+  -  If we have a scalar (i.e., a single number) $\lambda$ and a vector $\mathbf{u}$
+  -  $\lambda \mathbf{u}  =  (\lambda u_1, \lambda u_2, \dots \lambda u_n)$
 
 We can implement vector addition and scalar multiplication in R.
 
-Let's create a vector u, a vector v, and a number lambda.
+Let's create a vector $\mathbf{u}$, a vector $\mathbf{v}$, and a number lambda.
 
 ```{r}
 u <- c(33, 44, 22, 11)
@@ -681,7 +682,44 @@ These rules will be helpful for simplifying expressions. Treat $A$, $B$, and $C$
   - $(ABCD)^{-1} = D^{-1} C^{-1} B^{-1} A^{-1}$ 
 
 
-## Matrix Calculus- just a little
+**Derivatives with Matrices and Vectors**
+
+Let's say we have a $p \times 1$ "column" vector $\mathbf{x}$ and another $p \times 1$ vector $\mathbf{a}$.
+
+Taking the derivative with respect to vector $\mathbf{x}$.
+
+Let's say we have $y  = \mathbf{x}'\mathbf{a}$. This process is explained [here](https://www.youtube.com/watch?v=iWxY7VdcSH8&ab_channel=BenLambert).
+
+  - $\frac{dy}{dx} = \begin{pmatrix}\frac{dy}{dx_1} \\ \frac{dy}{dx_2} \\ \vdots \\ \frac{dy}{dx_p} \end{pmatrix}$
+  - $y$ will have dimensions $1 \times 1$. $y$ is a scalar.
+    
+    * Note: $y = a_1x_1 + a_2x_2 + ... + a_px_p$
+  - $\frac{dy}{dx_1} = a_1$
+  - $\frac{dy}{dx_2} = a_2$, and so on
+  - $\frac{dy}{dx} = \begin{pmatrix}\frac{dy}{dx_1} \\ \frac{dy}{dx_2} \\ \vdots \\ \frac{dy}{dx_p} \end{pmatrix} = \begin{pmatrix} a_1 \\ a_2 \\ \vdots \\ a_p \end{pmatrix}$ 
+  - Well, this is just vector $\mathbf{a}$
+
+Answer: $\frac{d}{dx} \mathbf{x}^T\mathbf{a} = \mathbf{a}$. We can apply this general rule in other situations. 
+
+Let's say we want to differentiate the following where vector $\mathbf{y}$ is $n \times 1$, $X$ is $n \times k$, and $\mathbf{b}$ is $k \times 1$. Take the derivative with respect to $b$.
+
+  - $\mathbf{y}'\mathbf{y} - 2\mathbf{b}'X'\mathbf{y}$
+  - Note that the dimensions of the output are $1 \times 1$, a scalar quantity.
+
+Remember the derivative of a sum is the sum of derivatives. This allows us to focus on particular terms.
+
+  - The first term has no $\mathbf{b}$ in it, so this will contribute 0.
+  - The second term is $2\mathbf{b}'X'\mathbf{y}$. We can think about this like the previous example
+    * $\frac{d}{db} 2\mathbf{b}'X'\mathbf{y} = \begin{pmatrix} \frac{d}{db_1}\\ \frac{d}{db_2} \\ \vdots \\ \frac{d}{db_k} \end{pmatrix}$
+    * The output is needs to be $k \times 1$ like $\mathbf{b}$, which is what $2 * X'\mathbf{y}$ is.
+  - The derivative is $-2X'\mathbf{y}$
+ 
+Another useful rule when a matrix $A$ is  $\frac{d}{dx} \mathbf{x}^TA\mathbf{x} = 2A\mathbf{x}$.
+
+  - Let's say we want to take the derivative of $\mathbf{b}'X'X\mathbf{b}$ with respect to $\mathbf{b}$.
+  - We can think of $X'X$ as if it is $A$.
+    * This gives us $2X'X\mathbf{b}$ as the result.
+
 
 ## Practice Problems
 
