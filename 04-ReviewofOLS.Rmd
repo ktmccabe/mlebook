@@ -177,6 +177,7 @@ fit.1 <- lm(Buchanan00 ~ Perot96, data = florida)
      - `Adjusted R-squared`: The coefficient of
        determination adjusting for the degrees of freedom 
        
+We will say more to define these quantities in future sections.     
 ```{r}
 summary(fit.1)
 ```
