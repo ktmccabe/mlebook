@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4.3 Assumptions | MLE for Political Science</title>
-  <meta name="description" content="4.3 Assumptions | MLE for Political Science" />
+  <title>4.2 Diving Deeper into OLS Matrix Representation | MLE for Political Science</title>
+  <meta name="description" content="4.2 Diving Deeper into OLS Matrix Representation | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4.3 Assumptions | MLE for Political Science" />
+  <meta property="og:title" content="4.2 Diving Deeper into OLS Matrix Representation | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.3 Assumptions | MLE for Political Science" />
+  <meta name="twitter:title" content="4.2 Diving Deeper into OLS Matrix Representation | MLE for Political Science" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="diving-deeper-into-ols-matrix-representation.html"/>
-<link rel="next" href="properties-and-potential-sources-of-bias.html"/>
+<link rel="prev" href="introducing-ols-regression.html"/>
+<link rel="next" href="ols-regression-in-r.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -188,10 +188,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="4.2.1" data-path="diving-deeper-into-ols-matrix-representation.html"><a href="diving-deeper-into-ols-matrix-representation.html#estimating-the-coefficients"><i class="fa fa-check"></i><b>4.2.1</b> Estimating the Coefficients</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="assumptions.html"><a href="assumptions.html"><i class="fa fa-check"></i><b>4.3</b> Assumptions</a></li>
-<li class="chapter" data-level="4.4" data-path="properties-and-potential-sources-of-bias.html"><a href="properties-and-potential-sources-of-bias.html"><i class="fa fa-check"></i><b>4.4</b> Properties and Potential Sources of Bias</a></li>
-<li class="chapter" data-level="4.5" data-path="relationship-to-correlation.html"><a href="relationship-to-correlation.html"><i class="fa fa-check"></i><b>4.5</b> Relationship to Correlation</a></li>
-<li class="chapter" data-level="4.6" data-path="r-squared.html"><a href="r-squared.html"><i class="fa fa-check"></i><b>4.6</b> R-squared</a></li>
+<li class="chapter" data-level="4.3" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html"><i class="fa fa-check"></i><b>4.3</b> OLS Regression in R</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#example-predicting-current-election-votes-from-past-election-votes"><i class="fa fa-check"></i><b>4.3.1</b> Example: Predicting Current Election Votes from Past Election Votes</a></li>
+<li class="chapter" data-level="4.3.2" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#plotting-regression-results"><i class="fa fa-check"></i><b>4.3.2</b> Plotting Regression Results</a></li>
+<li class="chapter" data-level="4.3.3" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#finding-coefficients-without-lm"><i class="fa fa-check"></i><b>4.3.3</b> Finding Coefficients without <code>lm</code></a></li>
+<li class="chapter" data-level="4.3.4" data-path="practice-problems.html"><a href="practice-problems.html#practice-problems"><i class="fa fa-check"></i><b>4.3.4</b> Practice Problems</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -210,34 +213,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="assumptions" class="section level2" number="4.3">
-<h2><span class="header-section-number">4.3</span> Assumptions</h2>
-<p>Linearity: Linearity implies that the marginal effect does not depend on the level of regressors.</p>
-<p>Exogeneity: The regressors are independent of the error term. (Strict) The expectation (mean) of the error term, conditional on all observations is 0.</p>
+<div id="diving-deeper-into-ols-matrix-representation" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Diving Deeper into OLS Matrix Representation</h2>
+<p>In this section, we will review the matrix representation of the OLS regression in more detail and discuss how to derive the estimators for the regression coefficients.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p>OLS in Matrix Form:
+Let <span class="math inline">\(X\)</span> be an <span class="math inline">\(n \times k\)</span> matrix where we have observations on k independent variables for n observations. Since our model will usually contain a constant term, one of the columns in the X matrix will contain only ones. This column should be treated exactly the same as any other column in the X matrix.</p>
 <ul>
-<li><span class="math inline">\(\E(\epsilon_i | X) = 0\)</span>.</li>
-<li>This implies the unconditional mean of the error term is also 0. <span class="math inline">\(\E(\epsilon_i)=0\)</span>.</li>
-<li>Each regressor (x) is also orthogonal to the error term for all observations: <span class="math inline">\(\E(x\epsilon_i) = 0\)</span>.</li>
-<li>Strict exogeneiy means the error term is uncorrelated with regressor for all observations, not just the same observation.</li>
+<li>Let <span class="math inline">\(Y\)</span> be an <span class="math inline">\(n \times 1\)</span> vector of observations on the dependent variable. Note: because <span class="math inline">\(Y\)</span> is a vector (a matrix with just one column), sometimes it is written in lowercase notation as <span class="math inline">\(\mathbf y\)</span>.</li>
+<li>Let <span class="math inline">\(\epsilon\)</span> be an <span class="math inline">\(n \times 1\)</span> vector of disturbances or errors.</li>
+<li>Let <span class="math inline">\(\beta\)</span> be an <span class="math inline">\(k \times 1\)</span> vector of unknown population parameters that we want to estimate.</li>
 </ul>
-<p>No Multicollinearity. The rank of the n X K data matrix X is K. K columns must be linearly independent. There must be at least as many observations as regressors. The K columns of regressors cannot be linearly dependent.</p>
+<p><span class="math inline">\(\begin{pmatrix} y_1 \\ y_2 \\ y_3 \\ y_4 \\ ... \\ y_n \end{pmatrix}\)</span> = <span class="math inline">\(\begin{pmatrix} 1 &amp; x_{11} &amp; x_{12} &amp; x_{13} &amp; ... &amp; x_{1k}\\ 1 &amp; x_{21} &amp; x_{22} &amp; x_{23} &amp; ... &amp; x_{2k} \\ 1 &amp; x_{31} &amp; x_{32} &amp; x_{33} &amp; ... &amp; x_{3k}\\ 1 &amp; x_{41} &amp; x_{42} &amp; x_{43} &amp; ... &amp; x_{4k} \\ ... &amp; ... &amp; ... &amp; ... &amp; ... &amp; ... \\ 1 &amp; x_{n1} &amp; x_{n2} &amp; x_{n3} &amp; ... &amp; x_{nk}\end{pmatrix}\)</span> X <span class="math inline">\(\begin{pmatrix} \alpha \\ \beta_1 \\ \beta_2 \\ \beta_3 \\ ... \\ \beta_k \end{pmatrix}\)</span> + <span class="math inline">\(\begin{pmatrix} \epsilon_1 \\ \epsilon_2 \\ \epsilon_3 \\ \epsilon_4 \\ ... \\ \epsilon_n \end{pmatrix}\)</span></p>
+<p>Our estimates are then <span class="math inline">\(\mathbf{ \hat y} = X\hat \beta\)</span>. What are the dimensions of this quantity?</p>
+<p>Gelman and Hill Section 3.4, pg. 38 provides a nice visual of how this representation maps onto what a typical dataset may look like, where we will try to estimate a set of coefficients that map the relationship between the columns of <span class="math inline">\(X\)</span> and <span class="math inline">\(\mathbf y\)</span>:</p>
+<p><img src="images/gh34.png" style="width:70.0%" />\</p>
+<p>This is a good place to review Gelman and Hill 3.4 on different notations for representing the regression model.</p>
+<div id="estimating-the-coefficients" class="section level3" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Estimating the Coefficients</h3>
+<p>Models generally start with some goal. In OLS, our goal is to minimize the sum of squared “residuals.” Here is a video I created to explain why we can represent this as <span class="math inline">\(\mathbf{e&#39;}\mathbf{e}\)</span>.</p>
+<p><div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/IFX_n16YTm0" width="533" height="300" frameborder="0" allowfullscreen=""></iframe>
+</div>
+</div>
+<em>Note: at the end of the video it should read <span class="math inline">\(X\hat\beta\)</span>, not <span class="math inline">\(\hat X \beta\)</span></em></p>
+<p>What is a residual? It’s the difference between y and our estimate of y: <span class="math inline">\(y - \hat y\)</span>. It represents the error in our prediction– how far off our estimate is of the outcome.</p>
+<p>We can write this in matrix notation in the following way where <span class="math inline">\(\mathbf e\)</span> is an <span class="math inline">\(n \times 1\)</span> vector of residuals– a residual for each observation in the data:</p>
+<p><span class="math display">\[\begin{align*}
+\mathbf{e&#39;}\mathbf{e} &amp;= (Y&#39; - \hat{\beta}&#39;X&#39;)(Y - X\hat{\beta})\\
+&amp;=Y&#39;Y - \hat{\beta}&#39;X&#39;Y - Y&#39;X\hat{\beta} + \hat{\beta}&#39;X&#39;X\hat{\beta} \\
+&amp;= Y&#39;Y - 2\hat{\beta}&#39;X&#39;Y + \hat{\beta}&#39;X&#39;X\hat{\beta}
+\end{align*}\]</span></p>
+<p>Recall we want a line that minimizes this quantity. We minimize the sum of squared residuals by taking the derivative with respect to <span class="math inline">\(\beta\)</span>. (We want to identify the coefficients that help us achieve the goal of minimizing the squared error.) Because we are now deriving an estimate, we will use the hat over <span class="math inline">\(\beta\)</span>:</p>
 <ul>
-<li>For example, if you were interested in the effect of years-in-grad school on life satisfaction, but you also thought knowledge might influence this. If everyone with 2 years in grad school has the same knowledge (and 3, 4, etc.) these columns would be dependent.</li>
+<li><span class="math inline">\(\frac{\delta }{\delta \hat \beta} = -2X&#39;Y + 2X&#39;X\hat{\beta}\)</span></li>
+<li>So what is our estimate for <span class="math inline">\(\hat{\beta}\)</span>? We take first order conditions</li>
 </ul>
-<p>Spherical error variance/homoskedasticity.</p>
-<ul>
-<li><span class="math inline">\(\E(\epsilon_i^2 | X) = \sigma^2\)</span> and <span class="math inline">\(\E(\epsilon_i\epsilon_j)| X) = 0\)</span>.</li>
-<li><span class="math inline">\(Var(\epsilon_ | X) = \E(\epsilon_i^2 | X) - \E(\epsilon_i | X)^2 = \E(\epsilon_i^2 | X)\)</span> by strict exogeneity.</li>
-<li><span class="math inline">\(\E(\epsilon \epsilon&#39; | X) = \sigma^2I_n\)</span></li>
-</ul>
+<p><span class="math display">\[\begin{align*}
+  0 &amp;=-2X&#39;Y + 2X&#39;X\hat{\beta}\\
+   \hat{\beta} &amp;= (X&#39;X)^{-1}X&#39;Y
+   \end{align*}\]</span></p>
+<p>You may wonder how we got to these answers. Don’t worry, you will get your chance to solve this! The important thing to note for now, is that we have an analytic solution to our coefficient estimates.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="2">
+<li id="fn2"><p>This <a href="https://www.youtube.com/watch?v=GMVh02WGhoc&amp;ab_channel=BenLambert">video</a> from Ben Lambert provides additional intuition for understanding OLS in a matrix form and how it can be useful.<a href="diving-deeper-into-ols-matrix-representation.html#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="diving-deeper-into-ols-matrix-representation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="properties-and-potential-sources-of-bias.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="introducing-ols-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ols-regression-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

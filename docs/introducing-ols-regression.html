@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4.3 Assumptions | MLE for Political Science</title>
-  <meta name="description" content="4.3 Assumptions | MLE for Political Science" />
+  <title>4.1 Introducing OLS Regression | MLE for Political Science</title>
+  <meta name="description" content="4.1 Introducing OLS Regression | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4.3 Assumptions | MLE for Political Science" />
+  <meta property="og:title" content="4.1 Introducing OLS Regression | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.3 Assumptions | MLE for Political Science" />
+  <meta name="twitter:title" content="4.1 Introducing OLS Regression | MLE for Political Science" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="diving-deeper-into-ols-matrix-representation.html"/>
-<link rel="next" href="properties-and-potential-sources-of-bias.html"/>
+<link rel="prev" href="ols.html"/>
+<link rel="next" href="diving-deeper-into-ols-matrix-representation.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -188,10 +188,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="4.2.1" data-path="diving-deeper-into-ols-matrix-representation.html"><a href="diving-deeper-into-ols-matrix-representation.html#estimating-the-coefficients"><i class="fa fa-check"></i><b>4.2.1</b> Estimating the Coefficients</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="assumptions.html"><a href="assumptions.html"><i class="fa fa-check"></i><b>4.3</b> Assumptions</a></li>
-<li class="chapter" data-level="4.4" data-path="properties-and-potential-sources-of-bias.html"><a href="properties-and-potential-sources-of-bias.html"><i class="fa fa-check"></i><b>4.4</b> Properties and Potential Sources of Bias</a></li>
-<li class="chapter" data-level="4.5" data-path="relationship-to-correlation.html"><a href="relationship-to-correlation.html"><i class="fa fa-check"></i><b>4.5</b> Relationship to Correlation</a></li>
-<li class="chapter" data-level="4.6" data-path="r-squared.html"><a href="r-squared.html"><i class="fa fa-check"></i><b>4.6</b> R-squared</a></li>
+<li class="chapter" data-level="4.3" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html"><i class="fa fa-check"></i><b>4.3</b> OLS Regression in R</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#example-predicting-current-election-votes-from-past-election-votes"><i class="fa fa-check"></i><b>4.3.1</b> Example: Predicting Current Election Votes from Past Election Votes</a></li>
+<li class="chapter" data-level="4.3.2" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#plotting-regression-results"><i class="fa fa-check"></i><b>4.3.2</b> Plotting Regression Results</a></li>
+<li class="chapter" data-level="4.3.3" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#finding-coefficients-without-lm"><i class="fa fa-check"></i><b>4.3.3</b> Finding Coefficients without <code>lm</code></a></li>
+<li class="chapter" data-level="4.3.4" data-path="practice-problems.html"><a href="practice-problems.html#practice-problems"><i class="fa fa-check"></i><b>4.3.4</b> Practice Problems</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -210,34 +213,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="assumptions" class="section level2" number="4.3">
-<h2><span class="header-section-number">4.3</span> Assumptions</h2>
-<p>Linearity: Linearity implies that the marginal effect does not depend on the level of regressors.</p>
-<p>Exogeneity: The regressors are independent of the error term. (Strict) The expectation (mean) of the error term, conditional on all observations is 0.</p>
+<div id="introducing-ols-regression" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Introducing OLS Regression</h2>
+<p>The regression method describes how one variable depends on one or more other variables. Ordinary Least Squares regression is a linear model with the matrix representation:</p>
+<p><span class="math inline">\(Y = \alpha + X\beta + \epsilon\)</span></p>
+<p>Given values of variables in <span class="math inline">\(X\)</span>, the model predicts the average of an outcome variable <span class="math inline">\(Y\)</span>. For example, if <span class="math inline">\(Y\)</span> is a measure of how wealthy a country is, <span class="math inline">\(X\)</span> may contain measures related to the country’s natural resources and/or features of its institutions (things that we think might contribute to how wealthy a country is.) In this equation:</p>
 <ul>
-<li><span class="math inline">\(\E(\epsilon_i | X) = 0\)</span>.</li>
-<li>This implies the unconditional mean of the error term is also 0. <span class="math inline">\(\E(\epsilon_i)=0\)</span>.</li>
-<li>Each regressor (x) is also orthogonal to the error term for all observations: <span class="math inline">\(\E(x\epsilon_i) = 0\)</span>.</li>
-<li>Strict exogeneiy means the error term is uncorrelated with regressor for all observations, not just the same observation.</li>
+<li><span class="math inline">\(Y\)</span> is the outcome variable (<span class="math inline">\(n \times 1\)</span>).<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></li>
+<li><span class="math inline">\(\alpha\)</span> is a parameter representing the intercept</li>
+<li><span class="math inline">\(\beta\)</span> is a parameter representing the slope/marginal effect (<span class="math inline">\(k \times 1\)</span>), and</li>
+<li><span class="math inline">\(\epsilon\)</span> is the error term (<span class="math inline">\(n \times 1\)</span>).</li>
 </ul>
-<p>No Multicollinearity. The rank of the n X K data matrix X is K. K columns must be linearly independent. There must be at least as many observations as regressors. The K columns of regressors cannot be linearly dependent.</p>
+<p>In OLS, we estimate a line of best fit to predict <span class="math inline">\(\hat{Y}\)</span> values for different values of X:</p>
 <ul>
-<li>For example, if you were interested in the effect of years-in-grad school on life satisfaction, but you also thought knowledge might influence this. If everyone with 2 years in grad school has the same knowledge (and 3, 4, etc.) these columns would be dependent.</li>
+<li><span class="math inline">\(\hat{Y} = \hat{\alpha} + X\hat{\beta}\)</span>.</li>
+<li>When you see a “<span class="math inline">\(\hat{hat}\)</span>” on top of a letter, that means it is an estimate of a parameter.</li>
 </ul>
-<p>Spherical error variance/homoskedasticity.</p>
+<p>We interpret linear regression coefficients as describing how a dependent variable is expected to change when a particular independent variable changes by a certain amount. Specifically:</p>
 <ul>
-<li><span class="math inline">\(\E(\epsilon_i^2 | X) = \sigma^2\)</span> and <span class="math inline">\(\E(\epsilon_i\epsilon_j)| X) = 0\)</span>.</li>
-<li><span class="math inline">\(Var(\epsilon_ | X) = \E(\epsilon_i^2 | X) - \E(\epsilon_i | X)^2 = \E(\epsilon_i^2 | X)\)</span> by strict exogeneity.</li>
-<li><span class="math inline">\(\E(\epsilon \epsilon&#39; | X) = \sigma^2I_n\)</span></li>
+<li>“Associated with each one unit increase in a variable <span class="math inline">\(x_1\)</span>, there is a <span class="math inline">\(\hat{\beta_1}\)</span> estimated expected average increase in <span class="math inline">\(y\)</span>.”</li>
+<li>If we have more than one explanatory variable (i.e., a multiple regression), we add the phrase “controlling on/ holding constant other observed factors included in the model.”</li>
 </ul>
+<p>We can think of the interpretation of a coefficient in multiple regression using an analogy to a set of light switches:</p>
+<p><img src="images/lightswitch.jpeg" style="width:40.0%" /></p>
+<p>We ask: How much does the light in the room change when we flip one switch, while holding constant the position of all the other switches?</p>
+<p>This would be a good place to review the Wheelan chapter and Gelman and Hill 3.1 and 3.2 to reinforce what a regression is and how to interpret regression results.</p>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>Recall this notation means rows by columns, <span class="math inline">\(Y\)</span> is a vector of length <span class="math inline">\(n\)</span> (the number of observations), and since there is only 1 outcome measure, it is 1 column.<a href="introducing-ols-regression.html#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="diving-deeper-into-ols-matrix-representation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="properties-and-potential-sources-of-bias.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="ols.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="diving-deeper-into-ols-matrix-representation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

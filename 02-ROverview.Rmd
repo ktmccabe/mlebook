@@ -147,6 +147,7 @@ After you executed the code, you should see it pop out in your Console:
 5 + 3
 ```
 
+![](images/runningcode.png){width=90%}
 
 Note: The symbol \# also allows for annotation behind commands or on a separate line. Everything that follows \# will be ignored by R. You can annotate your own code so that you and others can understand what each part of the code is designed to do.
 
@@ -238,6 +239,7 @@ Below is an exercise that will demonstrate you are able to use R as a calculator
   3. Do the calculation 4 + 3 - 2 in R. Store it as an object with an informative name.
   4. Do the calculation 5 $\times$ 4 in R. Store it as an object with an informative name.
   5. Add these two calculations together. In R, try to do this by adding together the objects you created, not the underlying raw calculations. 
+
 
 ## Tutorials
 
