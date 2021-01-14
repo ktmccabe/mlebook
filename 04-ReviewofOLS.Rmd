@@ -41,6 +41,7 @@ In OLS, we estimate a line of best fit to predict $\hat{Y}$ values for different
 
   - $\hat{Y} = \hat{\alpha} + X\hat{\beta}$. 
   - When you see a "$\hat{hat}$" on top of a letter, that means it is an estimate of a parameter. 
+  - As we will see in the next section, in multiple regression, sometimes this equation is represented as just $\hat{Y} = X\hat{\beta}$, where this generally means that $X$ is a matrix that includes several variables and $\hat \beta$ is a vector that includes several coefficients, including a coefficient representing the intercept $\hat \alpha$
 
 We interpret linear regression coefficients as describing how a dependent variable is expected to change when a particular independent variable changes by a certain amount. Specifically:
 
