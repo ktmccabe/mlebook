@@ -743,7 +743,7 @@ Remember the derivative of a sum is the sum of derivatives. This allows us to fo
 
 *Example 3*
 
-Another useful rule when a matrix $A$ is symmetric: $\frac{d}{dx} \mathbf{x}^TA\mathbf{x} =  (A + A^T)\mathbf{x} = 2A\mathbf{x}$.
+Another useful rule when a matrix $A$ is symmetric: $\frac{\delta}{\delta x} \mathbf{x}^TA\mathbf{x} =  (A + A^T)\mathbf{x} = 2A\mathbf{x}$.
 
   - This has a nice analogue to the derivative we've seen before $q^2 = 2*q$.
   - Let's say we want to take the derivative of $\mathbf{b}'X'X\mathbf{b}$ with respect to $\mathbf{b}$.
@@ -768,4 +768,77 @@ Given $X$ is an $n$ x $k$ matrix,
   7. $((X^{T}X)^{-1}X^{T})^{T} =$ ?
   8. If $\nu$ is a constant, how does $(X^{T}X)^{-1}X^{T} \nu X(X^{T}X)^{-1}$ simplify?
   9. If a matrix $P$ is idempotent, $PP =$ ?
+  
+  
+### Practice Problem Solutions
+
+  1. What is $24/3 + 5^2 - (8 -4)$?
+
+```{r}
+24/3 + 5^2 - (8 -4)
+```
+  
+  2. What is $\sum_{i = 1}^5 (i*3)$?
+      + By hand: $1 \times 3 + 2 \times 3 + 3 \times 3 + 4 \times 3 + 5 \times 3$  
+
+```{r}
+## sol 1
+1*3 + 2*3 + 3*3 + 4*3 + 5*3
+
+## sol 2
+i <- 1:5
+sum(i*3)
+```
+
+  3. Take the derivative of $f(x) =v(4x^2 + 6)^2$ with respect to $x$.
+      + We can treat $v$ as a number. 
+    
+\begin{align*}
+f'(x) &= 2* v(4x^2 + 6) * 8x\\
+&= 16vx(4x^2 + 6)
+\end{align*}
+      
+  4. Take the derivative of $f(x) = e^{2x + 3}$ with respect to $x$.
+  
+\begin{align*}
+f'(x) &= 2* e^{2x + 3}\\
+&= 2e^{2x + 3}
+\end{align*}
+  
+  5. Take the derivative of $f(x) = log (x + 3)^2$ with respect to $x$.
+      + Note we can re-write this as $2 * log (x + 3)$.
+    
+\begin{align*}
+f'(x) &= 2 * \frac{1}{(x + 3)} * 1\\
+&= \frac{2}{(x + 3)}
+\end{align*}
+      If we didn't take that simplifying step, we can still solve:
+    
+\begin{align*}
+      f'(x) &= \frac{1}{(x + 3)^2} * 2 * (x + 3) *1\\
+      &= \frac{2}{(x + 3)}
+      \end{align*}
+
+Given $X$ is an $n$ x $k$ matrix,
+
+  6. $(X^{T}X)^{-1}X^{T}X$ can be simplified to?
+      + $I_k$ the identity matrix
+  
+  7. $((X^{T}X)^{-1}X^{T})^{T} =$ ?
+      + Recall our rule $(AB)^T = B^TA^T$
+      + $X(X^TX)^{-1}$
+    
+  8. If $\nu$ is a constant, how does $(X^{T}X)^{-1}X^{T} \nu X(X^{T}X)^{-1}$ simplify?
+      + We can pull it out front.
+    
+\begin{align*}
+    &= \nu(X^{T}X)^{-1}X^{T}X(X^{T}X)^{-1} \\
+    &= \nu (X^{T}X)^{-1}
+    \end{align*}
+    
+  9. If a matrix $P$ is idempotent, $PP =$ ?
+      + $P$ from section 3.5.2
+  
+  
+  
     

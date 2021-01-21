@@ -179,7 +179,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.5.3" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html#matrix-rules"><i class="fa fa-check"></i><b>3.5.3</b> <strong>Matrix Rules</strong></a></li>
 <li class="chapter" data-level="3.5.4" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html#derivatives-with-matrices-and-vectors"><i class="fa fa-check"></i><b>3.5.4</b> <strong>Derivatives with Matrices and Vectors</strong></a></li>
 </ul></li>
-<li class="chapter" data-level="3.6" data-path="practice-problems.html"><a href="practice-problems.html"><i class="fa fa-check"></i><b>3.6</b> Practice Problems</a></li>
+<li class="chapter" data-level="3.6" data-path="practice-problems.html"><a href="practice-problems.html"><i class="fa fa-check"></i><b>3.6</b> Practice Problems</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="practice-problems.html"><a href="practice-problems.html#practice-problem-solutions"><i class="fa fa-check"></i><b>3.6.1</b> Practice Problem Solutions</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="ols.html"><a href="ols.html"><i class="fa fa-check"></i><b>4</b> Review of OLS</a>
 <ul>
@@ -194,7 +197,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3.2" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#plotting-regression-results"><i class="fa fa-check"></i><b>4.3.2</b> Plotting Regression Results</a></li>
 <li class="chapter" data-level="4.3.3" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#finding-coefficients-without-lm"><i class="fa fa-check"></i><b>4.3.3</b> Finding Coefficients without <code>lm</code></a></li>
 <li class="chapter" data-level="4.3.4" data-path="practice-problems.html"><a href="practice-problems.html#practice-problems"><i class="fa fa-check"></i><b>4.3.4</b> Practice Problems</a></li>
+<li class="chapter" data-level="4.3.5" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#code-for-solutions"><i class="fa fa-check"></i><b>4.3.5</b> Code for solutions</a></li>
 </ul></li>
+<li class="chapter" data-level="4.4" data-path="week-1-thursday-tutorial.html"><a href="week-1-thursday-tutorial.html"><i class="fa fa-check"></i><b>4.4</b> Week 1 Thursday Tutorial</a></li>
 </ul></li>
 </ul>
 
@@ -229,7 +234,86 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>If <span class="math inline">\(\nu\)</span> is a constant, how does <span class="math inline">\((X^{T}X)^{-1}X^{T} \nu X(X^{T}X)^{-1}\)</span> simplify?</li>
 <li>If a matrix <span class="math inline">\(P\)</span> is idempotent, <span class="math inline">\(PP =\)</span> ?</li>
 </ol>
+<div id="practice-problem-solutions" class="section level3" number="3.6.1">
+<h3><span class="header-section-number">3.6.1</span> Practice Problem Solutions</h3>
+<ol style="list-style-type: decimal">
+<li>What is <span class="math inline">\(24/3 + 5^2 - (8 -4)\)</span>?</li>
+</ol>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="practice-problems.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="dv">24</span><span class="sc">/</span><span class="dv">3</span> <span class="sc">+</span> <span class="dv">5</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> (<span class="dv">8</span> <span class="sc">-</span><span class="dv">4</span>)</span></code></pre></div>
+<pre><code>[1] 29</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>What is <span class="math inline">\(\sum_{i = 1}^5 (i*3)\)</span>?
+<ul>
+<li>By hand: <span class="math inline">\(1 \times 3 + 2 \times 3 + 3 \times 3 + 4 \times 3 + 5 \times 3\)</span></li>
+</ul></li>
+</ol>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="practice-problems.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="do">## sol 1</span></span>
+<span id="cb142-2"><a href="practice-problems.html#cb142-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">*</span><span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span><span class="dv">3</span> <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span><span class="dv">3</span> <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span><span class="dv">3</span> <span class="sc">+</span> <span class="dv">5</span><span class="sc">*</span><span class="dv">3</span></span></code></pre></div>
+<pre><code>[1] 45</code></pre>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="practice-problems.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="do">## sol 2</span></span>
+<span id="cb144-2"><a href="practice-problems.html#cb144-2" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span></span>
+<span id="cb144-3"><a href="practice-problems.html#cb144-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(i<span class="sc">*</span><span class="dv">3</span>)</span></code></pre></div>
+<pre><code>[1] 45</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Take the derivative of <span class="math inline">\(f(x) =v(4x^2 + 6)^2\)</span> with respect to <span class="math inline">\(x\)</span>.
+<ul>
+<li>We can treat <span class="math inline">\(v\)</span> as a number.</li>
+</ul></li>
+</ol>
+<p><span class="math display">\[\begin{align*}
+f&#39;(x) &amp;= 2* v(4x^2 + 6) * 8x\\
+&amp;= 16vx(4x^2 + 6)
+\end{align*}\]</span></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Take the derivative of <span class="math inline">\(f(x) = e^{2x + 3}\)</span> with respect to <span class="math inline">\(x\)</span>.</li>
+</ol>
+<p><span class="math display">\[\begin{align*}
+f&#39;(x) &amp;= 2* e^{2x + 3}\\
+&amp;= 2e^{2x + 3}
+\end{align*}\]</span></p>
+<ol start="5" style="list-style-type: decimal">
+<li>Take the derivative of <span class="math inline">\(f(x) = log (x + 3)^2\)</span> with respect to <span class="math inline">\(x\)</span>.
+<ul>
+<li>Note we can re-write this as <span class="math inline">\(2 * log (x + 3)\)</span>.</li>
+</ul></li>
+</ol>
+<p><span class="math display">\[\begin{align*}
+f&#39;(x) &amp;= 2 * \frac{1}{(x + 3)} * 1\\
+&amp;= \frac{2}{(x + 3)}
+\end{align*}\]</span>
+If we didn’t take that simplifying step, we can still solve:</p>
+<p><span class="math display">\[\begin{align*}
+      f&#39;(x) &amp;= \frac{1}{(x + 3)^2} * 2 * (x + 3) *1\\
+      &amp;= \frac{2}{(x + 3)}
+      \end{align*}\]</span></p>
+<p>Given <span class="math inline">\(X\)</span> is an <span class="math inline">\(n\)</span> x <span class="math inline">\(k\)</span> matrix,</p>
+<ol start="6" style="list-style-type: decimal">
+<li><span class="math inline">\((X^{T}X)^{-1}X^{T}X\)</span> can be simplified to?
+<ul>
+<li><span class="math inline">\(I_k\)</span> the identity matrix</li>
+</ul></li>
+<li><span class="math inline">\(((X^{T}X)^{-1}X^{T})^{T} =\)</span> ?
+<ul>
+<li>Recall our rule <span class="math inline">\((AB)^T = B^TA^T\)</span></li>
+<li><span class="math inline">\(X(X^TX)^{-1}\)</span></li>
+</ul></li>
+<li>If <span class="math inline">\(\nu\)</span> is a constant, how does <span class="math inline">\((X^{T}X)^{-1}X^{T} \nu X(X^{T}X)^{-1}\)</span> simplify?
+<ul>
+<li>We can pull it out front.</li>
+</ul></li>
+</ol>
+<p><span class="math display">\[\begin{align*}
+    &amp;= \nu(X^{T}X)^{-1}X^{T}X(X^{T}X)^{-1} \\
+    &amp;= \nu (X^{T}X)^{-1}
+    \end{align*}\]</span></p>
+<ol start="9" style="list-style-type: decimal">
+<li>If a matrix <span class="math inline">\(P\)</span> is idempotent, <span class="math inline">\(PP =\)</span> ?
+<ul>
+<li><span class="math inline">\(P\)</span> from section 3.5.2</li>
+</ul></li>
+</ol>
 
+</div>
 </div>
 <!-- </div> -->
             </section>

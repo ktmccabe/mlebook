@@ -333,7 +333,9 @@ Here are a couple of (ungraded) problems to modify the code above and gain addit
   - Describe the differences in the regression lines.
 
 
-```{r, eval=FALSE, include=FALSE}
+### Code for solutions
+
+```{r, eval=TRUE, include=TRUE}
 fit.multiple <- lm(Buchanan00 ~ Perot96 + Clinton96, data = florida)
 summary(fit.multiple)
 confint(fit.multiple)[2,]
@@ -359,3 +361,15 @@ ggplot(data = florida.pb, # which data frame
   theme_bw() # changes theme (e.g., color of background)
 
 ```
+
+## Week 1 Thursday Tutorial
+
+We may be using a tutorial today to get additional practice with linear regression and its assumptions. To load the tutorial you need to have the package `devtools` installed in your R.
+
+Then run the following lines of code.
+```{r, eval=FALSE}
+devtools::install_github("ktmccabe/interactivepack", dependencies = T)
+learnr::run_tutorial("lindep", package="interactivepack")
+```
+
+
