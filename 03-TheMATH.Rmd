@@ -743,7 +743,80 @@ Remember the derivative of a sum is the sum of derivatives. This allows us to fo
 
 *Example 3*
 
-Another useful rule when a matrix $A$ is symmetric: $\frac{\delta}{\delta x} \mathbf{x}^TA\mathbf{x} =  (A + A^T)\mathbf{x} = 2A\mathbf{x}$.
+Another useful rule when a matrix $A$ is symmetric: $\frac{\delta}{\delta \mathbf{x}} \mathbf{x}^TA\mathbf{x} =  (A + A^T)\mathbf{x} = 2A\mathbf{x}$.
+
+
+**Details on getting to this result.** We are treating the vector $\mathbf{x}$ as $n \times 1$ and the matrix $A$ as symmetric.
+
+When we take $\frac{\delta}{\delta \mathbf{x}}$ (the derivative with respect to $\mathbf{x}$), we will be looking for a result with the same dimensions $\mathbf{x}$.
+
+$\frac{\delta }{\delta \mathbf{x}} = \begin{pmatrix}\frac{\delta }{\delta x_1} \\ \frac{\delta }{\delta x_2} \\ \vdots \\ \frac{d}{dx_n} \end{pmatrix}$
+  
+Let's inspect the dimensions of $\mathbf{x}^TA\mathbf{x}$. They are $1 \times 1$. If we perform this matrix multiplication, we would be multiplying:
+
+$\begin{pmatrix} x_1 &  x_2 & \ldots & x_i \end{pmatrix} \times \begin{pmatrix} a_{11} & a_{12} & \ldots & a_{1j} \\ a_{21} & a_{22} & \ldots & a_{2j} \\
+\vdots & \vdots & \vdots & \vdots \\  a_{i1} & a_{i2} & \ldots & a_{ij} \end{pmatrix} \times \begin{pmatrix}x_1 \\ x_2 \\ \vdots \\ x_j  \end{pmatrix}$
+
+To simplify things, let's say we have the following matrices, where $A$ is symmetric:
+
+$\begin{pmatrix} x_1 &  x_2 \end{pmatrix} \times \begin{pmatrix} a_{11} & a_{12}  \\ a_{21} & a_{22}  \end{pmatrix} \times \begin{pmatrix} x_1 \\ x_2  \end{pmatrix}$
+
+We can perform the matrix multiplication for the first two quantities, which will result in a $1 \times 2$ vector. Recall in matrix multiplication we take the sum of the element-wise multiplication of the $ith$ row of the first object by the $jth$ column of the second object. This means multiply the first row of $\mathbf{x}$ by the first column of $A$ for the entry in cell $i=1; j=1$, and so on.
+
+$\begin{pmatrix} (x_1a_{11} + x_2a_{21}) &  (x_1a_{12} + x_2a_{22})  \end{pmatrix}$
+
+We can then multiply this quantity by the last quantity
+
+$\begin{pmatrix} (x_1a_{11} + x_2a_{21}) &  (x_1a_{12} + x_2a_{22})  \end{pmatrix} \times \begin{pmatrix}x_1 \\ x_2  \end{pmatrix}$
+
+This will results in the $1 \times 1$ quantity:
+$(x_1a_{11} + x_2a_{21})x_1 + (x_1a_{12} + x_2a_{22})x_2 = x_1^2a_{11} + x_2a_{21}x_1 +   x_1a_{12}x_2 + x_2^2a_{22}$
+
+
+
+We can now take the derivatives with respect to $\mathbf{x}$. Because $\mathbf{x}$ is $2 \times 1$, our derivative will be a vector of the same dimensions with components:
+
+$\frac{\delta }{\delta \mathbf{x}} = \begin{pmatrix}\frac{\delta }{\delta x_1} \\ \frac{\delta }{\delta x_2}  \end{pmatrix}$
+
+These represent the partial derivatives of each component within $\mathbf{x}$
+
+Let's focus on the first: $\frac{\delta }{\delta x_1}$. 
+
+
+\begin{align*}
+\frac{\delta }{\delta x_1} x_1^2a_{11} + x_2a_{21}x_1 +   x_1a_{12}x_2 + x_2^2a_{22} &=\\
+&= 2x_1a_{11} + x_2a_{21} + a_{12}x_2\\
+\end{align*}
+
+We can repeat this for $\frac{\delta }{\delta x_2}$
+
+\begin{align*}
+\frac{\delta }{\delta x_2} x_1^2a_{11} + x_2a_{21}x_1 +   x_1a_{12}x_2 + x_2^2a_{22} &=\\
+&= a_{21}x_1  + x_1a_{12} + 2x_2a_{22}\\
+\end{align*}
+
+Now we can put the result back into our vector format:
+
+$\begin{pmatrix}\frac{\delta }{\delta x_1} = 2x_1a_{11} + x_2a_{21} + a_{12}x_2\\ \frac{\delta }{\delta x_2} = a_{21}x_1  + x_1a_{12} + 2x_2a_{22}\end{pmatrix}$
+
+Now it's just about simplifying to show that we have indeed come back to the rule. 
+
+
+Recall that for a symmetric matrix, the elements in rows and columns $ij$ = the elements in $ji$. This allows us to read $a_{21} = a_{12}$ and combine those terms (e.g., $x_2a_{21} + a_{12}x_2 =2a_{12}x_2$) :
+
+$\begin{pmatrix}\frac{\delta }{\delta x_1} = 2x_1a_{11} +  2a_{12}x_2\\ \frac{\delta }{\delta x_2} = 2a_{21}x_1   + 2x_2a_{22}\end{pmatrix}$
+
+Second, we can now bring the 2 out front.
+
+$\begin{pmatrix}\frac{\delta }{\delta x_1} \\ \frac{\delta }{\delta x_2} \end{pmatrix} = 2 * \begin{pmatrix} x_1a_{11} +  a_{12}x_2\\  a_{21}x_1   + x_2a_{22}\end{pmatrix}$
+
+Finally, let's inspect this and show it is equivalent to this multiplication where we have a $2 \times 2$ $A$ matrix multiplied by a $2 \times 1$ $\mathbf x$ vector. *Minor note: Because any individual element of a vector is just a single quantity, we can change the order (e.g.,* $a_{11}*x_1$ vs. $x_1*a_{11}$). *We just can't do that for full vectors or matrices*
+
+$2A\mathbf{x} = 2* \begin{pmatrix} a_{11} & a_{12}  \\ a_{21} & a_{22}  \end{pmatrix} \times \begin{pmatrix}x_1 \\ x_2  \end{pmatrix} = 2 * \begin{pmatrix} a_{11}x_1 + a_{12}x_2 \\ a_{21}x_1 + a_{22}x_2 \end{pmatrix}$
+
+The last quantity is the same as the previous step. That's the rule!
+
+**Applying the rules**
 
   - This has a nice analogue to the derivative we've seen before $q^2 = 2*q$.
   - Let's say we want to take the derivative of $\mathbf{b}'X'X\mathbf{b}$ with respect to $\mathbf{b}$.

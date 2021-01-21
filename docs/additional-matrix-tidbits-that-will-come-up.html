@@ -348,7 +348,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>The derivative is <span class="math inline">\(-2X&#39;\mathbf{y}\)</span></li>
 </ul>
 <p><em>Example 3</em></p>
-<p>Another useful rule when a matrix <span class="math inline">\(A\)</span> is symmetric: <span class="math inline">\(\frac{\delta}{\delta x} \mathbf{x}^TA\mathbf{x} = (A + A^T)\mathbf{x} = 2A\mathbf{x}\)</span>.</p>
+<p>Another useful rule when a matrix <span class="math inline">\(A\)</span> is symmetric: <span class="math inline">\(\frac{\delta}{\delta \mathbf{x}} \mathbf{x}^TA\mathbf{x} = (A + A^T)\mathbf{x} = 2A\mathbf{x}\)</span>.</p>
+<p><strong>Details on getting to this result.</strong> We are treating the vector <span class="math inline">\(\mathbf{x}\)</span> as <span class="math inline">\(n \times 1\)</span> and the matrix <span class="math inline">\(A\)</span> as symmetric.</p>
+<p>When we take <span class="math inline">\(\frac{\delta}{\delta \mathbf{x}}\)</span> (the derivative with respect to <span class="math inline">\(\mathbf{x}\)</span>), we will be looking for a result with the same dimensions <span class="math inline">\(\mathbf{x}\)</span>.</p>
+<p><span class="math inline">\(\frac{\delta }{\delta \mathbf{x}} = \begin{pmatrix}\frac{\delta }{\delta x_1} \\ \frac{\delta }{\delta x_2} \\ \vdots \\ \frac{d}{dx_n} \end{pmatrix}\)</span></p>
+<p>Let’s inspect the dimensions of <span class="math inline">\(\mathbf{x}^TA\mathbf{x}\)</span>. They are <span class="math inline">\(1 \times 1\)</span>. If we perform this matrix multiplication, we would be multiplying:</p>
+<p><span class="math inline">\(\begin{pmatrix} x_1 &amp; x_2 &amp; \ldots &amp; x_i \end{pmatrix} \times \begin{pmatrix} a_{11} &amp; a_{12} &amp; \ldots &amp; a_{1j} \\ a_{21} &amp; a_{22} &amp; \ldots &amp; a_{2j} \\ \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\ a_{i1} &amp; a_{i2} &amp; \ldots &amp; a_{ij} \end{pmatrix} \times \begin{pmatrix}x_1 \\ x_2 \\ \vdots \\ x_j \end{pmatrix}\)</span></p>
+<p>To simplify things, let’s say we have the following matrices, where <span class="math inline">\(A\)</span> is symmetric:</p>
+<p><span class="math inline">\(\begin{pmatrix} x_1 &amp; x_2 \end{pmatrix} \times \begin{pmatrix} a_{11} &amp; a_{12} \\ a_{21} &amp; a_{22} \end{pmatrix} \times \begin{pmatrix} x_1 \\ x_2 \end{pmatrix}\)</span></p>
+<p>We can perform the matrix multiplication for the first two quantities, which will result in a <span class="math inline">\(1 \times 2\)</span> vector. Recall in matrix multiplication we take the sum of the element-wise multiplication of the <span class="math inline">\(ith\)</span> row of the first object by the <span class="math inline">\(jth\)</span> column of the second object. This means multiply the first row of <span class="math inline">\(\mathbf{x}\)</span> by the first column of <span class="math inline">\(A\)</span> for the entry in cell <span class="math inline">\(i=1; j=1\)</span>, and so on.</p>
+<p><span class="math inline">\(\begin{pmatrix} (x_1a_{11} + x_2a_{21}) &amp; (x_1a_{12} + x_2a_{22}) \end{pmatrix}\)</span></p>
+<p>We can then multiply this quantity by the last quantity</p>
+<p><span class="math inline">\(\begin{pmatrix} (x_1a_{11} + x_2a_{21}) &amp; (x_1a_{12} + x_2a_{22}) \end{pmatrix} \times \begin{pmatrix}x_1 \\ x_2 \end{pmatrix}\)</span></p>
+<p>This will results in the <span class="math inline">\(1 \times 1\)</span> quantity:
+<span class="math inline">\((x_1a_{11} + x_2a_{21})x_1 + (x_1a_{12} + x_2a_{22})x_2 = x_1^2a_{11} + x_2a_{21}x_1 + x_1a_{12}x_2 + x_2^2a_{22}\)</span></p>
+<p>We can now take the derivatives with respect to <span class="math inline">\(\mathbf{x}\)</span>. Because <span class="math inline">\(\mathbf{x}\)</span> is <span class="math inline">\(2 \times 1\)</span>, our derivative will be a vector of the same dimensions with components:</p>
+<p><span class="math inline">\(\frac{\delta }{\delta \mathbf{x}} = \begin{pmatrix}\frac{\delta }{\delta x_1} \\ \frac{\delta }{\delta x_2} \end{pmatrix}\)</span></p>
+<p>These represent the partial derivatives of each component within <span class="math inline">\(\mathbf{x}\)</span></p>
+<p>Let’s focus on the first: <span class="math inline">\(\frac{\delta }{\delta x_1}\)</span>.</p>
+<p><span class="math display">\[\begin{align*}
+\frac{\delta }{\delta x_1} x_1^2a_{11} + x_2a_{21}x_1 +   x_1a_{12}x_2 + x_2^2a_{22} &amp;=\\
+&amp;= 2x_1a_{11} + x_2a_{21} + a_{12}x_2\\
+\end{align*}\]</span></p>
+<p>We can repeat this for <span class="math inline">\(\frac{\delta }{\delta x_2}\)</span></p>
+<p><span class="math display">\[\begin{align*}
+\frac{\delta }{\delta x_2} x_1^2a_{11} + x_2a_{21}x_1 +   x_1a_{12}x_2 + x_2^2a_{22} &amp;=\\
+&amp;= a_{21}x_1  + x_1a_{12} + 2x_2a_{22}\\
+\end{align*}\]</span></p>
+<p>Now we can put the result back into our vector format:</p>
+<p><span class="math inline">\(\begin{pmatrix}\frac{\delta }{\delta x_1} = 2x_1a_{11} + x_2a_{21} + a_{12}x_2\\ \frac{\delta }{\delta x_2} = a_{21}x_1 + x_1a_{12} + 2x_2a_{22}\end{pmatrix}\)</span></p>
+<p>Now it’s just about simplifying to show that we have indeed come back to the rule.</p>
+<p>Recall that for a symmetric matrix, the elements in rows and columns <span class="math inline">\(ij\)</span> = the elements in <span class="math inline">\(ji\)</span>. This allows us to read <span class="math inline">\(a_{21} = a_{12}\)</span> and combine those terms (e.g., <span class="math inline">\(x_2a_{21} + a_{12}x_2 =2a_{12}x_2\)</span>) :</p>
+<p><span class="math inline">\(\begin{pmatrix}\frac{\delta }{\delta x_1} = 2x_1a_{11} + 2a_{12}x_2\\ \frac{\delta }{\delta x_2} = 2a_{21}x_1 + 2x_2a_{22}\end{pmatrix}\)</span></p>
+<p>Second, we can now bring the 2 out front.</p>
+<p><span class="math inline">\(\begin{pmatrix}\frac{\delta }{\delta x_1} \\ \frac{\delta }{\delta x_2} \end{pmatrix} = 2 * \begin{pmatrix} x_1a_{11} + a_{12}x_2\\ a_{21}x_1 + x_2a_{22}\end{pmatrix}\)</span></p>
+<p>Finally, let’s inspect this and show it is equivalent to this multiplication where we have a <span class="math inline">\(2 \times 2\)</span> <span class="math inline">\(A\)</span> matrix multiplied by a <span class="math inline">\(2 \times 1\)</span> <span class="math inline">\(\mathbf x\)</span> vector. <em>Minor note: Because any individual element of a vector is just a single quantity, we can change the order (e.g.,</em> <span class="math inline">\(a_{11}*x_1\)</span> vs. <span class="math inline">\(x_1*a_{11}\)</span>). <em>We just can’t do that for full vectors or matrices</em></p>
+<p><span class="math inline">\(2A\mathbf{x} = 2* \begin{pmatrix} a_{11} &amp; a_{12} \\ a_{21} &amp; a_{22} \end{pmatrix} \times \begin{pmatrix}x_1 \\ x_2 \end{pmatrix} = 2 * \begin{pmatrix} a_{11}x_1 + a_{12}x_2 \\ a_{21}x_1 + a_{22}x_2 \end{pmatrix}\)</span></p>
+<p>The last quantity is the same as the previous step. That’s the rule!</p>
+<p><strong>Applying the rules</strong></p>
 <ul>
 <li>This has a nice analogue to the derivative we’ve seen before <span class="math inline">\(q^2 = 2*q\)</span>.</li>
 <li>Let’s say we want to take the derivative of <span class="math inline">\(\mathbf{b}&#39;X&#39;X\mathbf{b}\)</span> with respect to <span class="math inline">\(\mathbf{b}\)</span>.</li>
