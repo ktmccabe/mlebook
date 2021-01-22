@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2.2 Tutorials | MLE for Political Science</title>
-  <meta name="description" content="2.2 Tutorials | MLE for Political Science" />
+  <title>4.7 Wrapping up OLS | MLE for Political Science</title>
+  <meta name="description" content="4.7 Wrapping up OLS | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2.2 Tutorials | MLE for Political Science" />
+  <meta property="og:title" content="4.7 Wrapping up OLS | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2.2 Tutorials | MLE for Political Science" />
+  <meta name="twitter:title" content="4.7 Wrapping up OLS | MLE for Political Science" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="first-time-with-r-and-rstudio.html"/>
-<link rel="next" href="math.html"/>
+<link rel="prev" href="generating-predictions-from-regression-models.html"/>
+
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -229,34 +229,68 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="tutorials" class="section level2" number="2.2">
-<h2><span class="header-section-number">2.2</span> Tutorials</h2>
-<p>Occasionally in this course, there will be some interactive tutorials I’ve created that you can do to practice the concepts and R skills.</p>
-<p>In order to be able to run the tutorials, you need to run the following in your R script.</p>
+<div id="wrapping-up-ols" class="section level2" number="4.7">
+<h2><span class="header-section-number">4.7</span> Wrapping up OLS</h2>
+<p>Linear regression is a great way to explain the relationship between one or more independent variables and an outcome variables. However, there is no free lunch. We have already mentioned a couple of assumptions along the way. Below we will summarize these and other assumptions. These are things you should be mindful of when you use linear regression in your own work. Some conditions that generate violations of these assumptions can also motivate why we will seek out alternative methods, such as those that rely on maximum likelihood estimation.</p>
+<p>This is a good place to review Gelman section 3.6.</p>
 <ul>
-<li><code>install.packages("devtools", dependencies=T)</code></li>
-</ul>
-<p>After <code>devtools</code> is installed, you shouldn’t have to run that line of code again. However, you will need to run the below line each time there is a new tutorial, as this package will be updated throughout the course.</p>
+<li>Exogeneity. This one we haven’t discussed yet, but is an important assumption for letting us interpret our coefficients <span class="math inline">\(\hat \beta\)</span> as “unbiased” estimates of the true parameters <span class="math inline">\(\beta\)</span>. We assume that the random error in the regression model <span class="math inline">\(\epsilon\)</span> is indeed random, and uncorrelated with and independent of our independent variables <span class="math inline">\(X\)</span>. Formally:
 <ul>
-<li><code>devtools::install_github("ktmccabe/interactivepack", dependencies = T)</code></li>
-</ul>
-<p>Our first tutorial is practicing R skills to load and manipulate dataframes. You should be able to complete that after reviewing the Chris Bail video and Kosuke Imai QSS Chapter 1 resource. The tutorial is based on information provided in Imai Chapter 1. To load the tutorial, run the line of code below in your RStudio Console. It should open up a web browser on your local machine with the tutorial. If a browser does not open, you may need to manually copy/paste the numeric url that pops out on the console into a browser window.</p>
-<p>To close out of a tutorial, you can click the stop sign or hit the “Escape” key in the console.</p>
-<p>If you encounter an error, you may need to install a package or application that is indicated in the error message.</p>
+<li><span class="math inline">\(\mathbb{E}(\epsilon| X) = \mathbb{E}(\epsilon) = 0\)</span>.</li>
+<li>This can be violated, for example, when we suffer from Omitted Variable Bias due to having an “endogenous explanatory variable” that is correlated with some unobserved or unaccounted for factor. This bias comes from a situation where there is some variable that we have left out of the model (<span class="math inline">\(Z\)</span>), and is therefore a part of the unobserved error term. Moreover this variable which is correlated with–and a pre-cursor of– our independent variables and is a cause of our dependent variable. A failure to account for omitted variables can create bias in our coefficient estimates. Concerns about omitted variable bias often prompt people to raise their hands in seminars and ask questions like, “Well have you accounted for this? Have you accounted for that? How do you know it is <span class="math inline">\(X\)</span> driving your results and not <span class="math inline">\(Z\)</span>?” If we omit important covariates, we may wrongly attribute an effect to <span class="math inline">\(X\)</span> when it was really the result of our omitted factor <span class="math inline">\(Z\)</span>. Messing discusses this <a href="https://medium.com/pew-research-center-decoded/how-to-break-regression-f48230f0ca68">here</a>.</li>
+<li>This is a really tough assumption. The only real way to guarantee the independence of your error term and the independent variables is if you have randomly assigned values to the independent variables (such as what you do when you randomly assign people to different treatment conditions in an experiment). Beyond random assignment, you have to rely on theory to understand what variables you need to account for in the regression model to be able to plausibly claim your estimate of the relationship between a given independent variable and the dependent variable is unbiased. Failing to control for important factors can lead to misleading results, such as what happens in Simpson’s paradox, referenced in the Messing <a href="https://medium.com/pew-research-center-decoded/how-to-break-regression-f48230f0ca68">piece</a>.</li>
+<li>Danger Note 1: The danger here, though, is that the motivation for avoiding omitted variable bias might be to keep adding control after control after control into the regression model. However, model building in this way can sometimes be atheoretical and result in arbitrary fluctuations in the size of your coefficients and their significance. At its worse, it can lead to “p-hacking” where researchers keep changing their models until they find the results they like. The Lenz and Sahn article on Canvas talks more about the dangers of arbitrarily adding controls to the model.</li>
+<li>Danger Note 2: We also want to avoid adding “bad controls” to the model. Messing talks about this in the medium <a href="https://medium.com/pew-research-center-decoded/how-to-break-regression-f48230f0ca68">article</a> as it relates to collider bias. We want to avoid adding controls to our model, say <span class="math inline">\(W\)</span> that are actually causes of <span class="math inline">\(Y\)</span> and causes of <span class="math inline">\(X\)</span> instead of the other way around.</li>
+<li>Model building is a delicate enterprise that depends a lot on having a solid theory that guides the choice of variables.</li>
+</ul></li>
+<li>Homoscedasticity. We saw this when defining the variance estimator for the OLS coefficients. We assume constant error variance. This can be violated when we think observations at certain values of our independent variables may have different magnitudes of error than observations at other values of our independent variables.
 <ul>
-<li><code>learnr::run_tutorial("rintro", package="interactivepack")</code></li>
+<li>No correlation in the errors. The error terms are not correlated with each other. This can be violated in time series models (where we might think past, present, and future errors are correlated) or in cases where our observations are nested in some hierarchical structures (e.g., perhaps students in a school) and the errors are correlated.</li>
+</ul></li>
+<li>No perfect collinearity. The <span class="math inline">\(X\)</span> matrix must be full rank: We cannot have linear dependence between columns in our X matrix. We saw this in the tutorial when we tried to add the dummy variables for all of our racial groups into a regression at once. When there is perfect collinearity between variables, our regression will fail.
+<ul>
+<li>We should also avoid situations where we have severe multicollinearity. This can happen when we include two or more variables in a regression model that are highly correlated (just not perfectly correlated). While the regression will still run in this case, it can inflate the standard errors of the coefficients, making it harder to detect significant effects. This is particularly problematic in smaller samples.</li>
+</ul></li>
+<li>Linearity. The relationship between the independent and dependent variables needs to be linear in the parameters. It should be modeled as the addition of constants or parameters multiplied by the independent variables. If instead the model requires the multiplication of parameters, this is no longer linear (e.g., <span class="math inline">\(\beta^2\)</span>). Linearity also often refers to the shape of the model. Our coefficients tell us how much change we expect in the outcome for each one-unit change in an independent variable. We might think some relationships are nonlinear– meaning this rate of change varies across values of the independent variables. If that is the case, we need to shift the way our model is specified to account for this or change modeling approaches.
+<ul>
+<li>For example, perhaps as people get older (one-unit changes in age), they become more politically engaged, but at some age level, their political engagement starts to decline. This would mean the slope (that expected change in political engagement for each one-unit change in age) is not constant across all levels of age. There, we might be violating linearity in the curvature of the relationship between the independent and dependent variables. This is sometimes why you might see <span class="math inline">\(age^2\)</span> or other nonlinear terms in regression equations to better model this curvature.</li>
+<li>Likewise, perhaps each additional level of education doesn’t result in the same average increase in <span class="math inline">\(y\)</span>. If not, you could consider including categorical dummy variables for different levels of education instead of treating education as a numeric variable.</li>
+</ul></li>
+<li>Normality. We assume that the errors are normally distributed. As Gelman 3.6 notes, this is a less important assumption and is generally not required.</li>
 </ul>
-<p>This is a new program that I am using in this course for the first time to create tutorials, so feel free to email if you encounter bugs!!</p>
+<p><em>OLS Properties</em></p>
+<p>Why we like OLS. When we meet our assumptions, OLS produces the best linear unbiased estimates (BLUE). A discussion of this <a href="https://www.youtube.com/watch?v=NjTpHS5xLP8&amp;ab_channel=BenLambert">here</a>. We have linearity in our parameters (e.g., <span class="math inline">\(\beta\)</span> and not <span class="math inline">\(\beta^2\)</span> for example). The unbiasedness means that the expected value (aka the average over repeated samples) of our estimates <span class="math inline">\(\mathbb{E}(\hat \beta)= \beta\)</span> is the true value. Our estimates are also efficient, which has to do with the variance, not only are our estimates true in expectation, but we also have lower variance than an alternative linear unbiased estimator could get us. If our assumptions fail, then we might no longer have BLUE. OLS estimates are also consistent, meaning that as the sample gets larger and larger, the estimates start converging to the truth.</p>
+<p>Now, a final hidden assumption in all of this is that the sample of our data is representative of the population we are trying to make inferences about. If that is not the case, then we may no longer be making unbiased observations to that population level. Further adjustments may be required (e.g., analyses of survey data sometimes use weights to adjust estimates to be more representative).</p>
+<p>When we violate these assumptions, OLS may no longer be best, and we may opt for other approaches. More soon!</p>
+<div id="practice-problems-1" class="section level3" number="4.7.1">
+<h3><span class="header-section-number">4.7.1</span> Practice Problems</h3>
+<ol style="list-style-type: decimal">
+<li>Let’s use the <code>florida</code> data. Run a regression according to the following formula:
+<ul>
+<li><span class="math inline">\(Buchanan00_i = \alpha + \beta_1*Perot96_i + \beta_2*Dole96 + \beta_3*Gore00 + \epsilon\)</span></li>
+</ul></li>
+<li>Report the coefficient for <code>Perot96</code>. What do you conclude about the null hypothesis that there is no relationship between 1996 Perot votes and 2000 Buchanan votes?</li>
+<li>What is the confidence interval for the <code>Perot96</code> coefficient estimate?</li>
+<li>When Perot 1996 vote is 5500, what is the expected 2000 Buchanan vote?</li>
+</ol>
 
 </div>
+</div>
 <!-- </div> -->
+
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="first-time-with-r-and-rstudio.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="math.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="generating-predictions-from-regression-models.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

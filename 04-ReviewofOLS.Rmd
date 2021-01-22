@@ -3,7 +3,8 @@
 # Review of OLS {#ols}
 
 \newcommand\bE{\mathbf{E}}
-
+\newcommand\E{\mathbb{E}}
+\newcommand\V{\mathbb{V}}
 
 This section will provide a review of OLS.
 
@@ -371,5 +372,402 @@ Then run the following lines of code.
 devtools::install_github("ktmccabe/interactivepack", dependencies = T)
 learnr::run_tutorial("lindep", package="interactivepack")
 ```
+
+
+## Uncertainty and Regression
+
+We have now gone through the process of minimizing the sum of squared errors ($\mathbf{e'e}$) and deriving estimates for the OLS coefficients $\hat \beta = (X'X)^{-1}X'Y$. In this section, we will discuss how to generate estimates of the uncertainty around these estimates.
+
+
+Where we are going:
+
+  - In the last section, we visited an example related to the 2000 election in Florida. We regressed county returns for Buchanan in 2000 (Y) on county returns for Perot in 1996 (X).
+  
+```{r}
+## Load Data
+florida <- read.csv("https://raw.githubusercontent.com/ktmccabe/teachingdata/main/florida.csv")
+fit.1 <- lm(Buchanan00 ~ Perot96, data = florida)
+summary(fit.1)
+```
+
+
+The summary output of the model shows many different quantities in addition to the coefficient estimates. In particular, in the second column of the summary, we see the standard errors of the coefficients. Like many statistical software programs, the `lm()` function neatly places these right next to the coefficients. We will now discuss how we get to these values.
+
+### Variance of the Coefficients
+
+The standard error is the square root of the variance, representing the typical deviation we would expect to see between our estimates $\hat \beta$ of the parameter $\beta$ across repeated samples. So to get to the standard error, we just need to get to an estimate of the variance. 
+
+Let's take the journey. First the math. As should start becoming familiar, we have our initial regression equation, which describes the relationship between the independent variables and dependent variables.
+
+  - Start with the model: $Y = X\beta + \epsilon$ 
+      + We want to generate uncertainty for our estimate of $\hat \beta =(X'X)^{-1}X'Y$
+  - Note: Conditional on fixed values of $X$ (I say fixed values because this is our data. We know $X$ from our dataset.), the only random component is $\epsilon$.
+      + What does that mean? Essentially, the random error term in our regression equation is what is giving us the uncertainty. If $Y$ was a deterministic result of $X$, we would have no need for it, but it's not. The relationship is not exact, varies sample to sample, subject to random perturbations, represented by $\epsilon$. 
+
+Below we go through how to arrive at the mathematical quantity representing the variance of $\hat \beta$ which we will notate as $\mathbf{V}(\hat\beta)$. The first part of the math below is just substituting terms:
+
+\begin{align*}
+\mathbf{V}(\widehat{\beta}) &= 
+\mathbf{V}( (X^T X) ^{-1} X^T Y))  \\
+&= \underbrace{\mathbf{V}( (X^T X) ^{-1} X^T (X\beta + \epsilon))}_\text{Sub in the expression for Y from above}  \\
+&= \underbrace{\mathbf{V}((X^T X) ^{-1} X^T X \beta + (X^T X) ^{-1} X^T \epsilon)}_\text{Distribute the term to the items in the parentheses}  \\
+&= \underbrace{\mathbf{V}(\beta + (X^T X) ^{-1} X^T \epsilon)}_\text{Using the rules of inverses, the two terms next to $\beta$ canceled each other out}  
+\end{align*}
+
+The next part of the math requires us to use knowledge of the definition of variance and the rules associated. We draw on two in particular:
+
+  - The variance of a constant is zero.
+  - When you have a constant multipled by a random variable, e.g., $\mathbf{V}(4d)$, it can come out of the variance operator, but must be squared: $16\mathbf{V}(d)$
+  - Putting these together: $\mathbf{V}(2 + 4d)= 16\mathbf{V}(d)$
+
+Knowing these rules, we can proceed:
+\begin{align*}
+\mathbf{V}(\widehat{\beta}) &= \mathbf{V}(\beta + (X^T X) ^{-1} X^T \epsilon) \\
+&=\underbrace{ \mathbf{V}((X^T X) ^{-1} X^T \epsilon)}_\text{$\beta$ drops out because in a regression it is an unkown "parameter"-- it's constant, which means its variance is zero.}\\
+&= \underbrace{(X^T X)^{-1}X^T \mathbf{V}( \epsilon) ((X^T X)^{-1}X^T)^T}_\text{We can move $(X^T X)^{-1}X^T$ out front because our data are fixed quantities, but in doing so, we have to "square" the matrix.}\\
+&= (X^T X)^{-1}X^T \mathbf{V}( \epsilon) X (X^T X)^{-1}
+\end{align*}
+
+The resulting quantity is our expression for the $\mathbf{V}(\hat \beta)$. However, in OLS, we make an additional assumption that allows us to further simplify the expression. We assume homoscedasticity aka "constant" or "equal error variance" which says that the variance of the errors are the same across observations: $\mathbf{V}(\epsilon) = \sigma^2 I_n$.  
+
+  - If we assume homoscedastic errors, then Var$(\epsilon) = \sigma^2 I_n$
+
+\begin{align*}
+\mathbf{V}(\widehat{\beta})  &= (X^T X)^{-1}X^T \mathbf{V}( \epsilon) X (X^T X)^{-1}\\
+&= \underbrace{(X^T X)^{-1}X^T \sigma^2I_n X (X^T X)^{-1}}_\text{Assume homoskedasticity}\\
+&= \underbrace{\sigma^2I_n(X^T X)^{-1} X^T X (X^T X)^{-1}}_\text{Because it is a constant, we can move it out in front of the matrix multiplication, and then simplify the terms.}  \\
+&= \sigma^2(X^T X)^{-1} 
+\end{align*}
+
+All done! This expression: $\sigma^2(X^T X)^{-1}$ represents the variance of our coefficient estimates. Note its dimensions: $k \times k$. It has the same number of rows and columns as the number of our independent variables (plus the intercept). 
+
+
+There is one catch, though. How do we know what $\sigma^2$ is? Well, we don't. Just like the unknown parameter $\beta$, we have to estimate it in our regression model.
+
+Just like with the coefficients, we notate our estimate as $\widehat{\sigma}^2$. Our estimate is based on the observed residual errors in the model and is as follows:
+
+  - $\widehat{\sigma}^2 = \frac{1}{N-K}\sum_{i=1}^N  \widehat{\epsilon_i^2} = \frac{1}{N-K} \mathbf{e'e}$
+
+That means our **estimate** of the variance of the coefficients is found within: $\hat \sigma^2(X^T X)^{-1}$
+
+Again, this is a $k \times k$ matrix and is often called the variance covariance matrix. We can extract this quantity from our linear models in R using `vcov()`.
+
+```{r}
+vcov(fit.1)
+```
+
+This is the same that we would get if manually we took the residuals and multiplied it by our $X$ matrix according to the formula above:
+
+```{r}
+X <- cbind(1, florida$Perot96)
+e <- cbind(residuals(fit.1))
+sigmahat <- ((t(e) %*% e) / (nrow(florida) -2)) 
+## tell r to stop treating sigmahat as a matrix
+sigmahat <-as.numeric(sigmahat)
+XtX <- solve(t(X) %*%X)
+sigmahat * XtX
+```
+
+
+The terms on the diagonal represent the variance of a particular coefficient in the model.The standard error of a particular coefficient $k$ is: s.e.($\hat{\beta_k}) = \sqrt{\widehat{\sigma}^2 (X'X)^{-1}}_{kk}$.  The off-diagonal components represent the covariances between the coefficients.
+
+Recall that the standard error is just the square root of the variance. So, to get the nice standard errors we saw in the summary output, we can take the square root of the quantities on the diagonal of this matrix.
+
+```{r}
+sqrt(diag(vcov(fit.1)))
+summary(fit.1)$coefficients[,2]
+```
+
+
+
+
+Why should I care? 
+
+  1. Well R actually doesn't make it that easy to extract standard errors from the summary output. You can see above that the code for extracting the standard errors using what we know about them being the square root of the variance is about as efficient as extracting the second column of the coefficient component of the summary of the model.
+  2. Sometimes, we may think that the assumption of equal error variance is not feasible and that we have unequal error variance or "heteroscedasticity." Researchers have developed alternative expressions to model unequal error variance. Generally, what this means is they can no longer make that simplifying assumption, have to stop at the step with the uglier expression $(X^T X)^{-1}X^T \mathbf{V}( \epsilon) X (X^T X)^{-1}$ and then assume something different about the structure of the errors in order to estimate the coefficients. These alternative variance estimators are generally what are referred to as "robust standard errors." There are many different robust estimators, and you will likely come across them in your research.  
+
+
+Some of you may have learned the formal, general definition for variance as defined in terms of expected value: $\mathbb{E}[(\widehat{m} - \mathbb{E}(\widehat{m}))^2 ]$. We could also start the derivation there. This is not required for the course, but it is below if you find it useful. In particular, it can help show why we wend up needing to square a term when we move it outside the variance operator:
+  
+  \begin{align*}
+\mathbf{V}(\widehat{\beta}) &= \mathbb{E}[(\widehat{\beta} - \mathbb{E}(\hat \beta))^2)] \\
+&= \mathbb{E}[(\widehat{\beta} - \beta)^2]\\
+&= \mathbb{E}[(\widehat{\beta} - \beta)(\widehat{\beta} - \beta)^T ] \\ &= 
+\mathbb{E}[(X^T X) ^{-1} X^TY - \beta)(X^T X) ^{-1} X^TY - \beta)^T]  \\
+&= \mathbb{E}[(X^T X) ^{-1} X^T(X\beta + \epsilon) - \beta)(X^T X) ^{-1} X^T(X\beta + \epsilon) - \beta)^T]\\
+&=  \mathbb{E}[(X^T X) ^{-1} X^TX\beta + (X^T X) ^{-1} X^T\epsilon - \beta)(X^T X) ^{-1} X^TX\beta + (X^T X) ^{-1} X^T\epsilon - \beta)^T]\\
+&=  \mathbb{E}[(\beta + (X^T X) ^{-1} X^T\epsilon - \beta)(\beta + (X^T X) ^{-1} X^T\epsilon - \beta)^T]\\
+&=  \mathbb{E}[(X^T X) ^{-1} X^T\epsilon)(X^T X) ^{-1} X^T\epsilon)^T]\\
+&= (X^T X) ^{-1} X^T\mathbb{E}(\epsilon\epsilon^T)X(X^T X) ^{-1}\\
+&= \underbrace{(X^T X) ^{-1} X^T\sigma^2I_nX(X^T X) ^{-1}}_\text{Assume homoskedasticity}\\
+&= \sigma^2(X^T X) ^{-1} X^TX(X^T X) ^{-1}\\
+&= \sigma^2(X^T X) ^{-1}
+\end{align*}
+
+Note: Along the way, in writing $\mathbb{E}(\hat \beta) = \beta$, we have implicitly assumed that $\hat \beta$ is an "unbiased" estimator of $\beta$. This is not free. It depends on an assumption that the error term in the regression $\epsilon$ is independent of our independent variables. This can be violated in some situations, such as when we have omitted variable bias, which is discussed at the end of our OLS section.
+
+### Hypothesis Testing
+
+Most of the time in social science, we run a regression because we have some hypothesis about how a change in our independent variable affects the change in our outcome variable.
+
+In OLS, we can perform a hypothesis test for each independent variable in our data. The structure of the hypothesis test is:
+
+  - Null hypothesis: $\beta_k = 0$
+      + This essentially means that we don't expect a particular $x_k$ independent variable to have a relationship with our outcome variable.
+  - Alternative hypothesis: $\beta_k \neq 0$ 
+      + We do expect a positive or negative relationship between a particular $x_k$ and the dependent variable.
+      
+We can use our estimates for $\hat \beta$ coefficients and their standard errors to come to a conclusion about rejecting or failing to reject the null hypothesis of no relationship by using a t-test.
+
+In a t-test, we take our coefficient estimates and divide them by the standard error in order to "standardize" them on a scale that we can use to determine how likely it is we would have observed a value for $\hat \beta$ as extreme or more extreme as the one we observed in a world where the true $\beta = 0$. This is just like a t-test you might have encountered before for a difference in means between groups, except this time our estimate is $\hat \beta$.
+
+\begin{align*}
+t_{\hat \beta_k} &= \frac{\hat \beta_k}{s.e.(\hat \beta_k)}
+\end{align*}
+
+Generally speaking, when $t$ is about +/-2 or greater in magnitude, the coefficient will be "significant" at conventional levels (i.e., $p <0.05$), meaning that we are saying that it is really unlikely we would have observed a value as big as $\hat \beta_k$ if the null hypothesis were true. Therefore, we can reject the null hypothesis. 
+
+However, to get a specific quantity, we need to calculate the p-value, which depends on the t-statistic and the degrees of freedom in the model. The degrees of freedom in a regression model are $N-k$, the number of observations in the model minus the number of independent variables plus the intercept.
+
+In R, we can calculate p-values using the `pt()` function. By default, most people use two-sided hypothesis tests for regression. So to do that, we are going to find the area on each side of the t values, or alternatively, multiply the area to the right of our positive t-value by 2.
+```{r}
+## Let's say t was 2.05 and 
+## And there were 32 observations and 3 variables in the regression plus an intercept
+t <- 2.05
+df.t <- 32 -4
+p.value <- 2 * (pt(abs(t), df=df.t, lower.tail = FALSE))
+p.value
+```
+
+Let's do this for the florida example. First, we can find t by dividing our coefficients by the standard errors.
+
+```{r}
+t <- coef(fit.1) / (sqrt(diag(vcov(fit.1))))
+t 
+
+## Compare with output
+summary(fit.1)$coefficients[, 3]
+```
+We can then find the p-values.
+```{r}
+t <- coef(fit.1) / (sqrt(diag(vcov(fit.1))))
+df.t <- fit.1$df.residual
+p.value <- 2 * (pt(abs(t), df=df.t, lower.tail = FALSE))
+p.value
+summary(fit.1)$coefficients[, 4]
+```
+
+
+We see that the coefficient for `Perot96` is significant. The p-value is tiny. In R, for small numbers, R automatically shifts to scientific notation. The 9.47e-12 means the p-value is essentially zero, with the stars in the summary output indicating the p-value is $p < 0.001$. R will also output a test of the significance of the intercept using the same formula as all other coefficients. This generally does not have much interpretive value, so you are usually safe to ignore it.
+
+*Confidence Intervals*
+
+Instead of representing the significance using p-values, sometimes it is helpful to report confidence intervals around the coefficients. This can be particularly useful when visualizing the coefficients. The 95\% confidence interval represents roughly 2 standard errors above and below the coefficient. The key thing to look for is whether it overlaps with zero (not significant) or does not (in which case the coefficient is significant).
+
+The precise formula is
+
+$\widehat{\beta}_k$ Confidence intervals: $\widehat{\beta}_k - t_{crit.value} \times s.e._{\widehat{\beta}_k}, \widehat{\beta}_k + t_{crit.value} \times  s.e_{\widehat{\beta}_k}$ 
+
+In R, we can use `qt()` to get the specific critical value associated with a 95\% confidence interval. This will be around 2, but fluctuates depending on the degrees of freedom in your model (which are function of your sample size and how many variables you have in the model.) R also has a shortcut `confint()` function to extract the coefficients from the model. Below we do this for the `Perot96` coefficient.
+
+```{r}
+## Critical values from t distribution at .95 level
+qt(.975, df = fit.1$df.residual) # n- k degrees of freedom
+
+## Shortcut
+confint(fit.1)[2,]
+
+## By hand
+coef(fit.1)[2] - qt(.975, df = fit.1$df.residual)*sqrt(diag(vcov(fit.1)))[2]
+coef(fit.1)[2] + qt(.975, df = fit.1$df.residual)*sqrt(diag(vcov(fit.1)))[2]
+```
+
+
+### Goodness of Fit
+
+A last noteworthy component to the standard regression output is the goodness of fit statistics. For this class, we can put less attention on these, though there will be some analogues when we get into likelihood.
+
+These are measures of how much of the total variation in our outcome measure can be explained by our model, as well as how far off are our estimates from the truth.
+
+For the first two measures R-squared and Adjusted R-squared, we draw on three quantities:
+
+  - Total Sum of Squares--how much variance in $Y_i$ is there to explain?
+      + $TSS: \sum_{i=1}^N (Y_i -\overline Y_i)^2$
+  - Estimated Sum of Squares--how much of this variance do we explain?
+      + $ESS: \sum_{i=1}^N (\widehat Y_i -\overline Y_i)^2$
+  - Residual Sum of Squares--how much variance is unexplained?
+      + $RSS: \sum_{i=1}^N ( Y_i -\widehat Y_i)^2$
+  - $TSS = ESS + RSS$
+
+  - Multiple R-squared: $\frac{ESS}{TSS}$ 
+      + This is a value from 0 to 1, representing the proportion of the variance in the outcome that can be explained by the model. Higher values are generally considered better, but there are many factors that can affect R-squared values. In most social science tasks where the goal is to engage in hypothesis testing of coefficients, this measure is of less value.
+  - Adjusted R-squared: $1 - \frac{\frac{RSS}{n - k}}{\frac{TSS}{n - 1}}$
+      + This is essentially a penalized version of R-squared. When you add additional predictors to a model, the R-squared value can never decrease, even if the predictors are useless. The Adjusted R-squared adds a consideration for the degrees of freedom into the equation, creating a penalty for adding more and more predictors.
+  - Residual standard error aka root mean squared error aka square root of the mean squared residual: $r.s.e =  \sqrt{\frac{RSS}{n-k}}$
+      + This represents the typical deviation of an estimate of the outcome from the actual outcome. This quantity is often used to assess the quality of prediction exercises. It is used less often in social science tasks where the goal is hypothesis testing of the relationship between one or more independent variables and the outcome.
+
+*F-Statistic*
+
+So far we have conducted hypothesis tests for each individual coefficient. We can also conduct a global hypothesis test, where the null hypothesis is that all coefficients are zero, with the alternative being that at least one coefficient is nonzero. This is the test represented by the F-statistic in the regression output.
+
+The F-statistic helps us test the null hypothesis that **all** of the regression slopes are 0: $H_0 = \beta_1 = \beta_2 = \dots = \beta_k = 0$
+
+  - $F_0 = \frac{ESS/(k - 1)}{RSS/(n - k)}$
+  - The F-Statistic has two separate degrees of freedom. 
+      + The model sum of squares degrees of freedom (ESS) are $k - 1$. 
+      + The residual error degrees of freedom (RSS) are $n - k$.
+      + In a regression output, the model degrees of freedom are generally the first presented: "F-statistic: 3.595 on $(k - 1) = 1$ and $(n - k) = 48$ DF." 
+ 
+Note: This test is different from our separate hypothesis tests that a $k$ regression slope is 0. For that, we use the t-tests discussed above.
+  
+## Generating predictions from regression models
+
+The regression coefficients tell us how much $Y$ is expected to change for a one-unit change in $x_k$. It does not immediately tell us the values we estimate our outcome ($\hat Y$) to take conditional on particular values of $x_k$. While often knowing our independent variables have a significant effect on the outcome and the size of the coefficient is sufficient for testing our hypotheses, it can be helpful for interpretation's sake, to see the estimated values for the outcome. This is going to be particularly important once we get into models like logistic regression, where the coefficients won't be immediately interpretable.
+
+Recall that our equation for estimating values of our outcomes is:
+
+  - $\hat Y = X\hat \beta$
+This can also be written out in long form for any particular observation $i$:
+
+  - $\hat y_i = \hat \alpha + \hat \beta_1*x_1i + \hat \beta_2*x_2i + ... \hat\beta_k*x_ki$
+
+The estimated values of our regression $\hat Y$ are often called the "fitted values." In R, you can identify the estimated values for each observation using the `fitted()` command.
+
+```{r}
+## Y hat for the first observation in the data
+fitted(fit.1)[1]
+```
+
+Again, this is just the multiplication of the matrix $X$ and $\hat \beta$. If we have already run a regression model in R, one shortcut for getting the $X$ matrix, is to use the `model.matrix` command. We can get $\hat \beta$ using the `coef()` command.
+
+```{r}
+X <- model.matrix(fit.1)
+head(X) # head() shows about the first six values of an object
+betahat <- coef(fit.1)
+```
+
+Our fitted values are then just
+```{r}
+yhat <- X %*% betahat
+head(yhat)
+```
+
+If I want to generate an estimate for any particular observation, I could also just extract its specific value for `Perot96`.
+
+```{r}
+florida$Perot96[1]
+```
+Let's estimate the Buchanan 2000 votes for the first county in the data with Perot 96 votes of 8072. We can write it out as $\hat Buchanan00_1 =\hat \alpha + \hat \beta*Perot96_1$
+
+```{r}
+buch00hat <- coef(fit.1)[1] + coef(fit.1)[2]*florida$Perot96[1]
+buch00hat
+```
+
+What is useful about this is that now we have the coefficient estimates, we can apply them to any values of $X$ we wish in order to generate estimates/predictions of the values $Y$ will take given particular values of our independent variables.
+
+One function that is useful for this (as a shortcut) is the `predict(fit, newdata=newdataframe)` function in R. It allows you to enter in "newdata"-- meaning values of the $X$ variables for which you want to generate estimates of $Y$ based on the coefficient estimates of your regression model.
+
+For example, let's repeat the calculation from above for `Perot96 = 8072`.
+
+```{r}
+predict(fit.1, newdata = data.frame(Perot96 = 8072))
+```
+
+We can also generate confidence intervals around these estimates by adding `interval = "confidence"` in the command.
+
+```{r}
+predict(fit.1, newdata = data.frame(Perot96 = 8072), interval="confidence")
+```
+
+We can also simultaneously generate multiple predictions by supplying a vector of values in the `predict()` command. For example, let's see the estimated Buchanan votes for when the Perot 1996 votes took values of 1000 to 10,000 by intervals of 1,000.
+
+```{r}
+predict(fit.1, newdata = data.frame(Perot96 = c(1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000)))
+```
+
+The important thing to note about the `predict()` command is that if you have multiple independent variables, you have to specify the values you want each of them to take when generating the estimated values of y.
+```{r}
+fit.2 <- lm(Buchanan00 ~ Perot96 + Clinton96, data = florida)
+```
+
+For example, let's build a second model with `Clinton96` as an additional predictor. In order to generate the same prediction for different values of Perot 1996 votes, we need to tell R at what values we should "hold constant" `Clinton96.` I.e., we want to see how hypothetical changes in `Perot96` votes influence changes in Buchanan 2000 votes while also leaving the Clinton votes identical. This is that lightswitch metaphor-- flipping one switch, while keeping the rest untouched. 
+
+There are two common approaches to doing this. 1) We can hold constant `Clinton96` votes at its mean value in the data 2) We can keep `Clinton96` at its observed values in the data. In linear regression, it's not going to matter which approach you take. In other models we will talk about later, this distinction may matter more substantially because of how our quantities of interest change across different values of $X\hat \beta$.
+
+The first approach is easily implemented in predict. 
+
+```{r}
+predict(fit.2, newdata = data.frame(Perot96 = 8072, Clinton96 = mean(florida$Clinton96)))
+```
+
+For the second approach, what we will do is generate an estimate for Buchanan's votes in 2000 when Perot96 takes 8072 votes, and we keep Clinton96's votes at whatever value it currently is in the data. That is, we will generate $n$ estimates for Buchanan's votes when Perot takes 8072. Then, we will take the mean of this as our "average estimate" of Buchanan's votes in 2000 based on Perot's votes at a level of 8072. We can do this in one of two ways:
+
+```{r}
+## Manipulating the X matrix
+X <- model.matrix(fit.2)
+## Replace Perot96 column with all 8072 values
+X[, "Perot96"] <- 8072
+head(X) #take a peek
+
+## Generate yhat
+yhats <-X %*% coef(fit.2)
+
+## take the mean
+mean(yhats)
+```
+
+```{r}
+## Use predict
+yhats <- predict(fit.2, newdata = data.frame(Perot96=8072, Clinton96=florida$Clinton96))
+mean(yhats)
+```
+
+
+Now often, after we generate these predicted values, we want to display them for the whole world to see. You will get a chance to visualize values like this using the plotting functions in the problem sets. We have already seen one example of this in the simple bivariate case, when R plotted the bivariate regression line in section 4.3.2. However, the predict function extends are capabilities to plot very specific values of $X$ and $\hat Y$ for bivariate or multiple regressions.
+
+  - The `predict()` function is also very relevant when we move to logistic, probit, etc. regressions. This is just the start of a [beautiful friendship](https://www.youtube.com/watch?v=DDybg9CNXcM&ab_channel=mylifeinmovies) between you and `predict()` and associated functions.
+
+## Wrapping up OLS
+
+Linear regression is a great way to explain the relationship between one or more independent variables and an outcome variables. However, there is no free lunch. We have already mentioned a couple of assumptions along the way. Below we will summarize these and other assumptions. These are things you should be mindful of when you use linear regression in your own work. Some conditions that generate violations of these assumptions can also motivate why we will seek out alternative methods, such as those that rely on maximum likelihood estimation.
+
+This is a good place to review Gelman section 3.6.
+
+
+  - Exogeneity. This one we haven't discussed yet, but is an important assumption for letting us interpret our coefficients $\hat \beta$ as "unbiased" estimates of the true parameters $\beta$. We assume that the random error in the regression model $\epsilon$ is indeed random, and uncorrelated with and independent of our independent variables $X$. Formally: 
+      + $\mathbb{E}(\epsilon| X) = \mathbb{E}(\epsilon) = 0$.
+      + This can be violated, for example, when we suffer from Omitted Variable Bias due to having an "endogenous explanatory variable" that is correlated with some unobserved or unaccounted for factor. This bias comes from a situation where there is some variable that we have left out of the model ($Z$), and is therefore a part of the unobserved error term. Moreover this variable which is correlated with--and a pre-cursor of-- our independent variables and is a cause of our dependent variable. A failure to account for omitted variables can create bias in our coefficient estimates. Concerns about omitted variable bias often prompt people to raise their hands in seminars and ask questions like, "Well have you accounted for this? Have you accounted for that? How do you know it is $X$ driving your results and not $Z$?" If we omit important covariates, we may wrongly attribute an effect to $X$ when it was really the result of our omitted factor $Z$. Messing discusses this [here](https://medium.com/pew-research-center-decoded/how-to-break-regression-f48230f0ca68).
+      + This is a really tough assumption. The only real way to guarantee the independence of your error term and the independent variables is if you have randomly assigned values to the independent variables (such as what you do when you randomly assign people to different treatment conditions in an experiment). Beyond random assignment, you have to rely on theory to understand what variables you need to account for in the regression model to be able to plausibly claim your estimate of the relationship between a given independent variable and the dependent variable is unbiased. Failing to control for important factors can lead to misleading results, such as what happens in Simpson's paradox, referenced in the Messing [piece](https://medium.com/pew-research-center-decoded/how-to-break-regression-f48230f0ca68).
+      + Danger Note 1: The danger here, though, is that the motivation for avoiding omitted variable bias might be to keep adding control after control after control into the regression model. However, model building in this way can sometimes be atheoretical and result in arbitrary fluctuations in the size of your coefficients and their significance. At its worse, it can lead to "p-hacking" where researchers keep changing their models until they find the results they like. The Lenz and Sahn article on Canvas talks more about the dangers of arbitrarily adding controls to the model.
+      + Danger Note 2: We also want to avoid adding "bad controls" to the model. Messing talks about this in the medium [article](https://medium.com/pew-research-center-decoded/how-to-break-regression-f48230f0ca68) as it relates to collider bias. We want to avoid adding controls to our model, say $W$ that are actually causes of $Y$ and causes of $X$ instead of the other way around. 
+      + Model building is a delicate enterprise that depends a lot on having a solid theory that guides the choice of variables.
+  - Homoscedasticity. We saw this when defining the variance estimator for the OLS coefficients. We assume constant error variance. This can be violated when we think observations at certain values of our independent variables may have different magnitudes of error than observations at other values of our independent variables. 
+    + No correlation in the errors. The error terms are not correlated with each other. This can be violated in time series models (where we might think past, present, and future errors are correlated) or in cases where our observations are nested in some hierarchical structures (e.g., perhaps students in a school) and the errors are correlated.
+  - No perfect collinearity. The $X$ matrix must be full rank: We cannot have linear dependence between columns in our X matrix. We saw this in the tutorial when we tried to add the dummy variables for all of our racial groups into a regression at once. When there is perfect collinearity between variables, our regression will fail. 
+    + We should also avoid situations where we have severe multicollinearity. This can happen when we include two or more variables in a regression model that are highly correlated (just not perfectly correlated). While the regression will still run in this case, it can inflate the standard errors of the coefficients, making it harder to detect significant effects. This is particularly problematic in smaller samples.
+  - Linearity. The relationship between the independent and dependent variables needs to be linear in the parameters. It should be modeled as the addition of constants or parameters multiplied by the independent variables. If instead the model requires the multiplication of parameters, this is no longer linear (e.g., $\beta^2$). Linearity also often refers to the shape of the model. Our coefficients tell us how much change we expect in the outcome for each one-unit change in an independent variable. We might think some relationships are nonlinear-- meaning this rate of change varies across values of the independent variables. If that is the case, we need to shift the way our model is specified to account for this or change modeling approaches.
+      + For example, perhaps as people get older (one-unit changes in age), they become more politically engaged, but at some age level, their political engagement starts to decline. This would mean the slope (that expected change in political engagement for each one-unit change in age) is not constant across all levels of age. There, we might be violating linearity in the curvature of the relationship between the independent and dependent variables. This is sometimes why you might see $age^2$ or other nonlinear terms in regression equations to better model this curvature. 
+      + Likewise, perhaps each additional level of education doesn't result in the same average increase in $y$. If not, you could consider including categorical dummy variables for different levels of education instead of treating education as a numeric variable.
+  - Normality. We assume that the errors are normally distributed. As Gelman 3.6 notes, this is a less important assumption and is generally not required.
+
+
+*OLS Properties*
+
+Why we like OLS. When we meet our assumptions, OLS produces the best linear unbiased estimates (BLUE). A discussion of this [here](https://www.youtube.com/watch?v=NjTpHS5xLP8&ab_channel=BenLambert). We have linearity in our parameters (e.g., $\beta$ and not $\beta^2$ for example). The unbiasedness means that the expected value (aka the average over repeated samples) of our estimates $\mathbb{E}(\hat \beta)= \beta$ is the true value. Our estimates are also efficient, which has to do with the variance, not only are our estimates true in expectation, but we also have lower variance than an alternative linear unbiased estimator could get us. If our assumptions fail, then we might no longer have BLUE. OLS estimates are also consistent, meaning that as the sample gets larger and larger, the estimates start converging to the truth. 
+
+Now, a final hidden assumption in all of this is that the sample of our data is representative of the population we are trying to make inferences about. If that is not the case, then we may no longer be making unbiased observations to that population level. Further adjustments may be required (e.g., analyses of survey data sometimes use weights to adjust estimates to be more representative).
+
+When we violate these assumptions, OLS may no longer be best, and we may opt for other approaches. More soon!
+
+
+### Practice Problems
+
+  1. Let's use the `florida` data. Run a regression according to the following formula:
+      + $Buchanan00_i = \alpha + \beta_1*Perot96_i + \beta_2*Dole96 + \beta_3*Gore00 + \epsilon$
+  2. Report the coefficient for `Perot96`. What do you conclude about the null hypothesis that there is no relationship between 1996 Perot votes and 2000 Buchanan votes?
+  3. What is the confidence interval for the `Perot96` coefficient estimate?
+  4. When Perot 1996 vote is 5500, what is the expected 2000 Buchanan vote?
+
 
 

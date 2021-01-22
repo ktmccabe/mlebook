@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2.2 Tutorials | MLE for Political Science</title>
-  <meta name="description" content="2.2 Tutorials | MLE for Political Science" />
+  <title>4.6 Generating predictions from regression models | MLE for Political Science</title>
+  <meta name="description" content="4.6 Generating predictions from regression models | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2.2 Tutorials | MLE for Political Science" />
+  <meta property="og:title" content="4.6 Generating predictions from regression models | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2.2 Tutorials | MLE for Political Science" />
+  <meta name="twitter:title" content="4.6 Generating predictions from regression models | MLE for Political Science" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="first-time-with-r-and-rstudio.html"/>
-<link rel="next" href="math.html"/>
+<link rel="prev" href="uncertainty-and-regression.html"/>
+<link rel="next" href="wrapping-up-ols.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -229,34 +229,108 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="tutorials" class="section level2" number="2.2">
-<h2><span class="header-section-number">2.2</span> Tutorials</h2>
-<p>Occasionally in this course, there will be some interactive tutorials I’ve created that you can do to practice the concepts and R skills.</p>
-<p>In order to be able to run the tutorials, you need to run the following in your R script.</p>
+<div id="generating-predictions-from-regression-models" class="section level2" number="4.6">
+<h2><span class="header-section-number">4.6</span> Generating predictions from regression models</h2>
+<p>The regression coefficients tell us how much <span class="math inline">\(Y\)</span> is expected to change for a one-unit change in <span class="math inline">\(x_k\)</span>. It does not immediately tell us the values we estimate our outcome (<span class="math inline">\(\hat Y\)</span>) to take conditional on particular values of <span class="math inline">\(x_k\)</span>. While often knowing our independent variables have a significant effect on the outcome and the size of the coefficient is sufficient for testing our hypotheses, it can be helpful for interpretation’s sake, to see the estimated values for the outcome. This is going to be particularly important once we get into models like logistic regression, where the coefficients won’t be immediately interpretable.</p>
+<p>Recall that our equation for estimating values of our outcomes is:</p>
 <ul>
-<li><code>install.packages("devtools", dependencies=T)</code></li>
+<li><p><span class="math inline">\(\hat Y = X\hat \beta\)</span>
+This can also be written out in long form for any particular observation <span class="math inline">\(i\)</span>:</p></li>
+<li><p><span class="math inline">\(\hat y_i = \hat \alpha + \hat \beta_1*x_1i + \hat \beta_2*x_2i + ... \hat\beta_k*x_ki\)</span></p></li>
 </ul>
-<p>After <code>devtools</code> is installed, you shouldn’t have to run that line of code again. However, you will need to run the below line each time there is a new tutorial, as this package will be updated throughout the course.</p>
+<p>The estimated values of our regression <span class="math inline">\(\hat Y\)</span> are often called the “fitted values.” In R, you can identify the estimated values for each observation using the <code>fitted()</code> command.</p>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="generating-predictions-from-regression-models.html#cb214-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Y hat for the first observation in the data</span></span>
+<span id="cb214-2"><a href="generating-predictions-from-regression-models.html#cb214-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fitted</span>(fit<span class="fl">.1</span>)[<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>      1 
+291.252 </code></pre>
+<p>Again, this is just the multiplication of the matrix <span class="math inline">\(X\)</span> and <span class="math inline">\(\hat \beta\)</span>. If we have already run a regression model in R, one shortcut for getting the <span class="math inline">\(X\)</span> matrix, is to use the <code>model.matrix</code> command. We can get <span class="math inline">\(\hat \beta\)</span> using the <code>coef()</code> command.</p>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="generating-predictions-from-regression-models.html#cb216-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit<span class="fl">.1</span>)</span>
+<span id="cb216-2"><a href="generating-predictions-from-regression-models.html#cb216-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(X) <span class="co"># head() shows about the first six values of an object</span></span></code></pre></div>
+<pre><code>  (Intercept) Perot96
+1           1    8072
+2           1     667
+3           1    5922
+4           1     819
+5           1   25249
+6           1   38964</code></pre>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="generating-predictions-from-regression-models.html#cb218-1" aria-hidden="true" tabindex="-1"></a>betahat <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit<span class="fl">.1</span>)</span></code></pre></div>
+<p>Our fitted values are then just</p>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="generating-predictions-from-regression-models.html#cb219-1" aria-hidden="true" tabindex="-1"></a>yhat <span class="ot">&lt;-</span> X <span class="sc">%*%</span> betahat</span>
+<span id="cb219-2"><a href="generating-predictions-from-regression-models.html#cb219-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(yhat)</span></code></pre></div>
+<pre><code>        [,1]
+1  291.25196
+2   25.30108
+3  214.03462
+4   30.76017
+5  908.16461
+6 1400.73939</code></pre>
+<p>If I want to generate an estimate for any particular observation, I could also just extract its specific value for <code>Perot96</code>.</p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="generating-predictions-from-regression-models.html#cb221-1" aria-hidden="true" tabindex="-1"></a>florida<span class="sc">$</span>Perot96[<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>[1] 8072</code></pre>
+<p>Let’s estimate the Buchanan 2000 votes for the first county in the data with Perot 96 votes of 8072. We can write it out as <span class="math inline">\(\hat Buchanan00_1 =\hat \alpha + \hat \beta*Perot96_1\)</span></p>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="generating-predictions-from-regression-models.html#cb223-1" aria-hidden="true" tabindex="-1"></a>buch00hat <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit<span class="fl">.1</span>)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(fit<span class="fl">.1</span>)[<span class="dv">2</span>]<span class="sc">*</span>florida<span class="sc">$</span>Perot96[<span class="dv">1</span>]</span>
+<span id="cb223-2"><a href="generating-predictions-from-regression-models.html#cb223-2" aria-hidden="true" tabindex="-1"></a>buch00hat</span></code></pre></div>
+<pre><code>(Intercept) 
+    291.252 </code></pre>
+<p>What is useful about this is that now we have the coefficient estimates, we can apply them to any values of <span class="math inline">\(X\)</span> we wish in order to generate estimates/predictions of the values <span class="math inline">\(Y\)</span> will take given particular values of our independent variables.</p>
+<p>One function that is useful for this (as a shortcut) is the <code>predict(fit, newdata=newdataframe)</code> function in R. It allows you to enter in “newdata”– meaning values of the <span class="math inline">\(X\)</span> variables for which you want to generate estimates of <span class="math inline">\(Y\)</span> based on the coefficient estimates of your regression model.</p>
+<p>For example, let’s repeat the calculation from above for <code>Perot96 = 8072</code>.</p>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="generating-predictions-from-regression-models.html#cb225-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit<span class="fl">.1</span>, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Perot96 =</span> <span class="dv">8072</span>))</span></code></pre></div>
+<pre><code>      1 
+291.252 </code></pre>
+<p>We can also generate confidence intervals around these estimates by adding <code>interval = "confidence"</code> in the command.</p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="generating-predictions-from-regression-models.html#cb227-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit<span class="fl">.1</span>, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Perot96 =</span> <span class="dv">8072</span>), <span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>)</span></code></pre></div>
+<pre><code>      fit      lwr      upr
+1 291.252 213.7075 368.7964</code></pre>
+<p>We can also simultaneously generate multiple predictions by supplying a vector of values in the <code>predict()</code> command. For example, let’s see the estimated Buchanan votes for when the Perot 1996 votes took values of 1000 to 10,000 by intervals of 1,000.</p>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="generating-predictions-from-regression-models.html#cb229-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit<span class="fl">.1</span>, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Perot96 =</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">2000</span>, <span class="dv">3000</span>, <span class="dv">4000</span>, <span class="dv">5000</span>, <span class="dv">6000</span>, <span class="dv">7000</span>, <span class="dv">8000</span>, <span class="dv">9000</span>, <span class="dv">10000</span>)))</span></code></pre></div>
+<pre><code>        1         2         3         4         5         6         7         8 
+ 37.26079  73.17583 109.09087 145.00591 180.92095 216.83599 252.75104 288.66608 
+        9        10 
+324.58112 360.49616 </code></pre>
+<p>The important thing to note about the <code>predict()</code> command is that if you have multiple independent variables, you have to specify the values you want each of them to take when generating the estimated values of y.</p>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="generating-predictions-from-regression-models.html#cb231-1" aria-hidden="true" tabindex="-1"></a>fit<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(Buchanan00 <span class="sc">~</span> Perot96 <span class="sc">+</span> Clinton96, <span class="at">data =</span> florida)</span></code></pre></div>
+<p>For example, let’s build a second model with <code>Clinton96</code> as an additional predictor. In order to generate the same prediction for different values of Perot 1996 votes, we need to tell R at what values we should “hold constant” <code>Clinton96.</code> I.e., we want to see how hypothetical changes in <code>Perot96</code> votes influence changes in Buchanan 2000 votes while also leaving the Clinton votes identical. This is that lightswitch metaphor– flipping one switch, while keeping the rest untouched.</p>
+<p>There are two common approaches to doing this. 1) We can hold constant <code>Clinton96</code> votes at its mean value in the data 2) We can keep <code>Clinton96</code> at its observed values in the data. In linear regression, it’s not going to matter which approach you take. In other models we will talk about later, this distinction may matter more substantially because of how our quantities of interest change across different values of <span class="math inline">\(X\hat \beta\)</span>.</p>
+<p>The first approach is easily implemented in predict.</p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="generating-predictions-from-regression-models.html#cb232-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit<span class="fl">.2</span>, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Perot96 =</span> <span class="dv">8072</span>, <span class="at">Clinton96 =</span> <span class="fu">mean</span>(florida<span class="sc">$</span>Clinton96)))</span></code></pre></div>
+<pre><code>      1 
+283.997 </code></pre>
+<p>For the second approach, what we will do is generate an estimate for Buchanan’s votes in 2000 when Perot96 takes 8072 votes, and we keep Clinton96’s votes at whatever value it currently is in the data. That is, we will generate <span class="math inline">\(n\)</span> estimates for Buchanan’s votes when Perot takes 8072. Then, we will take the mean of this as our “average estimate” of Buchanan’s votes in 2000 based on Perot’s votes at a level of 8072. We can do this in one of two ways:</p>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="generating-predictions-from-regression-models.html#cb234-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Manipulating the X matrix</span></span>
+<span id="cb234-2"><a href="generating-predictions-from-regression-models.html#cb234-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit<span class="fl">.2</span>)</span>
+<span id="cb234-3"><a href="generating-predictions-from-regression-models.html#cb234-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Replace Perot96 column with all 8072 values</span></span>
+<span id="cb234-4"><a href="generating-predictions-from-regression-models.html#cb234-4" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;Perot96&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">8072</span></span>
+<span id="cb234-5"><a href="generating-predictions-from-regression-models.html#cb234-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(X) <span class="co">#take a peek</span></span></code></pre></div>
+<pre><code>  (Intercept) Perot96 Clinton96
+1           1    8072     40144
+2           1    8072      2273
+3           1    8072     17020
+4           1    8072      3356
+5           1    8072     80416
+6           1    8072    320736</code></pre>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="generating-predictions-from-regression-models.html#cb236-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Generate yhat</span></span>
+<span id="cb236-2"><a href="generating-predictions-from-regression-models.html#cb236-2" aria-hidden="true" tabindex="-1"></a>yhats <span class="ot">&lt;-</span>X <span class="sc">%*%</span> <span class="fu">coef</span>(fit<span class="fl">.2</span>)</span>
+<span id="cb236-3"><a href="generating-predictions-from-regression-models.html#cb236-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb236-4"><a href="generating-predictions-from-regression-models.html#cb236-4" aria-hidden="true" tabindex="-1"></a><span class="do">## take the mean</span></span>
+<span id="cb236-5"><a href="generating-predictions-from-regression-models.html#cb236-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(yhats)</span></code></pre></div>
+<pre><code>[1] 283.997</code></pre>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="generating-predictions-from-regression-models.html#cb238-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Use predict</span></span>
+<span id="cb238-2"><a href="generating-predictions-from-regression-models.html#cb238-2" aria-hidden="true" tabindex="-1"></a>yhats <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit<span class="fl">.2</span>, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Perot96=</span><span class="dv">8072</span>, <span class="at">Clinton96=</span>florida<span class="sc">$</span>Clinton96))</span>
+<span id="cb238-3"><a href="generating-predictions-from-regression-models.html#cb238-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(yhats)</span></code></pre></div>
+<pre><code>[1] 283.997</code></pre>
+<p>Now often, after we generate these predicted values, we want to display them for the whole world to see. You will get a chance to visualize values like this using the plotting functions in the problem sets. We have already seen one example of this in the simple bivariate case, when R plotted the bivariate regression line in section 4.3.2. However, the predict function extends are capabilities to plot very specific values of <span class="math inline">\(X\)</span> and <span class="math inline">\(\hat Y\)</span> for bivariate or multiple regressions.</p>
 <ul>
-<li><code>devtools::install_github("ktmccabe/interactivepack", dependencies = T)</code></li>
+<li>The <code>predict()</code> function is also very relevant when we move to logistic, probit, etc. regressions. This is just the start of a <a href="https://www.youtube.com/watch?v=DDybg9CNXcM&amp;ab_channel=mylifeinmovies">beautiful friendship</a> between you and <code>predict()</code> and associated functions.</li>
 </ul>
-<p>Our first tutorial is practicing R skills to load and manipulate dataframes. You should be able to complete that after reviewing the Chris Bail video and Kosuke Imai QSS Chapter 1 resource. The tutorial is based on information provided in Imai Chapter 1. To load the tutorial, run the line of code below in your RStudio Console. It should open up a web browser on your local machine with the tutorial. If a browser does not open, you may need to manually copy/paste the numeric url that pops out on the console into a browser window.</p>
-<p>To close out of a tutorial, you can click the stop sign or hit the “Escape” key in the console.</p>
-<p>If you encounter an error, you may need to install a package or application that is indicated in the error message.</p>
-<ul>
-<li><code>learnr::run_tutorial("rintro", package="interactivepack")</code></li>
-</ul>
-<p>This is a new program that I am using in this course for the first time to create tutorials, so feel free to email if you encounter bugs!!</p>
-
 </div>
-<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="first-time-with-r-and-rstudio.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="math.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="uncertainty-and-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="wrapping-up-ols.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
