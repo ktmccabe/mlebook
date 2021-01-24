@@ -1,3 +1,9 @@
+```{r, include=F}
+knitr::knit_exit()
+```
+
+
+
 # Binary Dependent Variables {#binary}
 
 This section will cover logistic and probit regression.

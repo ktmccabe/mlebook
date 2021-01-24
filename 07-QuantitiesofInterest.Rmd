@@ -1,3 +1,9 @@
+```{r, include=F}
+knitr::knit_exit()
+```
+
+
+
 # Quantities of Interest {#qoi}
 
 This section will provide information about calculating predicted probabilities and computing uncertainty.
