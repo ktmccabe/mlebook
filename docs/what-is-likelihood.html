@@ -275,10 +275,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Generally, we don’t know <span class="math inline">\(p\)</span>. We are trying to estimate it.<strong><em>What we want to do is choose the <span class="math inline">\(\hat p\)</span> to maximize the likelihood that we would have gotten this set of observations given that <span class="math inline">\(Y_i\)</span> has a probability distribution as specified.</em></strong></p>
 <ul>
 <li>We have used a buzz word: “maximize.” Just as in OLS, that should be our signal that a derivative should be taken so that we can find the quantities that represent the maximum.</li>
-<li>We are going to choose an estimator <span class="math inline">\(\hat{p}\)</span> to estimate.</li>
 <li>We differentiate L with respect to p, set it to 0, to give us <span class="math inline">\(\hat{p}\)</span>.</li>
 </ul></li>
-<li><p>Our issue (or at least one of our issues) is that products are tough to differentiate. A chain rule disaster. Instead, we use a trick of taking the log of the likelihood. L = log L = log <span class="math inline">\(\prod ()\)</span>.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> Benefit: it turns it into a sum, much easier. <span class="math inline">\(\log ab = \log a + \log b\)</span>. So we will actually differentiate the <span class="math inline">\(\log\)</span> of the likelihood. Yes, this is why we had logs as part of Section 3.</p></li>
+<li><p>Our issue (or at least one of our issues) is that products are tough to differentiate. A chain rule disaster. Instead, we use a trick of taking the log of the likelihood: log <span class="math inline">\(\prod ()\)</span>.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> Benefit: it turns it into a sum, much easier. <span class="math inline">\(\log ab = \log a + \log b\)</span>. So we will actually differentiate the <span class="math inline">\(\log\)</span> of the likelihood. Yes, this is why we had logs as part of Section 3.</p></li>
 </ul>
 <div id="summarizing-steps-for-maximum-likelihood" class="section level3" number="5.1.1">
 <h3><span class="header-section-number">5.1.1</span> Summarizing Steps for Maximum Likelihood</h3>
@@ -310,7 +309,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>What is the likelihood for all observations?</li>
 </ol>
 <p><span class="math display">\[\begin{align*}
-\mathcal L(\lambda|Y)&amp;=\mathcal L(\lambda|Y_1)\times\mathcal  L(\lambda|Y_2)\times \ldots \times \mathcal L(\lambda|Y_{10})\\
+\mathcal L(\lambda|Y)&amp;=\mathcal L(\lambda|Y_1)\times\mathcal  L(\lambda|Y_2)\times \ldots \times \mathcal L(\lambda|Y_{N})\\
 \mathcal L(\lambda|Y)&amp;=\prod_{i=1}^N\mathcal L(\lambda|Y_i)\\
 \end{align*}\]</span></p>
 <ol start="4" style="list-style-type: decimal">
@@ -320,6 +319,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 \ell(\lambda|Y)&amp;=\sum_{i=1}^N\mathcal \log(\mathcal L(\lambda|Y_i))\\
 \end{align*}\]</span></p>
 <p>Given observed data <span class="math inline">\(Y\)</span>, what is the likelihood it was generated from <span class="math inline">\(\lambda\)</span>? We will be choosing estimates of the parameters that maximize the likelihood we would have seen these data. Generally, we will also consider parameters like <span class="math inline">\(\lambda\)</span> to be functions of our covariates– the things we think help explain our otucome.</p>
+<p>For additonal practice, try to write down the likelihood of a single observation, the likelihood for all observations, and the log likelihood for an outcome we believe is normally distributed. We have <span class="math inline">\(Y_i \sim N(\mu, \sigma^2)\)</span>. Our PDF is:</p>
+<p><span class="math display">\[\begin{align*}
+f(Y_i | \theta) &amp;=  \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}
+\end{align*}\]</span></p>
+<p>You can take it from here.</p>
 </div>
 </div>
 <div class="footnotes">

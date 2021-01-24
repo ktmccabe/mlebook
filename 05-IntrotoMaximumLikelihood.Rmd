@@ -60,9 +60,8 @@ Take the UK population of 70 million. We have a sample of this, and in our sampl
       + Ok, now we have the statement $L = P(Y_1 = y_1, Y_2=y_2, ..., Y_n = y_n)$. This joint probability is the likelihood. 
   - Generally, we don't know $p$. We are trying to estimate it.***What we want to do is choose the $\hat p$ to maximize the likelihood that we would have gotten this set of observations given that $Y_i$ has a probability distribution as specified.***
       + We have used a buzz word: "maximize." Just as in OLS, that should be our signal that a derivative should be taken so that we can find the quantities that represent the maximum.
-      + We are going to choose an estimator $\hat{p}$ to estimate. 
       + We differentiate L with respect to p, set it to 0, to give us $\hat{p}$.
-  - Our issue (or at least one of our issues) is that products are tough to differentiate. A chain rule disaster. Instead, we use a trick of taking the log of the likelihood. L = log L = log $\prod ()$.^[Why does this work? It has to do with the shape of the log (always increasing). Details are beyond the scope.] Benefit: it turns it into a sum, much easier. $\log ab = \log a + \log b$. So we will actually differentiate the $\log$ of the likelihood. Yes, this is why we had logs as part of Section 3. 
+  - Our issue (or at least one of our issues) is that products are tough to differentiate. A chain rule disaster. Instead, we use a trick of taking the log of the likelihood: log $\prod ()$.^[Why does this work? It has to do with the shape of the log (always increasing). Details are beyond the scope.] Benefit: it turns it into a sum, much easier. $\log ab = \log a + \log b$. So we will actually differentiate the $\log$ of the likelihood. Yes, this is why we had logs as part of Section 3. 
 
 
 ### Summarizing Steps for Maximum Likelihood
@@ -98,7 +97,7 @@ Note: we assume our observations are iid (independently and identically distribu
   3.  What is the likelihood for all observations?
   
 \begin{align*}
-\mathcal L(\lambda|Y)&=\mathcal L(\lambda|Y_1)\times\mathcal  L(\lambda|Y_2)\times \ldots \times \mathcal L(\lambda|Y_{10})\\
+\mathcal L(\lambda|Y)&=\mathcal L(\lambda|Y_1)\times\mathcal  L(\lambda|Y_2)\times \ldots \times \mathcal L(\lambda|Y_{N})\\
 \mathcal L(\lambda|Y)&=\prod_{i=1}^N\mathcal L(\lambda|Y_i)\\
 \end{align*}
 
@@ -110,6 +109,13 @@ Note: we assume our observations are iid (independently and identically distribu
 
 Given observed data $Y$, what is the likelihood it was generated from $\lambda$? We will be choosing estimates of the parameters that maximize the likelihood we would have seen these data. Generally, we will also consider parameters like $\lambda$ to be functions of our covariates-- the things we think help explain our otucome.
 
+For additonal practice, try to write down the likelihood of a single observation, the likelihood for all observations, and the log likelihood for an outcome we believe is normally distributed. We have $Y_i \sim N(\mu, \sigma^2)$. Our PDF is:
+
+\begin{align*}
+f(Y_i | \theta) &=  \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}
+\end{align*}
+
+You can take it from here.
 
 ## Generalized Linear Models
 

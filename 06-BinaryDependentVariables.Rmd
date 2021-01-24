@@ -4,6 +4,233 @@ knitr::knit_exit()
 
 
 
-# Binary Dependent Variables {#binary}
+# MLE Estimation {#mleest}
 
-This section will cover logistic and probit regression.
+This section will discuss the general process for deriving maximum likelihood estimators. It's all very exciting. Get some coffee, some paper, a pencil, and dig in.
+
+
+## Deriving Estimators 
+
+Recall, we've already gone through a few steps of maximum likelihood estimation.
+
+Initial Setup
+
+  1. What is the data generating process? This means think about the structure of the dependent variable. Is it continuous, is it a count, is it binary, is it ordered?  Based on this, describe the probability distribution for $Y_i$.
+  2. Define the likelihood for a single observation
+  3. Define the likelihood for all observations
+  4. Find the log-likelihood
+  
+Now we add steps building on the log-likelihood.
+
+  5. Maximize the function with respec to (wrt) $\theta$
+      + Take the derivative wrt $\theta$. We call this the "score"
+      + Set $S(\theta) = 0$ and solve for $\hat \theta$ (if possible)
+      + If not possible, we use an optimization algorithm to maximize the log likelihood.
+  6. Take the second derivative of the log likelihood to get the "hessian" and help estimate the uncertainty of the estimates.
+  
+
+### Score function
+
+The first derivative of the log-likelihood is called the score function: $\frac{\delta \ell}{\delta \theta} = S(\theta)$. We set the $S(\theta) = 0$ and solve for $\hat \theta$ (if possible).
+
+  - $\hat \theta$ are the slopes/gradient, which we use as estimates (e.g., $\hat \beta$).
+  - We can interpret the sign and significance
+  - But, unlike OLS, most of the time, these are not linear changes in units of $Y$
+  - We have to transform them into interpretable quantities
+
+
+**Example: Normally distributed outcome**
+
+
+Start with the log-likelihood
+
+\begin{align*}
+\ell(\theta | Y) &= \sum_{i = 1}^N \log \Bigg( \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}\Bigg)
+= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-\mu)^2}{2\sigma^2}\\
+&= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-x_i'\beta)^2}{2\sigma^2}
+\end{align*}
+
+Take the derivative wrt $\theta$. Note: we have to take two derivatives- one for $\mu$ ($\beta$) and one for $\sigma^2$. For this example we will focus only on the derivative wrt to $\beta$.^[Essentially, you need to take derivatives with respect to each of the parameters. Some models we use will have only one parameter, which is easier.]
+
+\begin{align*}
+\delta \ell(\theta | Y) &= -\frac{1}{2\sigma^2}\sum_{i = 1}^N \delta (Y_i-x_i'\hat \beta)^2
+\end{align*}
+The right term should look familar! We will end up with a $S(\hat \theta)_\beta = \frac{1}{\sigma^2}X'(Y - X\hat \beta)$. We set this equal to 0.
+\begin{align*}
+\frac{1}{\sigma^2}X'(Y - X\hat \beta) &= 0\\
+\frac{1}{\sigma^2}X'Y &= \frac{1}{\sigma^2}X'X\hat \beta \\
+(X'X)^{-1}X'Y = \hat \beta
+\end{align*}
+
+
+### Hessian and Information Matrix
+
+The second derivative of the log-likelihood is the Hessian $(H(\theta))$.
+
+  - The second derivative is a measure of the curvature of the likelihood function
+  - The more curved, the more certainty we have
+  - The $I$ stands for the information matrix. The $H$ stands for Hessian. $I(\theta) = - \E(H)$
+      + $var(\theta) = [I(\theta)]^{-1} = ( - \E(H))^{-1}$
+      + Standard errors are the square roots of the diagonals of this $k \times k$ matrix (like  `vcov()` in OLS)
+
+***Example: Normal***
+
+Start with the log-likelihood
+
+\begin{align*}
+\ell(\theta | Y) &= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-x_i'\beta)^2}{2\sigma^2}
+\end{align*}
+
+Because our $\theta$ has two parameters, the Hessian actually has four components. For this example, we will focus on one: the first and second derivatives wrt $\beta$. 
+
+  - Recall the first derivative = $\frac{1}{\sigma^2}X'(Y - X\hat \beta)$. 
+  - We now take the second derivative = $-\frac{1}{\sigma^2}X'X$.
+  - To get our variance, we take the negative (-) inverse of this: 
+      + $\sigma^2(X'X)^{-1}$ Should look familiar!
+
+With this example, we can start to see why `lm` and `glm` for a normally distributed outcome generate the same estimates.
+
+### MLE Properties
+
+Just like OLS had certain properties (BLUE) that made it worthwhile, MLE also has desirable features.
+
+Large sample properties
+
+  - Consistent: plim$\hat \theta^{ML} = \theta$
+  - Under certain "regularity conditions", Asymptotically normal: $\hat \theta^{ML} \sim N(\theta, [I(\theta)]^{-1})$
+      + We will use the normal approximation to calculate z-scores and p-values
+  - Efficient
+
+
+***Note on consistency***
+
+What does it mean to say an estimator is consistent? As samples get larger and larger, we converge to the truth.
+
+Consistency: $p\lim \hat{\theta} =\beta$ As $n \rightarrow \infty P(\hat{\theta} - \theta> e) \rightarrow 0$.
+
+  - Convergence in probability: the probability that the absolute difference between the estimate and parameter being larger than $e$ goes to zero as $n$ gets bigger. 
+
+Note that bias and consistency are different: Consistency means that as the sample size ($n$) gets large the estimate gets closer to the true value. Unbiasedness is not affected by sample size. An estimate is unbiased if over repeated samples, its expected value (average) is the true parameter.
+
+It is possible for an estimator to be unbiased and consistent, biased and not consistent, or consistent yet biased.
+
+\centering
+\includegraphics[scale=.14]{/Users/ktmccabe/Dropbox/figs/UnbiasedandConsistent.png}\hspace{1mm}
+\includegraphics[scale=.12]{/Users/ktmccabe/Dropbox/figs/BiasedandInconsistent.png}\hspace{1mm}
+\includegraphics[scale=.12]{/Users/ktmccabe/Dropbox/figs/BiasedbutConsistent.png}\\
+{\it{\url{https://eranraviv.com/bias-vs-consistency/}}}
+\end{frame}
+
+
+### Hypothesis Tests
+
+\centering
+\begin{align*}
+z &= \frac{\hat \theta_k}{\sqrt{Var(\hat \theta)_k}} \sim N(0,1)
+\end{align*}
+
+Note: to get p-values, we typically now use, {\tt 2 * (1 - pnorm(abs(z)))} instead of {\tt pt()} and our critical values are based on {\tt qnorm()} instead of {\tt qt()}
+}
+
+
+\begin{frame}
+\frametitle{Implementation in R}
+\begin{itemize}
+\item We can fit a GLM in R using the {\tt glm} function: \\
+\bigskip
+{\tt
+glm(formula, data,
+
+\qquad family = XXX(link = "XXX", ...), ...)
+}
+\bigskip
+
+where
+    \begin{itemize}
+    \item {\tt formula}: The model written in the form similar to {\tt lm()}
+    \item {\tt data}: Data frame
+    \item {\tt family}: Name of PDF for $Y_i$ (e.g. {\tt binomial}, {\tt gaussian})
+    \item {\tt link}: Name of the link function (e.g. {\tt logit}, {\tt probit}, {\tt identity}, {\tt log})
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Example: Normal}
+
+<<>>=
+y <- c(2, 3, 4, 2, 3, 6, 10) # This creates a vector called y
+x1 <- c(10, 12, 3, -4, 2, 1, 6)
+x2 <- c(100, 2, 60, 4, 200, 17, 3)
+myd <- data.frame(y, x1, x2)
+
+## OLS
+fit <- lm(y ~ x1 + x2, myd)
+coef(fit)
+
+## GLM- normal
+fit.glm <- glm(y ~ x1 + x2, myd, family = gaussian(link = "identity"))
+coef(fit.glm)
+@
+
+
+\end{frame}
+
+
+
+\frame{
+\frametitle{GLM Output: Deviance, AIC}
+
+These are measures of the goodness of fit of the model. However, their values are not directly interpretable from a single model.
+\begin{itemize}
+\item Larger (less negative) likelihood, the better the model fits the data. ({\tt logLik(mod)})
+\item Deviance is calculated from the likelihood. A measure of discrepancy between observed and fitted values. (Smaller values, better fit)
+\begin{itemize}
+\item Null deviance: how well the outcome is predicted by a model that includes only the intercept. ($df = n - 1$)
+\item Residual deviance: how well the outcome is predicted by a model with our parameters. ($df = n-k$)
+\end{itemize}
+\item AIC- used for model comparison. Smaller values indicate a more parsimonious model. Accounts for the number of parameters (K) in the model (like Adjusted R-squared, but without the ease of interpretation). Sometimes used as a criteria in prediction exercises (using a model on training data to predict test data).
+\end{itemize}
+
+
+}
+
+\begin{frame}[fragile]
+\frametitle{Likelihood Ratio Test}
+
+It compares the fit of two models, with the null hypothesis being that the full model does not add more explanatory power to the reduced model.
+
+<<>>=
+fit.glm2 <- glm(y ~ x1 + x2, myd, family = gaussian(link = "identity"))
+fit.glm1 <- glm(y ~ x1, myd, family = gaussian(link = "identity"))
+
+anova(fit.glm1, fit.glm2, test = "Chisq") # Fail to reject the null
+@
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Pseudo-R-squared}
+
+Example: McFadden's R-squared
+\begin{itemize}
+\item $PR^2 = 1 - \frac{\ell(M)}{\ell(N)}$
+\item where $\ell(M)$ is the log-likelihood for your fitted model and $\ell(N)$ is the log-likelihood for a model with only the intercept
+\item Recall, greater (less negative) values of the log-likelihood indicate better fit
+\item McFadden's values range from 0 to close to 1
+\end{itemize}
+
+<<eval=F>>=
+# install.packages("pscl")
+library(pscl)
+fit.glm.null <- glm(y ~ 1, myd, family = gaussian(link = "identity"))
+pr <- pR2(fit.glm)
+pr["McFadden"]
+
+## Or, by hand:
+1 - (logLik(fit.glm)/logLik(fit.glm.null))
+@
+
+
+
