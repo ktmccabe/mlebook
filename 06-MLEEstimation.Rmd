@@ -3,11 +3,9 @@ knitr::knit_exit()
 ```
 
 
-
 # MLE Estimation {#mleest}
 
-This section will discuss the general process for deriving maximum likelihood estimators. It's all very exciting. Get some coffee, some paper, a pencil, and dig in.
-
+This section will discuss the general process for deriving maximum likelihood estimators. It's all very exciting. It builds on the resources from the previous sections. In the next section, we will go through this process for a binary dependent variable. Here, we lay out the overview.
 
 ## Deriving Estimators 
 
@@ -22,7 +20,7 @@ Initial Setup
   
 Now we add steps building on the log-likelihood.
 
-  5. Maximize the function with respec to (wrt) $\theta$
+  5. Maximize the function with respect to (wrt) $\theta$
       + Take the derivative wrt $\theta$. We call this the "score"
       + Set $S(\theta) = 0$ and solve for $\hat \theta$ (if possible)
       + If not possible, we use an optimization algorithm to maximize the log likelihood.
@@ -69,8 +67,8 @@ The second derivative of the log-likelihood is the Hessian $(H(\theta))$.
 
   - The second derivative is a measure of the curvature of the likelihood function
   - The more curved, the more certainty we have
-  - The $I$ stands for the information matrix. The $H$ stands for Hessian. $I(\theta) = - \E(H)$
-      + $var(\theta) = [I(\theta)]^{-1} = ( - \E(H))^{-1}$
+  - The $I$ stands for the information matrix. The $H$ stands for Hessian. $I(\theta) = - \mathbb{E}(H)$
+      + $var(\theta) = [I(\theta)]^{-1} = ( - \mathbb{E}(H))^{-1}$
       + Standard errors are the square roots of the diagonals of this $k \times k$ matrix (like  `vcov()` in OLS)
 
 ***Example: Normal***
@@ -84,7 +82,11 @@ Start with the log-likelihood
 Because our $\theta$ has two parameters, the Hessian actually has four components. For this example, we will focus on one: the first and second derivatives wrt $\beta$. 
 
   - Recall the first derivative = $\frac{1}{\sigma^2}X'(Y - X\hat \beta)$. 
-  - We now take the second derivative = $-\frac{1}{\sigma^2}X'X$.
+  - We now take the second derivative 
+    
+    \begin{align*}
+    \frac{\delta^2}{\delta \hat \beta} \frac{1}{\sigma^2}X'(Y - X\hat \beta)&= -\frac{1}{\sigma^2}X'X
+    \end{align*}
   - To get our variance, we take the negative (-) inverse of this: 
       + $\sigma^2(X'X)^{-1}$ Should look familiar!
 
@@ -114,123 +116,106 @@ Note that bias and consistency are different: Consistency means that as the samp
 
 It is possible for an estimator to be unbiased and consistent, biased and not consistent, or consistent yet biased.
 
-\centering
-\includegraphics[scale=.14]{/Users/ktmccabe/Dropbox/figs/UnbiasedandConsistent.png}\hspace{1mm}
-\includegraphics[scale=.12]{/Users/ktmccabe/Dropbox/figs/BiasedandInconsistent.png}\hspace{1mm}
-\includegraphics[scale=.12]{/Users/ktmccabe/Dropbox/figs/BiasedbutConsistent.png}\\
-{\it{\url{https://eranraviv.com/bias-vs-consistency/}}}
-\end{frame}
+![](images/UnbiasedandConsistent.png){width=40%}
 
+![](images/BiasedandInconsistent.png){width=40%}
+
+![](images/BiasedbutConsistent.png){width=40%}
+
+Images taken from [here](https://eranraviv.com/bias-vs-consistency/)
 
 ### Hypothesis Tests
 
-\centering
+We can apply the same hypothesis testing framework to our estimates here. We can standardize our coefficient estimates by dividing them by the standard error. This will generate a "z score." Just like when we had the t value in OLS, we can use the z score to calculate the p-value and make assessments about the null hypothesis that a given $\hat \beta_k$ = 0.
+
 \begin{align*}
 z &= \frac{\hat \theta_k}{\sqrt{Var(\hat \theta)_k}} \sim N(0,1)
 \end{align*}
 
-Note: to get p-values, we typically now use, {\tt 2 * (1 - pnorm(abs(z)))} instead of {\tt pt()} and our critical values are based on {\tt qnorm()} instead of {\tt qt()}
-}
+Note: to get p-values, we typically now use, `2 * pnorm(abs(z), lower.tail=F)` instead of `pt()` and our critical values are based on `qnorm()` instead of `qt()`. R will follow the same in most circumstances.
 
 
-\begin{frame}
-\frametitle{Implementation in R}
+### Model Output in R
+
+As discussed, we can fit a GLM in R using the `glm` function: 
+
+  - `glm(formula, data, family = XXX(link = "XXX", ...), ...)`
+      + `formula`: The model written in the form similar to `lm()`
+      + `data`: Data frame
+      + `family`: Name of PDF for $Y_i$ (e.g. `binomial`, `gaussian`)
+      + `link`: Name of the link function (e.g. `logit`, ``probit`, `identity`, `log`)
+
+
+```{r}
+## Load Data
+florida <- read.csv("https://raw.githubusercontent.com/ktmccabe/teachingdata/main/florida.csv")
+fit.glm <- glm(Buchanan00 ~ Perot96, data=florida, 
+               family=gaussian(link = "identity"))
+```
+
+
+We've already discussed the coefficient output. Like `lm()`, GLM wiil also display the standard errors, z-scores / t-statistics, and p-values of the model in the model summary.
+
+```{r}
+summary(fit.glm)$coefficients
+```
+
+For this example, R reverts to the t-value instead of the z-score given that we are using the linear model. In other examples, you may see `z` in place of `t`. There are only small differences in these approximations because as your sample size gets larger, the degrees of freedom (used in the calculation of p-calues for the t distribution) are big enough that the t distribution converges to the normal distribution.
+
+
+**Goodness of fit**
+
+The `glm()` model has a lot of summary output.
+
+```{r}
+summary(fit.glm)
+```
+
+Some of the output represents measures of the goodness of fit of the model. However, their values are not directly interpretable from a single model.
+
+  - Larger (less negative) likelihood, the better the model fits the data. (`logLik(mod)`)
+  - Deviance is calculated from the likelihood. A measure of discrepancy between observed and fitted values. (Smaller values, better fit)
 \begin{itemize}
-\item We can fit a GLM in R using the {\tt glm} function: \\
-\bigskip
-{\tt
-glm(formula, data,
-
-\qquad family = XXX(link = "XXX", ...), ...)
-}
-\bigskip
-
-where
-    \begin{itemize}
-    \item {\tt formula}: The model written in the form similar to {\tt lm()}
-    \item {\tt data}: Data frame
-    \item {\tt family}: Name of PDF for $Y_i$ (e.g. {\tt binomial}, {\tt gaussian})
-    \item {\tt link}: Name of the link function (e.g. {\tt logit}, {\tt probit}, {\tt identity}, {\tt log})
-    \end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{Example: Normal}
-
-<<>>=
-y <- c(2, 3, 4, 2, 3, 6, 10) # This creates a vector called y
-x1 <- c(10, 12, 3, -4, 2, 1, 6)
-x2 <- c(100, 2, 60, 4, 200, 17, 3)
-myd <- data.frame(y, x1, x2)
-
-## OLS
-fit <- lm(y ~ x1 + x2, myd)
-coef(fit)
-
-## GLM- normal
-fit.glm <- glm(y ~ x1 + x2, myd, family = gaussian(link = "identity"))
-coef(fit.glm)
-@
+  - Null deviance: how well the outcome is predicted by a model that includes only the intercept. ($df = n - 1$)
+  - Residual deviance: how well the outcome is predicted by a model with our parameters. ($df = n-k$)
+  - AIC- used for model comparison. Smaller values indicate a more parsimonious model. Accounts for the number of parameters ($K$) in the model (like Adjusted R-squared, but without the ease of interpretation). Sometimes used as a criteria in prediction exercises (using a model on training data to predict test data).
 
 
-\end{frame}
+**Likelihood Ratio Test**
 
+The likelihood ratio test compares the fit of two models, with the null hypothesis being that the full model does not add more explanatory power to the reduced model.
 
+```{r}
+fit.glm2 <- glm(Buchanan00 ~ Perot96 + Clinton96, data=florida, 
+               family=gaussian(link = "identity"))
 
-\frame{
-\frametitle{GLM Output: Deviance, AIC}
-
-These are measures of the goodness of fit of the model. However, their values are not directly interpretable from a single model.
-\begin{itemize}
-\item Larger (less negative) likelihood, the better the model fits the data. ({\tt logLik(mod)})
-\item Deviance is calculated from the likelihood. A measure of discrepancy between observed and fitted values. (Smaller values, better fit)
-\begin{itemize}
-\item Null deviance: how well the outcome is predicted by a model that includes only the intercept. ($df = n - 1$)
-\item Residual deviance: how well the outcome is predicted by a model with our parameters. ($df = n-k$)
-\end{itemize}
-\item AIC- used for model comparison. Smaller values indicate a more parsimonious model. Accounts for the number of parameters (K) in the model (like Adjusted R-squared, but without the ease of interpretation). Sometimes used as a criteria in prediction exercises (using a model on training data to predict test data).
-\end{itemize}
-
-
-}
-
-\begin{frame}[fragile]
-\frametitle{Likelihood Ratio Test}
-
-It compares the fit of two models, with the null hypothesis being that the full model does not add more explanatory power to the reduced model.
-
-<<>>=
-fit.glm2 <- glm(y ~ x1 + x2, myd, family = gaussian(link = "identity"))
-fit.glm1 <- glm(y ~ x1, myd, family = gaussian(link = "identity"))
-
+fit.glm1 <- glm(Buchanan00 ~ Perot96, data=florida, 
+               family=gaussian(link = "identity"))
+               
 anova(fit.glm1, fit.glm2, test = "Chisq") # Fail to reject the null
-@
-
-\end{frame}
+```
 
 
-\begin{frame}[fragile]
-\frametitle{Pseudo-R-squared}
+**Pseudo-R-squared**
+
+We don't have an exact equivalent to the R-squared in OLS, but people have developed "pseudo" measures.
 
 Example: McFadden's R-squared
-\begin{itemize}
-\item $PR^2 = 1 - \frac{\ell(M)}{\ell(N)}$
-\item where $\ell(M)$ is the log-likelihood for your fitted model and $\ell(N)$ is the log-likelihood for a model with only the intercept
-\item Recall, greater (less negative) values of the log-likelihood indicate better fit
-\item McFadden's values range from 0 to close to 1
+
+  - $PR^2 = 1 - \frac{\ell(M)}{\ell(N)}$
+      + where $\ell(M)$ is the log-likelihood for your fitted model and $\ell(N)$ is the log-likelihood for a model with only the intercept
+  - Recall, greater (less negative) values of the log-likelihood indicate better fit
+  - McFadden's values range from 0 to close to 1
 \end{itemize}
 
-<<eval=F>>=
+```{r}
 # install.packages("pscl")
 library(pscl)
-fit.glm.null <- glm(y ~ 1, myd, family = gaussian(link = "identity"))
-pr <- pR2(fit.glm)
+fit.glm.null <- glm(Buchanan00 ~ 1, florida, family = gaussian(link = "identity"))
+pr <- pR2(fit.glm1)
 pr["McFadden"]
 
 ## Or, by hand:
 1 - (logLik(fit.glm)/logLik(fit.glm.null))
-@
-
-
+```
 

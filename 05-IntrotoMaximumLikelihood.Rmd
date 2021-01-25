@@ -173,7 +173,7 @@ In social science, instead of thinking of these parameters as just constants (e.
 
   - $Y_i \sim f(y_i | \theta_i)$ and $\theta_i = g(X_i, \beta)$
 
-Each type of model we come across--guided by the structure of the dependent variable-- is just going to have different formulas for each of these components.
+Each type of model we come across--guided by the structure of the dependent variable-- is just going to have different formulas for each of these components. 
 
 **Examples**
 
@@ -182,6 +182,8 @@ Each type of model we come across--guided by the structure of the dependent vari
 |Linear  | $Y_i \sim \mathcal{N}(\mu_i,\sigma^2)$ | $\mu_i = X_i^\prime\beta$ | $\mu_i$|
 |Logit   | $Y_i \sim \rm{Bernoulli}(\pi_i)$ | $\pi_i=\frac{\exp(X_i^\prime\beta)}{(1+\exp(X_i^\prime\beta))}$ | logit$(\pi_i)$|
 |Probit  | $Y_i \sim \rm{Bernoulli}(\pi_i)$ | $\pi_i = \Phi(X_i^\prime\beta)$ | $\Phi^{-1}(\pi_i)$|
+
+These generalized linear models are then fit through maximum likelihood estimation, through an approach discussde in the next section. Note: not all ML estimators can be written as generalized linear models, though many we use in political science are indeed GLMs. To be a GLM, the distribution we specify for the data generating process has to be a part of the exponential family of probability distributions (fortunately the gaussian normal, poisson, bernouilli, binomial, gamma, and negative binomial are), and after that, we need the linear predictor and link function.
 
 ### GLM in R
 

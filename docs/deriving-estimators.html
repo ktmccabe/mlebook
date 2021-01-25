@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6.1 Deriving Estimators | MLE for Political Science</title>
+  <meta name="description" content="6.1 Deriving Estimators | MLE for Political Science" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6.1 Deriving Estimators | MLE for Political Science" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6.1 Deriving Estimators | MLE for Political Science" />
+  
+  
+  
+
+<meta name="author" content="Instructor: Katie McCabe" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="mleest.html"/>
+
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/vembedr-0.1.4/css/vembedr.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Course Overview</a></li>
+<li class="chapter" data-level="2" data-path="rover.html"><a href="rover.html"><i class="fa fa-check"></i><b>2</b> R Overview</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html"><i class="fa fa-check"></i><b>2.1</b> First Time with R and RStudio</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#open-rstudio"><i class="fa fa-check"></i><b>2.1.1</b> <strong>Open RStudio</strong></a></li>
+<li class="chapter" data-level="2.1.2" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#using-r-as-a-calculator"><i class="fa fa-check"></i><b>2.1.2</b> <strong>Using R as a Calculator</strong></a></li>
+<li class="chapter" data-level="2.1.3" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#working-in-an-r-script"><i class="fa fa-check"></i><b>2.1.3</b> <strong>Working in an R Script</strong></a></li>
+<li class="chapter" data-level="2.1.4" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#preparing-your-r-script"><i class="fa fa-check"></i><b>2.1.4</b> <strong>Preparing your R script</strong></a></li>
+<li class="chapter" data-level="2.1.5" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#executing-commands-in-your-r-script"><i class="fa fa-check"></i><b>2.1.5</b> <strong>Executing Commands in your R script</strong></a></li>
+<li class="chapter" data-level="2.1.6" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#objects"><i class="fa fa-check"></i><b>2.1.6</b> <strong>Objects</strong></a></li>
+<li class="chapter" data-level="2.1.7" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#practice"><i class="fa fa-check"></i><b>2.1.7</b> <strong>Practice</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="tutorials.html"><a href="tutorials.html"><i class="fa fa-check"></i><b>2.2</b> Tutorials</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="mathematical-operations.html"><a href="mathematical-operations.html"><i class="fa fa-check"></i><b>3.1</b> Mathematical Operations</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="mathematical-operations.html"><a href="mathematical-operations.html#order-of-operations"><i class="fa fa-check"></i><b>3.1.1</b> <strong>Order of Operations</strong></a></li>
+<li class="chapter" data-level="3.1.2" data-path="mathematical-operations.html"><a href="mathematical-operations.html#exponents"><i class="fa fa-check"></i><b>3.1.2</b> <strong>Exponents</strong></a></li>
+<li class="chapter" data-level="3.1.3" data-path="mathematical-operations.html"><a href="mathematical-operations.html#summations-and-products"><i class="fa fa-check"></i><b>3.1.3</b> <strong>Summations and Products</strong></a></li>
+<li class="chapter" data-level="3.1.4" data-path="mathematical-operations.html"><a href="mathematical-operations.html#logarithms"><i class="fa fa-check"></i><b>3.1.4</b> <strong>Logarithms</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="mathematical-operations-in-r.html"><a href="mathematical-operations-in-r.html"><i class="fa fa-check"></i><b>3.2</b> Mathematical Operations in R</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="mathematical-operations-in-r.html"><a href="mathematical-operations-in-r.html#pemdas"><i class="fa fa-check"></i><b>3.2.1</b> PEMDAS</a></li>
+<li class="chapter" data-level="3.2.2" data-path="mathematical-operations-in-r.html"><a href="mathematical-operations-in-r.html#exponents-1"><i class="fa fa-check"></i><b>3.2.2</b> Exponents</a></li>
+<li class="chapter" data-level="3.2.3" data-path="mathematical-operations-in-r.html"><a href="mathematical-operations-in-r.html#summations"><i class="fa fa-check"></i><b>3.2.3</b> Summations</a></li>
+<li class="chapter" data-level="3.2.4" data-path="mathematical-operations-in-r.html"><a href="mathematical-operations-in-r.html#logarithms-1"><i class="fa fa-check"></i><b>3.2.4</b> Logarithms</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="derivatives.html"><a href="derivatives.html"><i class="fa fa-check"></i><b>3.3</b> Derivatives</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="derivatives.html"><a href="derivatives.html#derivatives-1"><i class="fa fa-check"></i><b>3.3.1</b> <strong>Derivatives</strong></a></li>
+<li class="chapter" data-level="3.3.2" data-path="derivatives.html"><a href="derivatives.html#critical-points-for-minima-or-maxima"><i class="fa fa-check"></i><b>3.3.2</b> <strong>Critical Points for Minima or Maxima</strong></a></li>
+<li class="chapter" data-level="3.3.3" data-path="derivatives.html"><a href="derivatives.html#common-derivative-rules"><i class="fa fa-check"></i><b>3.3.3</b> <strong>Common Derivative Rules</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="vectors-and-matrices.html"><a href="vectors-and-matrices.html"><i class="fa fa-check"></i><b>3.4</b> Vectors and Matrices</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="vectors-and-matrices.html"><a href="vectors-and-matrices.html#matrix-basics"><i class="fa fa-check"></i><b>3.4.1</b> <strong>Matrix Basics</strong></a></li>
+<li class="chapter" data-level="3.4.2" data-path="vectors-and-matrices.html"><a href="vectors-and-matrices.html#matrix-operations"><i class="fa fa-check"></i><b>3.4.2</b> Matrix Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html"><i class="fa fa-check"></i><b>3.5</b> Additional Matrix Tidbits that Will Come Up</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html#transpose"><i class="fa fa-check"></i><b>3.5.1</b> <strong>Transpose</strong></a></li>
+<li class="chapter" data-level="3.5.2" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html#additional-matrix-properties-and-rules"><i class="fa fa-check"></i><b>3.5.2</b> <strong>Additional Matrix Properties and Rules</strong></a></li>
+<li class="chapter" data-level="3.5.3" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html#matrix-rules"><i class="fa fa-check"></i><b>3.5.3</b> <strong>Matrix Rules</strong></a></li>
+<li class="chapter" data-level="3.5.4" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html#derivatives-with-matrices-and-vectors"><i class="fa fa-check"></i><b>3.5.4</b> <strong>Derivatives with Matrices and Vectors</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="practice-problems.html"><a href="practice-problems.html"><i class="fa fa-check"></i><b>3.6</b> Practice Problems</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="practice-problems.html"><a href="practice-problems.html#practice-problem-solutions"><i class="fa fa-check"></i><b>3.6.1</b> Practice Problem Solutions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ols.html"><a href="ols.html"><i class="fa fa-check"></i><b>4</b> Review of OLS</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introducing-ols-regression.html"><a href="introducing-ols-regression.html"><i class="fa fa-check"></i><b>4.1</b> Introducing OLS Regression</a></li>
+<li class="chapter" data-level="4.2" data-path="diving-deeper-into-ols-matrix-representation.html"><a href="diving-deeper-into-ols-matrix-representation.html"><i class="fa fa-check"></i><b>4.2</b> Diving Deeper into OLS Matrix Representation</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="diving-deeper-into-ols-matrix-representation.html"><a href="diving-deeper-into-ols-matrix-representation.html#estimating-the-coefficients"><i class="fa fa-check"></i><b>4.2.1</b> Estimating the Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html"><i class="fa fa-check"></i><b>4.3</b> OLS Regression in R</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#example-predicting-current-election-votes-from-past-election-votes"><i class="fa fa-check"></i><b>4.3.1</b> Example: Predicting Current Election Votes from Past Election Votes</a></li>
+<li class="chapter" data-level="4.3.2" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#plotting-regression-results"><i class="fa fa-check"></i><b>4.3.2</b> Plotting Regression Results</a></li>
+<li class="chapter" data-level="4.3.3" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#finding-coefficients-without-lm"><i class="fa fa-check"></i><b>4.3.3</b> Finding Coefficients without <code>lm</code></a></li>
+<li class="chapter" data-level="4.3.4" data-path="practice-problems.html"><a href="practice-problems.html#practice-problems"><i class="fa fa-check"></i><b>4.3.4</b> Practice Problems</a></li>
+<li class="chapter" data-level="4.3.5" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#code-for-solutions"><i class="fa fa-check"></i><b>4.3.5</b> Code for solutions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="week-1-thursday-tutorial.html"><a href="week-1-thursday-tutorial.html"><i class="fa fa-check"></i><b>4.4</b> Week 1 Thursday Tutorial</a></li>
+<li class="chapter" data-level="4.5" data-path="uncertainty-and-regression.html"><a href="uncertainty-and-regression.html"><i class="fa fa-check"></i><b>4.5</b> Uncertainty and Regression</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="uncertainty-and-regression.html"><a href="uncertainty-and-regression.html#variance-of-the-coefficients"><i class="fa fa-check"></i><b>4.5.1</b> Variance of the Coefficients</a></li>
+<li class="chapter" data-level="4.5.2" data-path="uncertainty-and-regression.html"><a href="uncertainty-and-regression.html#hypothesis-testing"><i class="fa fa-check"></i><b>4.5.2</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="4.5.3" data-path="uncertainty-and-regression.html"><a href="uncertainty-and-regression.html#goodness-of-fit"><i class="fa fa-check"></i><b>4.5.3</b> Goodness of Fit</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="generating-predictions-from-regression-models.html"><a href="generating-predictions-from-regression-models.html"><i class="fa fa-check"></i><b>4.6</b> Generating predictions from regression models</a></li>
+<li class="chapter" data-level="4.7" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html"><i class="fa fa-check"></i><b>4.7</b> Wrapping up OLS</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problems-1"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="mle.html"><a href="mle.html"><i class="fa fa-check"></i><b>5</b> Introduction to MLE</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="what-is-likelihood.html"><a href="what-is-likelihood.html"><i class="fa fa-check"></i><b>5.1</b> What is likelihood?</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="what-is-likelihood.html"><a href="what-is-likelihood.html#summarizing-steps-for-maximum-likelihood"><i class="fa fa-check"></i><b>5.1.1</b> Summarizing Steps for Maximum Likelihood</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="generalized-linear-models.html"><a href="generalized-linear-models.html"><i class="fa fa-check"></i><b>5.2</b> Generalized Linear Models</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="generalized-linear-models.html"><a href="generalized-linear-models.html#glm-model."><i class="fa fa-check"></i><b>5.2.1</b> GLM Model.</a></li>
+<li class="chapter" data-level="5.2.2" data-path="generalized-linear-models.html"><a href="generalized-linear-models.html#linking-likelihood-and-the-glm"><i class="fa fa-check"></i><b>5.2.2</b> Linking likelihood and the GLM</a></li>
+<li class="chapter" data-level="5.2.3" data-path="generalized-linear-models.html"><a href="generalized-linear-models.html#glm-in-r"><i class="fa fa-check"></i><b>5.2.3</b> GLM in R</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="mleest.html"><a href="mleest.html"><i class="fa fa-check"></i><b>6</b> MLE Estimation</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="deriving-estimators.html"><a href="deriving-estimators.html"><i class="fa fa-check"></i><b>6.1</b> Deriving Estimators</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="deriving-estimators.html"><a href="deriving-estimators.html#score-function"><i class="fa fa-check"></i><b>6.1.1</b> Score function</a></li>
+<li class="chapter" data-level="6.1.2" data-path="deriving-estimators.html"><a href="deriving-estimators.html#hessian-and-information-matrix"><i class="fa fa-check"></i><b>6.1.2</b> Hessian and Information Matrix</a></li>
+<li class="chapter" data-level="6.1.3" data-path="deriving-estimators.html"><a href="deriving-estimators.html#mle-properties"><i class="fa fa-check"></i><b>6.1.3</b> MLE Properties</a></li>
+<li class="chapter" data-level="6.1.4" data-path="deriving-estimators.html"><a href="deriving-estimators.html#hypothesis-tests"><i class="fa fa-check"></i><b>6.1.4</b> Hypothesis Tests</a></li>
+<li class="chapter" data-level="6.1.5" data-path="deriving-estimators.html"><a href="deriving-estimators.html#model-output-in-r"><i class="fa fa-check"></i><b>6.1.5</b> Model Output in R</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">MLE for Political Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="deriving-estimators" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Deriving Estimators</h2>
+<p>Recall, we’ve already gone through a few steps of maximum likelihood estimation.</p>
+<p>Initial Setup</p>
+<ol style="list-style-type: decimal">
+<li>What is the data generating process? This means think about the structure of the dependent variable. Is it continuous, is it a count, is it binary, is it ordered? Based on this, describe the probability distribution for <span class="math inline">\(Y_i\)</span>.</li>
+<li>Define the likelihood for a single observation</li>
+<li>Define the likelihood for all observations</li>
+<li>Find the log-likelihood</li>
+</ol>
+<p>Now we add steps building on the log-likelihood.</p>
+<ol start="5" style="list-style-type: decimal">
+<li>Maximize the function with respect to (wrt) <span class="math inline">\(\theta\)</span>
+<ul>
+<li>Take the derivative wrt <span class="math inline">\(\theta\)</span>. We call this the “score”</li>
+<li>Set <span class="math inline">\(S(\theta) = 0\)</span> and solve for <span class="math inline">\(\hat \theta\)</span> (if possible)</li>
+<li>If not possible, we use an optimization algorithm to maximize the log likelihood.</li>
+</ul></li>
+<li>Take the second derivative of the log likelihood to get the “hessian” and help estimate the uncertainty of the estimates.</li>
+</ol>
+<div id="score-function" class="section level3" number="6.1.1">
+<h3><span class="header-section-number">6.1.1</span> Score function</h3>
+<p>The first derivative of the log-likelihood is called the score function: <span class="math inline">\(\frac{\delta \ell}{\delta \theta} = S(\theta)\)</span>. We set the <span class="math inline">\(S(\theta) = 0\)</span> and solve for <span class="math inline">\(\hat \theta\)</span> (if possible).</p>
+<ul>
+<li><span class="math inline">\(\hat \theta\)</span> are the slopes/gradient, which we use as estimates (e.g., <span class="math inline">\(\hat \beta\)</span>).</li>
+<li>We can interpret the sign and significance</li>
+<li>But, unlike OLS, most of the time, these are not linear changes in units of <span class="math inline">\(Y\)</span></li>
+<li>We have to transform them into interpretable quantities</li>
+</ul>
+<p><strong>Example: Normally distributed outcome</strong></p>
+<p>Start with the log-likelihood</p>
+<p><span class="math display">\[\begin{align*}
+\ell(\theta | Y) &amp;= \sum_{i = 1}^N \log \Bigg( \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}\Bigg)
+= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-\mu)^2}{2\sigma^2}\\
+&amp;= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-x_i&#39;\beta)^2}{2\sigma^2}
+\end{align*}\]</span></p>
+<p>Take the derivative wrt <span class="math inline">\(\theta\)</span>. Note: we have to take two derivatives- one for <span class="math inline">\(\mu\)</span> (<span class="math inline">\(\beta\)</span>) and one for <span class="math inline">\(\sigma^2\)</span>. For this example we will focus only on the derivative wrt to <span class="math inline">\(\beta\)</span>.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
+<p><span class="math display">\[\begin{align*}
+\delta \ell(\theta | Y) &amp;= -\frac{1}{2\sigma^2}\sum_{i = 1}^N \delta (Y_i-x_i&#39;\hat \beta)^2
+\end{align*}\]</span>
+The right term should look familar! We will end up with a <span class="math inline">\(S(\hat \theta)_\beta = \frac{1}{\sigma^2}X&#39;(Y - X\hat \beta)\)</span>. We set this equal to 0.
+<span class="math display">\[\begin{align*}
+\frac{1}{\sigma^2}X&#39;(Y - X\hat \beta) &amp;= 0\\
+\frac{1}{\sigma^2}X&#39;Y &amp;= \frac{1}{\sigma^2}X&#39;X\hat \beta \\
+(X&#39;X)^{-1}X&#39;Y = \hat \beta
+\end{align*}\]</span></p>
+</div>
+<div id="hessian-and-information-matrix" class="section level3" number="6.1.2">
+<h3><span class="header-section-number">6.1.2</span> Hessian and Information Matrix</h3>
+<p>The second derivative of the log-likelihood is the Hessian <span class="math inline">\((H(\theta))\)</span>.</p>
+<ul>
+<li>The second derivative is a measure of the curvature of the likelihood function</li>
+<li>The more curved, the more certainty we have</li>
+<li>The <span class="math inline">\(I\)</span> stands for the information matrix. The <span class="math inline">\(H\)</span> stands for Hessian. <span class="math inline">\(I(\theta) = - \mathbb{E}(H)\)</span>
+<ul>
+<li><span class="math inline">\(var(\theta) = [I(\theta)]^{-1} = ( - \mathbb{E}(H))^{-1}\)</span></li>
+<li>Standard errors are the square roots of the diagonals of this <span class="math inline">\(k \times k\)</span> matrix (like <code>vcov()</code> in OLS)</li>
+</ul></li>
+</ul>
+<p><strong><em>Example: Normal</em></strong></p>
+<p>Start with the log-likelihood</p>
+<p><span class="math display">\[\begin{align*}
+\ell(\theta | Y) &amp;= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-x_i&#39;\beta)^2}{2\sigma^2}
+\end{align*}\]</span></p>
+<p>Because our <span class="math inline">\(\theta\)</span> has two parameters, the Hessian actually has four components. For this example, we will focus on one: the first and second derivatives wrt <span class="math inline">\(\beta\)</span>.</p>
+<ul>
+<li><p>Recall the first derivative = <span class="math inline">\(\frac{1}{\sigma^2}X&#39;(Y - X\hat \beta)\)</span>.</p></li>
+<li><p>We now take the second derivative</p>
+<p><span class="math display">\[\begin{align*}
+\frac{\delta^2}{\delta \hat \beta} \frac{1}{\sigma^2}X&#39;(Y - X\hat \beta)&amp;= -\frac{1}{\sigma^2}X&#39;X
+\end{align*}\]</span></p></li>
+<li><p>To get our variance, we take the negative (-) inverse of this:</p>
+<ul>
+<li><span class="math inline">\(\sigma^2(X&#39;X)^{-1}\)</span> Should look familiar!</li>
+</ul></li>
+</ul>
+<p>With this example, we can start to see why <code>lm</code> and <code>glm</code> for a normally distributed outcome generate the same estimates.</p>
+</div>
+<div id="mle-properties" class="section level3" number="6.1.3">
+<h3><span class="header-section-number">6.1.3</span> MLE Properties</h3>
+<p>Just like OLS had certain properties (BLUE) that made it worthwhile, MLE also has desirable features.</p>
+<p>Large sample properties</p>
+<ul>
+<li>Consistent: plim<span class="math inline">\(\hat \theta^{ML} = \theta\)</span></li>
+<li>Under certain “regularity conditions”, Asymptotically normal: <span class="math inline">\(\hat \theta^{ML} \sim N(\theta, [I(\theta)]^{-1})\)</span>
+<ul>
+<li>We will use the normal approximation to calculate z-scores and p-values</li>
+</ul></li>
+<li>Efficient</li>
+</ul>
+<p><strong><em>Note on consistency</em></strong></p>
+<p>What does it mean to say an estimator is consistent? As samples get larger and larger, we converge to the truth.</p>
+<p>Consistency: <span class="math inline">\(p\lim \hat{\theta} =\beta\)</span> As <span class="math inline">\(n \rightarrow \infty P(\hat{\theta} - \theta&gt; e) \rightarrow 0\)</span>.</p>
+<ul>
+<li>Convergence in probability: the probability that the absolute difference between the estimate and parameter being larger than <span class="math inline">\(e\)</span> goes to zero as <span class="math inline">\(n\)</span> gets bigger.</li>
+</ul>
+<p>Note that bias and consistency are different: Consistency means that as the sample size (<span class="math inline">\(n\)</span>) gets large the estimate gets closer to the true value. Unbiasedness is not affected by sample size. An estimate is unbiased if over repeated samples, its expected value (average) is the true parameter.</p>
+<p>It is possible for an estimator to be unbiased and consistent, biased and not consistent, or consistent yet biased.</p>
+<p><img src="images/UnbiasedandConsistent.png" style="width:70.0%" /></p>
+<p><img src="images/BiasedandInconsistent.png" style="width:70.0%" /></p>
+<p><img src="images/BiasedButConsistent.png" style="width:70.0%" /></p>
+<p>Images taken from <a href="https://eranraviv.com/bias-vs-consistency/">here</a></p>
+</div>
+<div id="hypothesis-tests" class="section level3" number="6.1.4">
+<h3><span class="header-section-number">6.1.4</span> Hypothesis Tests</h3>
+<p>We can apply the same hypothesis testing framework to our estimates here. We can standardize our coefficient estimates by dividing them by the standard error. This will generate a “z score.” Just like when we had the t value in OLS, we can use the z score to calculate the p-value and make assessments about the null hypothesis that a given <span class="math inline">\(\hat \beta_k\)</span> = 0.</p>
+<p><span class="math display">\[\begin{align*}
+z &amp;= \frac{\hat \theta_k}{\sqrt{Var(\hat \theta)_k}} \sim N(0,1)
+\end{align*}\]</span></p>
+<p>Note: to get p-values, we typically now use, <code>2 * pnorm(abs(z), lower.tail=F)</code> instead of <code>pt()</code> and our critical values are based on <code>qnorm()</code> instead of <code>qt()</code>. R will follow the same in most circumstances.</p>
+</div>
+<div id="model-output-in-r" class="section level3" number="6.1.5">
+<h3><span class="header-section-number">6.1.5</span> Model Output in R</h3>
+<p>As discussed, we can fit a GLM in R using the <code>glm</code> function:</p>
+<ul>
+<li><code>glm(formula, data, family = XXX(link = "XXX", ...), ...)</code>
+<ul>
+<li><code>formula</code>: The model written in the form similar to <code>lm()</code></li>
+<li><code>data</code>: Data frame</li>
+<li><code>family</code>: Name of PDF for <span class="math inline">\(Y_i\)</span> (e.g. <code>binomial</code>, <code>gaussian</code>)</li>
+<li><code>link</code>: Name of the link function (e.g. <code>logit</code>, `<code>probit</code>, <code>identity</code>, <code>log</code>)</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="deriving-estimators.html#cb245-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load Data</span></span>
+<span id="cb245-2"><a href="deriving-estimators.html#cb245-2" aria-hidden="true" tabindex="-1"></a>florida <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ktmccabe/teachingdata/main/florida.csv&quot;</span>)</span>
+<span id="cb245-3"><a href="deriving-estimators.html#cb245-3" aria-hidden="true" tabindex="-1"></a>fit.glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(Buchanan00 <span class="sc">~</span> Perot96, <span class="at">data=</span>florida, </span>
+<span id="cb245-4"><a href="deriving-estimators.html#cb245-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span></code></pre></div>
+<p>We’ve already discussed the coefficient output. Like <code>lm()</code>, GLM wiil also display the standard errors, z-scores / t-statistics, and p-values of the model in the model summary.</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="deriving-estimators.html#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.glm)<span class="sc">$</span>coefficients</span></code></pre></div>
+<pre><code>              Estimate   Std. Error    t value     Pr(&gt;|t|)
+(Intercept) 1.34575212 49.759306434 0.02704523 9.785065e-01
+Perot96     0.03591504  0.004340068 8.27522567 9.473505e-12</code></pre>
+<p>For this example, R reverts to the t-value instead of the z-score given that we are using the linear model. In other examples, you may see <code>z</code> in place of <code>t</code>. There are only small differences in these approximations because as your sample size gets larger, the degrees of freedom (used in the calculation of p-calues for the t distribution) are big enough that the t distribution converges to the normal distribution.</p>
+<p><strong>Goodness of fit</strong></p>
+<p>The <code>glm()</code> model has a lot of summary output.</p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="deriving-estimators.html#cb248-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.glm)</span></code></pre></div>
+<pre><code>
+Call:
+glm(formula = Buchanan00 ~ Perot96, family = gaussian(link = &quot;identity&quot;), 
+    data = florida)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-612.74   -65.96     1.94    32.88  2301.66  
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  1.34575   49.75931   0.027    0.979    
+Perot96      0.03592    0.00434   8.275 9.47e-12 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for gaussian family taken to be 100094.1)
+
+    Null deviance: 13360499  on 66  degrees of freedom
+Residual deviance:  6506118  on 65  degrees of freedom
+AIC: 965.54
+
+Number of Fisher Scoring iterations: 2</code></pre>
+<p>Some of the output represents measures of the goodness of fit of the model. However, their values are not directly interpretable from a single model.</p>
+<ul>
+<li>Larger (less negative) likelihood, the better the model fits the data. (<code>logLik(mod)</code>)</li>
+<li>Deviance is calculated from the likelihood. A measure of discrepancy between observed and fitted values. (Smaller values, better fit)
+\begin{itemize}</li>
+<li>Null deviance: how well the outcome is predicted by a model that includes only the intercept. (<span class="math inline">\(df = n - 1\)</span>)</li>
+<li>Residual deviance: how well the outcome is predicted by a model with our parameters. (<span class="math inline">\(df = n-k\)</span>)</li>
+<li>AIC- used for model comparison. Smaller values indicate a more parsimonious model. Accounts for the number of parameters (<span class="math inline">\(K\)</span>) in the model (like Adjusted R-squared, but without the ease of interpretation). Sometimes used as a criteria in prediction exercises (using a model on training data to predict test data).</li>
+</ul>
+<p><strong>Likelihood Ratio Test</strong></p>
+<p>The likelihood ratio test compares the fit of two models, with the null hypothesis being that the full model does not add more explanatory power to the reduced model.</p>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="deriving-estimators.html#cb250-1" aria-hidden="true" tabindex="-1"></a>fit.glm2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(Buchanan00 <span class="sc">~</span> Perot96 <span class="sc">+</span> Clinton96, <span class="at">data=</span>florida, </span>
+<span id="cb250-2"><a href="deriving-estimators.html#cb250-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span>
+<span id="cb250-3"><a href="deriving-estimators.html#cb250-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb250-4"><a href="deriving-estimators.html#cb250-4" aria-hidden="true" tabindex="-1"></a>fit.glm1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(Buchanan00 <span class="sc">~</span> Perot96, <span class="at">data=</span>florida, </span>
+<span id="cb250-5"><a href="deriving-estimators.html#cb250-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span>
+<span id="cb250-6"><a href="deriving-estimators.html#cb250-6" aria-hidden="true" tabindex="-1"></a>               </span>
+<span id="cb250-7"><a href="deriving-estimators.html#cb250-7" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit.glm1, fit.glm2, <span class="at">test =</span> <span class="st">&quot;Chisq&quot;</span>) <span class="co"># Fail to reject the null</span></span></code></pre></div>
+<pre><code>Analysis of Deviance Table
+
+Model 1: Buchanan00 ~ Perot96
+Model 2: Buchanan00 ~ Perot96 + Clinton96
+  Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)
+1        65    6506118                     
+2        64    6418424  1    87693   0.3497</code></pre>
+<p><strong>Pseudo-R-squared</strong></p>
+<p>We don’t have an exact equivalent to the R-squared in OLS, but people have developed “pseudo” measures.</p>
+<p>Example: McFadden’s R-squared</p>
+<ul>
+<li><span class="math inline">\(PR^2 = 1 - \frac{\ell(M)}{\ell(N)}\)</span>
+<ul>
+<li>where <span class="math inline">\(\ell(M)\)</span> is the log-likelihood for your fitted model and <span class="math inline">\(\ell(N)\)</span> is the log-likelihood for a model with only the intercept</li>
+</ul></li>
+<li>Recall, greater (less negative) values of the log-likelihood indicate better fit</li>
+<li>McFadden’s values range from 0 to close to 1
+\end{itemize}</li>
+</ul>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="deriving-estimators.html#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;pscl&quot;)</span></span>
+<span id="cb252-2"><a href="deriving-estimators.html#cb252-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pscl)</span></code></pre></div>
+<pre><code>Warning: package &#39;pscl&#39; was built under R version 4.0.2</code></pre>
+<pre><code>Classes and Methods for R developed in the
+Political Science Computational Laboratory
+Department of Political Science
+Stanford University
+Simon Jackman
+hurdle and zeroinfl functions by Achim Zeileis</code></pre>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="deriving-estimators.html#cb255-1" aria-hidden="true" tabindex="-1"></a>fit.glm.null <span class="ot">&lt;-</span> <span class="fu">glm</span>(Buchanan00 <span class="sc">~</span> <span class="dv">1</span>, florida, <span class="at">family =</span> <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span>
+<span id="cb255-2"><a href="deriving-estimators.html#cb255-2" aria-hidden="true" tabindex="-1"></a>pr <span class="ot">&lt;-</span> <span class="fu">pR2</span>(fit.glm1)</span></code></pre></div>
+<pre><code>fitting null model for pseudo-r2</code></pre>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="deriving-estimators.html#cb257-1" aria-hidden="true" tabindex="-1"></a>pr[<span class="st">&quot;McFadden&quot;</span>]</span></code></pre></div>
+<pre><code>  McFadden 
+0.04783988 </code></pre>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="deriving-estimators.html#cb259-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Or, by hand:</span></span>
+<span id="cb259-2"><a href="deriving-estimators.html#cb259-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> (<span class="fu">logLik</span>(fit.glm)<span class="sc">/</span><span class="fu">logLik</span>(fit.glm.null))</span></code></pre></div>
+<pre><code>&#39;log Lik.&#39; 0.04783988 (df=3)</code></pre>
+
+</div>
+</div>
+<!-- </div> -->
+
+
+
+
+
+
+
+
+
+
+<div class="footnotes">
+<hr />
+<ol start="5">
+<li id="fn5"><p>Essentially, you need to take derivatives with respect to each of the parameters. Some models we use will have only one parameter, which is easier.<a href="deriving-estimators.html#fnref5" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="mleest.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

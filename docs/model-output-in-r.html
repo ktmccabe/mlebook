@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5.2 Generalized Linear Models | MLE for Political Science</title>
-  <meta name="description" content="5.2 Generalized Linear Models | MLE for Political Science" />
+  <title>6.2 Model Output in R | MLE for Political Science</title>
+  <meta name="description" content="6.2 Model Output in R | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5.2 Generalized Linear Models | MLE for Political Science" />
+  <meta property="og:title" content="6.2 Model Output in R | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5.2 Generalized Linear Models | MLE for Political Science" />
+  <meta name="twitter:title" content="6.2 Model Output in R | MLE for Political Science" />
   
   
   
@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="what-is-likelihood.html"/>
+<link rel="prev" href="deriving-estimators.html"/>
 
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
@@ -225,6 +225,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.3" data-path="generalized-linear-models.html"><a href="generalized-linear-models.html#glm-in-r"><i class="fa fa-check"></i><b>5.2.3</b> GLM in R</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="6" data-path="mleest.html"><a href="mleest.html"><i class="fa fa-check"></i><b>6</b> MLE Estimation</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="deriving-estimators.html"><a href="deriving-estimators.html"><i class="fa fa-check"></i><b>6.1</b> Deriving Estimators</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="deriving-estimators.html"><a href="deriving-estimators.html#score-function"><i class="fa fa-check"></i><b>6.1.1</b> Score function</a></li>
+<li class="chapter" data-level="6.1.2" data-path="deriving-estimators.html"><a href="deriving-estimators.html#hessian-and-information-matrix"><i class="fa fa-check"></i><b>6.1.2</b> Hessian and Information Matrix</a></li>
+<li class="chapter" data-level="6.1.3" data-path="deriving-estimators.html"><a href="deriving-estimators.html#mle-properties"><i class="fa fa-check"></i><b>6.1.3</b> MLE Properties</a></li>
+<li class="chapter" data-level="6.1.4" data-path="deriving-estimators.html"><a href="deriving-estimators.html#hypothesis-tests"><i class="fa fa-check"></i><b>6.1.4</b> Hypothesis Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="model-output-in-r.html"><a href="model-output-in-r.html"><i class="fa fa-check"></i><b>6.2</b> Model Output in R</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="uncertainty-and-regression.html"><a href="uncertainty-and-regression.html#goodness-of-fit"><i class="fa fa-check"></i><b>6.2.1</b> Goodness of fit</a></li>
+</ul></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -242,126 +256,115 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="generalized-linear-models" class="section level2" number="5.2">
-<h2><span class="header-section-number">5.2</span> Generalized Linear Models</h2>
-<p>Before we get into the details of deriving the estimators, we are going to discuss another connection between linear models and the types of models we will work with when we are using common maximum likelihood estimators.</p>
-<p>Recall our linear model: <span class="math inline">\(y_i = \beta_o + \beta_1x_{i1} + ... \beta_kx_{ik} + \epsilon\)</span></p>
+<div id="model-output-in-r" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Model Output in R</h2>
+<p>As discussed, we can fit a GLM in R using the <code>glm</code> function:</p>
 <ul>
-<li><span class="math inline">\(Y\)</span> is modelled by a linear function of explanatory variables <span class="math inline">\(X\)</span></li>
-<li><span class="math inline">\(\hat \beta\)</span> is our estimate of how much <span class="math inline">\(X\)</span> influences <span class="math inline">\(Y\)</span> (the slope of the line)</li>
-<li>On average, a one-unit change in <span class="math inline">\(X_{ik}\)</span> is associated with a <span class="math inline">\(\hat \beta_{k}\)</span> change in <span class="math inline">\(Y_i\)</span></li>
-<li>Slope/rate of change is linear, does not depend on where you are in <span class="math inline">\(X\)</span>. Every one-unit change has the same expected increase or decrease</li>
-</ul>
-<p>Sometimes we are dealing with outcome data that are restricted or “limited” in some way such that this standard linear predictor will no longer make sense. If we keep changing <span class="math inline">\(X\)</span> we may eventually generate estimates of <span class="math inline">\(\hat y\)</span> that extend above or below the plausible range of values for our actual observed outcomes.</p>
-<p>The generalized linear model framework helps address this problem by adding two components: a nonlinear transformation and a probability model. This allows us to make predictions of our outcomes that retain the desired bounded qualities of our observed data. Generalized linear models include linear regression as a special case (a case where no nonlinear transformation is required), but as its name suggests, is much more general and can be applied to many different outcome structures.</p>
-<div id="glm-model." class="section level3" number="5.2.1">
-<h3><span class="header-section-number">5.2.1</span> GLM Model.</h3>
-<p>In a GLM, we still have a “linear predictor”: <span class="math inline">\(\eta_i = \beta_o + \beta_1x_{i1} + ... + \beta_kx_{ik}\)</span></p>
+<li><code>glm(formula, data, family = XXX(link = "XXX", ...), ...)</code>
 <ul>
-<li>But our <span class="math inline">\(Y_i\)</span> might be restricted in some way (e.g., might be binary).</li>
-<li>So, now we require a “link” function which tells us how <span class="math inline">\(Y\)</span> depends on the linear predictor. This is the key to making sure our linear predictor, when transformed, will map into sensible units of Y.</li>
-</ul>
-<p>Our <span class="math inline">\(Y_i\)</span> will also now be expressed in terms of a probability model. For example, when we have binary outcome data, such as <span class="math inline">\(y_i =\)</span> 1 or 0 for someone turning out to vote or not, we may try to estimate the probability that someone turns out to vote given certain explanatory variables. We can write this as <span class="math inline">\(Pr(Y_i = 1 | x_i\)</span>).</p>
-<p>In a GLM, we need a way to transform our linear predictor such that as we shift in values of <span class="math inline">\(X\hat \beta\)</span>, we stay within plausible probability ranges.</p>
-<ul>
-<li><p>To do so we use a “link” function that is used to model the data.</p>
-<ul>
-<li>For example, in logistic regression, our link function will be the “logit”:</li>
-</ul>
-<p><span class="math display">\[\begin{align*}
-Pr(Y_i = 1 | x_i) &amp;= \pi_i\\
-\eta_i &amp;= \text{logit}(\pi_i) = \log \frac{\pi_i}{1-\pi_i} &amp;= \beta_o + \beta_1x_{i1} + ... + \beta_kx_{ik}
-\end{align*}\]</span></p></li>
-<li><p>One practical implication of this is that when we generate our coefficient estimates <span class="math inline">\(\hat \beta\)</span>, these will no longer be in units if <span class="math inline">\(y_i\)</span> or even in units of probability. Instead, they will be in units as specified by the link function. In logistic regression, this means they will be in “logits.”</p>
-<ul>
-<li>For every one-unit change in <span class="math inline">\(x_k\)</span>, we get a <span class="math inline">\(\hat \beta_k\)</span> change in <strong>logits</strong> of <span class="math inline">\(y\)</span></li>
+<li><code>formula</code>: The model written in the form similar to <code>lm()</code></li>
+<li><code>data</code>: Data frame</li>
+<li><code>family</code>: Name of PDF for <span class="math inline">\(Y_i\)</span> (e.g. <code>binomial</code>, <code>gaussian</code>)</li>
+<li><code>link</code>: Name of the link function (e.g. <code>logit</code>, `<code>probit</code>, <code>identity</code>, <code>log</code>)</li>
 </ul></li>
-<li><p>However, the nice thing is that because we know the link function, with a little bit of work, we can transform our estimates back into the units of <span class="math inline">\(y_i\)</span> that we care about.</p></li>
 </ul>
-<p><span class="math display">\[\begin{align*}
-Pr(Y_i = 1 | x_i) &amp;= \pi_i = g^{-1}(\eta_i) \\
-&amp;= \text{logit}^{-1}(\pi_i) \\
-&amp;= \frac{exp^{x_i&#39;\beta}}{1 + exp^{x_i&#39;\beta}}
-\end{align*}\]</span></p>
-</div>
-<div id="linking-likelihood-and-the-glm" class="section level3" number="5.2.2">
-<h3><span class="header-section-number">5.2.2</span> Linking likelihood and the GLM</h3>
-<p>Let’s use <span class="math inline">\(\theta\)</span> to represent the parameters of the pdf/pmf that we have deemed appropriate for our outcome data. As discussed before, we can write the likelihood for an observation as a probability statement.</p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="model-output-in-r.html#cb245-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load Data</span></span>
+<span id="cb245-2"><a href="model-output-in-r.html#cb245-2" aria-hidden="true" tabindex="-1"></a>florida <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ktmccabe/teachingdata/main/florida.csv&quot;</span>)</span>
+<span id="cb245-3"><a href="model-output-in-r.html#cb245-3" aria-hidden="true" tabindex="-1"></a>fit.glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(Buchanan00 <span class="sc">~</span> Perot96, <span class="at">data=</span>florida, </span>
+<span id="cb245-4"><a href="model-output-in-r.html#cb245-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span></code></pre></div>
+<p>We’ve already discussed the coefficient output. Like <code>lm()</code>, GLM wiil also display the standard errors, z-scores / t-statistics, and p-values of the model in the model summary.</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="model-output-in-r.html#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.glm)<span class="sc">$</span>coefficients</span></code></pre></div>
+<pre><code>              Estimate   Std. Error    t value     Pr(&gt;|t|)
+(Intercept) 1.34575212 49.759306434 0.02704523 9.785065e-01
+Perot96     0.03591504  0.004340068 8.27522567 9.473505e-12</code></pre>
+<p>For this example, R reverts to the t-value instead of the z-score given that we are using the linear model. In other examples, you may see <code>z</code> in place of <code>t</code>. There are only small differences in these approximations because as your sample size gets larger, the degrees of freedom (used in the calculation of p-calues for the t distribution) are big enough that the t distribution converges to the normal distribution.</p>
+<div id="goodness-of-fit" class="section level3" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> Goodness of fit</h3>
+<p>The <code>glm()</code> model has a lot of summary output.</p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="model-output-in-r.html#cb248-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.glm)</span></code></pre></div>
+<pre><code>
+Call:
+glm(formula = Buchanan00 ~ Perot96, family = gaussian(link = &quot;identity&quot;), 
+    data = florida)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-612.74   -65.96     1.94    32.88  2301.66  
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  1.34575   49.75931   0.027    0.979    
+Perot96      0.03592    0.00434   8.275 9.47e-12 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for gaussian family taken to be 100094.1)
+
+    Null deviance: 13360499  on 66  degrees of freedom
+Residual deviance:  6506118  on 65  degrees of freedom
+AIC: 965.54
+
+Number of Fisher Scoring iterations: 2</code></pre>
+<p>Some of the output represents measures of the goodness of fit of the model. However, their values are not directly interpretable from a single model.</p>
 <ul>
-<li><span class="math inline">\(\mathcal L (\theta | Y_i) = \Pr(Y=Y_i | \theta)\)</span></li>
+<li>Larger (less negative) likelihood, the better the model fits the data. (<code>logLik(mod)</code>)</li>
+<li>Deviance is calculated from the likelihood. A measure of discrepancy between observed and fitted values. (Smaller values, better fit)
+\begin{itemize}</li>
+<li>Null deviance: how well the outcome is predicted by a model that includes only the intercept. (<span class="math inline">\(df = n - 1\)</span>)</li>
+<li>Residual deviance: how well the outcome is predicted by a model with our parameters. (<span class="math inline">\(df = n-k\)</span>)</li>
+<li>AIC- used for model comparison. Smaller values indicate a more parsimonious model. Accounts for the number of parameters (<span class="math inline">\(K\)</span>) in the model (like Adjusted R-squared, but without the ease of interpretation). Sometimes used as a criteria in prediction exercises (using a model on training data to predict test data).</li>
 </ul>
-<p>In social science, instead of thinking of these parameters as just constants (e.g., <span class="math inline">\(p\)</span> or <span class="math inline">\(\mu\)</span>), we generally believe that they vary according to our explanatory variables in <span class="math inline">\(X\)</span>. We think <span class="math inline">\(Y_i\)</span> is distributed according to a particular probability function and that the parameters that shape that distribution are a function of the covariates.</p>
+<p><strong>Likelihood Ratio Test</strong></p>
+<p>The likelihood ratio test compares the fit of two models, with the null hypothesis being that the full model does not add more explanatory power to the reduced model.</p>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="model-output-in-r.html#cb250-1" aria-hidden="true" tabindex="-1"></a>fit.glm2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(Buchanan00 <span class="sc">~</span> Perot96 <span class="sc">+</span> Clinton96, <span class="at">data=</span>florida, </span>
+<span id="cb250-2"><a href="model-output-in-r.html#cb250-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span>
+<span id="cb250-3"><a href="model-output-in-r.html#cb250-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb250-4"><a href="model-output-in-r.html#cb250-4" aria-hidden="true" tabindex="-1"></a>fit.glm1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(Buchanan00 <span class="sc">~</span> Perot96, <span class="at">data=</span>florida, </span>
+<span id="cb250-5"><a href="model-output-in-r.html#cb250-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span>
+<span id="cb250-6"><a href="model-output-in-r.html#cb250-6" aria-hidden="true" tabindex="-1"></a>               </span>
+<span id="cb250-7"><a href="model-output-in-r.html#cb250-7" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit.glm1, fit.glm2, <span class="at">test =</span> <span class="st">&quot;Chisq&quot;</span>) <span class="co"># Fail to reject the null</span></span></code></pre></div>
+<pre><code>Analysis of Deviance Table
+
+Model 1: Buchanan00 ~ Perot96
+Model 2: Buchanan00 ~ Perot96 + Clinton96
+  Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)
+1        65    6506118                     
+2        64    6418424  1    87693   0.3497</code></pre>
+<p><strong>Pseudo-R-squared</strong></p>
+<p>We don’t have an exact equivalent to the R-squared in OLS, but people have developed “pseudo” measures.</p>
+<p>Example: McFadden’s R-squared</p>
 <ul>
-<li><span class="math inline">\(Y_i \sim f(y_i | \theta_i)\)</span> and <span class="math inline">\(\theta_i = g(X_i, \beta)\)</span></li>
+<li><span class="math inline">\(PR^2 = 1 - \frac{\ell(M)}{\ell(N)}\)</span>
+<ul>
+<li>where <span class="math inline">\(\ell(M)\)</span> is the log-likelihood for your fitted model and <span class="math inline">\(\ell(N)\)</span> is the log-likelihood for a model with only the intercept</li>
+</ul></li>
+<li>Recall, greater (less negative) values of the log-likelihood indicate better fit</li>
+<li>McFadden’s values range from 0 to close to 1
+\end{itemize}</li>
 </ul>
-<p>Each type of model we come across–guided by the structure of the dependent variable– is just going to have different formulas for each of these components.</p>
-<p><strong>Examples</strong></p>
-<table>
-<colgroup>
-<col width="20%" />
-<col width="17%" />
-<col width="23%" />
-<col width="20%" />
-<col width="17%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Model</th>
-<th>PDF</th>
-<th><span class="math inline">\(\theta_i\)</span> ; Link<span class="math inline">\(^{-1}\)</span></th>
-<th><span class="math inline">\(\eta_i\)</span></th>
-<th align="right"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Linear</td>
-<td><span class="math inline">\(Y_i \sim \mathcal{N}(\mu_i,\sigma^2)\)</span></td>
-<td><span class="math inline">\(\mu_i = X_i^\prime\beta\)</span></td>
-<td><span class="math inline">\(\mu_i\)</span></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">Logit</td>
-<td><span class="math inline">\(Y_i \sim \rm{Bernoulli}(\pi_i)\)</span></td>
-<td><span class="math inline">\(\pi_i=\frac{\exp(X_i^\prime\beta)}{(1+\exp(X_i^\prime\beta))}\)</span></td>
-<td>logit<span class="math inline">\((\pi_i)\)</span></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">Probit</td>
-<td><span class="math inline">\(Y_i \sim \rm{Bernoulli}(\pi_i)\)</span></td>
-<td><span class="math inline">\(\pi_i = \Phi(X_i^\prime\beta)\)</span></td>
-<td><span class="math inline">\(\Phi^{-1}(\pi_i)\)</span></td>
-<td align="right"></td>
-</tr>
-</tbody>
-</table>
-<p>These generalized linear models are then fit through maximum likelihood estimation, through an approach discussde in the next section. Note: not all ML estimators can be written as generalized linear models, though many we use in political science are indeed GLMs. To be a GLM, the distribution we specify for the data generating process has to be a part of the exponential family of probability distributions (fortunately the gaussian normal, poisson, bernouilli, binomial, gamma, and negative binomial are), and after that, we need the linear predictor and link function.</p>
-</div>
-<div id="glm-in-r" class="section level3" number="5.2.3">
-<h3><span class="header-section-number">5.2.3</span> GLM in R</h3>
-<p>The way generalized linear models work in R is very similar to lm.</p>
-<p>Below is a simple example where we will specify a linear model in <code>lm()</code> and <code>glm()</code> to compare.</p>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="generalized-linear-models.html#cb240-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load Data</span></span>
-<span id="cb240-2"><a href="generalized-linear-models.html#cb240-2" aria-hidden="true" tabindex="-1"></a>florida <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ktmccabe/teachingdata/main/florida.csv&quot;</span>)</span>
-<span id="cb240-3"><a href="generalized-linear-models.html#cb240-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb240-4"><a href="generalized-linear-models.html#cb240-4" aria-hidden="true" tabindex="-1"></a>fit.lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Buchanan00 <span class="sc">~</span> Perot96, <span class="at">data=</span>florida)</span>
-<span id="cb240-5"><a href="generalized-linear-models.html#cb240-5" aria-hidden="true" tabindex="-1"></a>fit.glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(Buchanan00 <span class="sc">~</span> Perot96, <span class="at">data=</span>florida, </span>
-<span id="cb240-6"><a href="generalized-linear-models.html#cb240-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span></code></pre></div>
-<p>For the glm, we just need to tell R the family of distributions we are using and the appropriate link function. In this example, we are going to use the normal gaussian distribution to describe the data generating process for <code>Buchanan00</code>. This is appropriate for nice numeric continuous data, even if it isn’t perfectly normal. The normal model has a link function, but it is the special case where the link function is just the identity. There is no nonlinear transformation that takes place. Therefore, we can still interpret the <span class="math inline">\(\hat \beta\)</span> results in units of <span class="math inline">\(Y\)</span> (votes in this case).</p>
-<p>In this special case, the <span class="math inline">\(\hat \beta\)</span> estimates from <code>lm()</code> and <code>glm()</code> will be the same.</p>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="generalized-linear-models.html#cb241-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.lm)</span></code></pre></div>
-<pre><code>(Intercept)     Perot96 
- 1.34575212  0.03591504 </code></pre>
-<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="generalized-linear-models.html#cb243-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.glm)</span></code></pre></div>
-<pre><code>(Intercept)     Perot96 
- 1.34575212  0.03591504 </code></pre>
-<p>There are some differences in the mechanics of how we get to the results in each case, but we will explore those more in the next section. I.e., these coefficients do not come out of thin air. Just like in OLS, we have to work for them.</p>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="model-output-in-r.html#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;pscl&quot;)</span></span>
+<span id="cb252-2"><a href="model-output-in-r.html#cb252-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pscl)</span></code></pre></div>
+<pre><code>Warning: package &#39;pscl&#39; was built under R version 4.0.2</code></pre>
+<pre><code>Classes and Methods for R developed in the
+Political Science Computational Laboratory
+Department of Political Science
+Stanford University
+Simon Jackman
+hurdle and zeroinfl functions by Achim Zeileis</code></pre>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="model-output-in-r.html#cb255-1" aria-hidden="true" tabindex="-1"></a>fit.glm.null <span class="ot">&lt;-</span> <span class="fu">glm</span>(Buchanan00 <span class="sc">~</span> <span class="dv">1</span>, florida, <span class="at">family =</span> <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span>
+<span id="cb255-2"><a href="model-output-in-r.html#cb255-2" aria-hidden="true" tabindex="-1"></a>pr <span class="ot">&lt;-</span> <span class="fu">pR2</span>(fit.glm1)</span></code></pre></div>
+<pre><code>fitting null model for pseudo-r2</code></pre>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="model-output-in-r.html#cb257-1" aria-hidden="true" tabindex="-1"></a>pr[<span class="st">&quot;McFadden&quot;</span>]</span></code></pre></div>
+<pre><code>  McFadden 
+0.04783988 </code></pre>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="model-output-in-r.html#cb259-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Or, by hand:</span></span>
+<span id="cb259-2"><a href="model-output-in-r.html#cb259-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> (<span class="fu">logLik</span>(fit.glm)<span class="sc">/</span><span class="fu">logLik</span>(fit.glm.null))</span></code></pre></div>
+<pre><code>&#39;log Lik.&#39; 0.04783988 (df=3)</code></pre>
 
 </div>
 </div>
 <!-- </div> -->
+
 
 
 
@@ -376,7 +379,7 @@ Pr(Y_i = 1 | x_i) &amp;= \pi_i = g^{-1}(\eta_i) \\
           </div>
         </div>
       </div>
-<a href="what-is-likelihood.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="deriving-estimators.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>
