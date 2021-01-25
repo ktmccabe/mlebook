@@ -261,7 +261,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>But our <span class="math inline">\(Y_i\)</span> might be restricted in some way (e.g., might be binary).</li>
 <li>So, now we require a “link” function which tells us how <span class="math inline">\(Y\)</span> depends on the linear predictor. This is the key to making sure our linear predictor, when transformed, will map into sensible units of Y.</li>
 </ul>
-<p>Our <span class="math inline">\(Y_i\)</span> will also now be expressed in terms of a probability model. For example, when we have binary outcome data, such as <span class="math inline">\(y_i =\)</span> 1 or 0 for someone turning out to vote or not, we may try to estimate the probability that someone turns out to vote given certain explanatory variables. We can write this as <span class="math inline">\(Pr(Y_i = 1 | x_i\)</span>).</p>
+<p>Our <span class="math inline">\(Y_i\)</span> will also now be expressed in terms of a probability model, and it is this probability distribution that generates the randomness (the stochastic component of the model). For example, when we have binary outcome data, such as <span class="math inline">\(y_i =\)</span> 1 or 0 for someone turning out to vote or not, we may try to estimate the probability that someone turns out to vote given certain explanatory variables. We can write this as <span class="math inline">\(Pr(Y_i = 1 | x_i\)</span>).</p>
 <p>In a GLM, we need a way to transform our linear predictor such that as we shift in values of <span class="math inline">\(X\hat \beta\)</span>, we stay within plausible probability ranges.</p>
 <ul>
 <li><p>To do so we use a “link” function that is used to model the data.</p>
@@ -276,7 +276,7 @@ Pr(Y_i = 1 | x_i) &amp;= \pi_i\\
 <ul>
 <li>For every one-unit change in <span class="math inline">\(x_k\)</span>, we get a <span class="math inline">\(\hat \beta_k\)</span> change in <strong>logits</strong> of <span class="math inline">\(y\)</span></li>
 </ul></li>
-<li><p>However, the nice thing is that because we know the link function, with a little bit of work, we can transform our estimates back into the units of <span class="math inline">\(y_i\)</span> that we care about.</p></li>
+<li><p>However, the nice thing is that because we know the link function, with a little bit of work, we can use the “response” function to transform our estimates back into the units of <span class="math inline">\(y_i\)</span> that we care about.</p></li>
 </ul>
 <p><span class="math display">\[\begin{align*}
 Pr(Y_i = 1 | x_i) &amp;= \pi_i = g^{-1}(\eta_i) \\
@@ -337,7 +337,8 @@ Pr(Y_i = 1 | x_i) &amp;= \pi_i = g^{-1}(\eta_i) \\
 </tr>
 </tbody>
 </table>
-<p>These generalized linear models are then fit through maximum likelihood estimation, through an approach discussde in the next section. Note: not all ML estimators can be written as generalized linear models, though many we use in political science are indeed GLMs. To be a GLM, the distribution we specify for the data generating process has to be a part of the exponential family of probability distributions (fortunately the gaussian normal, poisson, bernouilli, binomial, gamma, and negative binomial are), and after that, we need the linear predictor and link function.</p>
+<p>These generalized linear models are then fit through maximum likelihood estimation, through an approach discussed in the next section where we use algorithms to choose the most likely values of the <span class="math inline">\(\beta\)</span> parameters given the observed data.</p>
+<p>Note: not all ML estimators can be written as generalized linear models, though many we use in political science are indeed GLMs. To be a GLM, the distribution we specify for the data generating process has to be a part of the exponential family of probability distributions (fortunately the gaussian normal, poisson, bernouilli, binomial, gamma, and negative binomial are), and after that, we need the linear predictor and link function.</p>
 </div>
 <div id="glm-in-r" class="section level3" number="5.2.3">
 <h3><span class="header-section-number">5.2.3</span> GLM in R</h3>

@@ -255,24 +255,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This introduction is based on Ben Lambert’s video. I highly recommend watching this 8-9 minute <a href="https://www.youtube.com/watch?v=I_dhPETvll8">video</a>. Below we highlight a few of the key concepts and definitions.</p>
 <p>Take the UK population of 70 million. We have a sample of this, and in our sample some observations are male and some female. How can we use what we have, a sample, to estimate the probability that an individual is male?<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
 <ul>
-<li><p>First, we can make a judgment about the data generating process. We can suppose there is some probability distribution function that determines the probability is a male or female.</p>
+<li><p>First, we can make a judgment about the data generating process. We can suppose there is some probability distribution function that determines the probability is a male or female. A probability density function (PDF for continuous data or PMF for discrete data) tells you the relative probability or likelihood of observing a particular value given the parameters of the distribution.</p>
 <ul>
 <li>Let’s call this <span class="math inline">\(f(y_i | p)\)</span> where <span class="math inline">\(y_i = 1\)</span> if male, 0 if female.</li>
 <li>We will say <span class="math inline">\(p\)</span> is the probability an individual is male. <span class="math inline">\(p^{y_i}(1 - p)^{1-y_i}\)</span></li>
 </ul></li>
-<li><p>We are going to treat this like a toss of a coin, which has a Bernouilli distribution (every probability distribution we are dealing with is going to have an associated formula. You don’t need to memorize these. You can look them up on the internet when needed.) So, <span class="math inline">\(f()\)</span> tells us the probability we would have gotten the observation if we think of our observation as toss of coin. This is the likelihood for a single observation.</p></li>
-<li><p>For example, we can now plug this into our Bernoulli function for the two possible cases of <span class="math inline">\(y_i\)</span>.</p>
+<li><p>We are going to treat this like a toss of a coin, which has a Bernouilli distribution (every probability distribution we are dealing with is going to have an associated formula. You don’t need to memorize these. You can look them up on the internet when needed.) So, <span class="math inline">\(f()\)</span> tells us the probability we would have gotten the value of the observation if we think of our observation as this Bernouilli toss of coin. This is the likelihood for a single observation.</p></li>
+<li><p>For example, we can now plug this into our Bernoulli function for the two possible cases of values for <span class="math inline">\(y_i\)</span>.</p>
 <ul>
 <li><span class="math inline">\(f(1|p) = p^1(1-p)^{1-1} = p\)</span> probability an individual is male</li>
 <li><span class="math inline">\(f(0 |p) p ^0(1-p)^{1-0} = 1-p\)</span> probability individual is female</li>
 </ul></li>
-<li><p>Now we want an estimate using our entire sample of observations, not just a single <span class="math inline">\(i\)</span>. What if we have <span class="math inline">\(n\)</span> observations? <span class="math inline">\(f(y_1, y_2, ... y_n | p)\)</span>. We can write the joint probability as all individual probabilities multiplied together.</p>
+<li><p>Now we want an estimate using our entire sample of observations, not just a single <span class="math inline">\(i\)</span>. What if we have <span class="math inline">\(n\)</span> observations? <span class="math inline">\(f(y_1, y_2, ... y_n | p)\)</span>. We can write the joint probability as all individual probabilities multiplied together if we assume our observations are independent. This will now represent the likelihood for all observations.</p>
 <ul>
 <li><span class="math inline">\(L = P(Y_1 = y_1, Y_2=y_2, ..., Y_n = y_n)= \prod_{i=1}^n p^y_i(1 - p)^{1-y_i}\)</span></li>
 <li>This answers what is the probability that <span class="math inline">\(Y_1\)</span> took on the particular value <span class="math inline">\(y_1\)</span></li>
 <li>Ok, now we have the statement <span class="math inline">\(L = P(Y_1 = y_1, Y_2=y_2, ..., Y_n = y_n)\)</span>. This joint probability is the likelihood.</li>
 </ul></li>
-<li><p>Generally, we don’t know <span class="math inline">\(p\)</span>. We are trying to estimate it.<strong><em>What we want to do is choose the <span class="math inline">\(\hat p\)</span> to maximize the likelihood that we would have gotten this set of observations given that <span class="math inline">\(Y_i\)</span> has a probability distribution as specified.</em></strong></p>
+<li><p>Generally, we don’t know <span class="math inline">\(p\)</span>. We are trying to estimate it. <strong><em>What we want to do is choose the <span class="math inline">\(\hat p\)</span> to maximize the likelihood that we would have gotten this set of observations given that <span class="math inline">\(Y_i\)</span> has a probability distribution as specified.</em></strong></p>
 <ul>
 <li>We have used a buzz word: “maximize.” Just as in OLS, that should be our signal that a derivative should be taken so that we can find the quantities that represent the maximum.</li>
 <li>We differentiate L with respect to p, set it to 0, to give us <span class="math inline">\(\hat{p}\)</span>.</li>

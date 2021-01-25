@@ -44,21 +44,21 @@ This introduction is based on Ben Lambert's video. I highly recommend watching t
 
 Take the UK population of 70 million. We have a sample of this, and in our sample some observations are male and some female. How can we use what we have, a sample, to estimate the probability that an individual is male?^[In the future, we may want to know the probability of turning out to vote, or of going to war, or voting "yes" on a particular policy question, etc.]
 
-  - First, we can make a judgment about the data generating process. We can suppose there is some probability distribution function that determines the probability is a male or female. 
+  - First, we can make a judgment about the data generating process. We can suppose there is some probability distribution function that determines the probability is a male or female. A probability density function (PDF for continuous data or PMF for discrete data) tells you the relative probability or likelihood of observing a particular value given the parameters of the distribution.
       + Let's call this $f(y_i | p)$ where $y_i = 1$ if male, 0 if female. 
       + We will say $p$ is the probability an individual is male. $p^{y_i}(1 - p)^{1-y_i}$
  
- - We are going to treat this like a toss of a coin, which has a Bernouilli distribution (every probability distribution we are dealing with is going to have an associated formula. You don't need to memorize these. You can look them up on the internet when needed.) So, $f()$ tells us the probability we would have gotten the observation if we think of our observation as toss of coin. This is the likelihood for a single observation.
+ - We are going to treat this like a toss of a coin, which has a Bernouilli distribution (every probability distribution we are dealing with is going to have an associated formula. You don't need to memorize these. You can look them up on the internet when needed.) So, $f()$ tells us the probability we would have gotten the value of the observation if we think of our observation as this Bernouilli toss of coin. This is the likelihood for a single observation.
  
-  - For example, we can now plug this into our Bernoulli function for the two possible cases of $y_i$.
+  - For example, we can now plug this into our Bernoulli function for the two possible cases of values for $y_i$.
       + $f(1|p) = p^1(1-p)^{1-1} = p$  probability an individual is male
       + $f(0 |p) p ^0(1-p)^{1-0} = 1-p$ probability individual is female
 
-  - Now we want an estimate using our entire sample of observations, not just a single $i$. What if we have $n$ observations? $f(y_1, y_2, ... y_n | p)$. We can write the joint probability as all individual probabilities multiplied together. 
+  - Now we want an estimate using our entire sample of observations, not just a single $i$. What if we have $n$ observations? $f(y_1, y_2, ... y_n | p)$. We can write the joint probability as all individual probabilities multiplied together if we assume our observations are independent. This will now represent the likelihood for all observations. 
       + $L = P(Y_1 = y_1, Y_2=y_2, ..., Y_n = y_n)= \prod_{i=1}^n p^y_i(1 - p)^{1-y_i}$
       + This answers what is the probability that $Y_1$ took on the particular value $y_1$
       + Ok, now we have the statement $L = P(Y_1 = y_1, Y_2=y_2, ..., Y_n = y_n)$. This joint probability is the likelihood. 
-  - Generally, we don't know $p$. We are trying to estimate it.***What we want to do is choose the $\hat p$ to maximize the likelihood that we would have gotten this set of observations given that $Y_i$ has a probability distribution as specified.***
+  - Generally, we don't know $p$. We are trying to estimate it. ***What we want to do is choose the $\hat p$ to maximize the likelihood that we would have gotten this set of observations given that $Y_i$ has a probability distribution as specified.***
       + We have used a buzz word: "maximize." Just as in OLS, that should be our signal that a derivative should be taken so that we can find the quantities that represent the maximum.
       + We differentiate L with respect to p, set it to 0, to give us $\hat{p}$.
   - Our issue (or at least one of our issues) is that products are tough to differentiate. A chain rule disaster. Instead, we use a trick of taking the log of the likelihood: log $\prod ()$.^[Why does this work? It has to do with the shape of the log (always increasing). Details are beyond the scope.] Benefit: it turns it into a sum, much easier. $\log ab = \log a + \log b$. So we will actually differentiate the $\log$ of the likelihood. Yes, this is why we had logs as part of Section 3. 
@@ -139,7 +139,7 @@ In a GLM, we still have a "linear predictor": $\eta_i = \beta_o + \beta_1x_{i1} 
   - But our $Y_i$ might be restricted in some way (e.g., might be binary).
   - So, now we require a "link" function which tells us how $Y$ depends on the linear predictor. This is the key to making sure our linear predictor, when transformed, will map into sensible units of Y.
   
-Our $Y_i$ will also now be expressed in terms of a probability model. For example, when we have binary outcome data, such as $y_i =$ 1 or 0 for someone turning out to vote or not, we may try to estimate the probability that someone turns out to vote given certain explanatory variables. We can write this as $Pr(Y_i = 1 | x_i$).
+Our $Y_i$ will also now be expressed in terms of a probability model, and it is this probability distribution that generates the randomness (the stochastic component of the model). For example, when we have binary outcome data, such as $y_i =$ 1 or 0 for someone turning out to vote or not, we may try to estimate the probability that someone turns out to vote given certain explanatory variables. We can write this as $Pr(Y_i = 1 | x_i$).
 
 In a GLM, we need a way to transform our linear predictor such that as we shift in values of $X\hat \beta$, we stay within plausible probability ranges. 
 
@@ -154,7 +154,7 @@ Pr(Y_i = 1 | x_i) &= \pi_i\\
   - One practical implication of this is that when we generate our coefficient estimates $\hat \beta$, these will no longer be in units if $y_i$ or even in units of probability. Instead, they will be in units as specified by the link function. In logistic regression, this means they will be in "logits." 
     + For every one-unit change in $x_k$, we get a $\hat \beta_k$ change in **logits** of $y$
     
-  - However, the nice thing is that because we know the link function, with a little bit of work, we can transform our estimates back into the units of $y_i$ that we care about.
+  - However, the nice thing is that because we know the link function, with a little bit of work, we can use the "response" function to transform our estimates back into the units of $y_i$ that we care about.
 
 \begin{align*}
 Pr(Y_i = 1 | x_i) &= \pi_i = g^{-1}(\eta_i) \\
@@ -183,7 +183,9 @@ Each type of model we come across--guided by the structure of the dependent vari
 |Logit   | $Y_i \sim \rm{Bernoulli}(\pi_i)$ | $\pi_i=\frac{\exp(X_i^\prime\beta)}{(1+\exp(X_i^\prime\beta))}$ | logit$(\pi_i)$|
 |Probit  | $Y_i \sim \rm{Bernoulli}(\pi_i)$ | $\pi_i = \Phi(X_i^\prime\beta)$ | $\Phi^{-1}(\pi_i)$|
 
-These generalized linear models are then fit through maximum likelihood estimation, through an approach discussde in the next section. Note: not all ML estimators can be written as generalized linear models, though many we use in political science are indeed GLMs. To be a GLM, the distribution we specify for the data generating process has to be a part of the exponential family of probability distributions (fortunately the gaussian normal, poisson, bernouilli, binomial, gamma, and negative binomial are), and after that, we need the linear predictor and link function.
+These generalized linear models are then fit through maximum likelihood estimation, through an approach discussed in the next section where we use algorithms to choose the most likely values of the $\beta$ parameters given the observed data.
+
+Note: not all ML estimators can be written as generalized linear models, though many we use in political science are indeed GLMs. To be a GLM, the distribution we specify for the data generating process has to be a part of the exponential family of probability distributions (fortunately the gaussian normal, poisson, bernouilli, binomial, gamma, and negative binomial are), and after that, we need the linear predictor and link function.
 
 ### GLM in R
 
