@@ -435,7 +435,7 @@ The resulting quantity is our expression for the $\mathbf{V}(\hat \beta)$. Howev
 \begin{align*}
 \mathbf{V}(\widehat{\beta})  &= (X^T X)^{-1}X^T \mathbf{V}( \epsilon) X (X^T X)^{-1}\\
 &= \underbrace{(X^T X)^{-1}X^T \sigma^2I_n X (X^T X)^{-1}}_\text{Assume homoskedasticity}\\
-&= \underbrace{\sigma^2I_n(X^T X)^{-1} X^T X (X^T X)^{-1}}_\text{Because it is a constant, we can move it out in front of the matrix multiplication, and then simplify the terms.}  \\
+&= \underbrace{\sigma^2(X^T X)^{-1} X^T X (X^T X)^{-1}}_\text{Because it is a constant, we can move it out in front of the matrix multiplication, and then simplify the terms.}  \\
 &= \sigma^2(X^T X)^{-1} 
 \end{align*}
 

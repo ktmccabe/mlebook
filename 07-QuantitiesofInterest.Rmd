@@ -6,4 +6,41 @@ knitr::knit_exit()
 
 # Quantities of Interest {#qoi}
 
-This section will provide information about calculating predicted probabilities and computing uncertainty.
+This section will provide information about calculating quantities of interest. Often, in linear regression, our coefficients might directly represent the quantities we are interested in interpreting. However, in other models, we might need to do a bit of work to make it easier on our readers (and ourselves).
+
+The quantities of interest you generate should be directly related to your research question and hypotheses. For example, if my hypothesis was about how the competitiveness of a state is related to the probability that someone is contacted by a campaign, then my quantities of interest would involve a comparison of the predicted probability of campaign contact for those in more vs. less competitive states. 
+
+We will discuss computing quantities of interest, uncertainty for these quantities, and visualization.
+
+## Using the response functions to generate quantities of interest
+
+Recall, in linear regression, to get our estimated values $\hat Y$ we said $\hat Y = X\hat\beta$ . 
+    - In glm's, we can do the same to get our estimated values on the scale of the linear predictor $\hat \eta = X\hat\beta$.
+    - We then use our $Link^{-1}$ response function to transform these values into the quantity of interest.
+        + E.g., in logistic regression we want $\hat{\pi} = \frac{\exp(X\hat\beta)}{1 + \exp(X\hat\beta)}$.
+        + This is the predicted probability of $Y_i = 1$ given our coefficient estimates and observed values of the covariates
+        
+
+Let's use a subset of the MIDs {\tt mids.txt} data available [here](https://github.com/ktmccabe/teachingdata).
+
+This dataset has variables related to whether a dyad of states is engaged in a militarized interstate dispute between the two countries in a given year. The variable that will be our outcome of interest is `Conflict` which takes the values 0 or 1. We will also look at the relationship between a few independent variables and the propensity for conflict. Data are at Dyad Level
+
+  - whether the pair of countries include a major power (`MajorPower`), are
+  contiguous ( `Contiguity`), are allies (`Allies`), and have
+  similar foreign policy portfolios (`ForeignPolicy`)
+  - `BalanceofPower`: balance of military power
+  - `YearsSince`: the number of years since the last dispute
+
+```{r}
+## Load data
+mids <- read.table("https://raw.githubusercontent.com/ktmccabe/teachingdata/main/midsshort.txt")
+
+out.logit <-glm(Conflict ~  MajorPower + Contiguity + Allies + ForeignPolicy +
+    BalanceOfPower + YearsSince, 
+                family = binomial(link = "logit"), data = mids)
+```
+
+
+
+
+

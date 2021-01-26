@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="mleest.html"/>
-
+<link rel="next" href="binary-dependent-variables.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -231,9 +231,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="6.1.1" data-path="deriving-estimators.html"><a href="deriving-estimators.html#score-function"><i class="fa fa-check"></i><b>6.1.1</b> Score function</a></li>
 <li class="chapter" data-level="6.1.2" data-path="deriving-estimators.html"><a href="deriving-estimators.html#hessian-and-information-matrix"><i class="fa fa-check"></i><b>6.1.2</b> Hessian and Information Matrix</a></li>
-<li class="chapter" data-level="6.1.3" data-path="deriving-estimators.html"><a href="deriving-estimators.html#mle-properties"><i class="fa fa-check"></i><b>6.1.3</b> MLE Properties</a></li>
-<li class="chapter" data-level="6.1.4" data-path="deriving-estimators.html"><a href="deriving-estimators.html#hypothesis-tests"><i class="fa fa-check"></i><b>6.1.4</b> Hypothesis Tests</a></li>
-<li class="chapter" data-level="6.1.5" data-path="deriving-estimators.html"><a href="deriving-estimators.html#model-output-in-r"><i class="fa fa-check"></i><b>6.1.5</b> Model Output in R</a></li>
+<li class="chapter" data-level="6.1.3" data-path="deriving-estimators.html"><a href="deriving-estimators.html#mle-estimation-algorithm"><i class="fa fa-check"></i><b>6.1.3</b> MLE Estimation Algorithm</a></li>
+<li class="chapter" data-level="6.1.4" data-path="deriving-estimators.html"><a href="deriving-estimators.html#mle-properties"><i class="fa fa-check"></i><b>6.1.4</b> MLE Properties</a></li>
+<li class="chapter" data-level="6.1.5" data-path="deriving-estimators.html"><a href="deriving-estimators.html#hypothesis-tests"><i class="fa fa-check"></i><b>6.1.5</b> Hypothesis Tests</a></li>
+<li class="chapter" data-level="6.1.6" data-path="deriving-estimators.html"><a href="deriving-estimators.html#model-output-in-r"><i class="fa fa-check"></i><b>6.1.6</b> Model Output in R</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="binary-dependent-variables.html"><a href="binary-dependent-variables.html"><i class="fa fa-check"></i><b>6.2</b> Binary Dependent Variables</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="binary-dependent-variables.html"><a href="binary-dependent-variables.html#r-code-for-fitting-logistic-regression"><i class="fa fa-check"></i><b>6.2.1</b> R code for fitting logistic regression</a></li>
+<li class="chapter" data-level="6.2.2" data-path="binary-dependent-variables.html"><a href="binary-dependent-variables.html#writing-down-the-regression-model"><i class="fa fa-check"></i><b>6.2.2</b> Writing down the regression model</a></li>
+<li class="chapter" data-level="6.2.3" data-path="binary-dependent-variables.html"><a href="binary-dependent-variables.html#probit-regression"><i class="fa fa-check"></i><b>6.2.3</b> Probit Regression</a></li>
+<li class="chapter" data-level="6.2.4" data-path="binary-dependent-variables.html"><a href="binary-dependent-variables.html#to-logit-or-to-probit"><i class="fa fa-check"></i><b>6.2.4</b> To logit or to probit?</a></li>
+<li class="chapter" data-level="6.2.5" data-path="binary-dependent-variables.html"><a href="binary-dependent-variables.html#latent-variable-representation"><i class="fa fa-check"></i><b>6.2.5</b> Latent variable representation</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -269,16 +278,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Take the derivative wrt <span class="math inline">\(\theta\)</span>. We call this the “score”</li>
 <li>Set <span class="math inline">\(S(\theta) = 0\)</span> and solve for <span class="math inline">\(\hat \theta\)</span> (if possible)</li>
-<li>If not possible, we use an optimization algorithm to maximize the log likelihood.</li>
+<li>If not possible (often the case), we use an optimization algorithm to maximize the log likelihood.</li>
 </ul></li>
 <li>Take the second derivative of the log likelihood to get the “hessian” and help estimate the uncertainty of the estimates.</li>
 </ol>
 <div id="score-function" class="section level3" number="6.1.1">
 <h3><span class="header-section-number">6.1.1</span> Score function</h3>
-<p>The first derivative of the log-likelihood is called the score function: <span class="math inline">\(\frac{\delta \ell}{\delta \theta} = S(\theta)\)</span>. We set the <span class="math inline">\(S(\theta) = 0\)</span> and solve for <span class="math inline">\(\hat \theta\)</span> (if possible).</p>
+<p>The first derivative of the log-likelihood is called the score function: <span class="math inline">\(\frac{\delta \ell}{\delta \theta} = S(\theta)\)</span>. This will tell us how steep the slope of the log likelihood is given certain values of the parameters. What we are looking for as we sift through possible values of the parameters, is the set of values that will make the slope zero, signalling that the function has reached a peak (maximizing the likelihood.)</p>
+<p>We set the <span class="math inline">\(S(\theta) = 0\)</span> and solve for <span class="math inline">\(\hat \theta\)</span> (if possible).</p>
 <ul>
 <li><span class="math inline">\(\hat \theta\)</span> are the slopes/gradient, which we use as estimates (e.g., <span class="math inline">\(\hat \beta\)</span>).</li>
-<li>We can interpret the sign and significance</li>
+<li>We can interpret the sign and significance just as we do in OLS.</li>
 <li>But, unlike OLS, most of the time, these are not linear changes in units of <span class="math inline">\(Y\)</span></li>
 <li>We have to transform them into interpretable quantities</li>
 </ul>
@@ -289,7 +299,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 = \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-\mu)^2}{2\sigma^2}\\
 &amp;= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-x_i&#39;\beta)^2}{2\sigma^2}
 \end{align*}\]</span></p>
-<p>Take the derivative wrt <span class="math inline">\(\theta\)</span>. Note: we have to take two derivatives- one for <span class="math inline">\(\mu\)</span> (<span class="math inline">\(\beta\)</span>) and one for <span class="math inline">\(\sigma^2\)</span>. For this example we will focus only on the derivative wrt to <span class="math inline">\(\beta\)</span>.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
+<p>Take the derivative wrt <span class="math inline">\(\theta\)</span>. Note: we have to take two derivatives- one for <span class="math inline">\(\mu\)</span> (<span class="math inline">\(\beta\)</span>) and one for <span class="math inline">\(\sigma^2\)</span>. For this example we will focus only on the derivative wrt to <span class="math inline">\(\beta\)</span>, as that it what gets us the coefficient estimates.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
 <p><span class="math display">\[\begin{align*}
 \delta \ell(\theta | Y) &amp;= -\frac{1}{2\sigma^2}\sum_{i = 1}^N \delta (Y_i-x_i&#39;\hat \beta)^2
 \end{align*}\]</span>
@@ -304,8 +314,8 @@ The right term should look familar! We will end up with a <span class="math inli
 <h3><span class="header-section-number">6.1.2</span> Hessian and Information Matrix</h3>
 <p>The second derivative of the log-likelihood is the Hessian <span class="math inline">\((H(\theta))\)</span>.</p>
 <ul>
-<li>The second derivative is a measure of the curvature of the likelihood function</li>
-<li>The more curved, the more certainty we have</li>
+<li>The second derivative is a measure of the curvature of the likelihood function. This will help us confirm that we are at a maximum, and it will also help us calculate the uncertainty.</li>
+<li>The more curved (i.e., the steeper the curve), the more certainty we have.</li>
 <li>The <span class="math inline">\(I\)</span> stands for the information matrix. The <span class="math inline">\(H\)</span> stands for Hessian. <span class="math inline">\(I(\theta) = - \mathbb{E}(H)\)</span>
 <ul>
 <li><span class="math inline">\(var(\theta) = [I(\theta)]^{-1} = ( - \mathbb{E}(H))^{-1}\)</span></li>
@@ -320,28 +330,193 @@ The right term should look familar! We will end up with a <span class="math inli
 <p>Because our <span class="math inline">\(\theta\)</span> has two parameters, the Hessian actually has four components. For this example, we will focus on one: the first and second derivatives wrt <span class="math inline">\(\beta\)</span>.</p>
 <ul>
 <li><p>Recall the first derivative = <span class="math inline">\(\frac{1}{\sigma^2}X&#39;(Y - X\hat \beta)\)</span>.</p></li>
-<li><p>We now take the second derivative</p>
+<li><p>We now take the second derivative with respect to <span class="math inline">\(\hat \beta\)</span></p>
 <p><span class="math display">\[\begin{align*}
 \frac{\delta^2}{\delta \hat \beta} \frac{1}{\sigma^2}X&#39;(Y - X\hat \beta)&amp;= -\frac{1}{\sigma^2}X&#39;X
 \end{align*}\]</span></p></li>
-<li><p>To get our variance, we take the negative (-) inverse of this:</p>
+<li><p>To get our variance, we take the inverse of the negative (-) of this:</p>
 <ul>
 <li><span class="math inline">\(\sigma^2(X&#39;X)^{-1}\)</span> Should look familiar!</li>
 </ul></li>
 </ul>
-<p>With this example, we can start to see why <code>lm</code> and <code>glm</code> for a normally distributed outcome generate the same estimates.</p>
+<p>With this example, we can start to see why <code>lm</code> and <code>glm</code> for a normally distributed outcome generate the same estimates. The maximum likelihood estimator is the same as the least squares estimator.</p>
 </div>
-<div id="mle-properties" class="section level3" number="6.1.3">
-<h3><span class="header-section-number">6.1.3</span> MLE Properties</h3>
-<p>Just like OLS had certain properties (BLUE) that made it worthwhile, MLE also has desirable features.</p>
+<div id="mle-estimation-algorithm" class="section level3" number="6.1.3">
+<h3><span class="header-section-number">6.1.3</span> MLE Estimation Algorithm</h3>
+<p>Suppose we had a problem with <span class="math inline">\(n=8\)</span> observations where we could observe a <span class="math inline">\(y_i = 1\)</span> or <span class="math inline">\(0\)</span>. For example, let’s say we read an online sample of tweets and we classified tweets as “toxic=1” or “nontoxic=0.” In our sample of <span class="math inline">\(n=8\)</span>, we coded 6 of them as toxic and 2 as nontoxic. We are interested in finding the true probability <span class="math inline">\(p\)</span> that a comment is toxic.</p>
+<p>We can write down the likelihood for a single observation using the Bernouilli pmf:</p>
+<p><span class="math inline">\(L(p | y_i) = p^{y_i}*(1-p)^{(1-y_i)}\)</span></p>
+<p>We could then write out the likelihood for all 8 observations as follows:</p>
+<ul>
+<li>Where the equation simplifies to <span class="math inline">\(p\)</span> for observations where <span class="math inline">\(y_i\)</span> = 1 and (1-p) for observations where <span class="math inline">\(y_i\)</span> = 0. For simplicity, let’s say <span class="math inline">\(i=1\)</span> to <span class="math inline">\(6\)</span> were toxic, and <span class="math inline">\(i=7\)</span> to <span class="math inline">\(8\)</span> were nontoxic.</li>
+<li><span class="math inline">\(L(p | \mathbf{y}) = p * p * p * p * p * p * (1-p) * (1-p)\)</span></li>
+</ul>
+<p>Now a naive way to maximize the likelihood would be to just try out different quantities for <span class="math inline">\(p\)</span> and see which give us the maximum.</p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="deriving-estimators.html#cb245-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s try this for different p&#39;s</span></span>
+<span id="cb245-2"><a href="deriving-estimators.html#cb245-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">seq</span>(.<span class="dv">1</span>, .<span class="dv">9</span>, .<span class="dv">05</span>)</span>
+<span id="cb245-3"><a href="deriving-estimators.html#cb245-3" aria-hidden="true" tabindex="-1"></a>L <span class="ot">&lt;-</span> p <span class="sc">*</span> p <span class="sc">*</span> p <span class="sc">*</span> p <span class="sc">*</span> p <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>p) <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>p)</span></code></pre></div>
+<p>We can then visualize the likelihood results and figure out about at which value for <span class="math inline">\(\hat p\)</span> we have maximized the likelihood.</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="deriving-estimators.html#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>p, <span class="at">y=</span>L, <span class="at">type=</span><span class="st">&quot;b&quot;</span>,</span>
+<span id="cb246-2"><a href="deriving-estimators.html#cb246-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xaxt=</span><span class="st">&quot;n&quot;</span>)</span>
+<span id="cb246-3"><a href="deriving-estimators.html#cb246-3" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, p, p)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-97-1.svg" width="672" /></p>
+<p>When we have more complicated models, we are taking a similar approach–trying out different values and comparing the likelihood (or log likelihood), but we will rely on a specific algorithm(s) that will help us get to the maximum a bit faster than a naive search would allow.</p>
+<p>Don’t worry the built-in functions in R will do this for you (e.g., what happens under the hood of <code>glm()</code>), but if you were to need to develop your own custom likelihood function for some reason, you could directly solve it through an optimization algorithm if no such built-in function is appropriate.</p>
+<p><strong><em>You can skip the details below if you wish. They will only be involved in problem sets as extra credit</em></strong></p>
+<p>The <code>optim</code> function in R provides one such approach. For this optimization approach, we will need to.</p>
+<ul>
+<li>Derive the likelihood and/or log likelihood function and score</li>
+<li>Create an R <code>function</code> for the quantity to want to optimize (often the log likelihood) where given we provide the function certain values, the function returns the resulting quantity. (Kind of like when we supply the function <code>mean()</code> with a set of values, it returns the average of the values by computing the average under the hood of the function.)</li>
+<li>Use <code>optim()</code> to maximize
+<ul>
+<li><code>optim(par, fn, ..., gr, method, control, hessian,...)</code>, where</li>
+<li><code>par</code>: initial values of the parameters</li>
+<li><code>fn</code>: function to be maximized (minimized)</li>
+<li><code>gr</code>: optional argument, can include the gradient to help with optimization</li>
+<li><code>...</code>: (specify other variables in <code>fn</code>)</li>
+<li><code>method</code>: optimization algorithm</li>
+<li><code>control</code>: parameters to fine-tune optimization</li>
+<li><code>hessian</code>: returns the Hessian matrix if <code>TRUE</code></li>
+</ul></li>
+</ul>
+<p>By default, <code>optim</code> performs minimization. Make sure to set <code>control = list(fnscale=-1)</code> for maximization</p>
+<ul>
+<li>For starting values <code>par</code>, least squares estimates are often used. More sensible starting values help your optimize more quickly. You may need to adjust the <code>maxit</code> control parameter to make sure the optimization converges.</li>
+<li>A commonly used <code>method</code> is <code>BFGS</code> (a variant of Newton-Raphson), similar to what <code>glm()</code> uses, but there are other methods available.</li>
+</ul>
+<p><strong><em>Example 1: p</em></strong></p>
+<p>Let’s take our relatively simple example about toxic tweets above and optimize the likelihood. First, we create a function for the likelihood that will calculate the likelihood for the values supplied. In the future, our models will be complicated enough, we will stick with the log likelihood, which allows us to take a sum instead of a product.</p>
+<p>One benefit of R is that you can write your own functions, just like <code>mean()</code> is a built-in function in R. For more information on writing functions, you can review Imai <a href="https://assets.press.princeton.edu/chapters/s11025.pdf">QSS Chapter 1 pg. 19.</a>.</p>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="deriving-estimators.html#cb247-1" aria-hidden="true" tabindex="-1"></a>lik.p <span class="ot">&lt;-</span> <span class="cf">function</span>(p){</span>
+<span id="cb247-2"><a href="deriving-estimators.html#cb247-2" aria-hidden="true" tabindex="-1"></a>  lh <span class="ot">&lt;-</span> p <span class="sc">*</span> p <span class="sc">*</span> p <span class="sc">*</span> p <span class="sc">*</span> p <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>p) <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>p)</span>
+<span id="cb247-3"><a href="deriving-estimators.html#cb247-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(lh)</span>
+<span id="cb247-4"><a href="deriving-estimators.html#cb247-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Ok, now that we have our likelihood function, we can optimize. We just have to tell R a starting parameter for <span class="math inline">\(\hat p\)</span>. Let’s give it a (relatively) bad one just to show how it works (i.e., can <code>optim</code> find the sensible .75 value. If you give the function too bad of a value, it might not converge before it maxes out and instead return a local min/max instead of a global one.</p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="deriving-estimators.html#cb248-1" aria-hidden="true" tabindex="-1"></a>startphat <span class="ot">&lt;-</span> .<span class="dv">25</span></span>
+<span id="cb248-2"><a href="deriving-estimators.html#cb248-2" aria-hidden="true" tabindex="-1"></a>opt.fit <span class="ot">&lt;-</span> <span class="fu">optim</span>(<span class="at">par =</span> startphat, <span class="at">fn=</span>lik.p, <span class="at">method=</span><span class="st">&quot;BFGS&quot;</span>,</span>
+<span id="cb248-3"><a href="deriving-estimators.html#cb248-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">control=</span><span class="fu">list</span>(<span class="at">fnscale=</span><span class="sc">-</span><span class="dv">1</span>))</span>
+<span id="cb248-4"><a href="deriving-estimators.html#cb248-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb248-5"><a href="deriving-estimators.html#cb248-5" aria-hidden="true" tabindex="-1"></a><span class="do">## This should match our plot</span></span>
+<span id="cb248-6"><a href="deriving-estimators.html#cb248-6" aria-hidden="true" tabindex="-1"></a>opt.fit<span class="sc">$</span>par</span></code></pre></div>
+<pre><code>[1] 0.7500035</code></pre>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="deriving-estimators.html#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="do">## you should check convergence. Want this to be 0 to make sure it converged</span></span>
+<span id="cb250-2"><a href="deriving-estimators.html#cb250-2" aria-hidden="true" tabindex="-1"></a>opt.fit<span class="sc">$</span>convergence</span></code></pre></div>
+<pre><code>[1] 0</code></pre>
+<p><strong><em>Example 2: Linear Model</em></strong></p>
+<p>We can use <code>optim</code> to find a solution for a linear model by supplying R with our log likelihood function.</p>
+<p>For the MLE of the normal linear model, our log likelihood equation is:</p>
+<p><span class="math display">\[\begin{align*}
+\ell(\theta | Y) &amp;= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-\mathbf{x}_i&#39;\beta)^2}{2\sigma^2}
+\end{align*}\]</span></p>
+<ul>
+<li>Note: when you see <span class="math inline">\(\mathbf{x}_i&#39;\beta\)</span>, usually that is the representation of the multiplication of <span class="math inline">\(k\)</span> covariates (a <span class="math inline">\(1 \times k\)</span> vector) for a particular observation <span class="math inline">\(i\)</span> by <span class="math inline">\(k \times 1\)</span> coefficient values <span class="math inline">\(\beta\)</span>. You can contrast this with <span class="math inline">\(X\beta\)</span>, which represents <span class="math inline">\(n \times k\)</span> rows of observations with <span class="math inline">\(k\)</span> covariates multiplied by the <span class="math inline">\(k \times 1\)</span> coefficients. You will see both notations depending on if notation is indexed by <span class="math inline">\(i\)</span> or represented fully in matrix form.</li>
+</ul>
+<p>Now that we have our log likelihood, we can write a function that for a given set of <span class="math inline">\(\hat \beta\)</span> and <span class="math inline">\(\hat \sigma^2\)</span> parameter values, <span class="math inline">\(X\)</span>, and <span class="math inline">\(Y\)</span>, it will return the log likelihood.</p>
+<ul>
+<li>Below we indicate we will supply an argument <code>par</code> (an arbitrary name) that will inclue our estimates for the parameters: <span class="math inline">\(k\)</span> values for the set of <span class="math inline">\(\hat \beta\)</span> estimates and a <span class="math inline">\(k + 1\)</span> value for the <span class="math inline">\(\hat \sigma^2\)</span> estimate. Many models with only have one set of parameters. This is actually a slightly more tricky example.</li>
+<li>The <code>lt</code> line is the translation of the equation above into R code</li>
+</ul>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="deriving-estimators.html#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Log Likelihood function for the normal model</span></span>
+<span id="cb252-2"><a href="deriving-estimators.html#cb252-2" aria-hidden="true" tabindex="-1"></a>l_lm <span class="ot">&lt;-</span> <span class="cf">function</span>(par, Y, X){</span>
+<span id="cb252-3"><a href="deriving-estimators.html#cb252-3" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> <span class="fu">ncol</span>(X)</span>
+<span id="cb252-4"><a href="deriving-estimators.html#cb252-4" aria-hidden="true" tabindex="-1"></a>  beta <span class="ot">&lt;-</span> par[<span class="dv">1</span><span class="sc">:</span>k]</span>
+<span id="cb252-5"><a href="deriving-estimators.html#cb252-5" aria-hidden="true" tabindex="-1"></a>  sigma2 <span class="ot">&lt;-</span> par[(k<span class="sc">+</span><span class="dv">1</span>)]</span>
+<span id="cb252-6"><a href="deriving-estimators.html#cb252-6" aria-hidden="true" tabindex="-1"></a>  lt <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">log</span>(<span class="dv">1</span><span class="sc">/</span>(<span class="fu">sqrt</span>(sigma2)<span class="sc">*</span><span class="fu">sqrt</span>(<span class="dv">2</span><span class="sc">*</span>pi))) <span class="sc">-</span> ((Y <span class="sc">-</span> X <span class="sc">%*%</span> beta)<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>(<span class="dv">2</span><span class="sc">*</span>sigma2)))</span>
+<span id="cb252-7"><a href="deriving-estimators.html#cb252-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(lt)</span>
+<span id="cb252-8"><a href="deriving-estimators.html#cb252-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Now that we have our function, we can apply it to a problem.</p>
+<p>Let’s use an example with a sample of Democrats from the 2016 American National Election Study dataset. This example is based on the article “Hostile Sexism, Racial Resentment, and Political Mobilization” by Kevin K. Banda and Erin C. Cassese published in <em>Political Behavior</em> in 2020. We are not replicating their article precisely, but we use similar data and study similar relationships.</p>
+<p>The researchers were interested in how cross-pressures influence the political participation of different partisan groups. In particular, they hypothesized that Democrats in the U.S. who held more sexist views would be demobilized from political participation in 2016, a year in which Hillary Clinton ran for the presidency.</p>
+<p>The data we are using are available <a href="https://github.com/ktmccabe/teachingdata">anesdems.csv</a> and represent a subset of the data for Democrats (including people who lean toward the Democratic party). We have a few variables of interest</p>
+<ul>
+<li><code>participation</code>: a 0 to 8 variable indicating the extent of a respondent’s political participation</li>
+<li><code>female</code>: a 0 or 1 variable indicating if the respondent is female</li>
+<li><code>edu</code>: a numeric variable indicating a respondent’s education level</li>
+<li><code>age</code>: a numeric variable indicating a respondent’s age.</li>
+<li><code>sexism</code>: a numeric variable indicating a respondent’s score on a battery of questions designed to assess hostile sexism, where higher values indicate more hostile sexism.</li>
+</ul>
+<p>Let’s regress participation on these variables and estimate it using OLS, GLM, and <code>optim</code>. Note, OLS and GLM fit through their functions in R will automatically drop any observations that have missing data on these variables. To make it comparable with <code>optim</code>, we will manually eliminate missing data.</p>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="deriving-estimators.html#cb253-1" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ktmccabe/teachingdata/main/anesdems.csv&quot;</span>)</span>
+<span id="cb253-2"><a href="deriving-estimators.html#cb253-2" aria-hidden="true" tabindex="-1"></a><span class="do">## choose variables we will use</span></span>
+<span id="cb253-3"><a href="deriving-estimators.html#cb253-3" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> <span class="fu">subset</span>(anes, <span class="at">select=</span><span class="fu">c</span>(<span class="st">&quot;participation&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;edu&quot;</span>, <span class="st">&quot;sexism&quot;</span>, <span class="st">&quot;female&quot;</span>))</span>
+<span id="cb253-4"><a href="deriving-estimators.html#cb253-4" aria-hidden="true" tabindex="-1"></a><span class="do">## omit observations with missing data on these variables</span></span>
+<span id="cb253-5"><a href="deriving-estimators.html#cb253-5" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(anes)</span>
+<span id="cb253-6"><a href="deriving-estimators.html#cb253-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb253-7"><a href="deriving-estimators.html#cb253-7" aria-hidden="true" tabindex="-1"></a><span class="do">## OLS and GLM regression</span></span>
+<span id="cb253-8"><a href="deriving-estimators.html#cb253-8" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(participation <span class="sc">~</span> female <span class="sc">+</span> edu <span class="sc">+</span> age <span class="sc">+</span> sexism, <span class="at">data=</span>anes)</span>
+<span id="cb253-9"><a href="deriving-estimators.html#cb253-9" aria-hidden="true" tabindex="-1"></a>fit.glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(participation <span class="sc">~</span> female <span class="sc">+</span> edu <span class="sc">+</span> age <span class="sc">+</span> sexism, <span class="at">data=</span>anes,</span>
+<span id="cb253-10"><a href="deriving-estimators.html#cb253-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link=</span><span class="st">&quot;identity&quot;</span>))</span></code></pre></div>
+<p>Now we will build our data for <code>optim</code>. We need <span class="math inline">\(X\)</span>, <span class="math inline">\(Y\)</span>, and a set of starting <span class="math inline">\(\hat \beta\)</span> and <span class="math inline">\(\hat \sigma^2\)</span> values.</p>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="deriving-estimators.html#cb254-1" aria-hidden="true" tabindex="-1"></a><span class="do">## X and Y data</span></span>
+<span id="cb254-2"><a href="deriving-estimators.html#cb254-2" aria-hidden="true" tabindex="-1"></a>X.anes <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit)</span>
+<span id="cb254-3"><a href="deriving-estimators.html#cb254-3" aria-hidden="true" tabindex="-1"></a>Y.anes <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(anes<span class="sc">$</span>participation)</span>
+<span id="cb254-4"><a href="deriving-estimators.html#cb254-4" aria-hidden="true" tabindex="-1"></a><span class="do">## make sure dimensions are the same</span></span>
+<span id="cb254-5"><a href="deriving-estimators.html#cb254-5" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(X.anes)</span></code></pre></div>
+<pre><code>[1] 1585</code></pre>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="deriving-estimators.html#cb256-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(Y.anes)</span></code></pre></div>
+<pre><code>[1] 1585</code></pre>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="deriving-estimators.html#cb258-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Pick starting values for parameters</span></span>
+<span id="cb258-2"><a href="deriving-estimators.html#cb258-2" aria-hidden="true" tabindex="-1"></a>startbetas <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit)</span>
+<span id="cb258-3"><a href="deriving-estimators.html#cb258-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Recall our estimate for sigma-squared based on the residuals</span></span>
+<span id="cb258-4"><a href="deriving-estimators.html#cb258-4" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">ncol</span>(X.anes)</span>
+<span id="cb258-5"><a href="deriving-estimators.html#cb258-5" aria-hidden="true" tabindex="-1"></a>startsigma <span class="ot">&lt;-</span> <span class="fu">sum</span>(fit<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (<span class="fu">nrow</span>(X.anes) <span class="sc">-</span> k )</span>
+<span id="cb258-6"><a href="deriving-estimators.html#cb258-6" aria-hidden="true" tabindex="-1"></a>startpar <span class="ot">&lt;-</span> <span class="fu">c</span>(startbetas, startsigma)</span>
+<span id="cb258-7"><a href="deriving-estimators.html#cb258-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb258-8"><a href="deriving-estimators.html#cb258-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Fit model</span></span>
+<span id="cb258-9"><a href="deriving-estimators.html#cb258-9" aria-hidden="true" tabindex="-1"></a><span class="do">## But let&#39;s make it harder on the optimization by providing arbitrary starting values</span></span>
+<span id="cb258-10"><a href="deriving-estimators.html#cb258-10" aria-hidden="true" tabindex="-1"></a><span class="do">## (normally you wouldn&#39;t do this)</span></span>
+<span id="cb258-11"><a href="deriving-estimators.html#cb258-11" aria-hidden="true" tabindex="-1"></a>startpar <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)</span>
+<span id="cb258-12"><a href="deriving-estimators.html#cb258-12" aria-hidden="true" tabindex="-1"></a>opt.fit <span class="ot">&lt;-</span> <span class="fu">optim</span>(<span class="at">par =</span> startpar, <span class="at">fn=</span>l_lm, <span class="at">X =</span> X.anes,</span>
+<span id="cb258-13"><a href="deriving-estimators.html#cb258-13" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Y=</span>Y.anes, <span class="at">method=</span><span class="st">&quot;BFGS&quot;</span>,</span>
+<span id="cb258-14"><a href="deriving-estimators.html#cb258-14" aria-hidden="true" tabindex="-1"></a>                 <span class="at">control=</span><span class="fu">list</span>(<span class="at">fnscale=</span><span class="sc">-</span><span class="dv">1</span>),</span>
+<span id="cb258-15"><a href="deriving-estimators.html#cb258-15" aria-hidden="true" tabindex="-1"></a>                   <span class="at">hessian=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>We can compare this optimization approach to the output in <code>glm()</code>.</p>
+<p>We can first compare the log likelihoods</p>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="deriving-estimators.html#cb259-1" aria-hidden="true" tabindex="-1"></a><span class="fu">logLik</span>(fit.glm)</span></code></pre></div>
+<pre><code>&#39;log Lik.&#39; -2661.428 (df=6)</code></pre>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="deriving-estimators.html#cb261-1" aria-hidden="true" tabindex="-1"></a>opt.fit<span class="sc">$</span>value</span></code></pre></div>
+<pre><code>[1] -2661.428</code></pre>
+<p>We can compare the coefficients.</p>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="deriving-estimators.html#cb263-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients</span></span>
+<span id="cb263-2"><a href="deriving-estimators.html#cb263-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(fit), <span class="at">digits=</span><span class="dv">4</span>)</span>
+<span id="cb263-3"><a href="deriving-estimators.html#cb263-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">coef</span>(fit.glm), <span class="at">digits=</span><span class="dv">4</span>)</span>
+<span id="cb263-4"><a href="deriving-estimators.html#cb263-4" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(opt.fit<span class="sc">$</span>par, <span class="at">digits=</span><span class="dv">4</span>)[<span class="dv">1</span><span class="sc">:</span>k]</span></code></pre></div>
+<pre><code>(Intercept)      female         edu         age      sexism 
+     0.9293     -0.2175      0.1668      0.0088     -0.9818 
+(Intercept)      female         edu         age      sexism 
+     0.9293     -0.2175      0.1668      0.0088     -0.9818 
+[1]  0.9294 -0.2175  0.1668  0.0088 -0.9819</code></pre>
+<p>We can add the gradient of the log likelihood to help improve optimization. This requires specifying the first derivative (the score) of the parameters. Unfortunately this means taking the derivative of that ugly normal log likelihood above. Again, with the normal model, we have two scores because of <span class="math inline">\(\hat \beta\)</span> and <span class="math inline">\(\hat \sigma^2\)</span>. For others, we may just have one.</p>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="deriving-estimators.html#cb265-1" aria-hidden="true" tabindex="-1"></a><span class="do">## first derivative function</span></span>
+<span id="cb265-2"><a href="deriving-estimators.html#cb265-2" aria-hidden="true" tabindex="-1"></a>score_lm <span class="ot">&lt;-</span> <span class="cf">function</span>(par, Y, X){</span>
+<span id="cb265-3"><a href="deriving-estimators.html#cb265-3" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> <span class="fu">ncol</span>(X)</span>
+<span id="cb265-4"><a href="deriving-estimators.html#cb265-4" aria-hidden="true" tabindex="-1"></a>  beta <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(par[<span class="dv">1</span><span class="sc">:</span>k])</span>
+<span id="cb265-5"><a href="deriving-estimators.html#cb265-5" aria-hidden="true" tabindex="-1"></a>  scorebeta <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">/</span>par[k<span class="sc">+</span><span class="dv">1</span>]) <span class="sc">*</span> (<span class="fu">t</span>(X) <span class="sc">%*%</span> (Y <span class="sc">-</span> X <span class="sc">%*%</span> beta))</span>
+<span id="cb265-6"><a href="deriving-estimators.html#cb265-6" aria-hidden="true" tabindex="-1"></a>  scoresigma <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fu">nrow</span>(X)<span class="sc">/</span>(par[k<span class="sc">+</span><span class="dv">1</span>]<span class="sc">*</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">sum</span>((Y <span class="sc">-</span> X <span class="sc">%*%</span> beta)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>(<span class="dv">2</span> <span class="sc">*</span> par[k<span class="sc">+</span><span class="dv">1</span>]<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb265-7"><a href="deriving-estimators.html#cb265-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">c</span>(scorebeta, scoresigma))</span>
+<span id="cb265-8"><a href="deriving-estimators.html#cb265-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb265-9"><a href="deriving-estimators.html#cb265-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb265-10"><a href="deriving-estimators.html#cb265-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Fit model</span></span>
+<span id="cb265-11"><a href="deriving-estimators.html#cb265-11" aria-hidden="true" tabindex="-1"></a>opt.fit <span class="ot">&lt;-</span> <span class="fu">optim</span>(<span class="at">par =</span> startpar, <span class="at">fn=</span>l_lm, <span class="at">gr=</span>score_lm, <span class="at">X =</span> X.anes,</span>
+<span id="cb265-12"><a href="deriving-estimators.html#cb265-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Y=</span>Y.anes, <span class="at">method=</span><span class="st">&quot;BFGS&quot;</span>,</span>
+<span id="cb265-13"><a href="deriving-estimators.html#cb265-13" aria-hidden="true" tabindex="-1"></a>                 <span class="at">control=</span><span class="fu">list</span>(<span class="at">fnscale=</span><span class="sc">-</span><span class="dv">1</span>),</span>
+<span id="cb265-14"><a href="deriving-estimators.html#cb265-14" aria-hidden="true" tabindex="-1"></a>                   <span class="at">hessian=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>In addition to using <code>optim</code>, we can program our own Newton-Raphson algorithm, which is a method that continually updates the coefficient estimates <span class="math inline">\(\hat \beta\)</span> until it converges on a set of estimates. We will see this in a future section. The general algorithm involves the components we’ve seen before: values for <span class="math inline">\(\hat \beta\)</span>, the score, and the Hessian.</p>
+<ul>
+<li>Newton-Raphson: <span class="math inline">\(\hat \beta_{new} = \hat \beta_{old} - H(\beta_{old})^{-1}S(\hat \beta_{old})\)</span></li>
+</ul>
+</div>
+<div id="mle-properties" class="section level3" number="6.1.4">
+<h3><span class="header-section-number">6.1.4</span> MLE Properties</h3>
+<p>Just like OLS had certain properties (BLUE) that made it worthwhile, models using MLE also have desirable features under certain assumptions and regularity conditions.</p>
 <p>Large sample properties</p>
 <ul>
-<li>Consistent: plim<span class="math inline">\(\hat \theta^{ML} = \theta\)</span></li>
-<li>Under certain “regularity conditions”, Asymptotically normal: <span class="math inline">\(\hat \theta^{ML} \sim N(\theta, [I(\theta)]^{-1})\)</span>
+<li>MLE is consistent: <span class="math inline">\(p\lim \hat \theta^{ML} = \theta\)</span></li>
+<li>It is also asymptotically normal: <span class="math inline">\(\hat \theta^{ML} \sim N(\theta, [I(\theta)]^{-1})\)</span>
 <ul>
-<li>We will use the normal approximation to calculate z-scores and p-values</li>
+<li>This will allow us to use the normal approximation to calculate z-scores and p-values</li>
 </ul></li>
-<li>Efficient</li>
+<li>And it is asymptotically efficient. “In other words, compared to any other consistent and uniformly asymptotically Normal estimator, the ML estimator has a smaller asymptotic variance” (King 1998, 80).</li>
 </ul>
 <p><strong><em>Note on consistency</em></strong></p>
 <p>What does it mean to say an estimator is consistent? As samples get larger and larger, we converge to the truth.</p>
@@ -351,21 +526,32 @@ The right term should look familar! We will end up with a <span class="math inli
 </ul>
 <p>Note that bias and consistency are different: Consistency means that as the sample size (<span class="math inline">\(n\)</span>) gets large the estimate gets closer to the true value. Unbiasedness is not affected by sample size. An estimate is unbiased if over repeated samples, its expected value (average) is the true parameter.</p>
 <p>It is possible for an estimator to be unbiased and consistent, biased and not consistent, or consistent yet biased.</p>
-<p><img src="images/UnbiasedandConsistent.png" style="width:70.0%" /></p>
-<p><img src="images/BiasedandInconsistent.png" style="width:70.0%" /></p>
-<p><img src="images/BiasedButConsistent.png" style="width:70.0%" /></p>
+<p><img src="images/UnbiasedandConsistent.png" style="width:40.0%" />; <img src="images/BiasedandInconsistent.png" style="width:40.0%" /></p>
+<p><img src="images/BiasedButConsistent.png" style="width:40.0%" /></p>
 <p>Images taken from <a href="https://eranraviv.com/bias-vs-consistency/">here</a></p>
+<p>What is a practical takeaway from this? The desirable properties of MLE kick in with larger samples. When you have a very small sample, you might use caution with your estimates.</p>
+<p><strong><em>No Free Lunch</em></strong></p>
+<p>We have hinted at some of the assumptions required, but below we can state them more formally.</p>
+<ul>
+<li>First, we assume a particular data generating process: the probability model.</li>
+<li>We are generally assuming that observations are independent and identically distributed (allowing us to write the likelihood as a product)– unless we explicitly write the likelihood in a way that takes this into account.
+<ul>
+<li>When we have complicated structures to our data, this assumption may be violated, such as data that is clustered in particular hierarchical entities.</li>
+</ul></li>
+<li>We assume the model (i.e., the choice of covariates and how they are modeled) is correctly specified. (e.g., no omitted variables.)</li>
+<li>We have to meet certain technical regularity conditions–meaning that our problem is a “regular” one. These, in the words of Gary King are “obviously quite technical” (1998, 75). We will not get into the details, but you can see pg. 75 of <em>Unifying Political Methodology</em> for the formal mathematical statements. In short, our paramaters have to be <a href="https://en.wikipedia.org/wiki/Identifiability">identifiable</a> and within the parameter space of possible values (this identifiability can be violated, for example, when we have too many parameters relative to the number of observations in the sample), we have to be able to differentiate the log-likelihood (in fact, it needs to be twice continuously differentiable) along the support (the range of values) in the data. The information matrix, which we get through the second derivative, must be positive definite and finitely bounded. This helps us know we are at a maximum, and the maximum exists and is finite. You can visualize this as a smooth function, that is not too sharp (which would make it non differentiable), but has a peak (a maximum) that we can identify.</li>
+</ul>
 </div>
-<div id="hypothesis-tests" class="section level3" number="6.1.4">
-<h3><span class="header-section-number">6.1.4</span> Hypothesis Tests</h3>
-<p>We can apply the same hypothesis testing framework to our estimates here. We can standardize our coefficient estimates by dividing them by the standard error. This will generate a “z score.” Just like when we had the t value in OLS, we can use the z score to calculate the p-value and make assessments about the null hypothesis that a given <span class="math inline">\(\hat \beta_k\)</span> = 0.</p>
+<div id="hypothesis-tests" class="section level3" number="6.1.5">
+<h3><span class="header-section-number">6.1.5</span> Hypothesis Tests</h3>
+<p>We can apply the same hypothesis testing framework to our estimates here as we did in linear regression. First, we can standardize our coefficient estimates by dividing them by the standard error. This will generate a “z score.” Just like when we had the t value in OLS, we can use the z score to calculate the p-value and make assessments about the null hypothesis that a given <span class="math inline">\(\hat \beta_k\)</span> = 0.</p>
 <p><span class="math display">\[\begin{align*}
 z &amp;= \frac{\hat \theta_k}{\sqrt{Var(\hat \theta)_k}} \sim N(0,1)
 \end{align*}\]</span></p>
-<p>Note: to get p-values, we typically now use, <code>2 * pnorm(abs(z), lower.tail=F)</code> instead of <code>pt()</code> and our critical values are based on <code>qnorm()</code> instead of <code>qt()</code>. R will follow the same in most circumstances.</p>
+<p>Note: to get p-values, we typically now use, <code>2 * pnorm(abs(z), lower.tail=F)</code> instead of <code>pt()</code> and our critical values are based on <code>qnorm()</code> instead of <code>qt()</code>. R will follow the same in most circumstances. In large samples, these converge to the same quantities.</p>
 </div>
-<div id="model-output-in-r" class="section level3" number="6.1.5">
-<h3><span class="header-section-number">6.1.5</span> Model Output in R</h3>
+<div id="model-output-in-r" class="section level3" number="6.1.6">
+<h3><span class="header-section-number">6.1.6</span> Model Output in R</h3>
 <p>As discussed, we can fit a GLM in R using the <code>glm</code> function:</p>
 <ul>
 <li><code>glm(formula, data, family = XXX(link = "XXX", ...), ...)</code>
@@ -376,67 +562,75 @@ z &amp;= \frac{\hat \theta_k}{\sqrt{Var(\hat \theta)_k}} \sim N(0,1)
 <li><code>link</code>: Name of the link function (e.g. <code>logit</code>, `<code>probit</code>, <code>identity</code>, <code>log</code>)</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="deriving-estimators.html#cb245-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load Data</span></span>
-<span id="cb245-2"><a href="deriving-estimators.html#cb245-2" aria-hidden="true" tabindex="-1"></a>florida <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ktmccabe/teachingdata/main/florida.csv&quot;</span>)</span>
-<span id="cb245-3"><a href="deriving-estimators.html#cb245-3" aria-hidden="true" tabindex="-1"></a>fit.glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(Buchanan00 <span class="sc">~</span> Perot96, <span class="at">data=</span>florida, </span>
-<span id="cb245-4"><a href="deriving-estimators.html#cb245-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="deriving-estimators.html#cb266-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load Data</span></span>
+<span id="cb266-2"><a href="deriving-estimators.html#cb266-2" aria-hidden="true" tabindex="-1"></a>fit.glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(participation <span class="sc">~</span> female <span class="sc">+</span> edu <span class="sc">+</span> age <span class="sc">+</span> sexism, <span class="at">data=</span>anes,</span>
+<span id="cb266-3"><a href="deriving-estimators.html#cb266-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link=</span><span class="st">&quot;identity&quot;</span>))</span></code></pre></div>
 <p>We’ve already discussed the coefficient output. Like <code>lm()</code>, GLM wiil also display the standard errors, z-scores / t-statistics, and p-values of the model in the model summary.</p>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="deriving-estimators.html#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.glm)<span class="sc">$</span>coefficients</span></code></pre></div>
-<pre><code>              Estimate   Std. Error    t value     Pr(&gt;|t|)
-(Intercept) 1.34575212 49.759306434 0.02704523 9.785065e-01
-Perot96     0.03591504  0.004340068 8.27522567 9.473505e-12</code></pre>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="deriving-estimators.html#cb267-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.glm)<span class="sc">$</span>coefficients</span></code></pre></div>
+<pre><code>                Estimate  Std. Error   t value     Pr(&gt;|t|)
+(Intercept)  0.929302597 0.154033186  6.033132 1.999280e-09
+female      -0.217453631 0.067415200 -3.225588 1.282859e-03
+edu          0.166837062 0.022402469  7.447262 1.559790e-13
+age          0.008795138 0.001874559  4.691843 2.941204e-06
+sexism      -0.981808431 0.154664950 -6.347970 2.844067e-10</code></pre>
 <p>For this example, R reverts to the t-value instead of the z-score given that we are using the linear model. In other examples, you may see <code>z</code> in place of <code>t</code>. There are only small differences in these approximations because as your sample size gets larger, the degrees of freedom (used in the calculation of p-calues for the t distribution) are big enough that the t distribution converges to the normal distribution.</p>
 <p><strong>Goodness of fit</strong></p>
 <p>The <code>glm()</code> model has a lot of summary output.</p>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="deriving-estimators.html#cb248-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.glm)</span></code></pre></div>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="deriving-estimators.html#cb269-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.glm)</span></code></pre></div>
 <pre><code>
 Call:
-glm(formula = Buchanan00 ~ Perot96, family = gaussian(link = &quot;identity&quot;), 
-    data = florida)
+glm(formula = participation ~ female + edu + age + sexism, family = gaussian(link = &quot;identity&quot;), 
+    data = anes)
 
 Deviance Residuals: 
     Min       1Q   Median       3Q      Max  
--612.74   -65.96     1.94    32.88  2301.66  
+-2.3001  -0.8343  -0.3013   0.3651   7.2887  
 
 Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  1.34575   49.75931   0.027    0.979    
-Perot96      0.03592    0.00434   8.275 9.47e-12 ***
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  0.929303   0.154033   6.033 2.00e-09 ***
+female      -0.217454   0.067415  -3.226  0.00128 ** 
+edu          0.166837   0.022402   7.447 1.56e-13 ***
+age          0.008795   0.001875   4.692 2.94e-06 ***
+sexism      -0.981808   0.154665  -6.348 2.84e-10 ***
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
-(Dispersion parameter for gaussian family taken to be 100094.1)
+(Dispersion parameter for gaussian family taken to be 1.688012)
 
-    Null deviance: 13360499  on 66  degrees of freedom
-Residual deviance:  6506118  on 65  degrees of freedom
-AIC: 965.54
+    Null deviance: 2969.3  on 1584  degrees of freedom
+Residual deviance: 2667.1  on 1580  degrees of freedom
+AIC: 5334.9
 
 Number of Fisher Scoring iterations: 2</code></pre>
 <p>Some of the output represents measures of the goodness of fit of the model. However, their values are not directly interpretable from a single model.</p>
 <ul>
-<li>Larger (less negative) likelihood, the better the model fits the data. (<code>logLik(mod)</code>)</li>
+<li>Larger (less negative) likelihood, the better the model fits the data. (<code>logLik(mod)</code>). The becomes relavent when comparing two or more models.</li>
 <li>Deviance is calculated from the likelihood. A measure of discrepancy between observed and fitted values. (Smaller values, better fit)
-\begin{itemize}</li>
+<ul>
 <li>Null deviance: how well the outcome is predicted by a model that includes only the intercept. (<span class="math inline">\(df = n - 1\)</span>)</li>
 <li>Residual deviance: how well the outcome is predicted by a model with our parameters. (<span class="math inline">\(df = n-k\)</span>)</li>
+</ul></li>
 <li>AIC- used for model comparison. Smaller values indicate a more parsimonious model. Accounts for the number of parameters (<span class="math inline">\(K\)</span>) in the model (like Adjusted R-squared, but without the ease of interpretation). Sometimes used as a criteria in prediction exercises (using a model on training data to predict test data).</li>
 </ul>
 <p><strong>Likelihood Ratio Test</strong></p>
-<p>The likelihood ratio test compares the fit of two models, with the null hypothesis being that the full model does not add more explanatory power to the reduced model.</p>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="deriving-estimators.html#cb250-1" aria-hidden="true" tabindex="-1"></a>fit.glm2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(Buchanan00 <span class="sc">~</span> Perot96 <span class="sc">+</span> Clinton96, <span class="at">data=</span>florida, </span>
-<span id="cb250-2"><a href="deriving-estimators.html#cb250-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span>
-<span id="cb250-3"><a href="deriving-estimators.html#cb250-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb250-4"><a href="deriving-estimators.html#cb250-4" aria-hidden="true" tabindex="-1"></a>fit.glm1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(Buchanan00 <span class="sc">~</span> Perot96, <span class="at">data=</span>florida, </span>
-<span id="cb250-5"><a href="deriving-estimators.html#cb250-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span>
-<span id="cb250-6"><a href="deriving-estimators.html#cb250-6" aria-hidden="true" tabindex="-1"></a>               </span>
-<span id="cb250-7"><a href="deriving-estimators.html#cb250-7" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit.glm1, fit.glm2, <span class="at">test =</span> <span class="st">&quot;Chisq&quot;</span>) <span class="co"># Fail to reject the null</span></span></code></pre></div>
+<p>The likelihood ratio test compares the fit of two models, with the null hypothesis being that the full model does not add more explanatory power to the reduced model. Note: You should only compare models if they have the same number of observations.</p>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="deriving-estimators.html#cb271-1" aria-hidden="true" tabindex="-1"></a>fit.glm2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(participation <span class="sc">~</span> female <span class="sc">+</span> edu <span class="sc">+</span> age <span class="sc">+</span> sexism, <span class="at">data=</span>anes,</span>
+<span id="cb271-2"><a href="deriving-estimators.html#cb271-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link=</span><span class="st">&quot;identity&quot;</span>))</span>
+<span id="cb271-3"><a href="deriving-estimators.html#cb271-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb271-4"><a href="deriving-estimators.html#cb271-4" aria-hidden="true" tabindex="-1"></a>fit.glm1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(participation <span class="sc">~</span> female <span class="sc">+</span> edu <span class="sc">+</span> age, <span class="at">data=</span>anes, </span>
+<span id="cb271-5"><a href="deriving-estimators.html#cb271-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span>
+<span id="cb271-6"><a href="deriving-estimators.html#cb271-6" aria-hidden="true" tabindex="-1"></a>               </span>
+<span id="cb271-7"><a href="deriving-estimators.html#cb271-7" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit.glm1, fit.glm2, <span class="at">test =</span> <span class="st">&quot;Chisq&quot;</span>) <span class="co">#  reject the null</span></span></code></pre></div>
 <pre><code>Analysis of Deviance Table
 
-Model 1: Buchanan00 ~ Perot96
-Model 2: Buchanan00 ~ Perot96 + Clinton96
-  Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)
-1        65    6506118                     
-2        64    6418424  1    87693   0.3497</code></pre>
+Model 1: participation ~ female + edu + age
+Model 2: participation ~ female + edu + age + sexism
+  Resid. Df Resid. Dev Df Deviance  Pr(&gt;Chi)    
+1      1581     2735.1                          
+2      1580     2667.1  1   68.021 2.182e-10 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p><strong>Pseudo-R-squared</strong></p>
 <p>We don’t have an exact equivalent to the R-squared in OLS, but people have developed “pseudo” measures.</p>
 <p>Example: McFadden’s R-squared</p>
@@ -446,11 +640,10 @@ Model 2: Buchanan00 ~ Perot96 + Clinton96
 <li>where <span class="math inline">\(\ell(M)\)</span> is the log-likelihood for your fitted model and <span class="math inline">\(\ell(N)\)</span> is the log-likelihood for a model with only the intercept</li>
 </ul></li>
 <li>Recall, greater (less negative) values of the log-likelihood indicate better fit</li>
-<li>McFadden’s values range from 0 to close to 1
-\end{itemize}</li>
+<li>McFadden’s values range from 0 to close to 1</li>
 </ul>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="deriving-estimators.html#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;pscl&quot;)</span></span>
-<span id="cb252-2"><a href="deriving-estimators.html#cb252-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pscl)</span></code></pre></div>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="deriving-estimators.html#cb273-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;pscl&quot;)</span></span>
+<span id="cb273-2"><a href="deriving-estimators.html#cb273-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pscl)</span></code></pre></div>
 <pre><code>Warning: package &#39;pscl&#39; was built under R version 4.0.2</code></pre>
 <pre><code>Classes and Methods for R developed in the
 Political Science Computational Laboratory
@@ -458,29 +651,17 @@ Department of Political Science
 Stanford University
 Simon Jackman
 hurdle and zeroinfl functions by Achim Zeileis</code></pre>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="deriving-estimators.html#cb255-1" aria-hidden="true" tabindex="-1"></a>fit.glm.null <span class="ot">&lt;-</span> <span class="fu">glm</span>(Buchanan00 <span class="sc">~</span> <span class="dv">1</span>, florida, <span class="at">family =</span> <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span>
-<span id="cb255-2"><a href="deriving-estimators.html#cb255-2" aria-hidden="true" tabindex="-1"></a>pr <span class="ot">&lt;-</span> <span class="fu">pR2</span>(fit.glm1)</span></code></pre></div>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="deriving-estimators.html#cb276-1" aria-hidden="true" tabindex="-1"></a>fit.glm.null <span class="ot">&lt;-</span> <span class="fu">glm</span>(participation <span class="sc">~</span> <span class="dv">1</span>, anes, <span class="at">family =</span> <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span>
+<span id="cb276-2"><a href="deriving-estimators.html#cb276-2" aria-hidden="true" tabindex="-1"></a>pr <span class="ot">&lt;-</span> <span class="fu">pR2</span>(fit.glm1)</span></code></pre></div>
 <pre><code>fitting null model for pseudo-r2</code></pre>
-<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="deriving-estimators.html#cb257-1" aria-hidden="true" tabindex="-1"></a>pr[<span class="st">&quot;McFadden&quot;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="deriving-estimators.html#cb278-1" aria-hidden="true" tabindex="-1"></a>pr[<span class="st">&quot;McFadden&quot;</span>]</span></code></pre></div>
 <pre><code>  McFadden 
-0.04783988 </code></pre>
-<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="deriving-estimators.html#cb259-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Or, by hand:</span></span>
-<span id="cb259-2"><a href="deriving-estimators.html#cb259-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> (<span class="fu">logLik</span>(fit.glm)<span class="sc">/</span><span class="fu">logLik</span>(fit.glm.null))</span></code></pre></div>
-<pre><code>&#39;log Lik.&#39; 0.04783988 (df=3)</code></pre>
-
+0.02370539 </code></pre>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="deriving-estimators.html#cb280-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Or, by hand:</span></span>
+<span id="cb280-2"><a href="deriving-estimators.html#cb280-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> (<span class="fu">logLik</span>(fit.glm1)<span class="sc">/</span><span class="fu">logLik</span>(fit.glm.null))</span></code></pre></div>
+<pre><code>&#39;log Lik.&#39; 0.02370539 (df=5)</code></pre>
 </div>
 </div>
-<!-- </div> -->
-
-
-
-
-
-
-
-
-
-
 <div class="footnotes">
 <hr />
 <ol start="5">
@@ -492,8 +673,8 @@ hurdle and zeroinfl functions by Achim Zeileis</code></pre>
           </div>
         </div>
       </div>
-<a href="mleest.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="mleest.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="binary-dependent-variables.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

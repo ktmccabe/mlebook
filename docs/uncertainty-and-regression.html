@@ -314,7 +314,7 @@ F-statistic: 68.48 on 1 and 65 DF,  p-value: 9.474e-12</code></pre>
 <p><span class="math display">\[\begin{align*}
 \mathbf{V}(\widehat{\beta})  &amp;= (X^T X)^{-1}X^T \mathbf{V}( \epsilon) X (X^T X)^{-1}\\
 &amp;= \underbrace{(X^T X)^{-1}X^T \sigma^2I_n X (X^T X)^{-1}}_\text{Assume homoskedasticity}\\
-&amp;= \underbrace{\sigma^2I_n(X^T X)^{-1} X^T X (X^T X)^{-1}}_\text{Because it is a constant, we can move it out in front of the matrix multiplication, and then simplify the terms.}  \\
+&amp;= \underbrace{\sigma^2(X^T X)^{-1} X^T X (X^T X)^{-1}}_\text{Because it is a constant, we can move it out in front of the matrix multiplication, and then simplify the terms.}  \\
 &amp;= \sigma^2(X^T X)^{-1} 
 \end{align*}\]</span></p>
 <p>All done! This expression: <span class="math inline">\(\sigma^2(X^T X)^{-1}\)</span> represents the variance of our coefficient estimates. Note its dimensions: <span class="math inline">\(k \times k\)</span>. It has the same number of rows and columns as the number of our independent variables (plus the intercept).</p>
