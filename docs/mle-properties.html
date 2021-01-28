@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.1 Mathematical Operations | MLE for Political Science</title>
-  <meta name="description" content="3.1 Mathematical Operations | MLE for Political Science" />
+  <title>5.4 MLE Properties | MLE for Political Science</title>
+  <meta name="description" content="5.4 MLE Properties | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.1 Mathematical Operations | MLE for Political Science" />
+  <meta property="og:title" content="5.4 MLE Properties | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.1 Mathematical Operations | MLE for Political Science" />
+  <meta name="twitter:title" content="5.4 MLE Properties | MLE for Political Science" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="math.html"/>
-<link rel="next" href="mathematical-operations-in-r.html"/>
+<link rel="prev" href="mle-estimation.html"/>
+
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -256,79 +256,180 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mathematical-operations" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> Mathematical Operations</h2>
-<p>In this first section, we will review mathematical operations that you have probably encountered before. In many cases, this will be a refresher on the rules and how to read notation.</p>
-<div id="order-of-operations" class="section level3" number="3.1.1">
-<h3><span class="header-section-number">3.1.1</span> <strong>Order of Operations</strong></h3>
-<p>Many of you may have learned the phrase, “Please Excuse My Dear Aunt Sally” which stands for Parentheses (and other grouping symbols), followed by Exponents, followed by Multiplication and Division from left to right, followed by Addition and Subtraction from left to right.</p>
-<p>There will be many equations in our future, and we must remember these rules.</p>
+<div id="mle-properties" class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span> MLE Properties</h2>
+<p>Just like OLS had certain properties (BLUE) that made it worthwhile, models using MLE also have desirable features under certain assumptions and regularity conditions.</p>
+<p>Large sample properties</p>
 <ul>
-<li>Example: <span class="math inline">\(((1+2)^3)^2 = (3^3)^2 = 27^2 = 729\)</span></li>
+<li>MLE is consistent: <span class="math inline">\(p\lim \hat \theta^{ML} = \theta\)</span></li>
+<li>It is also asymptotically normal: <span class="math inline">\(\hat \theta^{ML} \sim N(\theta, [I(\theta)]^{-1})\)</span>
+<ul>
+<li>This will allow us to use the normal approximation to calculate z-scores and p-values</li>
+</ul></li>
+<li>And it is asymptotically efficient. “In other words, compared to any other consistent and uniformly asymptotically Normal estimator, the ML estimator has a smaller asymptotic variance” (King 1998, 80).</li>
 </ul>
-<p>To get the answer, we focused on respecting the parentheses first, identifying the inner-most expression <span class="math inline">\(1 + 2 = 3\)</span>, we then moved out and conducted the exponents to get to <span class="math inline">\((3^3)^2 = 27^2\)</span>.</p>
-<p>Note how this is different from the answer to <span class="math inline">\(1 + (2^3)^2 = 1 + 8^2 = 65\)</span>, where the addition is no longer part of the parentheses.</p>
+<p><strong><em>Note on consistency</em></strong></p>
+<p>What does it mean to say an estimator is consistent? As samples get larger and larger, we converge to the truth.</p>
+<p>Consistency: <span class="math inline">\(p\lim \hat{\theta} =\beta\)</span> As <span class="math inline">\(n \rightarrow \infty P(\hat{\theta} - \theta&gt; e) \rightarrow 0\)</span>.</p>
+<ul>
+<li>Convergence in probability: the probability that the absolute difference between the estimate and parameter being larger than <span class="math inline">\(e\)</span> goes to zero as <span class="math inline">\(n\)</span> gets bigger.</li>
+</ul>
+<p>Note that bias and consistency are different: Consistency means that as the sample size (<span class="math inline">\(n\)</span>) gets large the estimate gets closer to the true value. Unbiasedness is not affected by sample size. An estimate is unbiased if over repeated samples, its expected value (average) is the true parameter.</p>
+<p>It is possible for an estimator to be unbiased and consistent, biased and not consistent, or consistent yet biased.</p>
+<p><img src="images/UnbiasedandConsistent.png" style="width:40.0%" />; <img src="images/BiasedandInconsistent.png" style="width:40.0%" /></p>
+<p><img src="images/BiasedButConsistent.png" style="width:40.0%" /></p>
+<p>Images taken from <a href="https://eranraviv.com/bias-vs-consistency/">here</a></p>
+<p>What is a practical takeaway from this? The desirable properties of MLE kick in with larger samples. When you have a very small sample, you might use caution with your estimates.</p>
+<p><strong><em>No Free Lunch</em></strong></p>
+<p>We have hinted at some of the assumptions required, but below we can state them more formally.</p>
+<ul>
+<li>First, we assume a particular data generating process: the probability model.</li>
+<li>We are generally assuming that observations are independent and identically distributed (allowing us to write the likelihood as a product)– unless we explicitly write the likelihood in a way that takes this into account.
+<ul>
+<li>When we have complicated structures to our data, this assumption may be violated, such as data that is clustered in particular hierarchical entities.</li>
+</ul></li>
+<li>We assume the model (i.e., the choice of covariates and how they are modeled) is correctly specified. (e.g., no omitted variables.)</li>
+<li>We have to meet certain technical regularity conditions–meaning that our problem is a “regular” one. These, in the words of Gary King are “obviously quite technical” (1998, 75). We will not get into the details, but you can see pg. 75 of <em>Unifying Political Methodology</em> for the formal mathematical statements. In short, our paramaters have to be <a href="https://en.wikipedia.org/wiki/Identifiability">identifiable</a> and within the parameter space of possible values (this identifiability can be violated, for example, when we have too many parameters relative to the number of observations in the sample), we have to be able to differentiate the log-likelihood (in fact, it needs to be twice continuously differentiable) along the support (the range of values) in the data. The information matrix, which we get through the second derivative, must be positive definite and finitely bounded. This helps us know we are at a maximum, and the maximum exists and is finite. You can visualize this as a smooth function, that is not too sharp (which would make it non differentiable), but has a peak (a maximum) that we can identify.</li>
+</ul>
+<div id="hypothesis-tests" class="section level3" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Hypothesis Tests</h3>
+<p>We can apply the same hypothesis testing framework to our estimates here as we did in linear regression. First, we can standardize our coefficient estimates by dividing them by the standard error. This will generate a “z score.” Just like when we had the t value in OLS, we can use the z score to calculate the p-value and make assessments about the null hypothesis that a given <span class="math inline">\(\hat \beta_k\)</span> = 0.</p>
+<p><span class="math display">\[\begin{align*}
+z &amp;= \frac{\hat \theta_k}{\sqrt{Var(\hat \theta)_k}} \sim N(0,1)
+\end{align*}\]</span></p>
+<p>Note: to get p-values, we typically now use, <code>2 * pnorm(abs(z), lower.tail=F)</code> instead of <code>pt()</code> and our critical values are based on <code>qnorm()</code> instead of <code>qt()</code>. R will follow the same in most circumstances. In large samples, these converge to the same quantities.</p>
 </div>
-<div id="exponents" class="section level3" number="3.1.2">
-<h3><span class="header-section-number">3.1.2</span> <strong>Exponents</strong></h3>
-<p>Here is a cheat sheet of some basic rules for exponents. These can be hard to remember if you haven’t used them in a long time. Think of <span class="math inline">\(a\)</span> in this case as a number, e.g., 4, and <span class="math inline">\(b\)</span>, <span class="math inline">\(k\)</span>, and <span class="math inline">\(l\)</span>, as other numbers.</p>
+<div id="model-output-in-r" class="section level3" number="5.4.2">
+<h3><span class="header-section-number">5.4.2</span> Model Output in R</h3>
+<p>As discussed, we can fit a GLM in R using the <code>glm</code> function:</p>
 <ul>
-<li><span class="math inline">\(a^0 = 1\)</span></li>
-<li><span class="math inline">\(a^1 = a\)</span></li>
-<li><span class="math inline">\(a^k * a^l = a^{k + l}\)</span></li>
-<li><span class="math inline">\((a^k)^l = a^{kl}\)</span></li>
-<li><span class="math inline">\((\frac{a}{b})^k = (\frac{a^k}{b^k})\)</span></li>
-</ul>
-<p>These last two rules can be somewhat tricky. Note that a negative exponent can be re-written as a fraction. Likewise an exponent that is a fraction, the most common of which we will encounter is <span class="math inline">\(\frac{1}{2}\)</span> can be re-written as a root, in this case the square root (e.g., <span class="math inline">\(\sqrt{a}\)</span>).</p>
+<li><code>glm(formula, data, family = XXX(link = "XXX", ...), ...)</code>
 <ul>
-<li><span class="math inline">\(a^{-k} = \frac{1}{a^k}\)</span></li>
-<li><span class="math inline">\(a^{1/2} = \sqrt{a}\)</span></li>
+<li><code>formula</code>: The model written in the form similar to <code>lm()</code></li>
+<li><code>data</code>: Data frame</li>
+<li><code>family</code>: Name of PDF for <span class="math inline">\(Y_i\)</span> (e.g. <code>binomial</code>, <code>gaussian</code>)</li>
+<li><code>link</code>: Name of the link function (e.g. <code>logit</code>, `<code>probit</code>, <code>identity</code>, <code>log</code>)</li>
+</ul></li>
 </ul>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="mle-properties.html#cb279-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load Data</span></span>
+<span id="cb279-2"><a href="mle-properties.html#cb279-2" aria-hidden="true" tabindex="-1"></a>fit.glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(participation <span class="sc">~</span> female <span class="sc">+</span> edu <span class="sc">+</span> age <span class="sc">+</span> sexism, <span class="at">data=</span>anes,</span>
+<span id="cb279-3"><a href="mle-properties.html#cb279-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link=</span><span class="st">&quot;identity&quot;</span>))</span></code></pre></div>
+<p>We’ve already discussed the coefficient output. Like <code>lm()</code>, GLM wiil also display the standard errors, z-scores / t-statistics, and p-values of the model in the model summary.</p>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="mle-properties.html#cb280-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.glm)<span class="sc">$</span>coefficients</span></code></pre></div>
+<pre><code>                Estimate  Std. Error   t value     Pr(&gt;|t|)
+(Intercept)  0.929302597 0.154033186  6.033132 1.999280e-09
+female      -0.217453631 0.067415200 -3.225588 1.282859e-03
+edu          0.166837062 0.022402469  7.447262 1.559790e-13
+age          0.008795138 0.001874559  4.691843 2.941204e-06
+sexism      -0.981808431 0.154664950 -6.347970 2.844067e-10</code></pre>
+<p>For this example, R reverts to the t-value instead of the z-score given that we are using the linear model. In other examples, you may see <code>z</code> in place of <code>t</code>. There are only small differences in these approximations because as your sample size gets larger, the degrees of freedom (used in the calculation of p-calues for the t distribution) are big enough that the t distribution converges to the normal distribution.</p>
+<p><strong>Goodness of fit</strong></p>
+<p>The <code>glm()</code> model has a lot of summary output.</p>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="mle-properties.html#cb282-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.glm)</span></code></pre></div>
+<pre><code>
+Call:
+glm(formula = participation ~ female + edu + age + sexism, family = gaussian(link = &quot;identity&quot;), 
+    data = anes)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-2.3001  -0.8343  -0.3013   0.3651   7.2887  
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  0.929303   0.154033   6.033 2.00e-09 ***
+female      -0.217454   0.067415  -3.226  0.00128 ** 
+edu          0.166837   0.022402   7.447 1.56e-13 ***
+age          0.008795   0.001875   4.692 2.94e-06 ***
+sexism      -0.981808   0.154665  -6.348 2.84e-10 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for gaussian family taken to be 1.688012)
+
+    Null deviance: 2969.3  on 1584  degrees of freedom
+Residual deviance: 2667.1  on 1580  degrees of freedom
+AIC: 5334.9
+
+Number of Fisher Scoring iterations: 2</code></pre>
+<p>Some of the output represents measures of the goodness of fit of the model. However, their values are not directly interpretable from a single model.</p>
+<ul>
+<li>Larger (less negative) likelihood, the better the model fits the data. (<code>logLik(mod)</code>). The becomes relavent when comparing two or more models.</li>
+<li>Deviance is calculated from the likelihood. A measure of discrepancy between observed and fitted values. (Smaller values, better fit)
+<ul>
+<li>Null deviance: how well the outcome is predicted by a model that includes only the intercept. (<span class="math inline">\(df = n - 1\)</span>)</li>
+<li>Residual deviance: how well the outcome is predicted by a model with our parameters. (<span class="math inline">\(df = n-k\)</span>)</li>
+</ul></li>
+<li>AIC- used for model comparison. Smaller values indicate a more parsimonious model. Accounts for the number of parameters (<span class="math inline">\(K\)</span>) in the model (like Adjusted R-squared, but without the ease of interpretation). Sometimes used as a criteria in prediction exercises (using a model on training data to predict test data).</li>
+</ul>
+<p><strong>Likelihood Ratio Test</strong></p>
+<p>The likelihood ratio test compares the fit of two models, with the null hypothesis being that the full model does not add more explanatory power to the reduced model. Note: You should only compare models if they have the same number of observations.</p>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="mle-properties.html#cb284-1" aria-hidden="true" tabindex="-1"></a>fit.glm2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(participation <span class="sc">~</span> female <span class="sc">+</span> edu <span class="sc">+</span> age <span class="sc">+</span> sexism, <span class="at">data=</span>anes,</span>
+<span id="cb284-2"><a href="mle-properties.html#cb284-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link=</span><span class="st">&quot;identity&quot;</span>))</span>
+<span id="cb284-3"><a href="mle-properties.html#cb284-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb284-4"><a href="mle-properties.html#cb284-4" aria-hidden="true" tabindex="-1"></a>fit.glm1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(participation <span class="sc">~</span> female <span class="sc">+</span> edu <span class="sc">+</span> age, <span class="at">data=</span>anes, </span>
+<span id="cb284-5"><a href="mle-properties.html#cb284-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span>
+<span id="cb284-6"><a href="mle-properties.html#cb284-6" aria-hidden="true" tabindex="-1"></a>               </span>
+<span id="cb284-7"><a href="mle-properties.html#cb284-7" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit.glm1, fit.glm2, <span class="at">test =</span> <span class="st">&quot;Chisq&quot;</span>) <span class="co">#  reject the null</span></span></code></pre></div>
+<pre><code>Analysis of Deviance Table
+
+Model 1: participation ~ female + edu + age
+Model 2: participation ~ female + edu + age + sexism
+  Resid. Df Resid. Dev Df Deviance  Pr(&gt;Chi)    
+1      1581     2735.1                          
+2      1580     2667.1  1   68.021 2.182e-10 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p><strong>Pseudo-R-squared</strong></p>
+<p>We don’t have an exact equivalent to the R-squared in OLS, but people have developed “pseudo” measures.</p>
+<p>Example: McFadden’s R-squared</p>
+<ul>
+<li><span class="math inline">\(PR^2 = 1 - \frac{\ell(M)}{\ell(N)}\)</span>
+<ul>
+<li>where <span class="math inline">\(\ell(M)\)</span> is the log-likelihood for your fitted model and <span class="math inline">\(\ell(N)\)</span> is the log-likelihood for a model with only the intercept</li>
+</ul></li>
+<li>Recall, greater (less negative) values of the log-likelihood indicate better fit</li>
+<li>McFadden’s values range from 0 to close to 1</li>
+</ul>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="mle-properties.html#cb286-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;pscl&quot;)</span></span>
+<span id="cb286-2"><a href="mle-properties.html#cb286-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pscl)</span></code></pre></div>
+<pre><code>Warning: package &#39;pscl&#39; was built under R version 4.0.2</code></pre>
+<pre><code>Classes and Methods for R developed in the
+Political Science Computational Laboratory
+Department of Political Science
+Stanford University
+Simon Jackman
+hurdle and zeroinfl functions by Achim Zeileis</code></pre>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="mle-properties.html#cb289-1" aria-hidden="true" tabindex="-1"></a>fit.glm.null <span class="ot">&lt;-</span> <span class="fu">glm</span>(participation <span class="sc">~</span> <span class="dv">1</span>, anes, <span class="at">family =</span> <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span>
+<span id="cb289-2"><a href="mle-properties.html#cb289-2" aria-hidden="true" tabindex="-1"></a>pr <span class="ot">&lt;-</span> <span class="fu">pR2</span>(fit.glm1)</span></code></pre></div>
+<pre><code>fitting null model for pseudo-r2</code></pre>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="mle-properties.html#cb291-1" aria-hidden="true" tabindex="-1"></a>pr[<span class="st">&quot;McFadden&quot;</span>]</span></code></pre></div>
+<pre><code>  McFadden 
+0.02370539 </code></pre>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="mle-properties.html#cb293-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Or, by hand:</span></span>
+<span id="cb293-2"><a href="mle-properties.html#cb293-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> (<span class="fu">logLik</span>(fit.glm1)<span class="sc">/</span><span class="fu">logLik</span>(fit.glm.null))</span></code></pre></div>
+<pre><code>&#39;log Lik.&#39; 0.02370539 (df=5)</code></pre>
+
 </div>
-<div id="summations-and-products" class="section level3" number="3.1.3">
-<h3><span class="header-section-number">3.1.3</span> <strong>Summations and Products</strong></h3>
-<p>The symbol <span class="math inline">\(\sum\)</span> can be read “take the sum of” whatever is to the right of the symbol. This is used to make the written computation of a sum much shorter than it might be otherwise. For example, instead of writing the addition operations separately in the example below, we can simplify it with the <span class="math inline">\(\sum\)</span> symbol. This is especially helpful if you would need to add together 100 or 1000 or more things. We will see these appear a lot in the course, for better or worse, so getting comfortable with the notation will be useful.</p>
-<p>Usually, there is notation just below and just above the symbol (e.g., <span class="math inline">\(\sum_{i=1}^3\)</span>). This can be read as "take the sum of the following from <span class="math inline">\(i=1\)</span> to <span class="math inline">\(i=3\)</span>. We perform the operation in the expression, each time changing <span class="math inline">\(i\)</span> to a different number, from 1 to 2 to 3. We then add each expression’s output together.</p>
-<ul>
-<li>Example: <span class="math inline">\(\sum_{i=1}^3 (i + 1)^2 = (1 + 1)^2 + (2 + 1)^2 + (3+1)^2 = 29\)</span></li>
-</ul>
-<p>We will also encounter the product symbol in this course: <span class="math inline">\(\prod\)</span>. This is similar to the summation symbol, but this time we are multiplying instead of adding.</p>
-<ul>
-<li>Example: <span class="math inline">\(\prod_{k = 1}^3 k^2 = 1^2 \times 2^2 \times 3^2 = 36\)</span></li>
-</ul>
 </div>
-<div id="logarithms" class="section level3" number="3.1.4">
-<h3><span class="header-section-number">3.1.4</span> <strong>Logarithms</strong></h3>
-<p>In this class, we will generally assume that <span class="math inline">\(\log\)</span> takes the natural base <span class="math inline">\(e\)</span>, which is a mathematical constant equal to 2.718…. In other books, the base might be 10 by default.</p>
-<ul>
-<li>If we have, <span class="math inline">\(\log_{10} x = 2\)</span>, this is like saying 10^2 = 100.</li>
-<li>With base <span class="math inline">\(e\)</span>, we have <span class="math inline">\(\log_e x =2\)</span>, which is <span class="math inline">\(e^2 = 7.389\)</span>.</li>
-<li>We are just going to write <span class="math inline">\(\log_e\)</span> as <span class="math inline">\(\log\)</span> but know that the <span class="math inline">\(e\)</span> is there.</li>
-</ul>
-<p>A key part of maximum likelihood estimation is writing down the <em>log</em> of the likelihood equation, so this is a must-have for later in the course.</p>
-<p>Here is a cheat sheet of common rules for working with logarithms.</p>
-<ul>
-<li><span class="math inline">\(\log x = 8 \rightarrow e^8 = x\)</span></li>
-<li><span class="math inline">\(e^\pi = y \rightarrow \log y = \pi\)</span></li>
-<li><span class="math inline">\(\log (a \times b) = \log a + \log b\)</span></li>
-<li><span class="math inline">\(\log a^n = n \log a\)</span></li>
-<li><span class="math inline">\(\log \frac{a}{b} = \log a - \log b\)</span></li>
-</ul>
-<p>Why logarithms? There are many different reasons why social scientists use logs.</p>
-<ul>
-<li>Some social phenomena grow exponentially, and logs make it is easier to visualize exponential growth, as is the case in visualizing the growth in COVID cases. See this <a href="https://www.weforum.org/agenda/2020/04/covid-19-spread-logarithmic-graph/">example</a>.</li>
-<li>Relatedly, taking the log of a distribution that is skewed, will make it look more normal or symmetrical, which has some nice properties.</li>
-<li>Sometimes the rules of logarithms are more convenient than non-logarithms. In MLE, we will take particular advantage of this rule: <span class="math inline">\(\log (a \times b) = \log a + \log b\)</span>, which turns a multiplication problem into an addition problem.</li>
-</ul>
-</div>
-</div>
+<!-- </div> -->
+
+
+
+
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="math.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="mathematical-operations-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="mle-estimation.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="what-is-likelihood.html"/>
-
+<link rel="next" href="mle-estimation.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -226,6 +226,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.2" data-path="generalized-linear-models.html"><a href="generalized-linear-models.html#linking-likelihood-and-the-glm"><i class="fa fa-check"></i><b>5.2.2</b> Linking likelihood and the GLM</a></li>
 <li class="chapter" data-level="5.2.3" data-path="generalized-linear-models.html"><a href="generalized-linear-models.html#glm-in-r"><i class="fa fa-check"></i><b>5.2.3</b> GLM in R</a></li>
 </ul></li>
+<li class="chapter" data-level="5.3" data-path="mle-estimation.html"><a href="mle-estimation.html"><i class="fa fa-check"></i><b>5.3</b> MLE Estimation</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="mle-estimation.html"><a href="mle-estimation.html#deriving-estimators"><i class="fa fa-check"></i><b>5.3.1</b> Deriving Estimators</a></li>
+<li class="chapter" data-level="5.3.2" data-path="mle-estimation.html"><a href="mle-estimation.html#score-function"><i class="fa fa-check"></i><b>5.3.2</b> Score function</a></li>
+<li class="chapter" data-level="5.3.3" data-path="mle-estimation.html"><a href="mle-estimation.html#hessian-and-information-matrix"><i class="fa fa-check"></i><b>5.3.3</b> Hessian and Information Matrix</a></li>
+<li class="chapter" data-level="5.3.4" data-path="mle-estimation.html"><a href="mle-estimation.html#mle-estimation-algorithm"><i class="fa fa-check"></i><b>5.3.4</b> MLE Estimation Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="mle-properties.html"><a href="mle-properties.html"><i class="fa fa-check"></i><b>5.4</b> MLE Properties</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="mle-properties.html"><a href="mle-properties.html#hypothesis-tests"><i class="fa fa-check"></i><b>5.4.1</b> Hypothesis Tests</a></li>
+<li class="chapter" data-level="5.4.2" data-path="mle-properties.html"><a href="mle-properties.html#model-output-in-r"><i class="fa fa-check"></i><b>5.4.2</b> Model Output in R</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -361,26 +373,15 @@ Pr(Y_i = 1 | x_i) &amp;= \pi_i = g^{-1}(\eta_i) \\
 <pre><code>(Intercept)     Perot96 
  1.34575212  0.03591504 </code></pre>
 <p>There are some differences in the mechanics of how we get to the results in each case, but we will explore those more in the next section. I.e., these coefficients do not come out of thin air. Just like in OLS, we have to work for them.</p>
-
 </div>
 </div>
-<!-- </div> -->
-
-
-
-
-
-
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="what-is-likelihood.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="what-is-likelihood.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mle-estimation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
