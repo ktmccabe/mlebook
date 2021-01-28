@@ -100,6 +100,8 @@ With this example, we can start to see why `lm` and `glm` for a normally distrib
 
 Suppose we had a problem with $n=8$ observations where we could observe a $y_i = 1$ or $0$. For example, let's say we read an online sample of tweets and we classified tweets as "toxic=1" or "nontoxic=0." In our sample of $n=8$, we coded 6 of them as toxic and 2 as nontoxic. We are interested in finding the true probability $p$ that a comment is toxic.
 
+![](images/toxictweets.png){width40%}
+
 We can write down the likelihood for a single observation using the Bernouilli pmf:
 
 $L(p | y_i) = p^{y_i}*(1-p)^{(1-y_i)}$
@@ -633,7 +635,7 @@ exp(confint(out.logit)[4, ])
 In political science, we usually opt to present predicted probabilities instead of odds ratios, but ultimately you should do whatever you think is best.
   
 
-### Latent variable representation
+### Latent propensity representation
 
 Sometimes you will see the binary outcome problem represented as a latent propensity where $Y^*_i$ is a continuous variable that represents an unobserved propensity (e.g., to have a dispute, to be a toxic tweet, to participate), where
 
@@ -644,17 +646,24 @@ y^*_i \leq \tau \end{cases}
 
 and $\tau$ is some threshold after which a the event (e.g., dispute) occurs.
 
+This becomes particularly relevant when the goal is to classify outcome estimates given certain $X$ features. This type of threshold will also be relevant when we move into ordinal outcome variables where we want to estimate the probability an outcome belongs to a specific category.
+
+### Linear Probability Models
+
 People (who me? yes, I admit, me) will sometimes still use a linear model when we have dichotomous outcomes. In that case, we interpret the results as a "linear probability model" where a one-unit change in $x$ is associated with a $\hat \beta$ change in the probability that $Y_i = 1$.  
 
-![](images/lpmjoke.jpeg)
-*Image from Chelsea Parlett-Pelleriti @ChelseaParlett on Twitter*
 
 
 This may sound like a disaster because linear models are generally meant for nice continuous outcomes, and there is no way to prevent extreme values of $X\beta$ from extend above 1 or below 0. This is not to mention the heteroskedasticity issues that come from binary outcome because the error terms depend on the values of $X$. This website has a good overview of the potential problems with linear [regression](https://www.dummies.com/education/economics/econometrics/3-main-linear-probability-model-lpm-problems/).
 
+
+![](images/lpmjoke.jpeg){width=60%}\\
+
+*Image from Chelsea Parlett-Pelleriti @ChelseaParlett on Twitter*
+
 However, 1) we can use robust standard errors , 2) if you look at the S-curve in the previous section, you will note that a large part of the curve is pretty linear over a wide range of $X\beta$ values. For many applications, the estimates transformed from a logit or probit into probability will look similar to the estimates from a linear probability. 3) Linear probability models are easier to interpret, and there is no need to transform coefficients.
 
-LPM vs. logit/probit has spurred a lot of debate throughout the years. Reviewers disagree, twitter users disagree, etc. This is just something to be aware of as you choose modeling approaches. Particularly when it comes to experiments and other causal inference approaches, there is a growing push to stick with linear probability models when your key independent variable is a discrete treatment indicator variable. See this new [article](https://psyarxiv.com/4gmbv/) from Robin Gomilla and who lays out the considerations for using LPM, particularly in experimental settings, as well as follow up discussion from [Andrew Gelman](https://statmodeling.stat.columbia.edu/2020/01/10/linear-or-logistic-regression-with-binary-outcomes/). That said, even if you run with an LPM and cite the Gomilla article, a reviewer may still ask you to do a logit/probit. And there are certainly circumstances where LPM will fall short. Probably try both, and choose your own adventure.
+LPM vs. logit/probit has spurred a lot of debate throughout the years. Reviewers disagree, twitter users disagree, etc. This is just something to be aware of as you choose modeling approaches. Particularly when it comes to experiments and other causal inference approaches, there is a growing push to stick with linear probability models when your key independent variable is a discrete treatment indicator variable. See this new [article](https://psyarxiv.com/4gmbv/) from Robin Gomilla who lays out the considerations for using LPM, particularly in experimental settings, as well as follow up discussion from [Andrew Gelman](https://statmodeling.stat.columbia.edu/2020/01/10/linear-or-logistic-regression-with-binary-outcomes/). That said, even if you run with an LPM and cite the Gomilla article, a reviewer may still ask you to do a logit/probit. And there are certainly circumstances where LPM will fall short. Probably try both, and choose your own adventure.
 
 
 

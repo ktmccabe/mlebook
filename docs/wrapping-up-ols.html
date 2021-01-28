@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="generating-predictions-from-regression-models.html"/>
-<link rel="next" href="mle.html"/>
+<link rel="next" href="week-2-thursday-example.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -210,7 +210,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.7" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html"><i class="fa fa-check"></i><b>4.7</b> Wrapping up OLS</a>
 <ul>
 <li class="chapter" data-level="4.7.1" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problems-1"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
+<li class="chapter" data-level="4.7.2" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problem-code-for-solutions"><i class="fa fa-check"></i><b>4.7.2</b> Practice Problem Code for Solutions</a></li>
 </ul></li>
+<li class="chapter" data-level="4.8" data-path="week-2-thursday-example.html"><a href="week-2-thursday-example.html"><i class="fa fa-check"></i><b>4.8</b> Week 2 Thursday Example</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="mle.html"><a href="mle.html"><i class="fa fa-check"></i><b>5</b> Introduction to MLE</a>
 <ul>
@@ -286,17 +288,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>What is the confidence interval for the <code>Perot96</code> coefficient estimate?</li>
 <li>When Perot 1996 vote is 5500, what is the expected 2000 Buchanan vote?</li>
 </ol>
-
+</div>
+<div id="practice-problem-code-for-solutions" class="section level3" number="4.7.2">
+<h3><span class="header-section-number">4.7.2</span> Practice Problem Code for Solutions</h3>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="wrapping-up-ols.html#cb240-1" aria-hidden="true" tabindex="-1"></a>fit.practice <span class="ot">&lt;-</span> <span class="fu">lm</span>(Buchanan00 <span class="sc">~</span> Perot96 <span class="sc">+</span> Dole96 <span class="sc">+</span> Gore00, <span class="at">data =</span> florida)</span>
+<span id="cb240-2"><a href="wrapping-up-ols.html#cb240-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb240-3"><a href="wrapping-up-ols.html#cb240-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.practice)[<span class="st">&quot;Perot96&quot;</span>]</span></code></pre></div>
+<pre><code>   Perot96 
+0.02878927 </code></pre>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="wrapping-up-ols.html#cb242-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(fit.practice)[<span class="st">&quot;Perot96&quot;</span>, ]</span></code></pre></div>
+<pre><code>      2.5 %      97.5 % 
+0.004316382 0.053262150 </code></pre>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="wrapping-up-ols.html#cb244-1" aria-hidden="true" tabindex="-1"></a>expbuch <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit.practice)</span>
+<span id="cb244-2"><a href="wrapping-up-ols.html#cb244-2" aria-hidden="true" tabindex="-1"></a>expbuch[,<span class="st">&quot;Perot96&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">5500</span></span>
+<span id="cb244-3"><a href="wrapping-up-ols.html#cb244-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(expbuch <span class="sc">%*%</span> <span class="fu">as.matrix</span>(<span class="fu">coef</span>(fit.practice)))</span></code></pre></div>
+<pre><code>[1] 211.1386</code></pre>
 </div>
 </div>
-<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
 <a href="generating-predictions-from-regression-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="mle.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="week-2-thursday-example.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

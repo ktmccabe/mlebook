@@ -770,4 +770,195 @@ When we violate these assumptions, OLS may no longer be best, and we may opt for
   4. When Perot 1996 vote is 5500, what is the expected 2000 Buchanan vote?
 
 
+### Practice Problem Code for Solutions
+
+```{r}
+fit.practice <- lm(Buchanan00 ~ Perot96 + Dole96 + Gore00, data = florida)
+
+coef(fit.practice)["Perot96"]
+
+confint(fit.practice)["Perot96", ]
+
+expbuch <- model.matrix(fit.practice)
+expbuch[,"Perot96"] <- 5500
+mean(expbuch %*% as.matrix(coef(fit.practice)))
+```
+
+## Week 2 Thursday Example
+
+
+This example is based on Dancygier, Rafaela; Egami, Naoki; Jamal, Amaney; Rischke, Ramona, 2020, "Hate Crimes and Gender Imbalances: Fears over Mate Competition and Violence against Refugees", published in the *American Journal of Political Science*. Replication data is available [here](https://doi.org/10.7910/DVN/QXJDJ5). We will draw on the survey portion of the article and replicate Table 1 in the paper. The pre-print is available [here](https://naokiegami.com/paper/hatecrime.pdf).
+
+The abstract is: *As the number of refugees rises across the world, anti-refugee violence has become a pressing concern. What explains the incidence and support of such hate crime? We argue that fears among native men that refugees pose a threat in the competition for female partners is a critical but understudied factor driving hate crime. Employing a comprehensive dataset on the incidence of hate crime across Germany, we first demonstrate that hate crime rises where men face disadvantages in local mating markets. Next, we complement this ecological evidence with original survey measures and confirm that individual-level support for hate crime increases when men fear that the inflow of refugees makes it more difficult to find female partners. Mate competition concerns remain a robust predictor even when controlling for antirefugee views, perceived job competition, general frustration, and aggressiveness. We conclude that a more complete understanding of hate crime and immigrant conflict must incorporate marriage markets and mate competition.*
+
+The authors summarize their hypotheses as, "the notion that male refugees are engaged in romantic relationships with German women has received considerable media attention from a variety of sources, with coverage ranging from the curious to the outright hostile. We argue that the prospect of refugee-native mate competition can trigger or compound resentment against refugees, including support for hate crime" [pg. 14](https://naokiegami.com/paper/hatecrime.pdf)
+
+```{r}
+library(foreign)
+dat_use <- read.dta("https://github.com/ktmccabe/teachingdata/blob/main/dat_use.dta?raw=true")
+```
+
+The data include wave 4 of an online survey fielded in Germany through Respondi from September 2016 to December 2017). Each wave was designed to be nationally representative on age (starting at 18), gender, and state (Bundesland) with a sample of about 3,000 respondents in each wave.
+
+Key variables include 
+  
+  - `hate_violence_means` representing respondents' agreement or disagreement to the Only Means question: "When it comes to the refugee problem, violence is sometimes the only means that citizens have to get the attention of German politicians." from (1) disagree strongly to (4) agree strongly.
+  - `MateComp_cont`, Mate Competition. "The inflow of refugees makes it more difficult for native men to find female partners." from (1) disagree strongly to (4) agree strongly.
+  - The data include several other variables related to the demographics of the respondents and measures representing potential alternative explanations, such as `JobComp_cont` (agreement with "the inflow of young
+male refugees makes it more difficult for young native men to find apprenticeships and jobs") and `LifeSatis_cont` (0-10 scale, ranging from extremely dissatisfied to extremely satisfied).
+
+Let's pause here to ask a few questions about research design.
+
+  - What is the outcome? What is the independent variable of interest?
+      + How would we write out the bivariate regression model?
+  - Why OLS? (e.g., why not experiment?)
+  - What types of alternative explanations might exist?
+
+**Ok let's move to replication of the first two regression models in the table:**
+
+![](images/dancyetaltable.png){width=70%}
+
+<details> <summary> Try to code these on your own, then click for the solution</summary>
+```{r}
+lm1 <- lm(hate_violence_means ~ MateComp_cont, data=dat_use)
+
+lm2 <- lm(hate_violence_means ~ MateComp_cont + JobComp_cont + LifeSatis_cont, data=dat_use)
+```
+
+</details>
+
+**Now, let's compare the summary output of each output.**
+
+<details> <summary>Try on your own, then click for the solution</summary>
+```{r}
+summary(lm1)
+summary(lm2)
+```
+</details>
+
+**Questions about the output**
+
+  - How should we interpret the coefficients?
+      + Do they support the researchers' hypotheses?
+  - How would we extract confidence intervals from the coefficients?
+  - How should we interpret the goodness of fit statistics at the bottom of the output?
+
+**Additional Models**
+We can also run regressions with even more covariates, as the authors do in models 3-6 in the paper. 
+
+<details> <summary>Click to reveal regression code below.</summary>
+
+```{r}
+lm3 <- lm(hate_violence_means ~ MateComp_cont + JobComp_cont + LifeSatis_cont + 
+            factor(age_group) +     # age group
+            factor(gender) +     # gender 
+            factor(state) +     # state  
+            factor(citizenship) +    # german citizen
+            factor(marital) +    # marital status
+            factor(religion) +    # religious affiliation
+            eduyrs +    # education
+            factor(occupation) +    # main activity
+            factor(income) +   # income
+            factor(household_size) +   # household size
+            factor(self_econ),    # subjective social status
+          data=dat_use)
+
+lm4 <- lm(hate_violence_means ~ MateComp_cont + JobComp_cont + LifeSatis_cont + 
+            factor(age_group) +   # age group
+            factor(gender) +   # gender 
+            factor(state) +   # state  
+            factor(citizenship) +  # german citizen
+            factor(marital) +  # marital status
+            factor(religion) +  # religious affiliation
+            eduyrs +  # education
+            factor(occupation) +  # main activity
+            factor(income) + # income
+            factor(household_size) + # household size
+            factor(self_econ) + # subjective social status
+            factor(ref_integrating) + # Refugee Index (National-level; Q73) 8 in total
+            factor(ref_citizenship) + factor(ref_reduce) + factor(ref_moredone) + factor(ref_cultgiveup) + 
+            factor(ref_economy) + factor(ref_crime) + factor(ref_terror),
+          data=dat_use)
+
+lm5 <- lm(hate_violence_means ~ MateComp_cont + JobComp_cont + LifeSatis_cont + 
+            factor(age_group) +      # age group
+            factor(gender) +      # gender 
+            factor(state) +      # state  
+            factor(citizenship) +     # german citizen
+            factor(marital) +     # marital status
+            factor(religion) +     # religious affiliation
+            eduyrs + # education
+            factor(occupation) +     # main activity
+            factor(income) +    # income
+            factor(household_size) +    # household size
+            factor(self_econ) +    # subjective social status
+            factor(ref_integrating) + # Refugee Index (National-level; Q73) 8 in total
+            factor(ref_citizenship) + factor(ref_reduce) + factor(ref_moredone) + factor(ref_cultgiveup) + 
+            factor(ref_economy) + factor(ref_crime) + factor(ref_terror) + 
+            factor(ref_loc_services) +    # Refugee Index (Local, Q75)
+            factor(ref_loc_economy) + factor(ref_loc_crime) + factor(ref_loc_culture) + factor(ref_loc_islam) + 
+            factor(ref_loc_schools) + factor(ref_loc_housing) + factor(ref_loc_wayoflife), ## end
+          data=dat_use)
+
+formula.5 <- 
+  as.character("hate_violence_means ~ MateComp_cont + JobComp_cont + 
+               LifeSatis_cont +  factor(age_group) + factor(gender) + 
+               factor(state) + factor(citizenship) + factor(marital) + 
+               factor(religion) + eduyrs + factor(occupation) + 
+               factor(income) + factor(household_size) + factor(self_econ) + 
+               factor(ref_integrating) + factor(ref_citizenship) + factor(ref_reduce) + 
+               factor(ref_moredone) + factor(ref_cultgiveup) + 
+               factor(ref_economy) + factor(ref_crime) + factor(ref_terror)  + 
+               factor(ref_loc_services) +  factor(ref_loc_economy) + factor(ref_loc_crime) + 
+               factor(ref_loc_culture) + factor(ref_loc_islam) + 
+               factor(ref_loc_schools) + factor(ref_loc_housing) + factor(ref_loc_wayoflife)")
+
+formula.6 <- paste(formula.5, "factor(distance_ref) + factor(settle_ref)", 
+                   "lrscale + afd + muslim_ind + afd_ind + contact_ind", 
+                   sep="+", collapse="+") 
+
+lm6 <- lm(as.formula(formula.6), data=dat_use)
+```
+
+
+
+```{r, message=F, results="asis", echo=F}
+library(texreg)
+lm.list.table1 <- list(lm1, lm2, lm3, lm4, lm5, lm6)
+
+htmlreg(lm.list.table1,
+        custom.model.names = c("", "", "", "", "", ""),
+        stars = c(0.01, 0.05, 0.10),
+        digit=4,
+        caption = "Table 1: Mate Competition Predicts Support for Hate Crime.")
+```
+
+</details>
+
+**Final Questions**
+
+Even with all these covariates accounted for, the authors still engage in a discussion about possible violations of the OLS assumptions that could bias their results, as well as potential alternative modelling strategies.
+
+  - Is their survey representative? They replicate using another polling firm.
+  - Are there even more alternative explanations? 
+  - Is OLS the right choice? 
+  - Validity (discussed in Gelman and Hill). Does the outcome accurately measure the concept? They consider alternative outcomes and visualize the coefficient results in Figure 4.
+    + Message: Attacks against refugee homes are sometimes necessary to make it clear to politicians that we have a refugee problem.
+    + Justified : Hostility against refugees is sometimes justified, even when
+it ends up in violence.
+    + Prevent : Xenophobic acts of violence are defensible if they result in fewer
+refugees settling in town.
+    + Condemn: Politicians should condemn attacks against refugees more forcefully.
+
+![](images/dancyetal.png){width=70%}
+
+**Additional Practice Questions.**
+
+  1. Find the average expected level of "Only Means" agreement at each level of mate competition. Plot the results. Base these results on `lm2`.
+  2. Fit `lm2` using the generalized linear model `glm` approach (with a normal distribution) instead of the `lm`
+  3. What are some of the conceptual differences between ordinary least squares and maximum likelihood estimation?
+  
+  
+  
+
 

@@ -115,7 +115,35 @@ For additonal practice, try to write down the likelihood of a single observation
 f(Y_i | \theta) &=  \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}
 \end{align*}
 
-You can take it from here.
+You can take it from here. 
+
+<details> <summary>Try on your own, then expand for the solution.</summary>
+
+We have the PDF.
+
+  2. Let's write the likelihood for a single observation.
+
+\begin{align*}
+L(\theta | Y_i) = L(\mu, \sigma^2 | Y_i) &= \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}
+\end{align*}
+
+  3. Let's write the likelihood for all observations.
+
+\begin{align*}
+L(\mu, \sigma^2 | Y) &=  \prod_{i=1}^{N} \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}
+\end{align*}
+
+  4. Let's write the log likelihood.
+
+\begin{align*}
+\ell(\mu, \sigma^2 | Y) &= \sum_{i = 1}^N \log \Bigg( \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}\Bigg)
+= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-\mu)^2}{2\sigma^2}\\
+&= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-x_i'\beta)^2}{2\sigma^2}
+\end{align*}
+
+Note how we usually will sub in $X\beta$ or $\mathbf{x_i'\beta}$ for the parameter because we think these will vary according to covariates in our data. 
+
+</details>
 
 ## Generalized Linear Models
 

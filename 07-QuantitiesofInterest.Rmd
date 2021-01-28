@@ -40,6 +40,149 @@ out.logit <-glm(Conflict ~  MajorPower + Contiguity + Allies + ForeignPolicy +
                 family = binomial(link = "logit"), data = mids)
 ```
 
+Our logistic regression equation is:
+
+  - $\log \frac{\pi_i}{1-\pi_i} = \mathbf{x_i'}\beta$, or alternatively
+  - $Pr(Y_i = 1 | \mathbf{x}_i) = logit^{-1}(\mathbf{x}_i'\beta) = \frac{exp(\mathbf{x_i'}\beta)}{(1 + exp(\mathbf{x_i'}\beta)}$
+
+Our coefficients are in the log-odds scale of the linear predictor, so we use the response function to put them into probability estimates.
+
+For logistic regression, we can generate predicted probabilities for each $Y_i$ using the `predict(model, type="response")` function, using the `plogis` function with $X\hat \beta$, or manually writing down the response function.
+
+
+```{r}
+## Method with predict()
+## When you don't specify newdata, R assumes you want the data from the model
+pp <- predict(out.logit, type = "response")
+
+## Manual way #1
+X <- model.matrix(out.logit)
+bh <- coef(out.logit)
+pplogis <- plogis(X %*% bh)
+
+## Manual way # 2
+ppexp <- exp(X %*% bh)/(1 + exp(X %*% bh))
+
+## Compare
+cbind(pplogis, ppexp, pp)[1:5,]
+```
+
+The code above generates a predicted probability associated with each observation in the data. This is similar to generating a fitted value $\hat y$ for each observation in OLS.
+
+That's all very sweet, but usually in social science we have hypotheses about how the predicted probabilities change as one or more of our independent variables change. We will now turn to calculating predicted responses according to specific values of the independent variables.
+
+Recall, sometimes in linear regression, we wanted to calculate a specific estimated value of $\hat Y_i$ for when we set $X$ at particular values. (e.g., What value do we estimate for $Y$ when $X1 = 2$ and $X2=4$?)
+
+  - In OLS, this would be $\hat Y_i = \hat \alpha + 2*\hat \beta_1 + 4*\hat \beta_2$
+
+Here, we can do the same for GLMs by setting specific values for $X$ when we apply the $Link^{-1}$ response function.
+
+  - E.g., What is the predicted probability of $Y_i = 1$ when $X1 = 2$ and $X2=4$?
+      + In logistic regression, $\hat{\pi_i} = \frac{\exp(\hat \alpha + 2*\hat \beta_1 + 4*\hat \beta_2)}{1 + \exp(\hat \alpha + 2*\hat \beta_1 + 4*\hat \beta_2)}$
+
+
+Example using the Conflict data using different approaches in R.
+
+```{r}
+## Predicted probability when Allies = 1, and all other covariates = 0
+allies1 <- predict(out.logit, newdata = 
+                     data.frame( MajorPower = 0,
+                                 Contiguity = 0, 
+                                 Allies = 1, 
+                                 ForeignPolicy = 0,BalanceOfPower = 0, 
+                                 YearsSince = 0),
+                   type = "response")
+allies1
+
+## for allies = 1careful of the order to make same as coefficients
+X <- cbind(1, 0, 0, 1, 0, 0 , 0) 
+Bh <- coef(out.logit)
+plogis(X %*% bh)
+exp(X%*% bh)/(1 + exp(X%*% Bh))
+```
+
+### Choosing X values for prediction
+
+Recall, in linear regression a one-unit change in $X_k$ is associated with a $\hat \beta_k$ change in $Y$ no matter where we are in the domain of $X_k$. (The slope of a line is constant!)
+
+  - We call $\hat \beta_k$ the "marginal effect" 
+
+
+The catch for glm's is that our linear predictor ($\eta$) is not in the units of $Y$ that we want. E.g., In logistic regression, a one-unit change in $X_k$ is associated with a $\hat \beta_k$ logits change
+
+  - Recall, for logit and probit, this takes us into an S-curve for $Pr(Y_i = 1)$ instead of a line
+  - Well, the slope of an S-curve is not constant. Depending on where we are in $X$, it will influence how much change we have in the predicted probability of $Y_i = 1$.
+  - Therefore, to understand the marginal effect in glm's we have to set $X$ to particular values and be careful about the values we select.
+
+
+You can generate predictions based on any values, but here are two common approaches for understanding the marginal effect of a particular variable $X_k$.
+
+  - Marginal effects at the mean
+  - Average marginal effects
+
+What do we mean by marginal effects?
+
+  - For a discrete (categorical/factor) variable ($X_k$) this will be the change in predicted probability associated with a one-unit change in ($X_k$). 
+  - For continuous variables ($X_k$), this is the instantaneous rate of change (change in probability associated with a very small change in $X$). Usually instead of estimating this (what is a very small change anyway?) we will do this by hand instead, and set the specific amount of change). 
+
+
+### Marginal effects at the mean
+
+When we calculate the difference in predicted probability resulting from a one-unit change in $X_k$, we set all other covariates $X_j$ for $j \neq k$ at their mean values.
+
+  - This gives us 1 estimate for the difference in predicted probability
+  - When can this be problematic?
+
+### Average marginal effects 
+
+When we calculate the difference in predicted probability resulting from a one-unit change in $X_{ik}$, we hold all covariates $X_{ij}$ for $j \neq k$ at their observed values.
+
+  - This gives us $n$ estimates for the difference in predicted probability
+  - We report the average of these estimates
+
+Here is an example for average marginal effects. 
+
+```{r}
+## Extract beta coefficients
+Bh <- coef(out.logit)
+
+## Set Allies to 1, hold all other covariates as observed
+X1 <- model.matrix(out.logit)
+X1[, "Allies"] <- 1
+
+## Set Allies to 0, hold all other covariates as observed
+X0 <- model.matrix(out.logit)
+X0[, "Allies"] <- 0
+
+pp1 <- mean(plogis(X1 %*% Bh))
+pp0 <- mean(plogis(X0 %*% Bh))
+pp1 - pp0
+```
+
+
+There are functions that make this easier. One package developed by Dr. Thomas Leeper is `prediction`.
+```{r}
+## install.packages("prediction")
+library(prediction)
+
+## By default, allows covariates to stay at observed values unless specified
+prediction(out.logit, at = list(Allies = c(0, 1)), 
+           type = "response")
+
+## compare
+pp0
+pp1
+```
+
+
+In general, can report predicted probabilities for any value or differences in predicted probabilities between any two counterfactual sets of values-- setting $X_{i1}...X_{ik}$ at anything that is of theoretical interest. This is often called marginal effects at representative values.
+
+
+
+## Uncertainty
+
+
+Usually, we want to report a confidence interval around our quantities of interest.
 
 
 

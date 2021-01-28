@@ -210,7 +210,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.7" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html"><i class="fa fa-check"></i><b>4.7</b> Wrapping up OLS</a>
 <ul>
 <li class="chapter" data-level="4.7.1" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problems-1"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
+<li class="chapter" data-level="4.7.2" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problem-code-for-solutions"><i class="fa fa-check"></i><b>4.7.2</b> Practice Problem Code for Solutions</a></li>
 </ul></li>
+<li class="chapter" data-level="4.8" data-path="week-2-thursday-example.html"><a href="week-2-thursday-example.html"><i class="fa fa-check"></i><b>4.8</b> Week 2 Thursday Example</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="mle.html"><a href="mle.html"><i class="fa fa-check"></i><b>5</b> Introduction to MLE</a>
 <ul>
@@ -324,6 +326,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 f(Y_i | \theta) &amp;=  \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}
 \end{align*}\]</span></p>
 <p>You can take it from here.</p>
+<details>
+<summary>
+Try on your own, then expand for the solution.
+</summary>
+<p>We have the PDF.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Let’s write the likelihood for a single observation.</li>
+</ol>
+<p><span class="math display">\[\begin{align*}
+L(\theta | Y_i) = L(\mu, \sigma^2 | Y_i) &amp;= \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}
+\end{align*}\]</span></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Let’s write the likelihood for all observations.</li>
+</ol>
+<p><span class="math display">\[\begin{align*}
+L(\mu, \sigma^2 | Y) &amp;=  \prod_{i=1}^{N} \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}
+\end{align*}\]</span></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Let’s write the log likelihood.</li>
+</ol>
+<p><span class="math display">\[\begin{align*}
+\ell(\mu, \sigma^2 | Y) &amp;= \sum_{i = 1}^N \log \Bigg( \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}\Bigg)
+= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-\mu)^2}{2\sigma^2}\\
+&amp;= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-x_i&#39;\beta)^2}{2\sigma^2}
+\end{align*}\]</span></p>
+<p>Note how we usually will sub in <span class="math inline">\(X\beta\)</span> or <span class="math inline">\(\mathbf{x_i&#39;\beta}\)</span> for the parameter because we think these will vary according to covariates in our data.</p>
+</details>
 </div>
 </div>
 <div class="footnotes">
