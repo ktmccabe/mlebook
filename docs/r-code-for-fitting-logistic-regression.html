@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5.1 What is likelihood? | MLE for Political Science</title>
-  <meta name="description" content="5.1 What is likelihood? | MLE for Political Science" />
+  <title>6.2 R code for fitting logistic regression | MLE for Political Science</title>
+  <meta name="description" content="6.2 R code for fitting logistic regression | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5.1 What is likelihood? | MLE for Political Science" />
+  <meta property="og:title" content="6.2 R code for fitting logistic regression | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5.1 What is likelihood? | MLE for Political Science" />
+  <meta name="twitter:title" content="6.2 R code for fitting logistic regression | MLE for Political Science" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="mle.html"/>
-<link rel="next" href="generalized-linear-models.html"/>
+<link rel="prev" href="data-generating-process.html"/>
+<link rel="next" href="probit-regression.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -271,131 +271,76 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="what-is-likelihood" class="section level2" number="5.1">
-<h2><span class="header-section-number">5.1</span> What is likelihood?</h2>
-<p>Just like the derivation of the OLS coefficient estimators <span class="math inline">\(\hat \beta\)</span> for the <span class="math inline">\(\beta\)</span> parameters started with a goal (minimizing least squared errors) in describing the relationship between variables, with likelihood we also start with a goal.</p>
-<p>The “<strong><em>likelihood</em></strong>” is going to ask the question: <strong><em>What values of the unknown parameters make the data we see least surprising?</em></strong></p>
-<p>When we get into likelihood, we will be drawing more directly on concepts within probability. We start by making a choice about what type of data generating process best describes our outcome data. Eventually, our likelihood function represents the “probability density of the data given the parameters and predictors.” (Definition taken from Gelman et al. 2020, pg. 105).</p>
+<div id="r-code-for-fitting-logistic-regression" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> R code for fitting logistic regression</h2>
+<p>We can fit logistic regressions in R through <code>glm()</code>. Let’s build on the ANES example from section 5.3 and analyze a dichotomized measure of participation where 1=participated in at least some form and 0=did not participate.</p>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="r-code-for-fitting-logistic-regression.html#cb296-1" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ktmccabe/teachingdata/main/anesdems.csv&quot;</span>)</span>
+<span id="cb296-2"><a href="r-code-for-fitting-logistic-regression.html#cb296-2" aria-hidden="true" tabindex="-1"></a>anes<span class="sc">$</span>partbinary <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(anes<span class="sc">$</span>participation <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code></pre></div>
+<p>We can then fit using <code>glm</code> where <code>family = binomial(link="logit")</code></p>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="r-code-for-fitting-logistic-regression.html#cb297-1" aria-hidden="true" tabindex="-1"></a>out.logit <span class="ot">&lt;-</span> <span class="fu">glm</span>(partbinary <span class="sc">~</span> female <span class="sc">+</span> edu <span class="sc">+</span> age <span class="sc">+</span> sexism, <span class="at">data=</span>anes,</span>
+<span id="cb297-2"><a href="r-code-for-fitting-logistic-regression.html#cb297-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link=</span><span class="st">&quot;logit&quot;</span>))</span></code></pre></div>
+<p>The summary output includes the logit coefficients, standard errors, z-scores, and p-values.</p>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="r-code-for-fitting-logistic-regression.html#cb298-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(out.logit)</span></code></pre></div>
+<pre><code>
+Call:
+glm(formula = partbinary ~ female + edu + age + sexism, family = binomial(link = &quot;logit&quot;), 
+    data = anes)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-2.5668   0.3328   0.4475   0.6287   1.2936  
+
+Coefficients:
+             Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)  1.016734   0.334656   3.038  0.00238 ** 
+female      -0.382087   0.151516  -2.522  0.01168 *  
+edu          0.321190   0.050945   6.305 2.89e-10 ***
+age          0.008682   0.004046   2.146  0.03188 *  
+sexism      -1.593694   0.336373  -4.738 2.16e-06 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1361.5  on 1584  degrees of freedom
+Residual deviance: 1252.9  on 1580  degrees of freedom
+  (355 observations deleted due to missingness)
+AIC: 1262.9
+
+Number of Fisher Scoring iterations: 5</code></pre>
+<div id="writing-down-the-regression-model" class="section level3" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> Writing down the regression model</h3>
+<p>In the articles you write, you will describe the methods you use in detail, including the variables in the model and the type of regression (e.g., logistic regression). Sometimes you may want to go a step further and be very explicit about the model that you ran. We’ve already seen the regression equations for linear models. For the GLMs, they will look very similar, but we need to make the link/response function an explicit part of the equation.</p>
+<p>For example, for logistic regression we have a few ways of writing it, including:</p>
 <ul>
-<li>In MLE, we are going to choose parameter estimates <span class="math inline">\(\widehat{\theta}\)</span> for <span class="math inline">\(\theta\)</span> that maximize the likelihood that our data came from the particular distribution.</li>
+<li><span class="math inline">\(\log \frac{\pi_i}{1-\pi_i} = \mathbf{x_i&#39;}\beta\)</span>, or alternatively</li>
+<li><span class="math inline">\(Pr(Y_i = 1 | \mathbf{x}_i) = logit^{-1}(\mathbf{x}_i&#39;\beta) = \frac{exp(\mathbf{x_i&#39;}\beta)}{(1 + exp(\mathbf{x_i&#39;}\beta)}\)</span></li>
 </ul>
-<p>Already, we are placing a lot of emphasis on the nature of our outcome data. The nature of our likelihood will change depending on if the data are dichotomous (e.g, similar to a set of coin flips that could be head or tails) or a count (e.g., similar to the number of events expected to occur over a certain interval) or more of a continuous numeric distribution with (e.g., where the probabilities of certain levels can be visualized similar to a bell curve). Each of these sets of data are generated through a different process, which is described by a particular probability function.</p>
-<p><em>Example</em></p>
-<p>This introduction is based on Ben Lambert’s video. I highly recommend watching this 8-9 minute <a href="https://www.youtube.com/watch?v=I_dhPETvll8">video</a>. Below we highlight a few of the key concepts and definitions.</p>
-<p>Take the UK population of 70 million. We have a sample of this, and in our sample some observations are male and some female. How can we use what we have, a sample, to estimate the probability that an individual is male?<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
-<ul>
-<li><p>First, we can make a judgment about the data generating process. We can suppose there is some probability distribution function that determines the probability is a male or female. A probability density function (PDF for continuous data or PMF for discrete data) tells you the relative probability or likelihood of observing a particular value given the parameters of the distribution.</p>
-<ul>
-<li>Let’s call this <span class="math inline">\(f(y_i | p)\)</span> where <span class="math inline">\(y_i = 1\)</span> if male, 0 if female.</li>
-<li>We will say <span class="math inline">\(p\)</span> is the probability an individual is male. <span class="math inline">\(p^{y_i}(1 - p)^{1-y_i}\)</span></li>
-</ul></li>
-<li><p>We are going to treat this like a toss of a coin, which has a Bernouilli distribution (every probability distribution we are dealing with is going to have an associated formula. You don’t need to memorize these. You can look them up on the internet when needed.) So, <span class="math inline">\(f()\)</span> tells us the probability we would have gotten the value of the observation if we think of our observation as this Bernouilli toss of coin. This is the likelihood for a single observation.</p></li>
-<li><p>For example, we can now plug this into our Bernoulli function for the two possible cases of values for <span class="math inline">\(y_i\)</span>.</p>
-<ul>
-<li><span class="math inline">\(f(1|p) = p^1(1-p)^{1-1} = p\)</span> probability an individual is male</li>
-<li><span class="math inline">\(f(0 |p) p ^0(1-p)^{1-0} = 1-p\)</span> probability individual is female</li>
-</ul></li>
-<li><p>Now we want an estimate using our entire sample of observations, not just a single <span class="math inline">\(i\)</span>. What if we have <span class="math inline">\(n\)</span> observations? <span class="math inline">\(f(y_1, y_2, ... y_n | p)\)</span>. We can write the joint probability as all individual probabilities multiplied together if we assume our observations are independent. This will now represent the likelihood for all observations.</p>
-<ul>
-<li><span class="math inline">\(L = P(Y_1 = y_1, Y_2=y_2, ..., Y_n = y_n)= \prod_{i=1}^n p^y_i(1 - p)^{1-y_i}\)</span></li>
-<li>This answers what is the probability that <span class="math inline">\(Y_1\)</span> took on the particular value <span class="math inline">\(y_1\)</span></li>
-<li>Ok, now we have the statement <span class="math inline">\(L = P(Y_1 = y_1, Y_2=y_2, ..., Y_n = y_n)\)</span>. This joint probability is the likelihood.</li>
-</ul></li>
-<li><p>Generally, we don’t know <span class="math inline">\(p\)</span>. We are trying to estimate it. <strong><em>What we want to do is choose the <span class="math inline">\(\hat p\)</span> to maximize the likelihood that we would have gotten this set of observations given that <span class="math inline">\(Y_i\)</span> has a probability distribution as specified.</em></strong></p>
-<ul>
-<li>We have used a buzz word: “maximize.” Just as in OLS, that should be our signal that a derivative should be taken so that we can find the quantities that represent the maximum.</li>
-<li>We differentiate L with respect to p, set it to 0, to give us <span class="math inline">\(\hat{p}\)</span>.</li>
-</ul></li>
-<li><p>Our issue (or at least one of our issues) is that products are tough to differentiate. A chain rule disaster. Instead, we use a trick of taking the log of the likelihood: log <span class="math inline">\(\prod ()\)</span>.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> Benefit: it turns it into a sum, much easier. <span class="math inline">\(\log ab = \log a + \log b\)</span>. So we will actually differentiate the <span class="math inline">\(\log\)</span> of the likelihood. Yes, this is why we had logs as part of Section 3.</p></li>
-</ul>
-<div id="summarizing-steps-for-maximum-likelihood" class="section level3" number="5.1.1">
-<h3><span class="header-section-number">5.1.1</span> Summarizing Steps for Maximum Likelihood</h3>
-<p>Initial Setup</p>
-<ol style="list-style-type: decimal">
-<li>What is the data generating process? This means think about the structure of the dependent variable. Is it continuous, is it a count, is it binary, is it ordered? Based on this, describe the probability distribution for <span class="math inline">\(Y_i\)</span>.</li>
-<li>Define the likelihood for a single observation</li>
-<li>Define the likelihood for all observations</li>
-<li>Find the log-likelihood</li>
-</ol>
-<p>Then, the derivation begins! Yes, we’ve only just <a href="https://www.youtube.com/watch?v=uaqoQr-aCtQ">begun</a>, but that first step of deciding the data generating process is huge.</p>
-<p><strong>Example: Count Data</strong></p>
-<p>Let’s say we are trying to understand the relationship between an independent variable and the number of news articles reported on a topic. This is a count of data. It goes from 0 to some positive number, never extending below 0. A distribution that is a good fit for this is the Poisson. We start by specifying this as our data generating process and looking up the Poisson probability density function, which has the parameter <span class="math inline">\(\lambda\)</span>.</p>
-<ol style="list-style-type: decimal">
-<li>Data Generating Process and probability density function.</li>
-</ol>
-<p><span class="math display">\[\begin{align*}
-&amp;Y_i \stackrel{\rm i.i.d.}{\sim} Pois(\lambda)\Rightarrow\\
-&amp;\Pr(Y=Y_i|\lambda)=\lambda \frac{exp(-\lambda) \lambda^{Y_i}}{Y_i!}
-\end{align*}\]</span></p>
-<p>Note: we assume our observations are iid (independently and identically distributed (For <a href="http://www.statisticshowto.com/iid-statistics/%7D">definition</a>.) This assumption can be relaxed.</p>
-<ol start="2" style="list-style-type: decimal">
-<li>What is the likelihood for a single observation?</li>
-</ol>
-<p><span class="math display">\[\begin{align*}
-\mathcal L(\lambda|Y_i)=\Pr(Y=Y_i|\lambda)
-\end{align*}\]</span></p>
-<ol start="3" style="list-style-type: decimal">
-<li>What is the likelihood for all observations?</li>
-</ol>
-<p><span class="math display">\[\begin{align*}
-\mathcal L(\lambda|Y)&amp;=\mathcal L(\lambda|Y_1)\times\mathcal  L(\lambda|Y_2)\times \ldots \times \mathcal L(\lambda|Y_{N})\\
-\mathcal L(\lambda|Y)&amp;=\prod_{i=1}^N\mathcal L(\lambda|Y_i)\\
-\end{align*}\]</span></p>
-<ol start="4" style="list-style-type: decimal">
-<li>Easier to work with log-likelihood</li>
-</ol>
-<p><span class="math display">\[\begin{align*}
-\ell(\lambda|Y)&amp;=\sum_{i=1}^N\mathcal \log(\mathcal L(\lambda|Y_i))\\
-\end{align*}\]</span></p>
-<p>Given observed data <span class="math inline">\(Y\)</span>, what is the likelihood it was generated from <span class="math inline">\(\lambda\)</span>? We will be choosing estimates of the parameters that maximize the likelihood we would have seen these data. Generally, we will also consider parameters like <span class="math inline">\(\lambda\)</span> to be functions of our covariates– the things we think help explain our otucome.</p>
-<p>For additonal practice, try to write down the likelihood of a single observation, the likelihood for all observations, and the log likelihood for an outcome we believe is normally distributed. We have <span class="math inline">\(Y_i \sim N(\mu, \sigma^2)\)</span>. Our PDF is:</p>
-<p><span class="math display">\[\begin{align*}
-f(Y_i | \theta) &amp;=  \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}
-\end{align*}\]</span></p>
-<p>You can take it from here.</p>
-<details>
-<summary>
-Try on your own, then expand for the solution.
-</summary>
-<p>We have the PDF.</p>
-<ol start="2" style="list-style-type: decimal">
-<li>Let’s write the likelihood for a single observation.</li>
-</ol>
-<p><span class="math display">\[\begin{align*}
-L(\theta | Y_i) = L(\mu, \sigma^2 | Y_i) &amp;= \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}
-\end{align*}\]</span></p>
-<ol start="3" style="list-style-type: decimal">
-<li>Let’s write the likelihood for all observations.</li>
-</ol>
-<p><span class="math display">\[\begin{align*}
-L(\mu, \sigma^2 | Y) &amp;=  \prod_{i=1}^{N} \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}
-\end{align*}\]</span></p>
-<ol start="4" style="list-style-type: decimal">
-<li>Let’s write the log likelihood.</li>
-</ol>
-<p><span class="math display">\[\begin{align*}
-\ell(\mu, \sigma^2 | Y) &amp;= \sum_{i = 1}^N \log \Bigg( \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}\Bigg)
-= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-\mu)^2}{2\sigma^2}\\
-&amp;= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-x_i&#39;\beta)^2}{2\sigma^2}
-\end{align*}\]</span></p>
-<p>Note how we usually will sub in <span class="math inline">\(X\beta\)</span> or <span class="math inline">\(\mathbf{x_i&#39;\beta}\)</span> for the parameter because we think these will vary according to covariates in our data.</p>
-</details>
+<p>(You can also write out the individual variable names.) There is a new R package <a href="https://github.com/datalorax/equatiomatic">equatiomatic</a> that can also be used to help write the equations from regression models. It’s not perfect, but should get you there for most basic models.</p>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="r-code-for-fitting-logistic-regression.html#cb300-1" aria-hidden="true" tabindex="-1"></a><span class="do">## First time, you need to install one of these</span></span>
+<span id="cb300-2"><a href="r-code-for-fitting-logistic-regression.html#cb300-2" aria-hidden="true" tabindex="-1"></a><span class="co">#remotes::install_github(&quot;datalorax/equatiomatic&quot;)</span></span>
+<span id="cb300-3"><a href="r-code-for-fitting-logistic-regression.html#cb300-3" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;equatiomatic&quot;)</span></span>
+<span id="cb300-4"><a href="r-code-for-fitting-logistic-regression.html#cb300-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb300-5"><a href="r-code-for-fitting-logistic-regression.html#cb300-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Each time after, run library</span></span>
+<span id="cb300-6"><a href="r-code-for-fitting-logistic-regression.html#cb300-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(equatiomatic)</span>
+<span id="cb300-7"><a href="r-code-for-fitting-logistic-regression.html#cb300-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb300-8"><a href="r-code-for-fitting-logistic-regression.html#cb300-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Will output in latex code, though see package for details on options</span></span>
+<span id="cb300-9"><a href="r-code-for-fitting-logistic-regression.html#cb300-9" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_eq</span>(out.logit, <span class="at">wrap =</span> <span class="cn">TRUE</span>, <span class="at">terms_per_line =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><span class="math display">\[
+\begin{aligned}
+\log\left[ \frac { P( \operatorname{partbinary} = \operatorname{1} ) }{ 1 - P( \operatorname{partbinary} = \operatorname{1} ) } \right] &amp;= \alpha + \beta_{1}(\operatorname{female}) + \beta_{2}(\operatorname{edu})\ + \\
+&amp;\quad \beta_{3}(\operatorname{age}) + \beta_{4}(\operatorname{sexism})
+\end{aligned}
+\]</span></p>
 </div>
-</div>
-<div class="footnotes">
-<hr />
-<ol start="3">
-<li id="fn3"><p>In the future, we may want to know the probability of turning out to vote, or of going to war, or voting “yes” on a particular policy question, etc.<a href="what-is-likelihood.html#fnref3" class="footnote-back">↩︎</a></p></li>
-<li id="fn4"><p>Why does this work? It has to do with the shape of the log (always increasing). Details are beyond the scope.<a href="what-is-likelihood.html#fnref4" class="footnote-back">↩︎</a></p></li>
-</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="mle.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="generalized-linear-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="data-generating-process.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="probit-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

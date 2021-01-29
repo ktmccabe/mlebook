@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="binary.html"/>
-
+<link rel="next" href="r-code-for-fitting-logistic-regression.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -243,13 +243,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="6.1" data-path="data-generating-process.html"><a href="data-generating-process.html"><i class="fa fa-check"></i><b>6.1</b> Data Generating Process</a>
 <ul>
-<li class="chapter" data-level="6.1.1" data-path="data-generating-process.html"><a href="data-generating-process.html#r-code-for-fitting-logistic-regression"><i class="fa fa-check"></i><b>6.1.1</b> R code for fitting logistic regression</a></li>
-<li class="chapter" data-level="6.1.2" data-path="data-generating-process.html"><a href="data-generating-process.html#writing-down-the-regression-model"><i class="fa fa-check"></i><b>6.1.2</b> Writing down the regression model</a></li>
-<li class="chapter" data-level="6.1.3" data-path="data-generating-process.html"><a href="data-generating-process.html#probit-regression"><i class="fa fa-check"></i><b>6.1.3</b> Probit Regression</a></li>
-<li class="chapter" data-level="6.1.4" data-path="data-generating-process.html"><a href="data-generating-process.html#to-logit-or-to-probit"><i class="fa fa-check"></i><b>6.1.4</b> To logit or to probit?</a></li>
-<li class="chapter" data-level="6.1.5" data-path="data-generating-process.html"><a href="data-generating-process.html#latent-propensity-representation"><i class="fa fa-check"></i><b>6.1.5</b> Latent propensity representation</a></li>
-<li class="chapter" data-level="6.1.6" data-path="data-generating-process.html"><a href="data-generating-process.html#linear-probability-models"><i class="fa fa-check"></i><b>6.1.6</b> Linear Probability Models</a></li>
+<li class="chapter" data-level="6.1.1" data-path="mle-estimation.html"><a href="mle-estimation.html#mle-estimation"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
 </ul></li>
+<li class="chapter" data-level="6.2" data-path="r-code-for-fitting-logistic-regression.html"><a href="r-code-for-fitting-logistic-regression.html"><i class="fa fa-check"></i><b>6.2</b> R code for fitting logistic regression</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="r-code-for-fitting-logistic-regression.html"><a href="r-code-for-fitting-logistic-regression.html#writing-down-the-regression-model"><i class="fa fa-check"></i><b>6.2.1</b> Writing down the regression model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="probit-regression.html"><a href="probit-regression.html"><i class="fa fa-check"></i><b>6.3</b> Probit Regression</a></li>
+<li class="chapter" data-level="6.4" data-path="to-logit-or-to-probit.html"><a href="to-logit-or-to-probit.html"><i class="fa fa-check"></i><b>6.4</b> To logit or to probit?</a></li>
+<li class="chapter" data-level="6.5" data-path="latent-propensity-representation.html"><a href="latent-propensity-representation.html"><i class="fa fa-check"></i><b>6.5</b> Latent propensity representation</a></li>
+<li class="chapter" data-level="6.6" data-path="linear-probability-models.html"><a href="linear-probability-models.html"><i class="fa fa-check"></i><b>6.6</b> Linear Probability Models</a></li>
 </ul></li>
 </ul>
 
@@ -287,6 +290,8 @@ Y_i = \begin{cases}1, \;\text{a dispute happened}\\ 0,\;
 <li>This sounds like the Bernoulli distribution! <span class="math inline">\(Y_i \sim Bernouli(\pi)\)</span></li>
 </ul></li>
 </ul>
+<div id="mle-estimation" class="section level3" number="6.1.1">
+<h3><span class="header-section-number">6.1.1</span> MLE Estimation</h3>
 <p>Let’s do the steps we saw in the previous section.</p>
 <ol style="list-style-type: decimal">
 <li><p><strong><em>What is the data generating process?</em></strong> Based on this, describe the probability distribution for <span class="math inline">\(Y_i\)</span>.</p>
@@ -322,7 +327,7 @@ for <span class="math inline">\(y = 0,1\)</span></p></li>
 </ol>
 <p>Where <span class="math inline">\(\pi_i = \frac{exp^{\mathbf{x}_i&#39;\beta}}{1 + exp^{\mathbf{x}_i&#39;\beta}}\)</span></p>
 <p><span class="math display">\[\begin{align*}
-\hat \pi &amp;= \text{arg max } \log\frac{\pi_i}{1-\pi_i} = \mathbf{x}_i&#39;\beta \ell( \pi | Y) \text{ wrt $\pi$} \\
+\hat \pi &amp;= \text{arg max } \ell( \pi | Y) \text{ wrt $\pi$} \\
 &amp;= \text{arg max} \sum_{i=1}^n\log \pi_i^{y_i}(1 -\pi_i)^{(1-y_i)}\\
 &amp;= \text{arg max} \sum_{i=1}^n \underbrace{y_i \log \Big( \frac{exp^{\mathbf{x}_i&#39;\beta}}{1 + exp^{\mathbf{x}_i&#39;\beta}}\Big) + (1-y_i)\log \Big(1-\frac{exp^{\mathbf{x}_i&#39;\beta}}{1 + exp^{\mathbf{x}_i&#39;\beta}}\Big)}_\text{We replaced $\pi_i$ and used the rule $\log a^b = b \log a$ to bring down the $y_i$ terms.}
 \end{align*}\]</span></p>
@@ -339,202 +344,16 @@ H(\theta) &amp;=  - \sum_{i=1}^n \mathbf{x}_i\mathbf{x}^T_i(\pi_i)(1 - \pi_i)\\
 &amp;= -X^TVX
 \end{align*}\]</span>
 where <span class="math inline">\(V\)</span> is <span class="math inline">\(n \times n\)</span> diagonal matrix with weights that are the ith element of <span class="math inline">\((\pi)(1 - \pi)\)</span></p>
-<div id="r-code-for-fitting-logistic-regression" class="section level3" number="6.1.1">
-<h3><span class="header-section-number">6.1.1</span> R code for fitting logistic regression</h3>
-<p>We can fit logistic regressions in R through <code>glm()</code>. Let’s build on the ANES example from section 5.3 and analyze a dichotomized measure of participation where 1=participated in at least some form and 0=did not participate.</p>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="data-generating-process.html#cb296-1" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ktmccabe/teachingdata/main/anesdems.csv&quot;</span>)</span>
-<span id="cb296-2"><a href="data-generating-process.html#cb296-2" aria-hidden="true" tabindex="-1"></a>anes<span class="sc">$</span>partbinary <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(anes<span class="sc">$</span>participation <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code></pre></div>
-<p>We can then fit using <code>glm</code> where <code>family = binomial(link="logit")</code></p>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="data-generating-process.html#cb297-1" aria-hidden="true" tabindex="-1"></a>out.logit <span class="ot">&lt;-</span> <span class="fu">glm</span>(partbinary <span class="sc">~</span> female <span class="sc">+</span> edu <span class="sc">+</span> age <span class="sc">+</span> sexism, <span class="at">data=</span>anes,</span>
-<span id="cb297-2"><a href="data-generating-process.html#cb297-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link=</span><span class="st">&quot;logit&quot;</span>))</span></code></pre></div>
-<p>The summary output includes the logit coefficients, standard errors, z-scores, and p-values.</p>
-<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="data-generating-process.html#cb298-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(out.logit)</span></code></pre></div>
-<pre><code>
-Call:
-glm(formula = partbinary ~ female + edu + age + sexism, family = binomial(link = &quot;logit&quot;), 
-    data = anes)
-
-Deviance Residuals: 
-    Min       1Q   Median       3Q      Max  
--2.5668   0.3328   0.4475   0.6287   1.2936  
-
-Coefficients:
-             Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept)  1.016734   0.334656   3.038  0.00238 ** 
-female      -0.382087   0.151516  -2.522  0.01168 *  
-edu          0.321190   0.050945   6.305 2.89e-10 ***
-age          0.008682   0.004046   2.146  0.03188 *  
-sexism      -1.593694   0.336373  -4.738 2.16e-06 ***
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-
-(Dispersion parameter for binomial family taken to be 1)
-
-    Null deviance: 1361.5  on 1584  degrees of freedom
-Residual deviance: 1252.9  on 1580  degrees of freedom
-  (355 observations deleted due to missingness)
-AIC: 1262.9
-
-Number of Fisher Scoring iterations: 5</code></pre>
-</div>
-<div id="writing-down-the-regression-model" class="section level3" number="6.1.2">
-<h3><span class="header-section-number">6.1.2</span> Writing down the regression model</h3>
-<p>In the articles you write, you will describe the methods you use in detail, including the variables in the model and the type of regression (e.g., logistic regression). Sometimes you may want to go a step further and be very explicit about the model that you ran. We’ve already seen the regression equations for linear models. For the GLMs, they will look very similar, but we need to make the link/response function an explicit part of the equation.</p>
-<p>For example, for logistic regression we have a few ways of writing it, including:</p>
-<ul>
-<li><span class="math inline">\(\log \frac{\pi_i}{1-\pi_i} = \mathbf{x_i&#39;}\beta\)</span>, or alternatively</li>
-<li><span class="math inline">\(Pr(Y_i = 1 | \mathbf{x}_i) = logit^{-1}(\mathbf{x}_i&#39;\beta) = \frac{exp(\mathbf{x_i&#39;}\beta)}{(1 + exp(\mathbf{x_i&#39;}\beta)}\)</span></li>
-</ul>
-<p>(You can also write out the individual variable names.) There is a new R package <a href="https://github.com/datalorax/equatiomatic">equatiomatic</a> that can also be used to help write the equations from regression models. It’s not perfect, but should get you there for most basic models.</p>
-<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="data-generating-process.html#cb300-1" aria-hidden="true" tabindex="-1"></a><span class="do">## First time, you need to install one of these</span></span>
-<span id="cb300-2"><a href="data-generating-process.html#cb300-2" aria-hidden="true" tabindex="-1"></a><span class="co">#remotes::install_github(&quot;datalorax/equatiomatic&quot;)</span></span>
-<span id="cb300-3"><a href="data-generating-process.html#cb300-3" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;equatiomatic&quot;)</span></span>
-<span id="cb300-4"><a href="data-generating-process.html#cb300-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb300-5"><a href="data-generating-process.html#cb300-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Each time after, run library</span></span>
-<span id="cb300-6"><a href="data-generating-process.html#cb300-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(equatiomatic)</span>
-<span id="cb300-7"><a href="data-generating-process.html#cb300-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb300-8"><a href="data-generating-process.html#cb300-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Will output in latex code, though see package for details on options</span></span>
-<span id="cb300-9"><a href="data-generating-process.html#cb300-9" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_eq</span>(out.logit, <span class="at">wrap =</span> <span class="cn">TRUE</span>, <span class="at">terms_per_line =</span> <span class="dv">3</span>)</span></code></pre></div>
-<p><span class="math display">\[
-\begin{aligned}
-\log\left[ \frac { P( \operatorname{partbinary} = \operatorname{1} ) }{ 1 - P( \operatorname{partbinary} = \operatorname{1} ) } \right] &amp;= \alpha + \beta_{1}(\operatorname{female}) + \beta_{2}(\operatorname{edu})\ + \\
-&amp;\quad \beta_{3}(\operatorname{age}) + \beta_{4}(\operatorname{sexism})
-\end{aligned}
-\]</span></p>
-</div>
-<div id="probit-regression" class="section level3" number="6.1.3">
-<h3><span class="header-section-number">6.1.3</span> Probit Regression</h3>
-<p>Probit regression is very similar to logit except we use a different link function to map the linear predictor into the outcome. Both the logit and probit links are suitable for binary outcomes with a Bernoulli distribution. If we apply a probit transformation, this also restricts our estimates to between 0 and 1.</p>
-<ul>
-<li><span class="math inline">\(\pi_i = Pr(Y_i = 1| X_i) = \Phi(\pi_i)\)</span></li>
-<li><span class="math inline">\(\eta_i = \Phi^{-1}(\pi_i) = x_i&#39;\beta\)</span></li>
-</ul>
-<p>Here, our coefficients <span class="math inline">\(\hat \beta\)</span> represent changes in “probits” or changes “z-score” units. We use the Normal CDF (<span class="math inline">\(\Phi()\)</span>) aka <code>pnorm()</code> in R to transform them back into probabilities, specifically, the probability that <span class="math inline">\(Y_i\)</span> is 1.</p>
-<p>Let’s fit our binary model with probit. We just need to change the link function.</p>
-<p>We can then fit using <code>glm</code> where <code>family = binomial(link="probit")</code></p>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="data-generating-process.html#cb301-1" aria-hidden="true" tabindex="-1"></a>out.probit <span class="ot">&lt;-</span> <span class="fu">glm</span>(partbinary <span class="sc">~</span> female <span class="sc">+</span> edu <span class="sc">+</span> age <span class="sc">+</span> sexism, <span class="at">data=</span>anes,</span>
-<span id="cb301-2"><a href="data-generating-process.html#cb301-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link=</span><span class="st">&quot;probit&quot;</span>))</span></code></pre></div>
-<p>Let’s apply the equation tool to this:</p>
-<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="data-generating-process.html#cb302-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Each time after, run library</span></span>
-<span id="cb302-2"><a href="data-generating-process.html#cb302-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(equatiomatic)</span>
-<span id="cb302-3"><a href="data-generating-process.html#cb302-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb302-4"><a href="data-generating-process.html#cb302-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Will output in latex code, though see package for details on options</span></span>
-<span id="cb302-5"><a href="data-generating-process.html#cb302-5" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_eq</span>(out.probit, <span class="at">wrap =</span> <span class="cn">TRUE</span>, <span class="at">terms_per_line =</span> <span class="dv">3</span>)</span></code></pre></div>
-<p><span class="math display">\[
-\begin{aligned}
-P( \operatorname{partbinary} = \operatorname{1} ) &amp;= \Phi[\alpha + \beta_{1}(\operatorname{female}) + \beta_{2}(\operatorname{edu})\ + \\
-&amp;\qquad\ \beta_{3}(\operatorname{age}) + \beta_{4}(\operatorname{sexism})]
-\end{aligned}
-\]</span></p>
-<p>The summary output includes the probit coefficients, standard errors, z-scores, and p-values.</p>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="data-generating-process.html#cb303-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(out.probit)</span></code></pre></div>
-<pre><code>
-Call:
-glm(formula = partbinary ~ female + edu + age + sexism, family = binomial(link = &quot;probit&quot;), 
-    data = anes)
-
-Deviance Residuals: 
-    Min       1Q   Median       3Q      Max  
--2.6343   0.3188   0.4470   0.6361   1.2477  
-
-Coefficients:
-             Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept)  0.603661   0.184864   3.265  0.00109 ** 
-female      -0.202300   0.083407  -2.425  0.01529 *  
-edu          0.179264   0.027611   6.493 8.44e-11 ***
-age          0.005145   0.002257   2.280  0.02261 *  
-sexism      -0.898871   0.186443  -4.821 1.43e-06 ***
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-
-(Dispersion parameter for binomial family taken to be 1)
-
-    Null deviance: 1361.5  on 1584  degrees of freedom
-Residual deviance: 1250.6  on 1580  degrees of freedom
-  (355 observations deleted due to missingness)
-AIC: 1260.6
-
-Number of Fisher Scoring iterations: 5</code></pre>
-<p>We can interepret the sign and significance of the coefficients similarly to OLS. They just aren’t in units of <span class="math inline">\(Y\)</span>. In the section next week, we will discuss in detail how to generate quantities of interest from this output.</p>
-</div>
-<div id="to-logit-or-to-probit" class="section level3" number="6.1.4">
-<h3><span class="header-section-number">6.1.4</span> To logit or to probit?</h3>
-<p>Both approaches produce a monotonically increasing S-curve in probability between 0 and 1, which vary according to the linear predictor (<span class="math inline">\(\mathbf{x_i}^T\beta\)</span>). In this way, either approach satisfies the need to keep our estimates, when transformed, within the plausible range of <span class="math inline">\(Y\)</span>.</p>
-<p><img src="images/logitprobit.png" style="width:50.0%" />
-<em>Image from Kosuke Imai.</em></p>
-<ul>
-<li>Both also start with <span class="math inline">\(Y_i\)</span> as bernoulli</li>
-<li>Both produce the same function of the log-likelihood BUT define <span class="math inline">\(\pi_i\)</span> and link function differently</li>
-<li>Results–in terms of sign and significance of coefficients– are very similar
-<ul>
-<li>Logit coefficients are roughly 1.6*probit coefficients</li>
-</ul></li>
-<li>Results–in terms of predicted probabilities– are very similar
-<ul>
-<li>Exception– at extreme probabilities– Logit has “thicker tails”, gets to 0 and 1 more slowly</li>
-</ul></li>
-<li>Sometimes useful–Logit can also be transformed into “odds ratios”</li>
-<li>By convention, logit slightly more typically used in political science but easy enough to find examples of either</li>
-</ul>
-<p><strong><em>Note on Odds Ratios in Logistic Regression</em></strong></p>
-<p>Coefficients are in “logits” or changes in “log-odds” (<span class="math inline">\(\log \frac{\pi_i}{1 - \pi}\)</span>). Some disciplines like to report “odds ratios”</p>
-<ul>
-<li>Odds ratio: <span class="math inline">\(\frac{\pi_i(x1)/(1 - \pi(x1))}{\pi_i(x0)/(1 - \pi(x0))}\)</span> (at a value of x1 vs. x0)
-<ul>
-<li>If <span class="math inline">\(\log \frac{\pi_i}{1 - \pi} = logodds\)</span>; <span class="math inline">\(\exp(logodds) = \frac{\pi_i}{1 - \pi}\)</span></li>
-<li>Therefore, if we exponentiate our coefficients, this represents an odds ratio: the odds of <span class="math inline">\(Y_i = 1\)</span> increase by a factor of (<span class="math inline">\(\exp(\hat \beta_k)\)</span>) due to 1-unit change in X</li>
-</ul></li>
-</ul>
-<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="data-generating-process.html#cb305-1" aria-hidden="true" tabindex="-1"></a><span class="do">## odds ratio for the 4th coefficient</span></span>
-<span id="cb305-2"><a href="data-generating-process.html#cb305-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(out.logit)[<span class="dv">4</span>])</span></code></pre></div>
-<pre><code>    age 
-1.00872 </code></pre>
-<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="data-generating-process.html#cb307-1" aria-hidden="true" tabindex="-1"></a><span class="do">## CI for odds ratios</span></span>
-<span id="cb307-2"><a href="data-generating-process.html#cb307-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">confint</span>(out.logit)[<span class="dv">4</span>, ])</span></code></pre></div>
-<pre><code>Waiting for profiling to be done...</code></pre>
-<pre><code>   2.5 %   97.5 % 
-1.000790 1.016801 </code></pre>
-<p>In political science, we usually opt to present predicted probabilities instead of odds ratios, but ultimately you should do whatever you think is best.</p>
-</div>
-<div id="latent-propensity-representation" class="section level3" number="6.1.5">
-<h3><span class="header-section-number">6.1.5</span> Latent propensity representation</h3>
-<p>Sometimes you will see the binary outcome problem represented as a latent propensity where <span class="math inline">\(Y^*_i\)</span> is a continuous variable that represents an unobserved propensity (e.g., to have a dispute, to be a toxic tweet, to participate), where</p>
-<p><span class="math display">\[\begin{gather*}
-Y_i = \begin{cases}1, \; y^*_i &gt; \tau \\ 0,\; 
-y^*_i \leq \tau \end{cases}
-\end{gather*}\]</span></p>
-<p>and <span class="math inline">\(\tau\)</span> is some threshold after which a the event (e.g., dispute) occurs.</p>
-<p>This becomes particularly relevant when the goal is to classify outcome estimates given certain <span class="math inline">\(X\)</span> features. This type of threshold will also be relevant when we move into ordinal outcome variables where we want to estimate the probability an outcome belongs to a specific category.</p>
-</div>
-<div id="linear-probability-models" class="section level3" number="6.1.6">
-<h3><span class="header-section-number">6.1.6</span> Linear Probability Models</h3>
-<p>People (who me? yes, I admit, me) will sometimes still use a linear OLS model when we have dichotomous outcomes. In that case, we interpret the results as a “linear probability model” where a one-unit change in <span class="math inline">\(x\)</span> is associated with a <span class="math inline">\(\hat \beta\)</span> change in the probability that <span class="math inline">\(Y_i = 1\)</span>.</p>
-<p>This may sound like a disaster because linear models are generally meant for nice continuous outcomes, and there is no way to prevent extreme values of <span class="math inline">\(X\beta\)</span> from extending above 1 or below 0. This is not to mention the heteroskedasticity issues that come from binary outcome because the error terms depend on the values of <span class="math inline">\(X\)</span>. This website has a good overview of the potential problems with linear <a href="https://www.dummies.com/education/economics/econometrics/3-main-linear-probability-model-lpm-problems/">regression</a> with binary outcomes.</p>
-<p><img src="images/lpmjoke.jpeg" style="width:60.0%" />\</p>
-<p><em>Image from Chelsea Parlett-Pelleriti <span class="citation">@ChelseaParlett</span> on Twitter</em></p>
-<p>However, we can address some of these potential issues: 1) we can use robust standard errors to account for non-constant error variance , 2) if you look at the S-curve in the previous section, you will note that a large part of the curve is pretty linear over a wide range of <span class="math inline">\(X\beta\)</span> values. For many applications, the estimates transformed from a logit or probit into probability will look similar to the estimates from a linear probability model (i.e., OLS). 3) Linear probability models are easier to interpret, and there is no need to transform coefficients.</p>
-<p>LPM vs. logit/probit has spurred a lot of debate throughout the years. Reviewers disagree, twitter users disagree, some people just like to stir the pot, etc. This is just something to be aware of as you choose modeling approaches. Particularly when it comes to experiments and other causal inference approaches, there is a non-trivial push among active scholars to stick with linear probability models when your key independent variable is a discrete treatment ind icator variable. See this new <a href="https://psyarxiv.com/4gmbv/">article</a> from Robin Gomilla who lays out the considerations for using LPM, particularly in experimental settings, as well as follow up discussion from <a href="https://statmodeling.stat.columbia.edu/2020/01/10/linear-or-logistic-regression-with-binary-outcomes/">Andrew Gelman</a>. That said, even if you run with an LPM and cite the Gomilla article, a reviewer may still ask you to do a logit/probit. And there are certainly circumstances where LPM will fall short. So what’s the upshot? Probably try both, and then choose your own adventure.</p>
-
+<p>Once we have these quantities, we can optimize the function with an algorithm or go to <code>glm</code> in R, which will do that for us.</p>
 </div>
 </div>
-<!-- </div> -->
-
-
-
-
-
-
-
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="binary.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="binary.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="r-code-for-fitting-logistic-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

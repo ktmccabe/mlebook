@@ -36,7 +36,7 @@ We need to align these data with a data generating process and distribution.
   - For each $Y_i$, it is like a single trial, where you have a dispute with some probability $(\pi)$
       + This sounds like the Bernoulli distribution! $Y_i \sim Bernouli(\pi)$
 
-
+### MLE Estimation
 
 Let's do the steps we saw in the previous section.
 
@@ -74,7 +74,7 @@ for $y = 0,1$
 Where $\pi_i = \frac{exp^{\mathbf{x}_i'\beta}}{1 + exp^{\mathbf{x}_i'\beta}}$
 
 \begin{align*}
-\hat \pi &= \text{arg max } \log\frac{\pi_i}{1-\pi_i} = \mathbf{x}_i'\beta \ell( \pi | Y) \text{ wrt $\pi$} \\
+\hat \pi &= \text{arg max } \ell( \pi | Y) \text{ wrt $\pi$} \\
 &= \text{arg max} \sum_{i=1}^n\log \pi_i^{y_i}(1 -\pi_i)^{(1-y_i)}\\
 &= \text{arg max} \sum_{i=1}^n \underbrace{y_i \log \Big( \frac{exp^{\mathbf{x}_i'\beta}}{1 + exp^{\mathbf{x}_i'\beta}}\Big) + (1-y_i)\log \Big(1-\frac{exp^{\mathbf{x}_i'\beta}}{1 + exp^{\mathbf{x}_i'\beta}}\Big)}_\text{We replaced $\pi_i$ and used the rule $\log a^b = b \log a$ to bring down the $y_i$ terms.}
 \end{align*}
@@ -95,8 +95,9 @@ H(\theta) &=  - \sum_{i=1}^n \mathbf{x}_i\mathbf{x}^T_i(\pi_i)(1 - \pi_i)\\
 \end{align*}
  where $V$  is  $n \times n$ diagonal matrix with weights that are the ith element of  $(\pi)(1 - \pi)$
 
+Once we have these quantities, we can optimize the function with an algorithm or go to `glm` in R, which will do that for us.
 
-### R code for fitting logistic regression
+## R code for fitting logistic regression
 
 We can fit logistic regressions in R through `glm()`. Let's build on the ANES example from section 5.3 and analyze a dichotomized measure of participation where 1=participated in at least some form and 0=did not participate.
 
@@ -142,7 +143,7 @@ extract_eq(out.logit, wrap = TRUE, terms_per_line = 3)
 ```
 
 
-### Probit Regression
+## Probit Regression
 
 Probit regression is very similar to logit except we use a different link function to map the linear predictor into the outcome. Both the logit and probit links are suitable for binary outcomes with a Bernoulli distribution. If we apply a probit transformation, this also restricts our estimates to between 0 and 1.
 
@@ -179,7 +180,7 @@ summary(out.probit)
 
 We can interepret the sign and significance of the coefficients similarly to OLS. They just aren't in units of $Y$. In the section next week, we will discuss in detail how to generate quantities of interest from this output.
 
-### To logit or to probit?
+## To logit or to probit?
 
 Both approaches produce a monotonically increasing S-curve in probability between 0 and 1, which vary according to the linear predictor ($\mathbf{x_i}^T\beta$). In this way, either approach satisfies the need to keep our estimates, when transformed, within the plausible range of $Y$.
 
@@ -216,7 +217,7 @@ exp(confint(out.logit)[4, ])
 In political science, we usually opt to present predicted probabilities instead of odds ratios, but ultimately you should do whatever you think is best.
   
 
-### Latent propensity representation
+## Latent propensity representation
 
 Sometimes you will see the binary outcome problem represented as a latent propensity where $Y^*_i$ is a continuous variable that represents an unobserved propensity (e.g., to have a dispute, to be a toxic tweet, to participate), where
 
@@ -229,7 +230,7 @@ and $\tau$ is some threshold after which a the event (e.g., dispute) occurs.
 
 This becomes particularly relevant when the goal is to classify outcome estimates given certain $X$ features. This type of threshold will also be relevant when we move into ordinal outcome variables where we want to estimate the probability an outcome belongs to a specific category.
 
-### Linear Probability Models
+## Linear Probability Models
 
 People (who me? yes, I admit, me) will sometimes still use a linear OLS model when we have dichotomous outcomes. In that case, we interpret the results as a "linear probability model" where a one-unit change in $x$ is associated with a $\hat \beta$ change in the probability that $Y_i = 1$.
 
