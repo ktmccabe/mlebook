@@ -239,6 +239,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4.2" data-path="mle-properties.html"><a href="mle-properties.html#model-output-in-r"><i class="fa fa-check"></i><b>5.4.2</b> Model Output in R</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="6" data-path="binary.html"><a href="binary.html"><i class="fa fa-check"></i><b>6</b> Binary Dependent Variables</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="data-generating-process.html"><a href="data-generating-process.html"><i class="fa fa-check"></i><b>6.1</b> Data Generating Process</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="data-generating-process.html"><a href="data-generating-process.html#r-code-for-fitting-logistic-regression"><i class="fa fa-check"></i><b>6.1.1</b> R code for fitting logistic regression</a></li>
+<li class="chapter" data-level="6.1.2" data-path="data-generating-process.html"><a href="data-generating-process.html#writing-down-the-regression-model"><i class="fa fa-check"></i><b>6.1.2</b> Writing down the regression model</a></li>
+<li class="chapter" data-level="6.1.3" data-path="data-generating-process.html"><a href="data-generating-process.html#probit-regression"><i class="fa fa-check"></i><b>6.1.3</b> Probit Regression</a></li>
+<li class="chapter" data-level="6.1.4" data-path="data-generating-process.html"><a href="data-generating-process.html#to-logit-or-to-probit"><i class="fa fa-check"></i><b>6.1.4</b> To logit or to probit?</a></li>
+<li class="chapter" data-level="6.1.5" data-path="data-generating-process.html"><a href="data-generating-process.html#latent-propensity-representation"><i class="fa fa-check"></i><b>6.1.5</b> Latent propensity representation</a></li>
+<li class="chapter" data-level="6.1.6" data-path="data-generating-process.html"><a href="data-generating-process.html#linear-probability-models"><i class="fa fa-check"></i><b>6.1.6</b> Linear Probability Models</a></li>
+</ul></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -361,7 +373,7 @@ The right term should look familar! We will end up with a <span class="math inli
 <p><img src="mlebookout_files/figure-html/unnamed-chunk-103-1.svg" width="672" /></p>
 <p>When we have more complicated models, we are taking a similar approach–trying out different values and comparing the likelihood (or log likelihood), but we will rely on a specific algorithm(s) that will help us get to the maximum a bit faster than a naive search would allow.</p>
 <p>Don’t worry the built-in functions in R will do this for you (e.g., what happens under the hood of <code>glm()</code>), but if you were to need to develop your own custom likelihood function for some reason, you could directly solve it through an optimization algorithm if no such built-in function is appropriate.</p>
-<p><strong><em>You can skip the details below if you wish. They will only be involved in problem sets as extra credit</em></strong></p>
+<p><strong><em>You can skip the details below if you wish and jump to the MLE Properties section. This content will only be involved in problem sets as extra credit, as you may not have to use optim in your own research.</em></strong></p>
 <p>The <code>optim</code> function in R provides one such approach. For this optimization approach, we will need to.</p>
 <ul>
 <li>Derive the likelihood and/or log likelihood function and score</li>
@@ -383,7 +395,7 @@ The right term should look familar! We will end up with a <span class="math inli
 <li>For starting values <code>par</code>, least squares estimates are often used. More sensible starting values help your optimize more quickly. You may need to adjust the <code>maxit</code> control parameter to make sure the optimization converges.</li>
 <li>A commonly used <code>method</code> is <code>BFGS</code> (a variant of Newton-Raphson), similar to what <code>glm()</code> uses, but there are other methods available.</li>
 </ul>
-<p><strong><em>Example 1: p</em></strong></p>
+<p><strong><em>Example 1: estimating p</em></strong></p>
 <p>Let’s take our relatively simple example about toxic tweets above and optimize the likelihood. First, we create a function for the likelihood that will calculate the likelihood for the values supplied. In the future, our models will be complicated enough, we will stick with the log likelihood, which allows us to take a sum instead of a product.</p>
 <p>One benefit of R is that you can write your own functions, just like <code>mean()</code> is a built-in function in R. For more information on writing functions, you can review Imai <a href="https://assets.press.princeton.edu/chapters/s11025.pdf">QSS Chapter 1 pg. 19.</a>.</p>
 <div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="mle-estimation.html#cb260-1" aria-hidden="true" tabindex="-1"></a>lik.p <span class="ot">&lt;-</span> <span class="cf">function</span>(p){</span>

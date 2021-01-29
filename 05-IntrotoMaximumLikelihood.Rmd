@@ -369,7 +369,7 @@ When we have more complicated models, we are taking a similar approach--trying o
 
 Don't worry the built-in functions in R will do this for you (e.g., what happens under the hood of `glm()`), but if you were to need to develop your own custom likelihood function for some reason, you could directly solve it through an optimization algorithm if no such built-in function is appropriate.
 
-***You can skip the details below if you wish. They will only be involved in problem sets as extra credit***
+***You can skip the details below if you wish and jump to the MLE Properties section. This content will only be involved in problem sets as extra credit, as you may not have to use optim in your own research.***
 
 The `optim` function in R provides one such approach. For this optimization approach, we will need to.
 
@@ -390,7 +390,7 @@ By default, `optim` performs minimization. Make sure to set `control = list(fnsc
   - For starting values `par`, least squares estimates are often used. More sensible starting values help your optimize more quickly. You may need to adjust the `maxit` control parameter to make sure the optimization converges. 
   - A commonly used `method` is `BFGS` (a variant of Newton-Raphson), similar to what `glm()` uses, but there are other methods available.
 
-***Example 1: p***
+***Example 1: estimating p***
 
 Let's take our relatively simple example about toxic tweets above and optimize the likelihood. First, we create a function for the likelihood that will calculate the likelihood for the values supplied. In the future, our models will be complicated enough, we will stick with the log likelihood, which allows us to take a sum instead of a product.
 
@@ -633,16 +633,18 @@ summary(fit.glm)
 
 Some of the output represents measures of the goodness of fit of the model. However, their values are not directly interpretable from a single model.
 
-  - Larger (less negative) likelihood, the better the model fits the data. (`logLik(mod)`). The becomes relavent when comparing two or more models.
-  - Deviance is calculated from the likelihood. A measure of discrepancy between observed and fitted values. (Smaller values, better fit)
+  - Larger (less negative) likelihood, the better the model fits the data. (`logLik(mod)`). The becomes relevant when comparing two or more models.
+  - Deviance is calculated from the likelihood. This is a measure of discrepancy between observed and fitted values. (Smaller values, better fit.)
       + Null deviance: how well the outcome is predicted by a model that includes only the intercept. ($df = n - 1$)
       + Residual deviance: how well the outcome is predicted by a model with our parameters. ($df = n-k$)
-  - AIC- used for model comparison. Smaller values indicate a more parsimonious model. Accounts for the number of parameters ($K$) in the model (like Adjusted R-squared, but without the ease of interpretation). Sometimes used as a criteria in prediction exercises (using a model on training data to predict test data).
+  - AIC- used for model comparison. Smaller values indicate a more parsimonious model. Accounts for the number of parameters ($K$) in the model (like Adjusted R-squared, but without the ease of interpretation). Sometimes used as a criteria in prediction exercises (using a model on training data to predict test data). For more information on how AIC can be used in prediction exercises, see [here](https://towardsdatascience.com/introduction-to-aic-akaike-information-criterion-9c9ba1c96ced).
 
 
 **Likelihood Ratio Test**
 
 The likelihood ratio test compares the fit of two models, with the null hypothesis being that the full model does not add more explanatory power to the reduced model. Note: You should only compare models if they have the same number of observations. 
+
+This type of test is used in a similar way that people compare R-squared values across models.
 
 ```{r}
 fit.glm2 <- glm(participation ~ female + edu + age + sexism, data=anes,

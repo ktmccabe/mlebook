@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="mle-estimation.html"/>
-
+<link rel="next" href="binary.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -239,6 +239,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4.2" data-path="mle-properties.html"><a href="mle-properties.html#model-output-in-r"><i class="fa fa-check"></i><b>5.4.2</b> Model Output in R</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="6" data-path="binary.html"><a href="binary.html"><i class="fa fa-check"></i><b>6</b> Binary Dependent Variables</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="data-generating-process.html"><a href="data-generating-process.html"><i class="fa fa-check"></i><b>6.1</b> Data Generating Process</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="data-generating-process.html"><a href="data-generating-process.html#r-code-for-fitting-logistic-regression"><i class="fa fa-check"></i><b>6.1.1</b> R code for fitting logistic regression</a></li>
+<li class="chapter" data-level="6.1.2" data-path="data-generating-process.html"><a href="data-generating-process.html#writing-down-the-regression-model"><i class="fa fa-check"></i><b>6.1.2</b> Writing down the regression model</a></li>
+<li class="chapter" data-level="6.1.3" data-path="data-generating-process.html"><a href="data-generating-process.html#probit-regression"><i class="fa fa-check"></i><b>6.1.3</b> Probit Regression</a></li>
+<li class="chapter" data-level="6.1.4" data-path="data-generating-process.html"><a href="data-generating-process.html#to-logit-or-to-probit"><i class="fa fa-check"></i><b>6.1.4</b> To logit or to probit?</a></li>
+<li class="chapter" data-level="6.1.5" data-path="data-generating-process.html"><a href="data-generating-process.html#latent-propensity-representation"><i class="fa fa-check"></i><b>6.1.5</b> Latent propensity representation</a></li>
+<li class="chapter" data-level="6.1.6" data-path="data-generating-process.html"><a href="data-generating-process.html#linear-probability-models"><i class="fa fa-check"></i><b>6.1.6</b> Linear Probability Models</a></li>
+</ul></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -354,16 +366,17 @@ AIC: 5334.9
 Number of Fisher Scoring iterations: 2</code></pre>
 <p>Some of the output represents measures of the goodness of fit of the model. However, their values are not directly interpretable from a single model.</p>
 <ul>
-<li>Larger (less negative) likelihood, the better the model fits the data. (<code>logLik(mod)</code>). The becomes relavent when comparing two or more models.</li>
-<li>Deviance is calculated from the likelihood. A measure of discrepancy between observed and fitted values. (Smaller values, better fit)
+<li>Larger (less negative) likelihood, the better the model fits the data. (<code>logLik(mod)</code>). The becomes relevant when comparing two or more models.</li>
+<li>Deviance is calculated from the likelihood. This is a measure of discrepancy between observed and fitted values. (Smaller values, better fit.)
 <ul>
 <li>Null deviance: how well the outcome is predicted by a model that includes only the intercept. (<span class="math inline">\(df = n - 1\)</span>)</li>
 <li>Residual deviance: how well the outcome is predicted by a model with our parameters. (<span class="math inline">\(df = n-k\)</span>)</li>
 </ul></li>
-<li>AIC- used for model comparison. Smaller values indicate a more parsimonious model. Accounts for the number of parameters (<span class="math inline">\(K\)</span>) in the model (like Adjusted R-squared, but without the ease of interpretation). Sometimes used as a criteria in prediction exercises (using a model on training data to predict test data).</li>
+<li>AIC- used for model comparison. Smaller values indicate a more parsimonious model. Accounts for the number of parameters (<span class="math inline">\(K\)</span>) in the model (like Adjusted R-squared, but without the ease of interpretation). Sometimes used as a criteria in prediction exercises (using a model on training data to predict test data). For more information on how AIC can be used in prediction exercises, see <a href="https://towardsdatascience.com/introduction-to-aic-akaike-information-criterion-9c9ba1c96ced">here</a>.</li>
 </ul>
 <p><strong>Likelihood Ratio Test</strong></p>
 <p>The likelihood ratio test compares the fit of two models, with the null hypothesis being that the full model does not add more explanatory power to the reduced model. Note: You should only compare models if they have the same number of observations.</p>
+<p>This type of test is used in a similar way that people compare R-squared values across models.</p>
 <div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="mle-properties.html#cb284-1" aria-hidden="true" tabindex="-1"></a>fit.glm2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(participation <span class="sc">~</span> female <span class="sc">+</span> edu <span class="sc">+</span> age <span class="sc">+</span> sexism, <span class="at">data=</span>anes,</span>
 <span id="cb284-2"><a href="mle-properties.html#cb284-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link=</span><span class="st">&quot;identity&quot;</span>))</span>
 <span id="cb284-3"><a href="mle-properties.html#cb284-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -413,23 +426,13 @@ hurdle and zeroinfl functions by Achim Zeileis</code></pre>
 </div>
 </div>
 <!-- </div> -->
-
-
-
-
-
-
-
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="mle-estimation.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="mle-estimation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="binary.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
