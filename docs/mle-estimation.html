@@ -308,15 +308,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>Example: Normally distributed outcome</strong></p>
 <p>Start with the log-likelihood</p>
 <p><span class="math display">\[\begin{align*}
-\ell(\theta | Y) &amp;= \sum_{i = 1}^N \log \Bigg( \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}\Bigg)
-= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-\mu)^2}{2\sigma^2}\\
-&amp;= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-x_i&#39;\beta)^2}{2\sigma^2}
+\ell(\theta | Y) &amp;= \sum_{i = 1}^N \log \Bigg( \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}\Bigg)\\
+&amp;= \sum_{i = 1}^N \underbrace{\log \Bigg( \frac{1}{\sigma\sqrt{2\pi}}\Bigg) + \log e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}}_\text{Using the rule $\log ab = \log a + \log b$}\\
+&amp;= \underbrace{\sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-\mu)^2}{2\sigma^2}}_\text{The second term was of the form $\log e ^ a$, we can re-write as $a * \log e$. $\log e$ cancels to 1, leaving us with just $a$.}\\
+&amp;= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-\mathbf{x}_i&#39;\beta)^2}{2\sigma^2}
 \end{align*}\]</span></p>
 <p>Take the derivative wrt <span class="math inline">\(\theta\)</span>. Note: we have to take two derivatives- one for <span class="math inline">\(\mu\)</span> (<span class="math inline">\(\beta\)</span>) and one for <span class="math inline">\(\sigma^2\)</span>. For this example we will focus only on the derivative wrt to <span class="math inline">\(\beta\)</span>, as that it what gets us the coefficient estimates.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
+<p><em>Note: Below, we can simplify the expression of the log likelihood for taking the derivative with respect to <span class="math inline">\(\beta\)</span> because any term (i.e., the first term in the log likelihood in this case) that does not have a <span class="math inline">\(\beta\)</span> will fall out of the derivative expression. This is because when we take the derivative with respect to <span class="math inline">\(\beta\)</span> we treat all other terms as constants, and the slope of a constant (the rate of change of a constant) is zero. The curly <span class="math inline">\(\delta\)</span> in the expression below means “the derivative of …” with respect to <span class="math inline">\(\beta\)</span>.</em></p>
 <p><span class="math display">\[\begin{align*}
-\delta \ell(\theta | Y) &amp;= -\frac{1}{2\sigma^2}\sum_{i = 1}^N \delta (Y_i-x_i&#39;\hat \beta)^2
+\delta_\beta \ell(\theta | Y) &amp;= -\frac{1}{2\sigma^2}\sum_{i = 1}^N \delta_\beta (Y_i-\mathbf{x}_i&#39;\hat \beta)^2
 \end{align*}\]</span>
-The right term should look familar! We will end up with a <span class="math inline">\(S(\hat \theta)_\beta = \frac{1}{\sigma^2}X&#39;(Y - X\hat \beta)\)</span>. We set this equal to 0.
+The right term should look familiar! It is the same derivative we take when we are minimizing the least squares. Therefore, we will end up with <span class="math inline">\(S(\hat \theta)_\beta = \frac{1}{\sigma^2}X&#39;(Y - X\hat \beta)\)</span>. We set this equal to 0.
 <span class="math display">\[\begin{align*}
 \frac{1}{\sigma^2}X&#39;(Y - X\hat \beta) &amp;= 0\\
 \frac{1}{\sigma^2}X&#39;Y &amp;= \frac{1}{\sigma^2}X&#39;X\hat \beta \\

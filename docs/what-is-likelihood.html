@@ -374,11 +374,12 @@ L(\mu, \sigma^2 | Y) &amp;=  \prod_{i=1}^{N} \frac{1}{\sigma\sqrt{2\pi}}e^{\frac
 <li>Let’s write the log likelihood.</li>
 </ol>
 <p><span class="math display">\[\begin{align*}
-\ell(\mu, \sigma^2 | Y) &amp;= \sum_{i = 1}^N \log \Bigg( \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}\Bigg)
-= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-\mu)^2}{2\sigma^2}\\
-&amp;= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-x_i&#39;\beta)^2}{2\sigma^2}
+\ell(\mu, \sigma^2 | Y) &amp;= \sum_{i = 1}^N \log \Bigg( \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}\Bigg)\\
+&amp;= \sum_{i = 1}^N \underbrace{\log \Bigg( \frac{1}{\sigma\sqrt{2\pi}}\Bigg) + \log e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}}_\text{Using the rule $\log ab = \log a + \log b$}\\
+&amp;= \underbrace{\sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-\mu)^2}{2\sigma^2}}_\text{The second term was of the form $\log e ^ a$, we can re-write as $a * \log e$. $\log e$ cancels to 1, leaving us with just $a$.}\\
+&amp;= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-\mathbf{x}_i&#39;\beta)^2}{2\sigma^2}
 \end{align*}\]</span></p>
-<p>Note how we usually will sub in <span class="math inline">\(X\beta\)</span> or <span class="math inline">\(\mathbf{x_i&#39;\beta}\)</span> for the parameter because we think these will vary according to covariates in our data.</p>
+<p>Note how we usually will sub in <span class="math inline">\(X\beta\)</span> or <span class="math inline">\(\mathbf{x_i&#39;\beta}\)</span> for the parameter because we think these will vary according to covariates in our data. The <span class="math inline">\(e\)</span> in the Normal PDF is the base of the natural log. It is a mathematical constant. Sometimes you might see this written as <span class="math inline">\(exp\)</span> instead of <span class="math inline">\(e\)</span>. In R, you can use <code>exp()</code> to get this constant. For example, <span class="math inline">\(\log e^2\)</span> in R would be <code>log(exp(2))</code>.</p>
 </details>
 </div>
 </div>

@@ -136,12 +136,13 @@ L(\mu, \sigma^2 | Y) &=  \prod_{i=1}^{N} \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y
   4. Let's write the log likelihood.
 
 \begin{align*}
-\ell(\mu, \sigma^2 | Y) &= \sum_{i = 1}^N \log \Bigg( \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}\Bigg)
-= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-\mu)^2}{2\sigma^2}\\
-&= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-x_i'\beta)^2}{2\sigma^2}
+\ell(\mu, \sigma^2 | Y) &= \sum_{i = 1}^N \log \Bigg( \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}\Bigg)\\
+&= \sum_{i = 1}^N \underbrace{\log \Bigg( \frac{1}{\sigma\sqrt{2\pi}}\Bigg) + \log e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}}_\text{Using the rule $\log ab = \log a + \log b$}\\
+&= \underbrace{\sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-\mu)^2}{2\sigma^2}}_\text{The second term was of the form $\log e ^ a$, we can re-write as $a * \log e$. $\log e$ cancels to 1, leaving us with just $a$.}\\
+&= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-\mathbf{x}_i'\beta)^2}{2\sigma^2}
 \end{align*}
 
-Note how we usually will sub in $X\beta$ or $\mathbf{x_i'\beta}$ for the parameter because we think these will vary according to covariates in our data. 
+Note how we usually will sub in $X\beta$ or $\mathbf{x_i'\beta}$ for the parameter because we think these will vary according to covariates in our data. The $e$ in the Normal PDF is the base of the natural log. It is a mathematical constant. Sometimes you might see this written as $exp$ instead of $e$. In R, you can use `exp()` to get this constant. For example, $\log e^2$ in R would be `log(exp(2))`.
 
 </details>
 
@@ -283,18 +284,22 @@ We set the $S(\theta) = 0$ and solve for $\hat \theta$ (if possible).
 
 Start with the log-likelihood
 
-\begin{align*}
-\ell(\theta | Y) &= \sum_{i = 1}^N \log \Bigg( \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}\Bigg)
-= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-\mu)^2}{2\sigma^2}\\
-&= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-x_i'\beta)^2}{2\sigma^2}
-\end{align*}
-
-Take the derivative wrt $\theta$. Note: we have to take two derivatives- one for $\mu$ ($\beta$) and one for $\sigma^2$. For this example we will focus only on the derivative wrt to $\beta$, as that it what gets us the coefficient estimates.^[Essentially, you need to take derivatives with respect to each of the parameters. Some models we use will have only one parameter, which is easier.]
 
 \begin{align*}
-\delta \ell(\theta | Y) &= -\frac{1}{2\sigma^2}\sum_{i = 1}^N \delta (Y_i-x_i'\hat \beta)^2
+\ell(\theta | Y) &= \sum_{i = 1}^N \log \Bigg( \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}\Bigg)\\
+&= \sum_{i = 1}^N \underbrace{\log \Bigg( \frac{1}{\sigma\sqrt{2\pi}}\Bigg) + \log e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}}_\text{Using the rule $\log ab = \log a + \log b$}\\
+&= \underbrace{\sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-\mu)^2}{2\sigma^2}}_\text{The second term was of the form $\log e ^ a$, we can re-write as $a * \log e$. $\log e$ cancels to 1, leaving us with just $a$.}\\
+&= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-\mathbf{x}_i'\beta)^2}{2\sigma^2}
 \end{align*}
-The right term should look familar! We will end up with a $S(\hat \theta)_\beta = \frac{1}{\sigma^2}X'(Y - X\hat \beta)$. We set this equal to 0.
+
+Take the derivative wrt $\theta$. Note: we have to take two derivatives- one for $\mu$ ($\beta$) and one for $\sigma^2$. For this example we will focus only on the derivative wrt to $\beta$, as that it what gets us the coefficient estimates.^[Essentially, you need to take derivatives with respect to each of the parameters. Some models we use will have only one parameter, which is easier.] 
+
+*Note: Below, we can simplify the expression of the log likelihood for taking the derivative with respect to $\beta$ because any term (i.e., the first term in the log likelihood in this case) that does not have a $\beta$ will fall out of the derivative expression. This is because when we take the derivative with respect to $\beta$ we treat all other terms as constants, and the slope of a constant (the rate of change of a constant) is zero. The curly $\delta$ in the expression below means "the derivative of ..." with respect to $\beta$.*
+
+\begin{align*}
+\delta_\beta \ell(\theta | Y) &= -\frac{1}{2\sigma^2}\sum_{i = 1}^N \delta_\beta (Y_i-\mathbf{x}_i'\hat \beta)^2
+\end{align*}
+The right term should look familiar! It is the same derivative we take when we are minimizing the least squares. Therefore, we will end up with $S(\hat \theta)_\beta = \frac{1}{\sigma^2}X'(Y - X\hat \beta)$. We set this equal to 0.
 \begin{align*}
 \frac{1}{\sigma^2}X'(Y - X\hat \beta) &= 0\\
 \frac{1}{\sigma^2}X'Y &= \frac{1}{\sigma^2}X'X\hat \beta \\
