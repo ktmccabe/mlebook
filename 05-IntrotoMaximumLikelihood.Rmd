@@ -292,6 +292,15 @@ Start with the log-likelihood
 &= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-\mathbf{x}_i'\beta)^2}{2\sigma^2}
 \end{align*}
 
+  - Note: when you see $\mathbf{x}_i'\beta$, usually that is the representation of the multiplication of $k$ covariates (a $1 \times k$ vector) for a particular observation $i$ by $k \times 1$ coefficient values $\beta$. You can contrast this with $X\beta$, which represents $n \times k$ rows of observations with $k$ covariates multiplied by the $k \times 1$ coefficients. You will see both notations depending on if notation is indexed by $i$ or represented fully in matrix form. The $\mathbf{x_i'}$ representation tends to come up more when we are dealing with likelihood equations. Here is a short video relating these notations.
+  
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library("vembedr")
+
+embed_url("https://www.youtube.com/watch?v=5QFj6_D-aAw")
+```
+ 
+
 Take the derivative wrt $\theta$. Note: we have to take two derivatives- one for $\mu$ ($\beta$) and one for $\sigma^2$. For this example we will focus only on the derivative wrt to $\beta$, as that it what gets us the coefficient estimates.^[Essentially, you need to take derivatives with respect to each of the parameters. Some models we use will have only one parameter, which is easier.] 
 
 *Note: Below, we can simplify the expression of the log likelihood for taking the derivative with respect to $\beta$ because any term (i.e., the first term in the log likelihood in this case) that does not have a $\beta$ will fall out of the derivative expression. This is because when we take the derivative with respect to $\beta$ we treat all other terms as constants, and the slope of a constant (the rate of change of a constant) is zero. The curly $\delta$ in the expression below means "the derivative of ..." with respect to $\beta$.*
@@ -432,7 +441,7 @@ For the MLE of the normal linear model, our log likelihood equation is:
 \ell(\theta | Y) &= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-\mathbf{x}_i'\beta)^2}{2\sigma^2}
 \end{align*}
 
-  - Note: when you see $\mathbf{x}_i'\beta$, usually that is the representation of the multiplication of $k$ covariates (a $1 \times k$ vector) for a particular observation $i$ by $k \times 1$ coefficient values $\beta$. You can contrast this with $X\beta$, which represents $n \times k$ rows of observations with $k$ covariates multiplied by the $k \times 1$ coefficients. You will see both notations depending on if notation is indexed by $i$ or represented fully in matrix form.
+
 
 Now that we have our log likelihood, we can write a function that for a given set of $\hat \beta$ and $\hat \sigma^2$ parameter values, $X$, and $Y$, it will return the log likelihood.
 

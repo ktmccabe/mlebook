@@ -336,6 +336,7 @@ for <span class="math inline">\(y = 0,1\)</span></p></li>
 S(\theta) &amp;=  \sum_{i=1}^n (Y_i - \pi_i)\mathbf{x}^T_i\\
 &amp;= X^T(Y - \mathbf{\pi})
 \end{align*}\]</span></p>
+<p><em>You can note that the matrix notation retains the dimensions <span class="math inline">\(k \times 1\)</span>, which we would expect because we want to choose a set of <span class="math inline">\(k\)</span> coefficients in our <span class="math inline">\(k \times 1\)</span> vector <span class="math inline">\(\beta\)</span>. The score, as written in summation notation, also has length <span class="math inline">\(k\)</span> but here, we use a convention as writing <span class="math inline">\(\mathbf{x}_i&#39;\)</span> in row vector representation instead of a column vector. You could instead represent this as multiplied by <span class="math inline">\(\mathbf{x}_i\)</span>, which would give us the <span class="math inline">\(k \times 1\)</span> dimensions. Either way we have <span class="math inline">\(k\)</span> coefficients. These are just different notations.</em></p>
 <ol start="6" style="list-style-type: decimal">
 <li>Take the second derivative of the log likelihood to get the “hessian” and help estimate the uncertainty of the estimates. Again, we can represent this as a sum or in matrix notation, which might be easier when translating this into R code where our data is more naturally inside a matrix.</li>
 </ol>

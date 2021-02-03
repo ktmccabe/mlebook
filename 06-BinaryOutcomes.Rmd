@@ -86,6 +86,8 @@ S(\theta) &=  \sum_{i=1}^n (Y_i - \pi_i)\mathbf{x}^T_i\\
 &= X^T(Y - \mathbf{\pi})
 \end{align*}
 
+*You can note that the matrix notation retains the dimensions $k \times 1$, which we would expect because we want to choose a set of $k$ coefficients in our $k \times 1$ vector $\beta$. The score, as written in summation notation, also has length $k$ but here, we use a convention as writing $\mathbf{x}_i'$ in row vector representation instead of a column vector. You could instead represent this as multiplied by $\mathbf{x}_i$, which would give us the $k \times 1$ dimensions. Either way we have $k$ coefficients. These are just different notations.* 
+
   6. Take the second derivative of the log likelihood to get the "hessian" and help estimate the uncertainty of the estimates. Again, we can represent this as a sum or in matrix notation, which might be easier when translating this into R code where our data is more naturally inside a matrix.
   
 
