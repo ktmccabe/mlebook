@@ -273,7 +273,7 @@ study <- import("https://github.com/ktmccabe/teachingdata/blob/main/ssistudyreco
 The data include several key variables
 
   - `abtrace1`: 1= if the respondent thought the ad was about race. 0= otherwise
-  - `condition`: 1= respondent in the implicit condition. 2= respondent in one of four explicit racism conditions.
+  - `condition2`: 1= respondent in the implicit condition. 2= respondent in one of four explicit racism conditions.
   - `racresent`: a 0 to 1 numeric variable measuring racial resentment
   - `oldfash`: a 0 to 1 numeric variable measuring "old-fashioned racism"
   - `trumvote`: 1= respondent has vote preference for Trump 0=otherwise
