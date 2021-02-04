@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5.1 What is likelihood? | MLE for Political Science</title>
-  <meta name="description" content="5.1 What is likelihood? | MLE for Political Science" />
+  <title>6.7 Week 3 Tutorial | MLE for Political Science</title>
+  <meta name="description" content="6.7 Week 3 Tutorial | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5.1 What is likelihood? | MLE for Political Science" />
+  <meta property="og:title" content="6.7 Week 3 Tutorial | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5.1 What is likelihood? | MLE for Political Science" />
+  <meta name="twitter:title" content="6.7 Week 3 Tutorial | MLE for Political Science" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="mle.html"/>
-<link rel="next" href="generalized-linear-models.html"/>
+<link rel="prev" href="linear-probability-models.html"/>
+
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -277,132 +277,187 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="what-is-likelihood" class="section level2" number="5.1">
-<h2><span class="header-section-number">5.1</span> What is likelihood?</h2>
-<p>Just like the derivation of the OLS coefficient estimators <span class="math inline">\(\hat \beta\)</span> for the <span class="math inline">\(\beta\)</span> parameters started with a goal (minimizing least squared errors) in describing the relationship between variables, with likelihood we also start with a goal.</p>
-<p>The “<strong><em>likelihood</em></strong>” is going to ask the question: <strong><em>What values of the unknown parameters make the data we see least surprising?</em></strong></p>
-<p>When we get into likelihood, we will be drawing more directly on concepts within probability. We start by making a choice about what type of data generating process best describes our outcome data. Eventually, our likelihood function represents the “probability density of the data given the parameters and predictors.” (Definition taken from Gelman et al. 2020, pg. 105).</p>
+<div id="week-3-tutorial" class="section level2" number="6.7">
+<h2><span class="header-section-number">6.7</span> Week 3 Tutorial</h2>
+<p>This week’s example, we will replicate a portion of “The Effectiveness of a Racialized Counterstrategy” by Antoine Banks and Heather Hicks, <a href="https://onlinelibrary.wiley.com/doi/epdf/10.1111/ajps.12410">published</a> in the <em>American Journal of Political Science</em> in 2018. The replication data are <a href="https://doi.org/10.7910/DVN/EWRXPU">here</a>.</p>
+<p><em>Abstract: Our article examines whether a politician charging a political candidate’s implicit racial campaign appeal as racist is an effective political strategy. According to the racial priming theory, this racialized counterstrategy should deactivate racism, thereby decreasing racially conservative whites’ support for the candidate engaged in race baiting. We propose an alternative theory in which racial liberals, and not racially conservative whites, are persuaded by this strategy. To test our theory, we focused on the 2016 presidential election. We ran an experiment varying the politician (by party and race) calling an implicit racial appeal by Donald Trump racist. We find that charging Trump’s campaign appeal as racist does not persuade racially conservative whites to decrease support for Trump. Rather, it causes racially liberal whites to evaluate Trump more unfavorably. Our results hold up when attentiveness, old-fashioned racism, and partisanship are taken into account. We also reproduce our findings in two replication studies.</em></p>
+<p>We will replicate the analysis in Table 1 of the paper, based on an experiment the authors conducted through SSI. They exposed white survey respondents to either a news story about a Trump ad that includes an “implicit racial cue” or conditions that add to this with “explicitly racial” responses from different partisan actors calling out the ad as racist. Drawing on racial priming theory, racially prejudiced whites should be less supportive of Trump after the racial cues are made explicit. The authors test this hypothesis against their own hypothesis that this effect should be more pronounced among “racially liberal” whites.</p>
+<p><img src="images/implicit.png" style="width:45.0%" /> <img src="images/explicit.png" style="width:38.0%" /></p>
+<p>We are going to focus on a secondary outcome related to whether respondents believed the ad to be about race: “We also suspect that whites should provide a justification for either maintaining or decreasing their support for the candidate alleged to be playing the race card. Our results support these expectations. For example, racial liberals who read about a politician calling Trump’s implicit ad racist are more likely than those in the implicit condition to believe Trump’s ad is about race. On the other hand, pointing out the racial nature of the ad does not cause resentful whites to be any more likely to believe the ad is about race. Racially resentful whites deny that Trump’s subtle racial appeal on crime is racially motivated, which provides them with the evidence they need to maintain their support for his presidency” (320).</p>
+<div id="loading-data-and-fitting-glm" class="section level3" number="6.7.1">
+<h3><span class="header-section-number">6.7.1</span> Loading data and fitting glm</h3>
+<p>Let’s load the data.</p>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="week-3-tutorial.html#cb310-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
+<span id="cb310-2"><a href="week-3-tutorial.html#cb310-2" aria-hidden="true" tabindex="-1"></a>study <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/ssistudyrecode.dta?raw=true&quot;</span>)</span></code></pre></div>
+<p>The data include several key variables</p>
 <ul>
-<li>In MLE, we are going to choose parameter estimates <span class="math inline">\(\widehat{\theta}\)</span> for <span class="math inline">\(\theta\)</span> that maximize the likelihood that our data came from the particular distribution.</li>
+<li><code>abtrace1</code>: 1= if the respondent thought the ad was about race. 0= otherwise</li>
+<li><code>condition</code>: 1= respondent in the implicit condition. 2= respondent in one of four explicit racism conditions.</li>
+<li><code>racresent</code>: a 0 to 1 numeric variable measuring racial resentment</li>
+<li><code>oldfash</code>: a 0 to 1 numeric variable measuring “old-fashioned racism”</li>
+<li><code>trumvote</code>: 1= respondent has vote preference for Trump 0=otherwise</li>
 </ul>
-<p>Already, we are placing a lot of emphasis on the nature of our outcome data. The nature of our likelihood will change depending on if the data are dichotomous (e.g, similar to a set of coin flips that could be head or tails) or a count (e.g., similar to the number of events expected to occur over a certain interval) or more of a continuous numeric distribution with (e.g., where the probabilities of certain levels can be visualized similar to a bell curve). Each of these sets of data are generated through a different process, which is described by a particular probability function.</p>
-<p><em>Example</em></p>
-<p>This introduction is based on Ben Lambert’s video. I highly recommend watching this 8-9 minute <a href="https://www.youtube.com/watch?v=I_dhPETvll8">video</a>. Below we highlight a few of the key concepts and definitions.</p>
-<p>Take the UK population of 70 million. We have a sample of this, and in our sample some observations are male and some female. How can we use what we have, a sample, to estimate the probability that an individual is male?<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+<p><img src="images/bankstable1.png" style="width:75.0%" /></p>
+<p>Let’s try to replicate column 5 in Table 1 using probit regression, as the authors do.</p>
 <ul>
-<li><p>First, we can make a judgment about the data generating process. We can suppose there is some probability distribution function that determines the probability is a male or female. A probability density function (PDF for continuous data or PMF for discrete data) tells you the relative probability or likelihood of observing a particular value given the parameters of the distribution.</p>
-<ul>
-<li>Let’s call this <span class="math inline">\(f(y_i | p)\)</span> where <span class="math inline">\(y_i = 1\)</span> if male, 0 if female.</li>
-<li>We will say <span class="math inline">\(p\)</span> is the probability an individual is male. <span class="math inline">\(p^{y_i}(1 - p)^{1-y_i}\)</span></li>
-</ul></li>
-<li><p>We are going to treat this like a toss of a coin, which has a Bernouilli distribution (every probability distribution we are dealing with is going to have an associated formula. You don’t need to memorize these. You can look them up on the internet when needed.) So, <span class="math inline">\(f()\)</span> tells us the probability we would have gotten the value of the observation if we think of our observation as this Bernouilli toss of coin. This is the likelihood for a single observation.</p></li>
-<li><p>For example, we can now plug this into our Bernoulli function for the two possible cases of values for <span class="math inline">\(y_i\)</span>.</p>
-<ul>
-<li><span class="math inline">\(f(1|p) = p^1(1-p)^{1-1} = p\)</span> probability an individual is male</li>
-<li><span class="math inline">\(f(0 |p) p ^0(1-p)^{1-0} = 1-p\)</span> probability individual is female</li>
-</ul></li>
-<li><p>Now we want an estimate using our entire sample of observations, not just a single <span class="math inline">\(i\)</span>. What if we have <span class="math inline">\(n\)</span> observations? <span class="math inline">\(f(y_1, y_2, ... y_n | p)\)</span>. We can write the joint probability as all individual probabilities multiplied together if we assume our observations are independent. This will now represent the likelihood for all observations.</p>
-<ul>
-<li><span class="math inline">\(L = P(Y_1 = y_1, Y_2=y_2, ..., Y_n = y_n)= \prod_{i=1}^n p^y_i(1 - p)^{1-y_i}\)</span></li>
-<li>This answers what is the probability that <span class="math inline">\(Y_1\)</span> took on the particular value <span class="math inline">\(y_1\)</span></li>
-<li>Ok, now we have the statement <span class="math inline">\(L = P(Y_1 = y_1, Y_2=y_2, ..., Y_n = y_n)\)</span>. This joint probability is the likelihood.</li>
-</ul></li>
-<li><p>Generally, we don’t know <span class="math inline">\(p\)</span>. We are trying to estimate it. <strong><em>What we want to do is choose the <span class="math inline">\(\hat p\)</span> to maximize the likelihood that we would have gotten this set of observations given that <span class="math inline">\(Y_i\)</span> has a probability distribution as specified.</em></strong></p>
-<ul>
-<li>We have used a buzz word: “maximize.” Just as in OLS, that should be our signal that a derivative should be taken so that we can find the quantities that represent the maximum.</li>
-<li>We differentiate L with respect to p, set it to 0, to give us <span class="math inline">\(\hat{p}\)</span>.</li>
-</ul></li>
-<li><p>Our issue (or at least one of our issues) is that products are tough to differentiate. A chain rule disaster. Instead, we use a trick of taking the log of the likelihood: log <span class="math inline">\(\prod ()\)</span>.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> Benefit: it turns it into a sum, much easier. <span class="math inline">\(\log ab = \log a + \log b\)</span>. So we will actually differentiate the <span class="math inline">\(\log\)</span> of the likelihood. Yes, this is why we had logs as part of Section 3.</p></li>
+<li>Write down the equation for the regression.</li>
+<li>Use <code>glm</code> to run the regression.</li>
+<li>Compare the output to the table, column 5.</li>
 </ul>
-<div id="summarizing-steps-for-maximum-likelihood" class="section level3" number="5.1.1">
-<h3><span class="header-section-number">5.1.1</span> Summarizing Steps for Maximum Likelihood</h3>
-<p>Initial Setup</p>
-<ol style="list-style-type: decimal">
-<li>What is the data generating process? This means think about the structure of the dependent variable. Is it continuous, is it a count, is it binary, is it ordered? Based on this, describe the probability distribution for <span class="math inline">\(Y_i\)</span>.</li>
-<li>Define the likelihood for a single observation</li>
-<li>Define the likelihood for all observations</li>
-<li>Find the log-likelihood</li>
-</ol>
-<p>Then, the derivation begins! Yes, we’ve only just <a href="https://www.youtube.com/watch?v=uaqoQr-aCtQ">begun</a>, but that first step of deciding the data generating process is huge.</p>
-<p><strong>Example: Count Data</strong></p>
-<p>Let’s say we are trying to understand the relationship between an independent variable and the number of news articles reported on a topic. This is a count of data. It goes from 0 to some positive number, never extending below 0. A distribution that is a good fit for this is the Poisson. We start by specifying this as our data generating process and looking up the Poisson probability density function, which has the parameter <span class="math inline">\(\lambda\)</span>.</p>
-<ol style="list-style-type: decimal">
-<li>Data Generating Process and probability density function.</li>
-</ol>
-<p><span class="math display">\[\begin{align*}
-&amp;Y_i \stackrel{\rm i.i.d.}{\sim} Pois(\lambda)\Rightarrow\\
-&amp;\Pr(Y=Y_i|\lambda)=\lambda \frac{exp(-\lambda) \lambda^{Y_i}}{Y_i!}
-\end{align*}\]</span></p>
-<p>Note: we assume our observations are iid (independently and identically distributed (For <a href="http://www.statisticshowto.com/iid-statistics/%7D">definition</a>.) This assumption can be relaxed.</p>
-<ol start="2" style="list-style-type: decimal">
-<li>What is the likelihood for a single observation?</li>
-</ol>
-<p><span class="math display">\[\begin{align*}
-\mathcal L(\lambda|Y_i)=\Pr(Y=Y_i|\lambda)
-\end{align*}\]</span></p>
-<ol start="3" style="list-style-type: decimal">
-<li>What is the likelihood for all observations?</li>
-</ol>
-<p><span class="math display">\[\begin{align*}
-\mathcal L(\lambda|Y)&amp;=\mathcal L(\lambda|Y_1)\times\mathcal  L(\lambda|Y_2)\times \ldots \times \mathcal L(\lambda|Y_{N})\\
-\mathcal L(\lambda|Y)&amp;=\prod_{i=1}^N\mathcal L(\lambda|Y_i)\\
-\end{align*}\]</span></p>
-<ol start="4" style="list-style-type: decimal">
-<li>Easier to work with log-likelihood</li>
-</ol>
-<p><span class="math display">\[\begin{align*}
-\ell(\lambda|Y)&amp;=\sum_{i=1}^N\mathcal \log(\mathcal L(\lambda|Y_i))\\
-\end{align*}\]</span></p>
-<p>Given observed data <span class="math inline">\(Y\)</span>, what is the likelihood it was generated from <span class="math inline">\(\lambda\)</span>? We will be choosing estimates of the parameters that maximize the likelihood we would have seen these data. Generally, we will also consider parameters like <span class="math inline">\(\lambda\)</span> to be functions of our covariates– the things we think help explain our otucome.</p>
-<p>For additonal practice, try to write down the likelihood of a single observation, the likelihood for all observations, and the log likelihood for an outcome we believe is normally distributed. We have <span class="math inline">\(Y_i \sim N(\mu, \sigma^2)\)</span>. Our PDF is:</p>
-<p><span class="math display">\[\begin{align*}
-f(Y_i | \theta) &amp;=  \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}
-\end{align*}\]</span></p>
-<p>You can take it from here.</p>
 <details>
 <summary>
 Try on your own, then expand for the solution.
 </summary>
-<p>We have the PDF.</p>
-<ol start="2" style="list-style-type: decimal">
-<li>Let’s write the likelihood for a single observation.</li>
-</ol>
-<p><span class="math display">\[\begin{align*}
-L(\theta | Y_i) = L(\mu, \sigma^2 | Y_i) &amp;= \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}
+<p>We are fitting a probit regression.</p>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="week-3-tutorial.html#cb311-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Column 5</span></span>
+<span id="cb311-2"><a href="week-3-tutorial.html#cb311-2" aria-hidden="true" tabindex="-1"></a>fit.probit5 <span class="ot">&lt;-</span> <span class="fu">glm</span>(abtrace1 <span class="sc">~</span> <span class="fu">factor</span>(condition2)<span class="sc">*</span>racresent <span class="sc">+</span> <span class="fu">factor</span>(condition2)<span class="sc">*</span>oldfash,</span>
+<span id="cb311-3"><a href="week-3-tutorial.html#cb311-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data=</span>study, <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;probit&quot;</span>))</span>
+<span id="cb311-4"><a href="week-3-tutorial.html#cb311-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.probit5)</span></code></pre></div>
+<pre><code>
+Call:
+glm(formula = abtrace1 ~ factor(condition2) * racresent + factor(condition2) * 
+    oldfash, family = binomial(link = &quot;probit&quot;), data = study)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-2.2659  -0.9371  -0.5194   1.0015   2.0563  
+
+Coefficients:
+                              Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)                     0.6320     0.2431   2.600 0.009323 ** 
+factor(condition2)2             0.9685     0.2797   3.462 0.000535 ***
+racresent                      -1.9206     0.4174  -4.601  4.2e-06 ***
+oldfash                         0.5265     0.3907   1.348 0.177772    
+factor(condition2)2:racresent  -0.8513     0.4728  -1.801 0.071777 .  
+factor(condition2)2:oldfash    -0.4197     0.4376  -0.959 0.337476    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1376.9  on 994  degrees of freedom
+Residual deviance: 1148.7  on 989  degrees of freedom
+  (25 observations deleted due to missingness)
+AIC: 1160.7
+
+Number of Fisher Scoring iterations: 4</code></pre>
+<p>We can write the regression as:
+<span class="math display">\[\begin{align*}
+Pr(Y_i = 1 | X) &amp;= \\ \Phi(\alpha + \text{Explicit Politician Condition}_i*\beta_1 +\\ \text{Racial Resentment}_i *\beta_2 +\\
+\text{Old Fashioned Racism}_i*\beta_3 +\\ \text{Explicit Politician Condition}_i*\text{Racial Resentment}_i*\beta_4 +\\
+\text{Explicit Politician Condition}_i* \text{Old Fashioned Racism}_i*\beta_5)
 \end{align*}\]</span></p>
-<ol start="3" style="list-style-type: decimal">
-<li>Let’s write the likelihood for all observations.</li>
-</ol>
-<p><span class="math display">\[\begin{align*}
-L(\mu, \sigma^2 | Y) &amp;=  \prod_{i=1}^{N} \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}
-\end{align*}\]</span></p>
-<ol start="4" style="list-style-type: decimal">
-<li>Let’s write the log likelihood.</li>
-</ol>
-<p><span class="math display">\[\begin{align*}
-\ell(\mu, \sigma^2 | Y) &amp;= \sum_{i = 1}^N \log \Bigg( \frac{1}{\sigma\sqrt{2\pi}}e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}\Bigg)\\
-&amp;= \sum_{i = 1}^N \underbrace{\log \Bigg( \frac{1}{\sigma\sqrt{2\pi}}\Bigg) + \log e^{\frac{-(Y_i-\mu)^2}{2\sigma^2}}}_\text{Using the rule $\log ab = \log a + \log b$}\\
-&amp;= \underbrace{\sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-\mu)^2}{2\sigma^2}}_\text{The second term was of the form $\log e ^ a$, we can re-write as $a * \log e$. $\log e$ cancels to 1, leaving us with just $a$.}\\
-&amp;= \sum_{i = 1}^N \log  \frac{1}{\sigma\sqrt{2\pi}} - \frac{(Y_i-\mathbf{x}_i&#39;\beta)^2}{2\sigma^2}
-\end{align*}\]</span></p>
-<p>Note how we usually will sub in <span class="math inline">\(X\beta\)</span> or <span class="math inline">\(\mathbf{x_i&#39;\beta}\)</span> for the parameter because we think these will vary according to covariates in our data. The <span class="math inline">\(e\)</span> in the Normal PDF is the base of the natural log. It is a mathematical constant. Sometimes you might see this written as <span class="math inline">\(exp\)</span> instead of <span class="math inline">\(e\)</span>. In R, you can use <code>exp()</code> to get this constant. For example, <span class="math inline">\(\log e^2\)</span> in R would be <code>log(exp(2))</code>.</p>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="week-3-tutorial.html#cb313-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(equatiomatic)</span>
+<span id="cb313-2"><a href="week-3-tutorial.html#cb313-2" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_eq</span>(fit.probit5, <span class="at">wrap =</span> <span class="cn">TRUE</span>, <span class="at">terms_per_line =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p><span class="math display">\[
+\begin{aligned}
+P( \operatorname{abtrace1} = \operatorname{1} ) &amp;= \Phi[\alpha + \beta_{1}(\operatorname{factor(condition2)}_{\operatorname{2}}) + \beta_{2}(\operatorname{racresent})\ + \\
+&amp;\qquad\ \beta_{3}(\operatorname{oldfash}) + \beta_{4}(\operatorname{factor(condition2)}_{\operatorname{2}} \times \operatorname{racresent}) + \beta_{5}(\operatorname{factor(condition2)}_{\operatorname{2}} \times \operatorname{oldfash})]
+\end{aligned}
+\]</span></p>
 </details>
+<p>A few questions:</p>
+<ul>
+<li>How should we interpret the coefficients?</li>
+<li>How do the interactions affect this interpretation?</li>
+</ul>
+</div>
+<div id="numeric-optimization" class="section level3" number="6.7.2">
+<h3><span class="header-section-number">6.7.2</span> Numeric Optimization</h3>
+<p>Let’s repeat our replication of column 5, but this time, let’s use numeric optimization. We first need to make an X and Y matrix from our data. Because we have already run the models, let’s use a trick below:</p>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="week-3-tutorial.html#cb314-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit.probit5)</span>
+<span id="cb314-2"><a href="week-3-tutorial.html#cb314-2" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(fit.probit5<span class="sc">$</span>y)</span></code></pre></div>
+<p>The next thing we need to do is make a function for the log likelihood. Let’s recall the log likelihood for a Bernoulli random variable from a previous section:</p>
+<p><span class="math display">\[\begin{align*}
+\mathcal L( \pi | Y_i) &amp;= \underbrace{\pi^{y_i}(1 -\pi)^{(1-y_i)}}_\text{Likelihood for single observation}\\
+\mathcal L( \pi | Y) &amp;= \underbrace{\prod_{i=1}^n\pi^{y_i}(1 -\pi)^{(1-y_i)}}_\text{Likelihood for all observations}\\
+\ell( \pi | Y) &amp;= \underbrace{\sum_{i=1}^n\log \pi^{y_i}(1 -\pi)^{(1-y_i)}}_\text{Log likelihood}
+\end{align*}\]</span></p>
+<p>Now we just change the definition of <span class="math inline">\(\pi\)</span> to be the transformation for a probit, which is <span class="math inline">\(\Phi(X\beta)\)</span>. We code this up as a function below. Try to make the connection between the log likelihood equation above and the last line of the function. Note: in R, we can use <code>pnorm()</code> to express <span class="math inline">\(\Phi(X\beta)\)</span>, this is the CDF of the normal distribution.</p>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="week-3-tutorial.html#cb315-1" aria-hidden="true" tabindex="-1"></a>llik.probit <span class="ot">&lt;-</span> <span class="cf">function</span>(par, Y, X){</span>
+<span id="cb315-2"><a href="week-3-tutorial.html#cb315-2" aria-hidden="true" tabindex="-1"></a>  beta <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(par)</span>
+<span id="cb315-3"><a href="week-3-tutorial.html#cb315-3" aria-hidden="true" tabindex="-1"></a>  link <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(X <span class="sc">%*%</span> beta)</span>
+<span id="cb315-4"><a href="week-3-tutorial.html#cb315-4" aria-hidden="true" tabindex="-1"></a>  like <span class="ot">&lt;-</span> <span class="fu">sum</span>(Y<span class="sc">*</span><span class="fu">log</span>(link) <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> Y)<span class="sc">*</span><span class="fu">log</span>(<span class="dv">1</span> <span class="sc">-</span> link))</span>
+<span id="cb315-5"><a href="week-3-tutorial.html#cb315-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(like)</span>
+<span id="cb315-6"><a href="week-3-tutorial.html#cb315-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Let’s generate some starting values for the optimization.</p>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="week-3-tutorial.html#cb316-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Starting values</span></span>
+<span id="cb316-2"><a href="week-3-tutorial.html#cb316-2" aria-hidden="true" tabindex="-1"></a>ls.lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X[, <span class="sc">-</span><span class="dv">1</span>]) </span>
+<span id="cb316-3"><a href="week-3-tutorial.html#cb316-3" aria-hidden="true" tabindex="-1"></a>start.par <span class="ot">&lt;-</span> ls.lm<span class="sc">$</span>coef</span></code></pre></div>
+<p>Finally, let’s use <code>optim</code> to find our parameter estimates.</p>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="week-3-tutorial.html#cb317-1" aria-hidden="true" tabindex="-1"></a><span class="do">## optim()</span></span>
+<span id="cb317-2"><a href="week-3-tutorial.html#cb317-2" aria-hidden="true" tabindex="-1"></a>out.opt <span class="ot">&lt;-</span> <span class="fu">optim</span>(start.par, llik.probit, <span class="at">Y=</span>Y,</span>
+<span id="cb317-3"><a href="week-3-tutorial.html#cb317-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">X=</span>X, <span class="at">control=</span><span class="fu">list</span>(<span class="at">fnscale=</span><span class="sc">-</span><span class="dv">1</span>), <span class="at">method=</span><span class="st">&quot;BFGS&quot;</span>,</span>
+<span id="cb317-4"><a href="week-3-tutorial.html#cb317-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">hessian =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>We can compare the estimates recovered from <code>glm</code> and <code>optim</code>.</p>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="week-3-tutorial.html#cb318-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Log likelihood</span></span>
+<span id="cb318-2"><a href="week-3-tutorial.html#cb318-2" aria-hidden="true" tabindex="-1"></a><span class="fu">logLik</span>(fit.probit5)</span>
+<span id="cb318-3"><a href="week-3-tutorial.html#cb318-3" aria-hidden="true" tabindex="-1"></a>out.opt<span class="sc">$</span>value</span></code></pre></div>
+<pre><code>&#39;log Lik.&#39; -574.3267 (df=6)
+[1] -574.3267</code></pre>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="week-3-tutorial.html#cb320-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients</span></span>
+<span id="cb320-2"><a href="week-3-tutorial.html#cb320-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="fu">round</span>(<span class="fu">coef</span>(fit.probit5), <span class="at">digits=</span><span class="dv">4</span>),</span>
+<span id="cb320-3"><a href="week-3-tutorial.html#cb320-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(out.opt<span class="sc">$</span>par, <span class="at">digits =</span> <span class="dv">4</span>))</span></code></pre></div>
+<pre><code>                                 [,1]    [,2]
+(Intercept)                    0.6320  0.6321
+factor(condition2)2            0.9685  0.9684
+racresent                     -1.9206 -1.9207
+oldfash                        0.5265  0.5265
+factor(condition2)2:racresent -0.8513 -0.8512
+factor(condition2)2:oldfash   -0.4197 -0.4196</code></pre>
+<p>How could we get the standard errors?</p>
+</div>
+<div id="predicted-probabilities" class="section level3" number="6.7.3">
+<h3><span class="header-section-number">6.7.3</span> Predicted Probabilities</h3>
+<p>One thing we could do for our interpretations is to push this further to generate “quantities of interest.”</p>
+<p><img src="images/abtracefig.png" style="width:70.0%" /></p>
+<p>We will do one example of this but will talk in more detail about this next week. Let’s generate predicted probabilities for thinking the ad is about race across levels of racial resentment in the sample, for people in the implicit and explicit conditions. For this example, we are going to hold “old-fashioned racism” at its mean value. This is slightly different from what the authors do but should generate similar results. The authors hold old-fashioned racism at its “observed values.”</p>
+<p>We can rely on the <code>predict</code> function like we did with OLS, but here, we need to set <code>type = response</code> to put the results on the response scale instead of the scale of the linear predictor. What this does is apply our function <span class="math inline">\(\Phi(\mathbf{x_i}&#39; \hat \beta)\)</span> for our designated values of <span class="math inline">\(X\)</span> and estimates for <span class="math inline">\(\hat \beta\)</span>.</p>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="week-3-tutorial.html#cb322-1" aria-hidden="true" tabindex="-1"></a>predvals.imp <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit.probit5, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">condition2=</span><span class="dv">1</span>, </span>
+<span id="cb322-2"><a href="week-3-tutorial.html#cb322-2" aria-hidden="true" tabindex="-1"></a>                                                         <span class="at">racresent =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">0625</span>),</span>
+<span id="cb322-3"><a href="week-3-tutorial.html#cb322-3" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">oldfash =</span> <span class="fu">mean</span>(study<span class="sc">$</span>oldfash, <span class="at">na.rm=</span>T)),</span>
+<span id="cb322-4"><a href="week-3-tutorial.html#cb322-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb322-5"><a href="week-3-tutorial.html#cb322-5" aria-hidden="true" tabindex="-1"></a>predvals.exp <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit.probit5, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">condition2=</span><span class="dv">2</span>,</span>
+<span id="cb322-6"><a href="week-3-tutorial.html#cb322-6" aria-hidden="true" tabindex="-1"></a>                                                         <span class="at">racresent =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>,.<span class="dv">0625</span>),</span>
+<span id="cb322-7"><a href="week-3-tutorial.html#cb322-7" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">oldfash =</span> <span class="fu">mean</span>(study<span class="sc">$</span>oldfash, <span class="at">na.rm=</span>T)),</span>
+<span id="cb322-8"><a href="week-3-tutorial.html#cb322-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb322-9"><a href="week-3-tutorial.html#cb322-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb322-10"><a href="week-3-tutorial.html#cb322-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot results</span></span>
+<span id="cb322-11"><a href="week-3-tutorial.html#cb322-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">0625</span>), <span class="at">y=</span>predvals.imp, <span class="at">type=</span><span class="st">&quot;l&quot;</span>,</span>
+<span id="cb322-12"><a href="week-3-tutorial.html#cb322-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">lty=</span><span class="dv">2</span>,</span>
+<span id="cb322-13"><a href="week-3-tutorial.html#cb322-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Predicted Probability&quot;</span>,</span>
+<span id="cb322-14"><a href="week-3-tutorial.html#cb322-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Racial Resentment&quot;</span>,</span>
+<span id="cb322-15"><a href="week-3-tutorial.html#cb322-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Predicted Probability of Viewing the Ad as about Race&quot;</span>,</span>
+<span id="cb322-16"><a href="week-3-tutorial.html#cb322-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.main =</span> .<span class="dv">7</span>)</span>
+<span id="cb322-17"><a href="week-3-tutorial.html#cb322-17" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomleft&quot;</span>, <span class="at">lty=</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), <span class="fu">c</span>(<span class="st">&quot;Implicit&quot;</span>, <span class="st">&quot;Explicit&quot;</span>))</span>
+<span id="cb322-18"><a href="week-3-tutorial.html#cb322-18" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">0625</span>), <span class="at">y=</span>predvals.exp, <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-136-1.svg" width="672" /></p>
+<p><em>Additional Questions</em></p>
+<ul>
+<li>For extra practice, you can try replicating column 4 in the model.</li>
+<li>You can also try replicating the results in the figure with a logit model. Are the predicted probabilities similar?</li>
+</ul>
+
 </div>
 </div>
-<div class="footnotes">
-<hr />
-<ol start="3">
-<li id="fn3"><p>In the future, we may want to know the probability of turning out to vote, or of going to war, or voting “yes” on a particular policy question, etc.<a href="what-is-likelihood.html#fnref3" class="footnote-back">↩︎</a></p></li>
-<li id="fn4"><p>Why does this work? It has to do with the shape of the log (always increasing). Details are beyond the scope.<a href="what-is-likelihood.html#fnref4" class="footnote-back">↩︎</a></p></li>
-</ol>
-</div>
+<!-- </div> -->
+
+
+
+
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="mle.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="generalized-linear-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="linear-probability-models.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

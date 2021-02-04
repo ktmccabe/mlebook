@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="latent-propensity-representation.html"/>
-
+<link rel="next" href="week-3-tutorial.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -253,6 +253,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4" data-path="to-logit-or-to-probit.html"><a href="to-logit-or-to-probit.html"><i class="fa fa-check"></i><b>6.4</b> To logit or to probit?</a></li>
 <li class="chapter" data-level="6.5" data-path="latent-propensity-representation.html"><a href="latent-propensity-representation.html"><i class="fa fa-check"></i><b>6.5</b> Latent propensity representation</a></li>
 <li class="chapter" data-level="6.6" data-path="linear-probability-models.html"><a href="linear-probability-models.html"><i class="fa fa-check"></i><b>6.6</b> Linear Probability Models</a></li>
+<li class="chapter" data-level="6.7" data-path="week-3-tutorial.html"><a href="week-3-tutorial.html"><i class="fa fa-check"></i><b>6.7</b> Week 3 Tutorial</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="week-3-tutorial.html"><a href="week-3-tutorial.html#loading-data-and-fitting-glm"><i class="fa fa-check"></i><b>6.7.1</b> Loading data and fitting glm</a></li>
+<li class="chapter" data-level="6.7.2" data-path="week-3-tutorial.html"><a href="week-3-tutorial.html#numeric-optimization"><i class="fa fa-check"></i><b>6.7.2</b> Numeric Optimization</a></li>
+<li class="chapter" data-level="6.7.3" data-path="week-3-tutorial.html"><a href="week-3-tutorial.html#predicted-probabilities"><i class="fa fa-check"></i><b>6.7.3</b> Predicted Probabilities</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -279,26 +285,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>Image from Chelsea Parlett-Pelleriti <span class="citation">@ChelseaParlett</span> on Twitter</em></p>
 <p>However, we can address some of these potential issues: 1) we can use robust standard errors to account for non-constant error variance , 2) if you look at the S-curve in the previous section, you will note that a large part of the curve is pretty linear over a wide range of <span class="math inline">\(X\beta\)</span> values. For many applications, the estimates transformed from a logit or probit into probability will look similar to the estimates from a linear probability model (i.e., OLS). 3) Linear probability models are easier to interpret, and there is no need to transform coefficients.</p>
 <p>LPM vs. logit/probit has spurred a lot of debate throughout the years. Reviewers disagree, twitter users disagree, some people just like to stir the pot, etc. This is just something to be aware of as you choose modeling approaches. Particularly when it comes to experiments and other causal inference approaches, there is a non-trivial push among active scholars to stick with linear probability models when your key independent variable is a discrete treatment ind icator variable. See this new <a href="https://psyarxiv.com/4gmbv/">article</a> from Robin Gomilla who lays out the considerations for using LPM, particularly in experimental settings, as well as follow up discussion from <a href="https://statmodeling.stat.columbia.edu/2020/01/10/linear-or-logistic-regression-with-binary-outcomes/">Andrew Gelman</a>. That said, even if you run with an LPM and cite the Gomilla article, a reviewer may still ask you to do a logit/probit. And there are certainly circumstances where LPM will fall short. So what’s the upshot? Probably try both, and then choose your own adventure.</p>
-
 </div>
-<!-- </div> -->
-
-
-
-
-
-
-
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="latent-propensity-representation.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="latent-propensity-representation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="week-3-tutorial.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

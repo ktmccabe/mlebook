@@ -253,6 +253,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4" data-path="to-logit-or-to-probit.html"><a href="to-logit-or-to-probit.html"><i class="fa fa-check"></i><b>6.4</b> To logit or to probit?</a></li>
 <li class="chapter" data-level="6.5" data-path="latent-propensity-representation.html"><a href="latent-propensity-representation.html"><i class="fa fa-check"></i><b>6.5</b> Latent propensity representation</a></li>
 <li class="chapter" data-level="6.6" data-path="linear-probability-models.html"><a href="linear-probability-models.html"><i class="fa fa-check"></i><b>6.6</b> Linear Probability Models</a></li>
+<li class="chapter" data-level="6.7" data-path="week-3-tutorial.html"><a href="week-3-tutorial.html"><i class="fa fa-check"></i><b>6.7</b> Week 3 Tutorial</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="week-3-tutorial.html"><a href="week-3-tutorial.html#loading-data-and-fitting-glm"><i class="fa fa-check"></i><b>6.7.1</b> Loading data and fitting glm</a></li>
+<li class="chapter" data-level="6.7.2" data-path="week-3-tutorial.html"><a href="week-3-tutorial.html#numeric-optimization"><i class="fa fa-check"></i><b>6.7.2</b> Numeric Optimization</a></li>
+<li class="chapter" data-level="6.7.3" data-path="week-3-tutorial.html"><a href="week-3-tutorial.html#predicted-probabilities"><i class="fa fa-check"></i><b>6.7.3</b> Predicted Probabilities</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -275,8 +281,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">6.3</span> Probit Regression</h2>
 <p>Probit regression is very similar to logit except we use a different link function to map the linear predictor into the outcome. Both the logit and probit links are suitable for binary outcomes with a Bernoulli distribution. If we apply a probit transformation, this also restricts our estimates to between 0 and 1.</p>
 <ul>
-<li><span class="math inline">\(\pi_i = Pr(Y_i = 1| X_i) = \Phi(\pi_i)\)</span></li>
-<li><span class="math inline">\(\eta_i = \Phi^{-1}(\pi_i) = x_i&#39;\beta\)</span></li>
+<li><span class="math inline">\(\pi_i = Pr(Y_i = 1| X_i) = \Phi(\mathbf{x}_i&#39;\beta)\)</span></li>
+<li><span class="math inline">\(\eta_i = \Phi^{-1}(\pi_i) = \mathbf{x}_i&#39;\beta\)</span></li>
 </ul>
 <p>Here, our coefficients <span class="math inline">\(\hat \beta\)</span> represent changes in “probits” or changes “z-score” units. We use the Normal CDF (<span class="math inline">\(\Phi()\)</span>) aka <code>pnorm()</code> in R to transform them back into probabilities, specifically, the probability that <span class="math inline">\(Y_i\)</span> is 1.</p>
 <p>Let’s fit our binary model with probit. We just need to change the link function.</p>

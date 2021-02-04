@@ -149,8 +149,8 @@ extract_eq(out.logit, wrap = TRUE, terms_per_line = 3)
 
 Probit regression is very similar to logit except we use a different link function to map the linear predictor into the outcome. Both the logit and probit links are suitable for binary outcomes with a Bernoulli distribution. If we apply a probit transformation, this also restricts our estimates to between 0 and 1.
 
-  - $\pi_i = Pr(Y_i = 1| X_i) = \Phi(\pi_i)$
-  - $\eta_i = \Phi^{-1}(\pi_i)  =  x_i'\beta$
+  - $\pi_i = Pr(Y_i = 1| X_i) = \Phi(\mathbf{x}_i'\beta)$
+  - $\eta_i = \Phi^{-1}(\pi_i)  =  \mathbf{x}_i'\beta$
 
 Here, our coefficients $\hat \beta$ represent changes in "probits" or changes "z-score" units. We use the Normal CDF ($\Phi()$) aka `pnorm()` in R to transform them back into probabilities, specifically, the probability that $Y_i$ is 1.
 
@@ -250,9 +250,167 @@ LPM vs. logit/probit has spurred a lot of debate throughout the years. Reviewers
 
 
 
+## Week 3 Tutorial
+
+This week's example, we will replicate a portion of "The Effectiveness of a Racialized Counterstrategy" by Antoine Banks and Heather Hicks, [published](https://onlinelibrary.wiley.com/doi/epdf/10.1111/ajps.12410) in the *American Journal of Political Science* in 2018. The replication data are [here](https://doi.org/10.7910/DVN/EWRXPU).
+
+*Abstract: Our article examines whether a politician charging a political candidate's implicit racial campaign appeal as racist is an effective political strategy. According to the racial priming theory, this racialized counterstrategy should deactivate racism, thereby decreasing racially conservative whites' support for the candidate engaged in race baiting. We propose an alternative theory in which racial liberals, and not racially conservative whites, are persuaded by this strategy. To test our theory, we focused on the 2016 presidential election. We ran an experiment varying the politician (by party and race) calling an implicit racial appeal by Donald Trump racist. We find that charging Trump's campaign appeal as racist does not persuade racially conservative whites to decrease support for Trump. Rather, it causes racially liberal whites to evaluate Trump more unfavorably. Our results hold up when attentiveness, old-fashioned racism, and partisanship are taken into account. We also reproduce our findings in two replication studies.*
+
+We will replicate the analysis in Table 1 of the paper, based on an experiment the authors conducted through SSI. They exposed white survey respondents to either a news story about a Trump ad that includes an "implicit racial cue" or conditions that add to this with "explicitly racial" responses from different partisan actors calling out the ad as racist. Drawing on racial priming theory, racially prejudiced whites should be less supportive of Trump after the racial cues are made explicit. The authors test this hypothesis against their own hypothesis that this effect should be more pronounced among "racially liberal" whites.
+
+![](images/implicit.png){width=45%} ![](images/explicit.png){width=38%}
+
+We are going to focus on a secondary outcome related to whether respondents believed the ad to be about race: "We also suspect that whites should provide a justification for either maintaining or decreasing their support for the candidate alleged to be playing the race card. Our results support these expectations. For example, racial liberals who read about a politician calling Trump's implicit ad racist are more likely than those in the implicit condition to believe Trump's ad is about race. On the other hand, pointing out the racial nature of the ad does not cause resentful whites to be any more likely to believe the ad is about race. Racially resentful whites deny that Trump's subtle racial appeal on crime is racially motivated, which provides them with the evidence they need to maintain their support for his presidency" (320).
+
+### Loading data and fitting glm
+
+Let's load the data.
+```{r}
+library(rio)
+study <- import("https://github.com/ktmccabe/teachingdata/blob/main/ssistudyrecode.dta?raw=true")
+```
+
+The data include several key variables
+
+  - `abtrace1`: 1= if the respondent thought the ad was about race. 0= otherwise
+  - `condition`: 1= respondent in the implicit condition. 2= respondent in one of four explicit racism conditions.
+  - `racresent`: a 0 to 1 numeric variable measuring racial resentment
+  - `oldfash`: a 0 to 1 numeric variable measuring "old-fashioned racism"
+  - `trumvote`: 1= respondent has vote preference for Trump 0=otherwise
+
+![](images/bankstable1.png){width=75%}
+
+Let's try to replicate column 5 in Table 1 using probit regression, as the authors do. 
+
+  - Write down the equation for the regression.
+  - Use `glm` to run the regression.
+  - Compare the output to the table, column 5.
+
+<details> <summary>Try on your own, then expand for the solution.</summary>
+
+We are fitting a probit regression.
+
+
+```{r}
+## Column 5
+fit.probit5 <- glm(abtrace1 ~ factor(condition2)*racresent + factor(condition2)*oldfash,
+                  data=study, family=binomial(link = "probit"))
+summary(fit.probit5)
+```
+
+We can write the regression as:
+\begin{align*}
+Pr(Y_i = 1 | X) &= \\ \Phi(\alpha + \text{Explicit Politician Condition}_i*\beta_1 +\\ \text{Racial Resentment}_i *\beta_2 +\\
+\text{Old Fashioned Racism}_i*\beta_3 +\\ \text{Explicit Politician Condition}_i*\text{Racial Resentment}_i*\beta_4 +\\
+\text{Explicit Politician Condition}_i* \text{Old Fashioned Racism}_i*\beta_5)
+\end{align*}
+
+```{r}
+library(equatiomatic)
+extract_eq(fit.probit5, wrap = TRUE, terms_per_line = 3)
+```
+
+</details>
+
+A few questions:
+
+  - How should we interpret the coefficients? 
+  - How do the interactions affect this interpretation?
+
+### Numeric Optimization
+
+Let's repeat our replication of column 5, but this time, let's use numeric optimization. We first need to make an X and Y matrix from our data. Because we have already run the models, let's use a trick below:
+
+```{r}
+X <- model.matrix(fit.probit5)
+Y <- as.matrix(fit.probit5$y)
+```
+
+The next thing we need to do is make a function for the log likelihood. Let's recall the log likelihood for a Bernoulli random variable from a previous section:
+
+  \begin{align*}
+\mathcal L( \pi | Y_i) &= \underbrace{\pi^{y_i}(1 -\pi)^{(1-y_i)}}_\text{Likelihood for single observation}\\
+\mathcal L( \pi | Y) &= \underbrace{\prod_{i=1}^n\pi^{y_i}(1 -\pi)^{(1-y_i)}}_\text{Likelihood for all observations}\\
+\ell( \pi | Y) &= \underbrace{\sum_{i=1}^n\log \pi^{y_i}(1 -\pi)^{(1-y_i)}}_\text{Log likelihood}
+\end{align*}
+
+Now we just change the definition of $\pi$ to be the transformation for a probit, which is $\Phi(X\beta)$. We code this up as a function below. Try to make the connection between the log likelihood equation above and the last line of the function. Note: in R, we can use `pnorm()` to express $\Phi(X\beta)$, this is the CDF of the normal distribution.
+
+```{r}
+llik.probit <- function(par, Y, X){
+  beta <- as.matrix(par)
+  link <- pnorm(X %*% beta)
+  like <- sum(Y*log(link) + (1 - Y)*log(1 - link))
+  return(like)
+}
+```
+
+Let's generate some starting values for the optimization.
+```{r}
+## Starting values
+ls.lm <- lm(Y ~ X[, -1]) 
+start.par <- ls.lm$coef
+```
+
+Finally, let's use `optim` to find our parameter estimates.
+```{r}
+## optim()
+out.opt <- optim(start.par, llik.probit, Y=Y,
+                 X=X, control=list(fnscale=-1), method="BFGS",
+                 hessian = TRUE)
+```
+
+We can compare the estimates recovered from `glm` and `optim`.
+```{r, results="hold"}
+## Log likelihood
+logLik(fit.probit5)
+out.opt$value
+```
+
+```{r}
+## Coefficients
+cbind(round(coef(fit.probit5), digits=4),
+round(out.opt$par, digits = 4))
+```
+
+How could we get the standard errors?
+
+### Predicted Probabilities
+
+One thing we could do for our interpretations is to push this further to generate "quantities of interest."
+
+![](images/abtracefig.png){width=70%}
+
+We will do one example of this but will talk in more detail about this next week. Let's generate predicted probabilities for thinking the ad is about race across levels of racial resentment in the sample, for people in the implicit and explicit conditions. For this example, we are going to hold "old-fashioned racism" at its mean value. This is slightly different from what the authors do but should generate similar results. The authors hold old-fashioned racism at its "observed values."
+
+We can rely on the `predict` function like we did with OLS, but here, we need to set `type = response` to put the results on the response scale instead of the scale of the linear predictor. What this does is apply our function $\Phi(\mathbf{x_i}' \hat \beta)$ for our designated values of $X$ and estimates for $\hat \beta$.
+
+```{r}
+predvals.imp <- predict(fit.probit5, newdata = data.frame(condition2=1, 
+                                                         racresent = seq(0, 1, .0625),
+                                         oldfash = mean(study$oldfash, na.rm=T)),
+                    type="response")
+predvals.exp <- predict(fit.probit5, newdata = data.frame(condition2=2,
+                                                         racresent = seq(0, 1,.0625),
+                                         oldfash = mean(study$oldfash, na.rm=T)),
+                    type="response")
+
+## Plot results
+plot(x=seq(0, 1, .0625), y=predvals.imp, type="l",
+     ylim = c(0, 1), lty=2,
+     ylab = "Predicted Probability",
+     xlab = "Racial Resentment",
+     main = "Predicted Probability of Viewing the Ad as about Race",
+     cex.main = .7)
+legend("bottomleft", lty= c(2,1), c("Implicit", "Explicit"))
+points(x=seq(0, 1, .0625), y=predvals.exp, type="l")
+```
 
 
 
+*Additional Questions*
 
-
-
+  - For extra practice, you can try replicating column 4 in the model.
+  - You can also try replicating the results in the figure with a logit model. Are the predicted probabilities similar?
+  
+  
