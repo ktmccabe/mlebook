@@ -373,13 +373,13 @@ This may involve creating new variables that recode certain values, creating new
 
 ### Dealing with Incomplete Data (Merging!)
 
-Sometimes in order to answer our research questions, we need to combine data from multiple sources. Ultimately, however, we really do need to ***combine*** them. If we have a large amount of data, this may be quite daunting. Fortunately, R has several commands that allow us to merge or append datasets.
+Sometimes in order to answer our research questions, we need to combine data from multiple sources. If we have a large amount of data, this may be quite daunting. Fortunately, R has several commands that allow us to merge or append datasets.
 
 Here are a few resources on merging and appending data:
 
-  - Using the `merge` command in R. [Tutorial](https://sejdemyr.github.io/r-tutorials/statistics/tutorial5.html)
+  - Using the `merge` command in R. [See Explanation.](https://sejdemyr.github.io/r-tutorials/statistics/tutorial5.html)
     + It will look for variable(s) held in common between datasets and join the datasets by the matching values on these variables.
-  - Appending data in R (e.g., Maybe you have one dataset from 2010 and another from 2012, and you want to stack them on top of each other). [Explanation](https://www.princeton.edu/~otorres/Merge101R.pdf)
+  - Appending data in R (e.g., Maybe you have one dataset from 2010 and another from 2012, and you want to stack them on top of each other). [See Explanation.](https://www.princeton.edu/~otorres/Merge101R.pdf)
   
 Some merging problems are extremely difficult. For example, some researchers need to merge large datasets--like the voter file-- with other administrative records. However, how someone's name is displayed in one dataset might not match at all with the other dataset. For these complex problems, we might need "fuzzy matching." Here is an R package that helps with this more complex [case](https://github.com/kosukeimai/fastLink) and related [paper](https://imai.fas.harvard.edu/research/files/linkage.pdf).
 

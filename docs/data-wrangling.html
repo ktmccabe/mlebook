@@ -430,14 +430,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="dealing-with-incomplete-data-merging" class="section level3" number="2.3.4">
 <h3><span class="header-section-number">2.3.4</span> Dealing with Incomplete Data (Merging!)</h3>
-<p>Sometimes in order to answer our research questions, we need to combine data from multiple sources. Ultimately, however, we really do need to <strong><em>combine</em></strong> them. If we have a large amount of data, this may be quite daunting. Fortunately, R has several commands that allow us to merge or append datasets.</p>
+<p>Sometimes in order to answer our research questions, we need to combine data from multiple sources. If we have a large amount of data, this may be quite daunting. Fortunately, R has several commands that allow us to merge or append datasets.</p>
 <p>Here are a few resources on merging and appending data:</p>
 <ul>
-<li>Using the <code>merge</code> command in R. <a href="https://sejdemyr.github.io/r-tutorials/statistics/tutorial5.html">Tutorial</a>
+<li>Using the <code>merge</code> command in R. <a href="https://sejdemyr.github.io/r-tutorials/statistics/tutorial5.html">See Explanation.</a>
 <ul>
 <li>It will look for variable(s) held in common between datasets and join the datasets by the matching values on these variables.</li>
 </ul></li>
-<li>Appending data in R (e.g., Maybe you have one dataset from 2010 and another from 2012, and you want to stack them on top of each other). <a href="https://www.princeton.edu/~otorres/Merge101R.pdf">Explanation</a></li>
+<li>Appending data in R (e.g., Maybe you have one dataset from 2010 and another from 2012, and you want to stack them on top of each other). <a href="https://www.princeton.edu/~otorres/Merge101R.pdf">See Explanation.</a></li>
 </ul>
 <p>Some merging problems are extremely difficult. For example, some researchers need to merge large datasets–like the voter file– with other administrative records. However, how someone’s name is displayed in one dataset might not match at all with the other dataset. For these complex problems, we might need “fuzzy matching.” Here is an R package that helps with this more complex <a href="https://github.com/kosukeimai/fastLink">case</a> and related <a href="https://imai.fas.harvard.edu/research/files/linkage.pdf">paper</a>.</p>
 </div>
