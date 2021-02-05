@@ -153,6 +153,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3.5" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-poorly-shaped-data"><i class="fa fa-check"></i><b>2.3.5</b> Dealing with Poorly Shaped Data</a></li>
 <li class="chapter" data-level="2.3.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reproducing-your-steps"><i class="fa fa-check"></i><b>2.3.6</b> Reproducing your steps</a></li>
 </ul></li>
+<li class="chapter" data-level="2.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html"><i class="fa fa-check"></i><b>2.4</b> Tools for writing up results</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#r-markdown"><i class="fa fa-check"></i><b>2.4.1</b> R Markdown</a></li>
+<li class="chapter" data-level="2.4.2" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#latex"><i class="fa fa-check"></i><b>2.4.2</b> LaTex</a></li>
+<li class="chapter" data-level="2.4.3" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#formatting-and-exporting-r-results"><i class="fa fa-check"></i><b>2.4.3</b> Formatting and Exporting R Results</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
 <ul>
@@ -330,26 +336,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The question remains: How do we know if it is a maximum or minimum?</p>
 <p>We need to figure out if our function is concave or convex around this critical value. Convex is a “U” shape, meaning we are at a minimum, while concavity is an upside-down-U, which means we are at a maximum. We do so by taking the second derivative. This just means we take the derivative of the expression we already have for our first derivative. In our case, <span class="math inline">\(f&#39;&#39;(x) = 2\)</span>. So what? Well the key thing we are looking for is if this result is positive or negative. Here, it is positive, which means our function is convex at this critical value, and therefore, we are at a minimum.</p>
 <p>Just look at the function in R if we plot it.</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="derivatives.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s define an arbitrary set of values for x</span></span>
-<span id="cb86-2"><a href="derivatives.html#cb86-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">3</span><span class="sc">:</span><span class="dv">3</span></span>
-<span id="cb86-3"><a href="derivatives.html#cb86-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Now let&#39;s map the elements of x into y using our function</span></span>
-<span id="cb86-4"><a href="derivatives.html#cb86-4" aria-hidden="true" tabindex="-1"></a>fx <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb86-5"><a href="derivatives.html#cb86-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb86-6"><a href="derivatives.html#cb86-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s plot the results</span></span>
-<span id="cb86-7"><a href="derivatives.html#cb86-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> x, <span class="at">y=</span>fx, </span>
-<span id="cb86-8"><a href="derivatives.html#cb86-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,</span>
-<span id="cb86-9"><a href="derivatives.html#cb86-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;f(x) = x^2 + 1&quot;</span>)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-47-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="derivatives.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s define an arbitrary set of values for x</span></span>
+<span id="cb90-2"><a href="derivatives.html#cb90-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">3</span><span class="sc">:</span><span class="dv">3</span></span>
+<span id="cb90-3"><a href="derivatives.html#cb90-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Now let&#39;s map the elements of x into y using our function</span></span>
+<span id="cb90-4"><a href="derivatives.html#cb90-4" aria-hidden="true" tabindex="-1"></a>fx <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb90-5"><a href="derivatives.html#cb90-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-6"><a href="derivatives.html#cb90-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s plot the results</span></span>
+<span id="cb90-7"><a href="derivatives.html#cb90-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> x, <span class="at">y=</span>fx, </span>
+<span id="cb90-8"><a href="derivatives.html#cb90-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="cb90-9"><a href="derivatives.html#cb90-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;f(x) = x^2 + 1&quot;</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-51-1.svg" width="672" /></p>
 <p>Notice that when x=0, we are indeed at a minimum, just as the positive value of the second derivative would suggest.</p>
 <p>A different example: <span class="math inline">\(f(x) = -2x^2 +1\)</span>. <span class="math inline">\(f&#39;(x) = -4x\)</span> When we set this equal to 0 we find a critical value at <span class="math inline">\(x = 0\)</span>. <span class="math inline">\(f&#39;&#39;(x) = -4\)</span>. Here, the value is negative, and we know it is concave. Sure enough, let’s plot it, and notice how we can draw a horiztonal line at the maximum, representing that zero slope at the critical point:</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="derivatives.html#cb87-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">3</span><span class="sc">:</span><span class="dv">3</span></span>
-<span id="cb87-2"><a href="derivatives.html#cb87-2" aria-hidden="true" tabindex="-1"></a>fx <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb87-3"><a href="derivatives.html#cb87-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> x, <span class="at">y =</span> fx,</span>
-<span id="cb87-4"><a href="derivatives.html#cb87-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">&quot;f(x)&quot;</span>,</span>
-<span id="cb87-5"><a href="derivatives.html#cb87-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,</span>
-<span id="cb87-6"><a href="derivatives.html#cb87-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;f(x) = -2x^2 + 1&quot;</span>)</span>
-<span id="cb87-7"><a href="derivatives.html#cb87-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-48-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="derivatives.html#cb91-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">3</span><span class="sc">:</span><span class="dv">3</span></span>
+<span id="cb91-2"><a href="derivatives.html#cb91-2" aria-hidden="true" tabindex="-1"></a>fx <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb91-3"><a href="derivatives.html#cb91-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> x, <span class="at">y =</span> fx,</span>
+<span id="cb91-4"><a href="derivatives.html#cb91-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">&quot;f(x)&quot;</span>,</span>
+<span id="cb91-5"><a href="derivatives.html#cb91-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="cb91-6"><a href="derivatives.html#cb91-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;f(x) = -2x^2 + 1&quot;</span>)</span>
+<span id="cb91-7"><a href="derivatives.html#cb91-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-52-1.svg" width="672" /></p>
 </div>
 <div id="common-derivative-rules" class="section level3" number="3.3.3">
 <h3><span class="header-section-number">3.3.3</span> <strong>Common Derivative Rules</strong></h3>

@@ -8,7 +8,7 @@ knitr::knit_exit()
 
 This section will provide information about calculating quantities of interest. Often, in linear regression, our coefficients might directly represent the quantities we are interested in interpreting. However, in other models, we might need to do a bit of work to make it easier on our readers (and ourselves).
 
-The quantities of interest you generate should be directly related to your research question and hypotheses. For example, if my hypothesis was about how the competitiveness of a state is related to the probability that someone is contacted by a campaign, then my quantities of interest would involve a comparison of the predicted probability of campaign contact for those in more vs. less competitive states. 
+The quantities of interest you generate should be directly related to your research question and hypotheses. For example, if my hypothesis was about how the competitiveness of a state is related to the probability that someone is contacted by a campaign, then my quantities of interest would involve a comparison of the predicted probability of campaign contact for those in more vs. less competitive states. In contrast, if my hypothesis was about the number of bills passed in a legislature under unified vs. divided government, I would want to express my quantities of interest as a different in counts of bills or rate of bills pasesed.
 
 We will discuss computing quantities of interest, uncertainty for these quantities, and visualization.
 
@@ -18,7 +18,8 @@ Recall, in linear regression, to get our estimated values $\hat Y$ we said $\hat
     - In glm's, we can do the same to get our estimated values on the scale of the linear predictor $\hat \eta = X\hat\beta$.
     - We then use our $Link^{-1}$ response function to transform these values into the quantity of interest.
         + E.g., in logistic regression we want $\hat{\pi} = \frac{\exp(X\hat\beta)}{1 + \exp(X\hat\beta)}$.
-        + This is the predicted probability of $Y_i = 1$ given our coefficient estimates and observed values of the covariates
+        + E.g., in probit regression we want $\hat{\pi} = \Phi(X \hat \beta)$.
+        + These represent the predicted probability of $Y_i = 1$ given our coefficient estimates and designated values of the covariates
         
 
 Let's use a subset of the MIDs {\tt mids.txt} data available [here](https://github.com/ktmccabe/teachingdata).
@@ -69,7 +70,7 @@ cbind(pplogis, ppexp, pp)[1:5,]
 
 The code above generates a predicted probability associated with each observation in the data. This is similar to generating a fitted value $\hat y$ for each observation in OLS.
 
-That's all very sweet, but usually in social science we have hypotheses about how the predicted probabilities change as one or more of our independent variables change. We will now turn to calculating predicted responses according to specific values of the independent variables.
+Usually in social science we have hypotheses about how the predicted probabilities change as one or more of our independent variables change. We will now turn to calculating predicted responses according to specific values of the independent variables.
 
 Recall, sometimes in linear regression, we wanted to calculate a specific estimated value of $\hat Y_i$ for when we set $X$ at particular values. (e.g., What value do we estimate for $Y$ when $X1 = 2$ and $X2=4$?)
 

@@ -436,8 +436,69 @@ If you want to get advanced with reproducibility, you can watch Chris Bail's on 
 
 
 
+## Tools for writing up results
 
 
+### R Markdown
 
+R Markdown is a free tool within RStudio that allows you to weave together text and code (along with images and tables) into the same document. It can compile these documents (written inside R Studio) into html, pdf, or Word doc output files. R Markdown can be incredibly helpful for doing things like generating replication files, writing up problem sets, or even writing papers.
+
+This [site](https://rpubs.com/brandonkopp/RMarkdown) includes an introduction to R Markdown.
+
+R Markdown has its own syntax, which includes functionality for writing mathematical equations. The pdf output option in R Markdown requires LaTex, described in the next section.
+
+### LaTex
+
+[LaTex](https://www.latex-project.org/) is a typesetting program for drafting documents, much like Microsoft Word. Some advantages of using LaTex in writing empirical research papers is, once you learn the basics of the program, it can become easier to add tables, figures, and equations into a paper with little effort. The downside is that it has its own syntax, which takes a little time to learn. LaTex also has a feature called "beamer" which uses LaTex to generate slides. You can use this for presentations. LaTex "compiles" documents into pdf files.
+
+Here is one [introduction](https://www.latex-tutorial.com/tutorials/) for getting started with LaTex that starts from the installation stage. Here also is a link to a set of slides from Overleaf discussing the basics of LaTex: [Slides](https://www.overleaf.com/static/latex/learn/free-online-introduction-to-latex-part-1.pdf)
+
+You can download the Tex distribution for your operating system [here](https://www.latex-project.org/get/#tex-distributions). In addition to this, there are many programs available for running LaTex on your computer, which range from free, very basic tools (e.g., [TexWorks](http://www.tug.org/texworks/)) to tools with fancy capabilities. 
+
+[Overleaf](https://www.overleaf.com/) is an online program for drafting LaTex documents. It has a nice feature where it allows you to share a document so that multiple people can work on the document simultaneously. This makes Overleaf a great program for projects where you have co-authors. The basic tools in Overleaf are available for free, but if you want to start sharing documents with a lot of co-authors, it requires a paid account.
+
+LaTex also has the ability to integrate citations into your documents. The [part 2](https://www.overleaf.com/learn/latex/Free_online_introduction_to_LaTeX_(part_2)) tutorial from Overleaf goes over this.
+
+RStudio also has a program built-in called Sweave (.Rnw) documents that works with knitR, which weave together R code and LaTex syntax, allowing you to compile them into pdf documents and slide presentations. This is very similar to how R Markdown works, but with somewhat different syntax. See [here](https://rpubs.com/YaRrr/SweaveIntro) for an overview. Your problem sets are generally Sweave/knitR documents. 
+
+
+### Formatting and Exporting R Results
+
+R has a number of tools, including the packages `texreg`, `xtable`, and `stargazer`, which can be used to export tables made in R to nicely formatted LaTex or html output.
+
+Here is a link to the `texreg` package [documentation](https://rpubs.com/YaRrr/SweaveIntro). Section 5 has examples of the `texreg` and `htmlreg` functions within the texreg package. These can be integrated into R Markdown and Sweave documents, and their output can be pasted into LaTex or Microsoft Word.
+
+Your choice of function will depend on where you ultimately want your results to be compiled. If you are generating results that will be compiled to pdf using LaTex, then `texreg` works well. If you are exporting results to Word, than you may wish to use the `htmlreg` function within the `texreg` package, which will generate output that can be pasted into Word.
+
+A simple example using R Markdown html output. (Note, if you wanted to export the table to Word, you would add an argument specifying `file = "myfit.doc"` to the function. See the above link for examples:
+
+```{r}
+mydata <- read.csv("https://raw.githubusercontent.com/ktmccabe/teachingdata/main/resume.csv")
+fit <- lm(call ~ race, data=mydata)
+```
+
+```{r, eval=FALSE, message=FALSE}
+## First time you use texreg, install it
+install.packages("texreg")
+```
+
+```{r, results="asis", message=FALSE}
+library(texreg)
+htmlreg(list(fit),
+        stars=c(0.001, 0.01, 0.05),
+        caption = "Regression of Call Backs on Race")
+```
+
+
+You can add more arguments to the function to customize the name of the model and the coefficients. You can also add multiple models inside the list argument, for example, if you wanted to present a table with five regression models at once. Here is an example with two:
+
+```{r, results="asis", message=FALSE}
+fit2 <- lm(call ~ race + sex, data=mydata)
+
+library(texreg)
+htmlreg(list(fit, fit2),
+        stars=c(0.001, 0.01, 0.05),
+        caption = "Regression of Call Backs on Rac and Sex")
+```
 
 
