@@ -445,6 +445,8 @@ R Markdown is a free tool within RStudio that allows you to weave together text 
 
 This [site](https://rpubs.com/brandonkopp/RMarkdown) includes an introduction to R Markdown.
 
+  - See also [here](https://rmarkdown.rstudio.com/articles_intro.html) and [here](https://monashbioinformaticsplatform.github.io/2017-11-16-open-science-training/topics/rmarkdown.html)
+  
 R Markdown has its own syntax, which includes functionality for writing mathematical equations. The pdf output option in R Markdown requires LaTex, described in the next section.
 
 ### LaTex
