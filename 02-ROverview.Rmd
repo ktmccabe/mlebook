@@ -19,6 +19,7 @@ then follow the installation instructions, and
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 library("vembedr")
+library(knitr)
 
 embed_url("https://www.youtube.com/watch?v=ulIv0NiVTs4")
 ```
@@ -263,4 +264,178 @@ If you encounter an error, you may need to install a package or application that
 
 
 This is a new program that I am using in this course for the first time to create tutorials, so feel free to email if you encounter bugs!! 
+
+## Data Wrangling
+
+So you have some data.... AND it's a mess!!!
+
+A lot of the data we may encounter in courses has been simplified to allow students to focus on other concepts. We may have data that look like the following:
+```{r, results="asis"}
+nicedata <- data.frame(gender = c("Male", "Female", "Female", "Male"),
+           age = c(16, 20, 66, 44),
+           voterturnout = c(1, 0, 1, 0))
+```
+
+```{r, echo=FALSE}
+kable(nicedata)
+```
+
+In the real world, our data may hit us like a ton of bricks, like the below:
+```{r, results="asis"}
+uglydata <- data.frame(VV160002 = c(2, NA, 1, 2),
+           VV1400068 = c(16, 20, 66, 44),
+           VV20000 = c(1, NA, 1, NA))
+```
+
+```{r, echo=FALSE}
+kable(uglydata)
+```
+
+
+A lot of common datasets we use in the social sciences are messy, uninformative, sprawling, misshaped, and/or incomplete. What do I mean by this?
+
+  - The data might have a lot of missing values. For example, we may have `NA` values in R, or perhaps a research firm has used some other notation for missing data, such as a `99`.
+  - The variable names may be uninformative. 
+      + For example, there may be no way to know by looking at the data, which variable represents gender. We have to look at a codebook.
+  - Even if we can tell what a variable is, its categories may not be coded in a way that aligns with how we want to use the data for our research question. 
+      + For example, perhaps you are interested in the effect of a policy on people below vs. 65 and over in age. Well, your age variables might just be a numeric variable. You will have to create a new variable that aligns with your theoretical interest.
+  - Datasets are often sprawling. Some datasets may have more than 1000 variables. It is hard to sort through all of them. Likewise, datasets may have millions of observations. We cannot practically look through all the values of a column to know what is there.
+  - Sometimes we have data shaped into separate columns when we'd rather it be reshaped into different rows.
+  - Maybe you have encountered a beautiful dataset that provides many measures of your independent variables of interest, but there's one catch-- it has no variable related to your outcome! You have to merge data from multiple sources to answer your research question.
+
+Below are a few tips and resources. Ultimately, research is a constant debugging process. The nice thing about R is that a lot of researchers constantly post coding tips and questions online. Google ends up being your friend, but it's entirely normal to have to devote several hours (days?) to cleaning data.
+
+![](images/rgoogle.png){width=75%}
+
+
+### Dealing with Uninformative Variable Names
+
+Hopefully, there is an easy fix for dealing with uninformative variable names. I say "hopefully" because hopefully when you encounter a dataset with uninformative variable names, the place where you downloaded the data will also include a codebook telling you what each variable name means, and how the corresponding values are coded.
+
+Unfortunately, this may not always be the case. One thing you can do as a researcher is when you create a dataset for your own work, keep a record (in written form, on a word document or in a pdf or code file) of what each variable means (e.g., the survey question it corresponds to or the exact economic measure), as well as how the values of the variables are coded. This good practice will help you in the short-term, as you pause and come back to working on a project over the course of a year, as well as benefit other researchers in the long run after you publish your research.
+
+For examples of large codebooks, you can view the [2016 American National Election Study Survey](https://electionstudies.org/data-center/2016-time-series-study/) and click on a codebook.
+
+I recommend that once you locate the definition of a variable of interest, rename the variable in your dataset to be informative. You can do this by creating a new variable or overwriting the name of the existing variable. You might also comment a note for yourself of what the values mean.
+
+```{r}
+## Option 1: create new variable
+## gender 2=Male, 1=Female
+uglydata$gender <- uglydata$VV160002
+
+## Option 2: Overwrite
+names(uglydata)[1] <- "gender2"
+```
+
+### Dealing with Missing Data
+
+When we have a column with missing data, it is best to do a few things:
+
+  - Try to quantify how much missing data there is and poke at the reason why data are missing.
+      + Is it minor non-response data?
+      + Or is it indicative of a more systematic issue? For example, maybe data from a whole group of people or countries is missing for certain variables.
+  - If the data are missing at a very minor rate and/or there is a logical explanation for the missing data that should not affect your research question, you may choose to "ignore" the missing data when performing common analyses, such as taking the mean or running a regression.
+      + If missing data are a bigger problem, you may consider alternative solutions, such as "imputing" missing data or similarly using some type of auxilliary information to help fill in the missing values.
+      
+
+If we want to figure out how much missing data we have in a variable, we have a couple of approaches:
+
+```{r}
+## Summarize this variable
+summary(uglydata$gender)
+
+## What is the length of the subset of the variable where the data are missing
+length(uglydata$gender[is.na(uglydata$gender) == T])
+```
+
+If we choose to ignore missing data, this can often be easily accomplished in common operations. For example, when taking the `mean` we just add an argument `na.rm = T`:
+
+```{r}
+mean(uglydata$VV1400068, na.rm=T)
+```
+
+If we do a regression using `lm` or `glm`, R will automatically "listwise" delete any observation that has missing data (`NA`) on any of the variables in our regression model.
+
+We should always be careful with missing data to understand how R is treating it in a particular scenario. 
+
+For example if we were to run `table(uglydata$gender)`, we would have no idea there were missing data unless we knew that the total number of observations `nrow(uglydata)` was greater than 3. The `table()` command is omitting the missing values by default.
+```{r}
+table(gender= uglydata$gender)
+```
+
+### Dealing with Variable Codings that Aren't Quite Right
+
+Often times the ways that variables are coded in datasets we get off-the-shelf are not coded exactly as how we were dreaming up operationalizing our concepts. Instead, we are going to have to wrangle the data to get them into shape.
+
+This may involve creating new variables that recode certain values, creating new variables that collapse some values into a smaller number of categories, combining multiple variables into a single variable (e.g., representing the average), or setting some of the variable values to be missing (`NA`). All of these scenarios may come up when you are dealing with real data.
+
+[Chapter 2](http://assets.press.princeton.edu/chapters/s2-11025.pdf) of Kosuke Imai's book *Quantitative Social Science* walks through some examples of how to summarize your data, subset the data (2.2.3), create new variables using conditional statements (Section 2.2.4, e.g., "If age is below 65, assign the new variable a value of "0", otherwise, assign it a value of "1"), and creating new factor variables (2.2.5, e.g., coding anyone who is Protestant, Catholic, or Lutheran in the data as "Christian").
+
+### Dealing with Incomplete Data (Merging!)
+
+Sometimes in order to answer our research questions, we need to combine data from multiple sources. Ultimately, however, we really do need to ***combine*** them. If we have a large amount of data, this may be quite daunting. Fortunately, R has several commands that allow us to merge or append datasets.
+
+Here are a few resources on merging and appending data:
+
+  - Using the `merge` command in R. [Tutorial](https://sejdemyr.github.io/r-tutorials/statistics/tutorial5.html)
+    + It will look for variable(s) held in common between datasets and join the datasets by the matching values on these variables.
+  - Appending data in R (e.g., Maybe you have one dataset from 2010 and another from 2012, and you want to stack them on top of each other). [Explanation](https://www.princeton.edu/~otorres/Merge101R.pdf)
+  
+Some merging problems are extremely difficult. For example, some researchers need to merge large datasets--like the voter file-- with other administrative records. However, how someone's name is displayed in one dataset might not match at all with the other dataset. For these complex problems, we might need "fuzzy matching." Here is an R package that helps with this more complex [case](https://github.com/kosukeimai/fastLink) and related [paper](https://imai.fas.harvard.edu/research/files/linkage.pdf).
+
+
+### Dealing with Poorly Shaped Data
+
+Data can come in a variety of shapes and sizes. It's a [beautiful disaster](https://www.youtube.com/watch?v=g4vQeHP_nxg).
+
+Sometimes it's particularly useful to have data in wide formats, where every row relates to a particular unit of data-- such as a country or a survey respondent. And perhaps each column represents information about that unit at a particular point in time. For example, perhaps you have a column with information on that subject for the past five years.
+
+```{r, results="asis"}
+countrywide <- data.frame(country = c("Canada", "USA"),
+                          economy2016 = c(10, 12),
+                          economy2017 = c(11, 11),
+                          economy2018 = c(9, 5),
+                          economy2019 = c(13, 8),
+                          economy2020 = c(12, 6))
+```
+```{r, echo=FALSE}
+kable(countrywide)
+```
+
+However, other times, it would be more useful to you, as you dig into your data analysis, to have this information arranged in "long" format, such that every row is now a unit-year combination. You have a row for Canada in 2020, a row for Canada in 2019, and so on. Countries are now represented in multiple rows of your data.
+
+```{r, results="asis"}
+countrylong <- data.frame(country = rep(c("Canada", "USA"),5),
+                          year = 2016:2020,
+                          economy= c(10, 12,11, 11,9, 5,13, 8,12, 6))
+```
+```{r, echo=FALSE}
+kable(countrylong)
+```
+
+Ultimately, different shapes of data are advantageous for different research questions. This means it is best if we have a way to (at least somewhat) easily shift between the two formats.
+
+Here is a resource on how to "reshape" your data between wide and long from [UCLA](https://stats.idre.ucla.edu/r/faq/how-can-i-reshape-my-data-in-r/).
+
+Here are a few additional resources:
+ 
+ - More on [reshape](https://www.r-bloggers.com/converting-a-dataset-from-wide-to-long)
+ – For the tidyverse fans. Using `gather()` and `spread()` in tidyverse from [R for Data Science](https://r4ds.had.co.nz/) and explained by Chris Bail [here](https://www.youtube.com/watch?v=sXVP9256JSQ).
+
+### Reproducing your steps
+
+It is really important to keep a record of all of the changes you have made to the original data. An R script or R markdown file is a useful way to do this, so long as you add comments that explain what you are doing. 
+
+You want to get your code to a place when a stranger can open your R file, load your data, and reproduce each step you took to get to the final results--- all while never even needing to contact you with questions. That can be difficult, but it's good to aim for that high bar, even if sometimes, we fall short in how we are documenting each step.
+
+This website provides a nice introduction to R Markdown, one tool for embedding R code inside textual documents. See [here](https://rpubs.com/brandonkopp/RMarkdown). 
+
+If you want to get advanced with reproducibility, you can watch Chris Bail's on the [subject](https://www.youtube.com/watch?v=98IcckSOfnw) describing the uses of R Markdown and GitHub among other tools for communicating and collaboration. He also links to other resources.
+
+
+
+
+
+
+
 

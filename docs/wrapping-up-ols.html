@@ -144,6 +144,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1.7" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#practice"><i class="fa fa-check"></i><b>2.1.7</b> <strong>Practice</strong></a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="tutorials.html"><a href="tutorials.html"><i class="fa fa-check"></i><b>2.2</b> Tutorials</a></li>
+<li class="chapter" data-level="2.3" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>2.3</b> Data Wrangling</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-uninformative-variable-names"><i class="fa fa-check"></i><b>2.3.1</b> Dealing with Uninformative Variable Names</a></li>
+<li class="chapter" data-level="2.3.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-missing-data"><i class="fa fa-check"></i><b>2.3.2</b> Dealing with Missing Data</a></li>
+<li class="chapter" data-level="2.3.3" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-variable-codings-that-arent-quite-right"><i class="fa fa-check"></i><b>2.3.3</b> Dealing with Variable Codings that Aren’t Quite Right</a></li>
+<li class="chapter" data-level="2.3.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-incomplete-data-merging"><i class="fa fa-check"></i><b>2.3.4</b> Dealing with Incomplete Data (Merging!)</a></li>
+<li class="chapter" data-level="2.3.5" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-poorly-shaped-data"><i class="fa fa-check"></i><b>2.3.5</b> Dealing with Poorly Shaped Data</a></li>
+<li class="chapter" data-level="2.3.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reproducing-your-steps"><i class="fa fa-check"></i><b>2.3.6</b> Reproducing your steps</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
 <ul>
@@ -324,17 +333,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="practice-problem-code-for-solutions" class="section level3" number="4.7.2">
 <h3><span class="header-section-number">4.7.2</span> Practice Problem Code for Solutions</h3>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="wrapping-up-ols.html#cb240-1" aria-hidden="true" tabindex="-1"></a>fit.practice <span class="ot">&lt;-</span> <span class="fu">lm</span>(Buchanan00 <span class="sc">~</span> Perot96 <span class="sc">+</span> Dole96 <span class="sc">+</span> Gore00, <span class="at">data =</span> florida)</span>
-<span id="cb240-2"><a href="wrapping-up-ols.html#cb240-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb240-3"><a href="wrapping-up-ols.html#cb240-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.practice)[<span class="st">&quot;Perot96&quot;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="wrapping-up-ols.html#cb253-1" aria-hidden="true" tabindex="-1"></a>fit.practice <span class="ot">&lt;-</span> <span class="fu">lm</span>(Buchanan00 <span class="sc">~</span> Perot96 <span class="sc">+</span> Dole96 <span class="sc">+</span> Gore00, <span class="at">data =</span> florida)</span>
+<span id="cb253-2"><a href="wrapping-up-ols.html#cb253-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb253-3"><a href="wrapping-up-ols.html#cb253-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.practice)[<span class="st">&quot;Perot96&quot;</span>]</span></code></pre></div>
 <pre><code>   Perot96 
 0.02878927 </code></pre>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="wrapping-up-ols.html#cb242-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(fit.practice)[<span class="st">&quot;Perot96&quot;</span>, ]</span></code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="wrapping-up-ols.html#cb255-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(fit.practice)[<span class="st">&quot;Perot96&quot;</span>, ]</span></code></pre></div>
 <pre><code>      2.5 %      97.5 % 
 0.004316382 0.053262150 </code></pre>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="wrapping-up-ols.html#cb244-1" aria-hidden="true" tabindex="-1"></a>expbuch <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit.practice)</span>
-<span id="cb244-2"><a href="wrapping-up-ols.html#cb244-2" aria-hidden="true" tabindex="-1"></a>expbuch[,<span class="st">&quot;Perot96&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">5500</span></span>
-<span id="cb244-3"><a href="wrapping-up-ols.html#cb244-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(expbuch <span class="sc">%*%</span> <span class="fu">as.matrix</span>(<span class="fu">coef</span>(fit.practice)))</span></code></pre></div>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="wrapping-up-ols.html#cb257-1" aria-hidden="true" tabindex="-1"></a>expbuch <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit.practice)</span>
+<span id="cb257-2"><a href="wrapping-up-ols.html#cb257-2" aria-hidden="true" tabindex="-1"></a>expbuch[,<span class="st">&quot;Perot96&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">5500</span></span>
+<span id="cb257-3"><a href="wrapping-up-ols.html#cb257-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(expbuch <span class="sc">%*%</span> <span class="fu">as.matrix</span>(<span class="fu">coef</span>(fit.practice)))</span></code></pre></div>
 <pre><code>[1] 211.1386</code></pre>
 </div>
 </div>

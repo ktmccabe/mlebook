@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2.3 Data Wrangling | MLE for Political Science</title>
+  <meta name="description" content="2.3 Data Wrangling | MLE for Political Science" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2.3 Data Wrangling | MLE for Political Science" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2.3 Data Wrangling | MLE for Political Science" />
+  
+  
+  
+
+<meta name="author" content="Instructor: Katie McCabe" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="tutorials.html"/>
+<link rel="next" href="math.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/vembedr-0.1.4/css/vembedr.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Course Overview</a></li>
+<li class="chapter" data-level="2" data-path="rover.html"><a href="rover.html"><i class="fa fa-check"></i><b>2</b> R Overview</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html"><i class="fa fa-check"></i><b>2.1</b> First Time with R and RStudio</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#open-rstudio"><i class="fa fa-check"></i><b>2.1.1</b> <strong>Open RStudio</strong></a></li>
+<li class="chapter" data-level="2.1.2" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#using-r-as-a-calculator"><i class="fa fa-check"></i><b>2.1.2</b> <strong>Using R as a Calculator</strong></a></li>
+<li class="chapter" data-level="2.1.3" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#working-in-an-r-script"><i class="fa fa-check"></i><b>2.1.3</b> <strong>Working in an R Script</strong></a></li>
+<li class="chapter" data-level="2.1.4" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#preparing-your-r-script"><i class="fa fa-check"></i><b>2.1.4</b> <strong>Preparing your R script</strong></a></li>
+<li class="chapter" data-level="2.1.5" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#executing-commands-in-your-r-script"><i class="fa fa-check"></i><b>2.1.5</b> <strong>Executing Commands in your R script</strong></a></li>
+<li class="chapter" data-level="2.1.6" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#objects"><i class="fa fa-check"></i><b>2.1.6</b> <strong>Objects</strong></a></li>
+<li class="chapter" data-level="2.1.7" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#practice"><i class="fa fa-check"></i><b>2.1.7</b> <strong>Practice</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="tutorials.html"><a href="tutorials.html"><i class="fa fa-check"></i><b>2.2</b> Tutorials</a></li>
+<li class="chapter" data-level="2.3" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>2.3</b> Data Wrangling</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-uninformative-variable-names"><i class="fa fa-check"></i><b>2.3.1</b> Dealing with Uninformative Variable Names</a></li>
+<li class="chapter" data-level="2.3.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-missing-data"><i class="fa fa-check"></i><b>2.3.2</b> Dealing with Missing Data</a></li>
+<li class="chapter" data-level="2.3.3" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-variable-codings-that-arent-quite-right"><i class="fa fa-check"></i><b>2.3.3</b> Dealing with Variable Codings that Aren’t Quite Right</a></li>
+<li class="chapter" data-level="2.3.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-incomplete-data-merging"><i class="fa fa-check"></i><b>2.3.4</b> Dealing with Incomplete Data (Merging!)</a></li>
+<li class="chapter" data-level="2.3.5" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-poorly-shaped-data"><i class="fa fa-check"></i><b>2.3.5</b> Dealing with Poorly Shaped Data</a></li>
+<li class="chapter" data-level="2.3.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reproducing-your-steps"><i class="fa fa-check"></i><b>2.3.6</b> Reproducing your steps</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="mathematical-operations.html"><a href="mathematical-operations.html"><i class="fa fa-check"></i><b>3.1</b> Mathematical Operations</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="mathematical-operations.html"><a href="mathematical-operations.html#order-of-operations"><i class="fa fa-check"></i><b>3.1.1</b> <strong>Order of Operations</strong></a></li>
+<li class="chapter" data-level="3.1.2" data-path="mathematical-operations.html"><a href="mathematical-operations.html#exponents"><i class="fa fa-check"></i><b>3.1.2</b> <strong>Exponents</strong></a></li>
+<li class="chapter" data-level="3.1.3" data-path="mathematical-operations.html"><a href="mathematical-operations.html#summations-and-products"><i class="fa fa-check"></i><b>3.1.3</b> <strong>Summations and Products</strong></a></li>
+<li class="chapter" data-level="3.1.4" data-path="mathematical-operations.html"><a href="mathematical-operations.html#logarithms"><i class="fa fa-check"></i><b>3.1.4</b> <strong>Logarithms</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="mathematical-operations-in-r.html"><a href="mathematical-operations-in-r.html"><i class="fa fa-check"></i><b>3.2</b> Mathematical Operations in R</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="mathematical-operations-in-r.html"><a href="mathematical-operations-in-r.html#pemdas"><i class="fa fa-check"></i><b>3.2.1</b> PEMDAS</a></li>
+<li class="chapter" data-level="3.2.2" data-path="mathematical-operations-in-r.html"><a href="mathematical-operations-in-r.html#exponents-1"><i class="fa fa-check"></i><b>3.2.2</b> Exponents</a></li>
+<li class="chapter" data-level="3.2.3" data-path="mathematical-operations-in-r.html"><a href="mathematical-operations-in-r.html#summations"><i class="fa fa-check"></i><b>3.2.3</b> Summations</a></li>
+<li class="chapter" data-level="3.2.4" data-path="mathematical-operations-in-r.html"><a href="mathematical-operations-in-r.html#logarithms-1"><i class="fa fa-check"></i><b>3.2.4</b> Logarithms</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="derivatives.html"><a href="derivatives.html"><i class="fa fa-check"></i><b>3.3</b> Derivatives</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="derivatives.html"><a href="derivatives.html#derivatives-1"><i class="fa fa-check"></i><b>3.3.1</b> <strong>Derivatives</strong></a></li>
+<li class="chapter" data-level="3.3.2" data-path="derivatives.html"><a href="derivatives.html#critical-points-for-minima-or-maxima"><i class="fa fa-check"></i><b>3.3.2</b> <strong>Critical Points for Minima or Maxima</strong></a></li>
+<li class="chapter" data-level="3.3.3" data-path="derivatives.html"><a href="derivatives.html#common-derivative-rules"><i class="fa fa-check"></i><b>3.3.3</b> <strong>Common Derivative Rules</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="vectors-and-matrices.html"><a href="vectors-and-matrices.html"><i class="fa fa-check"></i><b>3.4</b> Vectors and Matrices</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="vectors-and-matrices.html"><a href="vectors-and-matrices.html#matrix-basics"><i class="fa fa-check"></i><b>3.4.1</b> <strong>Matrix Basics</strong></a></li>
+<li class="chapter" data-level="3.4.2" data-path="vectors-and-matrices.html"><a href="vectors-and-matrices.html#matrix-operations"><i class="fa fa-check"></i><b>3.4.2</b> Matrix Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html"><i class="fa fa-check"></i><b>3.5</b> Additional Matrix Tidbits that Will Come Up</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html#transpose"><i class="fa fa-check"></i><b>3.5.1</b> <strong>Transpose</strong></a></li>
+<li class="chapter" data-level="3.5.2" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html#additional-matrix-properties-and-rules"><i class="fa fa-check"></i><b>3.5.2</b> <strong>Additional Matrix Properties and Rules</strong></a></li>
+<li class="chapter" data-level="3.5.3" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html#matrix-rules"><i class="fa fa-check"></i><b>3.5.3</b> <strong>Matrix Rules</strong></a></li>
+<li class="chapter" data-level="3.5.4" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html#derivatives-with-matrices-and-vectors"><i class="fa fa-check"></i><b>3.5.4</b> <strong>Derivatives with Matrices and Vectors</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="practice-problems.html"><a href="practice-problems.html"><i class="fa fa-check"></i><b>3.6</b> Practice Problems</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="practice-problems.html"><a href="practice-problems.html#practice-problem-solutions"><i class="fa fa-check"></i><b>3.6.1</b> Practice Problem Solutions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ols.html"><a href="ols.html"><i class="fa fa-check"></i><b>4</b> Review of OLS</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introducing-ols-regression.html"><a href="introducing-ols-regression.html"><i class="fa fa-check"></i><b>4.1</b> Introducing OLS Regression</a></li>
+<li class="chapter" data-level="4.2" data-path="diving-deeper-into-ols-matrix-representation.html"><a href="diving-deeper-into-ols-matrix-representation.html"><i class="fa fa-check"></i><b>4.2</b> Diving Deeper into OLS Matrix Representation</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="diving-deeper-into-ols-matrix-representation.html"><a href="diving-deeper-into-ols-matrix-representation.html#estimating-the-coefficients"><i class="fa fa-check"></i><b>4.2.1</b> Estimating the Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html"><i class="fa fa-check"></i><b>4.3</b> OLS Regression in R</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#example-predicting-current-election-votes-from-past-election-votes"><i class="fa fa-check"></i><b>4.3.1</b> Example: Predicting Current Election Votes from Past Election Votes</a></li>
+<li class="chapter" data-level="4.3.2" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#plotting-regression-results"><i class="fa fa-check"></i><b>4.3.2</b> Plotting Regression Results</a></li>
+<li class="chapter" data-level="4.3.3" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#finding-coefficients-without-lm"><i class="fa fa-check"></i><b>4.3.3</b> Finding Coefficients without <code>lm</code></a></li>
+<li class="chapter" data-level="4.3.4" data-path="practice-problems.html"><a href="practice-problems.html#practice-problems"><i class="fa fa-check"></i><b>4.3.4</b> Practice Problems</a></li>
+<li class="chapter" data-level="4.3.5" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#code-for-solutions"><i class="fa fa-check"></i><b>4.3.5</b> Code for solutions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="week-1-thursday-tutorial.html"><a href="week-1-thursday-tutorial.html"><i class="fa fa-check"></i><b>4.4</b> Week 1 Thursday Tutorial</a></li>
+<li class="chapter" data-level="4.5" data-path="uncertainty-and-regression.html"><a href="uncertainty-and-regression.html"><i class="fa fa-check"></i><b>4.5</b> Uncertainty and Regression</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="uncertainty-and-regression.html"><a href="uncertainty-and-regression.html#variance-of-the-coefficients"><i class="fa fa-check"></i><b>4.5.1</b> Variance of the Coefficients</a></li>
+<li class="chapter" data-level="4.5.2" data-path="uncertainty-and-regression.html"><a href="uncertainty-and-regression.html#hypothesis-testing"><i class="fa fa-check"></i><b>4.5.2</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="4.5.3" data-path="uncertainty-and-regression.html"><a href="uncertainty-and-regression.html#goodness-of-fit"><i class="fa fa-check"></i><b>4.5.3</b> Goodness of Fit</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="generating-predictions-from-regression-models.html"><a href="generating-predictions-from-regression-models.html"><i class="fa fa-check"></i><b>4.6</b> Generating predictions from regression models</a></li>
+<li class="chapter" data-level="4.7" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html"><i class="fa fa-check"></i><b>4.7</b> Wrapping up OLS</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problems-1"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
+<li class="chapter" data-level="4.7.2" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problem-code-for-solutions"><i class="fa fa-check"></i><b>4.7.2</b> Practice Problem Code for Solutions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="week-2-thursday-example.html"><a href="week-2-thursday-example.html"><i class="fa fa-check"></i><b>4.8</b> Week 2 Thursday Example</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="mle.html"><a href="mle.html"><i class="fa fa-check"></i><b>5</b> Introduction to MLE</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="what-is-likelihood.html"><a href="what-is-likelihood.html"><i class="fa fa-check"></i><b>5.1</b> What is likelihood?</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="what-is-likelihood.html"><a href="what-is-likelihood.html#summarizing-steps-for-maximum-likelihood"><i class="fa fa-check"></i><b>5.1.1</b> Summarizing Steps for Maximum Likelihood</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="generalized-linear-models.html"><a href="generalized-linear-models.html"><i class="fa fa-check"></i><b>5.2</b> Generalized Linear Models</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="generalized-linear-models.html"><a href="generalized-linear-models.html#glm-model."><i class="fa fa-check"></i><b>5.2.1</b> GLM Model.</a></li>
+<li class="chapter" data-level="5.2.2" data-path="generalized-linear-models.html"><a href="generalized-linear-models.html#linking-likelihood-and-the-glm"><i class="fa fa-check"></i><b>5.2.2</b> Linking likelihood and the GLM</a></li>
+<li class="chapter" data-level="5.2.3" data-path="generalized-linear-models.html"><a href="generalized-linear-models.html#glm-in-r"><i class="fa fa-check"></i><b>5.2.3</b> GLM in R</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="mle-estimation.html"><a href="mle-estimation.html"><i class="fa fa-check"></i><b>5.3</b> MLE Estimation</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="mle-estimation.html"><a href="mle-estimation.html#deriving-estimators"><i class="fa fa-check"></i><b>5.3.1</b> Deriving Estimators</a></li>
+<li class="chapter" data-level="5.3.2" data-path="mle-estimation.html"><a href="mle-estimation.html#score-function"><i class="fa fa-check"></i><b>5.3.2</b> Score function</a></li>
+<li class="chapter" data-level="5.3.3" data-path="mle-estimation.html"><a href="mle-estimation.html#hessian-and-information-matrix"><i class="fa fa-check"></i><b>5.3.3</b> Hessian and Information Matrix</a></li>
+<li class="chapter" data-level="5.3.4" data-path="mle-estimation.html"><a href="mle-estimation.html#mle-estimation-algorithm"><i class="fa fa-check"></i><b>5.3.4</b> MLE Estimation Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="mle-properties.html"><a href="mle-properties.html"><i class="fa fa-check"></i><b>5.4</b> MLE Properties</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="mle-properties.html"><a href="mle-properties.html#hypothesis-tests"><i class="fa fa-check"></i><b>5.4.1</b> Hypothesis Tests</a></li>
+<li class="chapter" data-level="5.4.2" data-path="mle-properties.html"><a href="mle-properties.html#model-output-in-r"><i class="fa fa-check"></i><b>5.4.2</b> Model Output in R</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="binary.html"><a href="binary.html"><i class="fa fa-check"></i><b>6</b> Binary Dependent Variables</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="data-generating-process.html"><a href="data-generating-process.html"><i class="fa fa-check"></i><b>6.1</b> Data Generating Process</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="mle-estimation.html"><a href="mle-estimation.html#mle-estimation"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="r-code-for-fitting-logistic-regression.html"><a href="r-code-for-fitting-logistic-regression.html"><i class="fa fa-check"></i><b>6.2</b> R code for fitting logistic regression</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="r-code-for-fitting-logistic-regression.html"><a href="r-code-for-fitting-logistic-regression.html#writing-down-the-regression-model"><i class="fa fa-check"></i><b>6.2.1</b> Writing down the regression model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="probit-regression.html"><a href="probit-regression.html"><i class="fa fa-check"></i><b>6.3</b> Probit Regression</a></li>
+<li class="chapter" data-level="6.4" data-path="to-logit-or-to-probit.html"><a href="to-logit-or-to-probit.html"><i class="fa fa-check"></i><b>6.4</b> To logit or to probit?</a></li>
+<li class="chapter" data-level="6.5" data-path="latent-propensity-representation.html"><a href="latent-propensity-representation.html"><i class="fa fa-check"></i><b>6.5</b> Latent propensity representation</a></li>
+<li class="chapter" data-level="6.6" data-path="linear-probability-models.html"><a href="linear-probability-models.html"><i class="fa fa-check"></i><b>6.6</b> Linear Probability Models</a></li>
+<li class="chapter" data-level="6.7" data-path="week-3-tutorial.html"><a href="week-3-tutorial.html"><i class="fa fa-check"></i><b>6.7</b> Week 3 Tutorial</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="week-3-tutorial.html"><a href="week-3-tutorial.html#loading-data-and-fitting-glm"><i class="fa fa-check"></i><b>6.7.1</b> Loading data and fitting glm</a></li>
+<li class="chapter" data-level="6.7.2" data-path="week-3-tutorial.html"><a href="week-3-tutorial.html#numeric-optimization"><i class="fa fa-check"></i><b>6.7.2</b> Numeric Optimization</a></li>
+<li class="chapter" data-level="6.7.3" data-path="week-3-tutorial.html"><a href="week-3-tutorial.html#predicted-probabilities"><i class="fa fa-check"></i><b>6.7.3</b> Predicted Probabilities</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">MLE for Political Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-wrangling" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Data Wrangling</h2>
+<p>So you have some data…. AND it’s a mess!!!</p>
+<p>A lot of the data we may encounter in courses has been simplified to allow students to focus on other concepts. We may have data that look like the following:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="data-wrangling.html#cb34-1" aria-hidden="true" tabindex="-1"></a>nicedata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">gender =</span> <span class="fu">c</span>(<span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>),</span>
+<span id="cb34-2"><a href="data-wrangling.html#cb34-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">16</span>, <span class="dv">20</span>, <span class="dv">66</span>, <span class="dv">44</span>),</span>
+<span id="cb34-3"><a href="data-wrangling.html#cb34-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">voterturnout =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">gender</th>
+<th align="right">age</th>
+<th align="right">voterturnout</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Male</td>
+<td align="right">16</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Female</td>
+<td align="right">20</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Female</td>
+<td align="right">66</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Male</td>
+<td align="right">44</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p>In the real world, our data may hit us like a ton of bricks, like the below:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="data-wrangling.html#cb35-1" aria-hidden="true" tabindex="-1"></a>uglydata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">VV160002 =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="cn">NA</span>, <span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb35-2"><a href="data-wrangling.html#cb35-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">VV1400068 =</span> <span class="fu">c</span>(<span class="dv">16</span>, <span class="dv">20</span>, <span class="dv">66</span>, <span class="dv">44</span>),</span>
+<span id="cb35-3"><a href="data-wrangling.html#cb35-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">VV20000 =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">1</span>, <span class="cn">NA</span>))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">VV160002</th>
+<th align="right">VV1400068</th>
+<th align="right">VV20000</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">16</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">NA</td>
+<td align="right">20</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">66</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">44</td>
+<td align="right">NA</td>
+</tr>
+</tbody>
+</table>
+<p>A lot of common datasets we use in the social sciences are messy, uninformative, sprawling, misshaped, and/or incomplete. What do I mean by this?</p>
+<ul>
+<li>The data might have a lot of missing values. For example, we may have <code>NA</code> values in R, or perhaps a research firm has used some other notation for missing data, such as a <code>99</code>.</li>
+<li>The variable names may be uninformative.
+<ul>
+<li>For example, there may be no way to know by looking at the data, which variable represents gender. We have to look at a codebook.</li>
+</ul></li>
+<li>Even if we can tell what a variable is, its categories may not be coded in a way that aligns with how we want to use the data for our research question.
+<ul>
+<li>For example, perhaps you are interested in the effect of a policy on people below vs. 65 and over in age. Well, your age variables might just be a numeric variable. You will have to create a new variable that aligns with your theoretical interest.</li>
+</ul></li>
+<li>Datasets are often sprawling. Some datasets may have more than 1000 variables. It is hard to sort through all of them. Likewise, datasets may have millions of observations. We cannot practically look through all the values of a column to know what is there.</li>
+<li>Sometimes we have data shaped into separate columns when we’d rather it be reshaped into different rows.</li>
+<li>Maybe you have encountered a beautiful dataset that provides many measures of your independent variables of interest, but there’s one catch– it has no variable related to your outcome! You have to merge data from multiple sources to answer your research question.</li>
+</ul>
+<p>Below are a few tips and resources. Ultimately, research is a constant debugging process. The nice thing about R is that a lot of researchers constantly post coding tips and questions online. Google ends up being your friend, but it’s entirely normal to have to devote several hours (days?) to cleaning data.</p>
+<p><img src="images/rgoogle.png" style="width:75.0%" /></p>
+<div id="dealing-with-uninformative-variable-names" class="section level3" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Dealing with Uninformative Variable Names</h3>
+<p>Hopefully, there is an easy fix for dealing with uninformative variable names. I say “hopefully” because hopefully when you encounter a dataset with uninformative variable names, the place where you downloaded the data will also include a codebook telling you what each variable name means, and how the corresponding values are coded.</p>
+<p>Unfortunately, this may not always be the case. One thing you can do as a researcher is when you create a dataset for your own work, keep a record (in written form, on a word document or in a pdf or code file) of what each variable means (e.g., the survey question it corresponds to or the exact economic measure), as well as how the values of the variables are coded. This good practice will help you in the short-term, as you pause and come back to working on a project over the course of a year, as well as benefit other researchers in the long run after you publish your research.</p>
+<p>For examples of large codebooks, you can view the <a href="https://electionstudies.org/data-center/2016-time-series-study/">2016 American National Election Study Survey</a> and click on a codebook.</p>
+<p>I recommend that once you locate the definition of a variable of interest, rename the variable in your dataset to be informative. You can do this by creating a new variable or overwriting the name of the existing variable. You might also comment a note for yourself of what the values mean.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="data-wrangling.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Option 1: create new variable</span></span>
+<span id="cb36-2"><a href="data-wrangling.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="do">## gender 2=Male, 1=Female</span></span>
+<span id="cb36-3"><a href="data-wrangling.html#cb36-3" aria-hidden="true" tabindex="-1"></a>uglydata<span class="sc">$</span>gender <span class="ot">&lt;-</span> uglydata<span class="sc">$</span>VV160002</span>
+<span id="cb36-4"><a href="data-wrangling.html#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="data-wrangling.html#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Option 2: Overwrite</span></span>
+<span id="cb36-6"><a href="data-wrangling.html#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(uglydata)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">&quot;gender2&quot;</span></span></code></pre></div>
+</div>
+<div id="dealing-with-missing-data" class="section level3" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Dealing with Missing Data</h3>
+<p>When we have a column with missing data, it is best to do a few things:</p>
+<ul>
+<li>Try to quantify how much missing data there is and poke at the reason why data are missing.
+<ul>
+<li>Is it minor non-response data?</li>
+<li>Or is it indicative of a more systematic issue? For example, maybe data from a whole group of people or countries is missing for certain variables.</li>
+</ul></li>
+<li>If the data are missing at a very minor rate and/or there is a logical explanation for the missing data that should not affect your research question, you may choose to “ignore” the missing data when performing common analyses, such as taking the mean or running a regression.
+<ul>
+<li>If missing data are a bigger problem, you may consider alternative solutions, such as “imputing” missing data or similarly using some type of auxilliary information to help fill in the missing values.</li>
+</ul></li>
+</ul>
+<p>If we want to figure out how much missing data we have in a variable, we have a couple of approaches:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="data-wrangling.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Summarize this variable</span></span>
+<span id="cb37-2"><a href="data-wrangling.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(uglydata<span class="sc">$</span>gender)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+##   1.000   1.500   2.000   1.667   2.000   2.000       1</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="data-wrangling.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="do">## What is the length of the subset of the variable where the data are missing</span></span>
+<span id="cb39-2"><a href="data-wrangling.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(uglydata<span class="sc">$</span>gender[<span class="fu">is.na</span>(uglydata<span class="sc">$</span>gender) <span class="sc">==</span> T])</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<p>If we choose to ignore missing data, this can often be easily accomplished in common operations. For example, when taking the <code>mean</code> we just add an argument <code>na.rm = T</code>:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="data-wrangling.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(uglydata<span class="sc">$</span>VV1400068, <span class="at">na.rm=</span>T)</span></code></pre></div>
+<pre><code>## [1] 36.5</code></pre>
+<p>If we do a regression using <code>lm</code> or <code>glm</code>, R will automatically “listwise” delete any observation that has missing data (<code>NA</code>) on any of the variables in our regression model.</p>
+<p>We should always be careful with missing data to understand how R is treating it in a particular scenario.</p>
+<p>For example if we were to run <code>table(uglydata$gender)</code>, we would have no idea there were missing data unless we knew that the total number of observations <code>nrow(uglydata)</code> was greater than 3. The <code>table()</code> command is omitting the missing values by default.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="data-wrangling.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="at">gender=</span> uglydata<span class="sc">$</span>gender)</span></code></pre></div>
+<pre><code>## gender
+## 1 2 
+## 1 2</code></pre>
+</div>
+<div id="dealing-with-variable-codings-that-arent-quite-right" class="section level3" number="2.3.3">
+<h3><span class="header-section-number">2.3.3</span> Dealing with Variable Codings that Aren’t Quite Right</h3>
+<p>Often times the ways that variables are coded in datasets we get off-the-shelf are not coded exactly as how we were dreaming up operationalizing our concepts. Instead, we are going to have to wrangle the data to get them into shape.</p>
+<p>This may involve creating new variables that recode certain values, creating new variables that collapse some values into a smaller number of categories, combining multiple variables into a single variable (e.g., representing the average), or setting some of the variable values to be missing (<code>NA</code>). All of these scenarios may come up when you are dealing with real data.</p>
+<p><a href="http://assets.press.princeton.edu/chapters/s2-11025.pdf">Chapter 2</a> of Kosuke Imai’s book <em>Quantitative Social Science</em> walks through some examples of how to summarize your data, subset the data (2.2.3), create new variables using conditional statements (Section 2.2.4, e.g., “If age is below 65, assign the new variable a value of”0“, otherwise, assign it a value of”1“), and creating new factor variables (2.2.5, e.g., coding anyone who is Protestant, Catholic, or Lutheran in the data as”Christian").</p>
+</div>
+<div id="dealing-with-incomplete-data-merging" class="section level3" number="2.3.4">
+<h3><span class="header-section-number">2.3.4</span> Dealing with Incomplete Data (Merging!)</h3>
+<p>Sometimes in order to answer our research questions, we need to combine data from multiple sources. Ultimately, however, we really do need to <strong><em>combine</em></strong> them. If we have a large amount of data, this may be quite daunting. Fortunately, R has several commands that allow us to merge or append datasets.</p>
+<p>Here are a few resources on merging and appending data:</p>
+<ul>
+<li>Using the <code>merge</code> command in R. <a href="https://sejdemyr.github.io/r-tutorials/statistics/tutorial5.html">Tutorial</a>
+<ul>
+<li>It will look for variable(s) held in common between datasets and join the datasets by the matching values on these variables.</li>
+</ul></li>
+<li>Appending data in R (e.g., Maybe you have one dataset from 2010 and another from 2012, and you want to stack them on top of each other). <a href="https://www.princeton.edu/~otorres/Merge101R.pdf">Explanation</a></li>
+</ul>
+<p>Some merging problems are extremely difficult. For example, some researchers need to merge large datasets–like the voter file– with other administrative records. However, how someone’s name is displayed in one dataset might not match at all with the other dataset. For these complex problems, we might need “fuzzy matching.” Here is an R package that helps with this more complex <a href="https://github.com/kosukeimai/fastLink">case</a> and related <a href="https://imai.fas.harvard.edu/research/files/linkage.pdf">paper</a>.</p>
+</div>
+<div id="dealing-with-poorly-shaped-data" class="section level3" number="2.3.5">
+<h3><span class="header-section-number">2.3.5</span> Dealing with Poorly Shaped Data</h3>
+<p>Data can come in a variety of shapes and sizes. It’s a <a href="https://www.youtube.com/watch?v=g4vQeHP_nxg">beautiful disaster</a>.</p>
+<p>Sometimes it’s particularly useful to have data in wide formats, where every row relates to a particular unit of data– such as a country or a survey respondent. And perhaps each column represents information about that unit at a particular point in time. For example, perhaps you have a column with information on that subject for the past five years.</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="data-wrangling.html#cb45-1" aria-hidden="true" tabindex="-1"></a>countrywide <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">country =</span> <span class="fu">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;USA&quot;</span>),</span>
+<span id="cb45-2"><a href="data-wrangling.html#cb45-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">economy2016 =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>),</span>
+<span id="cb45-3"><a href="data-wrangling.html#cb45-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">economy2017 =</span> <span class="fu">c</span>(<span class="dv">11</span>, <span class="dv">11</span>),</span>
+<span id="cb45-4"><a href="data-wrangling.html#cb45-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">economy2018 =</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">5</span>),</span>
+<span id="cb45-5"><a href="data-wrangling.html#cb45-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">economy2019 =</span> <span class="fu">c</span>(<span class="dv">13</span>, <span class="dv">8</span>),</span>
+<span id="cb45-6"><a href="data-wrangling.html#cb45-6" aria-hidden="true" tabindex="-1"></a>                          <span class="at">economy2020 =</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">country</th>
+<th align="right">economy2016</th>
+<th align="right">economy2017</th>
+<th align="right">economy2018</th>
+<th align="right">economy2019</th>
+<th align="right">economy2020</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Canada</td>
+<td align="right">10</td>
+<td align="right">11</td>
+<td align="right">9</td>
+<td align="right">13</td>
+<td align="right">12</td>
+</tr>
+<tr class="even">
+<td align="left">USA</td>
+<td align="right">12</td>
+<td align="right">11</td>
+<td align="right">5</td>
+<td align="right">8</td>
+<td align="right">6</td>
+</tr>
+</tbody>
+</table>
+<p>However, other times, it would be more useful to you, as you dig into your data analysis, to have this information arranged in “long” format, such that every row is now a unit-year combination. You have a row for Canada in 2020, a row for Canada in 2019, and so on. Countries are now represented in multiple rows of your data.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="data-wrangling.html#cb46-1" aria-hidden="true" tabindex="-1"></a>countrylong <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">country =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;USA&quot;</span>),<span class="dv">5</span>),</span>
+<span id="cb46-2"><a href="data-wrangling.html#cb46-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">year =</span> <span class="dv">2016</span><span class="sc">:</span><span class="dv">2020</span>,</span>
+<span id="cb46-3"><a href="data-wrangling.html#cb46-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">economy=</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>,<span class="dv">11</span>, <span class="dv">11</span>,<span class="dv">9</span>, <span class="dv">5</span>,<span class="dv">13</span>, <span class="dv">8</span>,<span class="dv">12</span>, <span class="dv">6</span>))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">country</th>
+<th align="right">year</th>
+<th align="right">economy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Canada</td>
+<td align="right">2016</td>
+<td align="right">10</td>
+</tr>
+<tr class="even">
+<td align="left">USA</td>
+<td align="right">2017</td>
+<td align="right">12</td>
+</tr>
+<tr class="odd">
+<td align="left">Canada</td>
+<td align="right">2018</td>
+<td align="right">11</td>
+</tr>
+<tr class="even">
+<td align="left">USA</td>
+<td align="right">2019</td>
+<td align="right">11</td>
+</tr>
+<tr class="odd">
+<td align="left">Canada</td>
+<td align="right">2020</td>
+<td align="right">9</td>
+</tr>
+<tr class="even">
+<td align="left">USA</td>
+<td align="right">2016</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">Canada</td>
+<td align="right">2017</td>
+<td align="right">13</td>
+</tr>
+<tr class="even">
+<td align="left">USA</td>
+<td align="right">2018</td>
+<td align="right">8</td>
+</tr>
+<tr class="odd">
+<td align="left">Canada</td>
+<td align="right">2019</td>
+<td align="right">12</td>
+</tr>
+<tr class="even">
+<td align="left">USA</td>
+<td align="right">2020</td>
+<td align="right">6</td>
+</tr>
+</tbody>
+</table>
+<p>Ultimately, different shapes of data are advantageous for different research questions. This means it is best if we have a way to (at least somewhat) easily shift between the two formats.</p>
+<p>Here is a resource on how to “reshape” your data between wide and long from <a href="https://stats.idre.ucla.edu/r/faq/how-can-i-reshape-my-data-in-r/">UCLA</a>.</p>
+<p>Here are a few additional resources:</p>
+<ul>
+<li>More on <a href="https://www.r-bloggers.com/converting-a-dataset-from-wide-to-long">reshape</a>
+– For the tidyverse fans. Using <code>gather()</code> and <code>spread()</code> in tidyverse from <a href="https://r4ds.had.co.nz/">R for Data Science</a> and explained by Chris Bail <a href="https://www.youtube.com/watch?v=sXVP9256JSQ">here</a>.</li>
+</ul>
+</div>
+<div id="reproducing-your-steps" class="section level3" number="2.3.6">
+<h3><span class="header-section-number">2.3.6</span> Reproducing your steps</h3>
+<p>It is really important to keep a record of all of the changes you have made to the original data. An R script or R markdown file is a useful way to do this, so long as you add comments that explain what you are doing.</p>
+<p>You want to get your code to a place when a stranger can open your R file, load your data, and reproduce each step you took to get to the final results— all while never even needing to contact you with questions. That can be difficult, but it’s good to aim for that high bar, even if sometimes, we fall short in how we are documenting each step.</p>
+<p>This website provides a nice introduction to R Markdown, one tool for embedding R code inside textual documents. See <a href="https://rpubs.com/brandonkopp/RMarkdown">here</a>.</p>
+<p>If you want to get advanced with reproducibility, you can watch Chris Bail’s on the <a href="https://www.youtube.com/watch?v=98IcckSOfnw">subject</a> describing the uses of R Markdown and GitHub among other tools for communicating and collaboration. He also links to other resources.</p>
+
+</div>
+</div>
+<!-- </div> -->
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="tutorials.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="math.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
