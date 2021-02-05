@@ -371,6 +371,8 @@ This may involve creating new variables that recode certain values, creating new
 
 [Chapter 2](http://assets.press.princeton.edu/chapters/s2-11025.pdf) of Kosuke Imai's book *Quantitative Social Science* walks through some examples of how to summarize your data, subset the data (2.2.3), create new variables using conditional statements (Section 2.2.4, e.g., "If age is below 65, assign the new variable a value of "0", otherwise, assign it a value of "1"), and creating new factor variables (2.2.5, e.g., coding anyone who is Protestant, Catholic, or Lutheran in the data as "Christian").
 
+R Studio has its own set of primers on various topics, including summarizing and working with data. See the [Work with Data](https://rstudio.cloud/learn/primers/2) primer, as well as the full list of other [topics](https://rstudio.cloud/learn/primers).
+
 ### Dealing with Incomplete Data (Merging!)
 
 Sometimes in order to answer our research questions, we need to combine data from multiple sources. If we have a large amount of data, this may be quite daunting. Fortunately, R has several commands that allow us to merge or append datasets.
