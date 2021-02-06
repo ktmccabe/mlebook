@@ -285,7 +285,7 @@ For slope at a specific point $x$ (the derivative of f(x) at x), we just make th
 
 Example $f(x) = 2x + 3$. 
 
-  - $f'(x) = \lim_{h \rightarrow 0}\frac{2(x + h) + 3 - 2x + 3}{h} = \lim_{h \rightarrow 0}\frac{2x + 2h - 2x}{h} = \lim_{h \rightarrow 0}2 = 2$
+  - $f'(x) = \lim_{h \rightarrow 0}\frac{2(x + h) + 3 - (2x + 3)}{h} = \lim_{h \rightarrow 0}\frac{2x + 2h - 2x}{h} = \lim_{h \rightarrow 0}2 = 2$
 
 
 This [twitter thread](https://twitter.com/allison_horst/status/1307538146121244674) by the brilliant teacher and statistician Allison Horst, provides a nice cartoon-based example of the derivative. (Note that sometimes the interval $h$ is written as $\Delta x$, the change in $x$).

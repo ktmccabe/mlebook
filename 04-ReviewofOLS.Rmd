@@ -266,7 +266,7 @@ dev.off() # this closes your pdf file
 ggplot(data = florida, # which data frame
        mapping = aes(x = Perot96, y = Buchanan00)) + # x and y coordinates
   geom_point() +  # tells R we want a scatterplot
-  geom_smooth(method = "lm",  ,
+  geom_smooth(method = "lm",  
               se = FALSE, colour = "red",
               data = florida, aes(x=Perot96, y=Buchanan00)) + # adds lm regression line
   ggtitle("Perot and Buchanan Votes") + # main title
@@ -314,7 +314,7 @@ coef(fit.1)
 
 We did it! In the problem set, you will get more experience using the analytic solutions to solve for quantities of interest instead of the built-in functions. 
 
-### Practice Problems
+### OLS Practice Problems
 
 Here are a couple of (ungraded) problems to modify the code above and gain additional practice with data wrangling and visualization in R. As you might have noticed in the example, there is a big outlier in the data. We will see how this observation affects the results.
 
