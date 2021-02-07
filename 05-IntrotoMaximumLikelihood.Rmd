@@ -57,7 +57,7 @@ Take the UK population of 70 million. We have a sample of this, and in our sampl
   - Now we want an estimate using our entire sample of observations, not just a single $i$. What if we have $n$ observations? $f(y_1, y_2, ... y_n | p)$. We can write the joint probability as all individual probabilities multiplied together if we assume our observations are independent. This will now represent the likelihood for all observations. 
       + $L = P(Y_1 = y_1, Y_2=y_2, ..., Y_n = y_n)= \prod_{i=1}^n p^y_i(1 - p)^{1-y_i}$
       + This answers what is the probability that $Y_1$ took on the particular value $y_1$
-      + Ok, now we have the statement $L = P(Y_1 = y_1, Y_2=y_2, ..., Y_n = y_n)$. This joint probability is the likelihood. 
+      + Ok, now we have the statement $L = P(Y_1 = y_1, Y_2=y_2, ..., Y_n = y_n)$. This joint probability is the likelihood (Technically it is proportionate to the likelihood, but this detail will not matter for us. What this means is there is a hidden constant $k(y)$ multiplied by the joint probability. Because likelihood is a relative concept, this constant can fall out.)
   - Generally, we don't know $p$. We are trying to estimate it. ***What we want to do is choose the $\hat p$ to maximize the likelihood that we would have gotten this set of observations given that $Y_i$ has a probability distribution as specified.***
       + We have used a buzz word: "maximize." Just as in OLS, that should be our signal that a derivative should be taken so that we can find the quantities that represent the maximum.
       + We differentiate L with respect to p, set it to 0, to give us $\hat{p}$.
