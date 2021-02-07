@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Section 6 Binary Dependent Variables | MLE for Political Science</title>
-  <meta name="description" content="Section 6 Binary Dependent Variables | MLE for Political Science" />
+  <title>7.6 Putting things together: Example | MLE for Political Science</title>
+  <meta name="description" content="7.6 Putting things together: Example | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Section 6 Binary Dependent Variables | MLE for Political Science" />
+  <meta property="og:title" content="7.6 Putting things together: Example | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Section 6 Binary Dependent Variables | MLE for Political Science" />
+  <meta name="twitter:title" content="7.6 Putting things together: Example | MLE for Political Science" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="mle-properties.html"/>
-<link rel="next" href="data-generating-process.html"/>
+<link rel="prev" href="additional-r-shortcuts.html"/>
+
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -318,22 +318,114 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="binary" class="section level1" number="6">
-<h1><span class="header-section-number">Section 6</span> Binary Dependent Variables</h1>
-<p>In this section, we review models specifically designed for estimating the relationships between our independent variables and a dichotomous dependent variable. This is where “logit” and “probit” regression models become relevant.</p>
-<p><strong>Resources</strong></p>
-<p>These concepts are discussed in King, Gary. 1998. <em>Unifying political methodology: The likelihood theory of statistical inference.</em> University of Michigan Press. 5.1-5.3
-(available through Rutgers online library)</p>
-<p>The 2020 Gelman et al. book referenced in the syllabus also has a chapter devoted to logistic regression.</p>
-<p>Key limitations of OLS in the binary case are discussed <a href="https://www.dummies.com/education/economics/econometrics/3-main-linear-probability-model-lpm-problems/">here</a>, and will be referenced at the end of the section.</p>
+<div id="putting-things-together-example" class="section level2" number="7.6">
+<h2><span class="header-section-number">7.6</span> Putting things together: Example</h2>
+<p>Let’s return to the example at the end of section 6, and calculate predicted probabilities, now with estimates of uncertainty.</p>
+<p>Recall, we can take something that looks like column 5 in the table from Antoine Banks and Heather Hicks example from the previous section and move it into a figure, as the authors did.</p>
+<p><img src="images/bankstable1.png" style="width:40.0%" /> <img src="images/abtracefig.png" style="width:40.0%" /></p>
+<p>Let’s load the data again and run the model.</p>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="putting-things-together-example.html#cb434-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
+<span id="cb434-2"><a href="putting-things-together-example.html#cb434-2" aria-hidden="true" tabindex="-1"></a>study <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/ssistudyrecode.dta?raw=true&quot;</span>)</span>
+<span id="cb434-3"><a href="putting-things-together-example.html#cb434-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb434-4"><a href="putting-things-together-example.html#cb434-4" aria-hidden="true" tabindex="-1"></a>fit.probit5 <span class="ot">&lt;-</span> <span class="fu">glm</span>(abtrace1 <span class="sc">~</span> <span class="fu">factor</span>(condition2)<span class="sc">*</span>racresent </span>
+<span id="cb434-5"><a href="putting-things-together-example.html#cb434-5" aria-hidden="true" tabindex="-1"></a>                   <span class="sc">+</span> <span class="fu">factor</span>(condition2)<span class="sc">*</span>oldfash,</span>
+<span id="cb434-6"><a href="putting-things-together-example.html#cb434-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data=</span>study, <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;probit&quot;</span>))</span></code></pre></div>
+<p>Let’s generate predicted probabilities for thinking the ad is about race across levels of racial resentment in the sample, for people in the implicit and explicit conditions, holding all covariates at observed values.</p>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="putting-things-together-example.html#cb435-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prediction)</span>
+<span id="cb435-2"><a href="putting-things-together-example.html#cb435-2" aria-hidden="true" tabindex="-1"></a>pr.imp <span class="ot">&lt;-</span> <span class="fu">prediction</span>(fit.probit5, <span class="at">at=</span> <span class="fu">list</span>(<span class="at">racresent =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>,.<span class="dv">0625</span>),</span>
+<span id="cb435-3"><a href="putting-things-together-example.html#cb435-3" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">condition2=</span><span class="dv">1</span>),</span>
+<span id="cb435-4"><a href="putting-things-together-example.html#cb435-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">calculate_se =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb435-5"><a href="putting-things-together-example.html#cb435-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s store the summary output this time</span></span>
+<span id="cb435-6"><a href="putting-things-together-example.html#cb435-6" aria-hidden="true" tabindex="-1"></a><span class="do">## And to make it easier to plot, we&#39;ll store as dataframe</span></span>
+<span id="cb435-7"><a href="putting-things-together-example.html#cb435-7" aria-hidden="true" tabindex="-1"></a>pr.imp.df <span class="ot">&lt;-</span> <span class="fu">summary</span>(pr.imp)</span>
+<span id="cb435-8"><a href="putting-things-together-example.html#cb435-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb435-9"><a href="putting-things-together-example.html#cb435-9" aria-hidden="true" tabindex="-1"></a>pr.exp <span class="ot">&lt;-</span> <span class="fu">prediction</span>(fit.probit5, <span class="at">at=</span> <span class="fu">list</span>(<span class="at">racresent =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>,.<span class="dv">0625</span>),</span>
+<span id="cb435-10"><a href="putting-things-together-example.html#cb435-10" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">condition2=</span><span class="dv">2</span>),</span>
+<span id="cb435-11"><a href="putting-things-together-example.html#cb435-11" aria-hidden="true" tabindex="-1"></a>                         <span class="at">calculate_se =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb435-12"><a href="putting-things-together-example.html#cb435-12" aria-hidden="true" tabindex="-1"></a>pr.exp.df <span class="ot">&lt;-</span> <span class="fu">summary</span>(pr.exp)</span></code></pre></div>
+<p>You can peek inside <code>pr.imp.df</code> to see the format of the output.</p>
+<p>Let’s now visualize! We will try to stay true to the authors’ visual choices here.</p>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="putting-things-together-example.html#cb436-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot results</span></span>
+<span id="cb436-2"><a href="putting-things-together-example.html#cb436-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>pr.imp.df<span class="sc">$</span><span class="st">`</span><span class="at">at(racresent)</span><span class="st">`</span>, <span class="at">y=</span>pr.imp.df<span class="sc">$</span>Prediction, </span>
+<span id="cb436-3"><a href="putting-things-together-example.html#cb436-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">type=</span><span class="st">&quot;l&quot;</span>,</span>
+<span id="cb436-4"><a href="putting-things-together-example.html#cb436-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">lty=</span><span class="dv">2</span>,</span>
+<span id="cb436-5"><a href="putting-things-together-example.html#cb436-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Predicted Probability&quot;</span>,</span>
+<span id="cb436-6"><a href="putting-things-together-example.html#cb436-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Racial Resentment&quot;</span>,</span>
+<span id="cb436-7"><a href="putting-things-together-example.html#cb436-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Predicted Probability of Viewing the Ad as about Race&quot;</span>,</span>
+<span id="cb436-8"><a href="putting-things-together-example.html#cb436-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.main =</span> .<span class="dv">7</span>)</span>
+<span id="cb436-9"><a href="putting-things-together-example.html#cb436-9" aria-hidden="true" tabindex="-1"></a><span class="do">## add explicit point values</span></span>
+<span id="cb436-10"><a href="putting-things-together-example.html#cb436-10" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span>pr.exp.df<span class="sc">$</span><span class="st">`</span><span class="at">at(racresent)</span><span class="st">`</span>, <span class="at">y=</span>pr.exp.df<span class="sc">$</span>Prediction, <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span>
+<span id="cb436-11"><a href="putting-things-together-example.html#cb436-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb436-12"><a href="putting-things-together-example.html#cb436-12" aria-hidden="true" tabindex="-1"></a><span class="do">## add additional lines for the upper and lower confidence intervals</span></span>
+<span id="cb436-13"><a href="putting-things-together-example.html#cb436-13" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span>pr.exp.df<span class="sc">$</span><span class="st">`</span><span class="at">at(racresent)</span><span class="st">`</span>, <span class="at">y=</span>pr.exp.df<span class="sc">$</span>lower, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;gray&quot;</span>)</span>
+<span id="cb436-14"><a href="putting-things-together-example.html#cb436-14" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span>pr.exp.df<span class="sc">$</span><span class="st">`</span><span class="at">at(racresent)</span><span class="st">`</span>, <span class="at">y=</span>pr.exp.df<span class="sc">$</span>upper, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;gray&quot;</span>)</span>
+<span id="cb436-15"><a href="putting-things-together-example.html#cb436-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb436-16"><a href="putting-things-together-example.html#cb436-16" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span>pr.imp.df<span class="sc">$</span><span class="st">`</span><span class="at">at(racresent)</span><span class="st">`</span>, <span class="at">y=</span>pr.imp.df<span class="sc">$</span>lower, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lty=</span><span class="dv">3</span>)</span>
+<span id="cb436-17"><a href="putting-things-together-example.html#cb436-17" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span>pr.imp.df<span class="sc">$</span><span class="st">`</span><span class="at">at(racresent)</span><span class="st">`</span>, <span class="at">y=</span>pr.imp.df<span class="sc">$</span>upper, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lty=</span><span class="dv">3</span>)</span>
+<span id="cb436-18"><a href="putting-things-together-example.html#cb436-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb436-19"><a href="putting-things-together-example.html#cb436-19" aria-hidden="true" tabindex="-1"></a><span class="do">## Legend</span></span>
+<span id="cb436-20"><a href="putting-things-together-example.html#cb436-20" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomleft&quot;</span>, <span class="at">lty=</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>, <span class="dv">3</span>,<span class="dv">1</span>), </span>
+<span id="cb436-21"><a href="putting-things-together-example.html#cb436-21" aria-hidden="true" tabindex="-1"></a>       <span class="fu">c</span>(<span class="st">&quot;Implicit&quot;</span>, <span class="st">&quot;Explicit&quot;</span>, </span>
+<span id="cb436-22"><a href="putting-things-together-example.html#cb436-22" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Implicit 95% CI&quot;</span>, <span class="st">&quot;Explicit 95% CI&quot;</span>), <span class="at">cex=</span>.<span class="dv">7</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-185-1.svg" width="672" /></p>
+<p>Let’s combine the two dataframes.</p>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="putting-things-together-example.html#cb437-1" aria-hidden="true" tabindex="-1"></a>pr.comb <span class="ot">&lt;-</span> <span class="fu">rbind</span>(pr.imp.df, pr.exp.df)</span></code></pre></div>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="putting-things-together-example.html#cb438-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb438-2"><a href="putting-things-together-example.html#cb438-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pr.comb, <span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">at(racresent)</span><span class="st">`</span>, </span>
+<span id="cb438-3"><a href="putting-things-together-example.html#cb438-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">y=</span> Prediction, </span>
+<span id="cb438-4"><a href="putting-things-together-example.html#cb438-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">color=</span><span class="fu">as.factor</span>(<span class="st">`</span><span class="at">at(condition2)</span><span class="st">`</span>)))<span class="sc">+</span></span>
+<span id="cb438-5"><a href="putting-things-together-example.html#cb438-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb438-6"><a href="putting-things-together-example.html#cb438-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>lower, <span class="at">ymax=</span>upper, <span class="at">fill=</span><span class="fu">as.factor</span>(<span class="st">`</span><span class="at">at(condition2)</span><span class="st">`</span>)), <span class="at">alpha=</span>.<span class="dv">5</span>)<span class="sc">+</span></span>
+<span id="cb438-7"><a href="putting-things-together-example.html#cb438-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Racial Resentment&quot;</span>)<span class="sc">+</span></span>
+<span id="cb438-8"><a href="putting-things-together-example.html#cb438-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb438-9"><a href="putting-things-together-example.html#cb438-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="sc">+</span></span>
+<span id="cb438-10"><a href="putting-things-together-example.html#cb438-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>(<span class="at">name=</span><span class="st">&quot;Condition&quot;</span>,</span>
+<span id="cb438-11"><a href="putting-things-together-example.html#cb438-11" aria-hidden="true" tabindex="-1"></a>                         <span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb438-12"><a href="putting-things-together-example.html#cb438-12" aria-hidden="true" tabindex="-1"></a>                         <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Implicit&quot;</span>, <span class="st">&quot;Explicit&quot;</span>))<span class="sc">+</span></span>
+<span id="cb438-13"><a href="putting-things-together-example.html#cb438-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">name=</span><span class="st">&quot;Condition&quot;</span>,</span>
+<span id="cb438-14"><a href="putting-things-together-example.html#cb438-14" aria-hidden="true" tabindex="-1"></a>                         <span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb438-15"><a href="putting-things-together-example.html#cb438-15" aria-hidden="true" tabindex="-1"></a>                         <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Implicit&quot;</span>, <span class="st">&quot;Explicit&quot;</span>))</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-187-1.svg" width="672" /></p>
+<p>We could instead show the <strong><em>difference</em></strong> between the conditions across levels of racial resentment.</p>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="putting-things-together-example.html#cb439-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(margins)</span>
+<span id="cb439-2"><a href="putting-things-together-example.html#cb439-2" aria-hidden="true" tabindex="-1"></a>marest <span class="ot">&lt;-</span> <span class="fu">margins</span>(fit.probit5, <span class="at">at=</span> <span class="fu">list</span>(<span class="at">racresent =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>,.<span class="dv">0625</span>)),</span>
+<span id="cb439-3"><a href="putting-things-together-example.html#cb439-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">variables=</span><span class="st">&quot;condition2&quot;</span>,</span>
+<span id="cb439-4"><a href="putting-things-together-example.html#cb439-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">change =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb439-5"><a href="putting-things-together-example.html#cb439-5" aria-hidden="true" tabindex="-1"></a>                         <span class="at">vce=</span><span class="st">&quot;delta&quot;</span>,</span>
+<span id="cb439-6"><a href="putting-things-together-example.html#cb439-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb439-7"><a href="putting-things-together-example.html#cb439-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb439-8"><a href="putting-things-together-example.html#cb439-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Store summary as dataframe</span></span>
+<span id="cb439-9"><a href="putting-things-together-example.html#cb439-9" aria-hidden="true" tabindex="-1"></a>marest.df <span class="ot">&lt;-</span> <span class="fu">summary</span>(marest)</span>
+<span id="cb439-10"><a href="putting-things-together-example.html#cb439-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb439-11"><a href="putting-things-together-example.html#cb439-11" aria-hidden="true" tabindex="-1"></a><span class="do">## plot res</span></span>
+<span id="cb439-12"><a href="putting-things-together-example.html#cb439-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(marest.df, <span class="fu">aes</span>(<span class="at">x=</span>racresent, <span class="at">y=</span>AME))<span class="sc">+</span></span>
+<span id="cb439-13"><a href="putting-things-together-example.html#cb439-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb439-14"><a href="putting-things-together-example.html#cb439-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>lower, <span class="at">ymax=</span>upper), <span class="at">alpha=</span>.<span class="dv">5</span>, <span class="at">width=</span><span class="dv">0</span>)<span class="sc">+</span></span>
+<span id="cb439-15"><a href="putting-things-together-example.html#cb439-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb439-16"><a href="putting-things-together-example.html#cb439-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Racial Resentment&quot;</span>)<span class="sc">+</span></span>
+<span id="cb439-17"><a href="putting-things-together-example.html#cb439-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;AME: Explicit - Implicit Condition on Pr(Ad About Race)&quot;</span>)<span class="sc">+</span></span>
+<span id="cb439-18"><a href="putting-things-together-example.html#cb439-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-188-1.svg" width="672" /></p>
+
 </div>
+<!-- </div> -->
+
+
+
+
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="mle-properties.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-generating-process.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="additional-r-shortcuts.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

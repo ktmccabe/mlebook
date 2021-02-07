@@ -846,7 +846,7 @@ quantile(s.out2$get_qi(qi="fd", xvalue="x1"), c(0.025, 0.975))
 ```
 
 
-## Putting things together: Example using `prediction`
+## Putting things together: Example 
 
 Let's return to the example at the end of section 6, and calculate predicted probabilities, now with estimates of uncertainty.
 
@@ -864,7 +864,6 @@ study <- import("https://github.com/ktmccabe/teachingdata/blob/main/ssistudyreco
 fit.probit5 <- glm(abtrace1 ~ factor(condition2)*racresent 
                    + factor(condition2)*oldfash,
                   data=study, family=binomial(link = "probit"))
-summary(fit.probit5)
 ```
 
 
