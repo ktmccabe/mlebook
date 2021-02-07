@@ -368,7 +368,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Question: What would be the equivalent function for probit?</li>
 </ul></li>
-<li>manually writing down the response function <span class="math inline">\(\frac{exp(\mathbf{x_i&#39;}\beta)}{(1 + exp(\mathbf{x_i&#39;}\beta)}\)</span>.</li>
+<li>manually writing down the response function <span class="math inline">\(\frac{exp(\mathbf{x_i&#39;}\beta)}{1 + exp(\mathbf{x_i&#39;}\beta)}\)</span>.</li>
 </ol>
 <p>We use the <code>predict</code> function exactly the same way as before, but the key argument we need to specify is <code>type</code>. If you have <code>type = link</code> this generates answers that are still on the log-odds linear predictor scale. It is switching this to <code>response</code> that goes into probability in the logit case or probit case.</p>
 <p><strong>Example</strong></p>

@@ -76,7 +76,7 @@ For logistic regression, we can generate predicted probabilities for each $Y_i$ 
   1. `predict(model, type="response")` function, using the 
   2. `plogis` function with $X\hat \beta$, or 
       + Question: What would be the equivalent function for probit?
-  3. manually writing down the response function $\frac{exp(\mathbf{x_i'}\beta)}{(1 + exp(\mathbf{x_i'}\beta)}$. 
+  3. manually writing down the response function $\frac{exp(\mathbf{x_i'}\beta)}{1 + exp(\mathbf{x_i'}\beta)}$. 
 
 
 We use the `predict` function exactly the same way as before, but the key argument we need to specify is `type`. If you have `type = link` this generates answers that are still on the log-odds linear predictor scale. It is switching this to `response` that goes into probability in the logit case or probit case.
