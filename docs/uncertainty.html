@@ -298,6 +298,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.5.1" data-path="additional-r-shortcuts.html"><a href="additional-r-shortcuts.html#prediction"><i class="fa fa-check"></i><b>7.5.1</b> Prediction</a></li>
 <li class="chapter" data-level="7.5.2" data-path="additional-r-shortcuts.html"><a href="additional-r-shortcuts.html#margins"><i class="fa fa-check"></i><b>7.5.2</b> Margins</a></li>
 <li class="chapter" data-level="7.5.3" data-path="additional-r-shortcuts.html"><a href="additional-r-shortcuts.html#zelig"><i class="fa fa-check"></i><b>7.5.3</b> Zelig</a></li>
+<li class="chapter" data-level="7.5.4" data-path="additional-r-shortcuts.html"><a href="additional-r-shortcuts.html#using-expand.grid"><i class="fa fa-check"></i><b>7.5.4</b> Using <code>expand.grid</code></a></li>
 </ul></li>
 <li class="chapter" data-level="7.6" data-path="putting-things-together-example.html"><a href="putting-things-together-example.html"><i class="fa fa-check"></i><b>7.6</b> Putting things together: Example</a></li>
 </ul></li>
@@ -322,13 +323,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">7.3</span> Uncertainty</h2>
 <p>Usually, we want to report a confidence interval around our predicted probabilities, average predicted probabilities, or around the difference in our predicted probabilities or difference in our average predicted probabilities.</p>
 <p>This is different from the uncertainty of a coefficient, which we already have from our <code>glm</code> output. Here, if we say there is a 0.01 probability of a dispute, that is just an estimate, it is going to vary over repeated samples. We want to generate a confidence interval that represents this variability in <span class="math inline">\(\hat \pi\)</span>.</p>
-<p>There are three general approaches to calculating the uncertainty of the quantities of interest.</p>
+<p>We have already discussed using the <code>predict</code> function in <code>lm</code> to generate confidence intervals for OLS estimates. In a limited set of cases, we can also use this shortcut for <code>glm</code> by taking advantage of the distribution being approximately normal on the scale of the linear predictor. When we are estimating confidence intervals around 1) one or multiple single quantities of interest (a predicted probability, as opposed to a difference in predicted probability) 2) where the <span class="math inline">\(X\)</span> values are set at specific values (and not at their observed values) then, we can plug this into the <code>predict</code> function in the following way:</p>
+<ol style="list-style-type: decimal">
+<li>Generate the prediction and standard errors of the prediction on the <code>link</code> linear predictor scale.
+<ul>
+<li>On the scale of the linear predictor, the standard errors of the prediction are calculated as <span class="math inline">\(\sqrt{\mathbb{x&#39;}_c \text{vcov(fit)} \mathbb{x}_c}\)</span> using the delta method.</li>
+</ul></li>
+<li>Calculate the CI on the linear predictor scale: <span class="math inline">\(CI(\hat \theta) = \hat \theta - z_{crit}*se_{\hat \theta}\)</span> ; <span class="math inline">\(\hat \theta + z_{crit}*se_{\hat \theta}\)</span>
+<ul>
+<li><span class="math inline">\(z_{crit}\)</span> for the 95% confidence interval is 1.96 (so this is saying +/- about 2 standard errors). We get this by using <code>qnorm()</code>.</li>
+</ul></li>
+<li>Convert the prediction and confidence intervals to the response scale.</li>
+</ol>
+<p>Here is an example:</p>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="uncertainty.html#cb372-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Predicted probability when Allies = 1 and all other covariates = 0</span></span>
+<span id="cb372-2"><a href="uncertainty.html#cb372-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Note type = &quot;link&quot;</span></span>
+<span id="cb372-3"><a href="uncertainty.html#cb372-3" aria-hidden="true" tabindex="-1"></a>allies1.link <span class="ot">&lt;-</span> <span class="fu">predict</span>(out.logit, <span class="at">newdata =</span> </span>
+<span id="cb372-4"><a href="uncertainty.html#cb372-4" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">data.frame</span>( <span class="at">MajorPower =</span> <span class="dv">0</span>,</span>
+<span id="cb372-5"><a href="uncertainty.html#cb372-5" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">Contiguity =</span> <span class="dv">0</span>, </span>
+<span id="cb372-6"><a href="uncertainty.html#cb372-6" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">Allies =</span> <span class="dv">1</span>, </span>
+<span id="cb372-7"><a href="uncertainty.html#cb372-7" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">ForeignPolicy =</span> <span class="dv">0</span>,<span class="at">BalanceOfPower =</span> <span class="dv">0</span>, </span>
+<span id="cb372-8"><a href="uncertainty.html#cb372-8" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">YearsSince =</span> <span class="dv">0</span>),</span>
+<span id="cb372-9"><a href="uncertainty.html#cb372-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">type =</span> <span class="st">&quot;link&quot;</span>, <span class="at">se =</span> T)</span>
+<span id="cb372-10"><a href="uncertainty.html#cb372-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb372-11"><a href="uncertainty.html#cb372-11" aria-hidden="true" tabindex="-1"></a>allies1 <span class="ot">&lt;-</span>  <span class="fu">plogis</span>(allies1.link<span class="sc">$</span>fit)</span>
+<span id="cb372-12"><a href="uncertainty.html#cb372-12" aria-hidden="true" tabindex="-1"></a>allies1.lb <span class="ot">&lt;-</span> <span class="fu">plogis</span>(allies1.link<span class="sc">$</span>fit <span class="sc">-</span> <span class="fu">qnorm</span>(.<span class="dv">975</span>)<span class="sc">*</span>allies1.link<span class="sc">$</span>se.fit)</span>
+<span id="cb372-13"><a href="uncertainty.html#cb372-13" aria-hidden="true" tabindex="-1"></a>allies1.ub <span class="ot">&lt;-</span> <span class="fu">plogis</span>(allies1.link<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">qnorm</span>(.<span class="dv">975</span>)<span class="sc">*</span>allies1.link<span class="sc">$</span>se.fit)</span>
+<span id="cb372-14"><a href="uncertainty.html#cb372-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb372-15"><a href="uncertainty.html#cb372-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Confidence interval</span></span>
+<span id="cb372-16"><a href="uncertainty.html#cb372-16" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(allies1, allies1.lb, allies1.ub)</span></code></pre></div>
+<pre><code>          1           1           1 
+0.002632504 0.001302711 0.005312514 </code></pre>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="uncertainty.html#cb374-1" aria-hidden="true" tabindex="-1"></a><span class="do">## By hand (using x as a k x 1 vector)</span></span>
+<span id="cb374-2"><a href="uncertainty.html#cb374-2" aria-hidden="true" tabindex="-1"></a>x.c <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)</span>
+<span id="cb374-3"><a href="uncertainty.html#cb374-3" aria-hidden="true" tabindex="-1"></a>se.hand <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">t</span>(x.c) <span class="sc">%*%</span> <span class="fu">vcov</span>(out.logit) <span class="sc">%*%</span> x.c)</span>
+<span id="cb374-4"><a href="uncertainty.html#cb374-4" aria-hidden="true" tabindex="-1"></a>p.hand <span class="ot">&lt;-</span> <span class="fu">t</span>(x.c) <span class="sc">%*%</span> <span class="fu">coef</span>(out.logit)</span>
+<span id="cb374-5"><a href="uncertainty.html#cb374-5" aria-hidden="true" tabindex="-1"></a>allies1.hand <span class="ot">&lt;-</span> <span class="fu">plogis</span>(p.hand)</span>
+<span id="cb374-6"><a href="uncertainty.html#cb374-6" aria-hidden="true" tabindex="-1"></a>allies1.hand.lb <span class="ot">&lt;-</span> <span class="fu">plogis</span>(p.hand<span class="sc">-</span> <span class="fu">qnorm</span>(.<span class="dv">975</span>)<span class="sc">*</span>se.hand)</span>
+<span id="cb374-7"><a href="uncertainty.html#cb374-7" aria-hidden="true" tabindex="-1"></a>allies1.hand.ub <span class="ot">&lt;-</span> <span class="fu">plogis</span>(p.hand <span class="sc">+</span> <span class="fu">qnorm</span>(.<span class="dv">975</span>)<span class="sc">*</span>se.hand)</span>
+<span id="cb374-8"><a href="uncertainty.html#cb374-8" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(allies1.hand, allies1.hand.lb, allies1.hand.ub)</span></code></pre></div>
+<pre><code>[1] 0.002632504 0.001302711 0.005312514</code></pre>
+<p>Beyond this simple case, there are three general approaches to calculating the uncertainty of the quantities of interest.</p>
 <ul>
 <li>Delta Method (based on calculus, first order Taylor Expansion approximation)</li>
 <li>Bootstrapping (very flexible, common, computationally demanding)</li>
 <li>Quasi-bayesian (flexible, less computationally demanding), also described as simulation/Monte carlo simulation.</li>
 </ul>
-<p>For now, we will focus on the second two methods, but some statistical software programs will report uncertainty estimates based on the Delta method.</p>
+<p>For now, we will focus on the second two methods, but some statistical software programs will report uncertainty estimates based on the Delta method. Here is more information on this <a href="https://stats.idre.ucla.edu/r/faq/how-can-i-estimate-the-standard-error-of-transformed-regression-parameters-in-r-using-the-delta-method/">method</a> and the <code>deltamethod</code> <a href="https://www.r-bloggers.com/2018/01/delta-method-standard-errors/">function</a> in R.</p>
 <div id="bootstrapping" class="section level3" number="7.3.1">
 <h3><span class="header-section-number">7.3.1</span> Bootstrapping</h3>
 <p>Bootstrapping simulates the idea of conducting repeated samples to generate a distribution of estimates of your quantity of interests. We “resample” from our existing data to generate thousands of new datasets, and use each dataset to generate a slightly different quantity of interest. This distribution is then used to construct the confidence interval.</p>
@@ -357,41 +398,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>How do we implement this procedure?</p>
 <p><strong><em>Example</em></strong></p>
 <p>Find the point estimate and 95% CI for the average predicted probability of conflict when the dyad are allies and all other covariates are held at observed values</p>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="uncertainty.html#cb372-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Original regression</span></span>
-<span id="cb372-2"><a href="uncertainty.html#cb372-2" aria-hidden="true" tabindex="-1"></a>out.logit <span class="ot">&lt;-</span><span class="fu">glm</span>(Conflict <span class="sc">~</span>  MajorPower <span class="sc">+</span> Contiguity <span class="sc">+</span> Allies <span class="sc">+</span> ForeignPolicy <span class="sc">+</span></span>
-<span id="cb372-3"><a href="uncertainty.html#cb372-3" aria-hidden="true" tabindex="-1"></a>    BalanceOfPower <span class="sc">+</span> YearsSince, </span>
-<span id="cb372-4"><a href="uncertainty.html#cb372-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>), <span class="at">data =</span> mids)</span>
-<span id="cb372-5"><a href="uncertainty.html#cb372-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb372-6"><a href="uncertainty.html#cb372-6" aria-hidden="true" tabindex="-1"></a><span class="do">## We need to build our bootstrap procedure</span></span>
-<span id="cb372-7"><a href="uncertainty.html#cb372-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s assume we just want 1 iteration</span></span>
-<span id="cb372-8"><a href="uncertainty.html#cb372-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb372-9"><a href="uncertainty.html#cb372-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 1: sample to generate new data</span></span>
-<span id="cb372-10"><a href="uncertainty.html#cb372-10" aria-hidden="true" tabindex="-1"></a><span class="do">## this selects N row numbers from mids, with replacement</span></span>
-<span id="cb372-11"><a href="uncertainty.html#cb372-11" aria-hidden="true" tabindex="-1"></a>wrows <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span><span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(mids), <span class="at">size =</span> <span class="fu">nrow</span>(mids), <span class="at">replace =</span> T)</span>
-<span id="cb372-12"><a href="uncertainty.html#cb372-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb372-13"><a href="uncertainty.html#cb372-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Create subset of data based on these rows</span></span>
-<span id="cb372-14"><a href="uncertainty.html#cb372-14" aria-hidden="true" tabindex="-1"></a>subdata <span class="ot">&lt;-</span> mids[wrows, ]</span>
-<span id="cb372-15"><a href="uncertainty.html#cb372-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb372-16"><a href="uncertainty.html#cb372-16" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 2: run your regression model with the new data</span></span>
-<span id="cb372-17"><a href="uncertainty.html#cb372-17" aria-hidden="true" tabindex="-1"></a>boot.logit <span class="ot">&lt;-</span><span class="fu">glm</span>(Conflict <span class="sc">~</span>  MajorPower <span class="sc">+</span> Contiguity <span class="sc">+</span> Allies <span class="sc">+</span> ForeignPolicy <span class="sc">+</span></span>
-<span id="cb372-18"><a href="uncertainty.html#cb372-18" aria-hidden="true" tabindex="-1"></a>    BalanceOfPower <span class="sc">+</span> YearsSince, </span>
-<span id="cb372-19"><a href="uncertainty.html#cb372-19" aria-hidden="true" tabindex="-1"></a>                <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>), <span class="at">data =</span> subdata)</span>
-<span id="cb372-20"><a href="uncertainty.html#cb372-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb372-21"><a href="uncertainty.html#cb372-21" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 3: generate average predicted probability</span></span>
-<span id="cb372-22"><a href="uncertainty.html#cb372-22" aria-hidden="true" tabindex="-1"></a>Xboot <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(boot.logit)</span>
-<span id="cb372-23"><a href="uncertainty.html#cb372-23" aria-hidden="true" tabindex="-1"></a>Xboot[, <span class="st">&quot;Allies&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb372-24"><a href="uncertainty.html#cb372-24" aria-hidden="true" tabindex="-1"></a>Bh <span class="ot">&lt;-</span> <span class="fu">coef</span>(boot.logit)</span>
-<span id="cb372-25"><a href="uncertainty.html#cb372-25" aria-hidden="true" tabindex="-1"></a>p.boot <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(Xboot <span class="sc">%*%</span> Bh))</span></code></pre></div>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="uncertainty.html#cb376-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Original regression</span></span>
+<span id="cb376-2"><a href="uncertainty.html#cb376-2" aria-hidden="true" tabindex="-1"></a>out.logit <span class="ot">&lt;-</span><span class="fu">glm</span>(Conflict <span class="sc">~</span>  MajorPower <span class="sc">+</span> Contiguity <span class="sc">+</span> Allies <span class="sc">+</span> ForeignPolicy <span class="sc">+</span></span>
+<span id="cb376-3"><a href="uncertainty.html#cb376-3" aria-hidden="true" tabindex="-1"></a>    BalanceOfPower <span class="sc">+</span> YearsSince, </span>
+<span id="cb376-4"><a href="uncertainty.html#cb376-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>), <span class="at">data =</span> mids)</span>
+<span id="cb376-5"><a href="uncertainty.html#cb376-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb376-6"><a href="uncertainty.html#cb376-6" aria-hidden="true" tabindex="-1"></a><span class="do">## We need to build our bootstrap procedure</span></span>
+<span id="cb376-7"><a href="uncertainty.html#cb376-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s assume we just want 1 iteration</span></span>
+<span id="cb376-8"><a href="uncertainty.html#cb376-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb376-9"><a href="uncertainty.html#cb376-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 1: sample to generate new data</span></span>
+<span id="cb376-10"><a href="uncertainty.html#cb376-10" aria-hidden="true" tabindex="-1"></a><span class="do">## this selects N row numbers from mids, with replacement</span></span>
+<span id="cb376-11"><a href="uncertainty.html#cb376-11" aria-hidden="true" tabindex="-1"></a>wrows <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span><span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(mids), <span class="at">size =</span> <span class="fu">nrow</span>(mids), <span class="at">replace =</span> T)</span>
+<span id="cb376-12"><a href="uncertainty.html#cb376-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb376-13"><a href="uncertainty.html#cb376-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Create subset of data based on these rows</span></span>
+<span id="cb376-14"><a href="uncertainty.html#cb376-14" aria-hidden="true" tabindex="-1"></a>subdata <span class="ot">&lt;-</span> mids[wrows, ]</span>
+<span id="cb376-15"><a href="uncertainty.html#cb376-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb376-16"><a href="uncertainty.html#cb376-16" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 2: run your regression model with the new data</span></span>
+<span id="cb376-17"><a href="uncertainty.html#cb376-17" aria-hidden="true" tabindex="-1"></a>boot.logit <span class="ot">&lt;-</span><span class="fu">glm</span>(Conflict <span class="sc">~</span>  MajorPower <span class="sc">+</span> Contiguity <span class="sc">+</span> Allies <span class="sc">+</span> ForeignPolicy <span class="sc">+</span></span>
+<span id="cb376-18"><a href="uncertainty.html#cb376-18" aria-hidden="true" tabindex="-1"></a>    BalanceOfPower <span class="sc">+</span> YearsSince, </span>
+<span id="cb376-19"><a href="uncertainty.html#cb376-19" aria-hidden="true" tabindex="-1"></a>                <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>), <span class="at">data =</span> subdata)</span>
+<span id="cb376-20"><a href="uncertainty.html#cb376-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb376-21"><a href="uncertainty.html#cb376-21" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 3: generate average predicted probability</span></span>
+<span id="cb376-22"><a href="uncertainty.html#cb376-22" aria-hidden="true" tabindex="-1"></a>Xboot <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(boot.logit)</span>
+<span id="cb376-23"><a href="uncertainty.html#cb376-23" aria-hidden="true" tabindex="-1"></a>Xboot[, <span class="st">&quot;Allies&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb376-24"><a href="uncertainty.html#cb376-24" aria-hidden="true" tabindex="-1"></a>Bh <span class="ot">&lt;-</span> <span class="fu">coef</span>(boot.logit)</span>
+<span id="cb376-25"><a href="uncertainty.html#cb376-25" aria-hidden="true" tabindex="-1"></a>p.boot <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(Xboot <span class="sc">%*%</span> Bh))</span></code></pre></div>
 <details>
 <summary>
 Expand below for more details on what the sample function does.
 </summary>
 <p>Let’s say we have a dataframe of different colors and shapes.</p>
-<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="uncertainty.html#cb373-1" aria-hidden="true" tabindex="-1"></a>somedata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">colors =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;green&quot;</span>, </span>
-<span id="cb373-2"><a href="uncertainty.html#cb373-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">&quot;purple&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;black&quot;</span>),</span>
-<span id="cb373-3"><a href="uncertainty.html#cb373-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">shapes =</span> <span class="fu">c</span>(<span class="st">&quot;circle&quot;</span>, <span class="st">&quot;square&quot;</span>, <span class="st">&quot;triangle&quot;</span>, </span>
-<span id="cb373-4"><a href="uncertainty.html#cb373-4" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">&quot;rectangle&quot;</span>, <span class="st">&quot;diamond&quot;</span>, <span class="st">&quot;line&quot;</span>, <span class="st">&quot;sphere&quot;</span>))</span>
-<span id="cb373-5"><a href="uncertainty.html#cb373-5" aria-hidden="true" tabindex="-1"></a>somedata                                  </span></code></pre></div>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="uncertainty.html#cb377-1" aria-hidden="true" tabindex="-1"></a>somedata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">colors =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;green&quot;</span>, </span>
+<span id="cb377-2"><a href="uncertainty.html#cb377-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">&quot;purple&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;black&quot;</span>),</span>
+<span id="cb377-3"><a href="uncertainty.html#cb377-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">shapes =</span> <span class="fu">c</span>(<span class="st">&quot;circle&quot;</span>, <span class="st">&quot;square&quot;</span>, <span class="st">&quot;triangle&quot;</span>, </span>
+<span id="cb377-4"><a href="uncertainty.html#cb377-4" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">&quot;rectangle&quot;</span>, <span class="st">&quot;diamond&quot;</span>, <span class="st">&quot;line&quot;</span>, <span class="st">&quot;sphere&quot;</span>))</span>
+<span id="cb377-5"><a href="uncertainty.html#cb377-5" aria-hidden="true" tabindex="-1"></a>somedata                                  </span></code></pre></div>
 <pre><code>  colors    shapes
 1    red    circle
 2   blue    square
@@ -401,30 +442,30 @@ Expand below for more details on what the sample function does.
 6 orange      line
 7  black    sphere</code></pre>
 <p>I could generate a new “resampled” dataset with the <code>sample</code> function. We tell the function three things: 1) choose from the row numbers in my dataframe (<code>1:nrow(somedata)</code>), 2) pick <span class="math inline">\(N\)</span> row numbers in total (<code>nrow(somedata)</code>), 3) Each time you pick a given row number <span class="math inline">\(i\)</span>, put it back in the data, allowing the possibility that you may randomly sample it again (<code>replace = TRUE</code>).</p>
-<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="uncertainty.html#cb375-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(somedata), <span class="fu">nrow</span>(somedata), <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>[1] 2 2 5 2 5 1 6</code></pre>
-<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="uncertainty.html#cb377-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(somedata), <span class="fu">nrow</span>(somedata), <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>[1] 3 4 3 4 7 1 4</code></pre>
 <div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="uncertainty.html#cb379-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(somedata), <span class="fu">nrow</span>(somedata), <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>[1] 3 3 5 1 1 4 2</code></pre>
+<pre><code>[1] 3 2 5 3 4 4 3</code></pre>
+<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="uncertainty.html#cb381-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(somedata), <span class="fu">nrow</span>(somedata), <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>[1] 6 3 6 1 4 5 1</code></pre>
+<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="uncertainty.html#cb383-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(somedata), <span class="fu">nrow</span>(somedata), <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>[1] 1 6 5 7 5 3 5</code></pre>
 <p>What happened is the function generated a set of row numbers. Note how it is possible for the same row number to be picked multiple times. Each time we run the sample function, we get slightly different row numbers.</p>
 <p>We can subset our data based on these row indices.</p>
-<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="uncertainty.html#cb381-1" aria-hidden="true" tabindex="-1"></a><span class="do">## store row indices</span></span>
-<span id="cb381-2"><a href="uncertainty.html#cb381-2" aria-hidden="true" tabindex="-1"></a>wrows <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(somedata), <span class="fu">nrow</span>(somedata), <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb381-3"><a href="uncertainty.html#cb381-3" aria-hidden="true" tabindex="-1"></a>wrows</span></code></pre></div>
-<pre><code>[1] 1 2 4 7 4 4 4</code></pre>
-<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="uncertainty.html#cb383-1" aria-hidden="true" tabindex="-1"></a><span class="do">## subset data to include rows sampled</span></span>
-<span id="cb383-2"><a href="uncertainty.html#cb383-2" aria-hidden="true" tabindex="-1"></a><span class="do">## note if row indices are in wrows more than once, they will also be in the subset more than once</span></span>
-<span id="cb383-3"><a href="uncertainty.html#cb383-3" aria-hidden="true" tabindex="-1"></a>subdata <span class="ot">&lt;-</span> somedata[wrows,]</span>
-<span id="cb383-4"><a href="uncertainty.html#cb383-4" aria-hidden="true" tabindex="-1"></a>subdata</span></code></pre></div>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="uncertainty.html#cb385-1" aria-hidden="true" tabindex="-1"></a><span class="do">## store row indices</span></span>
+<span id="cb385-2"><a href="uncertainty.html#cb385-2" aria-hidden="true" tabindex="-1"></a>wrows <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(somedata), <span class="fu">nrow</span>(somedata), <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb385-3"><a href="uncertainty.html#cb385-3" aria-hidden="true" tabindex="-1"></a>wrows</span></code></pre></div>
+<pre><code>[1] 4 1 6 3 6 4 6</code></pre>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="uncertainty.html#cb387-1" aria-hidden="true" tabindex="-1"></a><span class="do">## subset data to include rows sampled</span></span>
+<span id="cb387-2"><a href="uncertainty.html#cb387-2" aria-hidden="true" tabindex="-1"></a><span class="do">## note if row indices are in wrows more than once, they will also be in the subset more than once</span></span>
+<span id="cb387-3"><a href="uncertainty.html#cb387-3" aria-hidden="true" tabindex="-1"></a>subdata <span class="ot">&lt;-</span> somedata[wrows,]</span>
+<span id="cb387-4"><a href="uncertainty.html#cb387-4" aria-hidden="true" tabindex="-1"></a>subdata</span></code></pre></div>
 <pre><code>    colors    shapes
-1      red    circle
-2     blue    square
 4    green rectangle
-7    black    sphere
+1      red    circle
+6   orange      line
+3   yellow  triangle
+6.1 orange      line
 4.1  green rectangle
-4.2  green rectangle
-4.3  green rectangle</code></pre>
+6.2 orange      line</code></pre>
 <p>Given that each time the sample function runs, we get slightly different random samples of the data, that’s how we end up with a distribution of slightly different estimates of our quantities of interest. Each time the regression is run with a slightly different dataset.</p>
 </details>
 <p>This gives us one estimate of the average predicted probability stored in <code>p.boot</code>. However, the idea of a bootstrap is that we repeat this procedure at least 1000 times to generate a distribution of estimates of the quantity of interest, the average predicted probability in this case.</p>
@@ -444,48 +485,48 @@ Expand below for more details on what the sample function does.
 <li>We add a final line that tells R what we want it to <code>return()</code> as the output of the function. Here, we want it to return the average predicted probability.</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="uncertainty.html#cb385-1" aria-hidden="true" tabindex="-1"></a><span class="do">## We need to build our bootstrap function</span></span>
-<span id="cb385-2"><a href="uncertainty.html#cb385-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 4: Let&#39;s wrap our current steps into a function that we can replicate</span></span>
-<span id="cb385-3"><a href="uncertainty.html#cb385-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb385-4"><a href="uncertainty.html#cb385-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Note: all we need as an input is our data.frame mids</span></span>
-<span id="cb385-5"><a href="uncertainty.html#cb385-5" aria-hidden="true" tabindex="-1"></a><span class="do">## I will label it something generic to show how a function can work</span></span>
-<span id="cb385-6"><a href="uncertainty.html#cb385-6" aria-hidden="true" tabindex="-1"></a>myboot <span class="ot">&lt;-</span> <span class="cf">function</span>(df){</span>
-<span id="cb385-7"><a href="uncertainty.html#cb385-7" aria-hidden="true" tabindex="-1"></a>  wrows <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span><span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df), <span class="at">size =</span> <span class="fu">nrow</span>(df), <span class="at">replace =</span> T)</span>
-<span id="cb385-8"><a href="uncertainty.html#cb385-8" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Create subset of data based on these rows</span></span>
-<span id="cb385-9"><a href="uncertainty.html#cb385-9" aria-hidden="true" tabindex="-1"></a>  subdata <span class="ot">&lt;-</span> df[wrows, ]</span>
-<span id="cb385-10"><a href="uncertainty.html#cb385-10" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Step 2: run your regression model with the new data</span></span>
-<span id="cb385-11"><a href="uncertainty.html#cb385-11" aria-hidden="true" tabindex="-1"></a>  boot.logit <span class="ot">&lt;-</span><span class="fu">glm</span>(Conflict <span class="sc">~</span>  MajorPower <span class="sc">+</span> Contiguity <span class="sc">+</span> Allies <span class="sc">+</span> ForeignPolicy <span class="sc">+</span></span>
-<span id="cb385-12"><a href="uncertainty.html#cb385-12" aria-hidden="true" tabindex="-1"></a>    BalanceOfPower <span class="sc">+</span> YearsSince, </span>
-<span id="cb385-13"><a href="uncertainty.html#cb385-13" aria-hidden="true" tabindex="-1"></a>                <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>), <span class="at">data =</span> subdata)</span>
-<span id="cb385-14"><a href="uncertainty.html#cb385-14" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Step 3: generate average predicted probability</span></span>
-<span id="cb385-15"><a href="uncertainty.html#cb385-15" aria-hidden="true" tabindex="-1"></a>  Xboot <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(boot.logit)</span>
-<span id="cb385-16"><a href="uncertainty.html#cb385-16" aria-hidden="true" tabindex="-1"></a>  Xboot[, <span class="st">&quot;Allies&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb385-17"><a href="uncertainty.html#cb385-17" aria-hidden="true" tabindex="-1"></a>  Bh <span class="ot">&lt;-</span> <span class="fu">coef</span>(boot.logit)</span>
-<span id="cb385-18"><a href="uncertainty.html#cb385-18" aria-hidden="true" tabindex="-1"></a>  p.boot <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(Xboot <span class="sc">%*%</span> Bh))</span>
-<span id="cb385-19"><a href="uncertainty.html#cb385-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(p.boot)</span>
-<span id="cb385-20"><a href="uncertainty.html#cb385-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="uncertainty.html#cb389-1" aria-hidden="true" tabindex="-1"></a><span class="do">## We need to build our bootstrap function</span></span>
+<span id="cb389-2"><a href="uncertainty.html#cb389-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 4: Let&#39;s wrap our current steps into a function that we can replicate</span></span>
+<span id="cb389-3"><a href="uncertainty.html#cb389-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb389-4"><a href="uncertainty.html#cb389-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Note: all we need as an input is our data.frame mids</span></span>
+<span id="cb389-5"><a href="uncertainty.html#cb389-5" aria-hidden="true" tabindex="-1"></a><span class="do">## I will label it something generic to show how a function can work</span></span>
+<span id="cb389-6"><a href="uncertainty.html#cb389-6" aria-hidden="true" tabindex="-1"></a>myboot <span class="ot">&lt;-</span> <span class="cf">function</span>(df){</span>
+<span id="cb389-7"><a href="uncertainty.html#cb389-7" aria-hidden="true" tabindex="-1"></a>  wrows <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span><span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df), <span class="at">size =</span> <span class="fu">nrow</span>(df), <span class="at">replace =</span> T)</span>
+<span id="cb389-8"><a href="uncertainty.html#cb389-8" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Create subset of data based on these rows</span></span>
+<span id="cb389-9"><a href="uncertainty.html#cb389-9" aria-hidden="true" tabindex="-1"></a>  subdata <span class="ot">&lt;-</span> df[wrows, ]</span>
+<span id="cb389-10"><a href="uncertainty.html#cb389-10" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Step 2: run your regression model with the new data</span></span>
+<span id="cb389-11"><a href="uncertainty.html#cb389-11" aria-hidden="true" tabindex="-1"></a>  boot.logit <span class="ot">&lt;-</span><span class="fu">glm</span>(Conflict <span class="sc">~</span>  MajorPower <span class="sc">+</span> Contiguity <span class="sc">+</span> Allies <span class="sc">+</span> ForeignPolicy <span class="sc">+</span></span>
+<span id="cb389-12"><a href="uncertainty.html#cb389-12" aria-hidden="true" tabindex="-1"></a>    BalanceOfPower <span class="sc">+</span> YearsSince, </span>
+<span id="cb389-13"><a href="uncertainty.html#cb389-13" aria-hidden="true" tabindex="-1"></a>                <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>), <span class="at">data =</span> subdata)</span>
+<span id="cb389-14"><a href="uncertainty.html#cb389-14" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Step 3: generate average predicted probability</span></span>
+<span id="cb389-15"><a href="uncertainty.html#cb389-15" aria-hidden="true" tabindex="-1"></a>  Xboot <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(boot.logit)</span>
+<span id="cb389-16"><a href="uncertainty.html#cb389-16" aria-hidden="true" tabindex="-1"></a>  Xboot[, <span class="st">&quot;Allies&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb389-17"><a href="uncertainty.html#cb389-17" aria-hidden="true" tabindex="-1"></a>  Bh <span class="ot">&lt;-</span> <span class="fu">coef</span>(boot.logit)</span>
+<span id="cb389-18"><a href="uncertainty.html#cb389-18" aria-hidden="true" tabindex="-1"></a>  p.boot <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(Xboot <span class="sc">%*%</span> Bh))</span>
+<span id="cb389-19"><a href="uncertainty.html#cb389-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(p.boot)</span>
+<span id="cb389-20"><a href="uncertainty.html#cb389-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Note: here, our quantity of interest is the predicted probability of a dispute when the dyad are Allies. Let’s say, instead, we wanted the difference in predicted probability of a dispute between Allies and Non-Allies. Well, we would just adjust our function to calculate the mean probabilities for Allies and Non-Allies and return the difference in these means as the quantity of interest. We would then get 10000 estimates of this <strong><em>difference</em></strong> in probabilties.</p>
 <p>Now that we have the function from above, instead of copying/pasting this 1000 times, we will use the function called <code>replicate</code> which will do this for us. We indicate the number of estimates we want and then indicate which function (and in our case, which dataframe inside the function) we want to replicate.</p>
-<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="uncertainty.html#cb386-1" aria-hidden="true" tabindex="-1"></a><span class="do">## This may take a minute to run. </span></span>
-<span id="cb386-2"><a href="uncertainty.html#cb386-2" aria-hidden="true" tabindex="-1"></a><span class="do">## We will do just 50, Normally you will want this to be more like 1000</span></span>
-<span id="cb386-3"><a href="uncertainty.html#cb386-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>) <span class="co"># this helps us get the same results each time, good for reproducibility</span></span>
-<span id="cb386-4"><a href="uncertainty.html#cb386-4" aria-hidden="true" tabindex="-1"></a>myestimates <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">50</span>, <span class="fu">myboot</span>(mids))</span></code></pre></div>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="uncertainty.html#cb390-1" aria-hidden="true" tabindex="-1"></a><span class="do">## This may take a minute to run. </span></span>
+<span id="cb390-2"><a href="uncertainty.html#cb390-2" aria-hidden="true" tabindex="-1"></a><span class="do">## We will do just 50, Normally you will want this to be more like 1000</span></span>
+<span id="cb390-3"><a href="uncertainty.html#cb390-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>) <span class="co"># this helps us get the same results each time, good for reproducibility</span></span>
+<span id="cb390-4"><a href="uncertainty.html#cb390-4" aria-hidden="true" tabindex="-1"></a>myestimates <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">50</span>, <span class="fu">myboot</span>(mids))</span></code></pre></div>
 <p>The bootstrapping approach is very computationally demanding given it has to repeat an operation several (thousand) times. After you hit “run,” just sit back, relax and wait for the <a href="https://www.youtube.com/watch?v=9N9opF-PK5k">water to run dry.</a></p>
 <details>
 <summary>
 For a troubleshooting tip, expand.
 </summary>
 <p>If you get an error message at the <code>replicate(1000, myboot(mids))</code> stage, it is best to see if your function runs at all. Try just the below to see if it generates output:</p>
-<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="uncertainty.html#cb387-1" aria-hidden="true" tabindex="-1"></a><span class="fu">myboot</span>(mids)</span></code></pre></div>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="uncertainty.html#cb391-1" aria-hidden="true" tabindex="-1"></a><span class="fu">myboot</span>(mids)</span></code></pre></div>
 <pre><code>[1] 0.002250429</code></pre>
 If you get the error here, then it means there is a bug within the function code, not the replicate code.
 </details>
 <p>Each time we replicate the function, it will generate slightly different results because the <code>sample</code> functions is randoming sampling rows of data each time. We can plot the distribution of estimates to show this.</p>
-<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="uncertainty.html#cb389-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb389-2"><a href="uncertainty.html#cb389-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> myestimates), <span class="fu">aes</span>(<span class="at">x =</span> myestimates)) <span class="sc">+</span> </span>
-<span id="cb389-3"><a href="uncertainty.html#cb389-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y=</span>..density..)) <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">color=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="uncertainty.html#cb393-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb393-2"><a href="uncertainty.html#cb393-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> myestimates), <span class="fu">aes</span>(<span class="at">x =</span> myestimates)) <span class="sc">+</span> </span>
+<span id="cb393-3"><a href="uncertainty.html#cb393-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y=</span>..density..)) <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">color=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-168-1.svg" width="672" /></p>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-169-1.svg" width="672" /></p>
 <p>The final step after generating the bootstrap distribution of estimates is to use it to construct a confidence interval for the quantity of interest. There are a few ways to do this.</p>
 <ul>
 <li>Normal approximation</li>
@@ -493,22 +534,22 @@ If you get the error here, then it means there is a bug within the function code
 <li>Bias correction</li>
 </ul>
 <p>In each approach, we take our original “point estimate” from the computation of the quantity of interest from our original data and use the bootstrap estimates for the lower and upper bounds of the confidence interval. Here we will assume we want a 95% confidence interval.</p>
-<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="uncertainty.html#cb391-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Find the original point estimate</span></span>
-<span id="cb391-2"><a href="uncertainty.html#cb391-2" aria-hidden="true" tabindex="-1"></a>Bh <span class="ot">&lt;-</span> <span class="fu">coef</span>(out.logit)</span>
-<span id="cb391-3"><a href="uncertainty.html#cb391-3" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(out.logit)</span>
-<span id="cb391-4"><a href="uncertainty.html#cb391-4" aria-hidden="true" tabindex="-1"></a>X1[, <span class="st">&quot;Allies&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb391-5"><a href="uncertainty.html#cb391-5" aria-hidden="true" tabindex="-1"></a>pe1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(X1 <span class="sc">%*%</span> Bh))</span>
-<span id="cb391-6"><a href="uncertainty.html#cb391-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb391-7"><a href="uncertainty.html#cb391-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Normal</span></span>
-<span id="cb391-8"><a href="uncertainty.html#cb391-8" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>((pe1 <span class="sc">-</span> <span class="fu">qnorm</span>(.<span class="dv">975</span>)<span class="sc">*</span><span class="fu">sqrt</span>(<span class="fu">var</span>(myestimates))),(pe1 <span class="sc">+</span> <span class="fu">qnorm</span>(.<span class="dv">975</span>)<span class="sc">*</span><span class="fu">sqrt</span>(<span class="fu">var</span>(myestimates))))</span></code></pre></div>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="uncertainty.html#cb395-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Find the original point estimate</span></span>
+<span id="cb395-2"><a href="uncertainty.html#cb395-2" aria-hidden="true" tabindex="-1"></a>Bh <span class="ot">&lt;-</span> <span class="fu">coef</span>(out.logit)</span>
+<span id="cb395-3"><a href="uncertainty.html#cb395-3" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(out.logit)</span>
+<span id="cb395-4"><a href="uncertainty.html#cb395-4" aria-hidden="true" tabindex="-1"></a>X1[, <span class="st">&quot;Allies&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb395-5"><a href="uncertainty.html#cb395-5" aria-hidden="true" tabindex="-1"></a>pe1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(X1 <span class="sc">%*%</span> Bh))</span>
+<span id="cb395-6"><a href="uncertainty.html#cb395-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb395-7"><a href="uncertainty.html#cb395-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Normal</span></span>
+<span id="cb395-8"><a href="uncertainty.html#cb395-8" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>((pe1 <span class="sc">-</span> <span class="fu">qnorm</span>(.<span class="dv">975</span>)<span class="sc">*</span><span class="fu">sqrt</span>(<span class="fu">var</span>(myestimates))),(pe1 <span class="sc">+</span> <span class="fu">qnorm</span>(.<span class="dv">975</span>)<span class="sc">*</span><span class="fu">sqrt</span>(<span class="fu">var</span>(myestimates))))</span></code></pre></div>
 <pre><code>[1] 0.002174802 0.003345002</code></pre>
-<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="uncertainty.html#cb393-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Percentile</span></span>
-<span id="cb393-2"><a href="uncertainty.html#cb393-2" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(myestimates, <span class="fu">c</span>(<span class="fl">0.025</span>, .<span class="dv">975</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="uncertainty.html#cb397-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Percentile</span></span>
+<span id="cb397-2"><a href="uncertainty.html#cb397-2" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(myestimates, <span class="fu">c</span>(<span class="fl">0.025</span>, .<span class="dv">975</span>))</span></code></pre></div>
 <pre><code>       2.5%       97.5% 
 0.002275356 0.003431285 </code></pre>
-<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="uncertainty.html#cb395-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Bias correction</span></span>
-<span id="cb395-2"><a href="uncertainty.html#cb395-2" aria-hidden="true" tabindex="-1"></a>bc <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>pe1 <span class="sc">-</span> myestimates</span>
-<span id="cb395-3"><a href="uncertainty.html#cb395-3" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(bc, <span class="fu">c</span>(<span class="fl">0.025</span>, .<span class="dv">975</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="uncertainty.html#cb399-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Bias correction</span></span>
+<span id="cb399-2"><a href="uncertainty.html#cb399-2" aria-hidden="true" tabindex="-1"></a>bc <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>pe1 <span class="sc">-</span> myestimates</span>
+<span id="cb399-3"><a href="uncertainty.html#cb399-3" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(bc, <span class="fu">c</span>(<span class="fl">0.025</span>, .<span class="dv">975</span>))</span></code></pre></div>
 <pre><code>       2.5%       97.5% 
 0.002088520 0.003244449 </code></pre>
 <p>Each of these is pretty commonly used, but they may generate slightly different results.</p>
@@ -537,45 +578,45 @@ If you get the error here, then it means there is a bug within the function code
 <p><strong><em>Example</em></strong></p>
 <p>The code for this approach will more simple in a case where we are computing quantities of interest when covariates are held at means or representative values (cases where we get just one predicted probability associated with each set of <span class="math inline">\(X\)</span> values). It will look a little more complex in cases where we want to hold covariates at observed values and calculate the average predicted probability.</p>
 <p>First, let’s find the point estimate and 95% CI for the predicted probability of conflict when the dyad are Allies, and all other covariates are held at zero.</p>
-<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="uncertainty.html#cb397-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;mvtnorm&quot;)</span></span>
-<span id="cb397-2"><a href="uncertainty.html#cb397-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mvtnorm)</span>
-<span id="cb397-3"><a href="uncertainty.html#cb397-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb397-4"><a href="uncertainty.html#cb397-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 2: Sample 1000 new Bhs (we will use 50 for this example)</span></span>
-<span id="cb397-5"><a href="uncertainty.html#cb397-5" aria-hidden="true" tabindex="-1"></a><span class="do">## This uses the multivariate normal distribution for resampling</span></span>
-<span id="cb397-6"><a href="uncertainty.html#cb397-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb397-7"><a href="uncertainty.html#cb397-7" aria-hidden="true" tabindex="-1"></a>numsims <span class="ot">&lt;-</span> <span class="dv">50</span></span>
-<span id="cb397-8"><a href="uncertainty.html#cb397-8" aria-hidden="true" tabindex="-1"></a>qb.beta <span class="ot">&lt;-</span> <span class="fu">rmvnorm</span>(numsims, <span class="fu">coef</span>(out.logit), <span class="fu">vcov</span>(out.logit)) </span>
-<span id="cb397-9"><a href="uncertainty.html#cb397-9" aria-hidden="true" tabindex="-1"></a><span class="do">## This generates numsims X k coefficients matrix</span></span>
-<span id="cb397-10"><a href="uncertainty.html#cb397-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb397-11"><a href="uncertainty.html#cb397-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 3: Iterate through the estimates</span></span>
-<span id="cb397-12"><a href="uncertainty.html#cb397-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Create an empty vector to store 1000 quantities of interest</span></span>
-<span id="cb397-13"><a href="uncertainty.html#cb397-13" aria-hidden="true" tabindex="-1"></a>qestimatessimple <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, numsims)</span>
-<span id="cb397-14"><a href="uncertainty.html#cb397-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb397-15"><a href="uncertainty.html#cb397-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Here, our covariate matrix stays the same each time</span></span>
-<span id="cb397-16"><a href="uncertainty.html#cb397-16" aria-hidden="true" tabindex="-1"></a><span class="do">## We have a 1 for intercept and 1 for Allies, everything else at zero</span></span>
-<span id="cb397-17"><a href="uncertainty.html#cb397-17" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span> , <span class="dv">0</span>) </span>
-<span id="cb397-18"><a href="uncertainty.html#cb397-18" aria-hidden="true" tabindex="-1"></a><span class="do">## X1 is a 1 X k matrix</span></span>
-<span id="cb397-19"><a href="uncertainty.html#cb397-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb397-20"><a href="uncertainty.html#cb397-20" aria-hidden="true" tabindex="-1"></a><span class="do">## Use a loop to iterate through each set of betas</span></span>
-<span id="cb397-21"><a href="uncertainty.html#cb397-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>numsims){</span>
-<span id="cb397-22"><a href="uncertainty.html#cb397-22" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb397-23"><a href="uncertainty.html#cb397-23" aria-hidden="true" tabindex="-1"></a>  <span class="do">## for each set of betas, calculate p probs</span></span>
-<span id="cb397-24"><a href="uncertainty.html#cb397-24" aria-hidden="true" tabindex="-1"></a>  <span class="do">## for a given set of betas, this gives us nrow(X1) predicted probabilities</span></span>
-<span id="cb397-25"><a href="uncertainty.html#cb397-25" aria-hidden="true" tabindex="-1"></a>  pestimate <span class="ot">&lt;-</span><span class="fu">plogis</span>(X1 <span class="sc">%*%</span> qb.beta[i,])</span>
-<span id="cb397-26"><a href="uncertainty.html#cb397-26" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb397-27"><a href="uncertainty.html#cb397-27" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Fundamental uncertainty</span></span>
-<span id="cb397-28"><a href="uncertainty.html#cb397-28" aria-hidden="true" tabindex="-1"></a>  <span class="do">## not required for logit/probit, but we will show how</span></span>
-<span id="cb397-29"><a href="uncertainty.html#cb397-29" aria-hidden="true" tabindex="-1"></a>  <span class="do">## rbinom generates 1000 0&#39;s or 1&#39;s based on the predicted probability</span></span>
-<span id="cb397-30"><a href="uncertainty.html#cb397-30" aria-hidden="true" tabindex="-1"></a>  <span class="do">## We use rbinom bc of the bernoulli, other glm&#39;s will have other distributions</span></span>
-<span id="cb397-31"><a href="uncertainty.html#cb397-31" aria-hidden="true" tabindex="-1"></a>  <span class="do">## then we take the mean to get our estimate of the predicted probability</span></span>
-<span id="cb397-32"><a href="uncertainty.html#cb397-32" aria-hidden="true" tabindex="-1"></a>  moutcome <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">rbinom</span>(numsims, <span class="dv">1</span>, pestimate))</span>
-<span id="cb397-33"><a href="uncertainty.html#cb397-33" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb397-34"><a href="uncertainty.html#cb397-34" aria-hidden="true" tabindex="-1"></a>  qestimatessimple[i] <span class="ot">&lt;-</span>moutcome</span>
-<span id="cb397-35"><a href="uncertainty.html#cb397-35" aria-hidden="true" tabindex="-1"></a>  <span class="do">## repeat for set of simulated betas</span></span>
-<span id="cb397-36"><a href="uncertainty.html#cb397-36" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb397-37"><a href="uncertainty.html#cb397-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb397-38"><a href="uncertainty.html#cb397-38" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 4: Similar to bootstrap distribution, find CI using the percentiles</span></span>
-<span id="cb397-39"><a href="uncertainty.html#cb397-39" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(qestimatessimple, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="uncertainty.html#cb401-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;mvtnorm&quot;)</span></span>
+<span id="cb401-2"><a href="uncertainty.html#cb401-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mvtnorm)</span>
+<span id="cb401-3"><a href="uncertainty.html#cb401-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb401-4"><a href="uncertainty.html#cb401-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 2: Sample 1000 new Bhs (we will use 50 for this example)</span></span>
+<span id="cb401-5"><a href="uncertainty.html#cb401-5" aria-hidden="true" tabindex="-1"></a><span class="do">## This uses the multivariate normal distribution for resampling</span></span>
+<span id="cb401-6"><a href="uncertainty.html#cb401-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb401-7"><a href="uncertainty.html#cb401-7" aria-hidden="true" tabindex="-1"></a>numsims <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb401-8"><a href="uncertainty.html#cb401-8" aria-hidden="true" tabindex="-1"></a>qb.beta <span class="ot">&lt;-</span> <span class="fu">rmvnorm</span>(numsims, <span class="fu">coef</span>(out.logit), <span class="fu">vcov</span>(out.logit)) </span>
+<span id="cb401-9"><a href="uncertainty.html#cb401-9" aria-hidden="true" tabindex="-1"></a><span class="do">## This generates numsims X k coefficients matrix</span></span>
+<span id="cb401-10"><a href="uncertainty.html#cb401-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb401-11"><a href="uncertainty.html#cb401-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 3: Iterate through the estimates</span></span>
+<span id="cb401-12"><a href="uncertainty.html#cb401-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Create an empty vector to store 1000 quantities of interest</span></span>
+<span id="cb401-13"><a href="uncertainty.html#cb401-13" aria-hidden="true" tabindex="-1"></a>qestimatessimple <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, numsims)</span>
+<span id="cb401-14"><a href="uncertainty.html#cb401-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb401-15"><a href="uncertainty.html#cb401-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Here, our covariate matrix stays the same each time</span></span>
+<span id="cb401-16"><a href="uncertainty.html#cb401-16" aria-hidden="true" tabindex="-1"></a><span class="do">## We have a 1 for intercept and 1 for Allies, everything else at zero</span></span>
+<span id="cb401-17"><a href="uncertainty.html#cb401-17" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span> , <span class="dv">0</span>) </span>
+<span id="cb401-18"><a href="uncertainty.html#cb401-18" aria-hidden="true" tabindex="-1"></a><span class="do">## X1 is a 1 X k matrix</span></span>
+<span id="cb401-19"><a href="uncertainty.html#cb401-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb401-20"><a href="uncertainty.html#cb401-20" aria-hidden="true" tabindex="-1"></a><span class="do">## Use a loop to iterate through each set of betas</span></span>
+<span id="cb401-21"><a href="uncertainty.html#cb401-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>numsims){</span>
+<span id="cb401-22"><a href="uncertainty.html#cb401-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb401-23"><a href="uncertainty.html#cb401-23" aria-hidden="true" tabindex="-1"></a>  <span class="do">## for each set of betas, calculate p probs</span></span>
+<span id="cb401-24"><a href="uncertainty.html#cb401-24" aria-hidden="true" tabindex="-1"></a>  <span class="do">## for a given set of betas, this gives us nrow(X1) predicted probabilities</span></span>
+<span id="cb401-25"><a href="uncertainty.html#cb401-25" aria-hidden="true" tabindex="-1"></a>  pestimate <span class="ot">&lt;-</span><span class="fu">plogis</span>(X1 <span class="sc">%*%</span> qb.beta[i,])</span>
+<span id="cb401-26"><a href="uncertainty.html#cb401-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb401-27"><a href="uncertainty.html#cb401-27" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Fundamental uncertainty</span></span>
+<span id="cb401-28"><a href="uncertainty.html#cb401-28" aria-hidden="true" tabindex="-1"></a>  <span class="do">## not required for logit/probit, but we will show how</span></span>
+<span id="cb401-29"><a href="uncertainty.html#cb401-29" aria-hidden="true" tabindex="-1"></a>  <span class="do">## rbinom generates 1000 0&#39;s or 1&#39;s based on the predicted probability</span></span>
+<span id="cb401-30"><a href="uncertainty.html#cb401-30" aria-hidden="true" tabindex="-1"></a>  <span class="do">## We use rbinom bc of the bernoulli, other glm&#39;s will have other distributions</span></span>
+<span id="cb401-31"><a href="uncertainty.html#cb401-31" aria-hidden="true" tabindex="-1"></a>  <span class="do">## then we take the mean to get our estimate of the predicted probability</span></span>
+<span id="cb401-32"><a href="uncertainty.html#cb401-32" aria-hidden="true" tabindex="-1"></a>  moutcome <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">rbinom</span>(numsims, <span class="dv">1</span>, pestimate))</span>
+<span id="cb401-33"><a href="uncertainty.html#cb401-33" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb401-34"><a href="uncertainty.html#cb401-34" aria-hidden="true" tabindex="-1"></a>  qestimatessimple[i] <span class="ot">&lt;-</span>moutcome</span>
+<span id="cb401-35"><a href="uncertainty.html#cb401-35" aria-hidden="true" tabindex="-1"></a>  <span class="do">## repeat for set of simulated betas</span></span>
+<span id="cb401-36"><a href="uncertainty.html#cb401-36" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb401-37"><a href="uncertainty.html#cb401-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb401-38"><a href="uncertainty.html#cb401-38" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 4: Similar to bootstrap distribution, find CI using the percentiles</span></span>
+<span id="cb401-39"><a href="uncertainty.html#cb401-39" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(qestimatessimple, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div>
 <pre><code> 2.5% 97.5% 
  0.00  0.02 </code></pre>
 <p>For more information on loops in R, you can follow this <a href="https://drive.google.com/file/d/18sX5B5bXum0WPC5sRhQIHtJAwEh76VIn/view?usp=sharing">tutorial</a> we created for 2020 SICSS-Rutgers.</p>
@@ -585,100 +626,100 @@ Expand for details on rbinom.
 </summary>
 <p><code>rbinom</code> is the random generation function for the binomial distribution. If we supply it with number of trials (in the Bernoulli, this is 1), and a probability of success, it will generate our desired number of outcomes according to this distribution.</p>
 <p>For example, let’s say we wanted to generate a random set of 100 coin flips for a coin that is fair– where the probability of success is .5. We will get a sample of 0’s and 1’s. If we take the mean, it will be close to .5, and with enough coin flips, will converge on .5.</p>
-<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="uncertainty.html#cb399-1" aria-hidden="true" tabindex="-1"></a>rb.res <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">100</span>, <span class="dv">1</span>, .<span class="dv">5</span>)</span>
-<span id="cb399-2"><a href="uncertainty.html#cb399-2" aria-hidden="true" tabindex="-1"></a>rb.res</span></code></pre></div>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="uncertainty.html#cb403-1" aria-hidden="true" tabindex="-1"></a>rb.res <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">100</span>, <span class="dv">1</span>, .<span class="dv">5</span>)</span>
+<span id="cb403-2"><a href="uncertainty.html#cb403-2" aria-hidden="true" tabindex="-1"></a>rb.res</span></code></pre></div>
 <pre><code>  [1] 0 1 0 0 0 0 1 0 0 0 1 0 1 1 0 1 0 1 0 0 1 0 1 0 1 1 0 1 0 1 0 1 1 1 1 0 0
  [38] 0 0 0 0 1 1 1 1 0 1 0 1 0 1 1 0 1 1 0 0 0 0 0 0 1 1 0 0 1 0 1 0 0 0 0 1 1
  [75] 1 1 1 1 0 0 1 0 1 0 0 1 0 1 1 0 1 1 1 1 1 1 0 1 0 0</code></pre>
-<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="uncertainty.html#cb401-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(rb.res)</span></code></pre></div>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="uncertainty.html#cb405-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(rb.res)</span></code></pre></div>
 <pre><code>[1] 0.49</code></pre>
 <p>In logit/probit, this step is unneccessary because the <span class="math inline">\(\mathbb{E}(y_i) = \pi_i\)</span>. When we take the mean of our <code>rbinom</code> estimates, we are just going to recover the probability we supplied to it.</p>
 <p>However, in other cases, Jensen’s inequality may apply, which states that <span class="math inline">\(\mathbb{E}[g(X)] \neq g(\mathbb{E}[X])\)</span>. For example, if we have an outcome that is distributed according to the exponential distribution: Here, the <span class="math inline">\(\theta\)</span> is <span class="math inline">\(\lambda\)</span> where <span class="math inline">\(\lambda = \frac{1}{e^{X\beta}}\)</span> but <span class="math inline">\(\mathbb{E}(y)= \frac{1}{\lambda}\)</span>. Unfortunately, <span class="math inline">\(\mathbb{E}(\frac{1}{\hat \lambda}) \neq \frac{1}{\mathbb{E}(\hat \lambda)} = \frac{1}{\mathbb{E}(e^{X\beta})}\)</span>. For that example, the <code>rexp()</code> step in this case would be essential.</p>
 If we’re not sure when Jensen’s inequality will apply, we can just keep the fundamental uncertainty step as part of the process.
 </details>
 <p>Find the point estimate and 95% CI for the average predicted probability of conflict when the dyad are allies and all other covariates are held at observed values. Here, the code is more complicated, because every time we generate a predicted probability (for any observed value), we need to go through the fundamental uncertainty step (when applicable).</p>
-<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="uncertainty.html#cb403-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;mvtnorm&quot;)</span></span>
-<span id="cb403-2"><a href="uncertainty.html#cb403-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mvtnorm)</span>
-<span id="cb403-3"><a href="uncertainty.html#cb403-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb403-4"><a href="uncertainty.html#cb403-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 2: Sample 1000 new Bhs (we will use 50 for this example)</span></span>
-<span id="cb403-5"><a href="uncertainty.html#cb403-5" aria-hidden="true" tabindex="-1"></a><span class="do">## This uses the multivariate normal distribution for resampling</span></span>
-<span id="cb403-6"><a href="uncertainty.html#cb403-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb403-7"><a href="uncertainty.html#cb403-7" aria-hidden="true" tabindex="-1"></a>numsims <span class="ot">&lt;-</span> <span class="dv">50</span></span>
-<span id="cb403-8"><a href="uncertainty.html#cb403-8" aria-hidden="true" tabindex="-1"></a>qb.beta <span class="ot">&lt;-</span> <span class="fu">rmvnorm</span>(numsims, <span class="fu">coef</span>(out.logit), <span class="fu">vcov</span>(out.logit)) </span>
-<span id="cb403-9"><a href="uncertainty.html#cb403-9" aria-hidden="true" tabindex="-1"></a><span class="do">## This generates numsims X k coefficients matrix</span></span>
-<span id="cb403-10"><a href="uncertainty.html#cb403-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb403-11"><a href="uncertainty.html#cb403-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 3: Iterate through the estimates</span></span>
-<span id="cb403-12"><a href="uncertainty.html#cb403-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Create an empty vector to store 1000 quantities of interest</span></span>
-<span id="cb403-13"><a href="uncertainty.html#cb403-13" aria-hidden="true" tabindex="-1"></a>qestimates <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, numsims)</span>
-<span id="cb403-14"><a href="uncertainty.html#cb403-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb403-15"><a href="uncertainty.html#cb403-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Here, our covariate matrix stays the same</span></span>
-<span id="cb403-16"><a href="uncertainty.html#cb403-16" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(out.logit)</span>
-<span id="cb403-17"><a href="uncertainty.html#cb403-17" aria-hidden="true" tabindex="-1"></a>X1[, <span class="st">&quot;Allies&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb403-18"><a href="uncertainty.html#cb403-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb403-19"><a href="uncertainty.html#cb403-19" aria-hidden="true" tabindex="-1"></a><span class="do">## Use a loop to </span></span>
-<span id="cb403-20"><a href="uncertainty.html#cb403-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>numsims){</span>
-<span id="cb403-21"><a href="uncertainty.html#cb403-21" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb403-22"><a href="uncertainty.html#cb403-22" aria-hidden="true" tabindex="-1"></a>  <span class="do">## for each set of betas, calculate p probs</span></span>
-<span id="cb403-23"><a href="uncertainty.html#cb403-23" aria-hidden="true" tabindex="-1"></a>  <span class="do">## for a given set of betas, this gives us nrow(X1) predicted probabilities</span></span>
-<span id="cb403-24"><a href="uncertainty.html#cb403-24" aria-hidden="true" tabindex="-1"></a>  pestimates <span class="ot">&lt;-</span><span class="fu">plogis</span>(X1 <span class="sc">%*%</span> qb.beta[i,])</span>
-<span id="cb403-25"><a href="uncertainty.html#cb403-25" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb403-26"><a href="uncertainty.html#cb403-26" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Fundamental uncertainty</span></span>
-<span id="cb403-27"><a href="uncertainty.html#cb403-27" aria-hidden="true" tabindex="-1"></a>  <span class="do">## not required for logit/probit, but we will show how</span></span>
-<span id="cb403-28"><a href="uncertainty.html#cb403-28" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb403-29"><a href="uncertainty.html#cb403-29" aria-hidden="true" tabindex="-1"></a>  <span class="do">## generate empty vector for outcomes</span></span>
-<span id="cb403-30"><a href="uncertainty.html#cb403-30" aria-hidden="true" tabindex="-1"></a>  moutcomes <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, numsims)</span>
-<span id="cb403-31"><a href="uncertainty.html#cb403-31" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb403-32"><a href="uncertainty.html#cb403-32" aria-hidden="true" tabindex="-1"></a>  <span class="do">## for each probability estimate, calculate the mean of simulated y&#39;s</span></span>
-<span id="cb403-33"><a href="uncertainty.html#cb403-33" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(pestimates)){</span>
-<span id="cb403-34"><a href="uncertainty.html#cb403-34" aria-hidden="true" tabindex="-1"></a>    <span class="do">## rbinom generates 1000 0&#39;s or 1&#39;s based on the predicted probability</span></span>
-<span id="cb403-35"><a href="uncertainty.html#cb403-35" aria-hidden="true" tabindex="-1"></a>    <span class="do">## We use rbinom bc of the bernoulli, other glm&#39;s will have other distributions</span></span>
-<span id="cb403-36"><a href="uncertainty.html#cb403-36" aria-hidden="true" tabindex="-1"></a>    <span class="do">## then we take the mean to get our estimate of the predicted probability for a given observation</span></span>
-<span id="cb403-37"><a href="uncertainty.html#cb403-37" aria-hidden="true" tabindex="-1"></a>    moutcomes[j] <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">rbinom</span>(numsims, <span class="dv">1</span>, pestimates[j]))</span>
-<span id="cb403-38"><a href="uncertainty.html#cb403-38" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb403-39"><a href="uncertainty.html#cb403-39" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb403-40"><a href="uncertainty.html#cb403-40" aria-hidden="true" tabindex="-1"></a>  <span class="do">## take the mean of the predicted probability estimates across all observations</span></span>
-<span id="cb403-41"><a href="uncertainty.html#cb403-41" aria-hidden="true" tabindex="-1"></a>  qestimates[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(moutcomes)</span>
-<span id="cb403-42"><a href="uncertainty.html#cb403-42" aria-hidden="true" tabindex="-1"></a>  <span class="do">## repeat for set of simulated betas</span></span>
-<span id="cb403-43"><a href="uncertainty.html#cb403-43" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb403-44"><a href="uncertainty.html#cb403-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb403-45"><a href="uncertainty.html#cb403-45" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 4: Similar to bootstrap distribution, find CI using the percentiles</span></span>
-<span id="cb403-46"><a href="uncertainty.html#cb403-46" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(qestimates, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="uncertainty.html#cb407-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;mvtnorm&quot;)</span></span>
+<span id="cb407-2"><a href="uncertainty.html#cb407-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mvtnorm)</span>
+<span id="cb407-3"><a href="uncertainty.html#cb407-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb407-4"><a href="uncertainty.html#cb407-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 2: Sample 1000 new Bhs (we will use 50 for this example)</span></span>
+<span id="cb407-5"><a href="uncertainty.html#cb407-5" aria-hidden="true" tabindex="-1"></a><span class="do">## This uses the multivariate normal distribution for resampling</span></span>
+<span id="cb407-6"><a href="uncertainty.html#cb407-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb407-7"><a href="uncertainty.html#cb407-7" aria-hidden="true" tabindex="-1"></a>numsims <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb407-8"><a href="uncertainty.html#cb407-8" aria-hidden="true" tabindex="-1"></a>qb.beta <span class="ot">&lt;-</span> <span class="fu">rmvnorm</span>(numsims, <span class="fu">coef</span>(out.logit), <span class="fu">vcov</span>(out.logit)) </span>
+<span id="cb407-9"><a href="uncertainty.html#cb407-9" aria-hidden="true" tabindex="-1"></a><span class="do">## This generates numsims X k coefficients matrix</span></span>
+<span id="cb407-10"><a href="uncertainty.html#cb407-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb407-11"><a href="uncertainty.html#cb407-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 3: Iterate through the estimates</span></span>
+<span id="cb407-12"><a href="uncertainty.html#cb407-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Create an empty vector to store 1000 quantities of interest</span></span>
+<span id="cb407-13"><a href="uncertainty.html#cb407-13" aria-hidden="true" tabindex="-1"></a>qestimates <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, numsims)</span>
+<span id="cb407-14"><a href="uncertainty.html#cb407-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb407-15"><a href="uncertainty.html#cb407-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Here, our covariate matrix stays the same</span></span>
+<span id="cb407-16"><a href="uncertainty.html#cb407-16" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(out.logit)</span>
+<span id="cb407-17"><a href="uncertainty.html#cb407-17" aria-hidden="true" tabindex="-1"></a>X1[, <span class="st">&quot;Allies&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb407-18"><a href="uncertainty.html#cb407-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb407-19"><a href="uncertainty.html#cb407-19" aria-hidden="true" tabindex="-1"></a><span class="do">## Use a loop to </span></span>
+<span id="cb407-20"><a href="uncertainty.html#cb407-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>numsims){</span>
+<span id="cb407-21"><a href="uncertainty.html#cb407-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb407-22"><a href="uncertainty.html#cb407-22" aria-hidden="true" tabindex="-1"></a>  <span class="do">## for each set of betas, calculate p probs</span></span>
+<span id="cb407-23"><a href="uncertainty.html#cb407-23" aria-hidden="true" tabindex="-1"></a>  <span class="do">## for a given set of betas, this gives us nrow(X1) predicted probabilities</span></span>
+<span id="cb407-24"><a href="uncertainty.html#cb407-24" aria-hidden="true" tabindex="-1"></a>  pestimates <span class="ot">&lt;-</span><span class="fu">plogis</span>(X1 <span class="sc">%*%</span> qb.beta[i,])</span>
+<span id="cb407-25"><a href="uncertainty.html#cb407-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb407-26"><a href="uncertainty.html#cb407-26" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Fundamental uncertainty</span></span>
+<span id="cb407-27"><a href="uncertainty.html#cb407-27" aria-hidden="true" tabindex="-1"></a>  <span class="do">## not required for logit/probit, but we will show how</span></span>
+<span id="cb407-28"><a href="uncertainty.html#cb407-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb407-29"><a href="uncertainty.html#cb407-29" aria-hidden="true" tabindex="-1"></a>  <span class="do">## generate empty vector for outcomes</span></span>
+<span id="cb407-30"><a href="uncertainty.html#cb407-30" aria-hidden="true" tabindex="-1"></a>  moutcomes <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, numsims)</span>
+<span id="cb407-31"><a href="uncertainty.html#cb407-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb407-32"><a href="uncertainty.html#cb407-32" aria-hidden="true" tabindex="-1"></a>  <span class="do">## for each probability estimate, calculate the mean of simulated y&#39;s</span></span>
+<span id="cb407-33"><a href="uncertainty.html#cb407-33" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(pestimates)){</span>
+<span id="cb407-34"><a href="uncertainty.html#cb407-34" aria-hidden="true" tabindex="-1"></a>    <span class="do">## rbinom generates 1000 0&#39;s or 1&#39;s based on the predicted probability</span></span>
+<span id="cb407-35"><a href="uncertainty.html#cb407-35" aria-hidden="true" tabindex="-1"></a>    <span class="do">## We use rbinom bc of the bernoulli, other glm&#39;s will have other distributions</span></span>
+<span id="cb407-36"><a href="uncertainty.html#cb407-36" aria-hidden="true" tabindex="-1"></a>    <span class="do">## then we take the mean to get our estimate of the predicted probability for a given observation</span></span>
+<span id="cb407-37"><a href="uncertainty.html#cb407-37" aria-hidden="true" tabindex="-1"></a>    moutcomes[j] <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">rbinom</span>(numsims, <span class="dv">1</span>, pestimates[j]))</span>
+<span id="cb407-38"><a href="uncertainty.html#cb407-38" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb407-39"><a href="uncertainty.html#cb407-39" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb407-40"><a href="uncertainty.html#cb407-40" aria-hidden="true" tabindex="-1"></a>  <span class="do">## take the mean of the predicted probability estimates across all observations</span></span>
+<span id="cb407-41"><a href="uncertainty.html#cb407-41" aria-hidden="true" tabindex="-1"></a>  qestimates[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(moutcomes)</span>
+<span id="cb407-42"><a href="uncertainty.html#cb407-42" aria-hidden="true" tabindex="-1"></a>  <span class="do">## repeat for set of simulated betas</span></span>
+<span id="cb407-43"><a href="uncertainty.html#cb407-43" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb407-44"><a href="uncertainty.html#cb407-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb407-45"><a href="uncertainty.html#cb407-45" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 4: Similar to bootstrap distribution, find CI using the percentiles</span></span>
+<span id="cb407-46"><a href="uncertainty.html#cb407-46" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(qestimates, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div>
 <pre><code>      2.5%      97.5% 
 0.00232977 0.00344796 </code></pre>
 <p>Because the shortcut applies where we do not need to calculate fundamental uncertainty in the logit / probit case, we can simplify this to:</p>
-<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="uncertainty.html#cb405-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;mvtnorm&quot;)</span></span>
-<span id="cb405-2"><a href="uncertainty.html#cb405-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mvtnorm)</span>
-<span id="cb405-3"><a href="uncertainty.html#cb405-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb405-4"><a href="uncertainty.html#cb405-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 2: Sample 1000 new Bhs (we will use 50 for this example)</span></span>
-<span id="cb405-5"><a href="uncertainty.html#cb405-5" aria-hidden="true" tabindex="-1"></a><span class="do">## This uses the multivariate normal distribution for resampling</span></span>
-<span id="cb405-6"><a href="uncertainty.html#cb405-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb405-7"><a href="uncertainty.html#cb405-7" aria-hidden="true" tabindex="-1"></a>numsims <span class="ot">&lt;-</span> <span class="dv">50</span></span>
-<span id="cb405-8"><a href="uncertainty.html#cb405-8" aria-hidden="true" tabindex="-1"></a>qb.beta <span class="ot">&lt;-</span> <span class="fu">rmvnorm</span>(numsims, <span class="fu">coef</span>(out.logit), <span class="fu">vcov</span>(out.logit)) </span>
-<span id="cb405-9"><a href="uncertainty.html#cb405-9" aria-hidden="true" tabindex="-1"></a><span class="do">## This generates numsims X k coefficients matrix</span></span>
-<span id="cb405-10"><a href="uncertainty.html#cb405-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb405-11"><a href="uncertainty.html#cb405-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 3: Iterate through the estimates</span></span>
-<span id="cb405-12"><a href="uncertainty.html#cb405-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Create an empty vector to store 1000 quantities of interest</span></span>
-<span id="cb405-13"><a href="uncertainty.html#cb405-13" aria-hidden="true" tabindex="-1"></a>qestimates <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, numsims)</span>
-<span id="cb405-14"><a href="uncertainty.html#cb405-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb405-15"><a href="uncertainty.html#cb405-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Here, our covariate matrix stays the same</span></span>
-<span id="cb405-16"><a href="uncertainty.html#cb405-16" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(out.logit)</span>
-<span id="cb405-17"><a href="uncertainty.html#cb405-17" aria-hidden="true" tabindex="-1"></a>X1[, <span class="st">&quot;Allies&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb405-18"><a href="uncertainty.html#cb405-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb405-19"><a href="uncertainty.html#cb405-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>numsims){</span>
-<span id="cb405-20"><a href="uncertainty.html#cb405-20" aria-hidden="true" tabindex="-1"></a>  pestimates <span class="ot">&lt;-</span><span class="fu">plogis</span>(X1 <span class="sc">%*%</span> qb.beta[i,])</span>
-<span id="cb405-21"><a href="uncertainty.html#cb405-21" aria-hidden="true" tabindex="-1"></a>  qestimates[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(pestimates)</span>
-<span id="cb405-22"><a href="uncertainty.html#cb405-22" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb405-23"><a href="uncertainty.html#cb405-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb405-24"><a href="uncertainty.html#cb405-24" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 4: Similar to bootstrap distribution, find CI using the percentiles</span></span>
-<span id="cb405-25"><a href="uncertainty.html#cb405-25" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(qestimates, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="uncertainty.html#cb409-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;mvtnorm&quot;)</span></span>
+<span id="cb409-2"><a href="uncertainty.html#cb409-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mvtnorm)</span>
+<span id="cb409-3"><a href="uncertainty.html#cb409-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb409-4"><a href="uncertainty.html#cb409-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 2: Sample 1000 new Bhs (we will use 50 for this example)</span></span>
+<span id="cb409-5"><a href="uncertainty.html#cb409-5" aria-hidden="true" tabindex="-1"></a><span class="do">## This uses the multivariate normal distribution for resampling</span></span>
+<span id="cb409-6"><a href="uncertainty.html#cb409-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb409-7"><a href="uncertainty.html#cb409-7" aria-hidden="true" tabindex="-1"></a>numsims <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb409-8"><a href="uncertainty.html#cb409-8" aria-hidden="true" tabindex="-1"></a>qb.beta <span class="ot">&lt;-</span> <span class="fu">rmvnorm</span>(numsims, <span class="fu">coef</span>(out.logit), <span class="fu">vcov</span>(out.logit)) </span>
+<span id="cb409-9"><a href="uncertainty.html#cb409-9" aria-hidden="true" tabindex="-1"></a><span class="do">## This generates numsims X k coefficients matrix</span></span>
+<span id="cb409-10"><a href="uncertainty.html#cb409-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb409-11"><a href="uncertainty.html#cb409-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 3: Iterate through the estimates</span></span>
+<span id="cb409-12"><a href="uncertainty.html#cb409-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Create an empty vector to store 1000 quantities of interest</span></span>
+<span id="cb409-13"><a href="uncertainty.html#cb409-13" aria-hidden="true" tabindex="-1"></a>qestimates <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, numsims)</span>
+<span id="cb409-14"><a href="uncertainty.html#cb409-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb409-15"><a href="uncertainty.html#cb409-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Here, our covariate matrix stays the same</span></span>
+<span id="cb409-16"><a href="uncertainty.html#cb409-16" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(out.logit)</span>
+<span id="cb409-17"><a href="uncertainty.html#cb409-17" aria-hidden="true" tabindex="-1"></a>X1[, <span class="st">&quot;Allies&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb409-18"><a href="uncertainty.html#cb409-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb409-19"><a href="uncertainty.html#cb409-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>numsims){</span>
+<span id="cb409-20"><a href="uncertainty.html#cb409-20" aria-hidden="true" tabindex="-1"></a>  pestimates <span class="ot">&lt;-</span><span class="fu">plogis</span>(X1 <span class="sc">%*%</span> qb.beta[i,])</span>
+<span id="cb409-21"><a href="uncertainty.html#cb409-21" aria-hidden="true" tabindex="-1"></a>  qestimates[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(pestimates)</span>
+<span id="cb409-22"><a href="uncertainty.html#cb409-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb409-23"><a href="uncertainty.html#cb409-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb409-24"><a href="uncertainty.html#cb409-24" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 4: Similar to bootstrap distribution, find CI using the percentiles</span></span>
+<span id="cb409-25"><a href="uncertainty.html#cb409-25" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(qestimates, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div>
 <pre><code>       2.5%       97.5% 
 0.002314344 0.003419644 </code></pre>
 <p>We can also plot the distribution of estimates</p>
-<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="uncertainty.html#cb407-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb407-2"><a href="uncertainty.html#cb407-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> qestimates), <span class="fu">aes</span>(<span class="at">x =</span> qestimates)) <span class="sc">+</span> </span>
-<span id="cb407-3"><a href="uncertainty.html#cb407-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y=</span>..density..)) <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">color=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="uncertainty.html#cb411-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb411-2"><a href="uncertainty.html#cb411-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> qestimates), <span class="fu">aes</span>(<span class="at">x =</span> qestimates)) <span class="sc">+</span> </span>
+<span id="cb411-3"><a href="uncertainty.html#cb411-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y=</span>..density..)) <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">color=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-174-1.svg" width="672" /></p>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-175-1.svg" width="672" /></p>
 </div>
 </div>
             </section>

@@ -301,13 +301,50 @@ Usually, we want to report a confidence interval around our predicted probabilit
 
 This is different from the uncertainty of a coefficient, which we already have from our `glm` output. Here, if we say there is a 0.01 probability of a dispute, that is just an estimate, it is going to vary over repeated samples. We want to generate a confidence interval that represents this variability in $\hat \pi$.
 
-There are three general approaches to calculating the uncertainty of the quantities of interest.
+We have already discussed using the `predict` function in `lm` to generate confidence intervals for OLS estimates. In a limited set of cases, we can also use this shortcut for `glm` by taking advantage of the distribution being approximately normal on the scale of the linear predictor. When we are estimating confidence intervals around 1) one or multiple single quantities of interest (a predicted probability, as opposed to a difference in predicted probability) 2) where the $X$ values are set at specific values (and not at their observed values) then, we can plug this into the `predict` function in the following way:
+
+  1. Generate the prediction and standard errors of the prediction on the `link` linear predictor scale.
+      + On the scale of the linear predictor, the standard errors of the prediction are calculated as $\sqrt{\mathbb{x'}_c \text{vcov(fit)} \mathbb{x}_c}$ using the delta method.
+  2. Calculate the CI on the linear predictor scale: $CI(\hat \theta) = \hat \theta - z_{crit}*se_{\hat \theta}$ ; $\hat \theta + z_{crit}*se_{\hat \theta}$
+      + $z_{crit}$ for the 95\% confidence interval is 1.96 (so this is saying +/- about 2 standard errors). We get this by using `qnorm()`.
+  3. Convert the prediction and confidence intervals to the response scale.
+  
+Here is an example:
+```{r}
+## Predicted probability when Allies = 1 and all other covariates = 0
+## Note type = "link"
+allies1.link <- predict(out.logit, newdata = 
+                     data.frame( MajorPower = 0,
+                                 Contiguity = 0, 
+                                 Allies = 1, 
+                                 ForeignPolicy = 0,BalanceOfPower = 0, 
+                                 YearsSince = 0),
+                   type = "link", se = T)
+
+allies1 <-  plogis(allies1.link$fit)
+allies1.lb <- plogis(allies1.link$fit - qnorm(.975)*allies1.link$se.fit)
+allies1.ub <- plogis(allies1.link$fit + qnorm(.975)*allies1.link$se.fit)
+
+## Confidence interval
+c(allies1, allies1.lb, allies1.ub)
+
+## By hand (using x as a k x 1 vector)
+x.c <- rbind(1, 0, 0, 1, 0, 0, 0)
+se.hand <- sqrt(t(x.c) %*% vcov(out.logit) %*% x.c)
+p.hand <- t(x.c) %*% coef(out.logit)
+allies1.hand <- plogis(p.hand)
+allies1.hand.lb <- plogis(p.hand- qnorm(.975)*se.hand)
+allies1.hand.ub <- plogis(p.hand + qnorm(.975)*se.hand)
+c(allies1.hand, allies1.hand.lb, allies1.hand.ub)
+```
+
+Beyond this simple case, there are three general approaches to calculating the uncertainty of the quantities of interest.
 
   - Delta Method (based on calculus, first order Taylor Expansion approximation)
   - Bootstrapping (very flexible, common, computationally demanding)
   - Quasi-bayesian (flexible, less computationally demanding), also described as simulation/Monte carlo simulation.
 
-For now, we will focus on the second two methods, but some statistical software programs will report uncertainty estimates based on the Delta method.
+For now, we will focus on the second two methods, but some statistical software programs will report uncertainty estimates based on the Delta method. Here is more information on this [method](https://stats.idre.ucla.edu/r/faq/how-can-i-estimate-the-standard-error-of-transformed-regression-parameters-in-r-using-the-delta-method/) and the `deltamethod` [function](https://www.r-bloggers.com/2018/01/delta-method-standard-errors/) in R. 
 
 ### Bootstrapping
 
@@ -845,6 +882,34 @@ mean(s.out2$get_qi(qi="fd", xvalue="x1"))
 quantile(s.out2$get_qi(qi="fd", xvalue="x1"), c(0.025, 0.975))
 ```
 
+### Using `expand.grid`
+
+When we use the `predict` function in R, we specify a "`newdata" dataframe to indicate for which values of $X$ we want to estimate values of the outcome. When we do this, we are actually building a dataframe, like the below:
+
+```{r}
+df <- data.frame(MajorPower = 0, Allies=1, Contiguity = 0)
+df
+```
+
+In cases where we want to make predictions for multiple values of a given variable, we can feed a vector into the data.frame:
+
+```{r}
+df <- data.frame(MajorPower = 0, Allies=c(0,1), Contiguity = 0)
+df
+```
+However, this becomes more tedious when we want to estimate for combinations of different variables (e.g., `MajorPower` and `Allies` as 0 or 1). You have to tell R precisely which rows should include which values. This means indicating four separate values for each variables to get all possible combinations.
+
+```{r}
+df <- data.frame(MajorPower = c(0, 0, 1,1), Allies=c(0,1, 0, 1), Contiguity = 0)
+df
+```
+What `expand.grid` does is let you more quickly indicate that you want to estimate for all possibles combinations of the values of the variables you supply. E.g.:
+
+```{r}
+df <- expand.grid(MajorPower = c(0, 1), Allies=c(0,1), Contiguity = 0)
+df
+```
+This can be a useful shortcut when you need to look at combinations of variables that have many different values. 
 
 ## Putting things together: Example 
 

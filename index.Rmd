@@ -17,7 +17,7 @@ output:
 This document will include important links and course notes for 16:790:677:01: Maximum Likelihood Estimation.
 
   - This webpage will be updated throughout the semester with new content. This initial content in Sections 2 and 3 is optional, but encouraged, and includes tutorials and resources for basics in R and mathematical concepts used in the course. Material introduced in the course will assume some familiarity with these concepts. I recommend you go through on your own leading up to and during the first week of the course. You can then always return to it throughout the course and beyond. I always have to return to it because I don't often keep the special rules of logarithms and derivatives in my working memory.
-  - Sprinkled throughout this document are links to additional resources that might provide more in-depth explanations of a given topic.
+  - Sprinkled throughout this document are links to additional resources that might provide more in-depth explanations of a given topic. In particular, several of the sections have benefited from previous materials developed by Kosuke Imai and the book [Quantitative Social Science](https://qss.princeton.press/), Chris Bail and [SICSS](https://sicss.io/), Marc Ratkovic, In Song Kim, Will Lowe, and others.
   - This is a new and living document. If you spot errors or have questions or suggestions, please email me at k.mccabe@rutgers.edu.
 
 <!-- If you need PDF output, uncomment bookdown::pdf_book above in YAML. You will need a LaTeX installation, e.g., https://yihui.name/tinytex/ -->
