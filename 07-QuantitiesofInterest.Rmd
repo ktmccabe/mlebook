@@ -151,7 +151,7 @@ Second example keeping X at observed values. Here the manual approach is easier 
 ```{r}
 ## for allies = 1careful of the order to make same as coefficients
 X <- model.matrix(out.logit)
-X[, "Allies"] <- 1 # change Allies to 0, leave everything else as is
+X[, "Allies"] <- 1 # change Allies to 1, leave everything else as is
 Bh <- coef(out.logit)
 
 ## Approach 1
