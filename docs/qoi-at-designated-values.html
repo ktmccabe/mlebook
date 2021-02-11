@@ -300,7 +300,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.5.3" data-path="additional-r-shortcuts.html"><a href="additional-r-shortcuts.html#zelig"><i class="fa fa-check"></i><b>7.5.3</b> Zelig</a></li>
 <li class="chapter" data-level="7.5.4" data-path="additional-r-shortcuts.html"><a href="additional-r-shortcuts.html#using-expand.grid"><i class="fa fa-check"></i><b>7.5.4</b> Using <code>expand.grid</code></a></li>
 </ul></li>
-<li class="chapter" data-level="7.6" data-path="putting-things-together-example.html"><a href="putting-things-together-example.html"><i class="fa fa-check"></i><b>7.6</b> Putting things together: Example</a></li>
+<li class="chapter" data-level="7.6" data-path="week-4-tutorial.html"><a href="week-4-tutorial.html"><i class="fa fa-check"></i><b>7.6</b> Week 4 Tutorial</a></li>
+<li class="chapter" data-level="7.7" data-path="putting-everything-together.html"><a href="putting-everything-together.html"><i class="fa fa-check"></i><b>7.7</b> Putting everything together</a></li>
 </ul></li>
 </ul>
 
@@ -362,7 +363,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Second example keeping X at observed values. Here the manual approach is easier given the limitations of <code>predict</code> (at least until we learn a new package). Now we are estimating <span class="math inline">\(N\)</span> predicted probabilities, so we take the mean to get the average estimate.</p>
 <div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="qoi-at-designated-values.html#cb351-1" aria-hidden="true" tabindex="-1"></a><span class="do">## for allies = 1careful of the order to make same as coefficients</span></span>
 <span id="cb351-2"><a href="qoi-at-designated-values.html#cb351-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(out.logit)</span>
-<span id="cb351-3"><a href="qoi-at-designated-values.html#cb351-3" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;Allies&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># change Allies to 0, leave everything else as is</span></span>
+<span id="cb351-3"><a href="qoi-at-designated-values.html#cb351-3" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;Allies&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># change Allies to 1, leave everything else as is</span></span>
 <span id="cb351-4"><a href="qoi-at-designated-values.html#cb351-4" aria-hidden="true" tabindex="-1"></a>Bh <span class="ot">&lt;-</span> <span class="fu">coef</span>(out.logit)</span>
 <span id="cb351-5"><a href="qoi-at-designated-values.html#cb351-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb351-6"><a href="qoi-at-designated-values.html#cb351-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Approach 1</span></span>

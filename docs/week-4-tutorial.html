@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7.6 Week 4 Tutorial | MLE for Political Science</title>
+  <meta name="description" content="7.6 Week 4 Tutorial | MLE for Political Science" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7.6 Week 4 Tutorial | MLE for Political Science" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7.6 Week 4 Tutorial | MLE for Political Science" />
+  
+  
+  
+
+<meta name="author" content="Instructor: Katie McCabe" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="additional-r-shortcuts.html"/>
+<link rel="next" href="putting-everything-together.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/vembedr-0.1.4/css/vembedr.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Course Overview</a></li>
+<li class="chapter" data-level="2" data-path="rover.html"><a href="rover.html"><i class="fa fa-check"></i><b>2</b> R Overview</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html"><i class="fa fa-check"></i><b>2.1</b> First Time with R and RStudio</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#open-rstudio"><i class="fa fa-check"></i><b>2.1.1</b> <strong>Open RStudio</strong></a></li>
+<li class="chapter" data-level="2.1.2" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#using-r-as-a-calculator"><i class="fa fa-check"></i><b>2.1.2</b> <strong>Using R as a Calculator</strong></a></li>
+<li class="chapter" data-level="2.1.3" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#working-in-an-r-script"><i class="fa fa-check"></i><b>2.1.3</b> <strong>Working in an R Script</strong></a></li>
+<li class="chapter" data-level="2.1.4" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#preparing-your-r-script"><i class="fa fa-check"></i><b>2.1.4</b> <strong>Preparing your R script</strong></a></li>
+<li class="chapter" data-level="2.1.5" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#executing-commands-in-your-r-script"><i class="fa fa-check"></i><b>2.1.5</b> <strong>Executing Commands in your R script</strong></a></li>
+<li class="chapter" data-level="2.1.6" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#objects"><i class="fa fa-check"></i><b>2.1.6</b> <strong>Objects</strong></a></li>
+<li class="chapter" data-level="2.1.7" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#practice"><i class="fa fa-check"></i><b>2.1.7</b> <strong>Practice</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="tutorials.html"><a href="tutorials.html"><i class="fa fa-check"></i><b>2.2</b> Tutorials</a></li>
+<li class="chapter" data-level="2.3" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>2.3</b> Data Wrangling</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-uninformative-variable-names"><i class="fa fa-check"></i><b>2.3.1</b> Dealing with Uninformative Variable Names</a></li>
+<li class="chapter" data-level="2.3.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-missing-data"><i class="fa fa-check"></i><b>2.3.2</b> Dealing with Missing Data</a></li>
+<li class="chapter" data-level="2.3.3" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-variable-codings-that-arent-quite-right"><i class="fa fa-check"></i><b>2.3.3</b> Dealing with Variable Codings that Aren’t Quite Right</a></li>
+<li class="chapter" data-level="2.3.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-incomplete-data-merging"><i class="fa fa-check"></i><b>2.3.4</b> Dealing with Incomplete Data (Merging!)</a></li>
+<li class="chapter" data-level="2.3.5" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-poorly-shaped-data"><i class="fa fa-check"></i><b>2.3.5</b> Dealing with Poorly Shaped Data</a></li>
+<li class="chapter" data-level="2.3.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reproducing-your-steps"><i class="fa fa-check"></i><b>2.3.6</b> Reproducing your steps</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html"><i class="fa fa-check"></i><b>2.4</b> Tools for writing up results</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#r-markdown"><i class="fa fa-check"></i><b>2.4.1</b> R Markdown</a></li>
+<li class="chapter" data-level="2.4.2" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#latex"><i class="fa fa-check"></i><b>2.4.2</b> LaTex</a></li>
+<li class="chapter" data-level="2.4.3" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#formatting-and-exporting-r-results"><i class="fa fa-check"></i><b>2.4.3</b> Formatting and Exporting R Results</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="mathematical-operations.html"><a href="mathematical-operations.html"><i class="fa fa-check"></i><b>3.1</b> Mathematical Operations</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="mathematical-operations.html"><a href="mathematical-operations.html#order-of-operations"><i class="fa fa-check"></i><b>3.1.1</b> <strong>Order of Operations</strong></a></li>
+<li class="chapter" data-level="3.1.2" data-path="mathematical-operations.html"><a href="mathematical-operations.html#exponents"><i class="fa fa-check"></i><b>3.1.2</b> <strong>Exponents</strong></a></li>
+<li class="chapter" data-level="3.1.3" data-path="mathematical-operations.html"><a href="mathematical-operations.html#summations-and-products"><i class="fa fa-check"></i><b>3.1.3</b> <strong>Summations and Products</strong></a></li>
+<li class="chapter" data-level="3.1.4" data-path="mathematical-operations.html"><a href="mathematical-operations.html#logarithms"><i class="fa fa-check"></i><b>3.1.4</b> <strong>Logarithms</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="mathematical-operations-in-r.html"><a href="mathematical-operations-in-r.html"><i class="fa fa-check"></i><b>3.2</b> Mathematical Operations in R</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="mathematical-operations-in-r.html"><a href="mathematical-operations-in-r.html#pemdas"><i class="fa fa-check"></i><b>3.2.1</b> PEMDAS</a></li>
+<li class="chapter" data-level="3.2.2" data-path="mathematical-operations-in-r.html"><a href="mathematical-operations-in-r.html#exponents-1"><i class="fa fa-check"></i><b>3.2.2</b> Exponents</a></li>
+<li class="chapter" data-level="3.2.3" data-path="mathematical-operations-in-r.html"><a href="mathematical-operations-in-r.html#summations"><i class="fa fa-check"></i><b>3.2.3</b> Summations</a></li>
+<li class="chapter" data-level="3.2.4" data-path="mathematical-operations-in-r.html"><a href="mathematical-operations-in-r.html#logarithms-1"><i class="fa fa-check"></i><b>3.2.4</b> Logarithms</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="derivatives.html"><a href="derivatives.html"><i class="fa fa-check"></i><b>3.3</b> Derivatives</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="derivatives.html"><a href="derivatives.html#derivatives-1"><i class="fa fa-check"></i><b>3.3.1</b> <strong>Derivatives</strong></a></li>
+<li class="chapter" data-level="3.3.2" data-path="derivatives.html"><a href="derivatives.html#critical-points-for-minima-or-maxima"><i class="fa fa-check"></i><b>3.3.2</b> <strong>Critical Points for Minima or Maxima</strong></a></li>
+<li class="chapter" data-level="3.3.3" data-path="derivatives.html"><a href="derivatives.html#common-derivative-rules"><i class="fa fa-check"></i><b>3.3.3</b> <strong>Common Derivative Rules</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="vectors-and-matrices.html"><a href="vectors-and-matrices.html"><i class="fa fa-check"></i><b>3.4</b> Vectors and Matrices</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="vectors-and-matrices.html"><a href="vectors-and-matrices.html#matrix-basics"><i class="fa fa-check"></i><b>3.4.1</b> <strong>Matrix Basics</strong></a></li>
+<li class="chapter" data-level="3.4.2" data-path="vectors-and-matrices.html"><a href="vectors-and-matrices.html#matrix-operations"><i class="fa fa-check"></i><b>3.4.2</b> Matrix Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html"><i class="fa fa-check"></i><b>3.5</b> Additional Matrix Tidbits that Will Come Up</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html#transpose"><i class="fa fa-check"></i><b>3.5.1</b> <strong>Transpose</strong></a></li>
+<li class="chapter" data-level="3.5.2" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html#additional-matrix-properties-and-rules"><i class="fa fa-check"></i><b>3.5.2</b> <strong>Additional Matrix Properties and Rules</strong></a></li>
+<li class="chapter" data-level="3.5.3" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html#matrix-rules"><i class="fa fa-check"></i><b>3.5.3</b> <strong>Matrix Rules</strong></a></li>
+<li class="chapter" data-level="3.5.4" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html#derivatives-with-matrices-and-vectors"><i class="fa fa-check"></i><b>3.5.4</b> <strong>Derivatives with Matrices and Vectors</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="practice-problems.html"><a href="practice-problems.html"><i class="fa fa-check"></i><b>3.6</b> Practice Problems</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="practice-problems.html"><a href="practice-problems.html#practice-problem-solutions"><i class="fa fa-check"></i><b>3.6.1</b> Practice Problem Solutions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ols.html"><a href="ols.html"><i class="fa fa-check"></i><b>4</b> Review of OLS</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introducing-ols-regression.html"><a href="introducing-ols-regression.html"><i class="fa fa-check"></i><b>4.1</b> Introducing OLS Regression</a></li>
+<li class="chapter" data-level="4.2" data-path="diving-deeper-into-ols-matrix-representation.html"><a href="diving-deeper-into-ols-matrix-representation.html"><i class="fa fa-check"></i><b>4.2</b> Diving Deeper into OLS Matrix Representation</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="diving-deeper-into-ols-matrix-representation.html"><a href="diving-deeper-into-ols-matrix-representation.html#estimating-the-coefficients"><i class="fa fa-check"></i><b>4.2.1</b> Estimating the Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html"><i class="fa fa-check"></i><b>4.3</b> OLS Regression in R</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#example-predicting-current-election-votes-from-past-election-votes"><i class="fa fa-check"></i><b>4.3.1</b> Example: Predicting Current Election Votes from Past Election Votes</a></li>
+<li class="chapter" data-level="4.3.2" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#plotting-regression-results"><i class="fa fa-check"></i><b>4.3.2</b> Plotting Regression Results</a></li>
+<li class="chapter" data-level="4.3.3" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#finding-coefficients-without-lm"><i class="fa fa-check"></i><b>4.3.3</b> Finding Coefficients without <code>lm</code></a></li>
+<li class="chapter" data-level="4.3.4" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#ols-practice-problems"><i class="fa fa-check"></i><b>4.3.4</b> OLS Practice Problems</a></li>
+<li class="chapter" data-level="4.3.5" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#code-for-solutions"><i class="fa fa-check"></i><b>4.3.5</b> Code for solutions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="week-1-thursday-tutorial.html"><a href="week-1-thursday-tutorial.html"><i class="fa fa-check"></i><b>4.4</b> Week 1 Thursday Tutorial</a></li>
+<li class="chapter" data-level="4.5" data-path="uncertainty-and-regression.html"><a href="uncertainty-and-regression.html"><i class="fa fa-check"></i><b>4.5</b> Uncertainty and Regression</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="uncertainty-and-regression.html"><a href="uncertainty-and-regression.html#variance-of-the-coefficients"><i class="fa fa-check"></i><b>4.5.1</b> Variance of the Coefficients</a></li>
+<li class="chapter" data-level="4.5.2" data-path="uncertainty-and-regression.html"><a href="uncertainty-and-regression.html#hypothesis-testing"><i class="fa fa-check"></i><b>4.5.2</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="4.5.3" data-path="uncertainty-and-regression.html"><a href="uncertainty-and-regression.html#goodness-of-fit"><i class="fa fa-check"></i><b>4.5.3</b> Goodness of Fit</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="generating-predictions-from-regression-models.html"><a href="generating-predictions-from-regression-models.html"><i class="fa fa-check"></i><b>4.6</b> Generating predictions from regression models</a></li>
+<li class="chapter" data-level="4.7" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html"><i class="fa fa-check"></i><b>4.7</b> Wrapping up OLS</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="practice-problems.html"><a href="practice-problems.html#practice-problems"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
+<li class="chapter" data-level="4.7.2" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problem-code-for-solutions"><i class="fa fa-check"></i><b>4.7.2</b> Practice Problem Code for Solutions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="week-2-thursday-example.html"><a href="week-2-thursday-example.html"><i class="fa fa-check"></i><b>4.8</b> Week 2 Thursday Example</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="mle.html"><a href="mle.html"><i class="fa fa-check"></i><b>5</b> Introduction to MLE</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="what-is-likelihood.html"><a href="what-is-likelihood.html"><i class="fa fa-check"></i><b>5.1</b> What is likelihood?</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="what-is-likelihood.html"><a href="what-is-likelihood.html#summarizing-steps-for-maximum-likelihood"><i class="fa fa-check"></i><b>5.1.1</b> Summarizing Steps for Maximum Likelihood</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="generalized-linear-models.html"><a href="generalized-linear-models.html"><i class="fa fa-check"></i><b>5.2</b> Generalized Linear Models</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="generalized-linear-models.html"><a href="generalized-linear-models.html#glm-model."><i class="fa fa-check"></i><b>5.2.1</b> GLM Model.</a></li>
+<li class="chapter" data-level="5.2.2" data-path="generalized-linear-models.html"><a href="generalized-linear-models.html#linking-likelihood-and-the-glm"><i class="fa fa-check"></i><b>5.2.2</b> Linking likelihood and the GLM</a></li>
+<li class="chapter" data-level="5.2.3" data-path="generalized-linear-models.html"><a href="generalized-linear-models.html#glm-in-r"><i class="fa fa-check"></i><b>5.2.3</b> GLM in R</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="mle-estimation.html"><a href="mle-estimation.html"><i class="fa fa-check"></i><b>5.3</b> MLE Estimation</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="mle-estimation.html"><a href="mle-estimation.html#deriving-estimators"><i class="fa fa-check"></i><b>5.3.1</b> Deriving Estimators</a></li>
+<li class="chapter" data-level="5.3.2" data-path="mle-estimation.html"><a href="mle-estimation.html#score-function"><i class="fa fa-check"></i><b>5.3.2</b> Score function</a></li>
+<li class="chapter" data-level="5.3.3" data-path="mle-estimation.html"><a href="mle-estimation.html#hessian-and-information-matrix"><i class="fa fa-check"></i><b>5.3.3</b> Hessian and Information Matrix</a></li>
+<li class="chapter" data-level="5.3.4" data-path="mle-estimation.html"><a href="mle-estimation.html#mle-estimation-algorithm"><i class="fa fa-check"></i><b>5.3.4</b> MLE Estimation Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="mle-properties.html"><a href="mle-properties.html"><i class="fa fa-check"></i><b>5.4</b> MLE Properties</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="mle-properties.html"><a href="mle-properties.html#hypothesis-tests"><i class="fa fa-check"></i><b>5.4.1</b> Hypothesis Tests</a></li>
+<li class="chapter" data-level="5.4.2" data-path="mle-properties.html"><a href="mle-properties.html#model-output-in-r"><i class="fa fa-check"></i><b>5.4.2</b> Model Output in R</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="binary.html"><a href="binary.html"><i class="fa fa-check"></i><b>6</b> Binary Dependent Variables</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="data-generating-process.html"><a href="data-generating-process.html"><i class="fa fa-check"></i><b>6.1</b> Data Generating Process</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="mle-estimation.html"><a href="mle-estimation.html#mle-estimation"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="r-code-for-fitting-logistic-regression.html"><a href="r-code-for-fitting-logistic-regression.html"><i class="fa fa-check"></i><b>6.2</b> R code for fitting logistic regression</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="r-code-for-fitting-logistic-regression.html"><a href="r-code-for-fitting-logistic-regression.html#writing-down-the-regression-model"><i class="fa fa-check"></i><b>6.2.1</b> Writing down the regression model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="probit-regression.html"><a href="probit-regression.html"><i class="fa fa-check"></i><b>6.3</b> Probit Regression</a></li>
+<li class="chapter" data-level="6.4" data-path="to-logit-or-to-probit.html"><a href="to-logit-or-to-probit.html"><i class="fa fa-check"></i><b>6.4</b> To logit or to probit?</a></li>
+<li class="chapter" data-level="6.5" data-path="latent-propensity-representation.html"><a href="latent-propensity-representation.html"><i class="fa fa-check"></i><b>6.5</b> Latent propensity representation</a></li>
+<li class="chapter" data-level="6.6" data-path="linear-probability-models.html"><a href="linear-probability-models.html"><i class="fa fa-check"></i><b>6.6</b> Linear Probability Models</a></li>
+<li class="chapter" data-level="6.7" data-path="week-3-tutorial.html"><a href="week-3-tutorial.html"><i class="fa fa-check"></i><b>6.7</b> Week 3 Tutorial</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="week-3-tutorial.html"><a href="week-3-tutorial.html#loading-data-and-fitting-glm"><i class="fa fa-check"></i><b>6.7.1</b> Loading data and fitting glm</a></li>
+<li class="chapter" data-level="6.7.2" data-path="week-3-tutorial.html"><a href="week-3-tutorial.html#numeric-optimization"><i class="fa fa-check"></i><b>6.7.2</b> Numeric Optimization</a></li>
+<li class="chapter" data-level="6.7.3" data-path="week-3-tutorial.html"><a href="week-3-tutorial.html#predicted-probabilities"><i class="fa fa-check"></i><b>6.7.3</b> Predicted Probabilities</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="qoi.html"><a href="qoi.html"><i class="fa fa-check"></i><b>7</b> Quantities of Interest</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="using-the-response-functions-to-generate-quantities-of-interest.html"><a href="using-the-response-functions-to-generate-quantities-of-interest.html"><i class="fa fa-check"></i><b>7.1</b> Using the response functions to generate quantities of interest</a></li>
+<li class="chapter" data-level="7.2" data-path="qoi-at-designated-values.html"><a href="qoi-at-designated-values.html"><i class="fa fa-check"></i><b>7.2</b> QOI at Designated Values</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="qoi-at-designated-values.html"><a href="qoi-at-designated-values.html#marginal-effects"><i class="fa fa-check"></i><b>7.2.1</b> Marginal Effects</a></li>
+<li class="chapter" data-level="7.2.2" data-path="qoi-at-designated-values.html"><a href="qoi-at-designated-values.html#marginal-effects-at-the-mean"><i class="fa fa-check"></i><b>7.2.2</b> Marginal effects at the mean</a></li>
+<li class="chapter" data-level="7.2.3" data-path="qoi-at-designated-values.html"><a href="qoi-at-designated-values.html#marginal-effects-at-representative-values"><i class="fa fa-check"></i><b>7.2.3</b> Marginal effects at representative values</a></li>
+<li class="chapter" data-level="7.2.4" data-path="qoi-at-designated-values.html"><a href="qoi-at-designated-values.html#average-marginal-effects"><i class="fa fa-check"></i><b>7.2.4</b> Average marginal effects</a></li>
+<li class="chapter" data-level="7.2.5" data-path="qoi-at-designated-values.html"><a href="qoi-at-designated-values.html#prediction-and-margins-packages."><i class="fa fa-check"></i><b>7.2.5</b> <code>prediction</code> and <code>margins</code> packages.</a></li>
+<li class="chapter" data-level="7.2.6" data-path="qoi-at-designated-values.html"><a href="qoi-at-designated-values.html#qoi-practice-problems"><i class="fa fa-check"></i><b>7.2.6</b> QOI Practice Problems</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i><b>7.3</b> Uncertainty</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="uncertainty.html"><a href="uncertainty.html#bootstrapping"><i class="fa fa-check"></i><b>7.3.1</b> Bootstrapping</a></li>
+<li class="chapter" data-level="7.3.2" data-path="uncertainty.html"><a href="uncertainty.html#simulated-confidence-intervals"><i class="fa fa-check"></i><b>7.3.2</b> Simulated Confidence Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="visualizing-results.html"><a href="visualizing-results.html"><i class="fa fa-check"></i><b>7.4</b> Visualizing Results</a></li>
+<li class="chapter" data-level="7.5" data-path="additional-r-shortcuts.html"><a href="additional-r-shortcuts.html"><i class="fa fa-check"></i><b>7.5</b> Additional R shortcuts</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="additional-r-shortcuts.html"><a href="additional-r-shortcuts.html#prediction"><i class="fa fa-check"></i><b>7.5.1</b> Prediction</a></li>
+<li class="chapter" data-level="7.5.2" data-path="additional-r-shortcuts.html"><a href="additional-r-shortcuts.html#margins"><i class="fa fa-check"></i><b>7.5.2</b> Margins</a></li>
+<li class="chapter" data-level="7.5.3" data-path="additional-r-shortcuts.html"><a href="additional-r-shortcuts.html#zelig"><i class="fa fa-check"></i><b>7.5.3</b> Zelig</a></li>
+<li class="chapter" data-level="7.5.4" data-path="additional-r-shortcuts.html"><a href="additional-r-shortcuts.html#using-expand.grid"><i class="fa fa-check"></i><b>7.5.4</b> Using <code>expand.grid</code></a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="week-4-tutorial.html"><a href="week-4-tutorial.html"><i class="fa fa-check"></i><b>7.6</b> Week 4 Tutorial</a></li>
+<li class="chapter" data-level="7.7" data-path="putting-everything-together.html"><a href="putting-everything-together.html"><i class="fa fa-check"></i><b>7.7</b> Putting everything together</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">MLE for Political Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="week-4-tutorial" class="section level2" number="7.6">
+<h2><span class="header-section-number">7.6</span> Week 4 Tutorial</h2>
+<p>Let’s return to the example at the end of section 6, and calculate predicted probabilities, now with estimates of uncertainty. Recall the Banks and Hicks data include the following variables below. We add <code>partyid</code> as a variable for this analysis.</p>
+<ul>
+<li><code>abtrace1</code>: 1= if the respondent thought the ad was about race. 0= otherwise</li>
+<li><code>condition2</code>: 1= respondent in the implicit condition. 2= respondent in one of four explicit racism conditions.</li>
+<li><code>racresent</code>: a 0 to 1 numeric variable measuring racial resentment</li>
+<li><code>oldfash</code>: a 0 to 1 numeric variable measuring “old-fashioned racism”</li>
+<li><code>trumvote</code>: 1= respondent has vote preference for Trump 0=otherwise</li>
+<li><code>partyid</code>: A 1 to 7 numeric variables indicating partisanship from strong Democrat to strong Republican. Below 4 is a Democrat/Democratic leaner, above 4 is a Republican/Republican leaner.</li>
+</ul>
+<p>Let’s load the data again.</p>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="week-4-tutorial.html#cb446-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;rio&quot;)</span></span>
+<span id="cb446-2"><a href="week-4-tutorial.html#cb446-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
+<span id="cb446-3"><a href="week-4-tutorial.html#cb446-3" aria-hidden="true" tabindex="-1"></a>study <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/ssistudyrecode.dta?raw=true&quot;</span>)</span></code></pre></div>
+<p>Let’s set the experiment aside for now and focus on vote choice as the outcome: <code>trumvote.</code> Let’s suppose we were interested in understanding whether partisanship influences vote choice.</p>
+<ul>
+<li>What would be a simple regression model we could run? (e.g., what would be on the left, what would be on the right?)</li>
+<li>What type of model should it be? (e.g., OLS, glm, logit, probit, etc.?)</li>
+<li>Run this model below</li>
+<li>What do you conclude about the influence of party on vote choice?</li>
+</ul>
+<details>
+<summary>
+Try on your own, then expand for one solution.
+</summary>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="week-4-tutorial.html#cb447-1" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(trumvote <span class="sc">~</span> partyid, <span class="at">data=</span>study, <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span><span class="st">&quot;probit&quot;</span>))</span>
+<span id="cb447-2"><a href="week-4-tutorial.html#cb447-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb447-3"><a href="week-4-tutorial.html#cb447-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreg)</span>
+<span id="cb447-4"><a href="week-4-tutorial.html#cb447-4" aria-hidden="true" tabindex="-1"></a>texreg<span class="sc">::</span><span class="fu">knitreg</span>(fit1)</span></code></pre></div>
+<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
+<caption>
+Statistical models
+</caption>
+<thead>
+<tr>
+<th style="padding-left: 5px;padding-right: 5px;">
+ 
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Model 1
+</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+(Intercept)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-2.06<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.13)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+partyid
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.43<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.03)
+</td>
+</tr>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+AIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1056.38
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+BIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1066.23
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Log Likelihood
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-526.19
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Deviance
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1052.38
+</td>
+</tr>
+<tr style="border-bottom: 2px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. obs.
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1019
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="font-size: 0.8em;" colspan="2">
+<sup><em><strong></sup>p &lt; 0.001; <sup></strong></sup>p &lt; 0.01; <sup></em></sup>p &lt; 0.05
+</td>
+</tr>
+</tfoot>
+</table>
+We took a probit approach. What other approaches could we have taken?
+</details>
+<p>In a <code>glm</code> model, we have to make a leap from a probit/logit coefficient to vaguely answer our research question. What we want to do instead, is become more focused in our research questions, hypotheses, and estimations to generate precise quantities of interest that speak directly to our theoretical questions.</p>
+<p>Let’s try this again. Let’s be more focused in our question/hypothesis.</p>
+<ul>
+<li>As people shift from strong Democrats to strong Republicans, how does their probability of voting for Trump change?</li>
+<li>How can we transform our model from before into quantities that speak directly to this question?</li>
+</ul>
+<details>
+<summary>
+Computing probabilities.
+</summary>
+<p>We only have one covariate, so this becomes an easier problem.</p>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="week-4-tutorial.html#cb448-1" aria-hidden="true" tabindex="-1"></a>newdata.party <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">partyid =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>)</span>
+<span id="cb448-2"><a href="week-4-tutorial.html#cb448-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb448-3"><a href="week-4-tutorial.html#cb448-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Set type to be response</span></span>
+<span id="cb448-4"><a href="week-4-tutorial.html#cb448-4" aria-hidden="true" tabindex="-1"></a>results1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit1, <span class="at">newdata =</span> newdata.party, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.0512844</td>
+</tr>
+<tr class="even">
+<td align="right">0.1147444</td>
+</tr>
+<tr class="odd">
+<td align="right">0.2204047</td>
+</tr>
+<tr class="even">
+<td align="right">0.3669367</td>
+</tr>
+<tr class="odd">
+<td align="right">0.5362029</td>
+</tr>
+<tr class="even">
+<td align="right">0.6990679</td>
+</tr>
+<tr class="odd">
+<td align="right">0.8295963</td>
+</tr>
+</tbody>
+</table>
+</details>
+<p>How can we best communicate this to our readers?</p>
+<details>
+<summary>
+Computing probabilities.
+</summary>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="week-4-tutorial.html#cb449-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="at">y=</span>results1,</span>
+<span id="cb449-2"><a href="week-4-tutorial.html#cb449-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Predicted probability by partisanship&quot;</span>,</span>
+<span id="cb449-3"><a href="week-4-tutorial.html#cb449-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">type=</span><span class="st">&quot;b&quot;</span>,</span>
+<span id="cb449-4"><a href="week-4-tutorial.html#cb449-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Partisanship: Strong Dem to Strong Rep&quot;</span>,</span>
+<span id="cb449-5"><a href="week-4-tutorial.html#cb449-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;Predicted Probability&quot;</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-192-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="week-4-tutorial.html#cb450-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb450-2"><a href="week-4-tutorial.html#cb450-2" aria-hidden="true" tabindex="-1"></a>ggres <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">probs=</span>results1, <span class="at">partisanship=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>)</span>
+<span id="cb450-3"><a href="week-4-tutorial.html#cb450-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ggres, <span class="fu">aes</span>(<span class="at">x=</span>partisanship, <span class="at">y=</span>probs))<span class="sc">+</span></span>
+<span id="cb450-4"><a href="week-4-tutorial.html#cb450-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb450-5"><a href="week-4-tutorial.html#cb450-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb450-6"><a href="week-4-tutorial.html#cb450-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Partisanship: Strong Dem to Strong Rep&quot;</span>)<span class="sc">+</span></span>
+<span id="cb450-7"><a href="week-4-tutorial.html#cb450-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Predicted Probability&quot;</span>)<span class="sc">+</span></span>
+<span id="cb450-8"><a href="week-4-tutorial.html#cb450-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Predicted probability by partisanship&quot;</span>)</span></code></pre></div>
+<img src="mlebookout_files/figure-html/unnamed-chunk-192-2.svg" width="672" />
+</details>
+<p>How can we improve this even further?</p>
+<ul>
+<li>Calculate uncertainty!</li>
+</ul>
+<p>Again, because we only have one covariate, the process is a little more simple. Let’s use the <code>predict</code> function to calculate the standard errors for us on the <code>link</code> scale with <code>se.fit = T</code> and then construct our own confidence intervals.</p>
+<details>
+<summary>
+Try on your own, then expand for the solution.
+</summary>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="week-4-tutorial.html#cb451-1" aria-hidden="true" tabindex="-1"></a>results1.link <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit1, <span class="at">newdata=</span>newdata.party, <span class="at">type=</span><span class="st">&quot;link&quot;</span>, <span class="at">se.fit=</span>T)</span>
+<span id="cb451-2"><a href="week-4-tutorial.html#cb451-2" aria-hidden="true" tabindex="-1"></a>results1.link</span></code></pre></div>
+<pre><code>$fit
+         1          2          3          4          5          6          7 
+-1.6325260 -1.2016765 -0.7708270 -0.3399775  0.0908720  0.5217215  0.9525710 
+
+$se.fit
+         1          2          3          4          5          6          7 
+0.10002223 0.07628414 0.05617531 0.04487352 0.04892006 0.06553079 0.08784628 
+
+$residual.scale
+[1] 1</code></pre>
+<p>Now for each value, we get the standard error estimate. We now have to convert these to the response scale.</p>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="week-4-tutorial.html#cb453-1" aria-hidden="true" tabindex="-1"></a>m.results <span class="ot">&lt;-</span>  <span class="fu">pnorm</span>(results1.link<span class="sc">$</span>fit)</span>
+<span id="cb453-2"><a href="week-4-tutorial.html#cb453-2" aria-hidden="true" tabindex="-1"></a>results1.lb <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(results1.link<span class="sc">$</span>fit <span class="sc">-</span> <span class="fu">qnorm</span>(.<span class="dv">975</span>)<span class="sc">*</span>results1.link<span class="sc">$</span>se.fit)</span>
+<span id="cb453-3"><a href="week-4-tutorial.html#cb453-3" aria-hidden="true" tabindex="-1"></a>results1.ub <span class="ot">&lt;-</span><span class="fu">pnorm</span>(results1.link<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">qnorm</span>(.<span class="dv">975</span>)<span class="sc">*</span>results1.link<span class="sc">$</span>se.fit)</span>
+<span id="cb453-4"><a href="week-4-tutorial.html#cb453-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb453-5"><a href="week-4-tutorial.html#cb453-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s look at the results from the original point estimates and this approach</span></span>
+<span id="cb453-6"><a href="week-4-tutorial.html#cb453-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(results1, m.results, results1.lb, results1.ub)</span></code></pre></div>
+<pre><code>    results1  m.results results1.lb results1.ub
+1 0.05128436 0.05128436  0.03373233  0.07543205
+2 0.11474445 0.11474445  0.08831718  0.14636254
+3 0.22040474 0.22040474  0.18917824  0.25439421
+4 0.36693674 0.36693674  0.33435178  0.40051009
+5 0.53620285 0.53620285  0.49800149  0.57407307
+6 0.69906787 0.69906787  0.65294495  0.74220540
+7 0.82959626 0.82959626  0.78242093  0.86965177</code></pre>
+<p>Finally, let’s add it to our plot.</p>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="week-4-tutorial.html#cb455-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="at">y=</span>results1,</span>
+<span id="cb455-2"><a href="week-4-tutorial.html#cb455-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Predicted probability by partisanship&quot;</span>,</span>
+<span id="cb455-3"><a href="week-4-tutorial.html#cb455-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">type=</span><span class="st">&quot;b&quot;</span>,</span>
+<span id="cb455-4"><a href="week-4-tutorial.html#cb455-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Partisanship: Strong Dem to Strong Rep&quot;</span>,</span>
+<span id="cb455-5"><a href="week-4-tutorial.html#cb455-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;Predicted Probability&quot;</span>)</span>
+<span id="cb455-6"><a href="week-4-tutorial.html#cb455-6" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="at">y=</span> results1.ub, <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span>
+<span id="cb455-7"><a href="week-4-tutorial.html#cb455-7" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="at">y=</span> results1.lb, <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-195-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="week-4-tutorial.html#cb456-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb456-2"><a href="week-4-tutorial.html#cb456-2" aria-hidden="true" tabindex="-1"></a>ggres <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(m.results, results1.lb, results1.ub), <span class="at">partisanship=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>)</span>
+<span id="cb456-3"><a href="week-4-tutorial.html#cb456-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ggres, <span class="fu">aes</span>(<span class="at">x=</span>partisanship, <span class="at">y=</span>m.results))<span class="sc">+</span></span>
+<span id="cb456-4"><a href="week-4-tutorial.html#cb456-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb456-5"><a href="week-4-tutorial.html#cb456-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb456-6"><a href="week-4-tutorial.html#cb456-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_ribbon(aes(ymin=results1.lb, ymax=results1.ub), alpha=.5)+</span></span>
+<span id="cb456-7"><a href="week-4-tutorial.html#cb456-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>results1.lb, <span class="at">ymax=</span>results1.ub), <span class="at">width=</span>.<span class="dv">02</span>)<span class="sc">+</span></span>
+<span id="cb456-8"><a href="week-4-tutorial.html#cb456-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Partisanship: Strong Dem to Strong Rep&quot;</span>)<span class="sc">+</span></span>
+<span id="cb456-9"><a href="week-4-tutorial.html#cb456-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Predicted Probability&quot;</span>)<span class="sc">+</span></span>
+<span id="cb456-10"><a href="week-4-tutorial.html#cb456-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Predicted probability by partisanship&quot;</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-195-2.svg" width="672" /></p>
+</details>
+<p>The <code>prediction</code> package in R will give us a shortcut by calculating the confidence intervals for us. We can repeat the previous process inside this function.</p>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="week-4-tutorial.html#cb457-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;prediction&quot;)</span></span>
+<span id="cb457-2"><a href="week-4-tutorial.html#cb457-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prediction)</span>
+<span id="cb457-3"><a href="week-4-tutorial.html#cb457-3" aria-hidden="true" tabindex="-1"></a><span class="do">## prediction can take a new dataframe or specific values of covariates</span></span>
+<span id="cb457-4"><a href="week-4-tutorial.html#cb457-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb457-5"><a href="week-4-tutorial.html#cb457-5" aria-hidden="true" tabindex="-1"></a>pred.results <span class="ot">&lt;-</span> <span class="fu">prediction</span>(fit1, <span class="at">at=</span><span class="fu">list</span>(<span class="at">partyid =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>), <span class="at">type=</span><span class="st">&quot;response&quot;</span>, <span class="at">calculate_se =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="week-4-tutorial.html#cb458-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pred.results)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">at(partyid)</th>
+<th align="right">Prediction</th>
+<th align="right">SE</th>
+<th align="right">z</th>
+<th align="right">p</th>
+<th align="right">lower</th>
+<th align="right">upper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">0.0512844</td>
+<td align="right">0.0105264</td>
+<td align="right">4.871990</td>
+<td align="right">1.1e-06</td>
+<td align="right">0.0306531</td>
+<td align="right">0.0719157</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">0.1147444</td>
+<td align="right">0.0147835</td>
+<td align="right">7.761644</td>
+<td align="right">0.0e+00</td>
+<td align="right">0.0857693</td>
+<td align="right">0.1437196</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">0.2204047</td>
+<td align="right">0.0166507</td>
+<td align="right">13.236974</td>
+<td align="right">0.0e+00</td>
+<td align="right">0.1877700</td>
+<td align="right">0.2530395</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">0.3669367</td>
+<td align="right">0.0168967</td>
+<td align="right">21.716505</td>
+<td align="right">0.0e+00</td>
+<td align="right">0.3338199</td>
+<td align="right">0.4000536</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">0.5362029</td>
+<td align="right">0.0194359</td>
+<td align="right">27.588317</td>
+<td align="right">0.0e+00</td>
+<td align="right">0.4981093</td>
+<td align="right">0.5742965</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">0.6990679</td>
+<td align="right">0.0228165</td>
+<td align="right">30.638670</td>
+<td align="right">0.0e+00</td>
+<td align="right">0.6543483</td>
+<td align="right">0.7437874</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">0.8295963</td>
+<td align="right">0.0222636</td>
+<td align="right">37.262407</td>
+<td align="right">0.0e+00</td>
+<td align="right">0.7859604</td>
+<td align="right">0.8732322</td>
+</tr>
+</tbody>
+</table>
+<p>When we have covariates, we have a few more decisions to make about how to calculate quantities of interest and how to compute uncertainty. Let’s amend our model to include additional covariates.</p>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="week-4-tutorial.html#cb459-1" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(trumvote <span class="sc">~</span> partyid <span class="sc">+</span> racresent <span class="sc">+</span> oldfash, <span class="at">data=</span>study, <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span><span class="st">&quot;probit&quot;</span>))</span></code></pre></div>
+<p>Now, we have the same research question, but we have covariates. We have to decide how we want to calculate the predicted probabilities of voting for Trump at different levels of partisanship.</p>
+<ul>
+<li>Where should we set <code>racresent</code> and <code>oldfash</code> when computing these values?</li>
+</ul>
+<p>Let’s suppose we want to hold them at observed values. This means we will calculate the average predicted probability of voting for Trump at each value of partisanship, holding the other covariates at observed values.</p>
+<p>We can do this in a few ways.</p>
+<p>Here, let’s do this manually:</p>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="week-4-tutorial.html#cb460-1" aria-hidden="true" tabindex="-1"></a>bh <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit2)</span>
+<span id="cb460-2"><a href="week-4-tutorial.html#cb460-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb460-3"><a href="week-4-tutorial.html#cb460-3" aria-hidden="true" tabindex="-1"></a><span class="do">## party id 1</span></span>
+<span id="cb460-4"><a href="week-4-tutorial.html#cb460-4" aria-hidden="true" tabindex="-1"></a>X<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit2)</span>
+<span id="cb460-5"><a href="week-4-tutorial.html#cb460-5" aria-hidden="true" tabindex="-1"></a>X<span class="fl">.1</span>[, <span class="st">&quot;partyid&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb460-6"><a href="week-4-tutorial.html#cb460-6" aria-hidden="true" tabindex="-1"></a>p<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(X<span class="fl">.1</span> <span class="sc">%*%</span> bh)</span>
+<span id="cb460-7"><a href="week-4-tutorial.html#cb460-7" aria-hidden="true" tabindex="-1"></a>p.<span class="fl">1.</span>mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(p<span class="fl">.1</span>)</span>
+<span id="cb460-8"><a href="week-4-tutorial.html#cb460-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb460-9"><a href="week-4-tutorial.html#cb460-9" aria-hidden="true" tabindex="-1"></a><span class="do">## party id 2</span></span>
+<span id="cb460-10"><a href="week-4-tutorial.html#cb460-10" aria-hidden="true" tabindex="-1"></a>X<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit2)</span>
+<span id="cb460-11"><a href="week-4-tutorial.html#cb460-11" aria-hidden="true" tabindex="-1"></a>X<span class="fl">.2</span>[, <span class="st">&quot;partyid&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb460-12"><a href="week-4-tutorial.html#cb460-12" aria-hidden="true" tabindex="-1"></a>p<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(X<span class="fl">.2</span> <span class="sc">%*%</span> bh)</span>
+<span id="cb460-13"><a href="week-4-tutorial.html#cb460-13" aria-hidden="true" tabindex="-1"></a>p.<span class="fl">2.</span>mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(p<span class="fl">.2</span>)</span>
+<span id="cb460-14"><a href="week-4-tutorial.html#cb460-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb460-15"><a href="week-4-tutorial.html#cb460-15" aria-hidden="true" tabindex="-1"></a><span class="do">## More efficient approach 1:</span></span>
+<span id="cb460-16"><a href="week-4-tutorial.html#cb460-16" aria-hidden="true" tabindex="-1"></a>p.means <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">7</span>)</span>
+<span id="cb460-17"><a href="week-4-tutorial.html#cb460-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>){</span>
+<span id="cb460-18"><a href="week-4-tutorial.html#cb460-18" aria-hidden="true" tabindex="-1"></a>  X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit2)</span>
+<span id="cb460-19"><a href="week-4-tutorial.html#cb460-19" aria-hidden="true" tabindex="-1"></a>  X[, <span class="st">&quot;partyid&quot;</span>] <span class="ot">&lt;-</span> i</span>
+<span id="cb460-20"><a href="week-4-tutorial.html#cb460-20" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(X <span class="sc">%*%</span> bh)</span>
+<span id="cb460-21"><a href="week-4-tutorial.html#cb460-21" aria-hidden="true" tabindex="-1"></a>  p.means[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(p)</span>
+<span id="cb460-22"><a href="week-4-tutorial.html#cb460-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb460-23"><a href="week-4-tutorial.html#cb460-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb460-24"><a href="week-4-tutorial.html#cb460-24" aria-hidden="true" tabindex="-1"></a><span class="do">## More efficient approach 2:</span></span>
+<span id="cb460-25"><a href="week-4-tutorial.html#cb460-25" aria-hidden="true" tabindex="-1"></a>myest <span class="ot">&lt;-</span> <span class="cf">function</span>(value){</span>
+<span id="cb460-26"><a href="week-4-tutorial.html#cb460-26" aria-hidden="true" tabindex="-1"></a>  X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit2)</span>
+<span id="cb460-27"><a href="week-4-tutorial.html#cb460-27" aria-hidden="true" tabindex="-1"></a>  X[, <span class="st">&quot;partyid&quot;</span>] <span class="ot">&lt;-</span> value</span>
+<span id="cb460-28"><a href="week-4-tutorial.html#cb460-28" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(X <span class="sc">%*%</span> bh)</span>
+<span id="cb460-29"><a href="week-4-tutorial.html#cb460-29" aria-hidden="true" tabindex="-1"></a>  p.mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(p)</span>
+<span id="cb460-30"><a href="week-4-tutorial.html#cb460-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(p.mean)</span>
+<span id="cb460-31"><a href="week-4-tutorial.html#cb460-31" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb460-32"><a href="week-4-tutorial.html#cb460-32" aria-hidden="true" tabindex="-1"></a>p.means <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, myest)</span></code></pre></div>
+<p>Or, we can use <code>prediction</code> again.</p>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="week-4-tutorial.html#cb461-1" aria-hidden="true" tabindex="-1"></a>pred.results2 <span class="ot">&lt;-</span> <span class="fu">prediction</span>(fit2, <span class="at">at=</span><span class="fu">list</span>(<span class="at">partyid =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>), <span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<p>Let’s compare the output:</p>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="week-4-tutorial.html#cb462-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(p.means, <span class="fu">summary</span>(pred.results2)<span class="sc">$</span>Prediction)</span></code></pre></div>
+<pre><code>        p.means           
+[1,] 0.08296357 0.08296357
+[2,] 0.14824083 0.14824083
+[3,] 0.24098759 0.24098759
+[4,] 0.35835987 0.35835987
+[5,] 0.49072437 0.49072437
+[6,] 0.62383575 0.62383575
+[7,] 0.74331307 0.74331307</code></pre>
+<p>What if we want uncertainty?</p>
+<ul>
+<li>We can bootstrap or simulate confidence intervals around each quantity of interest, or use a function to do this for us.</li>
+</ul>
+<details>
+<summary>
+Bootstrap Details
+</summary>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="week-4-tutorial.html#cb464-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 1: sample new rows of the data and subset</span></span>
+<span id="cb464-2"><a href="week-4-tutorial.html#cb464-2" aria-hidden="true" tabindex="-1"></a>wrows <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span><span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(study), <span class="at">size =</span> <span class="fu">nrow</span>(study), <span class="at">replace =</span> T)</span>
+<span id="cb464-3"><a href="week-4-tutorial.html#cb464-3" aria-hidden="true" tabindex="-1"></a>subdata <span class="ot">&lt;-</span> study[wrows, ]</span>
+<span id="cb464-4"><a href="week-4-tutorial.html#cb464-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb464-5"><a href="week-4-tutorial.html#cb464-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 2: run your regression model with the new data</span></span>
+<span id="cb464-6"><a href="week-4-tutorial.html#cb464-6" aria-hidden="true" tabindex="-1"></a>boot.probit <span class="ot">&lt;-</span><span class="fu">glm</span>(trumvote <span class="sc">~</span> partyid <span class="sc">+</span> racresent <span class="sc">+</span> oldfash, </span>
+<span id="cb464-7"><a href="week-4-tutorial.html#cb464-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data=</span>subdata, <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span><span class="st">&quot;probit&quot;</span>))</span>
+<span id="cb464-8"><a href="week-4-tutorial.html#cb464-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb464-9"><a href="week-4-tutorial.html#cb464-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 3: generate average predicted probability</span></span>
+<span id="cb464-10"><a href="week-4-tutorial.html#cb464-10" aria-hidden="true" tabindex="-1"></a>Xboot <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(boot.probit)</span>
+<span id="cb464-11"><a href="week-4-tutorial.html#cb464-11" aria-hidden="true" tabindex="-1"></a>Xboot[, <span class="st">&quot;partyid&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb464-12"><a href="week-4-tutorial.html#cb464-12" aria-hidden="true" tabindex="-1"></a>Bh <span class="ot">&lt;-</span> <span class="fu">coef</span>(boot.probit)</span>
+<span id="cb464-13"><a href="week-4-tutorial.html#cb464-13" aria-hidden="true" tabindex="-1"></a>p.boot <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">pnorm</span>(Xboot <span class="sc">%*%</span> Bh))</span>
+<span id="cb464-14"><a href="week-4-tutorial.html#cb464-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb464-15"><a href="week-4-tutorial.html#cb464-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 4: wrap it in a function, make data generic</span></span>
+<span id="cb464-16"><a href="week-4-tutorial.html#cb464-16" aria-hidden="true" tabindex="-1"></a>myboot <span class="ot">&lt;-</span> <span class="cf">function</span>(df){</span>
+<span id="cb464-17"><a href="week-4-tutorial.html#cb464-17" aria-hidden="true" tabindex="-1"></a>  wrows <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="at">x =</span><span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df), <span class="at">size =</span> <span class="fu">nrow</span>(df), <span class="at">replace =</span> T)</span>
+<span id="cb464-18"><a href="week-4-tutorial.html#cb464-18" aria-hidden="true" tabindex="-1"></a>  subdata <span class="ot">&lt;-</span> df[wrows, ]</span>
+<span id="cb464-19"><a href="week-4-tutorial.html#cb464-19" aria-hidden="true" tabindex="-1"></a>  boot.probit <span class="ot">&lt;-</span><span class="fu">glm</span>(trumvote <span class="sc">~</span> partyid <span class="sc">+</span> racresent <span class="sc">+</span> oldfash, </span>
+<span id="cb464-20"><a href="week-4-tutorial.html#cb464-20" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data=</span>subdata, <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span><span class="st">&quot;probit&quot;</span>))</span>
+<span id="cb464-21"><a href="week-4-tutorial.html#cb464-21" aria-hidden="true" tabindex="-1"></a>  Xboot <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(boot.probit)</span>
+<span id="cb464-22"><a href="week-4-tutorial.html#cb464-22" aria-hidden="true" tabindex="-1"></a>  Xboot[, <span class="st">&quot;partyid&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb464-23"><a href="week-4-tutorial.html#cb464-23" aria-hidden="true" tabindex="-1"></a>  Bh <span class="ot">&lt;-</span> <span class="fu">coef</span>(boot.probit)</span>
+<span id="cb464-24"><a href="week-4-tutorial.html#cb464-24" aria-hidden="true" tabindex="-1"></a>  p.boot <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">pnorm</span>(Xboot <span class="sc">%*%</span> Bh))</span>
+<span id="cb464-25"><a href="week-4-tutorial.html#cb464-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(p.boot)</span>
+<span id="cb464-26"><a href="week-4-tutorial.html#cb464-26" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb464-27"><a href="week-4-tutorial.html#cb464-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb464-28"><a href="week-4-tutorial.html#cb464-28" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 5: replicate 1000 times</span></span>
+<span id="cb464-29"><a href="week-4-tutorial.html#cb464-29" aria-hidden="true" tabindex="-1"></a><span class="co">#bestimates.party1 &lt;- replicate(100, myboot(study))</span></span>
+<span id="cb464-30"><a href="week-4-tutorial.html#cb464-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb464-31"><a href="week-4-tutorial.html#cb464-31" aria-hidden="true" tabindex="-1"></a><span class="co">#c(p.means[1], quantile(bestimates,party1, c(0.025, .975)))</span></span></code></pre></div>
+<p>We would then repeat this for each partyid value. Alternatively, we could use <code>prediction</code>!</p>
+</details>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="additional-r-shortcuts.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="putting-everything-together.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
