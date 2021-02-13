@@ -365,7 +365,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb467-20"><a href="putting-everything-together.html#cb467-20" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomleft&quot;</span>, <span class="at">lty=</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>, <span class="dv">3</span>,<span class="dv">1</span>), </span>
 <span id="cb467-21"><a href="putting-everything-together.html#cb467-21" aria-hidden="true" tabindex="-1"></a>       <span class="fu">c</span>(<span class="st">&quot;Implicit&quot;</span>, <span class="st">&quot;Explicit&quot;</span>, </span>
 <span id="cb467-22"><a href="putting-everything-together.html#cb467-22" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Implicit 95% CI&quot;</span>, <span class="st">&quot;Explicit 95% CI&quot;</span>), <span class="at">cex=</span>.<span class="dv">7</span>)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-206-1.svg" width="672" /></p>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-208-1.svg" width="672" /></p>
 <p>Let’s combine the two dataframes.</p>
 <div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="putting-everything-together.html#cb468-1" aria-hidden="true" tabindex="-1"></a>pr.comb <span class="ot">&lt;-</span> <span class="fu">rbind</span>(pr.imp.df, pr.exp.df)</span></code></pre></div>
 <div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="putting-everything-together.html#cb469-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -383,7 +383,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb469-13"><a href="putting-everything-together.html#cb469-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">name=</span><span class="st">&quot;Condition&quot;</span>,</span>
 <span id="cb469-14"><a href="putting-everything-together.html#cb469-14" aria-hidden="true" tabindex="-1"></a>                         <span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),</span>
 <span id="cb469-15"><a href="putting-everything-together.html#cb469-15" aria-hidden="true" tabindex="-1"></a>                         <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Implicit&quot;</span>, <span class="st">&quot;Explicit&quot;</span>))</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-208-1.svg" width="672" /></p>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-210-1.svg" width="672" /></p>
 <p>We could instead show the <strong><em>difference</em></strong> between the conditions across levels of racial resentment.</p>
 <div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="putting-everything-together.html#cb470-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(margins)</span>
 <span id="cb470-2"><a href="putting-everything-together.html#cb470-2" aria-hidden="true" tabindex="-1"></a>marest <span class="ot">&lt;-</span> <span class="fu">margins</span>(fit.probit5, <span class="at">at=</span> <span class="fu">list</span>(<span class="at">racresent =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>,.<span class="dv">0625</span>)),</span>
@@ -403,7 +403,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb470-16"><a href="putting-everything-together.html#cb470-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Racial Resentment&quot;</span>)<span class="sc">+</span></span>
 <span id="cb470-17"><a href="putting-everything-together.html#cb470-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;AME: Explicit - Implicit Condition on Pr(Ad About Race)&quot;</span>)<span class="sc">+</span></span>
 <span id="cb470-18"><a href="putting-everything-together.html#cb470-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-209-1.svg" width="672" /></p>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-211-1.svg" width="672" /></p>
 
 </div>
 <!-- </div> -->

@@ -163,6 +163,15 @@ mean(exp(X%*% bh)/(1 + exp(X%*% Bh)))
 
 This is the average predicted probability of having a dispute when the dyad states are Allies, holding other covariates at their observed values.
 
+Here is a brief video with a second example of the process above, leading into the discussion of marginal effects below. It uses the [anes data](https://raw.githubusercontent.com/ktmccabe/teachingdata/main/anesdems.csv) from Banda and Cassese in section 6.
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library("vembedr")
+library(knitr)
+
+embed_url("https://www.youtube.com/watch?v=vGt-OCJoCJQ")
+```
+
 
 ### Marginal Effects
 
@@ -338,7 +347,15 @@ allies1.hand.ub <- plogis(p.hand + qnorm(.975)*se.hand)
 c(allies1.hand, allies1.hand.lb, allies1.hand.ub)
 ```
 
-Beyond this simple case, there are three general approaches to calculating the uncertainty of the quantities of interest.
+Beyond this simple case, there are three general approaches to calculating the uncertainty of the quantities of interest. Here is a video with an overview of these three processes. The course notes contain additional detail below. It continues with the [anes data](https://raw.githubusercontent.com/ktmccabe/teachingdata/main/anesdems.csv) example from Banda and Cassese in section 6, as did the other video in this section.
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library("vembedr")
+library(knitr)
+
+embed_url("https://www.youtube.com/watch?v=BYE4TWV6Byc")
+```
+
 
   - Delta Method (based on calculus, first order Taylor Expansion approximation)
   - Bootstrapping (very flexible, common, computationally demanding)
@@ -1160,10 +1177,11 @@ myboot <- function(df){
   return(p.boot)
 }
 
-## Step 5: replicate 1000 times
-#bestimates.party1 <- replicate(100, myboot(study))
+## Step 5: Uncomment and replicate 1000 times
+#bestimates.party1 <- replicate(1000, myboot(study))
 
-#c(p.means[1], quantile(bestimates,party1, c(0.025, .975)))
+## Extract confidence interval
+#quantile(bestimates.party1, c(0.025, .975))
 ```
 
 We would then repeat this for each partyid value. Alternatively, we could use `prediction`!

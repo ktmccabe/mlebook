@@ -504,7 +504,7 @@ Computing probabilities.
 <span id="cb449-3"><a href="week-4-tutorial.html#cb449-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">type=</span><span class="st">&quot;b&quot;</span>,</span>
 <span id="cb449-4"><a href="week-4-tutorial.html#cb449-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Partisanship: Strong Dem to Strong Rep&quot;</span>,</span>
 <span id="cb449-5"><a href="week-4-tutorial.html#cb449-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;Predicted Probability&quot;</span>)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-192-1.svg" width="672" /></p>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-194-1.svg" width="672" /></p>
 <div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="week-4-tutorial.html#cb450-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb450-2"><a href="week-4-tutorial.html#cb450-2" aria-hidden="true" tabindex="-1"></a>ggres <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">probs=</span>results1, <span class="at">partisanship=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>)</span>
 <span id="cb450-3"><a href="week-4-tutorial.html#cb450-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ggres, <span class="fu">aes</span>(<span class="at">x=</span>partisanship, <span class="at">y=</span>probs))<span class="sc">+</span></span>
@@ -513,7 +513,7 @@ Computing probabilities.
 <span id="cb450-6"><a href="week-4-tutorial.html#cb450-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Partisanship: Strong Dem to Strong Rep&quot;</span>)<span class="sc">+</span></span>
 <span id="cb450-7"><a href="week-4-tutorial.html#cb450-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Predicted Probability&quot;</span>)<span class="sc">+</span></span>
 <span id="cb450-8"><a href="week-4-tutorial.html#cb450-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Predicted probability by partisanship&quot;</span>)</span></code></pre></div>
-<img src="mlebookout_files/figure-html/unnamed-chunk-192-2.svg" width="672" />
+<img src="mlebookout_files/figure-html/unnamed-chunk-194-2.svg" width="672" />
 </details>
 <p>How can we improve this even further?</p>
 <ul>
@@ -559,7 +559,7 @@ $residual.scale
 <span id="cb455-5"><a href="week-4-tutorial.html#cb455-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;Predicted Probability&quot;</span>)</span>
 <span id="cb455-6"><a href="week-4-tutorial.html#cb455-6" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="at">y=</span> results1.ub, <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span>
 <span id="cb455-7"><a href="week-4-tutorial.html#cb455-7" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="at">y=</span> results1.lb, <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-195-1.svg" width="672" /></p>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-197-1.svg" width="672" /></p>
 <div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="week-4-tutorial.html#cb456-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb456-2"><a href="week-4-tutorial.html#cb456-2" aria-hidden="true" tabindex="-1"></a>ggres <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(m.results, results1.lb, results1.ub), <span class="at">partisanship=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>)</span>
 <span id="cb456-3"><a href="week-4-tutorial.html#cb456-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ggres, <span class="fu">aes</span>(<span class="at">x=</span>partisanship, <span class="at">y=</span>m.results))<span class="sc">+</span></span>
@@ -570,7 +570,7 @@ $residual.scale
 <span id="cb456-8"><a href="week-4-tutorial.html#cb456-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Partisanship: Strong Dem to Strong Rep&quot;</span>)<span class="sc">+</span></span>
 <span id="cb456-9"><a href="week-4-tutorial.html#cb456-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Predicted Probability&quot;</span>)<span class="sc">+</span></span>
 <span id="cb456-10"><a href="week-4-tutorial.html#cb456-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Predicted probability by partisanship&quot;</span>)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-195-2.svg" width="672" /></p>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-197-2.svg" width="672" /></p>
 </details>
 <p>The <code>prediction</code> package in R will give us a shortcut by calculating the confidence intervals for us. We can repeat the previous process inside this function.</p>
 <div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="week-4-tutorial.html#cb457-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;prediction&quot;)</span></span>
@@ -745,10 +745,11 @@ Bootstrap Details
 <span id="cb464-25"><a href="week-4-tutorial.html#cb464-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(p.boot)</span>
 <span id="cb464-26"><a href="week-4-tutorial.html#cb464-26" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb464-27"><a href="week-4-tutorial.html#cb464-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb464-28"><a href="week-4-tutorial.html#cb464-28" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 5: replicate 1000 times</span></span>
-<span id="cb464-29"><a href="week-4-tutorial.html#cb464-29" aria-hidden="true" tabindex="-1"></a><span class="co">#bestimates.party1 &lt;- replicate(100, myboot(study))</span></span>
+<span id="cb464-28"><a href="week-4-tutorial.html#cb464-28" aria-hidden="true" tabindex="-1"></a><span class="do">## Step 5: Uncomment and replicate 1000 times</span></span>
+<span id="cb464-29"><a href="week-4-tutorial.html#cb464-29" aria-hidden="true" tabindex="-1"></a><span class="co">#bestimates.party1 &lt;- replicate(1000, myboot(study))</span></span>
 <span id="cb464-30"><a href="week-4-tutorial.html#cb464-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb464-31"><a href="week-4-tutorial.html#cb464-31" aria-hidden="true" tabindex="-1"></a><span class="co">#c(p.means[1], quantile(bestimates,party1, c(0.025, .975)))</span></span></code></pre></div>
+<span id="cb464-31"><a href="week-4-tutorial.html#cb464-31" aria-hidden="true" tabindex="-1"></a><span class="do">## Extract confidence interval</span></span>
+<span id="cb464-32"><a href="week-4-tutorial.html#cb464-32" aria-hidden="true" tabindex="-1"></a><span class="co">#quantile(bestimates.party1, c(0.025, .975))</span></span></code></pre></div>
 <p>We would then repeat this for each partyid value. Alternatively, we could use <code>prediction</code>!</p>
 </details>
 </div>

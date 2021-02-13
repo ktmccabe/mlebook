@@ -373,6 +373,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb353-2"><a href="qoi-at-designated-values.html#cb353-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">exp</span>(X<span class="sc">%*%</span> bh)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(X<span class="sc">%*%</span> Bh)))</span></code></pre></div>
 <pre><code>[1] 0.002759902</code></pre>
 <p>This is the average predicted probability of having a dispute when the dyad states are Allies, holding other covariates at their observed values.</p>
+<p>Here is a brief video with a second example of the process above, leading into the discussion of marginal effects below. It uses the <a href="https://raw.githubusercontent.com/ktmccabe/teachingdata/main/anesdems.csv">anes data</a> from Banda and Cassese in section 6.</p>
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/vGt-OCJoCJQ" width="533" height="300" frameborder="0" allowfullscreen=""></iframe>
+</div>
+</div>
 <div id="marginal-effects" class="section level3" number="7.2.1">
 <h3><span class="header-section-number">7.2.1</span> Marginal Effects</h3>
 <p>Recall, in linear regression a one-unit change in <span class="math inline">\(X_k\)</span> is associated with a <span class="math inline">\(\hat \beta_k\)</span> change in <span class="math inline">\(Y\)</span> no matter where we are in the domain of <span class="math inline">\(X_k\)</span>. (The slope of a line is constant!)</p>

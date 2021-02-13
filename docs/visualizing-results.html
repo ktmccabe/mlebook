@@ -339,7 +339,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb413-13"><a href="visualizing-results.html#cb413-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="fu">c</span>(<span class="fu">quantile</span>(bc, <span class="fu">c</span>(<span class="fl">0.025</span>, .<span class="dv">975</span>))), <span class="at">lwd =</span> <span class="fl">1.5</span>)</span>
 <span id="cb413-14"><a href="visualizing-results.html#cb413-14" aria-hidden="true" tabindex="-1"></a><span class="co"># add text a</span></span>
 <span id="cb413-15"><a href="visualizing-results.html#cb413-15" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.001</span>), <span class="fu">c</span>(<span class="st">&quot;Quasi-Bayesian&quot;</span>, <span class="st">&quot;BC Bootstrap&quot;</span>), <span class="at">cex =</span> .<span class="dv">7</span> )</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-176-1.svg" width="672" /></p>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-178-1.svg" width="672" /></p>
 <p>Here is the same but in <code>ggplot</code> form.</p>
 <div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="visualizing-results.html#cb414-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ggplot works best if you create a dataframe of the data you want to plot</span></span>
 <span id="cb414-2"><a href="visualizing-results.html#cb414-2" aria-hidden="true" tabindex="-1"></a>myg <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(pe1, <span class="fu">quantile</span>(qestimates, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))),</span>
@@ -364,7 +364,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb416-13"><a href="visualizing-results.html#cb416-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Predicted Probability&quot;</span>) <span class="sc">+</span></span>
 <span id="cb416-14"><a href="visualizing-results.html#cb416-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Average Predicted Probability of Dispute when Allies&quot;</span>) <span class="sc">+</span></span>
 <span id="cb416-15"><a href="visualizing-results.html#cb416-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">y =</span> .<span class="dv">004</span>, <span class="at">label =</span> <span class="fu">c</span>(<span class="st">&quot;Quasi-Bayesian&quot;</span>, <span class="st">&quot;BC Bootstrap&quot;</span>))</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-177-1.svg" width="672" /></p>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-179-1.svg" width="672" /></p>
 </div>
             </section>
 
