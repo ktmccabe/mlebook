@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5.4 MLE Properties | MLE for Political Science</title>
-  <meta name="description" content="5.4 MLE Properties | MLE for Political Science" />
+  <title>8.3 Fitting Ordinal Models in R | MLE for Political Science</title>
+  <meta name="description" content="8.3 Fitting Ordinal Models in R | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5.4 MLE Properties | MLE for Political Science" />
+  <meta property="og:title" content="8.3 Fitting Ordinal Models in R | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5.4 MLE Properties | MLE for Political Science" />
+  <meta name="twitter:title" content="8.3 Fitting Ordinal Models in R | MLE for Political Science" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="mle-estimation.html"/>
-<link rel="next" href="binary.html"/>
+<link rel="prev" href="likelihood-framework.html"/>
+<link rel="next" href="assumptions.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -338,171 +338,177 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mle-properties" class="section level2" number="5.4">
-<h2><span class="header-section-number">5.4</span> MLE Properties</h2>
-<p>Just like OLS had certain properties (BLUE) that made it worthwhile, models using MLE also have desirable features under certain assumptions and regularity conditions.</p>
-<p>Large sample properties</p>
+<div id="fitting-ordinal-models-in-r" class="section level2" number="8.3">
+<h2><span class="header-section-number">8.3</span> Fitting Ordinal Models in R</h2>
+<p>To fit an ordinal logit or probit model in R, we can use the <code>MASS</code> package and <code>polr</code> function.</p>
+<p>You may need to install this in your RStudio the first time you use it.</p>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="fitting-ordinal-models-in-r.html#cb472-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;MASS&quot;</span>)</span></code></pre></div>
+<p>When we are ready to run the model, we then open the package and use the function <code>polr</code>. The first inputs are very similar to <code>lm</code> and <code>glm</code>. However, we add an argument specifying the <code>method =</code> which can be “logistic” (the default) or “probit.” We also specify <code>Hess=T</code> to make sure we get the uncertainty estimates with the results.</p>
 <ul>
-<li>MLE is consistent: <span class="math inline">\(p\lim \hat \theta^{ML} = \theta\)</span></li>
-<li>It is also asymptotically normal: <span class="math inline">\(\hat \theta^{ML} \sim N(\theta, [I(\theta)]^{-1})\)</span>
-<ul>
-<li>This will allow us to use the normal approximation to calculate z-scores and p-values</li>
-</ul></li>
-<li>And it is asymptotically efficient. “In other words, compared to any other consistent and uniformly asymptotically Normal estimator, the ML estimator has a smaller asymptotic variance” (King 1998, 80).</li>
+<li>By the way, why would that argument be called <code>Hess</code>?</li>
 </ul>
-<p><strong><em>Note on consistency</em></strong></p>
-<p>What does it mean to say an estimator is consistent? As samples get larger and larger, we converge to the truth.</p>
-<p>Consistency: <span class="math inline">\(p\lim \hat{\theta} =\beta\)</span> As <span class="math inline">\(n \rightarrow \infty P(\hat{\theta} - \theta&gt; e) \rightarrow 0\)</span>.</p>
-<ul>
-<li>Convergence in probability: the probability that the absolute difference between the estimate and parameter being larger than <span class="math inline">\(e\)</span> goes to zero as <span class="math inline">\(n\)</span> gets bigger.</li>
-</ul>
-<p>Note that bias and consistency are different: Consistency means that as the sample size (<span class="math inline">\(n\)</span>) gets large the estimate gets closer to the true value. Unbiasedness is not affected by sample size. An estimate is unbiased if over repeated samples, its expected value (average) is the true parameter.</p>
-<p>It is possible for an estimator to be unbiased and consistent, biased and not consistent, or consistent yet biased.</p>
-<p><img src="images/UnbiasedandConsistent.png" style="width:40.0%" />; <img src="images/BiasedandInconsistent.png" style="width:40.0%" /></p>
-<p><img src="images/BiasedButConsistent.png" style="width:40.0%" /></p>
-<p>Images taken from <a href="https://eranraviv.com/bias-vs-consistency/">here</a></p>
-<p>What is a practical takeaway from this? The desirable properties of MLE kick in with larger samples. When you have a very small sample, you might use caution with your estimates.</p>
-<p><strong><em>No Free Lunch</em></strong></p>
-<p>We have hinted at some of the assumptions required, but below we can state them more formally.</p>
-<ul>
-<li>First, we assume a particular data generating process: the probability model.</li>
-<li>We are generally assuming that observations are independent and identically distributed (allowing us to write the likelihood as a product)– unless we explicitly write the likelihood in a way that takes this into account.
-<ul>
-<li>When we have complicated structures to our data, this assumption may be violated, such as data that is clustered in particular hierarchical entities.</li>
-</ul></li>
-<li>We assume the model (i.e., the choice of covariates and how they are modeled) is correctly specified. (e.g., no omitted variables.)</li>
-<li>We have to meet certain technical regularity conditions–meaning that our problem is a “regular” one. These, in the words of Gary King are “obviously quite technical” (1998, 75). We will not get into the details, but you can see pg. 75 of <em>Unifying Political Methodology</em> for the formal mathematical statements. In short, our paramaters have to be <a href="https://en.wikipedia.org/wiki/Identifiability">identifiable</a> and within the parameter space of possible values (this identifiability can be violated, for example, when we have too many parameters relative to the number of observations in the sample), we have to be able to differentiate the log-likelihood (in fact, it needs to be twice continuously differentiable) along the support (the range of values) in the data. The information matrix, which we get through the second derivative, must be positive definite and finitely bounded. This helps us know we are at a maximum, and the maximum exists and is finite. You can visualize this as a smooth function, that is not too sharp (which would make it non differentiable), but has a peak (a maximum) that we can identify.</li>
-</ul>
-<div id="hypothesis-tests" class="section level3" number="5.4.1">
-<h3><span class="header-section-number">5.4.1</span> Hypothesis Tests</h3>
-<p>We can apply the same hypothesis testing framework to our estimates here as we did in linear regression. First, we can standardize our coefficient estimates by dividing them by the standard error. This will generate a “z score.” Just like when we had the t value in OLS, we can use the z score to calculate the p-value and make assessments about the null hypothesis that a given <span class="math inline">\(\hat \beta_k\)</span> = 0.</p>
-<p><span class="math display">\[\begin{align*}
-z &amp;= \frac{\hat \theta_k}{\sqrt{Var(\hat \theta)_k}} \sim N(0,1)
-\end{align*}\]</span></p>
-<p>Note: to get p-values, we typically now use, <code>2 * pnorm(abs(z), lower.tail=F)</code> instead of <code>pt()</code> and our critical values are based on <code>qnorm()</code> instead of <code>qt()</code>. R will follow the same in most circumstances. In large samples, these converge to the same quantities.</p>
-</div>
-<div id="model-output-in-r" class="section level3" number="5.4.2">
-<h3><span class="header-section-number">5.4.2</span> Model Output in R</h3>
-<p>As discussed, we can fit a GLM in R using the <code>glm</code> function:</p>
-<ul>
-<li><code>glm(formula, data, family = XXX(link = "XXX", ...), ...)</code>
-<ul>
-<li><code>formula</code>: The model written in the form similar to <code>lm()</code></li>
-<li><code>data</code>: Data frame</li>
-<li><code>family</code>: Name of PDF for <span class="math inline">\(Y_i\)</span> (e.g. <code>binomial</code>, <code>gaussian</code>)</li>
-<li><code>link</code>: Name of the link function (e.g. <code>logit</code>, `<code>probit</code>, <code>identity</code>, <code>log</code>)</li>
-</ul></li>
-</ul>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="mle-properties.html#cb296-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load Data</span></span>
-<span id="cb296-2"><a href="mle-properties.html#cb296-2" aria-hidden="true" tabindex="-1"></a>fit.glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(participation <span class="sc">~</span> female <span class="sc">+</span> edu <span class="sc">+</span> age <span class="sc">+</span> sexism, <span class="at">data=</span>anes,</span>
-<span id="cb296-3"><a href="mle-properties.html#cb296-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link=</span><span class="st">&quot;identity&quot;</span>))</span></code></pre></div>
-<p>We’ve already discussed the coefficient output. Like <code>lm()</code>, GLM wiil also display the standard errors, z-scores / t-statistics, and p-values of the model in the model summary.</p>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="mle-properties.html#cb297-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.glm)<span class="sc">$</span>coefficients</span></code></pre></div>
-<pre><code>                Estimate  Std. Error   t value     Pr(&gt;|t|)
-(Intercept)  0.929302597 0.154033186  6.033132 1.999280e-09
-female      -0.217453631 0.067415200 -3.225588 1.282859e-03
-edu          0.166837062 0.022402469  7.447262 1.559790e-13
-age          0.008795138 0.001874559  4.691843 2.941204e-06
-sexism      -0.981808431 0.154664950 -6.347970 2.844067e-10</code></pre>
-<p>For this example, R reverts to the t-value instead of the z-score given that we are using the linear model. In other examples, you may see <code>z</code> in place of <code>t</code>. There are only small differences in these approximations because as your sample size gets larger, the degrees of freedom (used in the calculation of p-calues for the t distribution) are big enough that the t distribution converges to the normal distribution.</p>
-<p><strong>Goodness of fit</strong></p>
-<p>The <code>glm()</code> model has a lot of summary output.</p>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="mle-properties.html#cb299-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.glm)</span></code></pre></div>
-<pre><code>
-Call:
-glm(formula = participation ~ female + edu + age + sexism, family = gaussian(link = &quot;identity&quot;), 
-    data = anes)
-
-Deviance Residuals: 
-    Min       1Q   Median       3Q      Max  
--2.3001  -0.8343  -0.3013   0.3651   7.2887  
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="fitting-ordinal-models-in-r.html#cb473-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb473-2"><a href="fitting-ordinal-models-in-r.html#cb473-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">polr</span>(<span class="fu">as.factor</span>(dissent) <span class="sc">~</span> treat, <span class="at">data=</span> pg, <span class="at">Hess =</span> T, <span class="at">method =</span> <span class="st">&quot;probit&quot;</span>)</span>
+<span id="cb473-3"><a href="fitting-ordinal-models-in-r.html#cb473-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code></pre></div>
+<pre><code>Call:
+polr(formula = as.factor(dissent) ~ treat, data = pg, Hess = T, 
+    method = &quot;probit&quot;)
 
 Coefficients:
-             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  0.929303   0.154033   6.033 2.00e-09 ***
-female      -0.217454   0.067415  -3.226  0.00128 ** 
-edu          0.166837   0.022402   7.447 1.56e-13 ***
-age          0.008795   0.001875   4.692 2.94e-06 ***
-sexism      -0.981808   0.154665  -6.348 2.84e-10 ***
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+       Value Std. Error t value
+treat 0.2645     0.1021   2.589
 
-(Dispersion parameter for gaussian family taken to be 1.688012)
+Intercepts:
+    Value   Std. Error t value
+1|2 -0.5102  0.0761    -6.7017
+2|3 -0.0576  0.0740    -0.7784
+3|4  0.2697  0.0742     3.6344
 
-    Null deviance: 2969.3  on 1584  degrees of freedom
-Residual deviance: 2667.1  on 1580  degrees of freedom
-AIC: 5334.9
+Residual Deviance: 1253.844 
+AIC: 1261.844 
+(116 observations deleted due to missingness)</code></pre>
+<p>To get p-values, we can use the <code>AER</code> package.</p>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="fitting-ordinal-models-in-r.html#cb475-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER)</span>
+<span id="cb475-2"><a href="fitting-ordinal-models-in-r.html#cb475-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(fit)</span></code></pre></div>
+<pre><code>
+z test of coefficients:
 
-Number of Fisher Scoring iterations: 2</code></pre>
-<p>Some of the output represents measures of the goodness of fit of the model. However, their values are not directly interpretable from a single model.</p>
-<ul>
-<li>Larger (less negative) likelihood, the better the model fits the data. (<code>logLik(mod)</code>). The becomes relevant when comparing two or more models.</li>
-<li>Deviance is calculated from the likelihood. This is a measure of discrepancy between observed and fitted values. (Smaller values, better fit.)
-<ul>
-<li>Null deviance: how well the outcome is predicted by a model that includes only the intercept. (<span class="math inline">\(df = n - 1\)</span>)</li>
-<li>Residual deviance: how well the outcome is predicted by a model with our parameters. (<span class="math inline">\(df = n-k\)</span>)</li>
-</ul></li>
-<li>AIC- used for model comparison. Smaller values indicate a more parsimonious model. Accounts for the number of parameters (<span class="math inline">\(K\)</span>) in the model (like Adjusted R-squared, but without the ease of interpretation). Sometimes used as a criteria in prediction exercises (using a model on training data to predict test data). For more information on how AIC can be used in prediction exercises, see <a href="https://towardsdatascience.com/introduction-to-aic-akaike-information-criterion-9c9ba1c96ced">here</a>.</li>
-</ul>
-<p><strong>Likelihood Ratio Test</strong></p>
-<p>The likelihood ratio test compares the fit of two models, with the null hypothesis being that the full model does not add more explanatory power to the reduced model. Note: You should only compare models if they have the same number of observations.</p>
-<p>This type of test is used in a similar way that people compare R-squared values across models.</p>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="mle-properties.html#cb301-1" aria-hidden="true" tabindex="-1"></a>fit.glm2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(participation <span class="sc">~</span> female <span class="sc">+</span> edu <span class="sc">+</span> age <span class="sc">+</span> sexism, <span class="at">data=</span>anes,</span>
-<span id="cb301-2"><a href="mle-properties.html#cb301-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link=</span><span class="st">&quot;identity&quot;</span>))</span>
-<span id="cb301-3"><a href="mle-properties.html#cb301-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb301-4"><a href="mle-properties.html#cb301-4" aria-hidden="true" tabindex="-1"></a>fit.glm1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(participation <span class="sc">~</span> female <span class="sc">+</span> edu <span class="sc">+</span> age, <span class="at">data=</span>anes, </span>
-<span id="cb301-5"><a href="mle-properties.html#cb301-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span>
-<span id="cb301-6"><a href="mle-properties.html#cb301-6" aria-hidden="true" tabindex="-1"></a>               </span>
-<span id="cb301-7"><a href="mle-properties.html#cb301-7" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit.glm1, fit.glm2, <span class="at">test =</span> <span class="st">&quot;Chisq&quot;</span>) <span class="co">#  reject the null</span></span></code></pre></div>
-<pre><code>Analysis of Deviance Table
-
-Model 1: participation ~ female + edu + age
-Model 2: participation ~ female + edu + age + sexism
-  Resid. Df Resid. Dev Df Deviance  Pr(&gt;Chi)    
-1      1581     2735.1                          
-2      1580     2667.1  1   68.021 2.182e-10 ***
+       Estimate Std. Error z value  Pr(&gt;|z|)    
+treat  0.264455   0.102143  2.5891 0.0096238 ** 
+1|2   -0.510237   0.076135 -6.7017  2.06e-11 ***
+2|3   -0.057570   0.073958 -0.7784 0.4363235    
+3|4    0.269665   0.074198  3.6344 0.0002786 ***
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<p><strong>Pseudo-R-squared</strong></p>
-<p>We don’t have an exact equivalent to the R-squared in OLS, but people have developed “pseudo” measures.</p>
-<p>Example: McFadden’s R-squared</p>
+<p>Or calculate manually</p>
+<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="fitting-ordinal-models-in-r.html#cb477-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="dv">2</span><span class="sc">*</span><span class="fu">pnorm</span>(<span class="fu">abs</span>(<span class="fu">summary</span>(fit)<span class="sc">$</span>coefficients[,<span class="dv">3</span>]), </span>
+<span id="cb477-2"><a href="fitting-ordinal-models-in-r.html#cb477-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">lower.tail =</span> F), <span class="at">digits=</span><span class="dv">6</span>)</span></code></pre></div>
+<pre><code>   treat      1|2      2|3      3|4 
+0.009624 0.000000 0.436323 0.000279 </code></pre>
+<details>
+<summary>
+For details on how to fit this manually in R using <code>optim</code>, expand.
+</summary>
+<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="fitting-ordinal-models-in-r.html#cb479-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Grab X and Y, listwise deletion</span></span>
+<span id="cb479-2"><a href="fitting-ordinal-models-in-r.html#cb479-2" aria-hidden="true" tabindex="-1"></a>pgsub <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(<span class="fu">cbind</span>(pg<span class="sc">$</span>dissent, pg<span class="sc">$</span>treat))</span>
+<span id="cb479-3"><a href="fitting-ordinal-models-in-r.html#cb479-3" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> pgsub[,<span class="dv">1</span>]</span>
+<span id="cb479-4"><a href="fitting-ordinal-models-in-r.html#cb479-4" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> pgsub[, <span class="dv">2</span>]</span>
+<span id="cb479-5"><a href="fitting-ordinal-models-in-r.html#cb479-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb479-6"><a href="fitting-ordinal-models-in-r.html#cb479-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Log likelihood in R for this example</span></span>
+<span id="cb479-7"><a href="fitting-ordinal-models-in-r.html#cb479-7" aria-hidden="true" tabindex="-1"></a>llikor <span class="ot">&lt;-</span> <span class="cf">function</span>(par, Y, X){</span>
+<span id="cb479-8"><a href="fitting-ordinal-models-in-r.html#cb479-8" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># X columns</span></span>
+<span id="cb479-9"><a href="fitting-ordinal-models-in-r.html#cb479-9" aria-hidden="true" tabindex="-1"></a>  j <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="co"># categories</span></span>
+<span id="cb479-10"><a href="fitting-ordinal-models-in-r.html#cb479-10" aria-hidden="true" tabindex="-1"></a>  beta <span class="ot">&lt;-</span> par[<span class="dv">1</span><span class="sc">:</span>k]</span>
+<span id="cb479-11"><a href="fitting-ordinal-models-in-r.html#cb479-11" aria-hidden="true" tabindex="-1"></a>  zeta <span class="ot">&lt;-</span> par[(k<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span><span class="fu">length</span>(par)]</span>
+<span id="cb479-12"><a href="fitting-ordinal-models-in-r.html#cb479-12" aria-hidden="true" tabindex="-1"></a>  X <span class="ot">&lt;-</span><span class="fu">cbind</span>(X)</span>
+<span id="cb479-13"><a href="fitting-ordinal-models-in-r.html#cb479-13" aria-hidden="true" tabindex="-1"></a>  beta <span class="ot">&lt;-</span> <span class="fu">cbind</span>(beta)</span>
+<span id="cb479-14"><a href="fitting-ordinal-models-in-r.html#cb479-14" aria-hidden="true" tabindex="-1"></a>  <span class="do">## linear predictor</span></span>
+<span id="cb479-15"><a href="fitting-ordinal-models-in-r.html#cb479-15" aria-hidden="true" tabindex="-1"></a>  eta <span class="ot">&lt;-</span> X <span class="sc">%*%</span> beta</span>
+<span id="cb479-16"><a href="fitting-ordinal-models-in-r.html#cb479-16" aria-hidden="true" tabindex="-1"></a>  <span class="do">## indicator variables</span></span>
+<span id="cb479-17"><a href="fitting-ordinal-models-in-r.html#cb479-17" aria-hidden="true" tabindex="-1"></a>  y1 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Y<span class="sc">==</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb479-18"><a href="fitting-ordinal-models-in-r.html#cb479-18" aria-hidden="true" tabindex="-1"></a>  y2 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Y<span class="sc">==</span><span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb479-19"><a href="fitting-ordinal-models-in-r.html#cb479-19" aria-hidden="true" tabindex="-1"></a>  y3 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Y<span class="sc">==</span><span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb479-20"><a href="fitting-ordinal-models-in-r.html#cb479-20" aria-hidden="true" tabindex="-1"></a>  y4 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Y<span class="sc">==</span><span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb479-21"><a href="fitting-ordinal-models-in-r.html#cb479-21" aria-hidden="true" tabindex="-1"></a>  <span class="do">## likelihood for each category</span></span>
+<span id="cb479-22"><a href="fitting-ordinal-models-in-r.html#cb479-22" aria-hidden="true" tabindex="-1"></a>  l1 <span class="ot">&lt;-</span> y1<span class="sc">*</span><span class="fu">log</span>(<span class="fu">pnorm</span>(zeta[<span class="dv">1</span>] <span class="sc">-</span> eta))</span>
+<span id="cb479-23"><a href="fitting-ordinal-models-in-r.html#cb479-23" aria-hidden="true" tabindex="-1"></a>  l2 <span class="ot">&lt;-</span> y2<span class="sc">*</span><span class="fu">log</span>(<span class="fu">pnorm</span>(zeta[<span class="dv">2</span>] <span class="sc">-</span> eta) <span class="sc">-</span> <span class="fu">pnorm</span>(zeta[<span class="dv">1</span>] <span class="sc">-</span> eta)) </span>
+<span id="cb479-24"><a href="fitting-ordinal-models-in-r.html#cb479-24" aria-hidden="true" tabindex="-1"></a>  l3 <span class="ot">&lt;-</span> y3<span class="sc">*</span><span class="fu">log</span>(<span class="fu">pnorm</span>(zeta[<span class="dv">3</span>] <span class="sc">-</span> eta) <span class="sc">-</span> <span class="fu">pnorm</span>(zeta[<span class="dv">2</span>] <span class="sc">-</span> eta)) </span>
+<span id="cb479-25"><a href="fitting-ordinal-models-in-r.html#cb479-25" aria-hidden="true" tabindex="-1"></a>  l4 <span class="ot">&lt;-</span> y4<span class="sc">*</span><span class="fu">log</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(zeta[<span class="dv">3</span>] <span class="sc">-</span> eta))</span>
+<span id="cb479-26"><a href="fitting-ordinal-models-in-r.html#cb479-26" aria-hidden="true" tabindex="-1"></a>  <span class="do">## sum together</span></span>
+<span id="cb479-27"><a href="fitting-ordinal-models-in-r.html#cb479-27" aria-hidden="true" tabindex="-1"></a>  llik <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">c</span>(l1, l2, l3, l4))</span>
+<span id="cb479-28"><a href="fitting-ordinal-models-in-r.html#cb479-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(llik)</span>
+<span id="cb479-29"><a href="fitting-ordinal-models-in-r.html#cb479-29" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb479-30"><a href="fitting-ordinal-models-in-r.html#cb479-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb479-31"><a href="fitting-ordinal-models-in-r.html#cb479-31" aria-hidden="true" tabindex="-1"></a><span class="do">## Optimize</span></span>
+<span id="cb479-32"><a href="fitting-ordinal-models-in-r.html#cb479-32" aria-hidden="true" tabindex="-1"></a>opt.out <span class="ot">&lt;-</span> <span class="fu">optim</span>(<span class="at">par=</span><span class="fu">c</span>(.<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">fn=</span>llikor, <span class="at">X=</span>X, <span class="at">Y=</span>Y, <span class="at">method=</span><span class="st">&quot;BFGS&quot;</span>,</span>
+<span id="cb479-33"><a href="fitting-ordinal-models-in-r.html#cb479-33" aria-hidden="true" tabindex="-1"></a>      <span class="at">control=</span><span class="fu">list</span>(<span class="at">fnscale=</span><span class="sc">-</span><span class="dv">1</span>), <span class="at">hessian =</span> T)</span>
+<span id="cb479-34"><a href="fitting-ordinal-models-in-r.html#cb479-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb479-35"><a href="fitting-ordinal-models-in-r.html#cb479-35" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients</span></span>
+<span id="cb479-36"><a href="fitting-ordinal-models-in-r.html#cb479-36" aria-hidden="true" tabindex="-1"></a>opt.out<span class="sc">$</span>par[<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>[1] 0.2644911</code></pre>
+<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="fitting-ordinal-models-in-r.html#cb481-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit)</span></code></pre></div>
+<pre><code>    treat 
+0.2644546 </code></pre>
+<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb483-1"><a href="fitting-ordinal-models-in-r.html#cb483-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Cutpoints</span></span>
+<span id="cb483-2"><a href="fitting-ordinal-models-in-r.html#cb483-2" aria-hidden="true" tabindex="-1"></a>opt.out<span class="sc">$</span>par[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>]</span></code></pre></div>
+<pre><code>[1] -0.51019872 -0.05757855  0.26969063</code></pre>
+<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="fitting-ordinal-models-in-r.html#cb485-1" aria-hidden="true" tabindex="-1"></a>fit<span class="sc">$</span>zeta</span></code></pre></div>
+<pre><code>       1|2        2|3        3|4 
+-0.5102370 -0.0575699  0.2696646 </code></pre>
+<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="fitting-ordinal-models-in-r.html#cb487-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Standard errors</span></span>
+<span id="cb487-2"><a href="fitting-ordinal-models-in-r.html#cb487-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">solve</span>(<span class="sc">-</span> opt.out<span class="sc">$</span>hessian)))</span></code></pre></div>
+<pre><code>[1] 0.10214310 0.07613473 0.07395763 0.07419776</code></pre>
+<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="fitting-ordinal-models-in-r.html#cb489-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(fit)))</span></code></pre></div>
+<pre><code>     treat        1|2        2|3        3|4 
+0.10214309 0.07613503 0.07395770 0.07419775 </code></pre>
+</details>
+<div id="quantities-of-interest" class="section level3" number="8.3.1">
+<h3><span class="header-section-number">8.3.1</span> Quantities of Interest</h3>
+<p>In discussing the results of Table 3 from the ordered probit analysis in the paper, the authors note, “A shift of .26 probits implies, for example, that a health group respondent with a 30% chance of strongly agreeing to dissent would move to a 40% chance if assigned to the reconciliation program group. This is a large, but not implausibly large, shift in opinion.”</p>
+<p>Similar to the binary case, we can convert our estimates to probability, but here we will do it for specific categories. Let’s first conduct an estimate of the difference in probability of being in the top category of dissent for those in the treatment - control conditions.</p>
+<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="fitting-ordinal-models-in-r.html#cb491-1" aria-hidden="true" tabindex="-1"></a><span class="do">## probability of being in top category</span></span>
+<span id="cb491-2"><a href="fitting-ordinal-models-in-r.html#cb491-2" aria-hidden="true" tabindex="-1"></a>cutpoint3 <span class="ot">&lt;-</span> fit<span class="sc">$</span>zeta[<span class="dv">3</span>]</span>
+<span id="cb491-3"><a href="fitting-ordinal-models-in-r.html#cb491-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># in treatment</span></span>
+<span id="cb491-4"><a href="fitting-ordinal-models-in-r.html#cb491-4" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit) <span class="co"># coefficient</span></span>
+<span id="cb491-5"><a href="fitting-ordinal-models-in-r.html#cb491-5" aria-hidden="true" tabindex="-1"></a>pp1 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(cutpoint3 <span class="sc">-</span> X<span class="sc">*</span>b)</span>
+<span id="cb491-6"><a href="fitting-ordinal-models-in-r.html#cb491-6" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># in control</span></span>
+<span id="cb491-7"><a href="fitting-ordinal-models-in-r.html#cb491-7" aria-hidden="true" tabindex="-1"></a>pp0 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(cutpoint3 <span class="sc">-</span> X<span class="sc">*</span>b)</span>
+<span id="cb491-8"><a href="fitting-ordinal-models-in-r.html#cb491-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb491-9"><a href="fitting-ordinal-models-in-r.html#cb491-9" aria-hidden="true" tabindex="-1"></a><span class="do">## difference</span></span>
+<span id="cb491-10"><a href="fitting-ordinal-models-in-r.html#cb491-10" aria-hidden="true" tabindex="-1"></a>pp1 <span class="sc">-</span> pp0</span></code></pre></div>
+<pre><code>      3|4 
+0.1042124 </code></pre>
+<p>We recover that there is an 10 percentage point difference in probability predicted for those in the treatment vs. control.</p>
+<p>If we were interested in other categories, we could similarly compare probabilities within those. For example, what about category 3?</p>
+<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb493-1"><a href="fitting-ordinal-models-in-r.html#cb493-1" aria-hidden="true" tabindex="-1"></a>cutpoint3 <span class="ot">&lt;-</span> fit<span class="sc">$</span>zeta[<span class="dv">3</span>]</span>
+<span id="cb493-2"><a href="fitting-ordinal-models-in-r.html#cb493-2" aria-hidden="true" tabindex="-1"></a>cutpoint2 <span class="ot">&lt;-</span> fit<span class="sc">$</span>zeta[<span class="dv">2</span>]</span>
+<span id="cb493-3"><a href="fitting-ordinal-models-in-r.html#cb493-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># in treatment</span></span>
+<span id="cb493-4"><a href="fitting-ordinal-models-in-r.html#cb493-4" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit) <span class="co"># coefficient</span></span>
+<span id="cb493-5"><a href="fitting-ordinal-models-in-r.html#cb493-5" aria-hidden="true" tabindex="-1"></a>pp1 <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(cutpoint3 <span class="sc">-</span> X<span class="sc">*</span>b) <span class="sc">-</span> <span class="fu">pnorm</span>(cutpoint2 <span class="sc">-</span> X<span class="sc">*</span>b)</span>
+<span id="cb493-6"><a href="fitting-ordinal-models-in-r.html#cb493-6" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># in control</span></span>
+<span id="cb493-7"><a href="fitting-ordinal-models-in-r.html#cb493-7" aria-hidden="true" tabindex="-1"></a>pp0 <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(cutpoint3 <span class="sc">-</span> X<span class="sc">*</span>b) <span class="sc">-</span> <span class="fu">pnorm</span>(cutpoint2 <span class="sc">-</span> X<span class="sc">*</span>b)</span>
+<span id="cb493-8"><a href="fitting-ordinal-models-in-r.html#cb493-8" aria-hidden="true" tabindex="-1"></a>pp1 <span class="sc">-</span> pp0</span></code></pre></div>
+<pre><code>         3|4 
+-0.000883825 </code></pre>
+<p>We can use our R shortcuts for all categories. Here, to make sure we are in probabilities, we can use <code>type="probs"</code>.</p>
+<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb495-1"><a href="fitting-ordinal-models-in-r.html#cb495-1" aria-hidden="true" tabindex="-1"></a><span class="do">## predict</span></span>
+<span id="cb495-2"><a href="fitting-ordinal-models-in-r.html#cb495-2" aria-hidden="true" tabindex="-1"></a>prs <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">treat =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)), <span class="at">type =</span> <span class="st">&quot;probs&quot;</span>)</span>
+<span id="cb495-3"><a href="fitting-ordinal-models-in-r.html#cb495-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb495-4"><a href="fitting-ordinal-models-in-r.html#cb495-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Prediction</span></span>
+<span id="cb495-5"><a href="fitting-ordinal-models-in-r.html#cb495-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prediction)</span>
+<span id="cb495-6"><a href="fitting-ordinal-models-in-r.html#cb495-6" aria-hidden="true" tabindex="-1"></a><span class="do">## specify which category</span></span>
+<span id="cb495-7"><a href="fitting-ordinal-models-in-r.html#cb495-7" aria-hidden="true" tabindex="-1"></a>outp <span class="ot">&lt;-</span> <span class="fu">prediction</span>(fit, <span class="at">at =</span> <span class="fu">list</span>(<span class="at">treat =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)), </span>
+<span id="cb495-8"><a href="fitting-ordinal-models-in-r.html#cb495-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">category =</span> <span class="dv">1</span>)</span>
+<span id="cb495-9"><a href="fitting-ordinal-models-in-r.html#cb495-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(outp)<span class="sc">$</span>Prediction</span></code></pre></div>
+<pre><code>[1] 0.3049427 0.2192609</code></pre>
+<p>How can we visualize the results?</p>
 <ul>
-<li><span class="math inline">\(PR^2 = 1 - \frac{\ell(M)}{\ell(N)}\)</span>
-<ul>
-<li>where <span class="math inline">\(\ell(M)\)</span> is the log-likelihood for your fitted model and <span class="math inline">\(\ell(N)\)</span> is the log-likelihood for a model with only the intercept</li>
-</ul></li>
-<li>Recall, greater (less negative) values of the log-likelihood indicate better fit</li>
-<li>McFadden’s values range from 0 to close to 1</li>
+<li>Given our independent variable of interest, <code>treat</code> just has two categories, we could make a plot similar to the barplot at the beginning of the section.</li>
+<li>When our independent variable of interest has several categories, things can get a bit messier. We will do an example in a weekly tutorial.</li>
 </ul>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="mle-properties.html#cb303-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;pscl&quot;)</span></span>
-<span id="cb303-2"><a href="mle-properties.html#cb303-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pscl)</span></code></pre></div>
-<pre><code>Warning: package &#39;pscl&#39; was built under R version 4.0.2</code></pre>
-<pre><code>Classes and Methods for R developed in the
-Political Science Computational Laboratory
-Department of Political Science
-Stanford University
-Simon Jackman
-hurdle and zeroinfl functions by Achim Zeileis</code></pre>
-<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="mle-properties.html#cb306-1" aria-hidden="true" tabindex="-1"></a>fit.glm.null <span class="ot">&lt;-</span> <span class="fu">glm</span>(participation <span class="sc">~</span> <span class="dv">1</span>, anes, <span class="at">family =</span> <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span>
-<span id="cb306-2"><a href="mle-properties.html#cb306-2" aria-hidden="true" tabindex="-1"></a>pr <span class="ot">&lt;-</span> <span class="fu">pR2</span>(fit.glm1)</span></code></pre></div>
-<pre><code>fitting null model for pseudo-r2</code></pre>
-<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="mle-properties.html#cb308-1" aria-hidden="true" tabindex="-1"></a>pr[<span class="st">&quot;McFadden&quot;</span>]</span></code></pre></div>
-<pre><code>  McFadden 
-0.02370539 </code></pre>
-<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="mle-properties.html#cb310-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Or, by hand:</span></span>
-<span id="cb310-2"><a href="mle-properties.html#cb310-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> (<span class="fu">logLik</span>(fit.glm1)<span class="sc">/</span><span class="fu">logLik</span>(fit.glm.null))</span></code></pre></div>
-<pre><code>&#39;log Lik.&#39; 0.02370539 (df=5)</code></pre>
-
+<p>How can we get uncertainty?</p>
+<ul>
+<li>Like before, we can use bootstrap or simulation, or ask <a href="https://christophergandrud.github.io/Zelig/articles/zeligchoice_ologit.html"><code>Zelig</code></a> or <code>margins</code> to do it for us.</li>
+</ul>
+<p>How can we incorporate covariates?</p>
+<ul>
+<li>Like before, we would just have a matrix of <span class="math inline">\(X\)</span> covariates instead of a single column for the treatment.</li>
+<li>Like before, we could also calculate probabilities holding those covariates at observed values or setting them to designated values of interest.</li>
+</ul>
+<p>How could we fit a logit version?</p>
+<ul>
+<li>We just switch the <code>method = "logistic"</code>, and then we should be careful to also use <code>plogis()</code> in place of <code>pnorm</code> for the probability calculation.</li>
+<li>Note: ordered logits also have the benefit of having the odds ratio interpretation when we <code>exp(coef(fit))</code> exponentiate the coefficients. See this <a href="https://stats.idre.ucla.edu/r/dae/ordinal-logistic-regression/">post</a>’s section on “Interpreting the odds ratio” halfway down the page for more information. Again, it is more common in political science to see probabilities than odds ratios, but different disciplines prefer different quantities of interest.</li>
+</ul>
 </div>
 </div>
-<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="mle-estimation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="binary.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="likelihood-framework.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="assumptions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

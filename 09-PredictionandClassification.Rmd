@@ -1,3 +1,8 @@
+```{r, include=F}
+knitr::knit_exit()
+```
+
+
 # Prediction and Classification {#ml}
 
 This section will describe how MLE tools can be useful in prediction and classification exercises, common to machine learning.

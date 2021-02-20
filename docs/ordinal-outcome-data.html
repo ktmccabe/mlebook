@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5.4 MLE Properties | MLE for Political Science</title>
-  <meta name="description" content="5.4 MLE Properties | MLE for Political Science" />
+  <title>8.1 Ordinal Outcome Data | MLE for Political Science</title>
+  <meta name="description" content="8.1 Ordinal Outcome Data | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5.4 MLE Properties | MLE for Political Science" />
+  <meta property="og:title" content="8.1 Ordinal Outcome Data | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5.4 MLE Properties | MLE for Political Science" />
+  <meta name="twitter:title" content="8.1 Ordinal Outcome Data | MLE for Political Science" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="mle-estimation.html"/>
-<link rel="next" href="binary.html"/>
+<link rel="prev" href="ordinal.html"/>
+<link rel="next" href="likelihood-framework.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -338,171 +338,132 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mle-properties" class="section level2" number="5.4">
-<h2><span class="header-section-number">5.4</span> MLE Properties</h2>
-<p>Just like OLS had certain properties (BLUE) that made it worthwhile, models using MLE also have desirable features under certain assumptions and regularity conditions.</p>
-<p>Large sample properties</p>
+<div id="ordinal-outcome-data" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> Ordinal Outcome Data</h2>
+<p>Here is a motivating example for the use of ordered data from Paluck and Green “Deference, Dissent, and Dispute Resolution: An Experimental Intervention Using Mass Media to Change Norms and Behavior in Rwanda” which was published in the <em>American Political Science Review</em> in 2009. <a href="doi:10.1017/S0003055409990128" class="uri">doi:10.1017/S0003055409990128</a></p>
+<p><em>Abstract. Deference and dissent strike a delicate balance in any polity. Insufficient deference to authority may incapacitate government, whereas too much may allow leaders to orchestrate mass violence. Although cross-national and cross-temporal variation in deference to authority and willingness to express dissent has long been studied in political science, rarely have scholars studied programs designed to change these aspects of political culture. This study, situated in post-genocide Rwanda, reports a qualitative and quantitative assessment of one such attempt, a radio program aimed at discouraging blind obedience and reliance on direction from authorities and promoting independent thought and collective action in problem solving. Over the course of one year, this radio program or a comparable program dealing with HIV was randomly presented to pairs of communities, including communities of genocide survivors, Twa people, and imprisoned genocidaires … Although the radio program had little effect on many kinds of beliefs and attitudes, it had a substantial impact on listeners’ willingness to express dissent and the ways they resolved communal problems.</em></p>
+<p>In a field experiment, the authors have randomly assigned participants in different research sites to listen to a radio program over the course of a year that varied in its message. As the authors note, “Because radios and batteries are relatively expensive for Rwandans, they usually listen to the radio in groups. Thus, we used a group-randomized design in which adults from a community listened together either to the treatment (reconciliation) program or to the control program (another entertainment-education radio soap opera about health and HIV).” The authors have 14 clusters without 40 individuals within each cluster.</p>
 <ul>
-<li>MLE is consistent: <span class="math inline">\(p\lim \hat \theta^{ML} = \theta\)</span></li>
-<li>It is also asymptotically normal: <span class="math inline">\(\hat \theta^{ML} \sim N(\theta, [I(\theta)]^{-1})\)</span>
+<li>Treatment (<code>treat</code>): radio program with one of two messages, where 1=the treatment condition with a reconciliation message and 0=control, listening to a health message.</li>
+<li>Outcome (<code>dissent</code>): Willingness to Display Dissent: An ordered scale with four categories from 1 (“I should stay quiet”) to 4 (“I should dissent”)</li>
+</ul>
+<p>Let’s load the data and look at the treatment and outcome.</p>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="ordinal-outcome-data.html#cb471-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
+<span id="cb471-2"><a href="ordinal-outcome-data.html#cb471-2" aria-hidden="true" tabindex="-1"></a>pg <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/paluckgreen.dta?raw=true&quot;</span>)</span>
+<span id="cb471-3"><a href="ordinal-outcome-data.html#cb471-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb471-4"><a href="ordinal-outcome-data.html#cb471-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s treat the outcome as a factor</span></span>
+<span id="cb471-5"><a href="ordinal-outcome-data.html#cb471-5" aria-hidden="true" tabindex="-1"></a>pg<span class="sc">$</span>dissent <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(pg<span class="sc">$</span>dissent)</span>
+<span id="cb471-6"><a href="ordinal-outcome-data.html#cb471-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb471-7"><a href="ordinal-outcome-data.html#cb471-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s visualize the outcome by group</span></span>
+<span id="cb471-8"><a href="ordinal-outcome-data.html#cb471-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb471-9"><a href="ordinal-outcome-data.html#cb471-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb471-10"><a href="ordinal-outcome-data.html#cb471-10" aria-hidden="true" tabindex="-1"></a>pg <span class="sc">%&gt;%</span></span>
+<span id="cb471-11"><a href="ordinal-outcome-data.html#cb471-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(dissent)<span class="sc">==</span>F) <span class="sc">%&gt;%</span></span>
+<span id="cb471-12"><a href="ordinal-outcome-data.html#cb471-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>dissent, <span class="at">group=</span><span class="fu">factor</span>(treat), </span>
+<span id="cb471-13"><a href="ordinal-outcome-data.html#cb471-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">fill=</span><span class="fu">factor</span>(treat)))<span class="sc">+</span></span>
+<span id="cb471-14"><a href="ordinal-outcome-data.html#cb471-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y=</span>..prop..),<span class="at">stat=</span> <span class="st">&quot;count&quot;</span>, <span class="at">position=</span><span class="st">&quot;dodge&quot;</span>, <span class="at">color=</span><span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
+<span id="cb471-15"><a href="ordinal-outcome-data.html#cb471-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb471-16"><a href="ordinal-outcome-data.html#cb471-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)<span class="sc">+</span></span>
+<span id="cb471-17"><a href="ordinal-outcome-data.html#cb471-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="st">&quot;Condition&quot;</span>, <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Control&quot;</span>, <span class="st">&quot;Treatment&quot;</span>),<span class="at">palette=</span><span class="st">&quot;Paired&quot;</span>)<span class="sc">+</span></span>
+<span id="cb471-18"><a href="ordinal-outcome-data.html#cb471-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span> <span class="fu">c</span>(<span class="st">&quot;Should Stay Quiet&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;Should Dissent&quot;</span>))</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-212-1.svg" width="672" /></p>
+<p>We can see variation in the outcome, where some people are at the “stay quiet” end of the scale, while others are at the opposite end. We might have a few questions about the outcome:</p>
 <ul>
-<li>This will allow us to use the normal approximation to calculate z-scores and p-values</li>
+<li>What is the probability of being in a particular category given a set of <span class="math inline">\(\mathbf{x_i&#39;}\)</span> values?</li>
+<li>Does the treatment influence likelihood of expressing dissent?</li>
+<li>Does the treatment significantly affect the probability of responding in a particular category?</li>
+</ul>
+<p><strong>What model should they use to help answer these questions?</strong></p>
+<p>One approach would be to use OLS.</p>
+<ul>
+<li>They could treat 1 to 4 scale as continuous from Should stay quiet to Should dissent</li>
+<li>If they do this, the interpretation of the regression coefficients would be:
+<ul>
+<li>Going from Control to Treatment (0 to 1), is associated with <span class="math inline">\(\hat \beta\)</span> movement on this scale.</li>
 </ul></li>
-<li>And it is asymptotically efficient. “In other words, compared to any other consistent and uniformly asymptotically Normal estimator, the ML estimator has a smaller asymptotic variance” (King 1998, 80).</li>
-</ul>
-<p><strong><em>Note on consistency</em></strong></p>
-<p>What does it mean to say an estimator is consistent? As samples get larger and larger, we converge to the truth.</p>
-<p>Consistency: <span class="math inline">\(p\lim \hat{\theta} =\beta\)</span> As <span class="math inline">\(n \rightarrow \infty P(\hat{\theta} - \theta&gt; e) \rightarrow 0\)</span>.</p>
+<li>What could be problematic here?
 <ul>
-<li>Convergence in probability: the probability that the absolute difference between the estimate and parameter being larger than <span class="math inline">\(e\)</span> goes to zero as <span class="math inline">\(n\)</span> gets bigger.</li>
-</ul>
-<p>Note that bias and consistency are different: Consistency means that as the sample size (<span class="math inline">\(n\)</span>) gets large the estimate gets closer to the true value. Unbiasedness is not affected by sample size. An estimate is unbiased if over repeated samples, its expected value (average) is the true parameter.</p>
-<p>It is possible for an estimator to be unbiased and consistent, biased and not consistent, or consistent yet biased.</p>
-<p><img src="images/UnbiasedandConsistent.png" style="width:40.0%" />; <img src="images/BiasedandInconsistent.png" style="width:40.0%" /></p>
-<p><img src="images/BiasedButConsistent.png" style="width:40.0%" /></p>
-<p>Images taken from <a href="https://eranraviv.com/bias-vs-consistency/">here</a></p>
-<p>What is a practical takeaway from this? The desirable properties of MLE kick in with larger samples. When you have a very small sample, you might use caution with your estimates.</p>
-<p><strong><em>No Free Lunch</em></strong></p>
-<p>We have hinted at some of the assumptions required, but below we can state them more formally.</p>
-<ul>
-<li>First, we assume a particular data generating process: the probability model.</li>
-<li>We are generally assuming that observations are independent and identically distributed (allowing us to write the likelihood as a product)– unless we explicitly write the likelihood in a way that takes this into account.
-<ul>
-<li>When we have complicated structures to our data, this assumption may be violated, such as data that is clustered in particular hierarchical entities.</li>
+<li>Might go below or above scale points</li>
+<li>Distance between scale points might not be an equal interval</li>
+<li>Doesn’t answer the “probability” question, just describes movement up and down the scale.</li>
 </ul></li>
-<li>We assume the model (i.e., the choice of covariates and how they are modeled) is correctly specified. (e.g., no omitted variables.)</li>
-<li>We have to meet certain technical regularity conditions–meaning that our problem is a “regular” one. These, in the words of Gary King are “obviously quite technical” (1998, 75). We will not get into the details, but you can see pg. 75 of <em>Unifying Political Methodology</em> for the formal mathematical statements. In short, our paramaters have to be <a href="https://en.wikipedia.org/wiki/Identifiability">identifiable</a> and within the parameter space of possible values (this identifiability can be violated, for example, when we have too many parameters relative to the number of observations in the sample), we have to be able to differentiate the log-likelihood (in fact, it needs to be twice continuously differentiable) along the support (the range of values) in the data. The information matrix, which we get through the second derivative, must be positive definite and finitely bounded. This helps us know we are at a maximum, and the maximum exists and is finite. You can visualize this as a smooth function, that is not too sharp (which would make it non differentiable), but has a peak (a maximum) that we can identify.</li>
 </ul>
-<div id="hypothesis-tests" class="section level3" number="5.4.1">
-<h3><span class="header-section-number">5.4.1</span> Hypothesis Tests</h3>
-<p>We can apply the same hypothesis testing framework to our estimates here as we did in linear regression. First, we can standardize our coefficient estimates by dividing them by the standard error. This will generate a “z score.” Just like when we had the t value in OLS, we can use the z score to calculate the p-value and make assessments about the null hypothesis that a given <span class="math inline">\(\hat \beta_k\)</span> = 0.</p>
-<p><span class="math display">\[\begin{align*}
-z &amp;= \frac{\hat \theta_k}{\sqrt{Var(\hat \theta)_k}} \sim N(0,1)
-\end{align*}\]</span></p>
-<p>Note: to get p-values, we typically now use, <code>2 * pnorm(abs(z), lower.tail=F)</code> instead of <code>pt()</code> and our critical values are based on <code>qnorm()</code> instead of <code>qt()</code>. R will follow the same in most circumstances. In large samples, these converge to the same quantities.</p>
+<p>A second approach could be to collapse the scale to be dichotomous and use logit/probit or a linear probability model.</p>
+<ul>
+<li>For example, they could treat the outcome to 0 = (lean toward stay quiet/stay quiet) vs. 1 (lean toward dissent/dissent)</li>
+<li>Here, after converting the outcomes in probability, the interpretation would be
+<ul>
+<li>Going from Control to Treatment (0 to 1), is associated with an average difference in predicted probability of dissent (<span class="math inline">\(Y_i = 1\)</span>)</li>
+</ul></li>
+<li>What could be problematic here?
+<ul>
+<li>We lose information.</li>
+</ul></li>
+</ul>
+<p>A third approach–and the focus of this section– would be to use an ordinal logistic or probit regression.</p>
+<ul>
+<li>This is appropriate when our goal, at least in part, is to estimate the probability of being in a specific category, and these categories have a natural ordering to them.</li>
+</ul>
+<div id="ordinal-model" class="section level3" number="8.1.1">
+<h3><span class="header-section-number">8.1.1</span> Ordinal Model</h3>
+<p>With ordered data, we have an outcome variable <span class="math inline">\(Y_i\)</span> that can fall into different, ordered categories: <span class="math inline">\(Y_i \in \{C_1, C_2, \ldots, C_J \}\)</span> with some probability.</p>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-213-1.svg" width="672" /></p>
+<p><em>The image above shows a distribution where the area under the curve sums to 1, with the area divided into 4 categories, separated by three cutpoints. The area represents probability mass. For example, the area to the left of z1 represents the <span class="math inline">\(Pr(Y_i^\ast \leq z1)\)</span>.</em></p>
+<p>In our ordered model, we assume that there is a latent (unobserved) <span class="math inline">\(Y^\ast_i = X_i\beta + \epsilon\)</span></p>
+<ul>
+<li>This means we can still have a single model <span class="math inline">\(X_i \beta\)</span>, which determines what outcome level is achieved (this requires an assumption).</li>
+<li>where <span class="math inline">\(\epsilon\)</span> is either assumed to be normally distributed (probit) or distributed logistically (logit), and corresponds to the fuzziness of the cutpoints (<span class="math inline">\(\zeta_j\)</span>), which define in which category an outcome is observed to fall.</li>
+</ul>
+<p>We observe this category in our outcome: <span class="math inline">\(Y_i\)</span>.</p>
+<ul>
+<li>For example, we observe if someone said “should stay quiet” or “should dissent” vs. one of the two middle categories.</li>
+</ul>
+<p><span class="math display">\[\begin{gather*}
+Y_i=\begin{cases}
+C_1 \textrm{ if } Y^\ast_i  \le \zeta_1\\
+C_2 \textrm{ if } \zeta_1 &lt; Y^\ast_i  \le \zeta_2\\
+C_3 \textrm{ if } \zeta_2 &lt;  Y^\ast_i  \le \zeta_3\\
+\ldots\\
+C_J\textrm{ if } \zeta_{J-1} &lt; Y^\ast_i \\
+\end{cases}\\
+\end{gather*}\]</span></p>
+<p>The <span class="math inline">\(\zeta_j\)</span> are called “cutpoints”</p>
+<ul>
+<li>Need cutpoints that are distinct, but the distance between cutpoints does not have to be the same.
+<ul>
+<li>This can be particularly useful when we have scales that have a natural ordering, but the distance between scale points might not have the same meaning or be the same (e.g., “Agree”,“Disagree”, “Revolt”). This is different from an interval variable, where we assume the difference between scale points carries the same meaning (e.g., credit score, cups of flour in a recipe).</li>
+</ul></li>
+<li>Note: There is no intercept in linear prediction model in this case. Instead of the intercept, we have the specific cutpoints.</li>
+<li>Rule of thumb: Estimation with more than 3-5 categories unstable</li>
+</ul>
 </div>
-<div id="model-output-in-r" class="section level3" number="5.4.2">
-<h3><span class="header-section-number">5.4.2</span> Model Output in R</h3>
-<p>As discussed, we can fit a GLM in R using the <code>glm</code> function:</p>
+<div id="interpretation" class="section level3" number="8.1.2">
+<h3><span class="header-section-number">8.1.2</span> Interpretation</h3>
+<p>Here is an example of what the ordered probit model output can look like from the authors’ paper. You can see coefficients similar to the models we’ve been working with before but instead of an intercept, we have the different cutpoints, in this case, three cutpoints for <span class="math inline">\(J-1\)</span> categories.</p>
+<p><img src="images/rawandaresults.png" /></p>
+<p>We can interpret the coefficients as a one-unit increase in <span class="math inline">\(x\)</span> has a <span class="math inline">\(\hat \beta\)</span> increase/decrease in the linear predictor scale of <span class="math inline">\(Y^\ast\)</span> (in log-odds for logit or probit z-score standard deviations).</p>
 <ul>
-<li><code>glm(formula, data, family = XXX(link = "XXX", ...), ...)</code>
+<li>This gives us an initial sense (based on sign and significance) of how an independent variable positively or negatively affects the position of <span class="math inline">\(Y*\)</span>. However, it does not give us any information about specific categories.</li>
+<li>Thus, alas, this is unsatisfying for a couple of reasons.
 <ul>
-<li><code>formula</code>: The model written in the form similar to <code>lm()</code></li>
-<li><code>data</code>: Data frame</li>
-<li><code>family</code>: Name of PDF for <span class="math inline">\(Y_i\)</span> (e.g. <code>binomial</code>, <code>gaussian</code>)</li>
-<li><code>link</code>: Name of the link function (e.g. <code>logit</code>, `<code>probit</code>, <code>identity</code>, <code>log</code>)</li>
+<li><span class="math inline">\(Y_i^\ast\)</span> is an unobserved variable (not the categories themselves)</li>
+<li>The scale is harder to interpret than probability</li>
+</ul></li>
+<li>Therefore, we will generally want to convert our estimates into probabilities (our quantities of interest)
+<ul>
+<li>One wrinkle here is we now have <span class="math inline">\(J\)</span> predicted probabilities to estimate, one for each category.</li>
+<li>A second wrinkle here is any change in the probability of being in the <span class="math inline">\(jth\)</span> category of <span class="math inline">\(Y\)</span> also affects the probabilities of being in the <span class="math inline">\(\neq jth\)</span> categories because the probabilities of being in each category have to sum together to 1. (E.g., Increasing the probability that someone said “should dissent” affects the probability they said "should stay quiet.)</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="mle-properties.html#cb296-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load Data</span></span>
-<span id="cb296-2"><a href="mle-properties.html#cb296-2" aria-hidden="true" tabindex="-1"></a>fit.glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(participation <span class="sc">~</span> female <span class="sc">+</span> edu <span class="sc">+</span> age <span class="sc">+</span> sexism, <span class="at">data=</span>anes,</span>
-<span id="cb296-3"><a href="mle-properties.html#cb296-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link=</span><span class="st">&quot;identity&quot;</span>))</span></code></pre></div>
-<p>We’ve already discussed the coefficient output. Like <code>lm()</code>, GLM wiil also display the standard errors, z-scores / t-statistics, and p-values of the model in the model summary.</p>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="mle-properties.html#cb297-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.glm)<span class="sc">$</span>coefficients</span></code></pre></div>
-<pre><code>                Estimate  Std. Error   t value     Pr(&gt;|t|)
-(Intercept)  0.929302597 0.154033186  6.033132 1.999280e-09
-female      -0.217453631 0.067415200 -3.225588 1.282859e-03
-edu          0.166837062 0.022402469  7.447262 1.559790e-13
-age          0.008795138 0.001874559  4.691843 2.941204e-06
-sexism      -0.981808431 0.154664950 -6.347970 2.844067e-10</code></pre>
-<p>For this example, R reverts to the t-value instead of the z-score given that we are using the linear model. In other examples, you may see <code>z</code> in place of <code>t</code>. There are only small differences in these approximations because as your sample size gets larger, the degrees of freedom (used in the calculation of p-calues for the t distribution) are big enough that the t distribution converges to the normal distribution.</p>
-<p><strong>Goodness of fit</strong></p>
-<p>The <code>glm()</code> model has a lot of summary output.</p>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="mle-properties.html#cb299-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.glm)</span></code></pre></div>
-<pre><code>
-Call:
-glm(formula = participation ~ female + edu + age + sexism, family = gaussian(link = &quot;identity&quot;), 
-    data = anes)
-
-Deviance Residuals: 
-    Min       1Q   Median       3Q      Max  
--2.3001  -0.8343  -0.3013   0.3651   7.2887  
-
-Coefficients:
-             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  0.929303   0.154033   6.033 2.00e-09 ***
-female      -0.217454   0.067415  -3.226  0.00128 ** 
-edu          0.166837   0.022402   7.447 1.56e-13 ***
-age          0.008795   0.001875   4.692 2.94e-06 ***
-sexism      -0.981808   0.154665  -6.348 2.84e-10 ***
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-
-(Dispersion parameter for gaussian family taken to be 1.688012)
-
-    Null deviance: 2969.3  on 1584  degrees of freedom
-Residual deviance: 2667.1  on 1580  degrees of freedom
-AIC: 5334.9
-
-Number of Fisher Scoring iterations: 2</code></pre>
-<p>Some of the output represents measures of the goodness of fit of the model. However, their values are not directly interpretable from a single model.</p>
-<ul>
-<li>Larger (less negative) likelihood, the better the model fits the data. (<code>logLik(mod)</code>). The becomes relevant when comparing two or more models.</li>
-<li>Deviance is calculated from the likelihood. This is a measure of discrepancy between observed and fitted values. (Smaller values, better fit.)
-<ul>
-<li>Null deviance: how well the outcome is predicted by a model that includes only the intercept. (<span class="math inline">\(df = n - 1\)</span>)</li>
-<li>Residual deviance: how well the outcome is predicted by a model with our parameters. (<span class="math inline">\(df = n-k\)</span>)</li>
-</ul></li>
-<li>AIC- used for model comparison. Smaller values indicate a more parsimonious model. Accounts for the number of parameters (<span class="math inline">\(K\)</span>) in the model (like Adjusted R-squared, but without the ease of interpretation). Sometimes used as a criteria in prediction exercises (using a model on training data to predict test data). For more information on how AIC can be used in prediction exercises, see <a href="https://towardsdatascience.com/introduction-to-aic-akaike-information-criterion-9c9ba1c96ced">here</a>.</li>
-</ul>
-<p><strong>Likelihood Ratio Test</strong></p>
-<p>The likelihood ratio test compares the fit of two models, with the null hypothesis being that the full model does not add more explanatory power to the reduced model. Note: You should only compare models if they have the same number of observations.</p>
-<p>This type of test is used in a similar way that people compare R-squared values across models.</p>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="mle-properties.html#cb301-1" aria-hidden="true" tabindex="-1"></a>fit.glm2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(participation <span class="sc">~</span> female <span class="sc">+</span> edu <span class="sc">+</span> age <span class="sc">+</span> sexism, <span class="at">data=</span>anes,</span>
-<span id="cb301-2"><a href="mle-properties.html#cb301-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link=</span><span class="st">&quot;identity&quot;</span>))</span>
-<span id="cb301-3"><a href="mle-properties.html#cb301-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb301-4"><a href="mle-properties.html#cb301-4" aria-hidden="true" tabindex="-1"></a>fit.glm1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(participation <span class="sc">~</span> female <span class="sc">+</span> edu <span class="sc">+</span> age, <span class="at">data=</span>anes, </span>
-<span id="cb301-5"><a href="mle-properties.html#cb301-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span>
-<span id="cb301-6"><a href="mle-properties.html#cb301-6" aria-hidden="true" tabindex="-1"></a>               </span>
-<span id="cb301-7"><a href="mle-properties.html#cb301-7" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit.glm1, fit.glm2, <span class="at">test =</span> <span class="st">&quot;Chisq&quot;</span>) <span class="co">#  reject the null</span></span></code></pre></div>
-<pre><code>Analysis of Deviance Table
-
-Model 1: participation ~ female + edu + age
-Model 2: participation ~ female + edu + age + sexism
-  Resid. Df Resid. Dev Df Deviance  Pr(&gt;Chi)    
-1      1581     2735.1                          
-2      1580     2667.1  1   68.021 2.182e-10 ***
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<p><strong>Pseudo-R-squared</strong></p>
-<p>We don’t have an exact equivalent to the R-squared in OLS, but people have developed “pseudo” measures.</p>
-<p>Example: McFadden’s R-squared</p>
-<ul>
-<li><span class="math inline">\(PR^2 = 1 - \frac{\ell(M)}{\ell(N)}\)</span>
-<ul>
-<li>where <span class="math inline">\(\ell(M)\)</span> is the log-likelihood for your fitted model and <span class="math inline">\(\ell(N)\)</span> is the log-likelihood for a model with only the intercept</li>
-</ul></li>
-<li>Recall, greater (less negative) values of the log-likelihood indicate better fit</li>
-<li>McFadden’s values range from 0 to close to 1</li>
-</ul>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="mle-properties.html#cb303-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;pscl&quot;)</span></span>
-<span id="cb303-2"><a href="mle-properties.html#cb303-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pscl)</span></code></pre></div>
-<pre><code>Warning: package &#39;pscl&#39; was built under R version 4.0.2</code></pre>
-<pre><code>Classes and Methods for R developed in the
-Political Science Computational Laboratory
-Department of Political Science
-Stanford University
-Simon Jackman
-hurdle and zeroinfl functions by Achim Zeileis</code></pre>
-<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="mle-properties.html#cb306-1" aria-hidden="true" tabindex="-1"></a>fit.glm.null <span class="ot">&lt;-</span> <span class="fu">glm</span>(participation <span class="sc">~</span> <span class="dv">1</span>, anes, <span class="at">family =</span> <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span>
-<span id="cb306-2"><a href="mle-properties.html#cb306-2" aria-hidden="true" tabindex="-1"></a>pr <span class="ot">&lt;-</span> <span class="fu">pR2</span>(fit.glm1)</span></code></pre></div>
-<pre><code>fitting null model for pseudo-r2</code></pre>
-<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="mle-properties.html#cb308-1" aria-hidden="true" tabindex="-1"></a>pr[<span class="st">&quot;McFadden&quot;</span>]</span></code></pre></div>
-<pre><code>  McFadden 
-0.02370539 </code></pre>
-<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="mle-properties.html#cb310-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Or, by hand:</span></span>
-<span id="cb310-2"><a href="mle-properties.html#cb310-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> (<span class="fu">logLik</span>(fit.glm1)<span class="sc">/</span><span class="fu">logLik</span>(fit.glm.null))</span></code></pre></div>
-<pre><code>&#39;log Lik.&#39; 0.02370539 (df=5)</code></pre>
-
 </div>
 </div>
-<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="mle-estimation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="binary.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="ordinal.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="likelihood-framework.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

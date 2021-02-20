@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4.3 Assumptions | MLE for Political Science</title>
-  <meta name="description" content="4.3 Assumptions | MLE for Political Science" />
+  <title>8.4 Assumptions | MLE for Political Science</title>
+  <meta name="description" content="8.4 Assumptions | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4.3 Assumptions | MLE for Political Science" />
+  <meta property="og:title" content="8.4 Assumptions | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.3 Assumptions | MLE for Political Science" />
+  <meta name="twitter:title" content="8.4 Assumptions | MLE for Political Science" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="diving-deeper-into-ols-matrix-representation.html"/>
-<link rel="next" href="properties-and-potential-sources-of-bias.html"/>
+<link rel="prev" href="fitting-ordinal-models-in-r.html"/>
+<link rel="next" href="ordinal-practice-problems.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -144,6 +144,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1.7" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#practice"><i class="fa fa-check"></i><b>2.1.7</b> <strong>Practice</strong></a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="tutorials.html"><a href="tutorials.html"><i class="fa fa-check"></i><b>2.2</b> Tutorials</a></li>
+<li class="chapter" data-level="2.3" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>2.3</b> Data Wrangling</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-uninformative-variable-names"><i class="fa fa-check"></i><b>2.3.1</b> Dealing with Uninformative Variable Names</a></li>
+<li class="chapter" data-level="2.3.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-missing-data"><i class="fa fa-check"></i><b>2.3.2</b> Dealing with Missing Data</a></li>
+<li class="chapter" data-level="2.3.3" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-variable-codings-that-arent-quite-right"><i class="fa fa-check"></i><b>2.3.3</b> Dealing with Variable Codings that Aren’t Quite Right</a></li>
+<li class="chapter" data-level="2.3.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-incomplete-data-merging"><i class="fa fa-check"></i><b>2.3.4</b> Dealing with Incomplete Data (Merging!)</a></li>
+<li class="chapter" data-level="2.3.5" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-poorly-shaped-data"><i class="fa fa-check"></i><b>2.3.5</b> Dealing with Poorly Shaped Data</a></li>
+<li class="chapter" data-level="2.3.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reproducing-your-steps"><i class="fa fa-check"></i><b>2.3.6</b> Reproducing your steps</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html"><i class="fa fa-check"></i><b>2.4</b> Tools for writing up results</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#r-markdown"><i class="fa fa-check"></i><b>2.4.1</b> R Markdown</a></li>
+<li class="chapter" data-level="2.4.2" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#latex"><i class="fa fa-check"></i><b>2.4.2</b> LaTex</a></li>
+<li class="chapter" data-level="2.4.3" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#formatting-and-exporting-r-results"><i class="fa fa-check"></i><b>2.4.3</b> Formatting and Exporting R Results</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
 <ul>
@@ -179,7 +194,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.5.3" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html#matrix-rules"><i class="fa fa-check"></i><b>3.5.3</b> <strong>Matrix Rules</strong></a></li>
 <li class="chapter" data-level="3.5.4" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html#derivatives-with-matrices-and-vectors"><i class="fa fa-check"></i><b>3.5.4</b> <strong>Derivatives with Matrices and Vectors</strong></a></li>
 </ul></li>
-<li class="chapter" data-level="3.6" data-path="practice-problems.html"><a href="practice-problems.html"><i class="fa fa-check"></i><b>3.6</b> Practice Problems</a></li>
+<li class="chapter" data-level="3.6" data-path="practice-problems.html"><a href="practice-problems.html"><i class="fa fa-check"></i><b>3.6</b> Practice Problems</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="practice-problems.html"><a href="practice-problems.html#practice-problem-solutions"><i class="fa fa-check"></i><b>3.6.1</b> Practice Problem Solutions</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="ols.html"><a href="ols.html"><i class="fa fa-check"></i><b>4</b> Review of OLS</a>
 <ul>
@@ -188,10 +206,120 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="4.2.1" data-path="diving-deeper-into-ols-matrix-representation.html"><a href="diving-deeper-into-ols-matrix-representation.html#estimating-the-coefficients"><i class="fa fa-check"></i><b>4.2.1</b> Estimating the Coefficients</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="assumptions.html"><a href="assumptions.html"><i class="fa fa-check"></i><b>4.3</b> Assumptions</a></li>
-<li class="chapter" data-level="4.4" data-path="properties-and-potential-sources-of-bias.html"><a href="properties-and-potential-sources-of-bias.html"><i class="fa fa-check"></i><b>4.4</b> Properties and Potential Sources of Bias</a></li>
-<li class="chapter" data-level="4.5" data-path="relationship-to-correlation.html"><a href="relationship-to-correlation.html"><i class="fa fa-check"></i><b>4.5</b> Relationship to Correlation</a></li>
-<li class="chapter" data-level="4.6" data-path="r-squared.html"><a href="r-squared.html"><i class="fa fa-check"></i><b>4.6</b> R-squared</a></li>
+<li class="chapter" data-level="4.3" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html"><i class="fa fa-check"></i><b>4.3</b> OLS Regression in R</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#example-predicting-current-election-votes-from-past-election-votes"><i class="fa fa-check"></i><b>4.3.1</b> Example: Predicting Current Election Votes from Past Election Votes</a></li>
+<li class="chapter" data-level="4.3.2" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#plotting-regression-results"><i class="fa fa-check"></i><b>4.3.2</b> Plotting Regression Results</a></li>
+<li class="chapter" data-level="4.3.3" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#finding-coefficients-without-lm"><i class="fa fa-check"></i><b>4.3.3</b> Finding Coefficients without <code>lm</code></a></li>
+<li class="chapter" data-level="4.3.4" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#ols-practice-problems"><i class="fa fa-check"></i><b>4.3.4</b> OLS Practice Problems</a></li>
+<li class="chapter" data-level="4.3.5" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#code-for-solutions"><i class="fa fa-check"></i><b>4.3.5</b> Code for solutions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="week-1-thursday-tutorial.html"><a href="week-1-thursday-tutorial.html"><i class="fa fa-check"></i><b>4.4</b> Week 1 Thursday Tutorial</a></li>
+<li class="chapter" data-level="4.5" data-path="uncertainty-and-regression.html"><a href="uncertainty-and-regression.html"><i class="fa fa-check"></i><b>4.5</b> Uncertainty and Regression</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="uncertainty-and-regression.html"><a href="uncertainty-and-regression.html#variance-of-the-coefficients"><i class="fa fa-check"></i><b>4.5.1</b> Variance of the Coefficients</a></li>
+<li class="chapter" data-level="4.5.2" data-path="uncertainty-and-regression.html"><a href="uncertainty-and-regression.html#hypothesis-testing"><i class="fa fa-check"></i><b>4.5.2</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="4.5.3" data-path="uncertainty-and-regression.html"><a href="uncertainty-and-regression.html#goodness-of-fit"><i class="fa fa-check"></i><b>4.5.3</b> Goodness of Fit</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="generating-predictions-from-regression-models.html"><a href="generating-predictions-from-regression-models.html"><i class="fa fa-check"></i><b>4.6</b> Generating predictions from regression models</a></li>
+<li class="chapter" data-level="4.7" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html"><i class="fa fa-check"></i><b>4.7</b> Wrapping up OLS</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="practice-problems.html"><a href="practice-problems.html#practice-problems"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
+<li class="chapter" data-level="4.7.2" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problem-code-for-solutions"><i class="fa fa-check"></i><b>4.7.2</b> Practice Problem Code for Solutions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="week-2-thursday-example.html"><a href="week-2-thursday-example.html"><i class="fa fa-check"></i><b>4.8</b> Week 2 Thursday Example</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="mle.html"><a href="mle.html"><i class="fa fa-check"></i><b>5</b> Introduction to MLE</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="what-is-likelihood.html"><a href="what-is-likelihood.html"><i class="fa fa-check"></i><b>5.1</b> What is likelihood?</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="what-is-likelihood.html"><a href="what-is-likelihood.html#summarizing-steps-for-maximum-likelihood"><i class="fa fa-check"></i><b>5.1.1</b> Summarizing Steps for Maximum Likelihood</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="generalized-linear-models.html"><a href="generalized-linear-models.html"><i class="fa fa-check"></i><b>5.2</b> Generalized Linear Models</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="generalized-linear-models.html"><a href="generalized-linear-models.html#glm-model."><i class="fa fa-check"></i><b>5.2.1</b> GLM Model.</a></li>
+<li class="chapter" data-level="5.2.2" data-path="generalized-linear-models.html"><a href="generalized-linear-models.html#linking-likelihood-and-the-glm"><i class="fa fa-check"></i><b>5.2.2</b> Linking likelihood and the GLM</a></li>
+<li class="chapter" data-level="5.2.3" data-path="generalized-linear-models.html"><a href="generalized-linear-models.html#glm-in-r"><i class="fa fa-check"></i><b>5.2.3</b> GLM in R</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="mle-estimation.html"><a href="mle-estimation.html"><i class="fa fa-check"></i><b>5.3</b> MLE Estimation</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="mle-estimation.html"><a href="mle-estimation.html#deriving-estimators"><i class="fa fa-check"></i><b>5.3.1</b> Deriving Estimators</a></li>
+<li class="chapter" data-level="5.3.2" data-path="mle-estimation.html"><a href="mle-estimation.html#score-function"><i class="fa fa-check"></i><b>5.3.2</b> Score function</a></li>
+<li class="chapter" data-level="5.3.3" data-path="mle-estimation.html"><a href="mle-estimation.html#hessian-and-information-matrix"><i class="fa fa-check"></i><b>5.3.3</b> Hessian and Information Matrix</a></li>
+<li class="chapter" data-level="5.3.4" data-path="mle-estimation.html"><a href="mle-estimation.html#mle-estimation-algorithm"><i class="fa fa-check"></i><b>5.3.4</b> MLE Estimation Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="mle-properties.html"><a href="mle-properties.html"><i class="fa fa-check"></i><b>5.4</b> MLE Properties</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="mle-properties.html"><a href="mle-properties.html#hypothesis-tests"><i class="fa fa-check"></i><b>5.4.1</b> Hypothesis Tests</a></li>
+<li class="chapter" data-level="5.4.2" data-path="mle-properties.html"><a href="mle-properties.html#model-output-in-r"><i class="fa fa-check"></i><b>5.4.2</b> Model Output in R</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="binary.html"><a href="binary.html"><i class="fa fa-check"></i><b>6</b> Binary Dependent Variables</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="data-generating-process.html"><a href="data-generating-process.html"><i class="fa fa-check"></i><b>6.1</b> Data Generating Process</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="mle-estimation.html"><a href="mle-estimation.html#mle-estimation"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="r-code-for-fitting-logistic-regression.html"><a href="r-code-for-fitting-logistic-regression.html"><i class="fa fa-check"></i><b>6.2</b> R code for fitting logistic regression</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="r-code-for-fitting-logistic-regression.html"><a href="r-code-for-fitting-logistic-regression.html#writing-down-the-regression-model"><i class="fa fa-check"></i><b>6.2.1</b> Writing down the regression model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="probit-regression.html"><a href="probit-regression.html"><i class="fa fa-check"></i><b>6.3</b> Probit Regression</a></li>
+<li class="chapter" data-level="6.4" data-path="to-logit-or-to-probit.html"><a href="to-logit-or-to-probit.html"><i class="fa fa-check"></i><b>6.4</b> To logit or to probit?</a></li>
+<li class="chapter" data-level="6.5" data-path="latent-propensity-representation.html"><a href="latent-propensity-representation.html"><i class="fa fa-check"></i><b>6.5</b> Latent propensity representation</a></li>
+<li class="chapter" data-level="6.6" data-path="linear-probability-models.html"><a href="linear-probability-models.html"><i class="fa fa-check"></i><b>6.6</b> Linear Probability Models</a></li>
+<li class="chapter" data-level="6.7" data-path="week-3-tutorial.html"><a href="week-3-tutorial.html"><i class="fa fa-check"></i><b>6.7</b> Week 3 Tutorial</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="week-3-tutorial.html"><a href="week-3-tutorial.html#loading-data-and-fitting-glm"><i class="fa fa-check"></i><b>6.7.1</b> Loading data and fitting glm</a></li>
+<li class="chapter" data-level="6.7.2" data-path="week-3-tutorial.html"><a href="week-3-tutorial.html#numeric-optimization"><i class="fa fa-check"></i><b>6.7.2</b> Numeric Optimization</a></li>
+<li class="chapter" data-level="6.7.3" data-path="week-3-tutorial.html"><a href="week-3-tutorial.html#predicted-probabilities"><i class="fa fa-check"></i><b>6.7.3</b> Predicted Probabilities</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="qoi.html"><a href="qoi.html"><i class="fa fa-check"></i><b>7</b> Quantities of Interest</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="using-the-response-functions-to-generate-quantities-of-interest.html"><a href="using-the-response-functions-to-generate-quantities-of-interest.html"><i class="fa fa-check"></i><b>7.1</b> Using the response functions to generate quantities of interest</a></li>
+<li class="chapter" data-level="7.2" data-path="qoi-at-designated-values.html"><a href="qoi-at-designated-values.html"><i class="fa fa-check"></i><b>7.2</b> QOI at Designated Values</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="qoi-at-designated-values.html"><a href="qoi-at-designated-values.html#marginal-effects"><i class="fa fa-check"></i><b>7.2.1</b> Marginal Effects</a></li>
+<li class="chapter" data-level="7.2.2" data-path="qoi-at-designated-values.html"><a href="qoi-at-designated-values.html#marginal-effects-at-the-mean"><i class="fa fa-check"></i><b>7.2.2</b> Marginal effects at the mean</a></li>
+<li class="chapter" data-level="7.2.3" data-path="qoi-at-designated-values.html"><a href="qoi-at-designated-values.html#marginal-effects-at-representative-values"><i class="fa fa-check"></i><b>7.2.3</b> Marginal effects at representative values</a></li>
+<li class="chapter" data-level="7.2.4" data-path="qoi-at-designated-values.html"><a href="qoi-at-designated-values.html#average-marginal-effects"><i class="fa fa-check"></i><b>7.2.4</b> Average marginal effects</a></li>
+<li class="chapter" data-level="7.2.5" data-path="qoi-at-designated-values.html"><a href="qoi-at-designated-values.html#prediction-and-margins-packages."><i class="fa fa-check"></i><b>7.2.5</b> <code>prediction</code> and <code>margins</code> packages.</a></li>
+<li class="chapter" data-level="7.2.6" data-path="qoi-at-designated-values.html"><a href="qoi-at-designated-values.html#qoi-practice-problems"><i class="fa fa-check"></i><b>7.2.6</b> QOI Practice Problems</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i><b>7.3</b> Uncertainty</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="uncertainty.html"><a href="uncertainty.html#bootstrapping"><i class="fa fa-check"></i><b>7.3.1</b> Bootstrapping</a></li>
+<li class="chapter" data-level="7.3.2" data-path="uncertainty.html"><a href="uncertainty.html#simulated-confidence-intervals"><i class="fa fa-check"></i><b>7.3.2</b> Simulated Confidence Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="visualizing-results.html"><a href="visualizing-results.html"><i class="fa fa-check"></i><b>7.4</b> Visualizing Results</a></li>
+<li class="chapter" data-level="7.5" data-path="additional-r-shortcuts.html"><a href="additional-r-shortcuts.html"><i class="fa fa-check"></i><b>7.5</b> Additional R shortcuts</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="additional-r-shortcuts.html"><a href="additional-r-shortcuts.html#prediction"><i class="fa fa-check"></i><b>7.5.1</b> Prediction</a></li>
+<li class="chapter" data-level="7.5.2" data-path="additional-r-shortcuts.html"><a href="additional-r-shortcuts.html#margins"><i class="fa fa-check"></i><b>7.5.2</b> Margins</a></li>
+<li class="chapter" data-level="7.5.3" data-path="additional-r-shortcuts.html"><a href="additional-r-shortcuts.html#zelig"><i class="fa fa-check"></i><b>7.5.3</b> Zelig</a></li>
+<li class="chapter" data-level="7.5.4" data-path="additional-r-shortcuts.html"><a href="additional-r-shortcuts.html#using-expand.grid"><i class="fa fa-check"></i><b>7.5.4</b> Using <code>expand.grid</code></a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="week-4-tutorial.html"><a href="week-4-tutorial.html"><i class="fa fa-check"></i><b>7.6</b> Week 4 Tutorial</a></li>
+<li class="chapter" data-level="7.7" data-path="putting-everything-together.html"><a href="putting-everything-together.html"><i class="fa fa-check"></i><b>7.7</b> Putting everything together</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="ordinal.html"><a href="ordinal.html"><i class="fa fa-check"></i><b>8</b> Ordinal Outcomes</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="ordinal-outcome-data.html"><a href="ordinal-outcome-data.html"><i class="fa fa-check"></i><b>8.1</b> Ordinal Outcome Data</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="ordinal-outcome-data.html"><a href="ordinal-outcome-data.html#ordinal-model"><i class="fa fa-check"></i><b>8.1.1</b> Ordinal Model</a></li>
+<li class="chapter" data-level="8.1.2" data-path="ordinal-outcome-data.html"><a href="ordinal-outcome-data.html#interpretation"><i class="fa fa-check"></i><b>8.1.2</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="likelihood-framework.html"><a href="likelihood-framework.html"><i class="fa fa-check"></i><b>8.2</b> Likelihood Framework</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="likelihood-framework.html"><a href="likelihood-framework.html#likelihood"><i class="fa fa-check"></i><b>8.2.1</b> Likelihood</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="fitting-ordinal-models-in-r.html"><a href="fitting-ordinal-models-in-r.html"><i class="fa fa-check"></i><b>8.3</b> Fitting Ordinal Models in R</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="fitting-ordinal-models-in-r.html"><a href="fitting-ordinal-models-in-r.html#quantities-of-interest"><i class="fa fa-check"></i><b>8.3.1</b> Quantities of Interest</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="assumptions.html"><a href="assumptions.html"><i class="fa fa-check"></i><b>8.4</b> Assumptions</a></li>
+<li class="chapter" data-level="8.5" data-path="ordinal-practice-problems.html"><a href="ordinal-practice-problems.html"><i class="fa fa-check"></i><b>8.5</b> Ordinal Practice Problems</a></li>
 </ul></li>
 </ul>
 
@@ -210,34 +338,57 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="assumptions" class="section level2" number="4.3">
-<h2><span class="header-section-number">4.3</span> Assumptions</h2>
-<p>Linearity: Linearity implies that the marginal effect does not depend on the level of regressors.</p>
-<p>Exogeneity: The regressors are independent of the error term. (Strict) The expectation (mean) of the error term, conditional on all observations is 0.</p>
+<div id="assumptions" class="section level2" number="8.4">
+<h2><span class="header-section-number">8.4</span> Assumptions</h2>
+<p>A key assumption for the ordinal models is Parallel lines/Proportional Odds: We only have one set of <span class="math inline">\(k \times 1\)</span> <span class="math inline">\(\hat \beta\)</span>, not a separate set of coefficients for each ordinal category.</p>
 <ul>
-<li><span class="math inline">\(\E(\epsilon_i | X) = 0\)</span>.</li>
-<li>This implies the unconditional mean of the error term is also 0. <span class="math inline">\(\E(\epsilon_i)=0\)</span>.</li>
-<li>Each regressor (x) is also orthogonal to the error term for all observations: <span class="math inline">\(\E(x\epsilon_i) = 0\)</span>.</li>
-<li>Strict exogeneiy means the error term is uncorrelated with regressor for all observations, not just the same observation.</li>
-</ul>
-<p>No Multicollinearity. The rank of the n X K data matrix X is K. K columns must be linearly independent. There must be at least as many observations as regressors. The K columns of regressors cannot be linearly dependent.</p>
+<li>This means that the relationship between the lowest versus all higher categories of the response variable are assumed to be the same as those that describe the relationship between the next lowest category and all higher categories, etc.
 <ul>
-<li>For example, if you were interested in the effect of years-in-grad school on life satisfaction, but you also thought knowledge might influence this. If everyone with 2 years in grad school has the same knowledge (and 3, 4, etc.) these columns would be dependent.</li>
+<li>For each <span class="math inline">\(X\)</span> term included in the model, the coefficient ‘slopes’ are the same regardless of the threshold. If not, we would need a separate set of coefficients describing each pair of outcomes (e.g., Slopes for being in Cat 1 vs. Cat 2; Cat 2 vs. Cat 3, etc.)</li>
+</ul></li>
+<li>Even though we have different cutpoint values across categories, a one-unit change, going from control to treatment, the effects are parallel across response categories.</li>
+<li>For example, if theoretically, being a woman vs. a man has a positive effect on moving between Categories 3 and 4 in a particular model, but you believe it would have the opposite effect for moving from Category 1 to 2, this would suggest the ordinal model is not appropriate.</li>
 </ul>
-<p>Spherical error variance/homoskedasticity.</p>
-<ul>
-<li><span class="math inline">\(\E(\epsilon_i^2 | X) = \sigma^2\)</span> and <span class="math inline">\(\E(\epsilon_i\epsilon_j)| X) = 0\)</span>.</li>
-<li><span class="math inline">\(Var(\epsilon_ | X) = \E(\epsilon_i^2 | X) - \E(\epsilon_i | X)^2 = \E(\epsilon_i^2 | X)\)</span> by strict exogeneity.</li>
-<li><span class="math inline">\(\E(\epsilon \epsilon&#39; | X) = \sigma^2I_n\)</span></li>
-</ul>
+<p>What to do if assumption is violated? Ignore, Do Binary, Do multinomial (discussed in the next session), use a model that has been developed for relaxing this assumption (e.g., see <code>clm</code> function in R).</p>
+<p>One test for this that has been developed for the ordered logit case is the Brant test.</p>
+<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb497-1"><a href="assumptions.html#cb497-1" aria-hidden="true" tabindex="-1"></a>fit.l <span class="ot">&lt;-</span> <span class="fu">polr</span>(<span class="fu">as.factor</span>(dissent) <span class="sc">~</span> treat, <span class="at">data=</span> pg, </span>
+<span id="cb497-2"><a href="assumptions.html#cb497-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">Hess =</span> T, <span class="at">method =</span> <span class="st">&quot;probit&quot;</span>)</span>
+<span id="cb497-3"><a href="assumptions.html#cb497-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb497-4"><a href="assumptions.html#cb497-4" aria-hidden="true" tabindex="-1"></a><span class="do">## One way to test this</span></span>
+<span id="cb497-5"><a href="assumptions.html#cb497-5" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;brant&quot;)</span></span>
+<span id="cb497-6"><a href="assumptions.html#cb497-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(brant)</span>
+<span id="cb497-7"><a href="assumptions.html#cb497-7" aria-hidden="true" tabindex="-1"></a><span class="fu">brant</span>(fit.l,<span class="at">by.var=</span>F)</span></code></pre></div>
+<pre><code>-------------------------------------------- 
+Test for	X2	df	probability 
+-------------------------------------------- 
+Omnibus		3.93	2	0.14
+treat		3.93	2	0.14
+-------------------------------------------- 
+
+H0: Parallel Regression Assumption holds</code></pre>
+<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb499-1"><a href="assumptions.html#cb499-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Second way- compare fit of ordinal and multinom models</span></span>
+<span id="cb499-2"><a href="assumptions.html#cb499-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;nnet&quot;)</span></span>
+<span id="cb499-3"><a href="assumptions.html#cb499-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nnet)</span>
+<span id="cb499-4"><a href="assumptions.html#cb499-4" aria-hidden="true" tabindex="-1"></a>mlm <span class="ot">&lt;-</span> <span class="fu">multinom</span>(<span class="fu">as.factor</span>(dissent) <span class="sc">~</span> treat, <span class="at">data=</span>pg)</span></code></pre></div>
+<pre><code># weights:  12 (6 variable)
+initial  value 686.215709 
+iter  10 value 625.130759
+final  value 625.130585 
+converged</code></pre>
+<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="assumptions.html#cb501-1" aria-hidden="true" tabindex="-1"></a>M1 <span class="ot">&lt;-</span> <span class="fu">logLik</span>(fit.l)</span>
+<span id="cb501-2"><a href="assumptions.html#cb501-2" aria-hidden="true" tabindex="-1"></a>M2 <span class="ot">&lt;-</span> <span class="fu">logLik</span>(mlm)</span>
+<span id="cb501-3"><a href="assumptions.html#cb501-3" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span><span class="sc">*</span>(M1[<span class="dv">1</span>] <span class="sc">-</span> M2[<span class="dv">1</span>])</span>
+<span id="cb501-4"><a href="assumptions.html#cb501-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(G, <span class="dv">6</span> <span class="sc">-</span> <span class="dv">4</span>,<span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>[1] 0.1667305</code></pre>
+<p>In both cases, our p-value is large enough that we cannot reject the null hypothesis, meaning that we are “okay” sticking with the assumption in this case.</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="diving-deeper-into-ols-matrix-representation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="properties-and-potential-sources-of-bias.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="fitting-ordinal-models-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ordinal-practice-problems.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

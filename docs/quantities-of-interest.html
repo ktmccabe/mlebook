@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5.4 MLE Properties | MLE for Political Science</title>
-  <meta name="description" content="5.4 MLE Properties | MLE for Political Science" />
+  <title>8.2 Quantities of Interest | MLE for Political Science</title>
+  <meta name="description" content="8.2 Quantities of Interest | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5.4 MLE Properties | MLE for Political Science" />
+  <meta property="og:title" content="8.2 Quantities of Interest | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5.4 MLE Properties | MLE for Political Science" />
+  <meta name="twitter:title" content="8.2 Quantities of Interest | MLE for Political Science" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="mle-estimation.html"/>
-<link rel="next" href="binary.html"/>
+<link rel="prev" href="ordinal-outcome-data.html"/>
+
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -303,23 +303,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.6" data-path="week-4-tutorial.html"><a href="week-4-tutorial.html"><i class="fa fa-check"></i><b>7.6</b> Week 4 Tutorial</a></li>
 <li class="chapter" data-level="7.7" data-path="putting-everything-together.html"><a href="putting-everything-together.html"><i class="fa fa-check"></i><b>7.7</b> Putting everything together</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="ordinal.html"><a href="ordinal.html"><i class="fa fa-check"></i><b>8</b> Ordinal Outcomes</a>
+<li class="chapter" data-level="8" data-path="ordinal.html"><a href="ordinal.html"><i class="fa fa-check"></i><b>8</b> Ordinal and Nominal Outcomes</a>
 <ul>
 <li class="chapter" data-level="8.1" data-path="ordinal-outcome-data.html"><a href="ordinal-outcome-data.html"><i class="fa fa-check"></i><b>8.1</b> Ordinal Outcome Data</a>
 <ul>
 <li class="chapter" data-level="8.1.1" data-path="ordinal-outcome-data.html"><a href="ordinal-outcome-data.html#ordinal-model"><i class="fa fa-check"></i><b>8.1.1</b> Ordinal Model</a></li>
 <li class="chapter" data-level="8.1.2" data-path="ordinal-outcome-data.html"><a href="ordinal-outcome-data.html#interpretation"><i class="fa fa-check"></i><b>8.1.2</b> Interpretation</a></li>
+<li class="chapter" data-level="8.1.3" data-path="ordinal-outcome-data.html"><a href="ordinal-outcome-data.html#likelihood-framework"><i class="fa fa-check"></i><b>8.1.3</b> Likelihood Framework</a></li>
+<li class="chapter" data-level="8.1.4" data-path="ordinal-outcome-data.html"><a href="ordinal-outcome-data.html#likelihood"><i class="fa fa-check"></i><b>8.1.4</b> Likelihood</a></li>
+<li class="chapter" data-level="8.1.5" data-path="ordinal-outcome-data.html"><a href="ordinal-outcome-data.html#fitting-ordinal-models-in-r"><i class="fa fa-check"></i><b>8.1.5</b> Fitting Ordinal Models in R</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="likelihood-framework.html"><a href="likelihood-framework.html"><i class="fa fa-check"></i><b>8.2</b> Likelihood Framework</a>
+<li class="chapter" data-level="8.2" data-path="quantities-of-interest.html"><a href="quantities-of-interest.html"><i class="fa fa-check"></i><b>8.2</b> Quantities of Interest</a>
 <ul>
-<li class="chapter" data-level="8.2.1" data-path="likelihood-framework.html"><a href="likelihood-framework.html#likelihood"><i class="fa fa-check"></i><b>8.2.1</b> Likelihood</a></li>
+<li class="chapter" data-level="8.2.1" data-path="quantities-of-interest.html"><a href="quantities-of-interest.html#assumptions"><i class="fa fa-check"></i><b>8.2.1</b> Assumptions</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="fitting-ordinal-models-in-r.html"><a href="fitting-ordinal-models-in-r.html"><i class="fa fa-check"></i><b>8.3</b> Fitting Ordinal Models in R</a>
-<ul>
-<li class="chapter" data-level="8.3.1" data-path="fitting-ordinal-models-in-r.html"><a href="fitting-ordinal-models-in-r.html#quantities-of-interest"><i class="fa fa-check"></i><b>8.3.1</b> Quantities of Interest</a></li>
-</ul></li>
-<li class="chapter" data-level="8.4" data-path="assumptions.html"><a href="assumptions.html"><i class="fa fa-check"></i><b>8.4</b> Assumptions</a></li>
-<li class="chapter" data-level="8.5" data-path="ordinal-practice-problems.html"><a href="ordinal-practice-problems.html"><i class="fa fa-check"></i><b>8.5</b> Ordinal Practice Problems</a></li>
 </ul></li>
 </ul>
 
@@ -338,171 +335,77 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mle-properties" class="section level2" number="5.4">
-<h2><span class="header-section-number">5.4</span> MLE Properties</h2>
-<p>Just like OLS had certain properties (BLUE) that made it worthwhile, models using MLE also have desirable features under certain assumptions and regularity conditions.</p>
-<p>Large sample properties</p>
+<div id="quantities-of-interest" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> Quantities of Interest</h2>
+<p>In the paper, the authors note, “A shift of .26 probits implies, for example, that a health group respondent with a 30% chance of strongly agreeing to dissent would move to a 40% chance if assigned to the reconciliation program group. This is a large, but not implausibly large, shift in opinion.”</p>
+<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="quantities-of-interest.html#cb507-1" aria-hidden="true" tabindex="-1"></a><span class="do">## probability of being in top category</span></span>
+<span id="cb507-2"><a href="quantities-of-interest.html#cb507-2" aria-hidden="true" tabindex="-1"></a>cutpoint3 <span class="ot">&lt;-</span> fit<span class="sc">$</span>zeta[<span class="dv">3</span>]</span>
+<span id="cb507-3"><a href="quantities-of-interest.html#cb507-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># in treatment</span></span>
+<span id="cb507-4"><a href="quantities-of-interest.html#cb507-4" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit) <span class="co"># coefficient</span></span>
+<span id="cb507-5"><a href="quantities-of-interest.html#cb507-5" aria-hidden="true" tabindex="-1"></a>pp1 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(cutpoint3 <span class="sc">-</span> X<span class="sc">*</span>b)</span>
+<span id="cb507-6"><a href="quantities-of-interest.html#cb507-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb507-7"><a href="quantities-of-interest.html#cb507-7" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># in control</span></span>
+<span id="cb507-8"><a href="quantities-of-interest.html#cb507-8" aria-hidden="true" tabindex="-1"></a>pp0 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(cutpoint3 <span class="sc">-</span> X<span class="sc">*</span>b)</span>
+<span id="cb507-9"><a href="quantities-of-interest.html#cb507-9" aria-hidden="true" tabindex="-1"></a>pp1 <span class="sc">-</span> pp0</span></code></pre></div>
+<pre><code>      3|4 
+0.1042124 </code></pre>
+<p>What about category 3?</p>
+<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="quantities-of-interest.html#cb509-1" aria-hidden="true" tabindex="-1"></a>cutpoint3 <span class="ot">&lt;-</span> fit<span class="sc">$</span>zeta[<span class="dv">3</span>]</span>
+<span id="cb509-2"><a href="quantities-of-interest.html#cb509-2" aria-hidden="true" tabindex="-1"></a>cutpoint2 <span class="ot">&lt;-</span> fit<span class="sc">$</span>zeta[<span class="dv">2</span>]</span>
+<span id="cb509-3"><a href="quantities-of-interest.html#cb509-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># in treatment</span></span>
+<span id="cb509-4"><a href="quantities-of-interest.html#cb509-4" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit) <span class="co"># coefficient</span></span>
+<span id="cb509-5"><a href="quantities-of-interest.html#cb509-5" aria-hidden="true" tabindex="-1"></a>pp1 <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(cutpoint3 <span class="sc">-</span> X<span class="sc">*</span>b) <span class="sc">-</span> <span class="fu">pnorm</span>(cutpoint2 <span class="sc">-</span> X<span class="sc">*</span>b)</span>
+<span id="cb509-6"><a href="quantities-of-interest.html#cb509-6" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># in control</span></span>
+<span id="cb509-7"><a href="quantities-of-interest.html#cb509-7" aria-hidden="true" tabindex="-1"></a>pp0 <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(cutpoint3 <span class="sc">-</span> X<span class="sc">*</span>b) <span class="sc">-</span> <span class="fu">pnorm</span>(cutpoint2 <span class="sc">-</span> X<span class="sc">*</span>b)</span>
+<span id="cb509-8"><a href="quantities-of-interest.html#cb509-8" aria-hidden="true" tabindex="-1"></a>pp1 <span class="sc">-</span> pp0</span></code></pre></div>
+<pre><code>         3|4 
+-0.000883825 </code></pre>
+<p>Shortcuts for all categories</p>
+<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="quantities-of-interest.html#cb511-1" aria-hidden="true" tabindex="-1"></a><span class="do">## All categories</span></span>
+<span id="cb511-2"><a href="quantities-of-interest.html#cb511-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb511-3"><a href="quantities-of-interest.html#cb511-3" aria-hidden="true" tabindex="-1"></a><span class="do">## predict</span></span>
+<span id="cb511-4"><a href="quantities-of-interest.html#cb511-4" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">treat =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)), <span class="at">type =</span> <span class="st">&quot;probs&quot;</span>)</span></code></pre></div>
+<pre><code>          1         2         3         4
+1 0.3049427 0.1721029 0.1292452 0.3937091
+2 0.2192609 0.1544561 0.1283614 0.4979215</code></pre>
+<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb513-1"><a href="quantities-of-interest.html#cb513-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Prediction</span></span>
+<span id="cb513-2"><a href="quantities-of-interest.html#cb513-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prediction)</span>
+<span id="cb513-3"><a href="quantities-of-interest.html#cb513-3" aria-hidden="true" tabindex="-1"></a>outp <span class="ot">&lt;-</span> <span class="fu">prediction</span>(fit, <span class="at">at =</span> <span class="fu">list</span>(<span class="at">treat =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)), </span>
+<span id="cb513-4"><a href="quantities-of-interest.html#cb513-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">category =</span> <span class="dv">1</span>)</span>
+<span id="cb513-5"><a href="quantities-of-interest.html#cb513-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(outp)</span></code></pre></div>
+<pre><code> at(treat) Prediction SE  z  p lower upper
+         0     0.3049 NA NA NA    NA    NA
+         1     0.2193 NA NA NA    NA    NA</code></pre>
+<div id="assumptions" class="section level3" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> Assumptions</h3>
+<p>A key assumption for the ordinal models is Parallel lines/Proportional Odds: We only have one set of <span class="math inline">\(k \times 1\)</span> <span class="math inline">\(\hat \beta\)</span>, not a separate set of coefficients for each ordinal category.</p>
 <ul>
-<li>MLE is consistent: <span class="math inline">\(p\lim \hat \theta^{ML} = \theta\)</span></li>
-<li>It is also asymptotically normal: <span class="math inline">\(\hat \theta^{ML} \sim N(\theta, [I(\theta)]^{-1})\)</span>
-<ul>
-<li>This will allow us to use the normal approximation to calculate z-scores and p-values</li>
-</ul></li>
-<li>And it is asymptotically efficient. “In other words, compared to any other consistent and uniformly asymptotically Normal estimator, the ML estimator has a smaller asymptotic variance” (King 1998, 80).</li>
+<li>The relationship between,the lowest versus all higher categories of the response variable are the same as those that describe the relationship between the next lowest category and all higher categories, etc.</li>
+<li>For each <span class="math inline">\(X\)</span> term included in the model, the ‘slope’ between each pair of outcomes across two response levels are the same regardless of the threshold (<span class="math inline">\(C_1\)</span> to <span class="math inline">\(C_2\)</span> and from <span class="math inline">\(C_2\)</span> to <span class="math inline">\(C_3\)</span>)</li>
+<li>For a one-unit change, going from control to treatment, the effects are “proportional” across response categories</li>
 </ul>
-<p><strong><em>Note on consistency</em></strong></p>
-<p>What does it mean to say an estimator is consistent? As samples get larger and larger, we converge to the truth.</p>
-<p>Consistency: <span class="math inline">\(p\lim \hat{\theta} =\beta\)</span> As <span class="math inline">\(n \rightarrow \infty P(\hat{\theta} - \theta&gt; e) \rightarrow 0\)</span>.</p>
-<ul>
-<li>Convergence in probability: the probability that the absolute difference between the estimate and parameter being larger than <span class="math inline">\(e\)</span> goes to zero as <span class="math inline">\(n\)</span> gets bigger.</li>
-</ul>
-<p>Note that bias and consistency are different: Consistency means that as the sample size (<span class="math inline">\(n\)</span>) gets large the estimate gets closer to the true value. Unbiasedness is not affected by sample size. An estimate is unbiased if over repeated samples, its expected value (average) is the true parameter.</p>
-<p>It is possible for an estimator to be unbiased and consistent, biased and not consistent, or consistent yet biased.</p>
-<p><img src="images/UnbiasedandConsistent.png" style="width:40.0%" />; <img src="images/BiasedandInconsistent.png" style="width:40.0%" /></p>
-<p><img src="images/BiasedButConsistent.png" style="width:40.0%" /></p>
-<p>Images taken from <a href="https://eranraviv.com/bias-vs-consistency/">here</a></p>
-<p>What is a practical takeaway from this? The desirable properties of MLE kick in with larger samples. When you have a very small sample, you might use caution with your estimates.</p>
-<p><strong><em>No Free Lunch</em></strong></p>
-<p>We have hinted at some of the assumptions required, but below we can state them more formally.</p>
-<ul>
-<li>First, we assume a particular data generating process: the probability model.</li>
-<li>We are generally assuming that observations are independent and identically distributed (allowing us to write the likelihood as a product)– unless we explicitly write the likelihood in a way that takes this into account.
-<ul>
-<li>When we have complicated structures to our data, this assumption may be violated, such as data that is clustered in particular hierarchical entities.</li>
-</ul></li>
-<li>We assume the model (i.e., the choice of covariates and how they are modeled) is correctly specified. (e.g., no omitted variables.)</li>
-<li>We have to meet certain technical regularity conditions–meaning that our problem is a “regular” one. These, in the words of Gary King are “obviously quite technical” (1998, 75). We will not get into the details, but you can see pg. 75 of <em>Unifying Political Methodology</em> for the formal mathematical statements. In short, our paramaters have to be <a href="https://en.wikipedia.org/wiki/Identifiability">identifiable</a> and within the parameter space of possible values (this identifiability can be violated, for example, when we have too many parameters relative to the number of observations in the sample), we have to be able to differentiate the log-likelihood (in fact, it needs to be twice continuously differentiable) along the support (the range of values) in the data. The information matrix, which we get through the second derivative, must be positive definite and finitely bounded. This helps us know we are at a maximum, and the maximum exists and is finite. You can visualize this as a smooth function, that is not too sharp (which would make it non differentiable), but has a peak (a maximum) that we can identify.</li>
-</ul>
-<div id="hypothesis-tests" class="section level3" number="5.4.1">
-<h3><span class="header-section-number">5.4.1</span> Hypothesis Tests</h3>
-<p>We can apply the same hypothesis testing framework to our estimates here as we did in linear regression. First, we can standardize our coefficient estimates by dividing them by the standard error. This will generate a “z score.” Just like when we had the t value in OLS, we can use the z score to calculate the p-value and make assessments about the null hypothesis that a given <span class="math inline">\(\hat \beta_k\)</span> = 0.</p>
-<p><span class="math display">\[\begin{align*}
-z &amp;= \frac{\hat \theta_k}{\sqrt{Var(\hat \theta)_k}} \sim N(0,1)
-\end{align*}\]</span></p>
-<p>Note: to get p-values, we typically now use, <code>2 * pnorm(abs(z), lower.tail=F)</code> instead of <code>pt()</code> and our critical values are based on <code>qnorm()</code> instead of <code>qt()</code>. R will follow the same in most circumstances. In large samples, these converge to the same quantities.</p>
-</div>
-<div id="model-output-in-r" class="section level3" number="5.4.2">
-<h3><span class="header-section-number">5.4.2</span> Model Output in R</h3>
-<p>As discussed, we can fit a GLM in R using the <code>glm</code> function:</p>
-<ul>
-<li><code>glm(formula, data, family = XXX(link = "XXX", ...), ...)</code>
-<ul>
-<li><code>formula</code>: The model written in the form similar to <code>lm()</code></li>
-<li><code>data</code>: Data frame</li>
-<li><code>family</code>: Name of PDF for <span class="math inline">\(Y_i\)</span> (e.g. <code>binomial</code>, <code>gaussian</code>)</li>
-<li><code>link</code>: Name of the link function (e.g. <code>logit</code>, `<code>probit</code>, <code>identity</code>, <code>log</code>)</li>
-</ul></li>
-</ul>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="mle-properties.html#cb296-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load Data</span></span>
-<span id="cb296-2"><a href="mle-properties.html#cb296-2" aria-hidden="true" tabindex="-1"></a>fit.glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(participation <span class="sc">~</span> female <span class="sc">+</span> edu <span class="sc">+</span> age <span class="sc">+</span> sexism, <span class="at">data=</span>anes,</span>
-<span id="cb296-3"><a href="mle-properties.html#cb296-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link=</span><span class="st">&quot;identity&quot;</span>))</span></code></pre></div>
-<p>We’ve already discussed the coefficient output. Like <code>lm()</code>, GLM wiil also display the standard errors, z-scores / t-statistics, and p-values of the model in the model summary.</p>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="mle-properties.html#cb297-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.glm)<span class="sc">$</span>coefficients</span></code></pre></div>
-<pre><code>                Estimate  Std. Error   t value     Pr(&gt;|t|)
-(Intercept)  0.929302597 0.154033186  6.033132 1.999280e-09
-female      -0.217453631 0.067415200 -3.225588 1.282859e-03
-edu          0.166837062 0.022402469  7.447262 1.559790e-13
-age          0.008795138 0.001874559  4.691843 2.941204e-06
-sexism      -0.981808431 0.154664950 -6.347970 2.844067e-10</code></pre>
-<p>For this example, R reverts to the t-value instead of the z-score given that we are using the linear model. In other examples, you may see <code>z</code> in place of <code>t</code>. There are only small differences in these approximations because as your sample size gets larger, the degrees of freedom (used in the calculation of p-calues for the t distribution) are big enough that the t distribution converges to the normal distribution.</p>
-<p><strong>Goodness of fit</strong></p>
-<p>The <code>glm()</code> model has a lot of summary output.</p>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="mle-properties.html#cb299-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.glm)</span></code></pre></div>
-<pre><code>
-Call:
-glm(formula = participation ~ female + edu + age + sexism, family = gaussian(link = &quot;identity&quot;), 
-    data = anes)
-
-Deviance Residuals: 
-    Min       1Q   Median       3Q      Max  
--2.3001  -0.8343  -0.3013   0.3651   7.2887  
-
-Coefficients:
-             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  0.929303   0.154033   6.033 2.00e-09 ***
-female      -0.217454   0.067415  -3.226  0.00128 ** 
-edu          0.166837   0.022402   7.447 1.56e-13 ***
-age          0.008795   0.001875   4.692 2.94e-06 ***
-sexism      -0.981808   0.154665  -6.348 2.84e-10 ***
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-
-(Dispersion parameter for gaussian family taken to be 1.688012)
-
-    Null deviance: 2969.3  on 1584  degrees of freedom
-Residual deviance: 2667.1  on 1580  degrees of freedom
-AIC: 5334.9
-
-Number of Fisher Scoring iterations: 2</code></pre>
-<p>Some of the output represents measures of the goodness of fit of the model. However, their values are not directly interpretable from a single model.</p>
-<ul>
-<li>Larger (less negative) likelihood, the better the model fits the data. (<code>logLik(mod)</code>). The becomes relevant when comparing two or more models.</li>
-<li>Deviance is calculated from the likelihood. This is a measure of discrepancy between observed and fitted values. (Smaller values, better fit.)
-<ul>
-<li>Null deviance: how well the outcome is predicted by a model that includes only the intercept. (<span class="math inline">\(df = n - 1\)</span>)</li>
-<li>Residual deviance: how well the outcome is predicted by a model with our parameters. (<span class="math inline">\(df = n-k\)</span>)</li>
-</ul></li>
-<li>AIC- used for model comparison. Smaller values indicate a more parsimonious model. Accounts for the number of parameters (<span class="math inline">\(K\)</span>) in the model (like Adjusted R-squared, but without the ease of interpretation). Sometimes used as a criteria in prediction exercises (using a model on training data to predict test data). For more information on how AIC can be used in prediction exercises, see <a href="https://towardsdatascience.com/introduction-to-aic-akaike-information-criterion-9c9ba1c96ced">here</a>.</li>
-</ul>
-<p><strong>Likelihood Ratio Test</strong></p>
-<p>The likelihood ratio test compares the fit of two models, with the null hypothesis being that the full model does not add more explanatory power to the reduced model. Note: You should only compare models if they have the same number of observations.</p>
-<p>This type of test is used in a similar way that people compare R-squared values across models.</p>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="mle-properties.html#cb301-1" aria-hidden="true" tabindex="-1"></a>fit.glm2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(participation <span class="sc">~</span> female <span class="sc">+</span> edu <span class="sc">+</span> age <span class="sc">+</span> sexism, <span class="at">data=</span>anes,</span>
-<span id="cb301-2"><a href="mle-properties.html#cb301-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link=</span><span class="st">&quot;identity&quot;</span>))</span>
-<span id="cb301-3"><a href="mle-properties.html#cb301-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb301-4"><a href="mle-properties.html#cb301-4" aria-hidden="true" tabindex="-1"></a>fit.glm1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(participation <span class="sc">~</span> female <span class="sc">+</span> edu <span class="sc">+</span> age, <span class="at">data=</span>anes, </span>
-<span id="cb301-5"><a href="mle-properties.html#cb301-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span>
-<span id="cb301-6"><a href="mle-properties.html#cb301-6" aria-hidden="true" tabindex="-1"></a>               </span>
-<span id="cb301-7"><a href="mle-properties.html#cb301-7" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit.glm1, fit.glm2, <span class="at">test =</span> <span class="st">&quot;Chisq&quot;</span>) <span class="co">#  reject the null</span></span></code></pre></div>
-<pre><code>Analysis of Deviance Table
-
-Model 1: participation ~ female + edu + age
-Model 2: participation ~ female + edu + age + sexism
-  Resid. Df Resid. Dev Df Deviance  Pr(&gt;Chi)    
-1      1581     2735.1                          
-2      1580     2667.1  1   68.021 2.182e-10 ***
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<p><strong>Pseudo-R-squared</strong></p>
-<p>We don’t have an exact equivalent to the R-squared in OLS, but people have developed “pseudo” measures.</p>
-<p>Example: McFadden’s R-squared</p>
-<ul>
-<li><span class="math inline">\(PR^2 = 1 - \frac{\ell(M)}{\ell(N)}\)</span>
-<ul>
-<li>where <span class="math inline">\(\ell(M)\)</span> is the log-likelihood for your fitted model and <span class="math inline">\(\ell(N)\)</span> is the log-likelihood for a model with only the intercept</li>
-</ul></li>
-<li>Recall, greater (less negative) values of the log-likelihood indicate better fit</li>
-<li>McFadden’s values range from 0 to close to 1</li>
-</ul>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="mle-properties.html#cb303-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;pscl&quot;)</span></span>
-<span id="cb303-2"><a href="mle-properties.html#cb303-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pscl)</span></code></pre></div>
-<pre><code>Warning: package &#39;pscl&#39; was built under R version 4.0.2</code></pre>
-<pre><code>Classes and Methods for R developed in the
-Political Science Computational Laboratory
-Department of Political Science
-Stanford University
-Simon Jackman
-hurdle and zeroinfl functions by Achim Zeileis</code></pre>
-<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="mle-properties.html#cb306-1" aria-hidden="true" tabindex="-1"></a>fit.glm.null <span class="ot">&lt;-</span> <span class="fu">glm</span>(participation <span class="sc">~</span> <span class="dv">1</span>, anes, <span class="at">family =</span> <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span>
-<span id="cb306-2"><a href="mle-properties.html#cb306-2" aria-hidden="true" tabindex="-1"></a>pr <span class="ot">&lt;-</span> <span class="fu">pR2</span>(fit.glm1)</span></code></pre></div>
-<pre><code>fitting null model for pseudo-r2</code></pre>
-<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="mle-properties.html#cb308-1" aria-hidden="true" tabindex="-1"></a>pr[<span class="st">&quot;McFadden&quot;</span>]</span></code></pre></div>
-<pre><code>  McFadden 
-0.02370539 </code></pre>
-<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="mle-properties.html#cb310-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Or, by hand:</span></span>
-<span id="cb310-2"><a href="mle-properties.html#cb310-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> (<span class="fu">logLik</span>(fit.glm1)<span class="sc">/</span><span class="fu">logLik</span>(fit.glm.null))</span></code></pre></div>
-<pre><code>&#39;log Lik.&#39; 0.02370539 (df=5)</code></pre>
+<p>What to do if assumption is violated? Ignore, Do Binary, Do multinomial (discussed in the next session)</p>
 
 </div>
 </div>
 <!-- </div> -->
+
+
+
+
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="mle-estimation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="binary.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="ordinal-outcome-data.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
