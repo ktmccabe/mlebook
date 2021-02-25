@@ -423,3 +423,334 @@ mean(pnorm(cutpoint2 - eta) - pnorm(cutpoint1 - eta))
 
 </details>
 
+### A note on robust standard errors
+
+In writing down our likelihood equations, we assume our observations are independent. However, that is not always the case. For example, in Paluck and Green's article, the experimental design is based on clustered pairs, and the treatment is randomly assigned to one unit of a pair. Ideally, we want to account for this non-independence in our model.
+
+In linear models (e.g., using `lm`), this is often accomplished post-estimation by adjusting the standard errors. We might adjust them for clustering if we have a case like the authors' or for suspected heteroskedasticity (maybe the errors are not constant, but instead, are larger for higher values of a given X variable). 
+
+There are many types of these "robust" standard errors, and we may encounter more later in the course. Generally, what each of these robust standard errors does is alter the nature of the variance covariance matrix from which we extract the standard errors. Recall in OLS, we have an expression for the variance of the coefficients that looks like the below. By assuming constant error variance, we can simplify it.
+
+\begin{align*}
+\mathbf{V}(\widehat{\beta})  &= (X^T X)^{-1}X^T \mathbf{V}( \epsilon) X (X^T X)^{-1}\\
+&= \underbrace{(X^T X)^{-1}X^T \sigma^2I_n X (X^T X)^{-1}}_\text{Assume homoskedasticity}\\
+&= \underbrace{\sigma^2(X^T X)^{-1} X^T X (X^T X)^{-1}}_\text{Because it is a constant, we can move it out in front of the matrix multiplication, and then simplify the terms.}  \\
+&= \sigma^2(X^T X)^{-1} 
+\end{align*}
+
+After we plug in $\hat \sigma^2$ for $\sigma^2$, we arrive at our variance-covariance matrix `vcov`:$\hat \sigma^2(X^T X)^{-1}=\frac{1}{N-K} \mathbf{e'e}(X^T X)^{-1}$
+
+When we don't have constant error variance, we have to pause here:
+
+$(X^T X)^{-1}X^T \mathbf{V}( \epsilon) X (X^T X)^{-1}$
+
+and assume something different about the structure of the error terms in $\mathbf{V}( \epsilon)$ and end up with a different final expression for `vcov`.
+
+The robust estimators differ in how they specify an estimate for $\mathbf{V}( \epsilon) = \Sigma$ and whether they take into account the degrees of freedom in the model (number of observations, number of variables, number of clusters, etc.)
+
+
+For example, let's fit the authors' model as a linear model using MacKinnon and White HC1 robust standard errors. Those specify the following inside portion for an estimate of $\mathbf{V}( \epsilon)$.This is what Stata uses as a default:
+
+$\Sigma = \frac{n}{n-k} \text{diag}(\hat \epsilon_i^2)$
+
+This means we have a slightly different term for each observation instead of a constant estimate $\hat \sigma^2$ for all observations.
+
+```{r, warning=F, message=F}
+fit.lin <- lm(as.numeric(dissent) ~ treat + factor(site_pr), 
+               data=pg)
+
+## Option 1: Adjusting for heteroskedasticity
+library(sandwich)
+newvcov <- vcovHC(fit.lin, type="HC1")
+sqrt(diag(newvcov))
+
+## Option 2: Adjusting for heteroskedasticity
+library(estimatr)
+fit.lin2 <- lm_robust(as.numeric(dissent) ~ treat + factor(site_pr), 
+               data=pg, se_type = "stata")
+sqrt(diag(vcov(fit.lin2)))
+```
+
+
+Another adjustment takes into account the grouped or "clustered" nature of the data. Here, we have a separate estimate for each group in the data. This can be implemented in R by using `vcovCL` or the `clusters` argument in `lm_robust`.
+
+```{r}
+## Option 1: Adjusting for clustering
+library(sandwich)
+newvcov <- vcovCL(fit.lin, type="HC1", cadjust=T, cluster = pg$sitcode)
+sqrt(diag(newvcov))
+
+## Option 2: Adjusting for clustering
+library(estimatr)
+fit.lin2 <- lm_robust(as.numeric(dissent) ~ treat + factor(site_pr), 
+               data=pg, se_type = "stata", clusters = sitcode)
+sqrt(diag(vcov(fit.lin2)))
+```
+
+
+This is all great, but the authors don't have a linear model, they have an ordered probit model. It turns out that people have developed similar robust standard error estimators to adjust the standard errors from these non-linear models. For more details, see slides from [Molly Roberts](https://projects.iq.harvard.edu/files/gov2001/files/sesection_5.pdf) on this point.
+
+These take a slightly different form, but the intuition is the same. What we are altering is the structure of the variance-covariance matrix (which is a function of the Hessian in the likelihood case), making adjustments across all observations or clusters of observations. 
+
+We can also implement these in R using HC0 standard errors.
+
+```{r}
+## Adjusting for clustered standard errors
+fit.c2 <- polr(as.factor(dissent) ~ treat + factor(site_pr), 
+               data=pg, method="probit", Hess =T)
+clval <- vcovCL(fit.c2, type="HC0", cluster = pg$sitcode)
+```
+
+You can compare these standard errors to column 2 from Table 3 in the paper.
+```{r}
+sqrt(diag(clval))
+```
+
+The `coeftest` function in R, when applied to a new `vcov` will reproduce the full regression output.
+
+```{r}
+library(lmtest)
+coeftest(fit.c2, vcov=clval)
+```
+
+
+**I got 99 problems, and standard errors are just one**
+
+However, these robust standard errors cannot correct for underlying model misspecification. Recall that the initial likelihood equation is what assumes independence-- this is the equation we use for everything, not only for computing standard errors but also for estimating the coefficients themselves. If we truly believe we have dependence among our observations, we might consider using an entirely different likelihood function-- one that incorporates this dependence, instead of just adjusting the standard errors after the fact.
+
+
+
+## Week 6 Tutorial
+
+For this example, we will replicate a portion of the article"How Empathic Concern Fuels Partisan Polarization" by Elizabeth N. Simas, Scott Clifford, and Justin H. Kirkland.published in 2020 in the *American Political Science Review*. Replication files are available [here](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/RJL2DK)
+
+Abstract. *Over the past two decades, there has been a marked increase in partisan social polarization, leaving scholars in search of solutions to partisan conflict. The psychology of intergroup relations identifies empathy as one of the key mechanisms that reduces intergroup conflict, and some have suggested that a lack of empathy has contributed to partisan polarization. Yet, empathy may not always live up to this promise. We argue that, in practice, the experience of empathy is biased toward one’s ingroup and can actually exacerbate political polarization. First, using a large, national sample, we demonstrate that higher levels of dispositional empathic concern are associated with higher levels of affective polarization. Second, using an experimental design, we show that individuals high in empathic concern show greater partisan bias in evaluating contentious political events. Taken together, our results suggest that, contrary to popular views, higher levels of dispositional empathy actually facilitate partisan polarization.*
+
+We are going to replicate Study 1's analysis testing Hypotheses 1 and 2. Here, the authors conduct an original survey fielded by YouGov during May 2016 with 1000 respondents. 
+
+Let's load the data. 
+
+  - How many observations do we have?
+
+```{r}
+library(foreign)
+emp <- read.dta("https://github.com/ktmccabe/teachingdata/blob/main/week6.dta?raw=true")
+```
+
+The authors' first two hypotheses are:
+
+  - Empathic concern should predict more positive affect for copartisans, relative to outpartisans (H1).
+  - Empathic concern should increase negative affect for outpartisans (H2).
+
+Outcome Measure: "To examine this type of partisan favoritism, we utilize responses to two questions asking respondents to rate the Democratic and Republican Parties on a seven-point scale ranging from "very favorable" to "very unfavorable." We then subtract respondents’ ratings of the opposite party from their ratings of their own party to create an ordinal measure that ranges from six (highest inparty rating, lowest outparty rating) to −6 (lowest inparty rating and highest outparty rating)"
+
+  - `affectpol`: an ordinal measure that ranges from six (highest inparty rating, lowest outparty rating) to −6 (lowest inparty rating and highest outparty rating)"
+  - `outfav`: rating of opposing party on a seven-point scale ranging from "very favorable" to "very unfavorable."
+
+Let's take a look at these variables. 
+
+  - Are they coded as the authors describe?
+  - What class are they currently?
+
+```{r}
+table(emp$affectpol)
+class(emp$affectpol)
+```
+
+```{r}
+table(emp$outfav)
+class(emp$outfav)
+```
+
+
+Independent Variables.
+
+  - `empconc`: Mean of empathetic concern items from the Interpersonal Reactivity Index (IRI)
+  - Additional variables to measure other dimensions of empathy:
+      + `empdist` personal distress, `emppers` perspective taking, `empfant` fantasy
+  - Additional controls for strength of party identification `pidext`, ideological extremity `ideoext`, news interest `news`, dummy variable for party membership `dem`, and demographics: `educ`, `age`, `male`, `white`, `inc3miss` (income)
+
+
+What type of model could they use to test H1 and H2?
+
+
+They choose to run an ordinal logistic regression. Let's do as they do. To run an ordinal model in R, we need to make sure our outcome is ordinal! (meaning a factor variable)
+
+```{r}
+emp$outfav <- as.factor(emp$outfav)
+table(emp$outfav)
+class(emp$outfav)
+```
+
+
+
+Go ahead and replicate the first regression in the table with all of the controls, making sure to treat income as a factor variable but education as a numeric variable.
+
+![](images/simas1.png)
+
+  - Note: your coefficients will not exactly match because the authors weight their data using survey weights.
+  
+```{r}
+library(MASS)
+fit.emp <- polr(outfav ~ empconc + empdist + emppers + empfant +
+                  + pidext + ideoext + news + dem +
+                  as.numeric(educ) + age + male + white + factor(inc3miss),
+                data=emp, Hess=T, method="logistic")
+summary(fit.emp)
+```
+
+
+  - Let's take a look out how the weights affect the result by using the `survey` package. 
+      + There are many options in establishing an `svydesign`. Ours is a relatively simple case where all we have is a vector of weights. In other cases, samples might include information about the sampling units or strata.
+      + Once we establish an `svydesign` object, we now need to use `svy` commands for our operations, such as `svymean` or `svyglm` or `svyolr`
+
+```{r, warning=F, message=F}
+## install.packages("survey", dependencies =T)
+library(survey)
+empd <- svydesign(ids=~1, weights = emp$weight_group, data=emp)
+fit.empw2 <- svyolr(outfav ~ empconc + empdist + emppers + empfant +
+                  + pidext + ideoext + news + dem +
+                  as.numeric(educ) + age + 
+                    male + white + factor(inc3miss), 
+               design=empd, method="logistic")
+summary(fit.empw2)
+```
+
+
+The weights seem to make a difference! Now we are closely matching what the authors report. The use of survey weights represents yet another point of researcher discretion. 
+
+
+Let's use the weighted results and proceed to make them easier to interpret. Recall, H2 was:
+*Empathic concern should increase negative affect for outpartisans (H2).*
+
+We want to show how negative affect toward the outparty changes across levels of empathic concern. How should we visualize this?
+
+  1. Could calculate probabilities of being in each of the `outfav` seven categories across different levels of empathetic concern.
+  2. Could calculate probabilities of being in theoretically interesting `outfav` categories across different levels of empathetic concern.
+  
+Note: in each case, we need to decide where to set our covariate values and potentially also calculate uncertainty estimates.
+
+What do they do? (focus on the right side for the out-party measure)
+
+![](images/simas2.png)
+
+Let's estimate the probability of being in the lowest category for empathy values from 0 to 1 by .2 intervals. Let's set all covariates at their means.
+
+  - We could do this in `predict` or manually. We will do it manually for now.
+
+```{r}
+## Set covariates to particular values
+X <- model.matrix(fit.empw2)
+X <- X[, -1] #remove intercept
+
+## Crude way to take means 
+## why might this be bad to do in practice?
+X.means <- colMeans(X)
+X.means["empconc"] <- 0
+
+# Find Xb and zeta
+# this piece [1:length(X.means)] makes sure we omit the zetas
+eta <- X.means %*% coef(fit.empw2)[1:length(X.means)]
+zeta <- fit.empw2$zeta
+
+## Find Pr(lowest category)
+emp0 <- plogis(zeta[1] - eta)
+emp0
+```
+
+```{r}
+## Repeat for each value of empconc of interest
+X.means["empconc"] <- .2
+# Find Xb and zeta
+eta <- X.means %*% coef(fit.empw2)[1:length(X.means)]
+zeta <- fit.empw2$zeta
+## Find Pr(lowest category)
+plogis(zeta[1] - eta)
+emp2 <- plogis(zeta[1] - eta)
+emp2
+```
+
+```{r}
+## Or put it in a function to be faster
+findpr <- function(val){
+  X.means["empconc"] <- val
+  # Find Xb and zeta
+  eta <- X.means %*% coef(fit.empw2)[1:length(X.means)]
+  zeta <- fit.empw2$zeta
+  ## Find Pr(lowest category)
+  pr <- plogis(zeta[1] - eta)
+  return(pr)
+}
+## Does it work? Test
+findpr(0)
+
+## Repeat for all values of empathy
+emp.prs <- sapply(seq(0, 1, .2), findpr)
+emp.prs
+```
+
+We can visualize these estimates similar to the authors.
+
+```{r}
+plot(x=seq(0, 1, .2),
+     y=emp.prs,
+     ylim = c(.1, .7),
+     type="l",
+     xlab = "Empathic Concern",
+     ylab = "",
+     main = "Outparty Favorability \n Pr(Outparty Very Unfavorable)",
+     cex.main=.8)
+```
+
+We could add lines for all categories. We'll just add it to the function for now.
+
+```{r}
+findprall <- function(val){
+  X.means["empconc"] <- val
+  # Find Xb and zeta
+  eta <- X.means %*% coef(fit.empw2)[1:length(X.means)]
+  zeta <- fit.empw2$zeta
+  ## Find Pr(4th lowest category)
+  pr7 <- 1 - plogis(zeta[6] - eta)
+  ## Find Pr(4th lowest category)
+  pr6 <- plogis(zeta[6] - eta) - plogis(zeta[5] - eta)
+  ## Find Pr(4th lowest category)
+  pr5 <- plogis(zeta[5] - eta) - plogis(zeta[4] - eta)
+  ## Find Pr(4th lowest category)
+  pr4 <- plogis(zeta[4] - eta) - plogis(zeta[3] - eta)
+  ## Find Pr(3rd lowest category)
+  pr3 <- plogis(zeta[3] - eta) - plogis(zeta[2] - eta)
+  ## Find Pr(2nd lowest category)
+  pr2 <- plogis(zeta[2] - eta) - plogis(zeta[1] - eta)
+  ## Find Pr(lowest category)
+  pr1 <- plogis(zeta[1] - eta)
+  return(c(pr1, pr2, pr3, pr4, pr5, pr6, pr7))
+}
+## Repeat for all values of empathy
+emp.prsall <- sapply(seq(0, 1, .2), findprall)
+```
+
+
+We can add these lines to the plot. Yikes! A bit messy. You can see why they focus on the first category only.
+
+```{r}
+plot(x=seq(0, 1, .2),
+     y=emp.prsall[1,],
+     ylim = c(0, 1),
+     type="l",
+     xlab = "Empathic Concern",
+     ylab = "",
+     main = "Outparty Favorability \n Pr(Outparty Very Unfavorable)",
+     cex.main=.8)
+points(x=seq(0, 1, .2), y=emp.prsall[2,], type="l", lty=2)
+points(x=seq(0, 1, .2), y=emp.prsall[3,], type="l", lty=3)
+points(x=seq(0, 1, .2), y=emp.prsall[4,], type="l", lty=4)
+points(x=seq(0, 1, .2), y=emp.prsall[5,], type="l", lty=5)
+points(x=seq(0, 1, .2), y=emp.prsall[6,], type="l", lty=6)
+points(x=seq(0, 1, .2), y=emp.prsall[7,], type="l", lty=7)
+legend("topleft",  lty=1:7, c("Very Unfav", "2", "3", "4", "5", "6", "Very Fav"), cex=.6)
+```
+
+
+A last step would be to calculate uncertainty. Just like before, we could use simulation or the bootstrap method.
+

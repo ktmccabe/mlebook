@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="assumptions.html"/>
-
+<link rel="next" href="week-6-tutorial.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -319,7 +319,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.3.1" data-path="fitting-ordinal-models-in-r.html"><a href="fitting-ordinal-models-in-r.html#quantities-of-interest"><i class="fa fa-check"></i><b>8.3.1</b> Quantities of Interest</a></li>
 </ul></li>
 <li class="chapter" data-level="8.4" data-path="assumptions.html"><a href="assumptions.html"><i class="fa fa-check"></i><b>8.4</b> Assumptions</a></li>
-<li class="chapter" data-level="8.5" data-path="ordinal-practice-problems.html"><a href="ordinal-practice-problems.html"><i class="fa fa-check"></i><b>8.5</b> Ordinal Practice Problems</a></li>
+<li class="chapter" data-level="8.5" data-path="ordinal-practice-problems.html"><a href="ordinal-practice-problems.html"><i class="fa fa-check"></i><b>8.5</b> Ordinal Practice Problems</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="ordinal-practice-problems.html"><a href="ordinal-practice-problems.html#a-note-on-robust-standard-errors"><i class="fa fa-check"></i><b>8.5.1</b> A note on robust standard errors</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="week-6-tutorial.html"><a href="week-6-tutorial.html"><i class="fa fa-check"></i><b>8.6</b> Week 6 Tutorial</a></li>
 </ul></li>
 </ul>
 
@@ -381,26 +385,108 @@ factor(site_pr)5 factor(site_pr)6 factor(site_pr)7
 <span id="cb509-6"><a href="ordinal-practice-problems.html#cb509-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">pnorm</span>(cutpoint2 <span class="sc">-</span> eta) <span class="sc">-</span> <span class="fu">pnorm</span>(cutpoint1 <span class="sc">-</span> eta))</span></code></pre></div>
 <pre><code>[1] 0.1726136</code></pre>
 </details>
+<div id="a-note-on-robust-standard-errors" class="section level3" number="8.5.1">
+<h3><span class="header-section-number">8.5.1</span> A note on robust standard errors</h3>
+<p>In writing down our likelihood equations, we assume our observations are independent. However, that is not always the case. For example, in Paluck and Green’s article, the experimental design is based on clustered pairs, and the treatment is randomly assigned to one unit of a pair. Ideally, we want to account for this non-independence in our model.</p>
+<p>In linear models (e.g., using <code>lm</code>), this is often accomplished post-estimation by adjusting the standard errors. We might adjust them for clustering if we have a case like the authors’ or for suspected heteroskedasticity (maybe the errors are not constant, but instead, are larger for higher values of a given X variable).</p>
+<p>There are many types of these “robust” standard errors, and we may encounter more later in the course. Generally, what each of these robust standard errors does is alter the nature of the variance covariance matrix from which we extract the standard errors. Recall in OLS, we have an expression for the variance of the coefficients that looks like the below. By assuming constant error variance, we can simplify it.</p>
+<p><span class="math display">\[\begin{align*}
+\mathbf{V}(\widehat{\beta})  &amp;= (X^T X)^{-1}X^T \mathbf{V}( \epsilon) X (X^T X)^{-1}\\
+&amp;= \underbrace{(X^T X)^{-1}X^T \sigma^2I_n X (X^T X)^{-1}}_\text{Assume homoskedasticity}\\
+&amp;= \underbrace{\sigma^2(X^T X)^{-1} X^T X (X^T X)^{-1}}_\text{Because it is a constant, we can move it out in front of the matrix multiplication, and then simplify the terms.}  \\
+&amp;= \sigma^2(X^T X)^{-1} 
+\end{align*}\]</span></p>
+<p>After we plug in <span class="math inline">\(\hat \sigma^2\)</span> for <span class="math inline">\(\sigma^2\)</span>, we arrive at our variance-covariance matrix <code>vcov</code>:<span class="math inline">\(\hat \sigma^2(X^T X)^{-1}=\frac{1}{N-K} \mathbf{e&#39;e}(X^T X)^{-1}\)</span></p>
+<p>When we don’t have constant error variance, we have to pause here:</p>
+<p><span class="math inline">\((X^T X)^{-1}X^T \mathbf{V}( \epsilon) X (X^T X)^{-1}\)</span></p>
+<p>and assume something different about the structure of the error terms in <span class="math inline">\(\mathbf{V}( \epsilon)\)</span> and end up with a different final expression for <code>vcov</code>.</p>
+<p>The robust estimators differ in how they specify an estimate for <span class="math inline">\(\mathbf{V}( \epsilon) = \Sigma\)</span> and whether they take into account the degrees of freedom in the model (number of observations, number of variables, number of clusters, etc.)</p>
+<p>For example, let’s fit the authors’ model as a linear model using MacKinnon and White HC1 robust standard errors. Those specify the following inside portion for an estimate of <span class="math inline">\(\mathbf{V}( \epsilon)\)</span>.This is what Stata uses as a default:</p>
+<p><span class="math inline">\(\Sigma = \frac{n}{n-k} \text{diag}(\hat \epsilon_i^2)\)</span></p>
+<p>This means we have a slightly different term for each observation instead of a constant estimate <span class="math inline">\(\hat \sigma^2\)</span> for all observations.</p>
+<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="ordinal-practice-problems.html#cb511-1" aria-hidden="true" tabindex="-1"></a>fit.lin <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">as.numeric</span>(dissent) <span class="sc">~</span> treat <span class="sc">+</span> <span class="fu">factor</span>(site_pr), </span>
+<span id="cb511-2"><a href="ordinal-practice-problems.html#cb511-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>pg)</span>
+<span id="cb511-3"><a href="ordinal-practice-problems.html#cb511-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb511-4"><a href="ordinal-practice-problems.html#cb511-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Option 1: Adjusting for heteroskedasticity</span></span>
+<span id="cb511-5"><a href="ordinal-practice-problems.html#cb511-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
+<span id="cb511-6"><a href="ordinal-practice-problems.html#cb511-6" aria-hidden="true" tabindex="-1"></a>newvcov <span class="ot">&lt;-</span> <span class="fu">vcovHC</span>(fit.lin, <span class="at">type=</span><span class="st">&quot;HC1&quot;</span>)</span>
+<span id="cb511-7"><a href="ordinal-practice-problems.html#cb511-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(newvcov))</span></code></pre></div>
+<pre><code>     (Intercept)            treat factor(site_pr)2 factor(site_pr)3 
+       0.1661596        0.1145570        0.2128812        0.2158906 
+factor(site_pr)4 factor(site_pr)5 factor(site_pr)6 factor(site_pr)7 
+       0.2164289        0.2176110        0.2175578        0.2085747 </code></pre>
+<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb513-1"><a href="ordinal-practice-problems.html#cb513-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Option 2: Adjusting for heteroskedasticity</span></span>
+<span id="cb513-2"><a href="ordinal-practice-problems.html#cb513-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(estimatr)</span>
+<span id="cb513-3"><a href="ordinal-practice-problems.html#cb513-3" aria-hidden="true" tabindex="-1"></a>fit.lin2 <span class="ot">&lt;-</span> <span class="fu">lm_robust</span>(<span class="fu">as.numeric</span>(dissent) <span class="sc">~</span> treat <span class="sc">+</span> <span class="fu">factor</span>(site_pr), </span>
+<span id="cb513-4"><a href="ordinal-practice-problems.html#cb513-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>pg, <span class="at">se_type =</span> <span class="st">&quot;stata&quot;</span>)</span>
+<span id="cb513-5"><a href="ordinal-practice-problems.html#cb513-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(fit.lin2)))</span></code></pre></div>
+<pre><code>     (Intercept)            treat factor(site_pr)2 factor(site_pr)3 
+       0.1661596        0.1145570        0.2128812        0.2158906 
+factor(site_pr)4 factor(site_pr)5 factor(site_pr)6 factor(site_pr)7 
+       0.2164289        0.2176110        0.2175578        0.2085747 </code></pre>
+<p>Another adjustment takes into account the grouped or “clustered” nature of the data. Here, we have a separate estimate for each group in the data. This can be implemented in R by using <code>vcovCL</code> or the <code>clusters</code> argument in <code>lm_robust</code>.</p>
+<div class="sourceCode" id="cb515"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb515-1"><a href="ordinal-practice-problems.html#cb515-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Option 1: Adjusting for clustering</span></span>
+<span id="cb515-2"><a href="ordinal-practice-problems.html#cb515-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
+<span id="cb515-3"><a href="ordinal-practice-problems.html#cb515-3" aria-hidden="true" tabindex="-1"></a>newvcov <span class="ot">&lt;-</span> <span class="fu">vcovCL</span>(fit.lin, <span class="at">type=</span><span class="st">&quot;HC1&quot;</span>, <span class="at">cadjust=</span>T, <span class="at">cluster =</span> pg<span class="sc">$</span>sitcode)</span>
+<span id="cb515-4"><a href="ordinal-practice-problems.html#cb515-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(newvcov))</span></code></pre></div>
+<pre><code>     (Intercept)            treat factor(site_pr)2 factor(site_pr)3 
+      0.07685775       0.07066623       0.12388030       0.09271341 
+factor(site_pr)4 factor(site_pr)5 factor(site_pr)6 factor(site_pr)7 
+      0.07174477       0.12894245       0.20605985       0.06962861 </code></pre>
+<div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb517-1"><a href="ordinal-practice-problems.html#cb517-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Option 2: Adjusting for clustering</span></span>
+<span id="cb517-2"><a href="ordinal-practice-problems.html#cb517-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(estimatr)</span>
+<span id="cb517-3"><a href="ordinal-practice-problems.html#cb517-3" aria-hidden="true" tabindex="-1"></a>fit.lin2 <span class="ot">&lt;-</span> <span class="fu">lm_robust</span>(<span class="fu">as.numeric</span>(dissent) <span class="sc">~</span> treat <span class="sc">+</span> <span class="fu">factor</span>(site_pr), </span>
+<span id="cb517-4"><a href="ordinal-practice-problems.html#cb517-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>pg, <span class="at">se_type =</span> <span class="st">&quot;stata&quot;</span>, <span class="at">clusters =</span> sitcode)</span>
+<span id="cb517-5"><a href="ordinal-practice-problems.html#cb517-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(fit.lin2)))</span></code></pre></div>
+<pre><code>     (Intercept)            treat factor(site_pr)2 factor(site_pr)3 
+      0.07685775       0.07066623       0.12388030       0.09271341 
+factor(site_pr)4 factor(site_pr)5 factor(site_pr)6 factor(site_pr)7 
+      0.07174477       0.12894245       0.20605985       0.06962861 </code></pre>
+<p>This is all great, but the authors don’t have a linear model, they have an ordered probit model. It turns out that people have developed similar robust standard error estimators to adjust the standard errors from these non-linear models. For more details, see slides from <a href="https://projects.iq.harvard.edu/files/gov2001/files/sesection_5.pdf">Molly Roberts</a> on this point.</p>
+<p>These take a slightly different form, but the intuition is the same. What we are altering is the structure of the variance-covariance matrix (which is a function of the Hessian in the likelihood case), making adjustments across all observations or clusters of observations.</p>
+<p>We can also implement these in R using HC0 standard errors.</p>
+<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb519-1"><a href="ordinal-practice-problems.html#cb519-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Adjusting for clustered standard errors</span></span>
+<span id="cb519-2"><a href="ordinal-practice-problems.html#cb519-2" aria-hidden="true" tabindex="-1"></a>fit.c2 <span class="ot">&lt;-</span> <span class="fu">polr</span>(<span class="fu">as.factor</span>(dissent) <span class="sc">~</span> treat <span class="sc">+</span> <span class="fu">factor</span>(site_pr), </span>
+<span id="cb519-3"><a href="ordinal-practice-problems.html#cb519-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>pg, <span class="at">method=</span><span class="st">&quot;probit&quot;</span>, <span class="at">Hess =</span>T)</span>
+<span id="cb519-4"><a href="ordinal-practice-problems.html#cb519-4" aria-hidden="true" tabindex="-1"></a>clval <span class="ot">&lt;-</span> <span class="fu">vcovCL</span>(fit.c2, <span class="at">type=</span><span class="st">&quot;HC0&quot;</span>, <span class="at">cluster =</span> pg<span class="sc">$</span>sitcode)</span></code></pre></div>
+<p>You can compare these standard errors to column 2 from Table 3 in the paper.</p>
+<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="ordinal-practice-problems.html#cb520-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(clval))</span></code></pre></div>
+<pre><code>           treat factor(site_pr)2 factor(site_pr)3 factor(site_pr)4 
+      0.06212521       0.11636326       0.07559847       0.06387804 
+factor(site_pr)5 factor(site_pr)6 factor(site_pr)7              1|2 
+      0.10879657       0.16765260       0.06391195       0.07144512 
+             2|3              3|4 
+      0.07494704       0.08409084 </code></pre>
+<p>The <code>coeftest</code> function in R, when applied to a new <code>vcov</code> will reproduce the full regression output.</p>
+<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb522-1"><a href="ordinal-practice-problems.html#cb522-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb522-2"><a href="ordinal-practice-problems.html#cb522-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(fit.c2, <span class="at">vcov=</span>clval)</span></code></pre></div>
+<pre><code>
+z test of coefficients:
 
+                  Estimate Std. Error z value  Pr(&gt;|z|)    
+treat             0.284843   0.062125  4.5850  4.54e-06 ***
+factor(site_pr)2 -0.174805   0.116363 -1.5022 0.1330371    
+factor(site_pr)3 -0.255136   0.075598 -3.3749 0.0007385 ***
+factor(site_pr)4 -0.177318   0.063878 -2.7759 0.0055052 ** 
+factor(site_pr)5 -0.305472   0.108797 -2.8077 0.0049892 ** 
+factor(site_pr)6 -0.113847   0.167653 -0.6791 0.4970975    
+factor(site_pr)7  0.046596   0.063912  0.7291 0.4659633    
+1|2              -0.646720   0.071445 -9.0520 &lt; 2.2e-16 ***
+2|3              -0.190723   0.074947 -2.5448 0.0109348 *  
+3|4               0.138053   0.084091  1.6417 0.1006487    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p><strong>I got 99 problems, and standard errors are just one</strong></p>
+<p>However, these robust standard errors cannot correct for underlying model misspecification. Recall that the initial likelihood equation is what assumes independence– this is the equation we use for everything, not only for computing standard errors but also for estimating the coefficients themselves. If we truly believe we have dependence among our observations, we might consider using an entirely different likelihood function– one that incorporates this dependence, instead of just adjusting the standard errors after the fact.</p>
 </div>
-<!-- </div> -->
-
-
-
-
-
-
-
-
-
-
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="assumptions.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="assumptions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="week-6-tutorial.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
