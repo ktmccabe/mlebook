@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.2 Mathematical Operations in R | MLE for Political Science</title>
-  <meta name="description" content="3.2 Mathematical Operations in R | MLE for Political Science" />
+  <title>9.4 Practice Problems for Multinomial | MLE for Political Science</title>
+  <meta name="description" content="9.4 Practice Problems for Multinomial | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.2 Mathematical Operations in R | MLE for Political Science" />
+  <meta property="og:title" content="9.4 Practice Problems for Multinomial | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.2 Mathematical Operations in R | MLE for Political Science" />
+  <meta name="twitter:title" content="9.4 Practice Problems for Multinomial | MLE for Political Science" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="mathematical-operations.html"/>
-<link rel="next" href="derivatives.html"/>
+<link rel="prev" href="running-multinomial-logit-in-r.html"/>
+
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -359,141 +359,78 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mathematical-operations-in-r" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> Mathematical Operations in R</h2>
-<p>We will use R for this course, and these operations are all available with R code, allowing R to become a calculator for you. Here are some examples applying the tools above.</p>
-<div id="pemdas" class="section level3" number="3.2.1">
-<h3><span class="header-section-number">3.2.1</span> PEMDAS</h3>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="mathematical-operations-in-r.html#cb51-1" aria-hidden="true" tabindex="-1"></a>((<span class="dv">1</span><span class="sc">+</span><span class="dv">2</span>)<span class="sc">^</span><span class="dv">3</span>)<span class="sc">^</span><span class="dv">2</span> </span></code></pre></div>
-<pre><code>[1] 729</code></pre>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="mathematical-operations-in-r.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> (<span class="dv">2</span><span class="sc">^</span><span class="dv">3</span>)<span class="sc">^</span><span class="dv">2</span> </span></code></pre></div>
-<pre><code>[1] 65</code></pre>
+<div id="practice-problems-for-multinomial" class="section level2" number="9.4">
+<h2><span class="header-section-number">9.4</span> Practice Problems for Multinomial</h2>
+<p>We will try to replicate a portion of the analysis from the paper. Note that different multinomial functions in R and in Stata (which the author used) might rely on slightly different optimization and estimation algorithms, which in smaller samples, might lead to slightly different results. This is one place where your results might not <strong>exactly</strong> match the authors’, but they should be close.</p>
+<ol style="list-style-type: decimal">
+<li>Let’s try to replicate Figure 1a in the paper (which corresponds to Table 1a in the appendix), which shows the average marginal effect of being female vs. male on the first future career move, for each outcome category in the data.
+<ul>
+<li>In addition to the <code>female</code> covariate, the author includes covariates for <code>party_cat</code> (party identification), <code>leg_exp_dum</code> and <code>exec_exp_dum</code> (legislative and executive experience), and <code>leadership</code> (chamber leadership experience) which are each treated as factor variables in the regression.</li>
+<li>We should set <code>party_cat</code> to have the baseline of <code>PRI</code> to match the author.</li>
+</ul></li>
+</ol>
+<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="practice-problems-for-multinomial.html#cb574-1" aria-hidden="true" tabindex="-1"></a>ker<span class="sc">$</span>party_cat <span class="ot">&lt;-</span> <span class="fu">relevel</span>(<span class="fu">as.factor</span>(ker<span class="sc">$</span>party_cat), <span class="at">ref=</span><span class="st">&quot;PRI&quot;</span>)</span></code></pre></div>
+<p><img src="images/ker1.png" /> <img src="images/ker2.png" /></p>
+<p>The author sets covariates to observed levels when estimating the marginal effects.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Based on the marginal effects, how would you evaluate the author’s hypothesis on the effect of gender on future career moves to executive office?</li>
+</ol>
+<details>
+<summary>
+Try on your own and then expand for the solution.
+</summary>
+<div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb575-1"><a href="practice-problems-for-multinomial.html#cb575-1" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">multinom</span>(genderimmedambcat3 <span class="sc">~</span> <span class="fu">factor</span>(female) <span class="sc">+</span> party_cat <span class="sc">+</span> <span class="fu">factor</span>(leg_exp_dum) <span class="sc">+</span> </span>
+<span id="cb575-2"><a href="practice-problems-for-multinomial.html#cb575-2" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">factor</span>(exec_exp_dum) <span class="sc">+</span> <span class="fu">factor</span>(leadership), <span class="at">data=</span>ker)</span>
+<span id="cb575-3"><a href="practice-problems-for-multinomial.html#cb575-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(margins)</span>
+<span id="cb575-4"><a href="practice-problems-for-multinomial.html#cb575-4" aria-hidden="true" tabindex="-1"></a>marg.effect.execnom <span class="ot">&lt;-</span> <span class="fu">margins</span>(fit2, <span class="at">variables=</span><span class="st">&quot;female&quot;</span>, <span class="at">change=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">vce=</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">category=</span><span class="st">&quot;mayor/gov ballot access&quot;</span>)</span>
+<span id="cb575-5"><a href="practice-problems-for-multinomial.html#cb575-5" aria-hidden="true" tabindex="-1"></a>marg.effect.deputy <span class="ot">&lt;-</span> <span class="fu">margins</span>(fit2, <span class="at">variables=</span><span class="st">&quot;female&quot;</span>, <span class="at">change=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">vce=</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">category=</span><span class="st">&quot;deputy/regidor ballot access&quot;</span>)</span>
+<span id="cb575-6"><a href="practice-problems-for-multinomial.html#cb575-6" aria-hidden="true" tabindex="-1"></a>marg.effect.senator <span class="ot">&lt;-</span> <span class="fu">margins</span>(fit2, <span class="at">variables=</span><span class="st">&quot;female&quot;</span>, <span class="at">change=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">vce=</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">category=</span><span class="st">&quot;senate ballot access&quot;</span>)</span>
+<span id="cb575-7"><a href="practice-problems-for-multinomial.html#cb575-7" aria-hidden="true" tabindex="-1"></a>marg.effect.execappt <span class="ot">&lt;-</span> <span class="fu">margins</span>(fit2, <span class="at">variables=</span><span class="st">&quot;female&quot;</span>, <span class="at">change=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">vce=</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">category=</span><span class="st">&quot;cabinet/party leader&quot;</span>)</span>
+<span id="cb575-8"><a href="practice-problems-for-multinomial.html#cb575-8" aria-hidden="true" tabindex="-1"></a>marg.effect.bureau <span class="ot">&lt;-</span> <span class="fu">margins</span>(fit2, <span class="at">variables=</span><span class="st">&quot;female&quot;</span>, <span class="at">change=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">vce=</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">category=</span><span class="st">&quot;bur appt&quot;</span>)</span>
+<span id="cb575-9"><a href="practice-problems-for-multinomial.html#cb575-9" aria-hidden="true" tabindex="-1"></a>marg.effect.other <span class="ot">&lt;-</span> <span class="fu">margins</span>(fit2, <span class="at">variables=</span><span class="st">&quot;female&quot;</span>, <span class="at">change=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">vce=</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">category=</span><span class="st">&quot;other&quot;</span>)</span></code></pre></div>
+<p>Let’s make a visual close to the authors using <code>ggplot</code>. Recall, <code>ggplot</code> is easiest to work with when the data you want to plot are in a data.frame. So we are going to bind together the summary output and specify which row corresponds to which outcome.</p>
+<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="practice-problems-for-multinomial.html#cb576-1" aria-hidden="true" tabindex="-1"></a>mcomb <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">rbind</span>(<span class="fu">summary</span>(marg.effect.execnom), </span>
+<span id="cb576-2"><a href="practice-problems-for-multinomial.html#cb576-2" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">summary</span>(marg.effect.deputy), </span>
+<span id="cb576-3"><a href="practice-problems-for-multinomial.html#cb576-3" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">summary</span>(marg.effect.senator), </span>
+<span id="cb576-4"><a href="practice-problems-for-multinomial.html#cb576-4" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">summary</span>(marg.effect.execappt),</span>
+<span id="cb576-5"><a href="practice-problems-for-multinomial.html#cb576-5" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">summary</span>(marg.effect.bureau), </span>
+<span id="cb576-6"><a href="practice-problems-for-multinomial.html#cb576-6" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">summary</span>(marg.effect.other)))</span>
+<span id="cb576-7"><a href="practice-problems-for-multinomial.html#cb576-7" aria-hidden="true" tabindex="-1"></a>mcomb<span class="sc">$</span>outcome <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;executive nom&quot;</span>, <span class="st">&quot;deputy&quot;</span>, <span class="st">&quot;senator&quot;</span>, <span class="st">&quot;executive appt&quot;</span>, <span class="st">&quot;bureaucracy&quot;</span>, <span class="st">&quot;other&quot;</span>)</span>
+<span id="cb576-8"><a href="practice-problems-for-multinomial.html#cb576-8" aria-hidden="true" tabindex="-1"></a>mcomb<span class="sc">$</span>outcome <span class="ot">&lt;-</span> <span class="fu">factor</span>(mcomb<span class="sc">$</span>outcome, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;deputy&quot;</span>, <span class="st">&quot;senator&quot;</span>, <span class="st">&quot;executive nom&quot;</span>, <span class="st">&quot;executive appt&quot;</span>, <span class="st">&quot;bureaucracy&quot;</span>, <span class="st">&quot;other&quot;</span>))</span></code></pre></div>
+<p>We can now use <code>geom_point</code> and <code>geom_errorbar</code> to plot the AME point estimates and bootstrap confidence intervals.</p>
+<div class="sourceCode" id="cb577"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb577-1"><a href="practice-problems-for-multinomial.html#cb577-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb577-2"><a href="practice-problems-for-multinomial.html#cb577-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mcomb, <span class="fu">aes</span>(<span class="at">x=</span>outcome, <span class="at">y=</span>AME))<span class="sc">+</span></span>
+<span id="cb577-3"><a href="practice-problems-for-multinomial.html#cb577-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb577-4"><a href="practice-problems-for-multinomial.html#cb577-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>lower, <span class="at">ymax=</span>upper), <span class="at">width=</span>.<span class="dv">05</span>)<span class="sc">+</span></span>
+<span id="cb577-5"><a href="practice-problems-for-multinomial.html#cb577-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb577-6"><a href="practice-problems-for-multinomial.html#cb577-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="sc">-</span>.<span class="dv">4</span>, .<span class="dv">4</span>)<span class="sc">+</span></span>
+<span id="cb577-7"><a href="practice-problems-for-multinomial.html#cb577-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept=</span><span class="dv">0</span>)<span class="sc">+</span></span>
+<span id="cb577-8"><a href="practice-problems-for-multinomial.html#cb577-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Change in probability&quot;</span>)<span class="sc">+</span></span>
+<span id="cb577-9"><a href="practice-problems-for-multinomial.html#cb577-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>)</span>
+<span id="cb577-10"><a href="practice-problems-for-multinomial.html#cb577-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;images/kerplot.png&quot;</span>, <span class="at">device=</span><span class="st">&quot;png&quot;</span>, <span class="at">width=</span><span class="dv">6</span>, <span class="at">height=</span><span class="dv">4</span>)</span></code></pre></div>
+<p><img src="images/kerplot.png" /></p>
+<p>Based on this analysis, women have a significantly lower probability of being nominated for a future mayoral or gubernatorial position, which aligns with the author’s hypothesis.</p>
+</details>
+
 </div>
-<div id="exponents-1" class="section level3" number="3.2.2">
-<h3><span class="header-section-number">3.2.2</span> Exponents</h3>
-<p>You can compare the computation below to match with the rules above. Note how the caret ^ symbol is used for exponents, and the asterisk * is used for multiplication. We also have a function <code>sqrt()</code> for taking the square root.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="mathematical-operations-in-r.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s say a = 4 for our purposes</span></span>
-<span id="cb55-2"><a href="mathematical-operations-in-r.html#cb55-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb55-3"><a href="mathematical-operations-in-r.html#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="do">## And let&#39;s say k= 3 and l=5, b=2</span></span>
-<span id="cb55-4"><a href="mathematical-operations-in-r.html#cb55-4" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb55-5"><a href="mathematical-operations-in-r.html#cb55-5" aria-hidden="true" tabindex="-1"></a>l <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb55-6"><a href="mathematical-operations-in-r.html#cb55-6" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">2</span></span></code></pre></div>
-<ul>
-<li><span class="math inline">\(a^0 = 1\)</span></li>
-<li><span class="math inline">\(a^1 = a\)</span></li>
-</ul>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="mathematical-operations-in-r.html#cb56-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span><span class="dv">0</span></span>
-<span id="cb56-2"><a href="mathematical-operations-in-r.html#cb56-2" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span><span class="dv">1</span></span></code></pre></div>
-<pre><code>[1] 1
-[1] 4</code></pre>
-<p>Note how we use parentheses in R to make it clear that the exponent includes not just <code>k</code> but <code>(k + l)</code></p>
-<ul>
-<li><span class="math inline">\(a^k * a^l = a^{k + l}\)</span></li>
-</ul>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="mathematical-operations-in-r.html#cb58-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span>k <span class="sc">*</span> a<span class="sc">^</span>l </span>
-<span id="cb58-2"><a href="mathematical-operations-in-r.html#cb58-2" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span>(k <span class="sc">+</span> l)</span></code></pre></div>
-<pre><code>[1] 65536
-[1] 65536</code></pre>
-<p>Note how we use the asterisk to make it clear we want to multiply <code>k*l</code></p>
-<ul>
-<li><span class="math inline">\((a^k)^l = a^{kl}\)</span></li>
-</ul>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="mathematical-operations-in-r.html#cb60-1" aria-hidden="true" tabindex="-1"></a>(a<span class="sc">^</span>k)<span class="sc">^</span>l</span>
-<span id="cb60-2"><a href="mathematical-operations-in-r.html#cb60-2" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span>(k<span class="sc">*</span>l)</span></code></pre></div>
-<pre><code>[1] 1073741824
-[1] 1073741824</code></pre>
-<ul>
-<li><span class="math inline">\((\frac{a}{b})^k = (\frac{a^k}{b^k})\)</span></li>
-</ul>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="mathematical-operations-in-r.html#cb62-1" aria-hidden="true" tabindex="-1"></a>(a <span class="sc">/</span> b)<span class="sc">^</span>k</span>
-<span id="cb62-2"><a href="mathematical-operations-in-r.html#cb62-2" aria-hidden="true" tabindex="-1"></a>(a <span class="sc">^</span>k)<span class="sc">/</span>(b<span class="sc">^</span>k)</span></code></pre></div>
-<pre><code>[1] 8
-[1] 8</code></pre>
-<ul>
-<li><span class="math inline">\(a^{-k} = \frac{1}{a^k}\)</span></li>
-</ul>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="mathematical-operations-in-r.html#cb64-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span>(<span class="sc">-</span>k) </span>
-<span id="cb64-2"><a href="mathematical-operations-in-r.html#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> (a<span class="sc">^</span>k)</span></code></pre></div>
-<pre><code>[1] 0.015625
-[1] 0.015625</code></pre>
-<ul>
-<li><span class="math inline">\(a^{1/2} = \sqrt{a}\)</span></li>
-</ul>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="mathematical-operations-in-r.html#cb66-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>) </span>
-<span id="cb66-2"><a href="mathematical-operations-in-r.html#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(a)</span></code></pre></div>
-<pre><code>[1] 2
-[1] 2</code></pre>
-</div>
-<div id="summations" class="section level3" number="3.2.3">
-<h3><span class="header-section-number">3.2.3</span> Summations</h3>
-<p>Summations and products are a little more nuanced in R, depending on what you want to accomplish. But here is one example.</p>
-<p>Let’s take a vector (think a list of numbers) that goes from 1 to 4. We will call it <code>ourlist</code>.</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="mathematical-operations-in-r.html#cb68-1" aria-hidden="true" tabindex="-1"></a>ourlist <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)</span>
-<span id="cb68-2"><a href="mathematical-operations-in-r.html#cb68-2" aria-hidden="true" tabindex="-1"></a>ourlist</span>
-<span id="cb68-3"><a href="mathematical-operations-in-r.html#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="do">## An alternative is to write this: ourlist &lt;- 1:4</span></span></code></pre></div>
-<pre><code>[1] 1 2 3 4</code></pre>
-<p>Now let’s do <span class="math inline">\(\sum_{i = 1}^4 (i + 1)^2 = (1 +1)^2 + (1+2)^2 + (1 + 3)^2 + (1 + 4)^2 = 54\)</span></p>
-<p>In R, when you add a number to a vector, it will add that number to each entry in the vector. Example</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="mathematical-operations-in-r.html#cb70-1" aria-hidden="true" tabindex="-1"></a>ourlist <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div>
-<pre><code>[1] 2 3 4 5</code></pre>
-<p>We can use that now to do the inside part of the summation. Note: the exponent works the same way, squaring each element of the inside expression.</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="mathematical-operations-in-r.html#cb72-1" aria-hidden="true" tabindex="-1"></a>(ourlist <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
-<pre><code>[1]  4  9 16 25</code></pre>
-<p>Now, we will embed this expression inside a function in R called <code>sum</code> standing for summation. It will add together each of the inside components.</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="mathematical-operations-in-r.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>((ourlist <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
-<pre><code>[1] 54</code></pre>
-<p>If instead we wanted the product, multiplying each element of the inside together, we could use <code>prod()</code>. We won’t use that function very much in this course.</p>
-</div>
-<div id="logarithms-1" class="section level3" number="3.2.4">
-<h3><span class="header-section-number">3.2.4</span> Logarithms</h3>
-<p>R also has functions related to logarithms, called <code>log()</code> and <code>exp()</code> for the for the natural base <span class="math inline">\(e\)</span>. By default, the natural exponential is the base in the <code>log()</code> R function.</p>
-<ul>
-<li><span class="math inline">\(\log x = 8 \rightarrow e^8 = x\)</span></li>
-</ul>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="mathematical-operations-in-r.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="dv">8</span>)</span></code></pre></div>
-<pre><code>[1] 2980.958</code></pre>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="mathematical-operations-in-r.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="fl">2980.958</span>)</span></code></pre></div>
-<pre><code>[1] 8</code></pre>
-<p>Note that R also has a number of built-in constants, like <code>pi</code>.</p>
-<ul>
-<li><span class="math inline">\(e^\pi = y \rightarrow \log y = \pi\)</span></li>
-</ul>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="mathematical-operations-in-r.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(pi)</span></code></pre></div>
-<pre><code>[1] 23.14069</code></pre>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="mathematical-operations-in-r.html#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="fl">23.14069</span>)</span></code></pre></div>
-<pre><code>[1] 3.141593</code></pre>
-<ul>
-<li><span class="math inline">\(\log (a \times b) = \log a + \log b\)</span></li>
-</ul>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="mathematical-operations-in-r.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(a <span class="sc">*</span> b)</span>
-<span id="cb84-2"><a href="mathematical-operations-in-r.html#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(a) <span class="sc">+</span> <span class="fu">log</span>(b)</span></code></pre></div>
-<pre><code>[1] 2.079442
-[1] 2.079442</code></pre>
-<p>Let’s treat <span class="math inline">\(n=3\)</span> in this example and enter 3 directly where we see <span class="math inline">\(n\)</span> below. Alternatively you could store 3 as n, as we did with the other letters above.</p>
-<ul>
-<li><span class="math inline">\(\log a^n = n \log a\)</span></li>
-</ul>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="mathematical-operations-in-r.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(a <span class="sc">^</span> <span class="dv">3</span>)</span>
-<span id="cb86-2"><a href="mathematical-operations-in-r.html#cb86-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb86-3"><a href="mathematical-operations-in-r.html#cb86-3" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">*</span> <span class="fu">log</span>(a)</span></code></pre></div>
-<pre><code>[1] 4.158883
-[1] 4.158883</code></pre>
-<ul>
-<li><span class="math inline">\(\log \frac{a}{b} = \log a - \log b\)</span></li>
-</ul>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="mathematical-operations-in-r.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(a<span class="sc">/</span>b)</span>
-<span id="cb88-2"><a href="mathematical-operations-in-r.html#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(a) <span class="sc">-</span> <span class="fu">log</span>(b)</span></code></pre></div>
-<pre><code>[1] 0.6931472
-[1] 0.6931472</code></pre>
-</div>
-</div>
+<!-- </div> -->
+
+
+
+
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="mathematical-operations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="derivatives.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="running-multinomial-logit-in-r.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

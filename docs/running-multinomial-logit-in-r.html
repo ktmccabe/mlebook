@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.2 Mathematical Operations in R | MLE for Political Science</title>
-  <meta name="description" content="3.2 Mathematical Operations in R | MLE for Political Science" />
+  <title>9.3 Running multinomial logit in R | MLE for Political Science</title>
+  <meta name="description" content="9.3 Running multinomial logit in R | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.2 Mathematical Operations in R | MLE for Political Science" />
+  <meta property="og:title" content="9.3 Running multinomial logit in R | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.2 Mathematical Operations in R | MLE for Political Science" />
+  <meta name="twitter:title" content="9.3 Running multinomial logit in R | MLE for Political Science" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="mathematical-operations.html"/>
-<link rel="next" href="derivatives.html"/>
+<link rel="prev" href="motivating-example.html"/>
+<link rel="next" href="practice-problems-for-multinomial.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -359,132 +359,91 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mathematical-operations-in-r" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> Mathematical Operations in R</h2>
-<p>We will use R for this course, and these operations are all available with R code, allowing R to become a calculator for you. Here are some examples applying the tools above.</p>
-<div id="pemdas" class="section level3" number="3.2.1">
-<h3><span class="header-section-number">3.2.1</span> PEMDAS</h3>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="mathematical-operations-in-r.html#cb51-1" aria-hidden="true" tabindex="-1"></a>((<span class="dv">1</span><span class="sc">+</span><span class="dv">2</span>)<span class="sc">^</span><span class="dv">3</span>)<span class="sc">^</span><span class="dv">2</span> </span></code></pre></div>
-<pre><code>[1] 729</code></pre>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="mathematical-operations-in-r.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> (<span class="dv">2</span><span class="sc">^</span><span class="dv">3</span>)<span class="sc">^</span><span class="dv">2</span> </span></code></pre></div>
-<pre><code>[1] 65</code></pre>
-</div>
-<div id="exponents-1" class="section level3" number="3.2.2">
-<h3><span class="header-section-number">3.2.2</span> Exponents</h3>
-<p>You can compare the computation below to match with the rules above. Note how the caret ^ symbol is used for exponents, and the asterisk * is used for multiplication. We also have a function <code>sqrt()</code> for taking the square root.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="mathematical-operations-in-r.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s say a = 4 for our purposes</span></span>
-<span id="cb55-2"><a href="mathematical-operations-in-r.html#cb55-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb55-3"><a href="mathematical-operations-in-r.html#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="do">## And let&#39;s say k= 3 and l=5, b=2</span></span>
-<span id="cb55-4"><a href="mathematical-operations-in-r.html#cb55-4" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb55-5"><a href="mathematical-operations-in-r.html#cb55-5" aria-hidden="true" tabindex="-1"></a>l <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb55-6"><a href="mathematical-operations-in-r.html#cb55-6" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">2</span></span></code></pre></div>
+<div id="running-multinomial-logit-in-r" class="section level2" number="9.3">
+<h2><span class="header-section-number">9.3</span> Running multinomial logit in R</h2>
+<p>The multinomial specification will estimate coefficients that are relative to a baseline level of the outcomes. We should be thoughtful about what we choose as the baseline so that the coefficients are useful to us. Here, the author chooses to use “other” as the baseline.</p>
+<p>In R, we can easily change the baseline level of a factor variable. So first, we should check the class of the outcome variable and convert it into a factor variable if needed.</p>
+<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb556-1"><a href="running-multinomial-logit-in-r.html#cb556-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(ker<span class="sc">$</span>genderimmedambcat3)</span></code></pre></div>
+<pre><code>[1] &quot;factor&quot;</code></pre>
+<p>We can then adjust the baseline level using the <code>relevel</code> command as has the <code>ref</code> argument for specifying a reference category.</p>
+<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb558-1"><a href="running-multinomial-logit-in-r.html#cb558-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Sets a level as the base category for the factor</span></span>
+<span id="cb558-2"><a href="running-multinomial-logit-in-r.html#cb558-2" aria-hidden="true" tabindex="-1"></a>ker<span class="sc">$</span>genderimmedambcat3 <span class="ot">&lt;-</span> <span class="fu">relevel</span>(ker<span class="sc">$</span>genderimmedambcat3, <span class="at">ref =</span> <span class="st">&quot;other&quot;</span>)</span></code></pre></div>
+<p>Let’s run a simple regression model with just <code>female</code> as a covariate to see how the regression output differs from other models we have used thus far.</p>
+<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb559-1"><a href="running-multinomial-logit-in-r.html#cb559-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;nnet&quot;)</span></span>
+<span id="cb559-2"><a href="running-multinomial-logit-in-r.html#cb559-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nnet)</span>
+<span id="cb559-3"><a href="running-multinomial-logit-in-r.html#cb559-3" aria-hidden="true" tabindex="-1"></a>fit0 <span class="ot">&lt;-</span> <span class="fu">multinom</span>(genderimmedambcat3 <span class="sc">~</span> <span class="fu">factor</span>(female), <span class="at">data =</span> ker)</span></code></pre></div>
+<pre><code># weights:  18 (10 variable)
+initial  value 3153.496666 
+iter  10 value 2849.378831
+final  value 2837.879460 
+converged</code></pre>
+<p>You can see that there is now a set of coefficients– Intercept and for female, for each outcome category-baseline comparison. We also do not automatically have the p-values for the output.</p>
+<p>We can find the p-values the same way we have done before by calculating z-scores through the division of the coefficients over the standard errors. Once we have the z-scores we can use <code>pnorm</code> the same way we did in the ordinal section.</p>
+<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb561-1"><a href="running-multinomial-logit-in-r.html#cb561-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit0)<span class="sc">$</span>coefficients<span class="sc">/</span><span class="fu">summary</span>(fit0)<span class="sc">$</span>standard.errors</span>
+<span id="cb561-2"><a href="running-multinomial-logit-in-r.html#cb561-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="dv">2</span><span class="sc">*</span>(<span class="fu">pnorm</span>(<span class="fu">abs</span>(z), <span class="at">lower.tail =</span> F)))</span>
+<span id="cb561-3"><a href="running-multinomial-logit-in-r.html#cb561-3" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div>
+<pre><code>                              (Intercept) factor(female)1
+deputy/regidor ballot access 8.040554e-39      0.10711432
+senate ballot access         1.096025e-57      0.03803764
+mayor/gov ballot access      1.119624e-33      0.06783023
+cabinet/party leader         2.110040e-54      0.65008684
+bur appt                     2.383587e-26      0.01908118</code></pre>
+<p>As you can see, the output here for the coefficients is already messy, and we only have one covariate!! Just imagine how messy it can get with several covariates. Often, because of this, researchers move to present results visually instead. The practice problems will include a chance to replicate one of the author’s visuals from the JOP paper.</p>
+<div id="multinomial-quantities-of-interest" class="section level3" number="9.3.1">
+<h3><span class="header-section-number">9.3.1</span> Multinomial Quantities of Interest</h3>
+<p>Like the previous models, we can calculate predicted probabilities at specific values of our <span class="math inline">\(X\)</span> covariates. What differs here is just the specific form of this function.</p>
+<p>Predicted probabilities of the outcome being in a particular outcome category <span class="math inline">\(C_j\)</span>:</p>
 <ul>
-<li><span class="math inline">\(a^0 = 1\)</span></li>
-<li><span class="math inline">\(a^1 = a\)</span></li>
-</ul>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="mathematical-operations-in-r.html#cb56-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span><span class="dv">0</span></span>
-<span id="cb56-2"><a href="mathematical-operations-in-r.html#cb56-2" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span><span class="dv">1</span></span></code></pre></div>
-<pre><code>[1] 1
-[1] 4</code></pre>
-<p>Note how we use parentheses in R to make it clear that the exponent includes not just <code>k</code> but <code>(k + l)</code></p>
+<li><span class="math inline">\(Pr(Y_i = C_j | X) = \frac{\exp(X\hat \beta_j)}{1 + \sum_{k=1}^{J-1} \exp(X \hat \beta_k)}\)</span>
 <ul>
-<li><span class="math inline">\(a^k * a^l = a^{k + l}\)</span></li>
+<li>The numerator is very similar to the numerator for when we have a binary logistic regression</li>
+<li>The denominator sums up <span class="math inline">\(\exp(X \hat \beta_k)\)</span> where <span class="math inline">\(\hat \beta_k\)</span> represents the set of coefficients for each of the other outcome categories except for the baseline (i.e., <span class="math inline">\(J- 1\)</span> means 1 less than the total number of outcome categories).</li>
+</ul></li>
 </ul>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="mathematical-operations-in-r.html#cb58-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span>k <span class="sc">*</span> a<span class="sc">^</span>l </span>
-<span id="cb58-2"><a href="mathematical-operations-in-r.html#cb58-2" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span>(k <span class="sc">+</span> l)</span></code></pre></div>
-<pre><code>[1] 65536
-[1] 65536</code></pre>
-<p>Note how we use the asterisk to make it clear we want to multiply <code>k*l</code></p>
-<ul>
-<li><span class="math inline">\((a^k)^l = a^{kl}\)</span></li>
-</ul>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="mathematical-operations-in-r.html#cb60-1" aria-hidden="true" tabindex="-1"></a>(a<span class="sc">^</span>k)<span class="sc">^</span>l</span>
-<span id="cb60-2"><a href="mathematical-operations-in-r.html#cb60-2" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span>(k<span class="sc">*</span>l)</span></code></pre></div>
-<pre><code>[1] 1073741824
-[1] 1073741824</code></pre>
-<ul>
-<li><span class="math inline">\((\frac{a}{b})^k = (\frac{a^k}{b^k})\)</span></li>
-</ul>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="mathematical-operations-in-r.html#cb62-1" aria-hidden="true" tabindex="-1"></a>(a <span class="sc">/</span> b)<span class="sc">^</span>k</span>
-<span id="cb62-2"><a href="mathematical-operations-in-r.html#cb62-2" aria-hidden="true" tabindex="-1"></a>(a <span class="sc">^</span>k)<span class="sc">/</span>(b<span class="sc">^</span>k)</span></code></pre></div>
-<pre><code>[1] 8
-[1] 8</code></pre>
-<ul>
-<li><span class="math inline">\(a^{-k} = \frac{1}{a^k}\)</span></li>
-</ul>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="mathematical-operations-in-r.html#cb64-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span>(<span class="sc">-</span>k) </span>
-<span id="cb64-2"><a href="mathematical-operations-in-r.html#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> (a<span class="sc">^</span>k)</span></code></pre></div>
-<pre><code>[1] 0.015625
-[1] 0.015625</code></pre>
-<ul>
-<li><span class="math inline">\(a^{1/2} = \sqrt{a}\)</span></li>
-</ul>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="mathematical-operations-in-r.html#cb66-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>) </span>
-<span id="cb66-2"><a href="mathematical-operations-in-r.html#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(a)</span></code></pre></div>
-<pre><code>[1] 2
-[1] 2</code></pre>
-</div>
-<div id="summations" class="section level3" number="3.2.3">
-<h3><span class="header-section-number">3.2.3</span> Summations</h3>
-<p>Summations and products are a little more nuanced in R, depending on what you want to accomplish. But here is one example.</p>
-<p>Let’s take a vector (think a list of numbers) that goes from 1 to 4. We will call it <code>ourlist</code>.</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="mathematical-operations-in-r.html#cb68-1" aria-hidden="true" tabindex="-1"></a>ourlist <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)</span>
-<span id="cb68-2"><a href="mathematical-operations-in-r.html#cb68-2" aria-hidden="true" tabindex="-1"></a>ourlist</span>
-<span id="cb68-3"><a href="mathematical-operations-in-r.html#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="do">## An alternative is to write this: ourlist &lt;- 1:4</span></span></code></pre></div>
-<pre><code>[1] 1 2 3 4</code></pre>
-<p>Now let’s do <span class="math inline">\(\sum_{i = 1}^4 (i + 1)^2 = (1 +1)^2 + (1+2)^2 + (1 + 3)^2 + (1 + 4)^2 = 54\)</span></p>
-<p>In R, when you add a number to a vector, it will add that number to each entry in the vector. Example</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="mathematical-operations-in-r.html#cb70-1" aria-hidden="true" tabindex="-1"></a>ourlist <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div>
-<pre><code>[1] 2 3 4 5</code></pre>
-<p>We can use that now to do the inside part of the summation. Note: the exponent works the same way, squaring each element of the inside expression.</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="mathematical-operations-in-r.html#cb72-1" aria-hidden="true" tabindex="-1"></a>(ourlist <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
-<pre><code>[1]  4  9 16 25</code></pre>
-<p>Now, we will embed this expression inside a function in R called <code>sum</code> standing for summation. It will add together each of the inside components.</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="mathematical-operations-in-r.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>((ourlist <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
-<pre><code>[1] 54</code></pre>
-<p>If instead we wanted the product, multiplying each element of the inside together, we could use <code>prod()</code>. We won’t use that function very much in this course.</p>
-</div>
-<div id="logarithms-1" class="section level3" number="3.2.4">
-<h3><span class="header-section-number">3.2.4</span> Logarithms</h3>
-<p>R also has functions related to logarithms, called <code>log()</code> and <code>exp()</code> for the for the natural base <span class="math inline">\(e\)</span>. By default, the natural exponential is the base in the <code>log()</code> R function.</p>
-<ul>
-<li><span class="math inline">\(\log x = 8 \rightarrow e^8 = x\)</span></li>
-</ul>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="mathematical-operations-in-r.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="dv">8</span>)</span></code></pre></div>
-<pre><code>[1] 2980.958</code></pre>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="mathematical-operations-in-r.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="fl">2980.958</span>)</span></code></pre></div>
-<pre><code>[1] 8</code></pre>
-<p>Note that R also has a number of built-in constants, like <code>pi</code>.</p>
-<ul>
-<li><span class="math inline">\(e^\pi = y \rightarrow \log y = \pi\)</span></li>
-</ul>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="mathematical-operations-in-r.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(pi)</span></code></pre></div>
-<pre><code>[1] 23.14069</code></pre>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="mathematical-operations-in-r.html#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="fl">23.14069</span>)</span></code></pre></div>
-<pre><code>[1] 3.141593</code></pre>
-<ul>
-<li><span class="math inline">\(\log (a \times b) = \log a + \log b\)</span></li>
-</ul>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="mathematical-operations-in-r.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(a <span class="sc">*</span> b)</span>
-<span id="cb84-2"><a href="mathematical-operations-in-r.html#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(a) <span class="sc">+</span> <span class="fu">log</span>(b)</span></code></pre></div>
-<pre><code>[1] 2.079442
-[1] 2.079442</code></pre>
-<p>Let’s treat <span class="math inline">\(n=3\)</span> in this example and enter 3 directly where we see <span class="math inline">\(n\)</span> below. Alternatively you could store 3 as n, as we did with the other letters above.</p>
-<ul>
-<li><span class="math inline">\(\log a^n = n \log a\)</span></li>
-</ul>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="mathematical-operations-in-r.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(a <span class="sc">^</span> <span class="dv">3</span>)</span>
-<span id="cb86-2"><a href="mathematical-operations-in-r.html#cb86-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb86-3"><a href="mathematical-operations-in-r.html#cb86-3" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">*</span> <span class="fu">log</span>(a)</span></code></pre></div>
-<pre><code>[1] 4.158883
-[1] 4.158883</code></pre>
-<ul>
-<li><span class="math inline">\(\log \frac{a}{b} = \log a - \log b\)</span></li>
-</ul>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="mathematical-operations-in-r.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(a<span class="sc">/</span>b)</span>
-<span id="cb88-2"><a href="mathematical-operations-in-r.html#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(a) <span class="sc">-</span> <span class="fu">log</span>(b)</span></code></pre></div>
-<pre><code>[1] 0.6931472
-[1] 0.6931472</code></pre>
+<p>Let’s take an example of finding the predicted probability of <span class="math inline">\(C_j\)</span> = Senate ballot access when <span class="math inline">\(x_i\)</span> is set to be female = 1.</p>
+<div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb563-1"><a href="running-multinomial-logit-in-r.html#cb563-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Create the model matrix</span></span>
+<span id="cb563-2"><a href="running-multinomial-logit-in-r.html#cb563-2" aria-hidden="true" tabindex="-1"></a>Xfemale <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, <span class="dv">1</span>) <span class="co"># 1 for intercept, 1 for female</span></span>
+<span id="cb563-3"><a href="running-multinomial-logit-in-r.html#cb563-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb563-4"><a href="running-multinomial-logit-in-r.html#cb563-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Extract coefficients and give them informative labels</span></span>
+<span id="cb563-5"><a href="running-multinomial-logit-in-r.html#cb563-5" aria-hidden="true" tabindex="-1"></a>Bsenate <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit0)[<span class="dv">2</span>,] <span class="co"># 2nd row of coefficients</span></span>
+<span id="cb563-6"><a href="running-multinomial-logit-in-r.html#cb563-6" aria-hidden="true" tabindex="-1"></a>Bdep <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit0)[<span class="dv">1</span>,]</span>
+<span id="cb563-7"><a href="running-multinomial-logit-in-r.html#cb563-7" aria-hidden="true" tabindex="-1"></a>Bmayor <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit0)[<span class="dv">3</span>,]</span>
+<span id="cb563-8"><a href="running-multinomial-logit-in-r.html#cb563-8" aria-hidden="true" tabindex="-1"></a>Bcabinet <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit0)[<span class="dv">4</span>,]</span>
+<span id="cb563-9"><a href="running-multinomial-logit-in-r.html#cb563-9" aria-hidden="true" tabindex="-1"></a>Bbur <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit0)[<span class="dv">5</span>,]</span>
+<span id="cb563-10"><a href="running-multinomial-logit-in-r.html#cb563-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb563-11"><a href="running-multinomial-logit-in-r.html#cb563-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Probability of senate ballot access for female</span></span>
+<span id="cb563-12"><a href="running-multinomial-logit-in-r.html#cb563-12" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bsenate)<span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bsenate) <span class="sc">+</span> <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bdep) <span class="sc">+</span></span>
+<span id="cb563-13"><a href="running-multinomial-logit-in-r.html#cb563-13" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bmayor) <span class="sc">+</span> <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bcabinet) <span class="sc">+</span></span>
+<span id="cb563-14"><a href="running-multinomial-logit-in-r.html#cb563-14" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bbur))</span></code></pre></div>
+<pre><code>           [,1]
+[1,] 0.09846309</code></pre>
+<p>Let’s do the same for female = 0. We just need to change X.</p>
+<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb565-1"><a href="running-multinomial-logit-in-r.html#cb565-1" aria-hidden="true" tabindex="-1"></a>Xnfemale <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb565-2"><a href="running-multinomial-logit-in-r.html#cb565-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(Xnfemale <span class="sc">%*%</span> Bsenate)<span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(Xnfemale <span class="sc">%*%</span> Bsenate) <span class="sc">+</span> <span class="fu">exp</span>(Xnfemale <span class="sc">%*%</span> Bdep) <span class="sc">+</span></span>
+<span id="cb565-3"><a href="running-multinomial-logit-in-r.html#cb565-3" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">exp</span>(Xnfemale <span class="sc">%*%</span> Bmayor) <span class="sc">+</span> <span class="fu">exp</span>(Xnfemale <span class="sc">%*%</span> Bcabinet) <span class="sc">+</span></span>
+<span id="cb565-4"><a href="running-multinomial-logit-in-r.html#cb565-4" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">exp</span>(Xnfemale <span class="sc">%*%</span> Bbur))</span></code></pre></div>
+<pre><code>           [,1]
+[1,] 0.06829273</code></pre>
+<p>We might also be interested in the probability of <span class="math inline">\(C_j\)</span> = other. The syntax here will look slightly different because “other” was the baseline category. The denominator stays the same, but the numerator is just 1.</p>
+<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="running-multinomial-logit-in-r.html#cb567-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Manual- probability of other for female (the base category)</span></span>
+<span id="cb567-2"><a href="running-multinomial-logit-in-r.html#cb567-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bsenate) <span class="sc">+</span> <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bdep) <span class="sc">+</span></span>
+<span id="cb567-3"><a href="running-multinomial-logit-in-r.html#cb567-3" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bmayor) <span class="sc">+</span> <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bcabinet) <span class="sc">+</span></span>
+<span id="cb567-4"><a href="running-multinomial-logit-in-r.html#cb567-4" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bbur))</span></code></pre></div>
+<pre><code>          [,1]
+[1,] 0.3538449</code></pre>
+<p>Just like in the other models, we can rely on outside packages, too. When we use <code>margins</code> or <code>prediction</code>,. For some models, these packages are not going to have full capabilities– they might not be able to calculate standard errors, for example. These are “living packages” so you can always check the documentation and update the packages to see if new capabilities have been added.</p>
+<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="running-multinomial-logit-in-r.html#cb569-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prediction)</span>
+<span id="cb569-2"><a href="running-multinomial-logit-in-r.html#cb569-2" aria-hidden="true" tabindex="-1"></a>p.senate <span class="ot">&lt;-</span> <span class="fu">prediction</span>(fit0, <span class="at">at  =</span> <span class="fu">list</span>(<span class="at">female =</span> <span class="dv">1</span>))</span>
+<span id="cb569-3"><a href="running-multinomial-logit-in-r.html#cb569-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p.senate<span class="sc">$</span><span class="st">`</span><span class="at">Pr(senate ballot access)</span><span class="st">`</span>)</span></code></pre></div>
+<pre><code>[1] 0.09846309</code></pre>
+<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb571-1"><a href="running-multinomial-logit-in-r.html#cb571-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p.senate<span class="sc">$</span><span class="st">`</span><span class="at">Pr(other)</span><span class="st">`</span>)</span></code></pre></div>
+<pre><code>[1] 0.3538449</code></pre>
+<p>We can use <code>margins</code> to calculate the difference in predicted probabilities, for example, between <code>female=1</code> and <code>female=0</code>. We should specify the category for which we want this comparison.</p>
+<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb573-1"><a href="running-multinomial-logit-in-r.html#cb573-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(margins)</span>
+<span id="cb573-2"><a href="running-multinomial-logit-in-r.html#cb573-2" aria-hidden="true" tabindex="-1"></a>m.senate <span class="ot">&lt;-</span> <span class="fu">margins</span>(fit0, <span class="at">variables =</span> <span class="st">&quot;female&quot;</span>, <span class="at">category =</span> <span class="st">&quot;senate ballot access&quot;</span>, </span>
+<span id="cb573-3"><a href="running-multinomial-logit-in-r.html#cb573-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">vce=</span><span class="st">&quot;bootstrap&quot;</span>, <span class="at">change=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb573-4"><a href="running-multinomial-logit-in-r.html#cb573-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m.senate)</span></code></pre></div>
+<p>If we wanted uncertainty estimates around our quantities of interest, we could use the bootstrap!</p>
 </div>
 </div>
             </section>
@@ -492,8 +451,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="mathematical-operations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="derivatives.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="motivating-example.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="practice-problems-for-multinomial.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

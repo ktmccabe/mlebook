@@ -1,3 +1,9 @@
+```{r, include=F}
+knitr::knit_exit()
+```
+
+
+
 # Longitudinal or Hierarchical Data {#long}
 
 This will provide a brief overview of tools for complex data structures.
