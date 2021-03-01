@@ -374,19 +374,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>This means we have more than just one set of estimates for <span class="math inline">\(\hat \beta\)</span>, depending on the category comparison we make</li>
 <li>(Recall that in ordinal logit we had to assume that one set of coefficients was sufficient. Here, we have <span class="math inline">\(J-1\)</span> sets of coefficients.)</li>
 </ul></li>
-<li><span class="math inline">\(\beta_J = 0\)</span> for identification (<span class="math inline">\(J\)</span> represents the baseline category);</li>
-<li><span class="math inline">\(\sum_{k=1}^{J} \pi_k = 1\)</span>, The probabilities of being in each category, together, must sum to 1.</li>
+<li><span class="math inline">\(\beta_J = 0\)</span> by design for identification (<span class="math inline">\(J\)</span> represents the baseline category);</li>
+<li><span class="math inline">\(\sum_{j=1}^{J} \pi_j = 1\)</span>, The probabilities of being in each category, together, must sum to 1.</li>
 <li><span class="math inline">\(Y_i = C_j\)</span> according to <span class="math inline">\(Y_{ij}^* = max(Y_{i1}^*, Y_{i2}^*, ..., Y_{ij}^*)\)</span>. The outcome belongs to the category that has the highest <span class="math inline">\(Y_i*\)</span>.</li>
 <li>The probability of <span class="math inline">\(Y_i\)</span> being in a particular category is:</li>
 </ul>
 <p><span class="math display">\[\begin{align*}
-\pi_j = Pr(Y_i = C_j | x_i) &amp;= \frac{\exp(\mathbf x_i^T\beta_j)}{1 + \sum_{k=1}^{J-1} \exp(\mathbf x_i^T\beta_k)}
+\pi_j = Pr(Y_i = C_j | x_i) &amp;= \frac{\exp(\mathbf x_i^T\beta_j)}{1 + \sum_{j=1}^{J-1} \exp(\mathbf x_i^T\beta_j)}
 \end{align*}\]</span></p>
 <div id="multinomial-likelihood" class="section level3" number="9.1.1">
 <h3><span class="header-section-number">9.1.1</span> Multinomial Likelihood</h3>
-<p>Here, similar to the ordinal log likelihood, we need to sum over all observations and all outcome categories:</p>
+<p>Here, similar to the ordinal log likelihood, we need to sum over all observations and all outcome categories to represent the joint probability:</p>
 <p><span class="math inline">\(\mathcal L(\beta, | Y) = \prod_i^N \prod_{j=1}^{J} \mathbf 1(Y_i=C_j){\pi_{i, j}}\)</span></p>
 <p><span class="math inline">\(\mathcal l(\beta, | Y) = \sum_i^N \sum_{j=1}^{J} \mathbf 1(Y_i=C_j){\log \pi_{i, j}}\)</span></p>
+<p>Like we have done previously in likelihood, we define <span class="math inline">\(\pi\)</span> according to <span class="math inline">\(X\)</span> and <span class="math inline">\(\beta\)</span>, in the way defined above.</p>
 </div>
 </div>
             </section>

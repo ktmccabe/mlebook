@@ -394,10 +394,11 @@ bur appt                     2.383587e-26      0.01908118</code></pre>
 <p>Like the previous models, we can calculate predicted probabilities at specific values of our <span class="math inline">\(X\)</span> covariates. What differs here is just the specific form of this function.</p>
 <p>Predicted probabilities of the outcome being in a particular outcome category <span class="math inline">\(C_j\)</span>:</p>
 <ul>
-<li><span class="math inline">\(Pr(Y_i = C_j | X) = \frac{\exp(X\hat \beta_j)}{1 + \sum_{k=1}^{J-1} \exp(X \hat \beta_k)}\)</span>
+<li><span class="math inline">\(Pr(Y_i = C_j | X) = \frac{\exp(X\hat \beta_j)}{1 + \sum_{j=1}^{J-1} \exp(X \hat \beta_j)}\)</span>
 <ul>
 <li>The numerator is very similar to the numerator for when we have a binary logistic regression</li>
-<li>The denominator sums up <span class="math inline">\(\exp(X \hat \beta_k)\)</span> where <span class="math inline">\(\hat \beta_k\)</span> represents the set of coefficients for each of the other outcome categories except for the baseline (i.e., <span class="math inline">\(J- 1\)</span> means 1 less than the total number of outcome categories).</li>
+<li>The denominator sums up <span class="math inline">\(\exp(X \hat \beta_j)\)</span> where <span class="math inline">\(\hat \beta_j\)</span> represents the set of coefficients for each outcome category except for the baseline (i.e., <span class="math inline">\(J- 1\)</span> means 1 less than the total number of outcome categories).</li>
+<li>Recall that in the baseline category <span class="math inline">\(J\)</span>, <span class="math inline">\(\hat \beta_J\)</span> is forced to 0 to help with the estimation or “identification” of the other coefficients relative to that category. Well why bring that up now? Well, <span class="math inline">\(exp(X \hat \beta_J) = exp(0) = 1\)</span>. When we estimate probabilities in the baseline category, the numerator will just be 1.</li>
 </ul></li>
 </ul>
 <p>Let’s take an example of finding the predicted probability of <span class="math inline">\(C_j\)</span> = Senate ballot access when <span class="math inline">\(x_i\)</span> is set to be female = 1.</p>
@@ -431,19 +432,19 @@ bur appt                     2.383587e-26      0.01908118</code></pre>
 <span id="cb567-4"><a href="running-multinomial-logit-in-r.html#cb567-4" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bbur))</span></code></pre></div>
 <pre><code>          [,1]
 [1,] 0.3538449</code></pre>
-<p>Just like in the other models, we can rely on outside packages, too. When we use <code>margins</code> or <code>prediction</code>,. For some models, these packages are not going to have full capabilities– they might not be able to calculate standard errors, for example. These are “living packages” so you can always check the documentation and update the packages to see if new capabilities have been added.</p>
+<p>Just like in the other models, we can rely on outside packages, too. For some models, these packages are not going to have full capabilities– they might not be able to calculate standard errors, for example. These are “living packages” so you can always check the documentation and update the packages to see if new capabilities have been added.</p>
 <div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="running-multinomial-logit-in-r.html#cb569-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prediction)</span>
 <span id="cb569-2"><a href="running-multinomial-logit-in-r.html#cb569-2" aria-hidden="true" tabindex="-1"></a>p.senate <span class="ot">&lt;-</span> <span class="fu">prediction</span>(fit0, <span class="at">at  =</span> <span class="fu">list</span>(<span class="at">female =</span> <span class="dv">1</span>))</span>
 <span id="cb569-3"><a href="running-multinomial-logit-in-r.html#cb569-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p.senate<span class="sc">$</span><span class="st">`</span><span class="at">Pr(senate ballot access)</span><span class="st">`</span>)</span></code></pre></div>
 <pre><code>[1] 0.09846309</code></pre>
 <div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb571-1"><a href="running-multinomial-logit-in-r.html#cb571-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p.senate<span class="sc">$</span><span class="st">`</span><span class="at">Pr(other)</span><span class="st">`</span>)</span></code></pre></div>
 <pre><code>[1] 0.3538449</code></pre>
-<p>We can use <code>margins</code> to calculate the difference in predicted probabilities, for example, between <code>female=1</code> and <code>female=0</code>. We should specify the category for which we want this comparison.</p>
+<p>We can use <code>margins</code> to calculate the difference in predicted probabilities, for example, between <code>female=1</code> and <code>female=0</code>. We should specify the category for which we want this comparison. It appears we need to set <code>vce = booststrap</code> for this to work.</p>
 <div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb573-1"><a href="running-multinomial-logit-in-r.html#cb573-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(margins)</span>
 <span id="cb573-2"><a href="running-multinomial-logit-in-r.html#cb573-2" aria-hidden="true" tabindex="-1"></a>m.senate <span class="ot">&lt;-</span> <span class="fu">margins</span>(fit0, <span class="at">variables =</span> <span class="st">&quot;female&quot;</span>, <span class="at">category =</span> <span class="st">&quot;senate ballot access&quot;</span>, </span>
 <span id="cb573-3"><a href="running-multinomial-logit-in-r.html#cb573-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">vce=</span><span class="st">&quot;bootstrap&quot;</span>, <span class="at">change=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
 <span id="cb573-4"><a href="running-multinomial-logit-in-r.html#cb573-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m.senate)</span></code></pre></div>
-<p>If we wanted uncertainty estimates around our quantities of interest, we could use the bootstrap!</p>
+<p>Of course, we could also do this manually, and run the bootstrap ourselves!</p>
 </div>
 </div>
             </section>

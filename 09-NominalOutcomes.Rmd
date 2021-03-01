@@ -31,24 +31,25 @@ The model we will use to estimate this is the multinomial logit.
   - Note that $\pi_i$ (our probability) is now indexed by $j$ or $J$
       + This means we have more than just one set of estimates for $\hat \beta$, depending on the category comparison we make 
       + (Recall that in ordinal logit we had to assume that one set of coefficients was sufficient. Here, we have $J-1$ sets of coefficients.)
-  - $\beta_J = 0$ for identification ($J$ represents the baseline category); 
-  - $\sum_{k=1}^{J} \pi_k  = 1$, The probabilities of being in each category, together, must sum to 1.
+  - $\beta_J = 0$ by design for identification ($J$ represents the baseline category); 
+  - $\sum_{j=1}^{J} \pi_j  = 1$, The probabilities of being in each category, together, must sum to 1.
   - $Y_i = C_j$ according to $Y_{ij}^* = max(Y_{i1}^*, Y_{i2}^*, ..., Y_{ij}^*)$. The outcome belongs to the category that has the highest $Y_i*$.
   - The probability of $Y_i$ being in a particular category is:
 
 \begin{align*}
-\pi_j = Pr(Y_i = C_j | x_i) &= \frac{\exp(\mathbf x_i^T\beta_j)}{1 + \sum_{k=1}^{J-1} \exp(\mathbf x_i^T\beta_k)}
+\pi_j = Pr(Y_i = C_j | x_i) &= \frac{\exp(\mathbf x_i^T\beta_j)}{1 + \sum_{j=1}^{J-1} \exp(\mathbf x_i^T\beta_j)}
 \end{align*}
 
 
 ### Multinomial Likelihood
 
-Here, similar to the ordinal log likelihood, we need to sum over all observations and all outcome categories:
+Here, similar to the ordinal log likelihood, we need to sum over all observations and all outcome categories to represent the joint probability:
 
 $\mathcal L(\beta, | Y) = \prod_i^N \prod_{j=1}^{J} \mathbf 1(Y_i=C_j){\pi_{i, j}}$
 
 $\mathcal l(\beta, | Y) = \sum_i^N \sum_{j=1}^{J} \mathbf 1(Y_i=C_j){\log \pi_{i, j}}$
 
+Like we have done previously in likelihood, we define $\pi$ according to $X$ and $\beta$, in the way defined above.
 
 ## Motivating Example
 
@@ -161,9 +162,10 @@ Like the previous models, we can calculate predicted probabilities at specific v
 
 Predicted probabilities of the outcome being in a particular outcome category $C_j$: 
 
-  - $Pr(Y_i = C_j | X) = \frac{\exp(X\hat \beta_j)}{1 + \sum_{k=1}^{J-1} \exp(X \hat \beta_k)}$
+  - $Pr(Y_i = C_j | X) = \frac{\exp(X\hat \beta_j)}{1 + \sum_{j=1}^{J-1} \exp(X \hat \beta_j)}$
       + The numerator is very similar to the numerator for when we have a binary logistic regression
-      + The denominator sums up $\exp(X \hat \beta_k)$ where $\hat \beta_k$ represents the set of coefficients for each of the other outcome categories except for the baseline (i.e., $J- 1$ means 1 less than the total number of outcome categories).
+      + The denominator sums up $\exp(X \hat \beta_j)$ where $\hat \beta_j$ represents the set of coefficients for each outcome category except for the baseline (i.e., $J- 1$ means 1 less than the total number of outcome categories).
+      + Recall that in the baseline category $J$, $\hat \beta_J$ is forced to 0 to help with the estimation or "identification" of the other coefficients relative to that category. Well why bring that up now? Well, $exp(X \hat \beta_J) = exp(0) = 1$. When we estimate probabilities in the baseline category, the numerator will just be 1.
 
 Let's take an example of finding the predicted probability of $C_j$ = Senate ballot access when $x_i$ is set to be female = 1.
 
@@ -202,7 +204,7 @@ We might also be interested in the probability of $C_j$ = other. The syntax here
                              exp(Xfemale %*% Bbur))
 ```
 
-Just like in the other models, we can rely on outside packages, too. When we use `margins` or `prediction`,. For some models, these packages are not going to have full capabilities-- they might not be able to calculate standard errors, for example. These are "living packages" so you can always check the documentation and update the packages to see if new capabilities have been added.
+Just like in the other models, we can rely on outside packages, too. For some models, these packages are not going to have full capabilities-- they might not be able to calculate standard errors, for example. These are "living packages" so you can always check the documentation and update the packages to see if new capabilities have been added.
 
 ```{r, message=F, warning=F}
 library(prediction)
@@ -211,7 +213,7 @@ mean(p.senate$`Pr(senate ballot access)`)
 mean(p.senate$`Pr(other)`)
 ```
 
-We can use `margins` to calculate the difference in predicted probabilities, for example, between `female=1` and `female=0`. We should specify the category for which we want this comparison.
+We can use `margins` to calculate the difference in predicted probabilities, for example, between `female=1` and `female=0`. We should specify the category for which we want this comparison. It appears we need to set `vce = booststrap` for this to work.
 ```{r, message=F, warning=F, eval=F}
 library(margins)
 m.senate <- margins(fit0, variables = "female", category = "senate ballot access", 
@@ -220,7 +222,7 @@ summary(m.senate)
 ```
 
 
-If we wanted uncertainty estimates around our quantities of interest, we could use the bootstrap!
+Of course, we could also do this manually, and run the bootstrap ourselves!
 
 
 ## Practice Problems for Multinomial

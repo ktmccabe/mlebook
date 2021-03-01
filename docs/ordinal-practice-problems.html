@@ -406,6 +406,8 @@ factor(site_pr)5 factor(site_pr)6 factor(site_pr)7
 <h3><span class="header-section-number">8.5.1</span> A note on robust standard errors</h3>
 <p>In writing down our likelihood equations, we assume our observations are independent. However, that is not always the case. For example, in Paluck and Green’s article, the experimental design is based on clustered pairs, and the treatment is randomly assigned to one unit of a pair. Ideally, we want to account for this non-independence in our model.</p>
 <p>In linear models (e.g., using <code>lm</code>), this is often accomplished post-estimation by adjusting the standard errors. We might adjust them for clustering if we have a case like the authors’ or for suspected heteroskedasticity (maybe the errors are not constant, but instead, are larger for higher values of a given X variable).</p>
+<p>Professor Jeffrey Wooldridge, an expert on econometrics, is a proponent of robust standard errors, given the stringent assumption of homoskedasticity.</p>
+<p><img src="images/woolrobust1.png" style="width:60.0%" /></p>
 <p>There are many types of these “robust” standard errors, and we may encounter more later in the course. Generally, what each of these robust standard errors does is alter the nature of the variance covariance matrix from which we extract the standard errors. Recall in OLS, we have an expression for the variance of the coefficients that looks like the below. By assuming constant error variance, we can simplify it.</p>
 <p><span class="math display">\[\begin{align*}
 \mathbf{V}(\widehat{\beta})  &amp;= (X^T X)^{-1}X^T \mathbf{V}( \epsilon) X (X^T X)^{-1}\\
@@ -418,7 +420,7 @@ factor(site_pr)5 factor(site_pr)6 factor(site_pr)7
 <p><span class="math inline">\((X^T X)^{-1}X^T \mathbf{V}( \epsilon) X (X^T X)^{-1}\)</span></p>
 <p>and assume something different about the structure of the error terms in <span class="math inline">\(\mathbf{V}( \epsilon)\)</span> and end up with a different final expression for <code>vcov</code>.</p>
 <p>The robust estimators differ in how they specify an estimate for <span class="math inline">\(\mathbf{V}( \epsilon) = \Sigma\)</span> and whether they take into account the degrees of freedom in the model (number of observations, number of variables, number of clusters, etc.)</p>
-<p>For example, let’s fit the authors’ model as a linear model using MacKinnon and White HC1 robust standard errors. Those specify the following inside portion for an estimate of <span class="math inline">\(\mathbf{V}( \epsilon)\)</span>.This is what Stata uses as a default:</p>
+<p>For example, let’s fit the authors’ model as a linear model using MacKinnon and White HC1 robust standard errors. Those specify the following inside portion for an estimate of <span class="math inline">\(\mathbf{V}( \epsilon)\)</span>.This is what Stata uses as a default “robust” standard error:</p>
 <p><span class="math inline">\(\Sigma = \frac{n}{n-k} \text{diag}(\hat \epsilon_i^2)\)</span></p>
 <p>This means we have a slightly different term for each observation instead of a constant estimate <span class="math inline">\(\hat \sigma^2\)</span> for all observations.</p>
 <div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="ordinal-practice-problems.html#cb511-1" aria-hidden="true" tabindex="-1"></a>fit.lin <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">as.numeric</span>(dissent) <span class="sc">~</span> treat <span class="sc">+</span> <span class="fu">factor</span>(site_pr), </span>
@@ -494,7 +496,10 @@ factor(site_pr)7  0.046596   0.063912  0.7291 0.4659633
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p><strong>I got 99 problems, and standard errors are just one</strong></p>
-<p>However, these robust standard errors cannot correct for underlying model misspecification. Recall that the initial likelihood equation is what assumes independence– this is the equation we use for everything, not only for computing standard errors but also for estimating the coefficients themselves. If we truly believe we have dependence among our observations, we might consider using an entirely different likelihood function– one that incorporates this dependence, instead of just adjusting the standard errors after the fact.</p>
+<p>However, robust standard errors cannot correct underlying model misspecification. Recall that the initial likelihood equation is what assumes independence– this is the equation we use for everything, not only for computing standard errors but also for estimating the coefficients themselves. If we truly believe we have dependence among our observations, we might consider using an entirely different likelihood function– one that incorporates this dependence, instead of just adjusting the standard errors after the fact.</p>
+<p>Nonetheless, we may still think our model is good enough, even if not “correct.” So long as you recognize that the robust standard errors don’t correct for this underlying problem, some are still proponents for using robust standard errors in these cases. For example, Wooldridge recommends reporting robust standard errors, and writes,</p>
+<p><img src="images/woolrobust2.png" style="width:60.0%" />
+<img src="images/woolrobust3.png" style="width:60.0%" /></p>
 </div>
 </div>
             </section>
