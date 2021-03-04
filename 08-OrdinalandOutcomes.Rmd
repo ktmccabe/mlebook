@@ -719,11 +719,11 @@ findprall <- function(val){
   # Find Xb and zeta
   eta <- X.means %*% coef(fit.empw2)[1:length(X.means)]
   zeta <- fit.empw2$zeta
-  ## Find Pr(4th lowest category)
+  ## Find Pr(7th lowest category)
   pr7 <- 1 - plogis(zeta[6] - eta)
-  ## Find Pr(4th lowest category)
+  ## Find Pr(6th lowest category)
   pr6 <- plogis(zeta[6] - eta) - plogis(zeta[5] - eta)
-  ## Find Pr(4th lowest category)
+  ## Find Pr(5th lowest category)
   pr5 <- plogis(zeta[5] - eta) - plogis(zeta[4] - eta)
   ## Find Pr(4th lowest category)
   pr4 <- plogis(zeta[4] - eta) - plogis(zeta[3] - eta)

@@ -341,6 +341,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.3.1" data-path="running-multinomial-logit-in-r.html"><a href="running-multinomial-logit-in-r.html#multinomial-quantities-of-interest"><i class="fa fa-check"></i><b>9.3.1</b> Multinomial Quantities of Interest</a></li>
 </ul></li>
 <li class="chapter" data-level="9.4" data-path="practice-problems-for-multinomial.html"><a href="practice-problems-for-multinomial.html"><i class="fa fa-check"></i><b>9.4</b> Practice Problems for Multinomial</a></li>
+<li class="chapter" data-level="9.5" data-path="week-7-tutorial.html"><a href="week-7-tutorial.html"><i class="fa fa-check"></i><b>9.5</b> Week 7 Tutorial</a></li>
 </ul></li>
 </ul>
 
@@ -380,14 +381,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>The probability of <span class="math inline">\(Y_i\)</span> being in a particular category is:</li>
 </ul>
 <p><span class="math display">\[\begin{align*}
-\pi_j = Pr(Y_i = C_j | x_i) &amp;= \frac{\exp(\mathbf x_i^T\beta_j)}{1 + \sum_{j=1}^{J-1} \exp(\mathbf x_i^T\beta_j)}
+\pi_{ij} = Pr(Y_i = C_j | x_i) &amp;= \frac{\exp(\mathbf x_i^T\beta_j)}{1 + \sum_{j=1}^{J-1} \exp(\mathbf x_i^T\beta_j)}
 \end{align*}\]</span></p>
 <div id="multinomial-likelihood" class="section level3" number="9.1.1">
 <h3><span class="header-section-number">9.1.1</span> Multinomial Likelihood</h3>
 <p>Here, similar to the ordinal log likelihood, we need to sum over all observations and all outcome categories to represent the joint probability:</p>
 <p><span class="math inline">\(\mathcal L(\beta, | Y) = \prod_i^N \prod_{j=1}^{J} \mathbf 1(Y_i=C_j){\pi_{i, j}}\)</span></p>
 <p><span class="math inline">\(\mathcal l(\beta, | Y) = \sum_i^N \sum_{j=1}^{J} \mathbf 1(Y_i=C_j){\log \pi_{i, j}}\)</span></p>
-<p>Like we have done previously in likelihood, we define <span class="math inline">\(\pi\)</span> according to <span class="math inline">\(X\)</span> and <span class="math inline">\(\beta\)</span>, in the way defined above.</p>
+<p>Like we have done previously in likelihood, where <span class="math inline">\(\pi\)</span> is a function of <span class="math inline">\(X\)</span> and <span class="math inline">\(\beta\)</span>.</p>
 </div>
 </div>
             </section>

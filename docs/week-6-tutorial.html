@@ -341,6 +341,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.3.1" data-path="running-multinomial-logit-in-r.html"><a href="running-multinomial-logit-in-r.html#multinomial-quantities-of-interest"><i class="fa fa-check"></i><b>9.3.1</b> Multinomial Quantities of Interest</a></li>
 </ul></li>
 <li class="chapter" data-level="9.4" data-path="practice-problems-for-multinomial.html"><a href="practice-problems-for-multinomial.html"><i class="fa fa-check"></i><b>9.4</b> Practice Problems for Multinomial</a></li>
+<li class="chapter" data-level="9.5" data-path="week-7-tutorial.html"><a href="week-7-tutorial.html"><i class="fa fa-check"></i><b>9.5</b> Week 7 Tutorial</a></li>
 </ul></li>
 </ul>
 
@@ -590,11 +591,11 @@ Intercepts:
 <span id="cb552-3"><a href="week-6-tutorial.html#cb552-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Find Xb and zeta</span></span>
 <span id="cb552-4"><a href="week-6-tutorial.html#cb552-4" aria-hidden="true" tabindex="-1"></a>  eta <span class="ot">&lt;-</span> X.means <span class="sc">%*%</span> <span class="fu">coef</span>(fit.empw2)[<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(X.means)]</span>
 <span id="cb552-5"><a href="week-6-tutorial.html#cb552-5" aria-hidden="true" tabindex="-1"></a>  zeta <span class="ot">&lt;-</span> fit.empw2<span class="sc">$</span>zeta</span>
-<span id="cb552-6"><a href="week-6-tutorial.html#cb552-6" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Find Pr(4th lowest category)</span></span>
+<span id="cb552-6"><a href="week-6-tutorial.html#cb552-6" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Find Pr(7th lowest category)</span></span>
 <span id="cb552-7"><a href="week-6-tutorial.html#cb552-7" aria-hidden="true" tabindex="-1"></a>  pr7 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">plogis</span>(zeta[<span class="dv">6</span>] <span class="sc">-</span> eta)</span>
-<span id="cb552-8"><a href="week-6-tutorial.html#cb552-8" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Find Pr(4th lowest category)</span></span>
+<span id="cb552-8"><a href="week-6-tutorial.html#cb552-8" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Find Pr(6th lowest category)</span></span>
 <span id="cb552-9"><a href="week-6-tutorial.html#cb552-9" aria-hidden="true" tabindex="-1"></a>  pr6 <span class="ot">&lt;-</span> <span class="fu">plogis</span>(zeta[<span class="dv">6</span>] <span class="sc">-</span> eta) <span class="sc">-</span> <span class="fu">plogis</span>(zeta[<span class="dv">5</span>] <span class="sc">-</span> eta)</span>
-<span id="cb552-10"><a href="week-6-tutorial.html#cb552-10" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Find Pr(4th lowest category)</span></span>
+<span id="cb552-10"><a href="week-6-tutorial.html#cb552-10" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Find Pr(5th lowest category)</span></span>
 <span id="cb552-11"><a href="week-6-tutorial.html#cb552-11" aria-hidden="true" tabindex="-1"></a>  pr5 <span class="ot">&lt;-</span> <span class="fu">plogis</span>(zeta[<span class="dv">5</span>] <span class="sc">-</span> eta) <span class="sc">-</span> <span class="fu">plogis</span>(zeta[<span class="dv">4</span>] <span class="sc">-</span> eta)</span>
 <span id="cb552-12"><a href="week-6-tutorial.html#cb552-12" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Find Pr(4th lowest category)</span></span>
 <span id="cb552-13"><a href="week-6-tutorial.html#cb552-13" aria-hidden="true" tabindex="-1"></a>  pr4 <span class="ot">&lt;-</span> <span class="fu">plogis</span>(zeta[<span class="dv">4</span>] <span class="sc">-</span> eta) <span class="sc">-</span> <span class="fu">plogis</span>(zeta[<span class="dv">3</span>] <span class="sc">-</span> eta)</span>

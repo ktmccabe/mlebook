@@ -4,7 +4,7 @@ knitr::knit_exit()
 
 
 
-# Longitudinal or Hierarchical Data {#long}
+# Count data {#count}
 
 This will provide a brief overview of tools for complex data structures.
 https://m-clark.github.io/mixed-models-with-R/
