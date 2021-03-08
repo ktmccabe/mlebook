@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="practice-problems-for-multinomial.html"/>
-
+<link rel="next" href="count.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -343,6 +343,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.4" data-path="practice-problems-for-multinomial.html"><a href="practice-problems-for-multinomial.html"><i class="fa fa-check"></i><b>9.4</b> Practice Problems for Multinomial</a></li>
 <li class="chapter" data-level="9.5" data-path="week-7-tutorial.html"><a href="week-7-tutorial.html"><i class="fa fa-check"></i><b>9.5</b> Week 7 Tutorial</a></li>
 </ul></li>
+<li class="chapter" data-level="10" data-path="count.html"><a href="count.html"><i class="fa fa-check"></i><b>10</b> Count data</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="overview-of-count-data.html"><a href="overview-of-count-data.html"><i class="fa fa-check"></i><b>10.1</b> Overview of Count Data</a></li>
+<li class="chapter" data-level="10.2" data-path="poisson-model.html"><a href="poisson-model.html"><i class="fa fa-check"></i><b>10.2</b> Poisson Model</a></li>
+<li class="chapter" data-level="10.3" data-path="motivating-example-for-count-data.html"><a href="motivating-example-for-count-data.html"><i class="fa fa-check"></i><b>10.3</b> Motivating Example for Count Data</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="motivating-example-for-count-data.html"><a href="motivating-example-for-count-data.html#fitting-poisson-in-r"><i class="fa fa-check"></i><b>10.3.1</b> Fitting Poisson in R</a></li>
+<li class="chapter" data-level="10.3.2" data-path="motivating-example-for-count-data.html"><a href="motivating-example-for-count-data.html#interpreting-regression-output"><i class="fa fa-check"></i><b>10.3.2</b> Interpreting regression output</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="poisson-quantities-of-interest.html"><a href="poisson-quantities-of-interest.html"><i class="fa fa-check"></i><b>10.4</b> Poisson Quantities of Interest</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="poisson-quantities-of-interest.html"><a href="poisson-quantities-of-interest.html#expected-counts"><i class="fa fa-check"></i><b>10.4.1</b> Expected Counts</a></li>
+<li class="chapter" data-level="10.4.2" data-path="poisson-quantities-of-interest.html"><a href="poisson-quantities-of-interest.html#sidenote-multiplicative-coefficient-interpretation"><i class="fa fa-check"></i><b>10.4.2</b> Sidenote: Multiplicative coefficient interpretation</a></li>
+<li class="chapter" data-level="10.4.3" data-path="poisson-quantities-of-interest.html"><a href="poisson-quantities-of-interest.html#incidence-rate-ratios"><i class="fa fa-check"></i><b>10.4.3</b> Incidence Rate Ratios</a></li>
+<li class="chapter" data-level="10.4.4" data-path="poisson-quantities-of-interest.html"><a href="poisson-quantities-of-interest.html#where-poisson-is-poisonous"><i class="fa fa-check"></i><b>10.4.4</b> Where Poisson is poisonous:</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="quasipoisson-and-negative-binomial-models.html"><a href="quasipoisson-and-negative-binomial-models.html"><i class="fa fa-check"></i><b>10.5</b> Quasipoisson and Negative Binomial Models</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="quasipoisson-and-negative-binomial-models.html"><a href="quasipoisson-and-negative-binomial-models.html#negative-binomial-models"><i class="fa fa-check"></i><b>10.5.1</b> Negative Binomial Models</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="count-data-practice-problems.html"><a href="count-data-practice-problems.html"><i class="fa fa-check"></i><b>10.6</b> Count data practice problems</a></li>
+<li class="chapter" data-level="10.7" data-path="additional-considerations.html"><a href="additional-considerations.html"><i class="fa fa-check"></i><b>10.7</b> Additional Considerations</a>
+<ul>
+<li class="chapter" data-level="10.7.1" data-path="additional-considerations.html"><a href="additional-considerations.html#offset"><i class="fa fa-check"></i><b>10.7.1</b> Offset</a></li>
+</ul></li>
+<li class="chapter" data-level="10.8" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html"><i class="fa fa-check"></i><b>10.8</b> How to think about Zero Counts</a>
+<ul>
+<li class="chapter" data-level="10.8.1" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html#hurdle-models"><i class="fa fa-check"></i><b>10.8.1</b> Hurdle Models</a></li>
+<li class="chapter" data-level="10.8.2" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html#zero-inflated-poissonnegative-binomial"><i class="fa fa-check"></i><b>10.8.2</b> Zero Inflated Poisson/Negative binomial</a></li>
+</ul></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -572,23 +603,13 @@ Uncertainty calculation.
 
 </div>
 <!-- </div> -->
-
-
-
-
-
-
-
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="practice-problems-for-multinomial.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="practice-problems-for-multinomial.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="count.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

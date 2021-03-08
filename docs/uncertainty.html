@@ -343,6 +343,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.4" data-path="practice-problems-for-multinomial.html"><a href="practice-problems-for-multinomial.html"><i class="fa fa-check"></i><b>9.4</b> Practice Problems for Multinomial</a></li>
 <li class="chapter" data-level="9.5" data-path="week-7-tutorial.html"><a href="week-7-tutorial.html"><i class="fa fa-check"></i><b>9.5</b> Week 7 Tutorial</a></li>
 </ul></li>
+<li class="chapter" data-level="10" data-path="count.html"><a href="count.html"><i class="fa fa-check"></i><b>10</b> Count data</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="overview-of-count-data.html"><a href="overview-of-count-data.html"><i class="fa fa-check"></i><b>10.1</b> Overview of Count Data</a></li>
+<li class="chapter" data-level="10.2" data-path="poisson-model.html"><a href="poisson-model.html"><i class="fa fa-check"></i><b>10.2</b> Poisson Model</a></li>
+<li class="chapter" data-level="10.3" data-path="motivating-example-for-count-data.html"><a href="motivating-example-for-count-data.html"><i class="fa fa-check"></i><b>10.3</b> Motivating Example for Count Data</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="motivating-example-for-count-data.html"><a href="motivating-example-for-count-data.html#fitting-poisson-in-r"><i class="fa fa-check"></i><b>10.3.1</b> Fitting Poisson in R</a></li>
+<li class="chapter" data-level="10.3.2" data-path="motivating-example-for-count-data.html"><a href="motivating-example-for-count-data.html#interpreting-regression-output"><i class="fa fa-check"></i><b>10.3.2</b> Interpreting regression output</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="poisson-quantities-of-interest.html"><a href="poisson-quantities-of-interest.html"><i class="fa fa-check"></i><b>10.4</b> Poisson Quantities of Interest</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="poisson-quantities-of-interest.html"><a href="poisson-quantities-of-interest.html#expected-counts"><i class="fa fa-check"></i><b>10.4.1</b> Expected Counts</a></li>
+<li class="chapter" data-level="10.4.2" data-path="poisson-quantities-of-interest.html"><a href="poisson-quantities-of-interest.html#sidenote-multiplicative-coefficient-interpretation"><i class="fa fa-check"></i><b>10.4.2</b> Sidenote: Multiplicative coefficient interpretation</a></li>
+<li class="chapter" data-level="10.4.3" data-path="poisson-quantities-of-interest.html"><a href="poisson-quantities-of-interest.html#incidence-rate-ratios"><i class="fa fa-check"></i><b>10.4.3</b> Incidence Rate Ratios</a></li>
+<li class="chapter" data-level="10.4.4" data-path="poisson-quantities-of-interest.html"><a href="poisson-quantities-of-interest.html#where-poisson-is-poisonous"><i class="fa fa-check"></i><b>10.4.4</b> Where Poisson is poisonous:</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="quasipoisson-and-negative-binomial-models.html"><a href="quasipoisson-and-negative-binomial-models.html"><i class="fa fa-check"></i><b>10.5</b> Quasipoisson and Negative Binomial Models</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="quasipoisson-and-negative-binomial-models.html"><a href="quasipoisson-and-negative-binomial-models.html#negative-binomial-models"><i class="fa fa-check"></i><b>10.5.1</b> Negative Binomial Models</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="count-data-practice-problems.html"><a href="count-data-practice-problems.html"><i class="fa fa-check"></i><b>10.6</b> Count data practice problems</a></li>
+<li class="chapter" data-level="10.7" data-path="additional-considerations.html"><a href="additional-considerations.html"><i class="fa fa-check"></i><b>10.7</b> Additional Considerations</a>
+<ul>
+<li class="chapter" data-level="10.7.1" data-path="additional-considerations.html"><a href="additional-considerations.html#offset"><i class="fa fa-check"></i><b>10.7.1</b> Offset</a></li>
+</ul></li>
+<li class="chapter" data-level="10.8" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html"><i class="fa fa-check"></i><b>10.8</b> How to think about Zero Counts</a>
+<ul>
+<li class="chapter" data-level="10.8.1" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html#hurdle-models"><i class="fa fa-check"></i><b>10.8.1</b> Hurdle Models</a></li>
+<li class="chapter" data-level="10.8.2" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html#zero-inflated-poissonnegative-binomial"><i class="fa fa-check"></i><b>10.8.2</b> Zero Inflated Poisson/Negative binomial</a></li>
+</ul></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -489,29 +520,29 @@ Expand below for more details on what the sample function does.
 7  black    sphere</code></pre>
 <p>I could generate a new “resampled” dataset with the <code>sample</code> function. We tell the function three things: 1) choose from the row numbers in my dataframe (<code>1:nrow(somedata)</code>), 2) pick <span class="math inline">\(N\)</span> row numbers in total (<code>nrow(somedata)</code>), 3) Each time you pick a given row number <span class="math inline">\(i\)</span>, put it back in the data, allowing the possibility that you may randomly sample it again (<code>replace = TRUE</code>).</p>
 <div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="uncertainty.html#cb379-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(somedata), <span class="fu">nrow</span>(somedata), <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>[1] 7 7 5 2 7 5 4</code></pre>
+<pre><code>[1] 3 1 5 6 2 5 1</code></pre>
 <div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="uncertainty.html#cb381-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(somedata), <span class="fu">nrow</span>(somedata), <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>[1] 1 1 1 1 4 3 4</code></pre>
+<pre><code>[1] 1 5 2 2 1 7 3</code></pre>
 <div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="uncertainty.html#cb383-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(somedata), <span class="fu">nrow</span>(somedata), <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>[1] 3 3 2 1 7 1 5</code></pre>
+<pre><code>[1] 4 5 5 6 4 5 6</code></pre>
 <p>What happened is the function generated a set of row numbers. Note how it is possible for the same row number to be picked multiple times. Each time we run the sample function, we get slightly different row numbers.</p>
 <p>We can subset our data based on these row indices.</p>
 <div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="uncertainty.html#cb385-1" aria-hidden="true" tabindex="-1"></a><span class="do">## store row indices</span></span>
 <span id="cb385-2"><a href="uncertainty.html#cb385-2" aria-hidden="true" tabindex="-1"></a>wrows <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(somedata), <span class="fu">nrow</span>(somedata), <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb385-3"><a href="uncertainty.html#cb385-3" aria-hidden="true" tabindex="-1"></a>wrows</span></code></pre></div>
-<pre><code>[1] 4 6 2 2 6 1 2</code></pre>
+<pre><code>[1] 6 3 4 6 4 3 1</code></pre>
 <div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="uncertainty.html#cb387-1" aria-hidden="true" tabindex="-1"></a><span class="do">## subset data to include rows sampled</span></span>
 <span id="cb387-2"><a href="uncertainty.html#cb387-2" aria-hidden="true" tabindex="-1"></a><span class="do">## note if row indices are in wrows more than once, they will also be in the subset more than once</span></span>
 <span id="cb387-3"><a href="uncertainty.html#cb387-3" aria-hidden="true" tabindex="-1"></a>subdata <span class="ot">&lt;-</span> somedata[wrows,]</span>
 <span id="cb387-4"><a href="uncertainty.html#cb387-4" aria-hidden="true" tabindex="-1"></a>subdata</span></code></pre></div>
 <pre><code>    colors    shapes
-4    green rectangle
 6   orange      line
-2     blue    square
-2.1   blue    square
+3   yellow  triangle
+4    green rectangle
 6.1 orange      line
-1      red    circle
-2.2   blue    square</code></pre>
+4.1  green rectangle
+3.1 yellow  triangle
+1      red    circle</code></pre>
 <p>Given that each time the sample function runs, we get slightly different random samples of the data, that’s how we end up with a distribution of slightly different estimates of our quantities of interest. Each time the regression is run with a slightly different dataset.</p>
 </details>
 <p>This gives us one estimate of the average predicted probability stored in <code>p.boot</code>. However, the idea of a bootstrap is that we repeat this procedure at least 1000 times to generate a distribution of estimates of the quantity of interest, the average predicted probability in this case.</p>
