@@ -58,7 +58,6 @@ ggplot()+aes(counts)+
   - Nonsensical values?
       + With OLS, there is also no guarantee that smaller estimated $\hat y$ values from the regression line will stay non-negative even though we know that the actual count outcomes are always going to be non-negative. 
       + There is also no guarantee that larger $\hat y$ values will stay within the possible upper-range of $y$ values.
-      + And there's very little chance OLS will generate estimated $\hat y$ values that are whole numbers. That's technically fine given it is just an estimate, but you might want a distribution that will give you a non-decimal estimated value.
       + When data are heavily skewed, the regression line, which represents the "conditional mean" $\mathbf E(Y |X=x)$ given some values of $X$ might be a poor estimate given that generally we know that means can be poor estimates of highly skewed data (e.g., picture how estimates of income given a certain level of education would change if Bill Gates and Mark Zuckerberg are in your sample vs. if they are not).
       
 

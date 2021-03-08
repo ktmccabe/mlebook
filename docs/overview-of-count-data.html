@@ -422,7 +422,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>With OLS, there is also no guarantee that smaller estimated <span class="math inline">\(\hat y\)</span> values from the regression line will stay non-negative even though we know that the actual count outcomes are always going to be non-negative.</li>
 <li>There is also no guarantee that larger <span class="math inline">\(\hat y\)</span> values will stay within the possible upper-range of <span class="math inline">\(y\)</span> values.</li>
-<li>And there’s very little chance OLS will generate estimated <span class="math inline">\(\hat y\)</span> values that are whole numbers. That’s technically fine given it is just an estimate, but you might want a distribution that will give you a non-decimal estimated value.</li>
 <li>When data are heavily skewed, the regression line, which represents the “conditional mean” <span class="math inline">\(\mathbf E(Y |X=x)\)</span> given some values of <span class="math inline">\(X\)</span> might be a poor estimate given that generally we know that means can be poor estimates of highly skewed data (e.g., picture how estimates of income given a certain level of education would change if Bill Gates and Mark Zuckerberg are in your sample vs. if they are not).</li>
 </ul></li>
 </ul>
