@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="quasipoisson-and-negative-binomial-models.html"/>
-<link rel="next" href="additional-considerations.html"/>
+<link rel="next" href="week-8-tutorial.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -364,14 +364,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.5.1" data-path="quasipoisson-and-negative-binomial-models.html"><a href="quasipoisson-and-negative-binomial-models.html#negative-binomial-models"><i class="fa fa-check"></i><b>10.5.1</b> Negative Binomial Models</a></li>
 </ul></li>
 <li class="chapter" data-level="10.6" data-path="count-data-practice-problems.html"><a href="count-data-practice-problems.html"><i class="fa fa-check"></i><b>10.6</b> Count data practice problems</a></li>
-<li class="chapter" data-level="10.7" data-path="additional-considerations.html"><a href="additional-considerations.html"><i class="fa fa-check"></i><b>10.7</b> Additional Considerations</a>
+<li class="chapter" data-level="10.7" data-path="week-8-tutorial.html"><a href="week-8-tutorial.html"><i class="fa fa-check"></i><b>10.7</b> Week 8 Tutorial</a></li>
+<li class="chapter" data-level="10.8" data-path="additional-considerations.html"><a href="additional-considerations.html"><i class="fa fa-check"></i><b>10.8</b> Additional Considerations</a>
 <ul>
-<li class="chapter" data-level="10.7.1" data-path="additional-considerations.html"><a href="additional-considerations.html#offset"><i class="fa fa-check"></i><b>10.7.1</b> Offset</a></li>
+<li class="chapter" data-level="10.8.1" data-path="additional-considerations.html"><a href="additional-considerations.html#offset"><i class="fa fa-check"></i><b>10.8.1</b> Offset</a></li>
 </ul></li>
-<li class="chapter" data-level="10.8" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html"><i class="fa fa-check"></i><b>10.8</b> How to think about Zero Counts</a>
+<li class="chapter" data-level="10.9" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html"><i class="fa fa-check"></i><b>10.9</b> How to think about Zero Counts</a>
 <ul>
-<li class="chapter" data-level="10.8.1" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html#hurdle-models"><i class="fa fa-check"></i><b>10.8.1</b> Hurdle Models</a></li>
-<li class="chapter" data-level="10.8.2" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html#zero-inflated-poissonnegative-binomial"><i class="fa fa-check"></i><b>10.8.2</b> Zero Inflated Poisson/Negative binomial</a></li>
+<li class="chapter" data-level="10.9.1" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html#hurdle-models"><i class="fa fa-check"></i><b>10.9.1</b> Hurdle Models</a></li>
+<li class="chapter" data-level="10.9.2" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html#zero-inflated-poissonnegative-binomial"><i class="fa fa-check"></i><b>10.9.2</b> Zero Inflated Poisson/Negative binomial</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -424,64 +425,124 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <summary>
 Try on your own, then expand for the solution.
 </summary>
-<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="count-data-practice-problems.html#cb653-1" aria-hidden="true" tabindex="-1"></a>fit.lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(allnoncerm_eo <span class="sc">~</span> divided <span class="sc">+</span> inflation <span class="sc">+</span> spending_percent_gdp <span class="sc">+</span> </span>
-<span id="cb653-2"><a href="count-data-practice-problems.html#cb653-2" aria-hidden="true" tabindex="-1"></a>               war <span class="sc">+</span> lame_duck <span class="sc">+</span> administration_change <span class="sc">+</span> trend <span class="sc">+</span> </span>
-<span id="cb653-3"><a href="count-data-practice-problems.html#cb653-3" aria-hidden="true" tabindex="-1"></a>               truman <span class="sc">+</span> ike <span class="sc">+</span> jfk <span class="sc">+</span> lbj <span class="sc">+</span> </span>
-<span id="cb653-4"><a href="count-data-practice-problems.html#cb653-4" aria-hidden="true" tabindex="-1"></a>               nixon <span class="sc">+</span> ford <span class="sc">+</span></span>
-<span id="cb653-5"><a href="count-data-practice-problems.html#cb653-5" aria-hidden="true" tabindex="-1"></a>               carter <span class="sc">+</span> reagan <span class="sc">+</span> bush41 <span class="sc">+</span> clinton <span class="sc">+</span> bush43,</span>
-<span id="cb653-6"><a href="count-data-practice-problems.html#cb653-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> <span class="fu">subset</span>(bolton, year <span class="sc">&gt;</span> <span class="dv">1944</span>))</span>
-<span id="cb653-7"><a href="count-data-practice-problems.html#cb653-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb653-8"><a href="count-data-practice-problems.html#cb653-8" aria-hidden="true" tabindex="-1"></a>fit.nb <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(allnoncerm_eo <span class="sc">~</span> divided <span class="sc">+</span> inflation <span class="sc">+</span> spending_percent_gdp <span class="sc">+</span> </span>
-<span id="cb653-9"><a href="count-data-practice-problems.html#cb653-9" aria-hidden="true" tabindex="-1"></a>               war <span class="sc">+</span> lame_duck <span class="sc">+</span> administration_change <span class="sc">+</span> trend <span class="sc">+</span> </span>
-<span id="cb653-10"><a href="count-data-practice-problems.html#cb653-10" aria-hidden="true" tabindex="-1"></a>               truman <span class="sc">+</span> ike <span class="sc">+</span> jfk <span class="sc">+</span> lbj <span class="sc">+</span> </span>
-<span id="cb653-11"><a href="count-data-practice-problems.html#cb653-11" aria-hidden="true" tabindex="-1"></a>               nixon <span class="sc">+</span> ford <span class="sc">+</span></span>
-<span id="cb653-12"><a href="count-data-practice-problems.html#cb653-12" aria-hidden="true" tabindex="-1"></a>               carter <span class="sc">+</span> reagan <span class="sc">+</span> bush41 <span class="sc">+</span> clinton <span class="sc">+</span> bush43,</span>
-<span id="cb653-13"><a href="count-data-practice-problems.html#cb653-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">link=</span><span class="st">&quot;log&quot;</span>,</span>
-<span id="cb653-14"><a href="count-data-practice-problems.html#cb653-14" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> <span class="fu">subset</span>(bolton, year <span class="sc">&gt;</span> <span class="dv">1944</span>))</span>
-<span id="cb653-15"><a href="count-data-practice-problems.html#cb653-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb653-16"><a href="count-data-practice-problems.html#cb653-16" aria-hidden="true" tabindex="-1"></a>fit.qp <span class="ot">&lt;-</span> <span class="fu">glm</span>(allnoncerm_eo <span class="sc">~</span> divided <span class="sc">+</span> inflation <span class="sc">+</span> spending_percent_gdp <span class="sc">+</span> </span>
-<span id="cb653-17"><a href="count-data-practice-problems.html#cb653-17" aria-hidden="true" tabindex="-1"></a>               war <span class="sc">+</span> lame_duck <span class="sc">+</span> administration_change <span class="sc">+</span> trend <span class="sc">+</span> </span>
-<span id="cb653-18"><a href="count-data-practice-problems.html#cb653-18" aria-hidden="true" tabindex="-1"></a>               truman <span class="sc">+</span> ike <span class="sc">+</span> jfk <span class="sc">+</span> lbj <span class="sc">+</span> </span>
-<span id="cb653-19"><a href="count-data-practice-problems.html#cb653-19" aria-hidden="true" tabindex="-1"></a>               nixon <span class="sc">+</span> ford <span class="sc">+</span></span>
-<span id="cb653-20"><a href="count-data-practice-problems.html#cb653-20" aria-hidden="true" tabindex="-1"></a>               carter <span class="sc">+</span> reagan <span class="sc">+</span> bush41 <span class="sc">+</span> clinton <span class="sc">+</span> bush43,</span>
-<span id="cb653-21"><a href="count-data-practice-problems.html#cb653-21" aria-hidden="true" tabindex="-1"></a>              <span class="at">family=</span><span class="st">&quot;quasipoisson&quot;</span>,</span>
-<span id="cb653-22"><a href="count-data-practice-problems.html#cb653-22" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> <span class="fu">subset</span>(bolton, year <span class="sc">&gt;</span> <span class="dv">1944</span>))</span>
-<span id="cb653-23"><a href="count-data-practice-problems.html#cb653-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb653-24"><a href="count-data-practice-problems.html#cb653-24" aria-hidden="true" tabindex="-1"></a><span class="do">## Manual</span></span>
-<span id="cb653-25"><a href="count-data-practice-problems.html#cb653-25" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit.lm)</span>
-<span id="cb653-26"><a href="count-data-practice-problems.html#cb653-26" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;divided&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb653-27"><a href="count-data-practice-problems.html#cb653-27" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit.lm)</span>
-<span id="cb653-28"><a href="count-data-practice-problems.html#cb653-28" aria-hidden="true" tabindex="-1"></a>exp.eo.lm <span class="ot">&lt;-</span> <span class="fu">mean</span>(X <span class="sc">%*%</span> B)</span>
-<span id="cb653-29"><a href="count-data-practice-problems.html#cb653-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb653-30"><a href="count-data-practice-problems.html#cb653-30" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit.nb)</span>
-<span id="cb653-31"><a href="count-data-practice-problems.html#cb653-31" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;divided&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb653-32"><a href="count-data-practice-problems.html#cb653-32" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit.nb)</span>
-<span id="cb653-33"><a href="count-data-practice-problems.html#cb653-33" aria-hidden="true" tabindex="-1"></a>exp.eo.nb <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">exp</span>(X <span class="sc">%*%</span> B))</span>
-<span id="cb653-34"><a href="count-data-practice-problems.html#cb653-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb653-35"><a href="count-data-practice-problems.html#cb653-35" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit.qp)</span>
-<span id="cb653-36"><a href="count-data-practice-problems.html#cb653-36" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;divided&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb653-37"><a href="count-data-practice-problems.html#cb653-37" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit.qp)</span>
-<span id="cb653-38"><a href="count-data-practice-problems.html#cb653-38" aria-hidden="true" tabindex="-1"></a>exp.eo.qp <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">exp</span>(X <span class="sc">%*%</span> B))</span>
-<span id="cb653-39"><a href="count-data-practice-problems.html#cb653-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb653-40"><a href="count-data-practice-problems.html#cb653-40" aria-hidden="true" tabindex="-1"></a>exp.eo.lm</span></code></pre></div>
+<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb657-1"><a href="count-data-practice-problems.html#cb657-1" aria-hidden="true" tabindex="-1"></a>fit.lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(allnoncerm_eo <span class="sc">~</span> divided <span class="sc">+</span> inflation <span class="sc">+</span> spending_percent_gdp <span class="sc">+</span> </span>
+<span id="cb657-2"><a href="count-data-practice-problems.html#cb657-2" aria-hidden="true" tabindex="-1"></a>               war <span class="sc">+</span> lame_duck <span class="sc">+</span> administration_change <span class="sc">+</span> trend <span class="sc">+</span> </span>
+<span id="cb657-3"><a href="count-data-practice-problems.html#cb657-3" aria-hidden="true" tabindex="-1"></a>               truman <span class="sc">+</span> ike <span class="sc">+</span> jfk <span class="sc">+</span> lbj <span class="sc">+</span> </span>
+<span id="cb657-4"><a href="count-data-practice-problems.html#cb657-4" aria-hidden="true" tabindex="-1"></a>               nixon <span class="sc">+</span> ford <span class="sc">+</span></span>
+<span id="cb657-5"><a href="count-data-practice-problems.html#cb657-5" aria-hidden="true" tabindex="-1"></a>               carter <span class="sc">+</span> reagan <span class="sc">+</span> bush41 <span class="sc">+</span> clinton <span class="sc">+</span> bush43,</span>
+<span id="cb657-6"><a href="count-data-practice-problems.html#cb657-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> <span class="fu">subset</span>(bolton, year <span class="sc">&gt;</span> <span class="dv">1944</span>))</span>
+<span id="cb657-7"><a href="count-data-practice-problems.html#cb657-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb657-8"><a href="count-data-practice-problems.html#cb657-8" aria-hidden="true" tabindex="-1"></a>fit.nb <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(allnoncerm_eo <span class="sc">~</span> divided <span class="sc">+</span> inflation <span class="sc">+</span> spending_percent_gdp <span class="sc">+</span> </span>
+<span id="cb657-9"><a href="count-data-practice-problems.html#cb657-9" aria-hidden="true" tabindex="-1"></a>               war <span class="sc">+</span> lame_duck <span class="sc">+</span> administration_change <span class="sc">+</span> trend <span class="sc">+</span> </span>
+<span id="cb657-10"><a href="count-data-practice-problems.html#cb657-10" aria-hidden="true" tabindex="-1"></a>               truman <span class="sc">+</span> ike <span class="sc">+</span> jfk <span class="sc">+</span> lbj <span class="sc">+</span> </span>
+<span id="cb657-11"><a href="count-data-practice-problems.html#cb657-11" aria-hidden="true" tabindex="-1"></a>               nixon <span class="sc">+</span> ford <span class="sc">+</span></span>
+<span id="cb657-12"><a href="count-data-practice-problems.html#cb657-12" aria-hidden="true" tabindex="-1"></a>               carter <span class="sc">+</span> reagan <span class="sc">+</span> bush41 <span class="sc">+</span> clinton <span class="sc">+</span> bush43,</span>
+<span id="cb657-13"><a href="count-data-practice-problems.html#cb657-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">link=</span><span class="st">&quot;log&quot;</span>,</span>
+<span id="cb657-14"><a href="count-data-practice-problems.html#cb657-14" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> <span class="fu">subset</span>(bolton, year <span class="sc">&gt;</span> <span class="dv">1944</span>))</span>
+<span id="cb657-15"><a href="count-data-practice-problems.html#cb657-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb657-16"><a href="count-data-practice-problems.html#cb657-16" aria-hidden="true" tabindex="-1"></a>fit.qp <span class="ot">&lt;-</span> <span class="fu">glm</span>(allnoncerm_eo <span class="sc">~</span> divided <span class="sc">+</span> inflation <span class="sc">+</span> spending_percent_gdp <span class="sc">+</span> </span>
+<span id="cb657-17"><a href="count-data-practice-problems.html#cb657-17" aria-hidden="true" tabindex="-1"></a>               war <span class="sc">+</span> lame_duck <span class="sc">+</span> administration_change <span class="sc">+</span> trend <span class="sc">+</span> </span>
+<span id="cb657-18"><a href="count-data-practice-problems.html#cb657-18" aria-hidden="true" tabindex="-1"></a>               truman <span class="sc">+</span> ike <span class="sc">+</span> jfk <span class="sc">+</span> lbj <span class="sc">+</span> </span>
+<span id="cb657-19"><a href="count-data-practice-problems.html#cb657-19" aria-hidden="true" tabindex="-1"></a>               nixon <span class="sc">+</span> ford <span class="sc">+</span></span>
+<span id="cb657-20"><a href="count-data-practice-problems.html#cb657-20" aria-hidden="true" tabindex="-1"></a>               carter <span class="sc">+</span> reagan <span class="sc">+</span> bush41 <span class="sc">+</span> clinton <span class="sc">+</span> bush43,</span>
+<span id="cb657-21"><a href="count-data-practice-problems.html#cb657-21" aria-hidden="true" tabindex="-1"></a>              <span class="at">family=</span><span class="st">&quot;quasipoisson&quot;</span>,</span>
+<span id="cb657-22"><a href="count-data-practice-problems.html#cb657-22" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> <span class="fu">subset</span>(bolton, year <span class="sc">&gt;</span> <span class="dv">1944</span>))</span>
+<span id="cb657-23"><a href="count-data-practice-problems.html#cb657-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb657-24"><a href="count-data-practice-problems.html#cb657-24" aria-hidden="true" tabindex="-1"></a><span class="do">## Manual</span></span>
+<span id="cb657-25"><a href="count-data-practice-problems.html#cb657-25" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit.lm)</span>
+<span id="cb657-26"><a href="count-data-practice-problems.html#cb657-26" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;divided&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb657-27"><a href="count-data-practice-problems.html#cb657-27" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit.lm)</span>
+<span id="cb657-28"><a href="count-data-practice-problems.html#cb657-28" aria-hidden="true" tabindex="-1"></a>exp.eo.lm <span class="ot">&lt;-</span> <span class="fu">mean</span>(X <span class="sc">%*%</span> B)</span>
+<span id="cb657-29"><a href="count-data-practice-problems.html#cb657-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb657-30"><a href="count-data-practice-problems.html#cb657-30" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit.nb)</span>
+<span id="cb657-31"><a href="count-data-practice-problems.html#cb657-31" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;divided&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb657-32"><a href="count-data-practice-problems.html#cb657-32" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit.nb)</span>
+<span id="cb657-33"><a href="count-data-practice-problems.html#cb657-33" aria-hidden="true" tabindex="-1"></a>exp.eo.nb <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">exp</span>(X <span class="sc">%*%</span> B))</span>
+<span id="cb657-34"><a href="count-data-practice-problems.html#cb657-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb657-35"><a href="count-data-practice-problems.html#cb657-35" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit.qp)</span>
+<span id="cb657-36"><a href="count-data-practice-problems.html#cb657-36" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;divided&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb657-37"><a href="count-data-practice-problems.html#cb657-37" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit.qp)</span>
+<span id="cb657-38"><a href="count-data-practice-problems.html#cb657-38" aria-hidden="true" tabindex="-1"></a>exp.eo.qp <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">exp</span>(X <span class="sc">%*%</span> B))</span>
+<span id="cb657-39"><a href="count-data-practice-problems.html#cb657-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb657-40"><a href="count-data-practice-problems.html#cb657-40" aria-hidden="true" tabindex="-1"></a>exp.eo.lm</span></code></pre></div>
 <pre><code>[1] 56.86582</code></pre>
-<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb655-1"><a href="count-data-practice-problems.html#cb655-1" aria-hidden="true" tabindex="-1"></a>exp.eo.nb</span></code></pre></div>
+<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb659-1"><a href="count-data-practice-problems.html#cb659-1" aria-hidden="true" tabindex="-1"></a>exp.eo.nb</span></code></pre></div>
 <pre><code>[1] 55.52576</code></pre>
-<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb657-1"><a href="count-data-practice-problems.html#cb657-1" aria-hidden="true" tabindex="-1"></a>exp.eo.qp</span></code></pre></div>
+<div class="sourceCode" id="cb661"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb661-1"><a href="count-data-practice-problems.html#cb661-1" aria-hidden="true" tabindex="-1"></a>exp.eo.qp</span></code></pre></div>
 <pre><code>[1] 55.41505</code></pre>
-<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb659-1"><a href="count-data-practice-problems.html#cb659-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Prediction</span></span>
-<span id="cb659-2"><a href="count-data-practice-problems.html#cb659-2" aria-hidden="true" tabindex="-1"></a>exp.eo.lm <span class="ot">&lt;-</span> <span class="fu">prediction</span>(fit.lm, <span class="at">at =</span> <span class="fu">list</span>(<span class="at">divided=</span><span class="dv">1</span>))</span>
-<span id="cb659-3"><a href="count-data-practice-problems.html#cb659-3" aria-hidden="true" tabindex="-1"></a>exp.eo.nb <span class="ot">&lt;-</span> <span class="fu">prediction</span>(fit.nb, <span class="at">at =</span> <span class="fu">list</span>(<span class="at">divided=</span><span class="dv">1</span>), <span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
-<span id="cb659-4"><a href="count-data-practice-problems.html#cb659-4" aria-hidden="true" tabindex="-1"></a>exp.eo.qp <span class="ot">&lt;-</span> <span class="fu">prediction</span>(fit.qp, <span class="at">at =</span> <span class="fu">list</span>(<span class="at">divided=</span><span class="dv">1</span>), <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
-<span id="cb659-5"><a href="count-data-practice-problems.html#cb659-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(exp.eo.lm)</span></code></pre></div>
+<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="count-data-practice-problems.html#cb663-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Prediction</span></span>
+<span id="cb663-2"><a href="count-data-practice-problems.html#cb663-2" aria-hidden="true" tabindex="-1"></a>exp.eo.lm <span class="ot">&lt;-</span> <span class="fu">prediction</span>(fit.lm, <span class="at">at =</span> <span class="fu">list</span>(<span class="at">divided=</span><span class="dv">1</span>))</span>
+<span id="cb663-3"><a href="count-data-practice-problems.html#cb663-3" aria-hidden="true" tabindex="-1"></a>exp.eo.nb <span class="ot">&lt;-</span> <span class="fu">prediction</span>(fit.nb, <span class="at">at =</span> <span class="fu">list</span>(<span class="at">divided=</span><span class="dv">1</span>), <span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb663-4"><a href="count-data-practice-problems.html#cb663-4" aria-hidden="true" tabindex="-1"></a>exp.eo.qp <span class="ot">&lt;-</span> <span class="fu">prediction</span>(fit.qp, <span class="at">at =</span> <span class="fu">list</span>(<span class="at">divided=</span><span class="dv">1</span>), <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb663-5"><a href="count-data-practice-problems.html#cb663-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(exp.eo.lm)</span></code></pre></div>
 <pre><code> at(divided) Prediction    SE     z         p lower upper
            1      56.87 1.939 29.33 4.77e-189 53.07 60.67</code></pre>
-<div class="sourceCode" id="cb661"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb661-1"><a href="count-data-practice-problems.html#cb661-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(exp.eo.nb)</span></code></pre></div>
+<div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb665-1"><a href="count-data-practice-problems.html#cb665-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(exp.eo.nb)</span></code></pre></div>
 <pre><code> at(divided) Prediction    SE     z          p lower upper
            1      55.53 1.799 30.86 4.027e-209    52 59.05</code></pre>
-<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="count-data-practice-problems.html#cb663-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(exp.eo.qp)</span></code></pre></div>
+<div class="sourceCode" id="cb667"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb667-1"><a href="count-data-practice-problems.html#cb667-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(exp.eo.qp)</span></code></pre></div>
 <pre><code> at(divided) Prediction    SE     z          p lower upper
            1      55.42 2.117 26.18 4.395e-151 51.27 59.56</code></pre>
+</details>
+<ol start="3" style="list-style-type: decimal">
+<li>We are going to build further on this example to try to reproduce Figure 2 in the authors’ paper. This is a plot that shows the percentage change in executive orders from divided to unified government with 95% confidence intervals.
+<ul>
+<li><p>These estimates are generated using the negative binomial regression models presented in Table 1. The good news is if we have followed the course notes and practice problems to this point, we have already fit both of these models.</p></li>
+<li><p>To find the percent change, we calculate the incidence rate ratios, which represent: For a one-unit change in <span class="math inline">\(x\)</span>, the expected count changes by a factor of <span class="math inline">\(exp(\hat \beta_j)\)</span>.</p>
+<ul>
+<li>This can be converted to percent change by <span class="math inline">\((IRR - 1) \times 100\)</span>. For example, if the incidence rate ratio was 1.4, then for a one-unit change in <span class="math inline">\(x\)</span>, we would see a <span class="math inline">\(40\%\)</span> change (increase) in the expected count.</li>
+<li>To find the confidence intervals, we can use <code>confint(fit)</code>, exponentiate these, and then follow the same formula for the lower bound and upper bound. Our confidence intervals will be bigger than the authors because we used a different type of standard error.</li>
+</ul></li>
+</ul></li>
+</ol>
+<img src="images/bolton2.png" style="width:80.0%" />
+<details>
+<summary>
+Try on your own, then expand for the solution.
+</summary>
+<div class="sourceCode" id="cb669"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb669-1"><a href="count-data-practice-problems.html#cb669-1" aria-hidden="true" tabindex="-1"></a>fitn <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(allnoncerm_eo <span class="sc">~</span> divided <span class="sc">+</span> inflation <span class="sc">+</span> </span>
+<span id="cb669-2"><a href="count-data-practice-problems.html#cb669-2" aria-hidden="true" tabindex="-1"></a>                 spending_percent_gdp <span class="sc">+</span> war <span class="sc">+</span> lame_duck <span class="sc">+</span></span>
+<span id="cb669-3"><a href="count-data-practice-problems.html#cb669-3" aria-hidden="true" tabindex="-1"></a>                 administration_change <span class="sc">+</span> trend <span class="sc">+</span></span>
+<span id="cb669-4"><a href="count-data-practice-problems.html#cb669-4" aria-hidden="true" tabindex="-1"></a>            <span class="sc">+</span> tr<span class="sc">+</span> taft <span class="sc">+</span> wilson <span class="sc">+</span> harding </span>
+<span id="cb669-5"><a href="count-data-practice-problems.html#cb669-5" aria-hidden="true" tabindex="-1"></a>           <span class="sc">+</span> coolidge <span class="sc">+</span> hoover, </span>
+<span id="cb669-6"><a href="count-data-practice-problems.html#cb669-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">link=</span><span class="st">&quot;log&quot;</span>, </span>
+<span id="cb669-7"><a href="count-data-practice-problems.html#cb669-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> <span class="fu">subset</span>(bolton, year <span class="sc">&lt;</span> <span class="dv">1945</span>))</span>
+<span id="cb669-8"><a href="count-data-practice-problems.html#cb669-8" aria-hidden="true" tabindex="-1"></a>fit.nb <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(allnoncerm_eo <span class="sc">~</span> divided <span class="sc">+</span> inflation <span class="sc">+</span> spending_percent_gdp <span class="sc">+</span> </span>
+<span id="cb669-9"><a href="count-data-practice-problems.html#cb669-9" aria-hidden="true" tabindex="-1"></a>               war <span class="sc">+</span> lame_duck <span class="sc">+</span> administration_change <span class="sc">+</span> trend <span class="sc">+</span> </span>
+<span id="cb669-10"><a href="count-data-practice-problems.html#cb669-10" aria-hidden="true" tabindex="-1"></a>               truman <span class="sc">+</span> ike <span class="sc">+</span> jfk <span class="sc">+</span> lbj <span class="sc">+</span> </span>
+<span id="cb669-11"><a href="count-data-practice-problems.html#cb669-11" aria-hidden="true" tabindex="-1"></a>               nixon <span class="sc">+</span> ford <span class="sc">+</span></span>
+<span id="cb669-12"><a href="count-data-practice-problems.html#cb669-12" aria-hidden="true" tabindex="-1"></a>               carter <span class="sc">+</span> reagan <span class="sc">+</span> bush41 <span class="sc">+</span> clinton <span class="sc">+</span> bush43,</span>
+<span id="cb669-13"><a href="count-data-practice-problems.html#cb669-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">link=</span><span class="st">&quot;log&quot;</span>,</span>
+<span id="cb669-14"><a href="count-data-practice-problems.html#cb669-14" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> <span class="fu">subset</span>(bolton, year <span class="sc">&gt;</span> <span class="dv">1944</span>))</span>
+<span id="cb669-15"><a href="count-data-practice-problems.html#cb669-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb669-16"><a href="count-data-practice-problems.html#cb669-16" aria-hidden="true" tabindex="-1"></a><span class="do">## Incidence Rate Ratios amd</span></span>
+<span id="cb669-17"><a href="count-data-practice-problems.html#cb669-17" aria-hidden="true" tabindex="-1"></a>irr1 <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(fitn)[<span class="st">&quot;divided&quot;</span>])</span>
+<span id="cb669-18"><a href="count-data-practice-problems.html#cb669-18" aria-hidden="true" tabindex="-1"></a>irr2 <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(fit.nb)[<span class="st">&quot;divided&quot;</span>])</span>
+<span id="cb669-19"><a href="count-data-practice-problems.html#cb669-19" aria-hidden="true" tabindex="-1"></a>ci.irr1 <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(fitn)[<span class="st">&quot;divided&quot;</span>,])</span></code></pre></div>
+<pre><code>Waiting for profiling to be done...</code></pre>
+<div class="sourceCode" id="cb671"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb671-1"><a href="count-data-practice-problems.html#cb671-1" aria-hidden="true" tabindex="-1"></a>ci.irr2 <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(fit.nb)[<span class="st">&quot;divided&quot;</span>,])</span></code></pre></div>
+<pre><code>Waiting for profiling to be done...</code></pre>
+<div class="sourceCode" id="cb673"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb673-1"><a href="count-data-practice-problems.html#cb673-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Percent change</span></span>
+<span id="cb673-2"><a href="count-data-practice-problems.html#cb673-2" aria-hidden="true" tabindex="-1"></a>pc1 <span class="ot">&lt;-</span> (irr1<span class="dv">-1</span>)<span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb673-3"><a href="count-data-practice-problems.html#cb673-3" aria-hidden="true" tabindex="-1"></a>ci.pc1 <span class="ot">&lt;-</span> (ci.irr1 <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb673-4"><a href="count-data-practice-problems.html#cb673-4" aria-hidden="true" tabindex="-1"></a>pc2 <span class="ot">&lt;-</span> (irr2<span class="dv">-1</span>)<span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb673-5"><a href="count-data-practice-problems.html#cb673-5" aria-hidden="true" tabindex="-1"></a>ci.pc2 <span class="ot">&lt;-</span> (ci.irr2 <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb673-6"><a href="count-data-practice-problems.html#cb673-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb673-7"><a href="count-data-practice-problems.html#cb673-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb673-8"><a href="count-data-practice-problems.html#cb673-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Prepare data for plotting</span></span>
+<span id="cb673-9"><a href="count-data-practice-problems.html#cb673-9" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">pc =</span> <span class="fu">c</span>(pc1, pc2), </span>
+<span id="cb673-10"><a href="count-data-practice-problems.html#cb673-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">lower=</span><span class="fu">c</span>(ci.pc1[<span class="dv">1</span>], ci.pc2[<span class="dv">1</span>]), </span>
+<span id="cb673-11"><a href="count-data-practice-problems.html#cb673-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">upper =</span> <span class="fu">c</span>(ci.pc1[<span class="dv">2</span>], ci.pc2[<span class="dv">2</span>]))</span>
+<span id="cb673-12"><a href="count-data-practice-problems.html#cb673-12" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>period <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Regime 1 </span><span class="sc">\n</span><span class="st"> 1905-1944&quot;</span>, <span class="st">&quot;Regime 2 </span><span class="sc">\n</span><span class="st"> 1945-2013&quot;</span>)</span>
+<span id="cb673-13"><a href="count-data-practice-problems.html#cb673-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb673-14"><a href="count-data-practice-problems.html#cb673-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">y=</span>pc,<span class="at">x=</span>period))<span class="sc">+</span></span>
+<span id="cb673-15"><a href="count-data-practice-problems.html#cb673-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>)<span class="sc">+</span></span>
+<span id="cb673-16"><a href="count-data-practice-problems.html#cb673-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>lower, <span class="at">ymax=</span>upper), <span class="at">width=</span>.<span class="dv">05</span>)<span class="sc">+</span></span>
+<span id="cb673-17"><a href="count-data-practice-problems.html#cb673-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Effect of Divided Government on EO Usage&quot;</span>)<span class="sc">+</span></span>
+<span id="cb673-18"><a href="count-data-practice-problems.html#cb673-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Percentage Change Divided Relative to Unified&quot;</span>)<span class="sc">+</span></span>
+<span id="cb673-19"><a href="count-data-practice-problems.html#cb673-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="sc">+</span></span>
+<span id="cb673-20"><a href="count-data-practice-problems.html#cb673-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-290-1.svg" width="672" /></p>
 </details>
 </div>
             </section>
@@ -490,7 +551,7 @@ Try on your own, then expand for the solution.
         </div>
       </div>
 <a href="quasipoisson-and-negative-binomial-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="additional-considerations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="week-8-tutorial.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

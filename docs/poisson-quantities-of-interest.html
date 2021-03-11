@@ -364,14 +364,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.5.1" data-path="quasipoisson-and-negative-binomial-models.html"><a href="quasipoisson-and-negative-binomial-models.html#negative-binomial-models"><i class="fa fa-check"></i><b>10.5.1</b> Negative Binomial Models</a></li>
 </ul></li>
 <li class="chapter" data-level="10.6" data-path="count-data-practice-problems.html"><a href="count-data-practice-problems.html"><i class="fa fa-check"></i><b>10.6</b> Count data practice problems</a></li>
-<li class="chapter" data-level="10.7" data-path="additional-considerations.html"><a href="additional-considerations.html"><i class="fa fa-check"></i><b>10.7</b> Additional Considerations</a>
+<li class="chapter" data-level="10.7" data-path="week-8-tutorial.html"><a href="week-8-tutorial.html"><i class="fa fa-check"></i><b>10.7</b> Week 8 Tutorial</a></li>
+<li class="chapter" data-level="10.8" data-path="additional-considerations.html"><a href="additional-considerations.html"><i class="fa fa-check"></i><b>10.8</b> Additional Considerations</a>
 <ul>
-<li class="chapter" data-level="10.7.1" data-path="additional-considerations.html"><a href="additional-considerations.html#offset"><i class="fa fa-check"></i><b>10.7.1</b> Offset</a></li>
+<li class="chapter" data-level="10.8.1" data-path="additional-considerations.html"><a href="additional-considerations.html#offset"><i class="fa fa-check"></i><b>10.8.1</b> Offset</a></li>
 </ul></li>
-<li class="chapter" data-level="10.8" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html"><i class="fa fa-check"></i><b>10.8</b> How to think about Zero Counts</a>
+<li class="chapter" data-level="10.9" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html"><i class="fa fa-check"></i><b>10.9</b> How to think about Zero Counts</a>
 <ul>
-<li class="chapter" data-level="10.8.1" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html#hurdle-models"><i class="fa fa-check"></i><b>10.8.1</b> Hurdle Models</a></li>
-<li class="chapter" data-level="10.8.2" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html#zero-inflated-poissonnegative-binomial"><i class="fa fa-check"></i><b>10.8.2</b> Zero Inflated Poisson/Negative binomial</a></li>
+<li class="chapter" data-level="10.9.1" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html#hurdle-models"><i class="fa fa-check"></i><b>10.9.1</b> Hurdle Models</a></li>
+<li class="chapter" data-level="10.9.2" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html#zero-inflated-poissonnegative-binomial"><i class="fa fa-check"></i><b>10.9.2</b> Zero Inflated Poisson/Negative binomial</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -482,6 +483,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><span class="math inline">\(exp(\hat \beta) = \frac{\hat \lambda_{x + 1}}{\hat \lambda_{x}}\)</span></li>
 <li>This quantity represents a ratio of the expected counts or “rates”</li>
+<li>For a one-unit change in <span class="math inline">\(x\)</span>, the expected count is estimated to change by a factor of <span class="math inline">\(exp(\hat \beta)\)</span>
+<ul>
+<li>This can be converted to a percent change interpretion by taking <span class="math inline">\((IRR - 1) \times 100\)</span></li>
+</ul></li>
 </ul></li>
 </ul>
 <p>For example, the incidence rate ratio for executive orders in a year going from unified to divided government is:</p>
@@ -494,6 +499,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 414.1552 </code></pre>
 <div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb631-1"><a href="poisson-quantities-of-interest.html#cb631-1" aria-hidden="true" tabindex="-1"></a>avg.exp.count<span class="fl">.1</span></span></code></pre></div>
 <pre><code>[1] 414.1552</code></pre>
+<p>Note how this is a percent change interpretation where</p>
+<div class="sourceCode" id="cb633"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb633-1"><a href="poisson-quantities-of-interest.html#cb633-1" aria-hidden="true" tabindex="-1"></a>((avg.exp.count<span class="fl">.1</span> <span class="sc">-</span> avg.exp.count<span class="fl">.0</span>)<span class="sc">/</span> avg.exp.count<span class="fl">.0</span>)<span class="sc">*</span> <span class="dv">100</span></span></code></pre></div>
+<pre><code>[1] 55.82903</code></pre>
+<div class="sourceCode" id="cb635"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb635-1"><a href="poisson-quantities-of-interest.html#cb635-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">exp</span>(<span class="fu">coef</span>(fit)[<span class="st">&quot;divided&quot;</span>])<span class="sc">-</span><span class="dv">1</span>)<span class="sc">*</span><span class="dv">100</span></span></code></pre></div>
+<pre><code> divided 
+55.82903 </code></pre>
+<p>For a one-unit change going from unified to divided government, we see a 55.8% increase in executive orders.</p>
 </div>
 <div id="where-poisson-is-poisonous" class="section level3" number="10.4.4">
 <h3><span class="header-section-number">10.4.4</span> Where Poisson is poisonous:</h3>
@@ -503,16 +515,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Often, our data are “overdispersed” or “underdispersed”, violating this assumption</li>
 </ul>
 <p>We can investigate this in our example. First, let’s look at the raw mean and variance of the outcome.</p>
-<div class="sourceCode" id="cb633"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb633-1"><a href="poisson-quantities-of-interest.html#cb633-1" aria-hidden="true" tabindex="-1"></a><span class="do">## whoa! very different, </span></span>
-<span id="cb633-2"><a href="poisson-quantities-of-interest.html#cb633-2" aria-hidden="true" tabindex="-1"></a><span class="do">## but the good news is we care about the *conditional* mean and variance</span></span>
-<span id="cb633-3"><a href="poisson-quantities-of-interest.html#cb633-3" aria-hidden="true" tabindex="-1"></a><span class="do">## not these raw values</span></span>
-<span id="cb633-4"><a href="poisson-quantities-of-interest.html#cb633-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">subset</span>(bolton<span class="sc">$</span>allnoncerm_eo, bolton<span class="sc">$</span>year <span class="sc">&lt;</span> <span class="dv">1945</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb637"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb637-1"><a href="poisson-quantities-of-interest.html#cb637-1" aria-hidden="true" tabindex="-1"></a><span class="do">## whoa! very different, </span></span>
+<span id="cb637-2"><a href="poisson-quantities-of-interest.html#cb637-2" aria-hidden="true" tabindex="-1"></a><span class="do">## but the good news is we care about the *conditional* mean and variance</span></span>
+<span id="cb637-3"><a href="poisson-quantities-of-interest.html#cb637-3" aria-hidden="true" tabindex="-1"></a><span class="do">## not these raw values</span></span>
+<span id="cb637-4"><a href="poisson-quantities-of-interest.html#cb637-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">subset</span>(bolton<span class="sc">$</span>allnoncerm_eo, bolton<span class="sc">$</span>year <span class="sc">&lt;</span> <span class="dv">1945</span>))</span></code></pre></div>
 <pre><code>[1] 280.975</code></pre>
-<div class="sourceCode" id="cb635"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb635-1"><a href="poisson-quantities-of-interest.html#cb635-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(<span class="fu">subset</span>(bolton<span class="sc">$</span>allnoncerm_eo, bolton<span class="sc">$</span>year <span class="sc">&lt;</span> <span class="dv">1945</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb639-1"><a href="poisson-quantities-of-interest.html#cb639-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(<span class="fu">subset</span>(bolton<span class="sc">$</span>allnoncerm_eo, bolton<span class="sc">$</span>year <span class="sc">&lt;</span> <span class="dv">1945</span>))</span></code></pre></div>
 <pre><code>[1] 9011.256</code></pre>
 <p>We can conduct a test of overdispersion in our model using <code>dispersiontest</code>. If we have a significant result and a dispersion constant <span class="math inline">\(&gt;\)</span> 0, this would suggest overdispersion.</p>
-<div class="sourceCode" id="cb637"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb637-1"><a href="poisson-quantities-of-interest.html#cb637-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER)</span>
-<span id="cb637-2"><a href="poisson-quantities-of-interest.html#cb637-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dispersiontest</span>(fit)</span></code></pre></div>
+<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="poisson-quantities-of-interest.html#cb641-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER)</span>
+<span id="cb641-2"><a href="poisson-quantities-of-interest.html#cb641-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dispersiontest</span>(fit)</span></code></pre></div>
 <pre><code>
 	Overdispersion test
 
@@ -523,19 +535,19 @@ sample estimates:
 dispersion 
   11.02527 </code></pre>
 <p>To check for overdisperson, we can also look at the standardized residuals of the model.</p>
-<div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb639-1"><a href="poisson-quantities-of-interest.html#cb639-1" aria-hidden="true" tabindex="-1"></a><span class="do">## By hand</span></span>
-<span id="cb639-2"><a href="poisson-quantities-of-interest.html#cb639-2" aria-hidden="true" tabindex="-1"></a>prvals <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>) <span class="co"># predicted values</span></span>
-<span id="cb639-3"><a href="poisson-quantities-of-interest.html#cb639-3" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">subset</span>(bolton<span class="sc">$</span>allnoncerm_eo, bolton<span class="sc">$</span>year <span class="sc">&lt;</span> <span class="dv">1945</span>) <span class="sc">-</span> prvals <span class="co"># residual y - predicted values</span></span>
-<span id="cb639-4"><a href="poisson-quantities-of-interest.html#cb639-4" aria-hidden="true" tabindex="-1"></a>sres <span class="ot">&lt;-</span> res<span class="sc">/</span><span class="fu">sqrt</span>(prvals) <span class="co"># standardized residual</span></span>
-<span id="cb639-5"><a href="poisson-quantities-of-interest.html#cb639-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb639-6"><a href="poisson-quantities-of-interest.html#cb639-6" aria-hidden="true" tabindex="-1"></a><span class="do">## automatic in R</span></span>
-<span id="cb639-7"><a href="poisson-quantities-of-interest.html#cb639-7" aria-hidden="true" tabindex="-1"></a>sres <span class="ot">&lt;-</span>  <span class="fu">residuals</span>(fit,<span class="at">type=</span><span class="st">&quot;pearson&quot;</span>) <span class="co"># automatic</span></span></code></pre></div>
+<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="poisson-quantities-of-interest.html#cb643-1" aria-hidden="true" tabindex="-1"></a><span class="do">## By hand</span></span>
+<span id="cb643-2"><a href="poisson-quantities-of-interest.html#cb643-2" aria-hidden="true" tabindex="-1"></a>prvals <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>) <span class="co"># predicted values</span></span>
+<span id="cb643-3"><a href="poisson-quantities-of-interest.html#cb643-3" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">subset</span>(bolton<span class="sc">$</span>allnoncerm_eo, bolton<span class="sc">$</span>year <span class="sc">&lt;</span> <span class="dv">1945</span>) <span class="sc">-</span> prvals <span class="co"># residual y - predicted values</span></span>
+<span id="cb643-4"><a href="poisson-quantities-of-interest.html#cb643-4" aria-hidden="true" tabindex="-1"></a>sres <span class="ot">&lt;-</span> res<span class="sc">/</span><span class="fu">sqrt</span>(prvals) <span class="co"># standardized residual</span></span>
+<span id="cb643-5"><a href="poisson-quantities-of-interest.html#cb643-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb643-6"><a href="poisson-quantities-of-interest.html#cb643-6" aria-hidden="true" tabindex="-1"></a><span class="do">## automatic in R</span></span>
+<span id="cb643-7"><a href="poisson-quantities-of-interest.html#cb643-7" aria-hidden="true" tabindex="-1"></a>sres <span class="ot">&lt;-</span>  <span class="fu">residuals</span>(fit,<span class="at">type=</span><span class="st">&quot;pearson&quot;</span>) <span class="co"># automatic</span></span></code></pre></div>
 <p>We can graphically look at the standardized residuals by levels of the predicted values from our regression. Here, we don’t want residuals that exceed +/- 2.</p>
-<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="poisson-quantities-of-interest.html#cb640-1" aria-hidden="true" tabindex="-1"></a><span class="do">## don&#39;t want values above 2 or below -2</span></span>
-<span id="cb640-2"><a href="poisson-quantities-of-interest.html#cb640-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(prvals, sres,</span>
-<span id="cb640-3"><a href="poisson-quantities-of-interest.html#cb640-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;standardized residuals&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;predicted values&quot;</span>)</span>
-<span id="cb640-4"><a href="poisson-quantities-of-interest.html#cb640-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">2</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>))</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-281-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb644"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb644-1"><a href="poisson-quantities-of-interest.html#cb644-1" aria-hidden="true" tabindex="-1"></a><span class="do">## don&#39;t want values above 2 or below -2</span></span>
+<span id="cb644-2"><a href="poisson-quantities-of-interest.html#cb644-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(prvals, sres,</span>
+<span id="cb644-3"><a href="poisson-quantities-of-interest.html#cb644-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;standardized residuals&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;predicted values&quot;</span>)</span>
+<span id="cb644-4"><a href="poisson-quantities-of-interest.html#cb644-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">2</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>))</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-282-1.svg" width="672" /></p>
 <p>We are in danger!! This model suffers from overdispersion. We have two options</p>
 <ul>
 <li>Check our model. Do we think it is misspecified in terms of the covariates? Is it suffering from omitted variable bias? We can change the specification and re-run the test.</li>

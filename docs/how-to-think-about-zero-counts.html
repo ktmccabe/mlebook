@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>10.8 How to think about Zero Counts | MLE for Political Science</title>
-  <meta name="description" content="10.8 How to think about Zero Counts | MLE for Political Science" />
+  <title>10.9 How to think about Zero Counts | MLE for Political Science</title>
+  <meta name="description" content="10.9 How to think about Zero Counts | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="10.8 How to think about Zero Counts | MLE for Political Science" />
+  <meta property="og:title" content="10.9 How to think about Zero Counts | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="10.8 How to think about Zero Counts | MLE for Political Science" />
+  <meta name="twitter:title" content="10.9 How to think about Zero Counts | MLE for Political Science" />
   
   
   
@@ -364,14 +364,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.5.1" data-path="quasipoisson-and-negative-binomial-models.html"><a href="quasipoisson-and-negative-binomial-models.html#negative-binomial-models"><i class="fa fa-check"></i><b>10.5.1</b> Negative Binomial Models</a></li>
 </ul></li>
 <li class="chapter" data-level="10.6" data-path="count-data-practice-problems.html"><a href="count-data-practice-problems.html"><i class="fa fa-check"></i><b>10.6</b> Count data practice problems</a></li>
-<li class="chapter" data-level="10.7" data-path="additional-considerations.html"><a href="additional-considerations.html"><i class="fa fa-check"></i><b>10.7</b> Additional Considerations</a>
+<li class="chapter" data-level="10.7" data-path="week-8-tutorial.html"><a href="week-8-tutorial.html"><i class="fa fa-check"></i><b>10.7</b> Week 8 Tutorial</a></li>
+<li class="chapter" data-level="10.8" data-path="additional-considerations.html"><a href="additional-considerations.html"><i class="fa fa-check"></i><b>10.8</b> Additional Considerations</a>
 <ul>
-<li class="chapter" data-level="10.7.1" data-path="additional-considerations.html"><a href="additional-considerations.html#offset"><i class="fa fa-check"></i><b>10.7.1</b> Offset</a></li>
+<li class="chapter" data-level="10.8.1" data-path="additional-considerations.html"><a href="additional-considerations.html#offset"><i class="fa fa-check"></i><b>10.8.1</b> Offset</a></li>
 </ul></li>
-<li class="chapter" data-level="10.8" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html"><i class="fa fa-check"></i><b>10.8</b> How to think about Zero Counts</a>
+<li class="chapter" data-level="10.9" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html"><i class="fa fa-check"></i><b>10.9</b> How to think about Zero Counts</a>
 <ul>
-<li class="chapter" data-level="10.8.1" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html#hurdle-models"><i class="fa fa-check"></i><b>10.8.1</b> Hurdle Models</a></li>
-<li class="chapter" data-level="10.8.2" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html#zero-inflated-poissonnegative-binomial"><i class="fa fa-check"></i><b>10.8.2</b> Zero Inflated Poisson/Negative binomial</a></li>
+<li class="chapter" data-level="10.9.1" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html#hurdle-models"><i class="fa fa-check"></i><b>10.9.1</b> Hurdle Models</a></li>
+<li class="chapter" data-level="10.9.2" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html#zero-inflated-poissonnegative-binomial"><i class="fa fa-check"></i><b>10.9.2</b> Zero Inflated Poisson/Negative binomial</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -391,8 +392,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="how-to-think-about-zero-counts" class="section level2" number="10.8">
-<h2><span class="header-section-number">10.8</span> How to think about Zero Counts</h2>
+<div id="how-to-think-about-zero-counts" class="section level2" number="10.9">
+<h2><span class="header-section-number">10.9</span> How to think about Zero Counts</h2>
 <p>Sometimes our outcome data have an excessive number of zeroes. For example, perhaps there are a lot of people that never post on social media at all, and then there are a smaller number of those that do, and they may post in any positive number of times.</p>
 <p>For these, we might think there are two decisions</p>
 <ul>
@@ -400,8 +401,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>How many times to post? Ok this sounds more like Poisson or Negative Binomial</li>
 </ul>
 <p>A large number of zeroes is not necessarily something that the Poisson and Negative binomial distributions would predict with high probability. For that reason, we might want to use a modeling strategy that accounts for zero excess. We will discuss two: Hurdle models and Zero-inflated poisson/negative binomial.</p>
-<div id="hurdle-models" class="section level3" number="10.8.1">
-<h3><span class="header-section-number">10.8.1</span> Hurdle Models</h3>
+<div id="hurdle-models" class="section level3" number="10.9.1">
+<h3><span class="header-section-number">10.9.1</span> Hurdle Models</h3>
 <p>Hurdle models may be useful when there are possibly sequential steps in achieving a positive count. The above example could motivate a hurdle model. First, someone decides if they want to post, and then if they want to post, they may post any positive <span class="math inline">\(&gt;0\)</span> number of times.</p>
 <ul>
 <li>There is a probability that governs the likelihood of not posting (<span class="math inline">\(Pr(Y_i = 0) = \pi\)</span>)</li>
@@ -409,8 +410,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>This <a href="https://data.library.virginia.edu/getting-started-with-hurdle-models/">post</a> from the University of Virginia explains how to fit hurdle models in R.</p>
 </div>
-<div id="zero-inflated-poissonnegative-binomial" class="section level3" number="10.8.2">
-<h3><span class="header-section-number">10.8.2</span> Zero Inflated Poisson/Negative binomial</h3>
+<div id="zero-inflated-poissonnegative-binomial" class="section level3" number="10.9.2">
+<h3><span class="header-section-number">10.9.2</span> Zero Inflated Poisson/Negative binomial</h3>
 <p>When you have excess zeroes, the intuitively named zero-inflated poisson or negative binomial model may also be appropriate. These are “mixture models” because there is a mixture of two distributions: the Bernoulli and Poisson/Negative Binomial. Here we think that there are two types of zeroes in the data.</p>
 <ul>
 <li>This is only appropriate to the extent that there are some observations that are truly ineligible from having a positive count– that have zero probability of having a count <span class="math inline">\(&gt;\)</span> 0.

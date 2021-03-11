@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>10.7 Week 8 Tutorial | MLE for Political Science</title>
+  <meta name="description" content="10.7 Week 8 Tutorial | MLE for Political Science" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="10.7 Week 8 Tutorial | MLE for Political Science" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="10.7 Week 8 Tutorial | MLE for Political Science" />
+  
+  
+  
+
+<meta name="author" content="Instructor: Katie McCabe" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="count-data-practice-problems.html"/>
+<link rel="next" href="additional-considerations.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/vembedr-0.1.4/css/vembedr.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Course Overview</a></li>
+<li class="chapter" data-level="2" data-path="rover.html"><a href="rover.html"><i class="fa fa-check"></i><b>2</b> R Overview</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html"><i class="fa fa-check"></i><b>2.1</b> First Time with R and RStudio</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#open-rstudio"><i class="fa fa-check"></i><b>2.1.1</b> <strong>Open RStudio</strong></a></li>
+<li class="chapter" data-level="2.1.2" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#using-r-as-a-calculator"><i class="fa fa-check"></i><b>2.1.2</b> <strong>Using R as a Calculator</strong></a></li>
+<li class="chapter" data-level="2.1.3" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#working-in-an-r-script"><i class="fa fa-check"></i><b>2.1.3</b> <strong>Working in an R Script</strong></a></li>
+<li class="chapter" data-level="2.1.4" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#preparing-your-r-script"><i class="fa fa-check"></i><b>2.1.4</b> <strong>Preparing your R script</strong></a></li>
+<li class="chapter" data-level="2.1.5" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#executing-commands-in-your-r-script"><i class="fa fa-check"></i><b>2.1.5</b> <strong>Executing Commands in your R script</strong></a></li>
+<li class="chapter" data-level="2.1.6" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#objects"><i class="fa fa-check"></i><b>2.1.6</b> <strong>Objects</strong></a></li>
+<li class="chapter" data-level="2.1.7" data-path="first-time-with-r-and-rstudio.html"><a href="first-time-with-r-and-rstudio.html#practice"><i class="fa fa-check"></i><b>2.1.7</b> <strong>Practice</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="tutorials.html"><a href="tutorials.html"><i class="fa fa-check"></i><b>2.2</b> Tutorials</a></li>
+<li class="chapter" data-level="2.3" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>2.3</b> Data Wrangling</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-uninformative-variable-names"><i class="fa fa-check"></i><b>2.3.1</b> Dealing with Uninformative Variable Names</a></li>
+<li class="chapter" data-level="2.3.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-missing-data"><i class="fa fa-check"></i><b>2.3.2</b> Dealing with Missing Data</a></li>
+<li class="chapter" data-level="2.3.3" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-variable-codings-that-arent-quite-right"><i class="fa fa-check"></i><b>2.3.3</b> Dealing with Variable Codings that Aren’t Quite Right</a></li>
+<li class="chapter" data-level="2.3.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-incomplete-data-merging"><i class="fa fa-check"></i><b>2.3.4</b> Dealing with Incomplete Data (Merging!)</a></li>
+<li class="chapter" data-level="2.3.5" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-poorly-shaped-data"><i class="fa fa-check"></i><b>2.3.5</b> Dealing with Poorly Shaped Data</a></li>
+<li class="chapter" data-level="2.3.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reproducing-your-steps"><i class="fa fa-check"></i><b>2.3.6</b> Reproducing your steps</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html"><i class="fa fa-check"></i><b>2.4</b> Tools for writing up results</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#r-markdown"><i class="fa fa-check"></i><b>2.4.1</b> R Markdown</a></li>
+<li class="chapter" data-level="2.4.2" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#latex"><i class="fa fa-check"></i><b>2.4.2</b> LaTex</a></li>
+<li class="chapter" data-level="2.4.3" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#formatting-and-exporting-r-results"><i class="fa fa-check"></i><b>2.4.3</b> Formatting and Exporting R Results</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="mathematical-operations.html"><a href="mathematical-operations.html"><i class="fa fa-check"></i><b>3.1</b> Mathematical Operations</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="mathematical-operations.html"><a href="mathematical-operations.html#order-of-operations"><i class="fa fa-check"></i><b>3.1.1</b> <strong>Order of Operations</strong></a></li>
+<li class="chapter" data-level="3.1.2" data-path="mathematical-operations.html"><a href="mathematical-operations.html#exponents"><i class="fa fa-check"></i><b>3.1.2</b> <strong>Exponents</strong></a></li>
+<li class="chapter" data-level="3.1.3" data-path="mathematical-operations.html"><a href="mathematical-operations.html#summations-and-products"><i class="fa fa-check"></i><b>3.1.3</b> <strong>Summations and Products</strong></a></li>
+<li class="chapter" data-level="3.1.4" data-path="mathematical-operations.html"><a href="mathematical-operations.html#logarithms"><i class="fa fa-check"></i><b>3.1.4</b> <strong>Logarithms</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="mathematical-operations-in-r.html"><a href="mathematical-operations-in-r.html"><i class="fa fa-check"></i><b>3.2</b> Mathematical Operations in R</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="mathematical-operations-in-r.html"><a href="mathematical-operations-in-r.html#pemdas"><i class="fa fa-check"></i><b>3.2.1</b> PEMDAS</a></li>
+<li class="chapter" data-level="3.2.2" data-path="mathematical-operations-in-r.html"><a href="mathematical-operations-in-r.html#exponents-1"><i class="fa fa-check"></i><b>3.2.2</b> Exponents</a></li>
+<li class="chapter" data-level="3.2.3" data-path="mathematical-operations-in-r.html"><a href="mathematical-operations-in-r.html#summations"><i class="fa fa-check"></i><b>3.2.3</b> Summations</a></li>
+<li class="chapter" data-level="3.2.4" data-path="mathematical-operations-in-r.html"><a href="mathematical-operations-in-r.html#logarithms-1"><i class="fa fa-check"></i><b>3.2.4</b> Logarithms</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="derivatives.html"><a href="derivatives.html"><i class="fa fa-check"></i><b>3.3</b> Derivatives</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="derivatives.html"><a href="derivatives.html#derivatives-1"><i class="fa fa-check"></i><b>3.3.1</b> <strong>Derivatives</strong></a></li>
+<li class="chapter" data-level="3.3.2" data-path="derivatives.html"><a href="derivatives.html#critical-points-for-minima-or-maxima"><i class="fa fa-check"></i><b>3.3.2</b> <strong>Critical Points for Minima or Maxima</strong></a></li>
+<li class="chapter" data-level="3.3.3" data-path="derivatives.html"><a href="derivatives.html#common-derivative-rules"><i class="fa fa-check"></i><b>3.3.3</b> <strong>Common Derivative Rules</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="vectors-and-matrices.html"><a href="vectors-and-matrices.html"><i class="fa fa-check"></i><b>3.4</b> Vectors and Matrices</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="vectors-and-matrices.html"><a href="vectors-and-matrices.html#matrix-basics"><i class="fa fa-check"></i><b>3.4.1</b> <strong>Matrix Basics</strong></a></li>
+<li class="chapter" data-level="3.4.2" data-path="vectors-and-matrices.html"><a href="vectors-and-matrices.html#matrix-operations"><i class="fa fa-check"></i><b>3.4.2</b> Matrix Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html"><i class="fa fa-check"></i><b>3.5</b> Additional Matrix Tidbits that Will Come Up</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html#transpose"><i class="fa fa-check"></i><b>3.5.1</b> <strong>Transpose</strong></a></li>
+<li class="chapter" data-level="3.5.2" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html#additional-matrix-properties-and-rules"><i class="fa fa-check"></i><b>3.5.2</b> <strong>Additional Matrix Properties and Rules</strong></a></li>
+<li class="chapter" data-level="3.5.3" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html#matrix-rules"><i class="fa fa-check"></i><b>3.5.3</b> <strong>Matrix Rules</strong></a></li>
+<li class="chapter" data-level="3.5.4" data-path="additional-matrix-tidbits-that-will-come-up.html"><a href="additional-matrix-tidbits-that-will-come-up.html#derivatives-with-matrices-and-vectors"><i class="fa fa-check"></i><b>3.5.4</b> <strong>Derivatives with Matrices and Vectors</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="practice-problems.html"><a href="practice-problems.html"><i class="fa fa-check"></i><b>3.6</b> Practice Problems</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="practice-problems.html"><a href="practice-problems.html#practice-problem-solutions"><i class="fa fa-check"></i><b>3.6.1</b> Practice Problem Solutions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ols.html"><a href="ols.html"><i class="fa fa-check"></i><b>4</b> Review of OLS</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introducing-ols-regression.html"><a href="introducing-ols-regression.html"><i class="fa fa-check"></i><b>4.1</b> Introducing OLS Regression</a></li>
+<li class="chapter" data-level="4.2" data-path="diving-deeper-into-ols-matrix-representation.html"><a href="diving-deeper-into-ols-matrix-representation.html"><i class="fa fa-check"></i><b>4.2</b> Diving Deeper into OLS Matrix Representation</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="diving-deeper-into-ols-matrix-representation.html"><a href="diving-deeper-into-ols-matrix-representation.html#estimating-the-coefficients"><i class="fa fa-check"></i><b>4.2.1</b> Estimating the Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html"><i class="fa fa-check"></i><b>4.3</b> OLS Regression in R</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#example-predicting-current-election-votes-from-past-election-votes"><i class="fa fa-check"></i><b>4.3.1</b> Example: Predicting Current Election Votes from Past Election Votes</a></li>
+<li class="chapter" data-level="4.3.2" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#plotting-regression-results"><i class="fa fa-check"></i><b>4.3.2</b> Plotting Regression Results</a></li>
+<li class="chapter" data-level="4.3.3" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#finding-coefficients-without-lm"><i class="fa fa-check"></i><b>4.3.3</b> Finding Coefficients without <code>lm</code></a></li>
+<li class="chapter" data-level="4.3.4" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#ols-practice-problems"><i class="fa fa-check"></i><b>4.3.4</b> OLS Practice Problems</a></li>
+<li class="chapter" data-level="4.3.5" data-path="ols-regression-in-r.html"><a href="ols-regression-in-r.html#code-for-solutions"><i class="fa fa-check"></i><b>4.3.5</b> Code for solutions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="week-1-thursday-tutorial.html"><a href="week-1-thursday-tutorial.html"><i class="fa fa-check"></i><b>4.4</b> Week 1 Thursday Tutorial</a></li>
+<li class="chapter" data-level="4.5" data-path="uncertainty-and-regression.html"><a href="uncertainty-and-regression.html"><i class="fa fa-check"></i><b>4.5</b> Uncertainty and Regression</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="uncertainty-and-regression.html"><a href="uncertainty-and-regression.html#variance-of-the-coefficients"><i class="fa fa-check"></i><b>4.5.1</b> Variance of the Coefficients</a></li>
+<li class="chapter" data-level="4.5.2" data-path="uncertainty-and-regression.html"><a href="uncertainty-and-regression.html#hypothesis-testing"><i class="fa fa-check"></i><b>4.5.2</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="4.5.3" data-path="uncertainty-and-regression.html"><a href="uncertainty-and-regression.html#goodness-of-fit"><i class="fa fa-check"></i><b>4.5.3</b> Goodness of Fit</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="generating-predictions-from-regression-models.html"><a href="generating-predictions-from-regression-models.html"><i class="fa fa-check"></i><b>4.6</b> Generating predictions from regression models</a></li>
+<li class="chapter" data-level="4.7" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html"><i class="fa fa-check"></i><b>4.7</b> Wrapping up OLS</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="practice-problems.html"><a href="practice-problems.html#practice-problems"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
+<li class="chapter" data-level="4.7.2" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problem-code-for-solutions"><i class="fa fa-check"></i><b>4.7.2</b> Practice Problem Code for Solutions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="week-2-thursday-example.html"><a href="week-2-thursday-example.html"><i class="fa fa-check"></i><b>4.8</b> Week 2 Thursday Example</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="mle.html"><a href="mle.html"><i class="fa fa-check"></i><b>5</b> Introduction to MLE</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="what-is-likelihood.html"><a href="what-is-likelihood.html"><i class="fa fa-check"></i><b>5.1</b> What is likelihood?</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="what-is-likelihood.html"><a href="what-is-likelihood.html#summarizing-steps-for-maximum-likelihood"><i class="fa fa-check"></i><b>5.1.1</b> Summarizing Steps for Maximum Likelihood</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="generalized-linear-models.html"><a href="generalized-linear-models.html"><i class="fa fa-check"></i><b>5.2</b> Generalized Linear Models</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="generalized-linear-models.html"><a href="generalized-linear-models.html#glm-model."><i class="fa fa-check"></i><b>5.2.1</b> GLM Model.</a></li>
+<li class="chapter" data-level="5.2.2" data-path="generalized-linear-models.html"><a href="generalized-linear-models.html#linking-likelihood-and-the-glm"><i class="fa fa-check"></i><b>5.2.2</b> Linking likelihood and the GLM</a></li>
+<li class="chapter" data-level="5.2.3" data-path="generalized-linear-models.html"><a href="generalized-linear-models.html#glm-in-r"><i class="fa fa-check"></i><b>5.2.3</b> GLM in R</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="mle-estimation.html"><a href="mle-estimation.html"><i class="fa fa-check"></i><b>5.3</b> MLE Estimation</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="mle-estimation.html"><a href="mle-estimation.html#deriving-estimators"><i class="fa fa-check"></i><b>5.3.1</b> Deriving Estimators</a></li>
+<li class="chapter" data-level="5.3.2" data-path="mle-estimation.html"><a href="mle-estimation.html#score-function"><i class="fa fa-check"></i><b>5.3.2</b> Score function</a></li>
+<li class="chapter" data-level="5.3.3" data-path="mle-estimation.html"><a href="mle-estimation.html#hessian-and-information-matrix"><i class="fa fa-check"></i><b>5.3.3</b> Hessian and Information Matrix</a></li>
+<li class="chapter" data-level="5.3.4" data-path="mle-estimation.html"><a href="mle-estimation.html#mle-estimation-algorithm"><i class="fa fa-check"></i><b>5.3.4</b> MLE Estimation Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="mle-properties.html"><a href="mle-properties.html"><i class="fa fa-check"></i><b>5.4</b> MLE Properties</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="mle-properties.html"><a href="mle-properties.html#hypothesis-tests"><i class="fa fa-check"></i><b>5.4.1</b> Hypothesis Tests</a></li>
+<li class="chapter" data-level="5.4.2" data-path="mle-properties.html"><a href="mle-properties.html#model-output-in-r"><i class="fa fa-check"></i><b>5.4.2</b> Model Output in R</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="binary.html"><a href="binary.html"><i class="fa fa-check"></i><b>6</b> Binary Dependent Variables</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="data-generating-process.html"><a href="data-generating-process.html"><i class="fa fa-check"></i><b>6.1</b> Data Generating Process</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="mle-estimation.html"><a href="mle-estimation.html#mle-estimation"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="r-code-for-fitting-logistic-regression.html"><a href="r-code-for-fitting-logistic-regression.html"><i class="fa fa-check"></i><b>6.2</b> R code for fitting logistic regression</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="r-code-for-fitting-logistic-regression.html"><a href="r-code-for-fitting-logistic-regression.html#writing-down-the-regression-model"><i class="fa fa-check"></i><b>6.2.1</b> Writing down the regression model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="probit-regression.html"><a href="probit-regression.html"><i class="fa fa-check"></i><b>6.3</b> Probit Regression</a></li>
+<li class="chapter" data-level="6.4" data-path="to-logit-or-to-probit.html"><a href="to-logit-or-to-probit.html"><i class="fa fa-check"></i><b>6.4</b> To logit or to probit?</a></li>
+<li class="chapter" data-level="6.5" data-path="latent-propensity-representation.html"><a href="latent-propensity-representation.html"><i class="fa fa-check"></i><b>6.5</b> Latent propensity representation</a></li>
+<li class="chapter" data-level="6.6" data-path="linear-probability-models.html"><a href="linear-probability-models.html"><i class="fa fa-check"></i><b>6.6</b> Linear Probability Models</a></li>
+<li class="chapter" data-level="6.7" data-path="week-3-tutorial.html"><a href="week-3-tutorial.html"><i class="fa fa-check"></i><b>6.7</b> Week 3 Tutorial</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="week-3-tutorial.html"><a href="week-3-tutorial.html#loading-data-and-fitting-glm"><i class="fa fa-check"></i><b>6.7.1</b> Loading data and fitting glm</a></li>
+<li class="chapter" data-level="6.7.2" data-path="week-3-tutorial.html"><a href="week-3-tutorial.html#numeric-optimization"><i class="fa fa-check"></i><b>6.7.2</b> Numeric Optimization</a></li>
+<li class="chapter" data-level="6.7.3" data-path="week-3-tutorial.html"><a href="week-3-tutorial.html#predicted-probabilities"><i class="fa fa-check"></i><b>6.7.3</b> Predicted Probabilities</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="qoi.html"><a href="qoi.html"><i class="fa fa-check"></i><b>7</b> Quantities of Interest</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="using-the-response-functions-to-generate-quantities-of-interest.html"><a href="using-the-response-functions-to-generate-quantities-of-interest.html"><i class="fa fa-check"></i><b>7.1</b> Using the response functions to generate quantities of interest</a></li>
+<li class="chapter" data-level="7.2" data-path="qoi-at-designated-values.html"><a href="qoi-at-designated-values.html"><i class="fa fa-check"></i><b>7.2</b> QOI at Designated Values</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="qoi-at-designated-values.html"><a href="qoi-at-designated-values.html#marginal-effects"><i class="fa fa-check"></i><b>7.2.1</b> Marginal Effects</a></li>
+<li class="chapter" data-level="7.2.2" data-path="qoi-at-designated-values.html"><a href="qoi-at-designated-values.html#marginal-effects-at-the-mean"><i class="fa fa-check"></i><b>7.2.2</b> Marginal effects at the mean</a></li>
+<li class="chapter" data-level="7.2.3" data-path="qoi-at-designated-values.html"><a href="qoi-at-designated-values.html#marginal-effects-at-representative-values"><i class="fa fa-check"></i><b>7.2.3</b> Marginal effects at representative values</a></li>
+<li class="chapter" data-level="7.2.4" data-path="qoi-at-designated-values.html"><a href="qoi-at-designated-values.html#average-marginal-effects"><i class="fa fa-check"></i><b>7.2.4</b> Average marginal effects</a></li>
+<li class="chapter" data-level="7.2.5" data-path="qoi-at-designated-values.html"><a href="qoi-at-designated-values.html#prediction-and-margins-packages."><i class="fa fa-check"></i><b>7.2.5</b> <code>prediction</code> and <code>margins</code> packages.</a></li>
+<li class="chapter" data-level="7.2.6" data-path="qoi-at-designated-values.html"><a href="qoi-at-designated-values.html#qoi-practice-problems"><i class="fa fa-check"></i><b>7.2.6</b> QOI Practice Problems</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i><b>7.3</b> Uncertainty</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="uncertainty.html"><a href="uncertainty.html#bootstrapping"><i class="fa fa-check"></i><b>7.3.1</b> Bootstrapping</a></li>
+<li class="chapter" data-level="7.3.2" data-path="uncertainty.html"><a href="uncertainty.html#simulated-confidence-intervals"><i class="fa fa-check"></i><b>7.3.2</b> Simulated Confidence Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="visualizing-results.html"><a href="visualizing-results.html"><i class="fa fa-check"></i><b>7.4</b> Visualizing Results</a></li>
+<li class="chapter" data-level="7.5" data-path="additional-r-shortcuts.html"><a href="additional-r-shortcuts.html"><i class="fa fa-check"></i><b>7.5</b> Additional R shortcuts</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="additional-r-shortcuts.html"><a href="additional-r-shortcuts.html#prediction"><i class="fa fa-check"></i><b>7.5.1</b> Prediction</a></li>
+<li class="chapter" data-level="7.5.2" data-path="additional-r-shortcuts.html"><a href="additional-r-shortcuts.html#margins"><i class="fa fa-check"></i><b>7.5.2</b> Margins</a></li>
+<li class="chapter" data-level="7.5.3" data-path="additional-r-shortcuts.html"><a href="additional-r-shortcuts.html#zelig"><i class="fa fa-check"></i><b>7.5.3</b> Zelig</a></li>
+<li class="chapter" data-level="7.5.4" data-path="additional-r-shortcuts.html"><a href="additional-r-shortcuts.html#using-expand.grid"><i class="fa fa-check"></i><b>7.5.4</b> Using <code>expand.grid</code></a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="week-4-tutorial.html"><a href="week-4-tutorial.html"><i class="fa fa-check"></i><b>7.6</b> Week 4 Tutorial</a></li>
+<li class="chapter" data-level="7.7" data-path="putting-everything-together.html"><a href="putting-everything-together.html"><i class="fa fa-check"></i><b>7.7</b> Putting everything together</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="ordinal.html"><a href="ordinal.html"><i class="fa fa-check"></i><b>8</b> Ordinal Outcomes</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="ordinal-outcome-data.html"><a href="ordinal-outcome-data.html"><i class="fa fa-check"></i><b>8.1</b> Ordinal Outcome Data</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="ordinal-outcome-data.html"><a href="ordinal-outcome-data.html#ordinal-model"><i class="fa fa-check"></i><b>8.1.1</b> Ordinal Model</a></li>
+<li class="chapter" data-level="8.1.2" data-path="ordinal-outcome-data.html"><a href="ordinal-outcome-data.html#interpretation"><i class="fa fa-check"></i><b>8.1.2</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="likelihood-framework.html"><a href="likelihood-framework.html"><i class="fa fa-check"></i><b>8.2</b> Likelihood Framework</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="likelihood-framework.html"><a href="likelihood-framework.html#likelihood"><i class="fa fa-check"></i><b>8.2.1</b> Likelihood</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="fitting-ordinal-models-in-r.html"><a href="fitting-ordinal-models-in-r.html"><i class="fa fa-check"></i><b>8.3</b> Fitting Ordinal Models in R</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="fitting-ordinal-models-in-r.html"><a href="fitting-ordinal-models-in-r.html#quantities-of-interest"><i class="fa fa-check"></i><b>8.3.1</b> Quantities of Interest</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="assumptions.html"><a href="assumptions.html"><i class="fa fa-check"></i><b>8.4</b> Assumptions</a></li>
+<li class="chapter" data-level="8.5" data-path="ordinal-practice-problems.html"><a href="ordinal-practice-problems.html"><i class="fa fa-check"></i><b>8.5</b> Ordinal Practice Problems</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="ordinal-practice-problems.html"><a href="ordinal-practice-problems.html#a-note-on-robust-standard-errors"><i class="fa fa-check"></i><b>8.5.1</b> A note on robust standard errors</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="week-6-tutorial.html"><a href="week-6-tutorial.html"><i class="fa fa-check"></i><b>8.6</b> Week 6 Tutorial</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ml.html"><a href="ml.html"><i class="fa fa-check"></i><b>9</b> Multinomial Outcomes</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="overview-of-nominal-data.html"><a href="overview-of-nominal-data.html"><i class="fa fa-check"></i><b>9.1</b> Overview of Nominal Data</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="overview-of-nominal-data.html"><a href="overview-of-nominal-data.html#multinomial-likelihood"><i class="fa fa-check"></i><b>9.1.1</b> Multinomial Likelihood</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="motivating-example.html"><a href="motivating-example.html"><i class="fa fa-check"></i><b>9.2</b> Motivating Example</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="motivating-example.html"><a href="motivating-example.html#assumption-and-considerations"><i class="fa fa-check"></i><b>9.2.1</b> Assumption and Considerations</a></li>
+<li class="chapter" data-level="9.2.2" data-path="motivating-example.html"><a href="motivating-example.html#key-assumption-independence-of-irrelevant-alternatives"><i class="fa fa-check"></i><b>9.2.2</b> Key Assumption: Independence of Irrelevant Alternatives</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="running-multinomial-logit-in-r.html"><a href="running-multinomial-logit-in-r.html"><i class="fa fa-check"></i><b>9.3</b> Running multinomial logit in R</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="running-multinomial-logit-in-r.html"><a href="running-multinomial-logit-in-r.html#multinomial-quantities-of-interest"><i class="fa fa-check"></i><b>9.3.1</b> Multinomial Quantities of Interest</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="practice-problems-for-multinomial.html"><a href="practice-problems-for-multinomial.html"><i class="fa fa-check"></i><b>9.4</b> Practice Problems for Multinomial</a></li>
+<li class="chapter" data-level="9.5" data-path="week-7-tutorial.html"><a href="week-7-tutorial.html"><i class="fa fa-check"></i><b>9.5</b> Week 7 Tutorial</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="count.html"><a href="count.html"><i class="fa fa-check"></i><b>10</b> Count data</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="overview-of-count-data.html"><a href="overview-of-count-data.html"><i class="fa fa-check"></i><b>10.1</b> Overview of Count Data</a></li>
+<li class="chapter" data-level="10.2" data-path="poisson-model.html"><a href="poisson-model.html"><i class="fa fa-check"></i><b>10.2</b> Poisson Model</a></li>
+<li class="chapter" data-level="10.3" data-path="motivating-example-for-count-data.html"><a href="motivating-example-for-count-data.html"><i class="fa fa-check"></i><b>10.3</b> Motivating Example for Count Data</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="motivating-example-for-count-data.html"><a href="motivating-example-for-count-data.html#fitting-poisson-in-r"><i class="fa fa-check"></i><b>10.3.1</b> Fitting Poisson in R</a></li>
+<li class="chapter" data-level="10.3.2" data-path="motivating-example-for-count-data.html"><a href="motivating-example-for-count-data.html#interpreting-regression-output"><i class="fa fa-check"></i><b>10.3.2</b> Interpreting regression output</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="poisson-quantities-of-interest.html"><a href="poisson-quantities-of-interest.html"><i class="fa fa-check"></i><b>10.4</b> Poisson Quantities of Interest</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="poisson-quantities-of-interest.html"><a href="poisson-quantities-of-interest.html#expected-counts"><i class="fa fa-check"></i><b>10.4.1</b> Expected Counts</a></li>
+<li class="chapter" data-level="10.4.2" data-path="poisson-quantities-of-interest.html"><a href="poisson-quantities-of-interest.html#sidenote-multiplicative-coefficient-interpretation"><i class="fa fa-check"></i><b>10.4.2</b> Sidenote: Multiplicative coefficient interpretation</a></li>
+<li class="chapter" data-level="10.4.3" data-path="poisson-quantities-of-interest.html"><a href="poisson-quantities-of-interest.html#incidence-rate-ratios"><i class="fa fa-check"></i><b>10.4.3</b> Incidence Rate Ratios</a></li>
+<li class="chapter" data-level="10.4.4" data-path="poisson-quantities-of-interest.html"><a href="poisson-quantities-of-interest.html#where-poisson-is-poisonous"><i class="fa fa-check"></i><b>10.4.4</b> Where Poisson is poisonous:</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="quasipoisson-and-negative-binomial-models.html"><a href="quasipoisson-and-negative-binomial-models.html"><i class="fa fa-check"></i><b>10.5</b> Quasipoisson and Negative Binomial Models</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="quasipoisson-and-negative-binomial-models.html"><a href="quasipoisson-and-negative-binomial-models.html#negative-binomial-models"><i class="fa fa-check"></i><b>10.5.1</b> Negative Binomial Models</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="count-data-practice-problems.html"><a href="count-data-practice-problems.html"><i class="fa fa-check"></i><b>10.6</b> Count data practice problems</a></li>
+<li class="chapter" data-level="10.7" data-path="week-8-tutorial.html"><a href="week-8-tutorial.html"><i class="fa fa-check"></i><b>10.7</b> Week 8 Tutorial</a></li>
+<li class="chapter" data-level="10.8" data-path="additional-considerations.html"><a href="additional-considerations.html"><i class="fa fa-check"></i><b>10.8</b> Additional Considerations</a>
+<ul>
+<li class="chapter" data-level="10.8.1" data-path="additional-considerations.html"><a href="additional-considerations.html#offset"><i class="fa fa-check"></i><b>10.8.1</b> Offset</a></li>
+</ul></li>
+<li class="chapter" data-level="10.9" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html"><i class="fa fa-check"></i><b>10.9</b> How to think about Zero Counts</a>
+<ul>
+<li class="chapter" data-level="10.9.1" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html#hurdle-models"><i class="fa fa-check"></i><b>10.9.1</b> Hurdle Models</a></li>
+<li class="chapter" data-level="10.9.2" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html#zero-inflated-poissonnegative-binomial"><i class="fa fa-check"></i><b>10.9.2</b> Zero Inflated Poisson/Negative binomial</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">MLE for Political Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="week-8-tutorial" class="section level2" number="10.7">
+<h2><span class="header-section-number">10.7</span> Week 8 Tutorial</h2>
+<p>For this week’s tutorial, we will use data from the article, “Less than you think: Prevalence and predictors of fake news dissemination on Facebook” published in <em>Science Advances</em> by Andrew Guess, Jonathan Nagler, and Joshua Tucker.</p>
+<p>Abstract.<em>So-called “fake news” has renewed concerns about the prevalence and effects of misinformation in political campaigns. Given the potential for widespread dissemination of this material, we examine the individual-level characteristics associated with sharing false articles during the 2016 U.S. presidential campaign. To do so, we uniquely link an original survey with respondents’ sharing activity as recorded in Facebook profile data. First and foremost, we find that sharing this content was a relatively rare activity. Conservatives were more likely to share articles from fake news domains, which in 2016 were largely pro-Trump in orientation, than liberals or moderates. We also find a strong age effect, which persists after controlling for partisanship and ideology: On average, users over 65 shared nearly seven times as many articles from fake news domains as the youngest age group.</em></p>
+<p>The authors look at the demographics predictors of disseminating fake news using survey data and behavioral data on respondents’ Facebook sharing history.</p>
+<p>The key outcome variable is <code>num_fake_shares</code>, representing the number of articles an individual shared from a list of fake news domains created by Buzzfeed.</p>
+<ul>
+<li>Key independent variables include <code>party</code>,<code>ideology</code> (factor), <code>age</code> (factor), <code>female</code>, <code>black</code>, <code>educ</code>, <code>faminc</code>, <code>num_posts</code></li>
+</ul>
+<p>Let’s load the data and look at the outcome.</p>
+<div class="sourceCode" id="cb674"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb674-1"><a href="week-8-tutorial.html#cb674-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
+<span id="cb674-2"><a href="week-8-tutorial.html#cb674-2" aria-hidden="true" tabindex="-1"></a>fake <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/sciencerep.RData?raw=true&quot;</span>)</span>
+<span id="cb674-3"><a href="week-8-tutorial.html#cb674-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb674-4"><a href="week-8-tutorial.html#cb674-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(fake<span class="sc">$</span>num_fake_shares)</span></code></pre></div>
+<pre><code>
+   0    1    2    3    4    5    6    7    8    9   10   12   13   25   50 
+1090   63   12    8    5    1    1    2    1    2    2    1    1    1    1 </code></pre>
+<p>It looks like our data are a count. Let’s try to visualize this distribution in a histogram. How would you describe this distribution?</p>
+<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb676-1"><a href="week-8-tutorial.html#cb676-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb676-2"><a href="week-8-tutorial.html#cb676-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fake, <span class="fu">aes</span>(num_fake_shares))<span class="sc">+</span></span>
+<span id="cb676-3"><a href="week-8-tutorial.html#cb676-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">50</span>)<span class="sc">+</span></span>
+<span id="cb676-4"><a href="week-8-tutorial.html#cb676-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span> </span>
+<span id="cb676-5"><a href="week-8-tutorial.html#cb676-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Distribution of Fake News Shares&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb676-6"><a href="week-8-tutorial.html#cb676-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Number of respondents&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb676-7"><a href="week-8-tutorial.html#cb676-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Number of fake news stories shared&quot;</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-292-1.svg" width="672" /></p>
+<details>
+<summary>
+To filter the histogram by party like Fig. 1 in the paper, expand.
+</summary>
+<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb677-1"><a href="week-8-tutorial.html#cb677-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb677-2"><a href="week-8-tutorial.html#cb677-2" aria-hidden="true" tabindex="-1"></a>fakesub <span class="ot">&lt;-</span> <span class="fu">subset</span>(fake, party <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Democrat&quot;</span>, <span class="st">&quot;Republican&quot;</span>, <span class="st">&quot;Independent&quot;</span>))</span>
+<span id="cb677-3"><a href="week-8-tutorial.html#cb677-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fakesub, <span class="fu">aes</span>(num_fake_shares, <span class="at">fill=</span>party))<span class="sc">+</span></span>
+<span id="cb677-4"><a href="week-8-tutorial.html#cb677-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">50</span>)<span class="sc">+</span></span>
+<span id="cb677-5"><a href="week-8-tutorial.html#cb677-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span> </span>
+<span id="cb677-6"><a href="week-8-tutorial.html#cb677-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Distribution of Fake News Shares&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb677-7"><a href="week-8-tutorial.html#cb677-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Number of respondents&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb677-8"><a href="week-8-tutorial.html#cb677-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="st">&quot;&quot;</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;darkgray&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb677-9"><a href="week-8-tutorial.html#cb677-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Number of fake news stories shared&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb677-10"><a href="week-8-tutorial.html#cb677-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="at">legend.title =</span> <span class="fu">element_blank</span>()) </span></code></pre></div>
+<pre><code>Warning: Removed 1499 rows containing non-finite values (stat_bin).</code></pre>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-293-1.svg" width="672" /></p>
+</details>
+<p>Let’s say we were interested in exploring the relationship between age and the number of fake news posts. It can always be useful to conduct more descriptive or exploratory analysis before hitting the heavy machinery. For example, the authors look at the average number of fake news posts shared by age group in Figure 2. We can do the same. Ours will look a little different because it’s unweighted:</p>
+<div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb679-1"><a href="week-8-tutorial.html#cb679-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Base r version</span></span>
+<span id="cb679-2"><a href="week-8-tutorial.html#cb679-2" aria-hidden="true" tabindex="-1"></a>meansbyage <span class="ot">&lt;-</span> <span class="fu">tapply</span>(fake<span class="sc">$</span>num_fake_shares, fake<span class="sc">$</span>age, mean, <span class="at">na.rm=</span>T)</span>
+<span id="cb679-3"><a href="week-8-tutorial.html#cb679-3" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(meansbyage, </span>
+<span id="cb679-4"><a href="week-8-tutorial.html#cb679-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Age and Fake News Shares&quot;</span>,</span>
+<span id="cb679-5"><a href="week-8-tutorial.html#cb679-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab=</span> <span class="st">&quot;Mean number of fake news stories shared&quot;</span>,</span>
+<span id="cb679-6"><a href="week-8-tutorial.html#cb679-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab=</span><span class="st">&quot;Age group&quot;</span>,</span>
+<span id="cb679-7"><a href="week-8-tutorial.html#cb679-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,.<span class="dv">6</span>),</span>
+<span id="cb679-8"><a href="week-8-tutorial.html#cb679-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">col=</span><span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-294-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb680-1"><a href="week-8-tutorial.html#cb680-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ggplot version</span></span>
+<span id="cb680-2"><a href="week-8-tutorial.html#cb680-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb680-3"><a href="week-8-tutorial.html#cb680-3" aria-hidden="true" tabindex="-1"></a>fake <span class="sc">%&gt;%</span> </span>
+<span id="cb680-4"><a href="week-8-tutorial.html#cb680-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(age)) <span class="sc">%&gt;%</span> </span>
+<span id="cb680-5"><a href="week-8-tutorial.html#cb680-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(age) <span class="sc">%&gt;%</span> </span>
+<span id="cb680-6"><a href="week-8-tutorial.html#cb680-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_fakes =</span> <span class="fu">mean</span>(num_fake_shares, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb680-7"><a href="week-8-tutorial.html#cb680-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>mean_fakes)) <span class="sc">+</span> </span>
+<span id="cb680-8"><a href="week-8-tutorial.html#cb680-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb680-9"><a href="week-8-tutorial.html#cb680-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Age and Fake News Shares&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb680-10"><a href="week-8-tutorial.html#cb680-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Mean number of fake news stories shared&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb680-11"><a href="week-8-tutorial.html#cb680-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Age group&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb680-12"><a href="week-8-tutorial.html#cb680-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, .<span class="dv">6</span>)<span class="sc">+</span></span>
+<span id="cb680-13"><a href="week-8-tutorial.html#cb680-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<pre><code>`summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-294-2.svg" width="672" /></p>
+<ol style="list-style-type: decimal">
+<li>Let’s move to a regression approach to study this relationship. How could we model this relationship? What are the pros and cons of each approach?
+<ul>
+<li>Would OLS work?</li>
+<li>Would a binary logit or probit work?</li>
+<li>What other approaches could work?</li>
+</ul></li>
+<li>Let’s replicate the first column of Table 2 in the authors’ analysis.
+<ul>
+<li>What type of model do the authors use? Why might this be an appropriate model in their case?</li>
+<li>How should the coefficients be interpreted?</li>
+<li>What would be a quantity of interest?</li>
+</ul></li>
+</ol>
+<p><img src="images/science1.png" style="width:70.0%" /></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Let’s fit the model using <code>glm</code>. Be careful to specify the right <code>family</code>.
+<ul>
+<li>What is the dispersion parameter? What conceptual quantity does this represent?</li>
+</ul></li>
+</ol>
+<details>
+<summary>
+Expand for details.
+</summary>
+<p>We will fit a quasipoisson following the authors. Note: they apply survey weights through the weights function. You could also use the <code>survey</code> package for this. For now, we will follow the approach of the authors.</p>
+<div class="sourceCode" id="cb682"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb682-1"><a href="week-8-tutorial.html#cb682-1" aria-hidden="true" tabindex="-1"></a>model1.qp <span class="ot">&lt;-</span> <span class="fu">glm</span>(num_fake_shares <span class="sc">~</span> ideology <span class="sc">+</span> age <span class="sc">+</span> female <span class="sc">+</span> black <span class="sc">+</span> educ <span class="sc">+</span> faminc, </span>
+<span id="cb682-2"><a href="week-8-tutorial.html#cb682-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">weights =</span> weight_svypop_w3, </span>
+<span id="cb682-3"><a href="week-8-tutorial.html#cb682-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> fake, </span>
+<span id="cb682-4"><a href="week-8-tutorial.html#cb682-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="st">&quot;quasipoisson&quot;</span>)</span>
+<span id="cb682-5"><a href="week-8-tutorial.html#cb682-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb682-6"><a href="week-8-tutorial.html#cb682-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1.qp)</span></code></pre></div>
+<pre><code>
+Call:
+glm(formula = num_fake_shares ~ ideology + age + female + black + 
+    educ + faminc, family = &quot;quasipoisson&quot;, data = fake, weights = weight_svypop_w3)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-3.4510  -0.5414  -0.3406  -0.1929  12.8243  
+
+Coefficients:
+                      Estimate Std. Error t value Pr(&gt;|t|)   
+(Intercept)          -3.416028   1.379091  -2.477  0.01341 * 
+ideologyVery liberal  0.486833   1.238165   0.393  0.69426   
+ideologyLiberal      -1.127456   1.438798  -0.784  0.43345   
+ideologyModerate      0.332692   1.186454   0.280  0.77922   
+ideologyConservative  2.186850   1.154932   1.893  0.05857 . 
+ideologyV. conserv.   2.366213   1.158278   2.043  0.04132 * 
+age30-44              0.771712   0.811327   0.951  0.34174   
+age45-65              1.136384   0.764972   1.486  0.13771   
+ageOver 65            2.052391   0.766352   2.678  0.00752 **
+female               -0.113780   0.216606  -0.525  0.59950   
+black                -0.879538   0.753713  -1.167  0.24351   
+educ                 -0.084881   0.081317  -1.044  0.29681   
+faminc               -0.007145   0.008419  -0.849  0.39627   
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for quasipoisson family taken to be 3.304861)
+
+    Null deviance: 1676.7  on 1040  degrees of freedom
+Residual deviance: 1172.0  on 1028  degrees of freedom
+  (2459 observations deleted due to missingness)
+AIC: NA
+
+Number of Fisher Scoring iterations: 7</code></pre>
+<p>We could have fit a regular poisson model. In that model, the dispersion paramter is taken to be 1, such that the conditional mean and variance are equivalent. In contrast, the quasipoisson accounts for the possibility that the variance is greater.</p>
+<p>Let’s see how much of an issue this is.</p>
+<div class="sourceCode" id="cb684"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb684-1"><a href="week-8-tutorial.html#cb684-1" aria-hidden="true" tabindex="-1"></a>model1.p <span class="ot">&lt;-</span> <span class="fu">glm</span>(num_fake_shares <span class="sc">~</span> ideology <span class="sc">+</span> age <span class="sc">+</span> female <span class="sc">+</span> black <span class="sc">+</span> educ <span class="sc">+</span> faminc, </span>
+<span id="cb684-2"><a href="week-8-tutorial.html#cb684-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">weights =</span> weight_svypop_w3, </span>
+<span id="cb684-3"><a href="week-8-tutorial.html#cb684-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> fake, </span>
+<span id="cb684-4"><a href="week-8-tutorial.html#cb684-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="st">&quot;poisson&quot;</span>)</span></code></pre></div>
+<p>We can conduct a test of overdispersion in our model using <code>dispersiontest</code>. If we have a significant result and a dispersion constant <span class="math inline">\(&gt;\)</span> 0, this would suggest overdispersion. What should we conclude? What are the implications?</p>
+<div class="sourceCode" id="cb685"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb685-1"><a href="week-8-tutorial.html#cb685-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER)</span>
+<span id="cb685-2"><a href="week-8-tutorial.html#cb685-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dispersiontest</span>(model1.p)</span></code></pre></div>
+<pre><code>
+	Overdispersion test
+
+data:  model1.p
+z = 2.9334, p-value = 0.001676
+alternative hypothesis: true dispersion is greater than 1
+sample estimates:
+dispersion 
+  3.027398 </code></pre>
+<p>Note: The authors address different modeling choices in the paper. “We aggregated all shares to the individual respondent level so that our dependent variables are counts (i.e., number of fake news stories shared). To account for this feature of the data, as well as the highly skewed distribution of the counts, we primarily used Poisson or quasi-Poisson regressions to model the determinants of Facebook sharing behavior. We conducted dispersion tests on the count data and used quasi-Poisson models if the null hypothesis of no dispersion is rejected. Below, we included negative binomial and Ordinary Least Squares (OLS) regressions to show that our results are generally not sensitive to model choice. All models applied weights from YouGov to adjust for selection into the sample. We specifically used sample-matching weights produced for the third wave of the survey, which was closest to the Facebook encouragement sent to respondents (27). (Results also do not appear to be sensitive to the use of weights.)”</p>
+</details>
+<ol start="4" style="list-style-type: decimal">
+<li>Let’s generate some quantities of interest.
+<ul>
+<li>What is the incidence rate ratio for sharing fake news of being Age 65+ vs. the reference category 18-29?</li>
+<li>What is the average number of fake news posts expected to be shared by age group?</li>
+</ul></li>
+</ol>
+<details>
+<summary>
+Expand for details.
+</summary>
+<p>Incidence rate ratios</p>
+<div class="sourceCode" id="cb687"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb687-1"><a href="week-8-tutorial.html#cb687-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Incidence rate ratios are exp(Bj)</span></span>
+<span id="cb687-2"><a href="week-8-tutorial.html#cb687-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(model1.qp)[<span class="st">&quot;ageOver 65&quot;</span>])</span></code></pre></div>
+<pre><code>ageOver 65 
+  7.786494 </code></pre>
+<p>How should we interpret this?</p>
+<p>Average Fake News Posts Shared by Age Group</p>
+<div class="sourceCode" id="cb689"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb689-1"><a href="week-8-tutorial.html#cb689-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prediction)</span>
+<span id="cb689-2"><a href="week-8-tutorial.html#cb689-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Note: levels(fake$age) is a shortcut for putting in the vector of all possible age levels. Only works for factor variables.</span></span>
+<span id="cb689-3"><a href="week-8-tutorial.html#cb689-3" aria-hidden="true" tabindex="-1"></a>count.byage <span class="ot">&lt;-</span> <span class="fu">prediction</span>(model1.qp, <span class="at">at=</span><span class="fu">list</span>(<span class="at">age =</span> <span class="fu">levels</span>(fake<span class="sc">$</span>age)), <span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb689-4"><a href="week-8-tutorial.html#cb689-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(count.byage)</span></code></pre></div>
+<pre><code> at(age) Prediction      SE     z         p    lower  upper
+   18-29    0.06575 0.04894 1.344 1.791e-01 -0.03017 0.1617
+   30-44    0.14225 0.04644 3.063 2.193e-03  0.05122 0.2333
+   45-65    0.20484 0.03468 5.907 3.493e-09  0.13687 0.2728
+ Over 65    0.51196 0.08653 5.917 3.285e-09  0.34237 0.6816</code></pre>
+<div class="sourceCode" id="cb691"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb691-1"><a href="week-8-tutorial.html#cb691-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 65+</span></span>
+<span id="cb691-2"><a href="week-8-tutorial.html#cb691-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(model1.qp)</span>
+<span id="cb691-3"><a href="week-8-tutorial.html#cb691-3" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;age30-44&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb691-4"><a href="week-8-tutorial.html#cb691-4" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;age45-65&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb691-5"><a href="week-8-tutorial.html#cb691-5" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;ageOver 65&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb691-6"><a href="week-8-tutorial.html#cb691-6" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">coef</span>(model1.qp)</span>
+<span id="cb691-7"><a href="week-8-tutorial.html#cb691-7" aria-hidden="true" tabindex="-1"></a>eta <span class="ot">&lt;-</span> X <span class="sc">%*%</span> B</span>
+<span id="cb691-8"><a href="week-8-tutorial.html#cb691-8" aria-hidden="true" tabindex="-1"></a>avg.fake<span class="fl">.65</span> <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">exp</span>(eta))</span>
+<span id="cb691-9"><a href="week-8-tutorial.html#cb691-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb691-10"><a href="week-8-tutorial.html#cb691-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 45-65</span></span>
+<span id="cb691-11"><a href="week-8-tutorial.html#cb691-11" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(model1.qp)</span>
+<span id="cb691-12"><a href="week-8-tutorial.html#cb691-12" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;age30-44&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb691-13"><a href="week-8-tutorial.html#cb691-13" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;age45-65&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb691-14"><a href="week-8-tutorial.html#cb691-14" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;ageOver 65&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb691-15"><a href="week-8-tutorial.html#cb691-15" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">coef</span>(model1.qp)</span>
+<span id="cb691-16"><a href="week-8-tutorial.html#cb691-16" aria-hidden="true" tabindex="-1"></a>eta <span class="ot">&lt;-</span> X <span class="sc">%*%</span> B</span>
+<span id="cb691-17"><a href="week-8-tutorial.html#cb691-17" aria-hidden="true" tabindex="-1"></a>avg.fake<span class="fl">.45</span> <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">exp</span>(eta))</span>
+<span id="cb691-18"><a href="week-8-tutorial.html#cb691-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb691-19"><a href="week-8-tutorial.html#cb691-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 30-44</span></span>
+<span id="cb691-20"><a href="week-8-tutorial.html#cb691-20" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(model1.qp)</span>
+<span id="cb691-21"><a href="week-8-tutorial.html#cb691-21" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;age30-44&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb691-22"><a href="week-8-tutorial.html#cb691-22" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;age45-65&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb691-23"><a href="week-8-tutorial.html#cb691-23" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;ageOver 65&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb691-24"><a href="week-8-tutorial.html#cb691-24" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">coef</span>(model1.qp)</span>
+<span id="cb691-25"><a href="week-8-tutorial.html#cb691-25" aria-hidden="true" tabindex="-1"></a>eta <span class="ot">&lt;-</span> X <span class="sc">%*%</span> B</span>
+<span id="cb691-26"><a href="week-8-tutorial.html#cb691-26" aria-hidden="true" tabindex="-1"></a>avg.fake<span class="fl">.30</span> <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">exp</span>(eta))</span>
+<span id="cb691-27"><a href="week-8-tutorial.html#cb691-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb691-28"><a href="week-8-tutorial.html#cb691-28" aria-hidden="true" tabindex="-1"></a><span class="do">## 18-29</span></span>
+<span id="cb691-29"><a href="week-8-tutorial.html#cb691-29" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(model1.qp)</span>
+<span id="cb691-30"><a href="week-8-tutorial.html#cb691-30" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;age30-44&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb691-31"><a href="week-8-tutorial.html#cb691-31" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;age45-65&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb691-32"><a href="week-8-tutorial.html#cb691-32" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;ageOver 65&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb691-33"><a href="week-8-tutorial.html#cb691-33" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">coef</span>(model1.qp)</span>
+<span id="cb691-34"><a href="week-8-tutorial.html#cb691-34" aria-hidden="true" tabindex="-1"></a>eta <span class="ot">&lt;-</span> X <span class="sc">%*%</span> B</span>
+<span id="cb691-35"><a href="week-8-tutorial.html#cb691-35" aria-hidden="true" tabindex="-1"></a>avg.fake<span class="fl">.18</span> <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">exp</span>(eta))</span>
+<span id="cb691-36"><a href="week-8-tutorial.html#cb691-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb691-37"><a href="week-8-tutorial.html#cb691-37" aria-hidden="true" tabindex="-1"></a><span class="do">## Gather results</span></span>
+<span id="cb691-38"><a href="week-8-tutorial.html#cb691-38" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(avg.fake<span class="fl">.18</span>, avg.fake<span class="fl">.30</span>, avg.fake<span class="fl">.45</span>, avg.fake<span class="fl">.65</span>)</span></code></pre></div>
+<pre><code>[1] 0.06574956 0.14224696 0.20484149 0.51195856</code></pre>
+<p>How could we calculate uncertainty?</p>
+</details>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="count-data-practice-problems.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="additional-considerations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

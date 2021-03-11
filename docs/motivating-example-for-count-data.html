@@ -364,14 +364,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.5.1" data-path="quasipoisson-and-negative-binomial-models.html"><a href="quasipoisson-and-negative-binomial-models.html#negative-binomial-models"><i class="fa fa-check"></i><b>10.5.1</b> Negative Binomial Models</a></li>
 </ul></li>
 <li class="chapter" data-level="10.6" data-path="count-data-practice-problems.html"><a href="count-data-practice-problems.html"><i class="fa fa-check"></i><b>10.6</b> Count data practice problems</a></li>
-<li class="chapter" data-level="10.7" data-path="additional-considerations.html"><a href="additional-considerations.html"><i class="fa fa-check"></i><b>10.7</b> Additional Considerations</a>
+<li class="chapter" data-level="10.7" data-path="week-8-tutorial.html"><a href="week-8-tutorial.html"><i class="fa fa-check"></i><b>10.7</b> Week 8 Tutorial</a></li>
+<li class="chapter" data-level="10.8" data-path="additional-considerations.html"><a href="additional-considerations.html"><i class="fa fa-check"></i><b>10.8</b> Additional Considerations</a>
 <ul>
-<li class="chapter" data-level="10.7.1" data-path="additional-considerations.html"><a href="additional-considerations.html#offset"><i class="fa fa-check"></i><b>10.7.1</b> Offset</a></li>
+<li class="chapter" data-level="10.8.1" data-path="additional-considerations.html"><a href="additional-considerations.html#offset"><i class="fa fa-check"></i><b>10.8.1</b> Offset</a></li>
 </ul></li>
-<li class="chapter" data-level="10.8" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html"><i class="fa fa-check"></i><b>10.8</b> How to think about Zero Counts</a>
+<li class="chapter" data-level="10.9" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html"><i class="fa fa-check"></i><b>10.9</b> How to think about Zero Counts</a>
 <ul>
-<li class="chapter" data-level="10.8.1" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html#hurdle-models"><i class="fa fa-check"></i><b>10.8.1</b> Hurdle Models</a></li>
-<li class="chapter" data-level="10.8.2" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html#zero-inflated-poissonnegative-binomial"><i class="fa fa-check"></i><b>10.8.2</b> Zero Inflated Poisson/Negative binomial</a></li>
+<li class="chapter" data-level="10.9.1" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html#hurdle-models"><i class="fa fa-check"></i><b>10.9.1</b> Hurdle Models</a></li>
+<li class="chapter" data-level="10.9.2" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html#zero-inflated-poissonnegative-binomial"><i class="fa fa-check"></i><b>10.9.2</b> Zero Inflated Poisson/Negative binomial</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -432,7 +433,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">10.3.1</span> Fitting Poisson in R</h3>
 <p>We will investigate the relationship between divided government and executive orders in the first time period.</p>
 <p>The authors’ hypothesize, "During periods of low legislative capacity (prior to the mid-1940s), the president issues more executive orders under divided government.</p>
-<p>To fit a Poisson model in R, we use the <code>glm</code> function. However, now we have a different <code>family</code>= “poisson”<code>and</code>link = “log”`. We don’t actually have to explicitly write the link because R will use this link by default.</p>
+<p>To fit a Poisson model in R, we use the <code>glm</code> function. However, now we have a different <code>family= "poisson"</code> and <code>link = "log"</code>. We don’t actually have to explicitly write the link because R will use this link by default.</p>
 <p>Let’s fit a regression of our outcome on the key explanatory variables, along with other controls the authors use. Note that because I want the early period, I have to subset the data. I can do this outside, prior to the regression. Or, I can subset in the <code>data</code> argument, as is done in the below code:</p>
 <div class="sourceCode" id="cb608"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb608-1"><a href="motivating-example-for-count-data.html#cb608-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(allnoncerm_eo <span class="sc">~</span> divided <span class="sc">+</span> inflation <span class="sc">+</span> </span>
 <span id="cb608-2"><a href="motivating-example-for-count-data.html#cb608-2" aria-hidden="true" tabindex="-1"></a>             spending_percent_gdp <span class="sc">+</span> war <span class="sc">+</span> lame_duck <span class="sc">+</span></span>

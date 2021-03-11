@@ -245,7 +245,7 @@ We will investigate the relationship between divided government and executive or
 
 The authors' hypothesize, "During periods of low legislative capacity (prior to the mid-1940s), the president issues more executive orders under divided government.
 
-To fit a Poisson model in R, we use the `glm` function. However, now we have a different `family`= "poisson"` and `link = "log"`. We don't actually have to explicitly write the link because R will use this link by default. 
+To fit a Poisson model in R, we use the `glm` function. However, now we have a different `family= "poisson"` and `link = "log"`. We don't actually have to explicitly write the link because R will use this link by default. 
 
 Let's fit a regression of our outcome on the key explanatory variables, along with other controls the authors use. Note that because I want the early period, I have to subset the data. I can do this outside, prior to the regression. Or, I can subset in the `data` argument, as is done in the below code:
 
@@ -380,6 +380,8 @@ If we exponentiate, the $\log$ cancels to 1:
   - $exp(\hat \beta) = exp(\log \frac{\hat \lambda_{x + 1}}{\hat \lambda_{x}})$
       + $exp(\hat \beta) = \frac{\hat \lambda_{x + 1}}{\hat \lambda_{x}}$
       + This quantity represents a ratio of the expected counts or "rates"
+      + For a one-unit change in $x$, the expected count is estimated to change by a factor of $exp(\hat \beta)$
+          + This can be converted to a percent change interpretion by taking $(IRR - 1) \times 100$
       
 For example, the incidence rate ratio for executive orders in a year going from unified to divided government is:
 
@@ -394,7 +396,17 @@ exp(coef(fit)["divided"])*avg.exp.count.0
 
 avg.exp.count.1
 ```
-  
+
+Note how this is a percent change interpretation where 
+
+```{r}
+((avg.exp.count.1 - avg.exp.count.0)/ avg.exp.count.0)* 100
+
+(exp(coef(fit)["divided"])-1)*100
+
+```
+For a one-unit change going from unified to divided government, we see a 55.8\% increase in executive orders.
+
 ### Where Poisson is poisonous:
 
 Recall the detail when we specified the pmf, that the mean and variance at the same. When we have covariates $X$, this means we assume the conditional mean and variance are the same:
@@ -601,6 +613,265 @@ summary(exp.eo.lm)
 summary(exp.eo.nb)
 summary(exp.eo.qp)
 ```
+
+</details>
+
+  3. We are going to build further on this example to try to reproduce Figure 2 in the authors' paper. This is a plot that shows the percentage change in executive orders from divided to unified government with 95\% confidence intervals. 
+      + These estimates are generated using the negative binomial regression models presented in Table 1. The good news is if we have followed the course notes and practice problems to this point, we have already fit both of these models.
+      
+      + To find the percent change, we calculate the incidence rate ratios, which represent: For a one-unit change in $x$, the expected count changes by a factor of $exp(\hat \beta_j)$. 
+          + This can be converted to percent change by $(IRR - 1) \times 100$. For example, if the incidence rate ratio was 1.4, then for a one-unit change in $x$, we would see a $40\%$ change (increase) in the expected count. 
+          + To find the confidence intervals, we can use `confint(fit)`, exponentiate these, and then follow the same formula for the lower bound and upper bound. Our confidence intervals will be bigger than the authors because we used a different type of standard error.
+
+![](images/bolton2.png){width=80%}
+<details> <summary>Try on your own, then expand for the solution.</summary>
+  
+```{r}
+fitn <- glm.nb(allnoncerm_eo ~ divided + inflation + 
+                 spending_percent_gdp + war + lame_duck +
+                 administration_change + trend +
+            + tr+ taft + wilson + harding 
+           + coolidge + hoover, 
+           link="log", 
+           data = subset(bolton, year < 1945))
+fit.nb <- glm.nb(allnoncerm_eo ~ divided + inflation + spending_percent_gdp + 
+               war + lame_duck + administration_change + trend + 
+               truman + ike + jfk + lbj + 
+               nixon + ford +
+               carter + reagan + bush41 + clinton + bush43,
+               link="log",
+             data = subset(bolton, year > 1944))
+
+## Incidence Rate Ratios amd
+irr1 <- exp(coef(fitn)["divided"])
+irr2 <- exp(coef(fit.nb)["divided"])
+ci.irr1 <- exp(confint(fitn)["divided",])
+ci.irr2 <- exp(confint(fit.nb)["divided",])
+
+## Percent change
+pc1 <- (irr1-1)* 100
+ci.pc1 <- (ci.irr1 - 1)*100
+pc2 <- (irr2-1)* 100
+ci.pc2 <- (ci.irr2 - 1)*100
+
+
+## Prepare data for plotting
+df <-data.frame(pc = c(pc1, pc2), 
+                lower=c(ci.pc1[1], ci.pc2[1]), 
+                upper = c(ci.pc1[2], ci.pc2[2]))
+df$period <- c("Regime 1 \n 1905-1944", "Regime 2 \n 1945-2013")
+
+ggplot(df, aes(y=pc,x=period))+
+  geom_bar(stat="identity")+
+  geom_errorbar(aes(ymin=lower, ymax=upper), width=.05)+
+  ggtitle("Effect of Divided Government on EO Usage")+
+  ylab("Percentage Change Divided Relative to Unified")+
+  xlab("")+
+  theme_minimal()
+```
+
+
+</details>
+
+## Week 8 Tutorial
+
+For this week's tutorial, we will use data from the article, "Less than you think: Prevalence and predictors of fake news dissemination on Facebook" published in *Science Advances* by Andrew Guess, Jonathan Nagler, and Joshua Tucker.
+
+Abstract.*So-called “fake news” has renewed concerns about the prevalence and effects of misinformation in political campaigns. Given the potential for widespread dissemination of this material, we examine the individual-level characteristics associated with sharing false articles during the 2016 U.S. presidential campaign. To do so, we uniquely link an original survey with respondents’ sharing activity as recorded in Facebook profile data. First and foremost, we find that sharing this content was a relatively rare activity. Conservatives were more likely to share articles from fake news domains, which in 2016 were largely pro-Trump in orientation, than liberals or moderates. We also find a strong age effect, which persists after controlling for partisanship and ideology: On average, users over 65 shared nearly seven times as many articles from fake news domains as the youngest age group.*
+
+The authors look at the demographics predictors of disseminating fake news using survey data and behavioral data on respondents' Facebook sharing history.
+
+The key outcome variable is `num_fake_shares`, representing the number of articles an individual shared from a list of fake news domains created by Buzzfeed.
+
+  - Key independent variables include `party`,`ideology` (factor), `age` (factor), `female`, `black`, `educ`, `faminc`, `num_posts`
+
+
+Let's load the data and look at the outcome.
+
+```{r}
+library(rio)
+fake <- import("https://github.com/ktmccabe/teachingdata/blob/main/sciencerep.RData?raw=true")
+
+table(fake$num_fake_shares)
+
+```
+
+It looks like our data are a count. Let's try to visualize this distribution in a histogram. How would you describe this distribution?
+
+```{r warning=F, message=F}
+library(ggplot2)
+ggplot(fake, aes(num_fake_shares))+
+  geom_histogram(bins=50)+
+  theme_minimal()+ 
+  ggtitle("Distribution of Fake News Shares") + 
+  ylab("Number of respondents") + 
+  xlab("Number of fake news stories shared")
+
+```
+
+<details> <summary>To filter the histogram by party like Fig. 1 in the paper, expand.</summary>
+
+
+```{r}
+library(ggplot2)
+fakesub <- subset(fake, party %in% c("Democrat", "Republican", "Independent"))
+ggplot(fakesub, aes(num_fake_shares, fill=party))+
+  geom_histogram(bins=50)+
+  theme_minimal()+ 
+  ggtitle("Distribution of Fake News Shares") + 
+  ylab("Number of respondents") + 
+  scale_fill_manual("", values = c("blue", "red", "darkgray")) +
+  xlab("Number of fake news stories shared") + 
+  theme(legend.position = "bottom", legend.title = element_blank()) 
+
+
+```
+
+
+</details>
+
+
+Let's say we were interested in exploring the relationship between age and the number of fake news posts. It can always be useful to conduct more descriptive or exploratory analysis before hitting the heavy machinery. For example, the authors look at the average number of fake news posts shared by age group in Figure 2. We can do the same. Ours will look a little different because it's unweighted:
+
+```{r}
+## Base r version
+meansbyage <- tapply(fake$num_fake_shares, fake$age, mean, na.rm=T)
+barplot(meansbyage, 
+        main = "Age and Fake News Shares",
+        ylab= "Mean number of fake news stories shared",
+        xlab="Age group",
+        ylim=c(0,.6),
+        col="black")
+
+## ggplot version
+library(tidyverse)
+fake %>% 
+  filter(!is.na(age)) %>% 
+  group_by(age) %>% 
+  summarise(mean_fakes = mean(num_fake_shares, na.rm = TRUE)) %>%
+  ggplot(aes(x=age, y=mean_fakes)) + 
+  geom_bar(stat = "identity") +
+  ggtitle("Age and Fake News Shares") + 
+  ylab("Mean number of fake news stories shared") + 
+  xlab("Age group") + 
+  ylim(0, .6)+
+  theme_minimal()
+
+```
+
+  1. Let's move to a regression approach to study this relationship. How could we model this relationship? What are the pros and cons of each approach?
+      + Would OLS work?
+      + Would a binary logit or probit work?
+      + What other approaches could work?
+      
+  2. Let's replicate the first column of Table 2 in the authors' analysis. 
+      + What type of model do the authors use? Why might this be an appropriate model in their case?
+      + How should the coefficients be interpreted?
+      + What would be a quantity of interest?
+
+![](images/science1.png){width=70%}
+
+  3. Let's fit the model using `glm`. Be careful to specify the right `family`.
+      + What is the dispersion parameter? What conceptual quantity does this represent?
+  
+<details> <summary>Expand for details.</summary>
+
+We will fit a quasipoisson following the authors. Note: they apply survey weights through the weights function. You could also use the `survey` package for this. For now, we will follow the approach of the authors.
+
+```{r}
+model1.qp <- glm(num_fake_shares ~ ideology + age + female + black + educ + faminc, 
+                  weights = weight_svypop_w3, 
+                 data = fake, 
+                 family = "quasipoisson")
+
+summary(model1.qp)
+```
+
+We could have fit a regular poisson model. In that model, the dispersion paramter is taken to be 1, such that the conditional mean and variance are equivalent. In contrast, the quasipoisson accounts for the possibility that the variance is greater.
+
+Let's see how much of an issue this is.
+```{r}
+model1.p <- glm(num_fake_shares ~ ideology + age + female + black + educ + faminc, 
+                  weights = weight_svypop_w3, 
+                 data = fake, 
+                 family = "poisson")
+```
+
+We can conduct a test of overdispersion in our model using `dispersiontest`. If we have a significant result and a dispersion constant $>$ 0, this would suggest overdispersion. What should we conclude? What are the implications?
+```{r}
+library(AER)
+dispersiontest(model1.p)
+```
+
+Note: The authors address different modeling choices in the paper. "We aggregated all shares to the individual respondent level so that our dependent variables are counts (i.e., number of fake news stories shared). To account for this feature of the data, as well as the highly skewed distribution of the counts, we primarily used Poisson or quasi-Poisson regressions to model the determinants of Facebook sharing behavior. We conducted dispersion tests on the count data and used quasi-Poisson models if the null hypothesis of no dispersion is rejected. Below, we included negative binomial and Ordinary Least Squares (OLS) regressions to show that our results are generally not sensitive to model choice. All models applied weights from YouGov to adjust for selection into the sample. We specifically used sample-matching weights produced for the third wave of the survey, which was closest to the Facebook encouragement sent to respondents (27). (Results also do not appear to be sensitive to the use of weights.)"
+
+
+</details>
+
+  4. Let's generate some quantities of interest.
+      + What is the incidence rate ratio for sharing fake news of being Age 65+ vs. the reference category 18-29?
+      + What is the average number of fake news posts expected to be shared by age group?
+
+<details> <summary>Expand for details.</summary>
+
+Incidence rate ratios       
+```{r}
+## Incidence rate ratios are exp(Bj)
+exp(coef(model1.qp)["ageOver 65"])
+```
+How should we interpret this?
+
+Average Fake News Posts Shared by Age Group
+
+```{r}
+library(prediction)
+## Note: levels(fake$age) is a shortcut for putting in the vector of all possible age levels. Only works for factor variables.
+count.byage <- prediction(model1.qp, at=list(age = levels(fake$age)), type="response")
+summary(count.byage)
+```
+```{r}
+## 65+
+X <- model.matrix(model1.qp)
+X[, "age30-44"] <- 0
+X[, "age45-65"] <- 0
+X[, "ageOver 65"] <- 1
+B <- coef(model1.qp)
+eta <- X %*% B
+avg.fake.65 <- mean(exp(eta))
+
+## 45-65
+X <- model.matrix(model1.qp)
+X[, "age30-44"] <- 0
+X[, "age45-65"] <- 1
+X[, "ageOver 65"] <- 0
+B <- coef(model1.qp)
+eta <- X %*% B
+avg.fake.45 <- mean(exp(eta))
+
+## 30-44
+X <- model.matrix(model1.qp)
+X[, "age30-44"] <- 1
+X[, "age45-65"] <- 0
+X[, "ageOver 65"] <- 0
+B <- coef(model1.qp)
+eta <- X %*% B
+avg.fake.30 <- mean(exp(eta))
+
+## 18-29
+X <- model.matrix(model1.qp)
+X[, "age30-44"] <- 0
+X[, "age45-65"] <- 0
+X[, "ageOver 65"] <- 0
+B <- coef(model1.qp)
+eta <- X %*% B
+avg.fake.18 <- mean(exp(eta))
+
+## Gather results
+c(avg.fake.18, avg.fake.30, avg.fake.45, avg.fake.65)
+
+```
+
+How could we calculate uncertainty?
 
 </details>
 
