@@ -675,7 +675,7 @@ ggplot(df, aes(y=pc,x=period))+
 
 ## Week 8 Tutorial
 
-For this week's tutorial, we will use data from the article, "Less than you think: Prevalence and predictors of fake news dissemination on Facebook" published in *Science Advances* by Andrew Guess, Jonathan Nagler, and Joshua Tucker.
+For this week's tutorial, we will use data from the article, "Less than you think: Prevalence and predictors of fake news dissemination on Facebook" published in *Science Advances* by Andrew Guess, Jonathan Nagler, and Joshua Tucker available [here](https://advances.sciencemag.org/content/5/1/eaau4586).
 
 Abstract.*So-called “fake news” has renewed concerns about the prevalence and effects of misinformation in political campaigns. Given the potential for widespread dissemination of this material, we examine the individual-level characteristics associated with sharing false articles during the 2016 U.S. presidential campaign. To do so, we uniquely link an original survey with respondents’ sharing activity as recorded in Facebook profile data. First and foremost, we find that sharing this content was a relatively rare activity. Conservatives were more likely to share articles from fake news domains, which in 2016 were largely pro-Trump in orientation, than liberals or moderates. We also find a strong age effect, which persists after controlling for partisanship and ideology: On average, users over 65 shared nearly seven times as many articles from fake news domains as the youngest age group.*
 
@@ -787,6 +787,14 @@ model1.qp <- glm(num_fake_shares ~ ideology + age + female + black + educ + fami
 summary(model1.qp)
 ```
 
+What was the form of the regression model?
+
+```{r}
+library(equatiomatic)
+equatiomatic::extract_eq(model1.qp, wrap=T, terms_per_line = 2)
+```
+
+
 We could have fit a regular poisson model. In that model, the dispersion paramter is taken to be 1, such that the conditional mean and variance are equivalent. In contrast, the quasipoisson accounts for the possibility that the variance is greater.
 
 Let's see how much of an issue this is.
@@ -815,6 +823,7 @@ Note: The authors address different modeling choices in the paper. "We aggregate
 <details> <summary>Expand for details.</summary>
 
 Incidence rate ratios       
+
 ```{r}
 ## Incidence rate ratios are exp(Bj)
 exp(coef(model1.qp)["ageOver 65"])
