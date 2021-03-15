@@ -151,7 +151,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3.3" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-variable-codings-that-arent-quite-right"><i class="fa fa-check"></i><b>2.3.3</b> Dealing with Variable Codings that Aren’t Quite Right</a></li>
 <li class="chapter" data-level="2.3.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-incomplete-data-merging"><i class="fa fa-check"></i><b>2.3.4</b> Dealing with Incomplete Data (Merging!)</a></li>
 <li class="chapter" data-level="2.3.5" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-poorly-shaped-data"><i class="fa fa-check"></i><b>2.3.5</b> Dealing with Poorly Shaped Data</a></li>
-<li class="chapter" data-level="2.3.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reproducing-your-steps"><i class="fa fa-check"></i><b>2.3.6</b> Reproducing your steps</a></li>
+<li class="chapter" data-level="2.3.6" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-data-by-rows-and-columns"><i class="fa fa-check"></i><b>2.3.6</b> Subsetting data by rows and columns</a></li>
+<li class="chapter" data-level="2.3.7" data-path="data-wrangling.html"><a href="data-wrangling.html#reproducing-your-steps"><i class="fa fa-check"></i><b>2.3.7</b> Reproducing your steps</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html"><i class="fa fa-check"></i><b>2.4</b> Tools for writing up results</a>
 <ul>
@@ -418,14 +419,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Here is a link to the <code>texreg</code> package <a href="https://rpubs.com/YaRrr/SweaveIntro">documentation</a>. Section 5 has examples of the <code>texreg</code> and <code>htmlreg</code> functions within the texreg package. These can be integrated into R Markdown and Sweave documents, and their output can be pasted into LaTex or Microsoft Word.</p>
 <p>Your choice of function will depend on where you ultimately want your results to be compiled. If you are generating results that will be compiled to pdf using LaTex, then <code>texreg</code> works well. If you are exporting results to Word, than you may wish to use the <code>htmlreg</code> function within the <code>texreg</code> package, which will generate output that can be pasted into Word.</p>
 <p>A simple example using R Markdown html output. (Note, if you wanted to export the table to Word, you would add an argument specifying <code>file = "myfit.doc"</code> to the function. See the above link for examples:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="tools-for-writing-up-results.html#cb47-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ktmccabe/teachingdata/main/resume.csv&quot;</span>)</span>
-<span id="cb47-2"><a href="tools-for-writing-up-results.html#cb47-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(call <span class="sc">~</span> race, <span class="at">data=</span>mydata)</span></code></pre></div>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="tools-for-writing-up-results.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="do">## First time you use texreg, install it</span></span>
-<span id="cb48-2"><a href="tools-for-writing-up-results.html#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;texreg&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="tools-for-writing-up-results.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreg)</span>
-<span id="cb49-2"><a href="tools-for-writing-up-results.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(<span class="fu">list</span>(fit),</span>
-<span id="cb49-3"><a href="tools-for-writing-up-results.html#cb49-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">stars=</span><span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>),</span>
-<span id="cb49-4"><a href="tools-for-writing-up-results.html#cb49-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">caption =</span> <span class="st">&quot;Regression of Call Backs on Race&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="tools-for-writing-up-results.html#cb60-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ktmccabe/teachingdata/main/resume.csv&quot;</span>)</span>
+<span id="cb60-2"><a href="tools-for-writing-up-results.html#cb60-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(call <span class="sc">~</span> race, <span class="at">data=</span>mydata)</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="tools-for-writing-up-results.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="do">## First time you use texreg, install it</span></span>
+<span id="cb61-2"><a href="tools-for-writing-up-results.html#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;texreg&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="tools-for-writing-up-results.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreg)</span>
+<span id="cb62-2"><a href="tools-for-writing-up-results.html#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(<span class="fu">list</span>(fit),</span>
+<span id="cb62-3"><a href="tools-for-writing-up-results.html#cb62-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">stars=</span><span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>),</span>
+<span id="cb62-4"><a href="tools-for-writing-up-results.html#cb62-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">caption =</span> <span class="st">&quot;Regression of Call Backs on Race&quot;</span>)</span></code></pre></div>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Regression of Call Backs on Race
@@ -507,12 +508,12 @@ Num. obs.
 </tfoot>
 </table>
 <p>You can add more arguments to the function to customize the name of the model and the coefficients. You can also add multiple models inside the list argument, for example, if you wanted to present a table with five regression models at once. Here is an example with two:</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="tools-for-writing-up-results.html#cb50-1" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(call <span class="sc">~</span> race <span class="sc">+</span> sex, <span class="at">data=</span>mydata)</span>
-<span id="cb50-2"><a href="tools-for-writing-up-results.html#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-3"><a href="tools-for-writing-up-results.html#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreg)</span>
-<span id="cb50-4"><a href="tools-for-writing-up-results.html#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(<span class="fu">list</span>(fit, fit2),</span>
-<span id="cb50-5"><a href="tools-for-writing-up-results.html#cb50-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">stars=</span><span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>),</span>
-<span id="cb50-6"><a href="tools-for-writing-up-results.html#cb50-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">caption =</span> <span class="st">&quot;Regression of Call Backs on Rac and Sex&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="tools-for-writing-up-results.html#cb63-1" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(call <span class="sc">~</span> race <span class="sc">+</span> sex, <span class="at">data=</span>mydata)</span>
+<span id="cb63-2"><a href="tools-for-writing-up-results.html#cb63-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-3"><a href="tools-for-writing-up-results.html#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreg)</span>
+<span id="cb63-4"><a href="tools-for-writing-up-results.html#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(<span class="fu">list</span>(fit, fit2),</span>
+<span id="cb63-5"><a href="tools-for-writing-up-results.html#cb63-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">stars=</span><span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>),</span>
+<span id="cb63-6"><a href="tools-for-writing-up-results.html#cb63-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">caption =</span> <span class="st">&quot;Regression of Call Backs on Rac and Sex&quot;</span>)</span></code></pre></div>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Regression of Call Backs on Rac and Sex

@@ -424,6 +424,79 @@ Here are a few additional resources:
  - More on [reshape](https://www.r-bloggers.com/converting-a-dataset-from-wide-to-long)
  – For the tidyverse fans. Using `gather()` and `spread()` in tidyverse from [R for Data Science](https://r4ds.had.co.nz/) and explained by Chris Bail [here](https://www.youtube.com/watch?v=sXVP9256JSQ).
 
+
+
+### Subsetting data by rows and columns
+
+Sometimes we do not want to deal with our entire dataset for an analysis. Instead, we might want to only analyze certain rows (e.g., maybe if we are just studying Democrats, for example). Similarly, we might have a dataframe with 1000 columns, from which we are only using about 20. We might want to remove those extra columns to make it easier to work with our dataframes.
+
+Below are a few examples of subsetting data and selecting columns. We will use the `resume` dataset from the Kosuke Imai QSS book for demonstration. This is a dataset from an experiment describing whether certain applicants, who varied in the gender (`sex`) and race (`race`) signaled by their name (`firstname`), received callbacks (`call`) for their employment applications.
+
+Let's load the data.
+
+```{r}
+resume <- read.csv("https://raw.githubusercontent.com/ktmccabe/teachingdata/main/resume.csv")
+```
+
+***Subset particular rows*** 
+
+To do this, put the row numbers you want to keep on the left side of the comma. Putting nothing on the right side means you want to keep all columns.
+
+```{r}
+## numerically
+resume[1,] # first row
+resume[1:4,] # first through 4th rows
+resume[c(1, 3, 4),] # 1, 3, 4 rows
+```
+
+Using the `subset` command with logical expressions `>` `>=` `=` `<` `<=`
+```{r}
+## by logical expressions
+women <- subset(resume, sex == "female")
+women <- resume[resume$sex == "female", ] ## alternative
+
+calledback <- subset(resume, call == 1)
+calledback <- subset(resume, call > 0)
+```
+
+And or Or statements `&` or `|`
+```{r}
+blackwomen <- subset(resume, sex == "female" & race == "black")
+bradbrendan <- subset(resume, firstname == "Brad" | 
+                        firstname == "Brendan")
+```
+
+The tidyverse also has commands for subsetting. Here is an example using `filter`.
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+blackwomen <- resume %>%
+  filter(sex == "female" & race == "black")
+```
+
+***Selecting particular columns***
+
+Note, now we are working on the right side of the comma.
+
+```{r}
+## numerically
+first <- resume[, 1] # first column
+firstsecond <- resume[, 1:2] # first and second column
+notfourth <- resume[, -4] # all but the fourth column
+```
+
+```{r}
+## by labels
+justthese <- resume[, c("firstname", "sex")]
+```
+
+Using the `select` command
+```{r}
+## install.packages("dplyr")
+subdata <- resume %>% dplyr::select(firstname, sex) ## just these
+subdata2 <- resume %>% dplyr::select(-firstname, -sex) ## all but these two
+```
+
+
 ### Reproducing your steps
 
 It is really important to keep a record of all of the changes you have made to the original data. An R script or R markdown file is a useful way to do this, so long as you add comments that explain what you are doing. 

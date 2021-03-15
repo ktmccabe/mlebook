@@ -151,7 +151,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3.3" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-variable-codings-that-arent-quite-right"><i class="fa fa-check"></i><b>2.3.3</b> Dealing with Variable Codings that Aren’t Quite Right</a></li>
 <li class="chapter" data-level="2.3.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-incomplete-data-merging"><i class="fa fa-check"></i><b>2.3.4</b> Dealing with Incomplete Data (Merging!)</a></li>
 <li class="chapter" data-level="2.3.5" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-poorly-shaped-data"><i class="fa fa-check"></i><b>2.3.5</b> Dealing with Poorly Shaped Data</a></li>
-<li class="chapter" data-level="2.3.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reproducing-your-steps"><i class="fa fa-check"></i><b>2.3.6</b> Reproducing your steps</a></li>
+<li class="chapter" data-level="2.3.6" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-data-by-rows-and-columns"><i class="fa fa-check"></i><b>2.3.6</b> Subsetting data by rows and columns</a></li>
+<li class="chapter" data-level="2.3.7" data-path="data-wrangling.html"><a href="data-wrangling.html#reproducing-your-steps"><i class="fa fa-check"></i><b>2.3.7</b> Reproducing your steps</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html"><i class="fa fa-check"></i><b>2.4</b> Tools for writing up results</a>
 <ul>
@@ -420,35 +421,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Try to remember this detail, because it will come up later when we assess if a Poisson process is actually a good approximation of the data generating process. It’s often not the case that a mean is the same as the variance. It can actually be a quite bad approximation of the variance.</li>
 </ul>
 <p>Let’s look at an example of Poisson data to prove to ourselves that if data are Poisson the mean and variance are equivalent:</p>
-<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb594-1"><a href="poisson-model.html#cb594-1" aria-hidden="true" tabindex="-1"></a><span class="do">## We use rpois() to generate some count data according to the Poisson distribution. </span></span>
-<span id="cb594-2"><a href="poisson-model.html#cb594-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s specify lambda = 4</span></span>
-<span id="cb594-3"><a href="poisson-model.html#cb594-3" aria-hidden="true" tabindex="-1"></a><span class="do">## This means the mean of the distribution will be 4 and the variance will be 4</span></span>
-<span id="cb594-4"><a href="poisson-model.html#cb594-4" aria-hidden="true" tabindex="-1"></a><span class="do">## In any given sample, it might be slightly off from this</span></span>
-<span id="cb594-5"><a href="poisson-model.html#cb594-5" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n=</span><span class="dv">100000</span>, <span class="at">lambda =</span> <span class="dv">4</span>)</span>
-<span id="cb594-6"><a href="poisson-model.html#cb594-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(Y)</span></code></pre></div>
+<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb607-1"><a href="poisson-model.html#cb607-1" aria-hidden="true" tabindex="-1"></a><span class="do">## We use rpois() to generate some count data according to the Poisson distribution. </span></span>
+<span id="cb607-2"><a href="poisson-model.html#cb607-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s specify lambda = 4</span></span>
+<span id="cb607-3"><a href="poisson-model.html#cb607-3" aria-hidden="true" tabindex="-1"></a><span class="do">## This means the mean of the distribution will be 4 and the variance will be 4</span></span>
+<span id="cb607-4"><a href="poisson-model.html#cb607-4" aria-hidden="true" tabindex="-1"></a><span class="do">## In any given sample, it might be slightly off from this</span></span>
+<span id="cb607-5"><a href="poisson-model.html#cb607-5" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n=</span><span class="dv">100000</span>, <span class="at">lambda =</span> <span class="dv">4</span>)</span>
+<span id="cb607-6"><a href="poisson-model.html#cb607-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(Y)</span></code></pre></div>
 <pre><code>[1] 4.00034</code></pre>
-<div class="sourceCode" id="cb596"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb596-1"><a href="poisson-model.html#cb596-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(Y)</span></code></pre></div>
+<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb609-1"><a href="poisson-model.html#cb609-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(Y)</span></code></pre></div>
 <pre><code>[1] 4.00326</code></pre>
 <p>The pmf above describes the probability that <code>Y</code> takes a particular outcome.</p>
-<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb598-1"><a href="poisson-model.html#cb598-1" aria-hidden="true" tabindex="-1"></a><span class="do">## For example given a Y ~ Pois(lambda = 4), let&#39;s look at the probability of getting particular counts using dpois, the pmf function for poisson</span></span>
-<span id="cb598-2"><a href="poisson-model.html#cb598-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb598-3"><a href="poisson-model.html#cb598-3" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">16</span></span>
-<span id="cb598-4"><a href="poisson-model.html#cb598-4" aria-hidden="true" tabindex="-1"></a>probs <span class="ot">&lt;-</span> <span class="fu">dpois</span>(counts, <span class="at">lambda =</span> <span class="dv">4</span>)</span>
-<span id="cb598-5"><a href="poisson-model.html#cb598-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(probs) <span class="ot">&lt;-</span> counts</span>
-<span id="cb598-6"><a href="poisson-model.html#cb598-6" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(probs, <span class="at">digits=</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb611-1"><a href="poisson-model.html#cb611-1" aria-hidden="true" tabindex="-1"></a><span class="do">## For example given a Y ~ Pois(lambda = 4), let&#39;s look at the probability of getting particular counts using dpois, the pmf function for poisson</span></span>
+<span id="cb611-2"><a href="poisson-model.html#cb611-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb611-3"><a href="poisson-model.html#cb611-3" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">16</span></span>
+<span id="cb611-4"><a href="poisson-model.html#cb611-4" aria-hidden="true" tabindex="-1"></a>probs <span class="ot">&lt;-</span> <span class="fu">dpois</span>(counts, <span class="at">lambda =</span> <span class="dv">4</span>)</span>
+<span id="cb611-5"><a href="poisson-model.html#cb611-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(probs) <span class="ot">&lt;-</span> counts</span>
+<span id="cb611-6"><a href="poisson-model.html#cb611-6" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(probs, <span class="at">digits=</span><span class="dv">3</span>)</span></code></pre></div>
 <pre><code>    0     1     2     3     4     5     6     7     8     9    10    11    12 
 0.018 0.073 0.147 0.195 0.195 0.156 0.104 0.060 0.030 0.013 0.005 0.002 0.001 
    13    14    15    16 
 0.000 0.000 0.000 0.000 </code></pre>
-<div class="sourceCode" id="cb600"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb600-1"><a href="poisson-model.html#cb600-1" aria-hidden="true" tabindex="-1"></a><span class="do">## The probability is higher the closer we are to 4, the mean of the distribution</span></span>
-<span id="cb600-2"><a href="poisson-model.html#cb600-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s check our formula from above for the probability Y = 2</span></span>
-<span id="cb600-3"><a href="poisson-model.html#cb600-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb600-4"><a href="poisson-model.html#cb600-4" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb600-5"><a href="poisson-model.html#cb600-5" aria-hidden="true" tabindex="-1"></a>yi <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb600-6"><a href="poisson-model.html#cb600-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(yi, <span class="at">lambda=</span><span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb613-1"><a href="poisson-model.html#cb613-1" aria-hidden="true" tabindex="-1"></a><span class="do">## The probability is higher the closer we are to 4, the mean of the distribution</span></span>
+<span id="cb613-2"><a href="poisson-model.html#cb613-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s check our formula from above for the probability Y = 2</span></span>
+<span id="cb613-3"><a href="poisson-model.html#cb613-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb613-4"><a href="poisson-model.html#cb613-4" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb613-5"><a href="poisson-model.html#cb613-5" aria-hidden="true" tabindex="-1"></a>yi <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb613-6"><a href="poisson-model.html#cb613-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(yi, <span class="at">lambda=</span><span class="dv">4</span>)</span></code></pre></div>
 <pre><code>[1] 0.1465251</code></pre>
-<div class="sourceCode" id="cb602"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb602-1"><a href="poisson-model.html#cb602-1" aria-hidden="true" tabindex="-1"></a><span class="do">## formula from above</span></span>
-<span id="cb602-2"><a href="poisson-model.html#cb602-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span>lambda)<span class="sc">*</span>lambda<span class="sc">^</span>yi<span class="sc">/</span><span class="fu">factorial</span>(yi)</span></code></pre></div>
+<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb615-1"><a href="poisson-model.html#cb615-1" aria-hidden="true" tabindex="-1"></a><span class="do">## formula from above</span></span>
+<span id="cb615-2"><a href="poisson-model.html#cb615-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span>lambda)<span class="sc">*</span>lambda<span class="sc">^</span>yi<span class="sc">/</span><span class="fu">factorial</span>(yi)</span></code></pre></div>
 <pre><code>[1] 0.1465251</code></pre>
 <p>The expected count here is 4, the mean of the distribution. The probability of any given count is specified according to the pmf above.</p>
 <p><strong>Adding covariates</strong></p>

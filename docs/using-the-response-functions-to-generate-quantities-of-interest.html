@@ -151,7 +151,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3.3" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-variable-codings-that-arent-quite-right"><i class="fa fa-check"></i><b>2.3.3</b> Dealing with Variable Codings that Aren’t Quite Right</a></li>
 <li class="chapter" data-level="2.3.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-incomplete-data-merging"><i class="fa fa-check"></i><b>2.3.4</b> Dealing with Incomplete Data (Merging!)</a></li>
 <li class="chapter" data-level="2.3.5" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-poorly-shaped-data"><i class="fa fa-check"></i><b>2.3.5</b> Dealing with Poorly Shaped Data</a></li>
-<li class="chapter" data-level="2.3.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reproducing-your-steps"><i class="fa fa-check"></i><b>2.3.6</b> Reproducing your steps</a></li>
+<li class="chapter" data-level="2.3.6" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-data-by-rows-and-columns"><i class="fa fa-check"></i><b>2.3.6</b> Subsetting data by rows and columns</a></li>
+<li class="chapter" data-level="2.3.7" data-path="data-wrangling.html"><a href="data-wrangling.html#reproducing-your-steps"><i class="fa fa-check"></i><b>2.3.7</b> Reproducing your steps</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html"><i class="fa fa-check"></i><b>2.4</b> Tools for writing up results</a>
 <ul>
@@ -417,18 +418,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>BalanceofPower</code>: balance of military power</li>
 <li><code>YearsSince</code>: the number of years since the last dispute</li>
 </ul>
-<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb340-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load data</span></span>
-<span id="cb340-2"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb340-2" aria-hidden="true" tabindex="-1"></a>mids <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/ktmccabe/teachingdata/main/midsshort.txt&quot;</span>)</span>
-<span id="cb340-3"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb340-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb340-4"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb340-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(mids<span class="sc">$</span>Conflict)</span></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb353-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load data</span></span>
+<span id="cb353-2"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb353-2" aria-hidden="true" tabindex="-1"></a>mids <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/ktmccabe/teachingdata/main/midsshort.txt&quot;</span>)</span>
+<span id="cb353-3"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb353-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb353-4"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb353-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(mids<span class="sc">$</span>Conflict)</span></code></pre></div>
 <pre><code>
     0     1 
 99657   343 </code></pre>
 <p>As can be seen from the table above, conflicts (fortunately) are relatively rare in our data. This means are predicted probabilities are likely going to be pretty small in this example.</p>
 <p>We will run a logistic regression with a few covariates.</p>
-<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb342-1" aria-hidden="true" tabindex="-1"></a>out.logit <span class="ot">&lt;-</span><span class="fu">glm</span>(Conflict <span class="sc">~</span>  MajorPower <span class="sc">+</span> Contiguity <span class="sc">+</span> Allies <span class="sc">+</span> ForeignPolicy <span class="sc">+</span></span>
-<span id="cb342-2"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb342-2" aria-hidden="true" tabindex="-1"></a>    BalanceOfPower <span class="sc">+</span> YearsSince, </span>
-<span id="cb342-3"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb342-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>), <span class="at">data =</span> mids)</span></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb355-1" aria-hidden="true" tabindex="-1"></a>out.logit <span class="ot">&lt;-</span><span class="fu">glm</span>(Conflict <span class="sc">~</span>  MajorPower <span class="sc">+</span> Contiguity <span class="sc">+</span> Allies <span class="sc">+</span> ForeignPolicy <span class="sc">+</span></span>
+<span id="cb355-2"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb355-2" aria-hidden="true" tabindex="-1"></a>    BalanceOfPower <span class="sc">+</span> YearsSince, </span>
+<span id="cb355-3"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb355-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>), <span class="at">data =</span> mids)</span></code></pre></div>
 <p>Our logistic regression equation is:</p>
 <ul>
 <li><span class="math inline">\(\log \frac{\pi_i}{1-\pi_i} = \mathbf{x_i&#39;}\beta\)</span>, or alternatively</li>
@@ -447,20 +448,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We use the <code>predict</code> function exactly the same way as before, but the key argument we need to specify is <code>type</code>. If you have <code>type = link</code> this generates answers that are still on the log-odds linear predictor scale. It is switching this to <code>response</code> that goes into probability in the logit case or probit case.</p>
 <p><strong>Example</strong></p>
 <p>First, let’s just generate predicted probabilities for each observation in our data, without specifiying any designated values for <span class="math inline">\(X\)</span>– just keeping the values as they are in the data aka “as observed.”</p>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb343-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Method with predict()</span></span>
-<span id="cb343-2"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb343-2" aria-hidden="true" tabindex="-1"></a><span class="do">## When you don&#39;t specify newdata, R assumes you want the X data from the model</span></span>
-<span id="cb343-3"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb343-3" aria-hidden="true" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">predict</span>(out.logit, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
-<span id="cb343-4"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb343-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb343-5"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb343-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Manual way #1</span></span>
-<span id="cb343-6"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb343-6" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(out.logit)</span>
-<span id="cb343-7"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb343-7" aria-hidden="true" tabindex="-1"></a>bh <span class="ot">&lt;-</span> <span class="fu">coef</span>(out.logit)</span>
-<span id="cb343-8"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb343-8" aria-hidden="true" tabindex="-1"></a>pplogis <span class="ot">&lt;-</span> <span class="fu">plogis</span>(X <span class="sc">%*%</span> bh)</span>
-<span id="cb343-9"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb343-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb343-10"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb343-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Manual way # 2</span></span>
-<span id="cb343-11"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb343-11" aria-hidden="true" tabindex="-1"></a>ppexp <span class="ot">&lt;-</span> <span class="fu">exp</span>(X <span class="sc">%*%</span> bh)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(X <span class="sc">%*%</span> bh))</span>
-<span id="cb343-12"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb343-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb343-13"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb343-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Compare the first five rows of each to see they are the same</span></span>
-<span id="cb343-14"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb343-14" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(pplogis, ppexp, pp)[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb356-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Method with predict()</span></span>
+<span id="cb356-2"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb356-2" aria-hidden="true" tabindex="-1"></a><span class="do">## When you don&#39;t specify newdata, R assumes you want the X data from the model</span></span>
+<span id="cb356-3"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb356-3" aria-hidden="true" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">predict</span>(out.logit, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb356-4"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb356-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb356-5"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb356-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Manual way #1</span></span>
+<span id="cb356-6"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb356-6" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(out.logit)</span>
+<span id="cb356-7"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb356-7" aria-hidden="true" tabindex="-1"></a>bh <span class="ot">&lt;-</span> <span class="fu">coef</span>(out.logit)</span>
+<span id="cb356-8"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb356-8" aria-hidden="true" tabindex="-1"></a>pplogis <span class="ot">&lt;-</span> <span class="fu">plogis</span>(X <span class="sc">%*%</span> bh)</span>
+<span id="cb356-9"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb356-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb356-10"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb356-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Manual way # 2</span></span>
+<span id="cb356-11"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb356-11" aria-hidden="true" tabindex="-1"></a>ppexp <span class="ot">&lt;-</span> <span class="fu">exp</span>(X <span class="sc">%*%</span> bh)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(X <span class="sc">%*%</span> bh))</span>
+<span id="cb356-12"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb356-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb356-13"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb356-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Compare the first five rows of each to see they are the same</span></span>
+<span id="cb356-14"><a href="using-the-response-functions-to-generate-quantities-of-interest.html#cb356-14" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(pplogis, ppexp, pp)[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span></code></pre></div>
 <pre><code>                                           pp
 78627  0.0004204501 0.0004204501 0.0004204501
 295818 0.0001035526 0.0001035526 0.0001035526

@@ -770,6 +770,12 @@ fake %>%
       + What would be a quantity of interest?
 
 ![](images/science1.png){width=70%}
+Recall that for our primary count models, the regression equation is of the form:
+
+  - $\log \lambda_i = \eta_i = \mathbf x_i^T\beta$ 
+  - $\lambda_i = exp(\mathbf x_i^T\beta)$
+  - $\lambda_i = \mathbf E[Y_i | \mathbf x_i] = \exp(\beta_0 + \beta_1x_{i1} + ... + \beta_{k}x_{ik})$ is the expected number of events per a unit of time or space
+
 
   3. Let's fit the model using `glm`. Be careful to specify the right `family`.
       + What is the dispersion parameter? What conceptual quantity does this represent?
