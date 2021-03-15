@@ -152,7 +152,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-incomplete-data-merging"><i class="fa fa-check"></i><b>2.3.4</b> Dealing with Incomplete Data (Merging!)</a></li>
 <li class="chapter" data-level="2.3.5" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-poorly-shaped-data"><i class="fa fa-check"></i><b>2.3.5</b> Dealing with Poorly Shaped Data</a></li>
 <li class="chapter" data-level="2.3.6" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-data-by-rows-and-columns"><i class="fa fa-check"></i><b>2.3.6</b> Subsetting data by rows and columns</a></li>
-<li class="chapter" data-level="2.3.7" data-path="data-wrangling.html"><a href="data-wrangling.html#reproducing-your-steps"><i class="fa fa-check"></i><b>2.3.7</b> Reproducing your steps</a></li>
+<li class="chapter" data-level="2.3.7" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-data"><i class="fa fa-check"></i><b>2.3.7</b> Visualizing Data</a></li>
+<li class="chapter" data-level="2.3.8" data-path="data-wrangling.html"><a href="data-wrangling.html#reproducing-your-steps"><i class="fa fa-check"></i><b>2.3.8</b> Reproducing your steps</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html"><i class="fa fa-check"></i><b>2.4</b> Tools for writing up results</a>
 <ul>
@@ -400,14 +401,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Note in the <code>summary</code> output, it lists the dispersion parameter.</li>
 </ul>
-<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="quasipoisson-and-negative-binomial-models.html#cb658-1" aria-hidden="true" tabindex="-1"></a>fitq <span class="ot">&lt;-</span> <span class="fu">glm</span>(allnoncerm_eo <span class="sc">~</span> divided <span class="sc">+</span> inflation <span class="sc">+</span> spending_percent_gdp </span>
-<span id="cb658-2"><a href="quasipoisson-and-negative-binomial-models.html#cb658-2" aria-hidden="true" tabindex="-1"></a>            <span class="sc">+</span> war <span class="sc">+</span> lame_duck <span class="sc">+</span></span>
-<span id="cb658-3"><a href="quasipoisson-and-negative-binomial-models.html#cb658-3" aria-hidden="true" tabindex="-1"></a>                 administration_change <span class="sc">+</span> trend <span class="sc">+</span></span>
-<span id="cb658-4"><a href="quasipoisson-and-negative-binomial-models.html#cb658-4" aria-hidden="true" tabindex="-1"></a>            <span class="sc">+</span> tr<span class="sc">+</span> taft <span class="sc">+</span> wilson <span class="sc">+</span> harding </span>
-<span id="cb658-5"><a href="quasipoisson-and-negative-binomial-models.html#cb658-5" aria-hidden="true" tabindex="-1"></a>           <span class="sc">+</span> coolidge <span class="sc">+</span> hoover, </span>
-<span id="cb658-6"><a href="quasipoisson-and-negative-binomial-models.html#cb658-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">family =</span> <span class="st">&quot;quasipoisson&quot;</span>, </span>
-<span id="cb658-7"><a href="quasipoisson-and-negative-binomial-models.html#cb658-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> <span class="fu">subset</span>(bolton, year <span class="sc">&lt;</span> <span class="dv">1945</span>))</span>
-<span id="cb658-8"><a href="quasipoisson-and-negative-binomial-models.html#cb658-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitq)</span></code></pre></div>
+<div class="sourceCode" id="cb664"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb664-1"><a href="quasipoisson-and-negative-binomial-models.html#cb664-1" aria-hidden="true" tabindex="-1"></a>fitq <span class="ot">&lt;-</span> <span class="fu">glm</span>(allnoncerm_eo <span class="sc">~</span> divided <span class="sc">+</span> inflation <span class="sc">+</span> spending_percent_gdp </span>
+<span id="cb664-2"><a href="quasipoisson-and-negative-binomial-models.html#cb664-2" aria-hidden="true" tabindex="-1"></a>            <span class="sc">+</span> war <span class="sc">+</span> lame_duck <span class="sc">+</span></span>
+<span id="cb664-3"><a href="quasipoisson-and-negative-binomial-models.html#cb664-3" aria-hidden="true" tabindex="-1"></a>                 administration_change <span class="sc">+</span> trend <span class="sc">+</span></span>
+<span id="cb664-4"><a href="quasipoisson-and-negative-binomial-models.html#cb664-4" aria-hidden="true" tabindex="-1"></a>            <span class="sc">+</span> tr<span class="sc">+</span> taft <span class="sc">+</span> wilson <span class="sc">+</span> harding </span>
+<span id="cb664-5"><a href="quasipoisson-and-negative-binomial-models.html#cb664-5" aria-hidden="true" tabindex="-1"></a>           <span class="sc">+</span> coolidge <span class="sc">+</span> hoover, </span>
+<span id="cb664-6"><a href="quasipoisson-and-negative-binomial-models.html#cb664-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">family =</span> <span class="st">&quot;quasipoisson&quot;</span>, </span>
+<span id="cb664-7"><a href="quasipoisson-and-negative-binomial-models.html#cb664-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> <span class="fu">subset</span>(bolton, year <span class="sc">&lt;</span> <span class="dv">1945</span>))</span>
+<span id="cb664-8"><a href="quasipoisson-and-negative-binomial-models.html#cb664-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitq)</span></code></pre></div>
 <pre><code>
 Call:
 glm(formula = allnoncerm_eo ~ divided + inflation + spending_percent_gdp + 
@@ -446,21 +447,21 @@ AIC: NA
 
 Number of Fisher Scoring iterations: 4</code></pre>
 <p>The dispersion parameter is estimated using those standardized residuals from the Poisson model.</p>
-<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb660-1"><a href="quasipoisson-and-negative-binomial-models.html#cb660-1" aria-hidden="true" tabindex="-1"></a>sres <span class="ot">&lt;-</span> <span class="fu">residuals</span>(fit, <span class="at">type=</span><span class="st">&quot;pearson&quot;</span>)</span>
-<span id="cb660-2"><a href="quasipoisson-and-negative-binomial-models.html#cb660-2" aria-hidden="true" tabindex="-1"></a>chisq <span class="ot">&lt;-</span> <span class="fu">sum</span>(sres<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb660-3"><a href="quasipoisson-and-negative-binomial-models.html#cb660-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> chisq<span class="sc">/</span>fit<span class="sc">$</span>df.residual</span>
-<span id="cb660-4"><a href="quasipoisson-and-negative-binomial-models.html#cb660-4" aria-hidden="true" tabindex="-1"></a>d</span></code></pre></div>
+<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb666-1"><a href="quasipoisson-and-negative-binomial-models.html#cb666-1" aria-hidden="true" tabindex="-1"></a>sres <span class="ot">&lt;-</span> <span class="fu">residuals</span>(fit, <span class="at">type=</span><span class="st">&quot;pearson&quot;</span>)</span>
+<span id="cb666-2"><a href="quasipoisson-and-negative-binomial-models.html#cb666-2" aria-hidden="true" tabindex="-1"></a>chisq <span class="ot">&lt;-</span> <span class="fu">sum</span>(sres<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb666-3"><a href="quasipoisson-and-negative-binomial-models.html#cb666-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> chisq<span class="sc">/</span>fit<span class="sc">$</span>df.residual</span>
+<span id="cb666-4"><a href="quasipoisson-and-negative-binomial-models.html#cb666-4" aria-hidden="true" tabindex="-1"></a>d</span></code></pre></div>
 <pre><code>[1] 16.96146</code></pre>
 <p>Let’s compare the Poisson and Quasipoisson model coefficients and standard errors.</p>
-<div class="sourceCode" id="cb662"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb662-1"><a href="quasipoisson-and-negative-binomial-models.html#cb662-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">summary</span>(fit)<span class="sc">$</span>coefficients[<span class="dv">2</span>,], <span class="at">digits=</span><span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb668"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb668-1"><a href="quasipoisson-and-negative-binomial-models.html#cb668-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">summary</span>(fit)<span class="sc">$</span>coefficients[<span class="dv">2</span>,], <span class="at">digits=</span><span class="dv">4</span>)</span></code></pre></div>
 <pre><code>  Estimate Std. Error    z value   Pr(&gt;|z|) 
     0.4436     0.0420    10.5740     0.0000 </code></pre>
-<div class="sourceCode" id="cb664"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb664-1"><a href="quasipoisson-and-negative-binomial-models.html#cb664-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">summary</span>(fitq)<span class="sc">$</span>coefficients[<span class="dv">2</span>,], <span class="at">digits=</span><span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb670"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb670-1"><a href="quasipoisson-and-negative-binomial-models.html#cb670-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">summary</span>(fitq)<span class="sc">$</span>coefficients[<span class="dv">2</span>,], <span class="at">digits=</span><span class="dv">4</span>)</span></code></pre></div>
 <pre><code>  Estimate Std. Error    t value   Pr(&gt;|t|) 
     0.4436     0.1728     2.5675     0.0163 </code></pre>
 <p>We can retrieve the standard error from the quasipoisson by multiplication.</p>
-<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb666-1"><a href="quasipoisson-and-negative-binomial-models.html#cb666-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Multiply the Poisson standard error by sqrt(d)</span></span>
-<span id="cb666-2"><a href="quasipoisson-and-negative-binomial-models.html#cb666-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">summary</span>(fit)<span class="sc">$</span>coefficients[<span class="dv">2</span>,<span class="dv">2</span>] <span class="sc">*</span> <span class="fu">sqrt</span>(d), <span class="at">digits=</span><span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb672"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb672-1"><a href="quasipoisson-and-negative-binomial-models.html#cb672-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Multiply the Poisson standard error by sqrt(d)</span></span>
+<span id="cb672-2"><a href="quasipoisson-and-negative-binomial-models.html#cb672-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">summary</span>(fit)<span class="sc">$</span>coefficients[<span class="dv">2</span>,<span class="dv">2</span>] <span class="sc">*</span> <span class="fu">sqrt</span>(d), <span class="at">digits=</span><span class="dv">4</span>)</span></code></pre></div>
 <pre><code>[1] 0.1728</code></pre>
 <p>Note that the standard error among the Quasipoisson model is much bigger, accounting for the larger variance from overdispersion.</p>
 <div id="negative-binomial-models" class="section level3" number="10.5.1">
@@ -474,15 +475,15 @@ Number of Fisher Scoring iterations: 4</code></pre>
 </ul>
 <p>Note that while the probability distribution looks much uglier the mapping of <span class="math inline">\(\mathbf x_i&#39; \beta\)</span> is the same. We will still have a <span class="math inline">\(\log\)</span> link and exponeniate to get our quantities of interest.</p>
 <p>In R, we use the <code>glm.nb</code> function from the <code>MASS</code> package to fit negative binomial models. Here, we do not need to specify a <code>family</code>, but we do specify the <code>link = "log"</code>.</p>
-<div class="sourceCode" id="cb668"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb668-1"><a href="quasipoisson-and-negative-binomial-models.html#cb668-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb668-2"><a href="quasipoisson-and-negative-binomial-models.html#cb668-2" aria-hidden="true" tabindex="-1"></a>fitn <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(allnoncerm_eo <span class="sc">~</span> divided <span class="sc">+</span> inflation <span class="sc">+</span> </span>
-<span id="cb668-3"><a href="quasipoisson-and-negative-binomial-models.html#cb668-3" aria-hidden="true" tabindex="-1"></a>                 spending_percent_gdp <span class="sc">+</span> war <span class="sc">+</span> lame_duck <span class="sc">+</span></span>
-<span id="cb668-4"><a href="quasipoisson-and-negative-binomial-models.html#cb668-4" aria-hidden="true" tabindex="-1"></a>                 administration_change <span class="sc">+</span> trend <span class="sc">+</span></span>
-<span id="cb668-5"><a href="quasipoisson-and-negative-binomial-models.html#cb668-5" aria-hidden="true" tabindex="-1"></a>            <span class="sc">+</span> tr<span class="sc">+</span> taft <span class="sc">+</span> wilson <span class="sc">+</span> harding </span>
-<span id="cb668-6"><a href="quasipoisson-and-negative-binomial-models.html#cb668-6" aria-hidden="true" tabindex="-1"></a>           <span class="sc">+</span> coolidge <span class="sc">+</span> hoover, </span>
-<span id="cb668-7"><a href="quasipoisson-and-negative-binomial-models.html#cb668-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">link=</span><span class="st">&quot;log&quot;</span>, </span>
-<span id="cb668-8"><a href="quasipoisson-and-negative-binomial-models.html#cb668-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> <span class="fu">subset</span>(bolton, year <span class="sc">&lt;</span> <span class="dv">1945</span>))</span>
-<span id="cb668-9"><a href="quasipoisson-and-negative-binomial-models.html#cb668-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitn)<span class="sc">$</span>coefficients[<span class="dv">2</span>,]</span></code></pre></div>
+<div class="sourceCode" id="cb674"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb674-1"><a href="quasipoisson-and-negative-binomial-models.html#cb674-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb674-2"><a href="quasipoisson-and-negative-binomial-models.html#cb674-2" aria-hidden="true" tabindex="-1"></a>fitn <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(allnoncerm_eo <span class="sc">~</span> divided <span class="sc">+</span> inflation <span class="sc">+</span> </span>
+<span id="cb674-3"><a href="quasipoisson-and-negative-binomial-models.html#cb674-3" aria-hidden="true" tabindex="-1"></a>                 spending_percent_gdp <span class="sc">+</span> war <span class="sc">+</span> lame_duck <span class="sc">+</span></span>
+<span id="cb674-4"><a href="quasipoisson-and-negative-binomial-models.html#cb674-4" aria-hidden="true" tabindex="-1"></a>                 administration_change <span class="sc">+</span> trend <span class="sc">+</span></span>
+<span id="cb674-5"><a href="quasipoisson-and-negative-binomial-models.html#cb674-5" aria-hidden="true" tabindex="-1"></a>            <span class="sc">+</span> tr<span class="sc">+</span> taft <span class="sc">+</span> wilson <span class="sc">+</span> harding </span>
+<span id="cb674-6"><a href="quasipoisson-and-negative-binomial-models.html#cb674-6" aria-hidden="true" tabindex="-1"></a>           <span class="sc">+</span> coolidge <span class="sc">+</span> hoover, </span>
+<span id="cb674-7"><a href="quasipoisson-and-negative-binomial-models.html#cb674-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">link=</span><span class="st">&quot;log&quot;</span>, </span>
+<span id="cb674-8"><a href="quasipoisson-and-negative-binomial-models.html#cb674-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> <span class="fu">subset</span>(bolton, year <span class="sc">&lt;</span> <span class="dv">1945</span>))</span>
+<span id="cb674-9"><a href="quasipoisson-and-negative-binomial-models.html#cb674-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fitn)<span class="sc">$</span>coefficients[<span class="dv">2</span>,]</span></code></pre></div>
 <pre><code>   Estimate  Std. Error     z value    Pr(&gt;|z|) 
 0.442135921 0.141831942 3.117322607 0.001825017 </code></pre>
 <p>Compare this to column 1 in the model below.</p>

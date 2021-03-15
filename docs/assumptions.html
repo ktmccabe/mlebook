@@ -152,7 +152,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-incomplete-data-merging"><i class="fa fa-check"></i><b>2.3.4</b> Dealing with Incomplete Data (Merging!)</a></li>
 <li class="chapter" data-level="2.3.5" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-poorly-shaped-data"><i class="fa fa-check"></i><b>2.3.5</b> Dealing with Poorly Shaped Data</a></li>
 <li class="chapter" data-level="2.3.6" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-data-by-rows-and-columns"><i class="fa fa-check"></i><b>2.3.6</b> Subsetting data by rows and columns</a></li>
-<li class="chapter" data-level="2.3.7" data-path="data-wrangling.html"><a href="data-wrangling.html#reproducing-your-steps"><i class="fa fa-check"></i><b>2.3.7</b> Reproducing your steps</a></li>
+<li class="chapter" data-level="2.3.7" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-data"><i class="fa fa-check"></i><b>2.3.7</b> Visualizing Data</a></li>
+<li class="chapter" data-level="2.3.8" data-path="data-wrangling.html"><a href="data-wrangling.html#reproducing-your-steps"><i class="fa fa-check"></i><b>2.3.8</b> Reproducing your steps</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html"><i class="fa fa-check"></i><b>2.4</b> Tools for writing up results</a>
 <ul>
@@ -406,13 +407,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>What to do if assumption is violated? Ignore, Do Binary, Do multinomial (discussed in the next session), use a model that has been developed for relaxing this assumption (e.g., see <code>clm</code> function in R).</p>
 <p>One test for this that has been developed for the ordered logit case is the Brant test.</p>
-<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="assumptions.html#cb510-1" aria-hidden="true" tabindex="-1"></a>fit.l <span class="ot">&lt;-</span> <span class="fu">polr</span>(<span class="fu">as.factor</span>(dissent) <span class="sc">~</span> treat, <span class="at">data=</span> pg, </span>
-<span id="cb510-2"><a href="assumptions.html#cb510-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">Hess =</span> T, <span class="at">method =</span> <span class="st">&quot;probit&quot;</span>)</span>
-<span id="cb510-3"><a href="assumptions.html#cb510-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb510-4"><a href="assumptions.html#cb510-4" aria-hidden="true" tabindex="-1"></a><span class="do">## One way to test this</span></span>
-<span id="cb510-5"><a href="assumptions.html#cb510-5" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;brant&quot;)</span></span>
-<span id="cb510-6"><a href="assumptions.html#cb510-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(brant)</span>
-<span id="cb510-7"><a href="assumptions.html#cb510-7" aria-hidden="true" tabindex="-1"></a><span class="fu">brant</span>(fit.l,<span class="at">by.var=</span>F)</span></code></pre></div>
+<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb516-1"><a href="assumptions.html#cb516-1" aria-hidden="true" tabindex="-1"></a>fit.l <span class="ot">&lt;-</span> <span class="fu">polr</span>(<span class="fu">as.factor</span>(dissent) <span class="sc">~</span> treat, <span class="at">data=</span> pg, </span>
+<span id="cb516-2"><a href="assumptions.html#cb516-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">Hess =</span> T, <span class="at">method =</span> <span class="st">&quot;probit&quot;</span>)</span>
+<span id="cb516-3"><a href="assumptions.html#cb516-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb516-4"><a href="assumptions.html#cb516-4" aria-hidden="true" tabindex="-1"></a><span class="do">## One way to test this</span></span>
+<span id="cb516-5"><a href="assumptions.html#cb516-5" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;brant&quot;)</span></span>
+<span id="cb516-6"><a href="assumptions.html#cb516-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(brant)</span>
+<span id="cb516-7"><a href="assumptions.html#cb516-7" aria-hidden="true" tabindex="-1"></a><span class="fu">brant</span>(fit.l,<span class="at">by.var=</span>F)</span></code></pre></div>
 <pre><code>-------------------------------------------- 
 Test for	X2	df	probability 
 -------------------------------------------- 
@@ -421,19 +422,19 @@ treat		3.93	2	0.14
 -------------------------------------------- 
 
 H0: Parallel Regression Assumption holds</code></pre>
-<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="assumptions.html#cb512-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Second way- compare fit of ordinal and multinom models</span></span>
-<span id="cb512-2"><a href="assumptions.html#cb512-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;nnet&quot;)</span></span>
-<span id="cb512-3"><a href="assumptions.html#cb512-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nnet)</span>
-<span id="cb512-4"><a href="assumptions.html#cb512-4" aria-hidden="true" tabindex="-1"></a>mlm <span class="ot">&lt;-</span> <span class="fu">multinom</span>(<span class="fu">as.factor</span>(dissent) <span class="sc">~</span> treat, <span class="at">data=</span>pg)</span></code></pre></div>
+<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb518-1"><a href="assumptions.html#cb518-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Second way- compare fit of ordinal and multinom models</span></span>
+<span id="cb518-2"><a href="assumptions.html#cb518-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;nnet&quot;)</span></span>
+<span id="cb518-3"><a href="assumptions.html#cb518-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nnet)</span>
+<span id="cb518-4"><a href="assumptions.html#cb518-4" aria-hidden="true" tabindex="-1"></a>mlm <span class="ot">&lt;-</span> <span class="fu">multinom</span>(<span class="fu">as.factor</span>(dissent) <span class="sc">~</span> treat, <span class="at">data=</span>pg)</span></code></pre></div>
 <pre><code># weights:  12 (6 variable)
 initial  value 686.215709 
 iter  10 value 625.130759
 final  value 625.130585 
 converged</code></pre>
-<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="assumptions.html#cb514-1" aria-hidden="true" tabindex="-1"></a>M1 <span class="ot">&lt;-</span> <span class="fu">logLik</span>(fit.l)</span>
-<span id="cb514-2"><a href="assumptions.html#cb514-2" aria-hidden="true" tabindex="-1"></a>M2 <span class="ot">&lt;-</span> <span class="fu">logLik</span>(mlm)</span>
-<span id="cb514-3"><a href="assumptions.html#cb514-3" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span><span class="sc">*</span>(M1[<span class="dv">1</span>] <span class="sc">-</span> M2[<span class="dv">1</span>])</span>
-<span id="cb514-4"><a href="assumptions.html#cb514-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(G, <span class="dv">6</span> <span class="sc">-</span> <span class="dv">4</span>,<span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="assumptions.html#cb520-1" aria-hidden="true" tabindex="-1"></a>M1 <span class="ot">&lt;-</span> <span class="fu">logLik</span>(fit.l)</span>
+<span id="cb520-2"><a href="assumptions.html#cb520-2" aria-hidden="true" tabindex="-1"></a>M2 <span class="ot">&lt;-</span> <span class="fu">logLik</span>(mlm)</span>
+<span id="cb520-3"><a href="assumptions.html#cb520-3" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span><span class="sc">*</span>(M1[<span class="dv">1</span>] <span class="sc">-</span> M2[<span class="dv">1</span>])</span>
+<span id="cb520-4"><a href="assumptions.html#cb520-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(G, <span class="dv">6</span> <span class="sc">-</span> <span class="dv">4</span>,<span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>[1] 0.1667305</code></pre>
 <p>In both cases, our p-value is large enough that we cannot reject the null hypothesis, meaning that we are “okay” sticking with the assumption in this case.</p>
 </div>

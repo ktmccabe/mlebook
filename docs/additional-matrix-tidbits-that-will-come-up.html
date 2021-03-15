@@ -152,7 +152,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-incomplete-data-merging"><i class="fa fa-check"></i><b>2.3.4</b> Dealing with Incomplete Data (Merging!)</a></li>
 <li class="chapter" data-level="2.3.5" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-poorly-shaped-data"><i class="fa fa-check"></i><b>2.3.5</b> Dealing with Poorly Shaped Data</a></li>
 <li class="chapter" data-level="2.3.6" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-data-by-rows-and-columns"><i class="fa fa-check"></i><b>2.3.6</b> Subsetting data by rows and columns</a></li>
-<li class="chapter" data-level="2.3.7" data-path="data-wrangling.html"><a href="data-wrangling.html#reproducing-your-steps"><i class="fa fa-check"></i><b>2.3.7</b> Reproducing your steps</a></li>
+<li class="chapter" data-level="2.3.7" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-data"><i class="fa fa-check"></i><b>2.3.7</b> Visualizing Data</a></li>
+<li class="chapter" data-level="2.3.8" data-path="data-wrangling.html"><a href="data-wrangling.html#reproducing-your-steps"><i class="fa fa-check"></i><b>2.3.8</b> Reproducing your steps</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html"><i class="fa fa-check"></i><b>2.4</b> Tools for writing up results</a>
 <ul>
@@ -421,22 +422,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>If <span class="math inline">\(A = \begin{pmatrix} 1 &amp; 4 &amp; 2 \\ 3 &amp; 1 &amp; 11 \\ 5 &amp; 9 &amp; 4 \\ 2 &amp; 11&amp; 4 \end{pmatrix}\)</span> then <span class="math inline">\(A^T = \begin{pmatrix} 1 &amp; 3 &amp; 5 &amp; 2\\ 4 &amp; 1 &amp; 9 &amp; 11 \\ 2&amp; 11  &amp; 4 &amp; 4 \end{pmatrix}\)</span></p>
 <p>Check for yourself: What was in the first row (<span class="math inline">\(i=1\)</span>), second column (<span class="math inline">\(j=2\)</span>) is now in the second row (<span class="math inline">\(i=2\)</span>), first column (<span class="math inline">\(j=1\)</span>). That is <span class="math inline">\(a_{12} =4 = a&#39;_{21}\)</span>.</p>
 <p>We can transpose matrices in R using <code>t()</code>. For example, take our matrix <code>A</code>:</p>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="additional-matrix-tidbits-that-will-come-up.html#cb156-1" aria-hidden="true" tabindex="-1"></a>A</span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="additional-matrix-tidbits-that-will-come-up.html#cb162-1" aria-hidden="true" tabindex="-1"></a>A</span></code></pre></div>
 <pre><code>     [,1] [,2]
 [1,]    3    5
 [2,]    4    6
 [3,]    6    8</code></pre>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="additional-matrix-tidbits-that-will-come-up.html#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(A)</span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="additional-matrix-tidbits-that-will-come-up.html#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(A)</span></code></pre></div>
 <pre><code>     [,1] [,2] [,3]
 [1,]    3    4    6
 [2,]    5    6    8</code></pre>
 <p>In R, you can find the inverse of a square matrix with <code>solve()</code></p>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="additional-matrix-tidbits-that-will-come-up.html#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(A)</span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="additional-matrix-tidbits-that-will-come-up.html#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(A)</span></code></pre></div>
 <pre><code>Error in solve.default(A): &#39;a&#39; (3 x 2) must be square</code></pre>
 <p>Note, while <code>A</code> is not square A’A is square:</p>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="additional-matrix-tidbits-that-will-come-up.html#cb162-1" aria-hidden="true" tabindex="-1"></a>AtA <span class="ot">&lt;-</span> <span class="fu">t</span>(A) <span class="sc">%*%</span> A</span>
-<span id="cb162-2"><a href="additional-matrix-tidbits-that-will-come-up.html#cb162-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb162-3"><a href="additional-matrix-tidbits-that-will-come-up.html#cb162-3" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(AtA)</span></code></pre></div>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="additional-matrix-tidbits-that-will-come-up.html#cb168-1" aria-hidden="true" tabindex="-1"></a>AtA <span class="ot">&lt;-</span> <span class="fu">t</span>(A) <span class="sc">%*%</span> A</span>
+<span id="cb168-2"><a href="additional-matrix-tidbits-that-will-come-up.html#cb168-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb168-3"><a href="additional-matrix-tidbits-that-will-come-up.html#cb168-3" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(AtA)</span></code></pre></div>
 <pre><code>          [,1]      [,2]
 [1,]  2.232143 -1.553571
 [2,] -1.553571  1.089286</code></pre>
@@ -451,21 +452,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Example of symmetric matrix:</p>
 <p><span class="math inline">\(D = \begin{pmatrix} 1 &amp; 6 &amp; 22 \\ 6 &amp; 4 &amp; 7 \\ 22 &amp; 7 &amp; 11 \end{pmatrix}\)</span></p>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="additional-matrix-tidbits-that-will-come-up.html#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Look at the equivalence</span></span>
-<span id="cb164-2"><a href="additional-matrix-tidbits-that-will-come-up.html#cb164-2" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">6</span>,<span class="dv">22</span>), <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">4</span>,<span class="dv">7</span>), <span class="fu">c</span>(<span class="dv">22</span>,<span class="dv">7</span>,<span class="dv">11</span>))</span>
-<span id="cb164-3"><a href="additional-matrix-tidbits-that-will-come-up.html#cb164-3" aria-hidden="true" tabindex="-1"></a>D</span></code></pre></div>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="additional-matrix-tidbits-that-will-come-up.html#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Look at the equivalence</span></span>
+<span id="cb170-2"><a href="additional-matrix-tidbits-that-will-come-up.html#cb170-2" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">6</span>,<span class="dv">22</span>), <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">4</span>,<span class="dv">7</span>), <span class="fu">c</span>(<span class="dv">22</span>,<span class="dv">7</span>,<span class="dv">11</span>))</span>
+<span id="cb170-3"><a href="additional-matrix-tidbits-that-will-come-up.html#cb170-3" aria-hidden="true" tabindex="-1"></a>D</span></code></pre></div>
 <pre><code>     [,1] [,2] [,3]
 [1,]    1    6   22
 [2,]    6    4    7
 [3,]   22    7   11</code></pre>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="additional-matrix-tidbits-that-will-come-up.html#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(D)</span></code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="additional-matrix-tidbits-that-will-come-up.html#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(D)</span></code></pre></div>
 <pre><code>     [,1] [,2] [,3]
 [1,]    1    6   22
 [2,]    6    4    7
 [3,]   22    7   11</code></pre>
 <p>What is the trace of this matrix?</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="additional-matrix-tidbits-that-will-come-up.html#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="do">## diag() pulls out the diagonal of a matrix</span></span>
-<span id="cb168-2"><a href="additional-matrix-tidbits-that-will-come-up.html#cb168-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(D))</span></code></pre></div>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="additional-matrix-tidbits-that-will-come-up.html#cb174-1" aria-hidden="true" tabindex="-1"></a><span class="do">## diag() pulls out the diagonal of a matrix</span></span>
+<span id="cb174-2"><a href="additional-matrix-tidbits-that-will-come-up.html#cb174-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(D))</span></code></pre></div>
 <pre><code>[1] 16</code></pre>
 </div>
 <div id="matrix-rules" class="section level3" number="3.5.3">

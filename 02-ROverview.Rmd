@@ -371,11 +371,35 @@ This may involve creating new variables that recode certain values, creating new
 
 [Chapter 2](http://assets.press.princeton.edu/chapters/s2-11025.pdf) of Kosuke Imai's book *Quantitative Social Science* walks through some examples of how to summarize your data, subset the data (2.2.3), create new variables using conditional statements (Section 2.2.4, e.g., "If age is below 65, assign the new variable a value of "0", otherwise, assign it a value of "1"), and creating new factor variables (2.2.5, e.g., coding anyone who is Protestant, Catholic, or Lutheran in the data as "Christian").
 
+Here is a short video working through the example from 2.2.4 using conditional statements to construct new variables. It uses the `resume` dataframe, which can be loaded below.
+
+```{r}
+resume <- read.csv("https://raw.githubusercontent.com/ktmccabe/teachingdata/main/resume.csv")
+```
+
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library("vembedr")
+library(knitr)
+
+embed_url("https://www.youtube.com/watch?v=lMY2t4SQ0Pg")
+```
+
+
 R Studio has its own set of primers on various topics, including summarizing and working with data. See the [Work with Data](https://rstudio.cloud/learn/primers/2) primer, as well as the full list of other [topics](https://rstudio.cloud/learn/primers). These will often rely on tidyverse coding.
 
 ### Dealing with Incomplete Data (Merging!)
 
 Sometimes in order to answer our research questions, we need to combine data from multiple sources. If we have a large amount of data, this may be quite daunting. Fortunately, R has several commands that allow us to merge or append datasets.
+
+Here is a video working through examples of merging and appending data based on the tutorial below.
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library("vembedr")
+library(knitr)
+
+embed_url("https://www.youtube.com/watch?v=NwwlB6Lp1TY")
+```
 
 Here are a few resources on merging and appending data:
 
@@ -432,6 +456,15 @@ Sometimes we do not want to deal with our entire dataset for an analysis. Instea
 
 Below are a few examples of subsetting data and selecting columns. We will use the `resume` dataset from the Kosuke Imai QSS book for demonstration. This is a dataset from an experiment describing whether certain applicants, who varied in the gender (`sex`) and race (`race`) signaled by their name (`firstname`), received callbacks (`call`) for their employment applications.
 
+Here is a short video working through these examples.
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library("vembedr")
+library(knitr)
+
+embed_url("https://www.youtube.com/watch?v=6EdllKtaDHE")
+```
+
+
 Let's load the data.
 
 ```{r}
@@ -449,7 +482,7 @@ resume[1:4,] # first through 4th rows
 resume[c(1, 3, 4),] # 1, 3, 4 rows
 ```
 
-Using the `subset` command with logical expressions `>` `>=` `=` `<` `<=`
+Using the `subset` command with logical expressions `>` `>=` `==` `<` `<=` `!=`
 ```{r}
 ## by logical expressions
 women <- subset(resume, sex == "female")
@@ -490,10 +523,75 @@ justthese <- resume[, c("firstname", "sex")]
 ```
 
 Using the `select` command
-```{r}
+```{r, message=F, warning=F}
 ## install.packages("dplyr")
+library(dplyr)
 subdata <- resume %>% dplyr::select(firstname, sex) ## just these
 subdata2 <- resume %>% dplyr::select(-firstname, -sex) ## all but these two
+```
+
+### Visualizing Data
+
+There are many commands for plotting your data in R. The most common functions in base R are `plot()`, `barplot()` and `hist()`. You will see many examples throughout the notes with each of these functions.
+
+To get you started, the most simple thing to note about the `plot()` command is that it is based on a coordinate system. You specify the `x` and `y` coordinates for which you want to plot a series of points.
+
+For example, here is a plot at points 1,40; 3,50; and 4,60.
+```{r}
+plot(x = c(1,3,4), y=c(40, 50, 60))
+```
+
+Instead of putting raw numbers as the coordinates, you can provide object names. E.g., 
+
+```{r, eval=F}
+xcoord <- c(1,3,4)
+ycoord <- c(40, 50, 60)
+plot(x = xcoord, y=ycoord)
+```
+
+Beyond that, you can play around with many aesthetics in R, such as the `type`, `pch`, `lty`, as well as labels `main`, `ylab`, `xlab`, font sizes `cex.main`, `cex.axis`, `cex.lab`, and axis limits `ylim`, `xlim`. Below is an example. Play around with changing some of the specifications, and see how the plot changes.
+
+```{r, eval=T}
+xcoord <- c(1,3,4)
+ycoord <- c(40, 50, 60)
+plot(x = xcoord, y=ycoord,
+     main = "Example plot",
+     ylab= "Example y axis",
+     xlab = "Example x axis",
+     cex.main = .8,
+     ylim = c(0, 80),
+     xlim = c(1,4),
+     pch = 15,
+     col="red",
+     type = "b",
+     lty=2)
+```
+
+The function `barplot` takes a single vector of values. This can be a raw vector you have created or a `table` object or `tapply` object, for example, displaying the counts of different observations or means. 
+
+You can add a `names.arg` argument to specify particular names for each bar. Many of the other aesthetics are the same as `plot`. You can play around with adding aesthetics.
+
+Example:
+```{r}
+barplot(ycoord,
+        names.arg = c("First", "Second", "Third"),
+        col="blue")
+```
+
+For more on visualizing data, you can see the RStudio [primers](https://rstudio.cloud/learn/primers/3).
+
+R also has a package called `ggplot2` which includes the function `ggplot` and many elaborate ways to plot your data. The `gg` stands for the grammar of graphics. For a video introduction to `ggplot` I recommend watching Ryan Womack's video from 27:30 on. It uses the data `diamonds` which can be loaded in R through the following command. See approximately minute 35 for an example with a bar plot.
+
+```{r, warning=F, message=F, eval=F}
+library(ggplot2)
+data(diamonds)
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library("vembedr")
+library(knitr)
+
+embed_url("https://www.youtube.com/watch?v=c9DZ8lBwxZs")
 ```
 
 

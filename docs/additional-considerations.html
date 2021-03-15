@@ -152,7 +152,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-incomplete-data-merging"><i class="fa fa-check"></i><b>2.3.4</b> Dealing with Incomplete Data (Merging!)</a></li>
 <li class="chapter" data-level="2.3.5" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-poorly-shaped-data"><i class="fa fa-check"></i><b>2.3.5</b> Dealing with Poorly Shaped Data</a></li>
 <li class="chapter" data-level="2.3.6" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-data-by-rows-and-columns"><i class="fa fa-check"></i><b>2.3.6</b> Subsetting data by rows and columns</a></li>
-<li class="chapter" data-level="2.3.7" data-path="data-wrangling.html"><a href="data-wrangling.html#reproducing-your-steps"><i class="fa fa-check"></i><b>2.3.7</b> Reproducing your steps</a></li>
+<li class="chapter" data-level="2.3.7" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-data"><i class="fa fa-check"></i><b>2.3.7</b> Visualizing Data</a></li>
+<li class="chapter" data-level="2.3.8" data-path="data-wrangling.html"><a href="data-wrangling.html#reproducing-your-steps"><i class="fa fa-check"></i><b>2.3.8</b> Reproducing your steps</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html"><i class="fa fa-check"></i><b>2.4</b> Tools for writing up results</a>
 <ul>
@@ -402,13 +403,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We are going to use an example with an exposure from Gelman and Hill and the study of stop-and-frisk as a policy. This is example is based on the tutorial by Clay Ford <a href="http://www.clayford.net/statistics/poisson-regression-ch-6-of-gelman-and-hill/">here</a>.</p>
 <p>The data include an outcome desribing the number of <code>stops</code> in a given area. The regression model looks at the relationship between race/ethnicity <code>factor(eth)</code> and the number of stops made in a precinct.</p>
 <p>Run the few lines below to load and prepare the data according to Gelman and Hill’s instructions:</p>
-<div class="sourceCode" id="cb707"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb707-1"><a href="additional-considerations.html#cb707-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Stop and frisk. Does race/ethnicity influence number of stops?</span></span>
-<span id="cb707-2"><a href="additional-considerations.html#cb707-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Prepare noisy data</span></span>
-<span id="cb707-3"><a href="additional-considerations.html#cb707-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb707-4"><a href="additional-considerations.html#cb707-4" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.table</span>( <span class="st">&quot;http://www.stat.columbia.edu/~gelman/arm/examples/police/frisk_with_noise.dat&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">skip=</span><span class="dv">6</span>)</span>
-<span id="cb707-5"><a href="additional-considerations.html#cb707-5" aria-hidden="true" tabindex="-1"></a>stops <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(<span class="fu">cbind</span>(stops, past.arrests) <span class="sc">~</span> eth <span class="sc">+</span> precinct, <span class="at">data=</span>dat, sum)</span></code></pre></div>
+<div class="sourceCode" id="cb713"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb713-1"><a href="additional-considerations.html#cb713-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Stop and frisk. Does race/ethnicity influence number of stops?</span></span>
+<span id="cb713-2"><a href="additional-considerations.html#cb713-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Prepare noisy data</span></span>
+<span id="cb713-3"><a href="additional-considerations.html#cb713-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb713-4"><a href="additional-considerations.html#cb713-4" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.table</span>( <span class="st">&quot;http://www.stat.columbia.edu/~gelman/arm/examples/police/frisk_with_noise.dat&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">skip=</span><span class="dv">6</span>)</span>
+<span id="cb713-5"><a href="additional-considerations.html#cb713-5" aria-hidden="true" tabindex="-1"></a>stops <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(<span class="fu">cbind</span>(stops, past.arrests) <span class="sc">~</span> eth <span class="sc">+</span> precinct, <span class="at">data=</span>dat, sum)</span></code></pre></div>
 <p>The unit of analysis after we run this is the number of stops in a given precinct for a particular racial/ethnicity group.</p>
-<div class="sourceCode" id="cb708"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb708-1"><a href="additional-considerations.html#cb708-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(stops)</span></code></pre></div>
+<div class="sourceCode" id="cb714"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb714-1"><a href="additional-considerations.html#cb714-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(stops)</span></code></pre></div>
 <pre><code>  eth precinct stops past.arrests
 1   1        1   202          980
 2   2        1   102          295
@@ -427,12 +428,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 <p>Let’s use a quasipoisson model this time. We enter the offset through an explicit argument <code>offset</code>. (Otherwise it will be treated like any regression variable, and its coefficient won’t be fixed to 1.)</p>
-<div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb710-1"><a href="additional-considerations.html#cb710-1" aria-hidden="true" tabindex="-1"></a><span class="do">## No natural limit for stops BUT might be influenced by past arrests</span></span>
-<span id="cb710-2"><a href="additional-considerations.html#cb710-2" aria-hidden="true" tabindex="-1"></a>sf<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(stops <span class="sc">~</span> <span class="fu">factor</span>(eth), </span>
-<span id="cb710-3"><a href="additional-considerations.html#cb710-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> stops, </span>
-<span id="cb710-4"><a href="additional-considerations.html#cb710-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">family=</span><span class="st">&quot;quasipoisson&quot;</span>, </span>
-<span id="cb710-5"><a href="additional-considerations.html#cb710-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">offset =</span>  <span class="fu">log</span>(past.arrests))</span>
-<span id="cb710-6"><a href="additional-considerations.html#cb710-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sf<span class="fl">.1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb716"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb716-1"><a href="additional-considerations.html#cb716-1" aria-hidden="true" tabindex="-1"></a><span class="do">## No natural limit for stops BUT might be influenced by past arrests</span></span>
+<span id="cb716-2"><a href="additional-considerations.html#cb716-2" aria-hidden="true" tabindex="-1"></a>sf<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(stops <span class="sc">~</span> <span class="fu">factor</span>(eth), </span>
+<span id="cb716-3"><a href="additional-considerations.html#cb716-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> stops, </span>
+<span id="cb716-4"><a href="additional-considerations.html#cb716-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">family=</span><span class="st">&quot;quasipoisson&quot;</span>, </span>
+<span id="cb716-5"><a href="additional-considerations.html#cb716-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">offset =</span>  <span class="fu">log</span>(past.arrests))</span>
+<span id="cb716-6"><a href="additional-considerations.html#cb716-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sf<span class="fl">.1</span>)</span></code></pre></div>
 <pre><code>
 Call:
 glm(formula = stops ~ factor(eth), family = &quot;quasipoisson&quot;, data = stops, 
@@ -458,15 +459,15 @@ AIC: NA
 
 Number of Fisher Scoring iterations: 5</code></pre>
 <p>When we calculate our quantities of interest, <code>predict</code> will automatically incorporate the offset. When we calculate them manually, we need to explicitly enter the offset.</p>
-<div class="sourceCode" id="cb712"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb712-1"><a href="additional-considerations.html#cb712-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Predicted counts with offsets exp(XB + log(N))</span></span>
-<span id="cb712-2"><a href="additional-considerations.html#cb712-2" aria-hidden="true" tabindex="-1"></a>sf.count <span class="ot">&lt;-</span> <span class="fu">predict</span>(sf<span class="fl">.1</span>, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
-<span id="cb712-3"><a href="additional-considerations.html#cb712-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb712-4"><a href="additional-considerations.html#cb712-4" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(sf<span class="fl">.1</span>)</span>
-<span id="cb712-5"><a href="additional-considerations.html#cb712-5" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">coef</span>(sf<span class="fl">.1</span>)</span>
-<span id="cb712-6"><a href="additional-considerations.html#cb712-6" aria-hidden="true" tabindex="-1"></a>sf.count.man <span class="ot">&lt;-</span> <span class="fu">exp</span>(X <span class="sc">%*%</span> B <span class="sc">+</span> <span class="fu">log</span>(stops<span class="sc">$</span>past.arrests))</span></code></pre></div>
+<div class="sourceCode" id="cb718"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb718-1"><a href="additional-considerations.html#cb718-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Predicted counts with offsets exp(XB + log(N))</span></span>
+<span id="cb718-2"><a href="additional-considerations.html#cb718-2" aria-hidden="true" tabindex="-1"></a>sf.count <span class="ot">&lt;-</span> <span class="fu">predict</span>(sf<span class="fl">.1</span>, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb718-3"><a href="additional-considerations.html#cb718-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb718-4"><a href="additional-considerations.html#cb718-4" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(sf<span class="fl">.1</span>)</span>
+<span id="cb718-5"><a href="additional-considerations.html#cb718-5" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">coef</span>(sf<span class="fl">.1</span>)</span>
+<span id="cb718-6"><a href="additional-considerations.html#cb718-6" aria-hidden="true" tabindex="-1"></a>sf.count.man <span class="ot">&lt;-</span> <span class="fu">exp</span>(X <span class="sc">%*%</span> B <span class="sc">+</span> <span class="fu">log</span>(stops<span class="sc">$</span>past.arrests))</span></code></pre></div>
 <p>Note that <span class="math inline">\(e^{X\hat\beta + \log N} = e^{X\hat\beta} * e^ {\log N} = N*e^{X\hat\beta}\)</span>. This means we could equivalently write:</p>
-<div class="sourceCode" id="cb713"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb713-1"><a href="additional-considerations.html#cb713-1" aria-hidden="true" tabindex="-1"></a>sf.count.man2 <span class="ot">&lt;-</span> <span class="fu">exp</span>(X <span class="sc">%*%</span> B)<span class="sc">*</span>stops<span class="sc">$</span>past.arrests</span>
-<span id="cb713-2"><a href="additional-considerations.html#cb713-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(sf.count, sf.count.man, sf.count.man2)[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,]</span></code></pre></div>
+<div class="sourceCode" id="cb719"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb719-1"><a href="additional-considerations.html#cb719-1" aria-hidden="true" tabindex="-1"></a>sf.count.man2 <span class="ot">&lt;-</span> <span class="fu">exp</span>(X <span class="sc">%*%</span> B)<span class="sc">*</span>stops<span class="sc">$</span>past.arrests</span>
+<span id="cb719-2"><a href="additional-considerations.html#cb719-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(sf.count, sf.count.man, sf.count.man2)[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,]</span></code></pre></div>
 <pre><code>  sf.count                  
 1 544.2816 544.2816 544.2816
 2 175.7562 175.7562 175.7562

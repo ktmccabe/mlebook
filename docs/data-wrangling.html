@@ -152,7 +152,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-incomplete-data-merging"><i class="fa fa-check"></i><b>2.3.4</b> Dealing with Incomplete Data (Merging!)</a></li>
 <li class="chapter" data-level="2.3.5" data-path="data-wrangling.html"><a href="data-wrangling.html#dealing-with-poorly-shaped-data"><i class="fa fa-check"></i><b>2.3.5</b> Dealing with Poorly Shaped Data</a></li>
 <li class="chapter" data-level="2.3.6" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-data-by-rows-and-columns"><i class="fa fa-check"></i><b>2.3.6</b> Subsetting data by rows and columns</a></li>
-<li class="chapter" data-level="2.3.7" data-path="data-wrangling.html"><a href="data-wrangling.html#reproducing-your-steps"><i class="fa fa-check"></i><b>2.3.7</b> Reproducing your steps</a></li>
+<li class="chapter" data-level="2.3.7" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-data"><i class="fa fa-check"></i><b>2.3.7</b> Visualizing Data</a></li>
+<li class="chapter" data-level="2.3.8" data-path="data-wrangling.html"><a href="data-wrangling.html#reproducing-your-steps"><i class="fa fa-check"></i><b>2.3.8</b> Reproducing your steps</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html"><i class="fa fa-check"></i><b>2.4</b> Tools for writing up results</a>
 <ul>
@@ -534,11 +535,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Often times the ways that variables are coded in datasets we get off-the-shelf are not coded exactly as how we were dreaming up operationalizing our concepts. Instead, we are going to have to wrangle the data to get them into shape.</p>
 <p>This may involve creating new variables that recode certain values, creating new variables that collapse some values into a smaller number of categories, combining multiple variables into a single variable (e.g., representing the average), or setting some of the variable values to be missing (<code>NA</code>). All of these scenarios may come up when you are dealing with real data.</p>
 <p><a href="http://assets.press.princeton.edu/chapters/s2-11025.pdf">Chapter 2</a> of Kosuke Imai’s book <em>Quantitative Social Science</em> walks through some examples of how to summarize your data, subset the data (2.2.3), create new variables using conditional statements (Section 2.2.4, e.g., “If age is below 65, assign the new variable a value of”0“, otherwise, assign it a value of”1“), and creating new factor variables (2.2.5, e.g., coding anyone who is Protestant, Catholic, or Lutheran in the data as”Christian").</p>
+<p>Here is a short video working through the example from 2.2.4 using conditional statements to construct new variables. It uses the <code>resume</code> dataframe, which can be loaded below.</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="data-wrangling.html#cb45-1" aria-hidden="true" tabindex="-1"></a>resume <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ktmccabe/teachingdata/main/resume.csv&quot;</span>)</span></code></pre></div>
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/lMY2t4SQ0Pg" width="533" height="300" frameborder="0" allowfullscreen=""></iframe>
+</div>
+</div>
 <p>R Studio has its own set of primers on various topics, including summarizing and working with data. See the <a href="https://rstudio.cloud/learn/primers/2">Work with Data</a> primer, as well as the full list of other <a href="https://rstudio.cloud/learn/primers">topics</a>. These will often rely on tidyverse coding.</p>
 </div>
 <div id="dealing-with-incomplete-data-merging" class="section level3" number="2.3.4">
 <h3><span class="header-section-number">2.3.4</span> Dealing with Incomplete Data (Merging!)</h3>
 <p>Sometimes in order to answer our research questions, we need to combine data from multiple sources. If we have a large amount of data, this may be quite daunting. Fortunately, R has several commands that allow us to merge or append datasets.</p>
+<p>Here is a video working through examples of merging and appending data based on the tutorial below.</p>
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/NwwlB6Lp1TY" width="533" height="300" frameborder="0" allowfullscreen=""></iframe>
+</div>
+</div>
 <p>Here are a few resources on merging and appending data:</p>
 <ul>
 <li>Using the <code>merge</code> command in R. <a href="https://sejdemyr.github.io/r-tutorials/statistics/tutorial5.html">See Explanation.</a>
@@ -553,12 +567,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">2.3.5</span> Dealing with Poorly Shaped Data</h3>
 <p>Data can come in a variety of shapes and sizes. It’s a <a href="https://www.youtube.com/watch?v=g4vQeHP_nxg">beautiful disaster</a>.</p>
 <p>Sometimes it’s particularly useful to have data in wide formats, where every row relates to a particular unit of data– such as a country or a survey respondent. And perhaps each column represents information about that unit at a particular point in time. For example, perhaps you have a column with information on that subject for the past five years.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="data-wrangling.html#cb45-1" aria-hidden="true" tabindex="-1"></a>countrywide <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">country =</span> <span class="fu">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;USA&quot;</span>),</span>
-<span id="cb45-2"><a href="data-wrangling.html#cb45-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">economy2016 =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>),</span>
-<span id="cb45-3"><a href="data-wrangling.html#cb45-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">economy2017 =</span> <span class="fu">c</span>(<span class="dv">11</span>, <span class="dv">11</span>),</span>
-<span id="cb45-4"><a href="data-wrangling.html#cb45-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">economy2018 =</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">5</span>),</span>
-<span id="cb45-5"><a href="data-wrangling.html#cb45-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">economy2019 =</span> <span class="fu">c</span>(<span class="dv">13</span>, <span class="dv">8</span>),</span>
-<span id="cb45-6"><a href="data-wrangling.html#cb45-6" aria-hidden="true" tabindex="-1"></a>                          <span class="at">economy2020 =</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="data-wrangling.html#cb46-1" aria-hidden="true" tabindex="-1"></a>countrywide <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">country =</span> <span class="fu">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;USA&quot;</span>),</span>
+<span id="cb46-2"><a href="data-wrangling.html#cb46-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">economy2016 =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>),</span>
+<span id="cb46-3"><a href="data-wrangling.html#cb46-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">economy2017 =</span> <span class="fu">c</span>(<span class="dv">11</span>, <span class="dv">11</span>),</span>
+<span id="cb46-4"><a href="data-wrangling.html#cb46-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">economy2018 =</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">5</span>),</span>
+<span id="cb46-5"><a href="data-wrangling.html#cb46-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">economy2019 =</span> <span class="fu">c</span>(<span class="dv">13</span>, <span class="dv">8</span>),</span>
+<span id="cb46-6"><a href="data-wrangling.html#cb46-6" aria-hidden="true" tabindex="-1"></a>                          <span class="at">economy2020 =</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -590,9 +604,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <p>However, other times, it would be more useful to you, as you dig into your data analysis, to have this information arranged in “long” format, such that every row is now a unit-year combination. You have a row for Canada in 2020, a row for Canada in 2019, and so on. Countries are now represented in multiple rows of your data.</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="data-wrangling.html#cb46-1" aria-hidden="true" tabindex="-1"></a>countrylong <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">country =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;USA&quot;</span>),<span class="dv">5</span>),</span>
-<span id="cb46-2"><a href="data-wrangling.html#cb46-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">year =</span> <span class="dv">2016</span><span class="sc">:</span><span class="dv">2020</span>,</span>
-<span id="cb46-3"><a href="data-wrangling.html#cb46-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">economy=</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>,<span class="dv">11</span>, <span class="dv">11</span>,<span class="dv">9</span>, <span class="dv">5</span>,<span class="dv">13</span>, <span class="dv">8</span>,<span class="dv">12</span>, <span class="dv">6</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="data-wrangling.html#cb47-1" aria-hidden="true" tabindex="-1"></a>countrylong <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">country =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;USA&quot;</span>),<span class="dv">5</span>),</span>
+<span id="cb47-2"><a href="data-wrangling.html#cb47-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">year =</span> <span class="dv">2016</span><span class="sc">:</span><span class="dv">2020</span>,</span>
+<span id="cb47-3"><a href="data-wrangling.html#cb47-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">economy=</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>,<span class="dv">11</span>, <span class="dv">11</span>,<span class="dv">9</span>, <span class="dv">5</span>,<span class="dv">13</span>, <span class="dv">8</span>,<span class="dv">12</span>, <span class="dv">6</span>))</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -666,55 +680,105 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">2.3.6</span> Subsetting data by rows and columns</h3>
 <p>Sometimes we do not want to deal with our entire dataset for an analysis. Instead, we might want to only analyze certain rows (e.g., maybe if we are just studying Democrats, for example). Similarly, we might have a dataframe with 1000 columns, from which we are only using about 20. We might want to remove those extra columns to make it easier to work with our dataframes.</p>
 <p>Below are a few examples of subsetting data and selecting columns. We will use the <code>resume</code> dataset from the Kosuke Imai QSS book for demonstration. This is a dataset from an experiment describing whether certain applicants, who varied in the gender (<code>sex</code>) and race (<code>race</code>) signaled by their name (<code>firstname</code>), received callbacks (<code>call</code>) for their employment applications.</p>
+<p>Here is a short video working through these examples.
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/6EdllKtaDHE" width="533" height="300" frameborder="0" allowfullscreen=""></iframe>
+</div>
+</div></p>
 <p>Let’s load the data.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="data-wrangling.html#cb47-1" aria-hidden="true" tabindex="-1"></a>resume <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ktmccabe/teachingdata/main/resume.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="data-wrangling.html#cb48-1" aria-hidden="true" tabindex="-1"></a>resume <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ktmccabe/teachingdata/main/resume.csv&quot;</span>)</span></code></pre></div>
 <p><strong><em>Subset particular rows</em></strong></p>
 <p>To do this, put the row numbers you want to keep on the left side of the comma. Putting nothing on the right side means you want to keep all columns.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="data-wrangling.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="do">## numerically</span></span>
-<span id="cb48-2"><a href="data-wrangling.html#cb48-2" aria-hidden="true" tabindex="-1"></a>resume[<span class="dv">1</span>,] <span class="co"># first row</span></span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="data-wrangling.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="do">## numerically</span></span>
+<span id="cb49-2"><a href="data-wrangling.html#cb49-2" aria-hidden="true" tabindex="-1"></a>resume[<span class="dv">1</span>,] <span class="co"># first row</span></span></code></pre></div>
 <pre><code>##   firstname    sex  race call
 ## 1   Allison female white    0</code></pre>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="data-wrangling.html#cb50-1" aria-hidden="true" tabindex="-1"></a>resume[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,] <span class="co"># first through 4th rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="data-wrangling.html#cb51-1" aria-hidden="true" tabindex="-1"></a>resume[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,] <span class="co"># first through 4th rows</span></span></code></pre></div>
 <pre><code>##   firstname    sex  race call
 ## 1   Allison female white    0
 ## 2   Kristen female white    0
 ## 3   Lakisha female black    0
 ## 4   Latonya female black    0</code></pre>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="data-wrangling.html#cb52-1" aria-hidden="true" tabindex="-1"></a>resume[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>),] <span class="co"># 1, 3, 4 rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="data-wrangling.html#cb53-1" aria-hidden="true" tabindex="-1"></a>resume[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>),] <span class="co"># 1, 3, 4 rows</span></span></code></pre></div>
 <pre><code>##   firstname    sex  race call
 ## 1   Allison female white    0
 ## 3   Lakisha female black    0
 ## 4   Latonya female black    0</code></pre>
-<p>Using the <code>subset</code> command with logical expressions <code>&gt;</code> <code>&gt;=</code> <code>=</code> <code>&lt;</code> <code>&lt;=</code></p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="data-wrangling.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="do">## by logical expressions</span></span>
-<span id="cb54-2"><a href="data-wrangling.html#cb54-2" aria-hidden="true" tabindex="-1"></a>women <span class="ot">&lt;-</span> <span class="fu">subset</span>(resume, sex <span class="sc">==</span> <span class="st">&quot;female&quot;</span>)</span>
-<span id="cb54-3"><a href="data-wrangling.html#cb54-3" aria-hidden="true" tabindex="-1"></a>women <span class="ot">&lt;-</span> resume[resume<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">&quot;female&quot;</span>, ] <span class="do">## alternative</span></span>
-<span id="cb54-4"><a href="data-wrangling.html#cb54-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-5"><a href="data-wrangling.html#cb54-5" aria-hidden="true" tabindex="-1"></a>calledback <span class="ot">&lt;-</span> <span class="fu">subset</span>(resume, call <span class="sc">==</span> <span class="dv">1</span>)</span>
-<span id="cb54-6"><a href="data-wrangling.html#cb54-6" aria-hidden="true" tabindex="-1"></a>calledback <span class="ot">&lt;-</span> <span class="fu">subset</span>(resume, call <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code></pre></div>
+<p>Using the <code>subset</code> command with logical expressions <code>&gt;</code> <code>&gt;=</code> <code>==</code> <code>&lt;</code> <code>&lt;=</code> <code>!=</code></p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="data-wrangling.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="do">## by logical expressions</span></span>
+<span id="cb55-2"><a href="data-wrangling.html#cb55-2" aria-hidden="true" tabindex="-1"></a>women <span class="ot">&lt;-</span> <span class="fu">subset</span>(resume, sex <span class="sc">==</span> <span class="st">&quot;female&quot;</span>)</span>
+<span id="cb55-3"><a href="data-wrangling.html#cb55-3" aria-hidden="true" tabindex="-1"></a>women <span class="ot">&lt;-</span> resume[resume<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">&quot;female&quot;</span>, ] <span class="do">## alternative</span></span>
+<span id="cb55-4"><a href="data-wrangling.html#cb55-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-5"><a href="data-wrangling.html#cb55-5" aria-hidden="true" tabindex="-1"></a>calledback <span class="ot">&lt;-</span> <span class="fu">subset</span>(resume, call <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb55-6"><a href="data-wrangling.html#cb55-6" aria-hidden="true" tabindex="-1"></a>calledback <span class="ot">&lt;-</span> <span class="fu">subset</span>(resume, call <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code></pre></div>
 <p>And or Or statements <code>&amp;</code> or <code>|</code></p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="data-wrangling.html#cb55-1" aria-hidden="true" tabindex="-1"></a>blackwomen <span class="ot">&lt;-</span> <span class="fu">subset</span>(resume, sex <span class="sc">==</span> <span class="st">&quot;female&quot;</span> <span class="sc">&amp;</span> race <span class="sc">==</span> <span class="st">&quot;black&quot;</span>)</span>
-<span id="cb55-2"><a href="data-wrangling.html#cb55-2" aria-hidden="true" tabindex="-1"></a>bradbrendan <span class="ot">&lt;-</span> <span class="fu">subset</span>(resume, firstname <span class="sc">==</span> <span class="st">&quot;Brad&quot;</span> <span class="sc">|</span> </span>
-<span id="cb55-3"><a href="data-wrangling.html#cb55-3" aria-hidden="true" tabindex="-1"></a>                        firstname <span class="sc">==</span> <span class="st">&quot;Brendan&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="data-wrangling.html#cb56-1" aria-hidden="true" tabindex="-1"></a>blackwomen <span class="ot">&lt;-</span> <span class="fu">subset</span>(resume, sex <span class="sc">==</span> <span class="st">&quot;female&quot;</span> <span class="sc">&amp;</span> race <span class="sc">==</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb56-2"><a href="data-wrangling.html#cb56-2" aria-hidden="true" tabindex="-1"></a>bradbrendan <span class="ot">&lt;-</span> <span class="fu">subset</span>(resume, firstname <span class="sc">==</span> <span class="st">&quot;Brad&quot;</span> <span class="sc">|</span> </span>
+<span id="cb56-3"><a href="data-wrangling.html#cb56-3" aria-hidden="true" tabindex="-1"></a>                        firstname <span class="sc">==</span> <span class="st">&quot;Brendan&quot;</span>)</span></code></pre></div>
 <p>The tidyverse also has commands for subsetting. Here is an example using <code>filter</code>.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="data-wrangling.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb56-2"><a href="data-wrangling.html#cb56-2" aria-hidden="true" tabindex="-1"></a>blackwomen <span class="ot">&lt;-</span> resume <span class="sc">%&gt;%</span></span>
-<span id="cb56-3"><a href="data-wrangling.html#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">&quot;female&quot;</span> <span class="sc">&amp;</span> race <span class="sc">==</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="data-wrangling.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb57-2"><a href="data-wrangling.html#cb57-2" aria-hidden="true" tabindex="-1"></a>blackwomen <span class="ot">&lt;-</span> resume <span class="sc">%&gt;%</span></span>
+<span id="cb57-3"><a href="data-wrangling.html#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">&quot;female&quot;</span> <span class="sc">&amp;</span> race <span class="sc">==</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
 <p><strong><em>Selecting particular columns</em></strong></p>
 <p>Note, now we are working on the right side of the comma.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="data-wrangling.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="do">## numerically</span></span>
-<span id="cb57-2"><a href="data-wrangling.html#cb57-2" aria-hidden="true" tabindex="-1"></a>first <span class="ot">&lt;-</span> resume[, <span class="dv">1</span>] <span class="co"># first column</span></span>
-<span id="cb57-3"><a href="data-wrangling.html#cb57-3" aria-hidden="true" tabindex="-1"></a>firstsecond <span class="ot">&lt;-</span> resume[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="co"># first and second column</span></span>
-<span id="cb57-4"><a href="data-wrangling.html#cb57-4" aria-hidden="true" tabindex="-1"></a>notfourth <span class="ot">&lt;-</span> resume[, <span class="sc">-</span><span class="dv">4</span>] <span class="co"># all but the fourth column</span></span></code></pre></div>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="data-wrangling.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="do">## by labels</span></span>
-<span id="cb58-2"><a href="data-wrangling.html#cb58-2" aria-hidden="true" tabindex="-1"></a>justthese <span class="ot">&lt;-</span> resume[, <span class="fu">c</span>(<span class="st">&quot;firstname&quot;</span>, <span class="st">&quot;sex&quot;</span>)]</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="data-wrangling.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="do">## numerically</span></span>
+<span id="cb58-2"><a href="data-wrangling.html#cb58-2" aria-hidden="true" tabindex="-1"></a>first <span class="ot">&lt;-</span> resume[, <span class="dv">1</span>] <span class="co"># first column</span></span>
+<span id="cb58-3"><a href="data-wrangling.html#cb58-3" aria-hidden="true" tabindex="-1"></a>firstsecond <span class="ot">&lt;-</span> resume[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="co"># first and second column</span></span>
+<span id="cb58-4"><a href="data-wrangling.html#cb58-4" aria-hidden="true" tabindex="-1"></a>notfourth <span class="ot">&lt;-</span> resume[, <span class="sc">-</span><span class="dv">4</span>] <span class="co"># all but the fourth column</span></span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="data-wrangling.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="do">## by labels</span></span>
+<span id="cb59-2"><a href="data-wrangling.html#cb59-2" aria-hidden="true" tabindex="-1"></a>justthese <span class="ot">&lt;-</span> resume[, <span class="fu">c</span>(<span class="st">&quot;firstname&quot;</span>, <span class="st">&quot;sex&quot;</span>)]</span></code></pre></div>
 <p>Using the <code>select</code> command</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="data-wrangling.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;dplyr&quot;)</span></span>
-<span id="cb59-2"><a href="data-wrangling.html#cb59-2" aria-hidden="true" tabindex="-1"></a>subdata <span class="ot">&lt;-</span> resume <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(firstname, sex) <span class="do">## just these</span></span>
-<span id="cb59-3"><a href="data-wrangling.html#cb59-3" aria-hidden="true" tabindex="-1"></a>subdata2 <span class="ot">&lt;-</span> resume <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>firstname, <span class="sc">-</span>sex) <span class="do">## all but these two</span></span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="data-wrangling.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;dplyr&quot;)</span></span>
+<span id="cb60-2"><a href="data-wrangling.html#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb60-3"><a href="data-wrangling.html#cb60-3" aria-hidden="true" tabindex="-1"></a>subdata <span class="ot">&lt;-</span> resume <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(firstname, sex) <span class="do">## just these</span></span>
+<span id="cb60-4"><a href="data-wrangling.html#cb60-4" aria-hidden="true" tabindex="-1"></a>subdata2 <span class="ot">&lt;-</span> resume <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>firstname, <span class="sc">-</span>sex) <span class="do">## all but these two</span></span></code></pre></div>
 </div>
-<div id="reproducing-your-steps" class="section level3" number="2.3.7">
-<h3><span class="header-section-number">2.3.7</span> Reproducing your steps</h3>
+<div id="visualizing-data" class="section level3" number="2.3.7">
+<h3><span class="header-section-number">2.3.7</span> Visualizing Data</h3>
+<p>There are many commands for plotting your data in R. The most common functions in base R are <code>plot()</code>, <code>barplot()</code> and <code>hist()</code>. You will see many examples throughout the notes with each of these functions.</p>
+<p>To get you started, the most simple thing to note about the <code>plot()</code> command is that it is based on a coordinate system. You specify the <code>x</code> and <code>y</code> coordinates for which you want to plot a series of points.</p>
+<p>For example, here is a plot at points 1,40; 3,50; and 4,60.</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="data-wrangling.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">4</span>), <span class="at">y=</span><span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>))</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-40-1.svg" width="672" /></p>
+<p>Instead of putting raw numbers as the coordinates, you can provide object names. E.g.,</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="data-wrangling.html#cb62-1" aria-hidden="true" tabindex="-1"></a>xcoord <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">4</span>)</span>
+<span id="cb62-2"><a href="data-wrangling.html#cb62-2" aria-hidden="true" tabindex="-1"></a>ycoord <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>)</span>
+<span id="cb62-3"><a href="data-wrangling.html#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> xcoord, <span class="at">y=</span>ycoord)</span></code></pre></div>
+<p>Beyond that, you can play around with many aesthetics in R, such as the <code>type</code>, <code>pch</code>, <code>lty</code>, as well as labels <code>main</code>, <code>ylab</code>, <code>xlab</code>, font sizes <code>cex.main</code>, <code>cex.axis</code>, <code>cex.lab</code>, and axis limits <code>ylim</code>, <code>xlim</code>. Below is an example. Play around with changing some of the specifications, and see how the plot changes.</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="data-wrangling.html#cb63-1" aria-hidden="true" tabindex="-1"></a>xcoord <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">4</span>)</span>
+<span id="cb63-2"><a href="data-wrangling.html#cb63-2" aria-hidden="true" tabindex="-1"></a>ycoord <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>)</span>
+<span id="cb63-3"><a href="data-wrangling.html#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> xcoord, <span class="at">y=</span>ycoord,</span>
+<span id="cb63-4"><a href="data-wrangling.html#cb63-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Example plot&quot;</span>,</span>
+<span id="cb63-5"><a href="data-wrangling.html#cb63-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span> <span class="st">&quot;Example y axis&quot;</span>,</span>
+<span id="cb63-6"><a href="data-wrangling.html#cb63-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Example x axis&quot;</span>,</span>
+<span id="cb63-7"><a href="data-wrangling.html#cb63-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.main =</span> .<span class="dv">8</span>,</span>
+<span id="cb63-8"><a href="data-wrangling.html#cb63-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">80</span>),</span>
+<span id="cb63-9"><a href="data-wrangling.html#cb63-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>),</span>
+<span id="cb63-10"><a href="data-wrangling.html#cb63-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">15</span>,</span>
+<span id="cb63-11"><a href="data-wrangling.html#cb63-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span><span class="st">&quot;red&quot;</span>,</span>
+<span id="cb63-12"><a href="data-wrangling.html#cb63-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;b&quot;</span>,</span>
+<span id="cb63-13"><a href="data-wrangling.html#cb63-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-42-1.svg" width="672" /></p>
+<p>The function <code>barplot</code> takes a single vector of values. This can be a raw vector you have created or a <code>table</code> object or <code>tapply</code> object, for example, displaying the counts of different observations or means.</p>
+<p>You can add a <code>names.arg</code> argument to specify particular names for each bar. Many of the other aesthetics are the same as <code>plot</code>. You can play around with adding aesthetics.</p>
+<p>Example:</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="data-wrangling.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(ycoord,</span>
+<span id="cb64-2"><a href="data-wrangling.html#cb64-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">names.arg =</span> <span class="fu">c</span>(<span class="st">&quot;First&quot;</span>, <span class="st">&quot;Second&quot;</span>, <span class="st">&quot;Third&quot;</span>),</span>
+<span id="cb64-3"><a href="data-wrangling.html#cb64-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-43-1.svg" width="672" /></p>
+<p>For more on visualizing data, you can see the RStudio <a href="https://rstudio.cloud/learn/primers/3">primers</a>.</p>
+<p>R also has a package called <code>ggplot2</code> which includes the function <code>ggplot</code> and many elaborate ways to plot your data. The <code>gg</code> stands for the grammar of graphics. For a video introduction to <code>ggplot</code> I recommend watching Ryan Womack’s video from 27:30 on. It uses the data <code>diamonds</code> which can be loaded in R through the following command. See approximately minute 35 for an example with a bar plot.</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="data-wrangling.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb65-2"><a href="data-wrangling.html#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(diamonds)</span></code></pre></div>
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/c9DZ8lBwxZs" width="533" height="300" frameborder="0" allowfullscreen=""></iframe>
+</div>
+</div>
+</div>
+<div id="reproducing-your-steps" class="section level3" number="2.3.8">
+<h3><span class="header-section-number">2.3.8</span> Reproducing your steps</h3>
 <p>It is really important to keep a record of all of the changes you have made to the original data. An R script or R markdown file is a useful way to do this, so long as you add comments that explain what you are doing.</p>
 <p>You want to get your code to a place when a stranger can open your R file, load your data, and reproduce each step you took to get to the final results— all while never even needing to contact you with questions. That can be difficult, but it’s good to aim for that high bar, even if sometimes, we fall short in how we are documenting each step.</p>
 <p>This website provides a nice introduction to R Markdown, one tool for embedding R code inside textual documents. See <a href="https://rpubs.com/brandonkopp/RMarkdown">here</a>.</p>
