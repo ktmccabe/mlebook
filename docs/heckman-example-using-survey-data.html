@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5.2 Generalized Linear Models | MLE for Political Science</title>
-  <meta name="description" content="5.2 Generalized Linear Models | MLE for Political Science" />
+  <title>11.3 Heckman Example Using Survey Data | MLE for Political Science</title>
+  <meta name="description" content="11.3 Heckman Example Using Survey Data | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5.2 Generalized Linear Models | MLE for Political Science" />
+  <meta property="og:title" content="11.3 Heckman Example Using Survey Data | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5.2 Generalized Linear Models | MLE for Political Science" />
+  <meta name="twitter:title" content="11.3 Heckman Example Using Survey Data | MLE for Political Science" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="what-is-likelihood.html"/>
-<link rel="next" href="mle-estimation.html"/>
+<link rel="prev" href="fitting-sample-selection-in-r.html"/>
+<link rel="next" href="tobit-model-aka-censored-regression-model.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -409,132 +409,152 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="generalized-linear-models" class="section level2" number="5.2">
-<h2><span class="header-section-number">5.2</span> Generalized Linear Models</h2>
-<p>Before we get into the details of deriving the estimators, we are going to discuss another connection between linear models and the types of models we will work with when we are using common maximum likelihood estimators.</p>
-<p>Recall our linear model: <span class="math inline">\(y_i = \beta_o + \beta_1x_{i1} + ... \beta_kx_{ik} + \epsilon\)</span></p>
+<div id="heckman-example-using-survey-data" class="section level2" number="11.3">
+<h2><span class="header-section-number">11.3</span> Heckman Example Using Survey Data</h2>
+<p>This example is from “Poverty and Divine Rewards: The Electoral Advantage
+of Islamist Political Parties” published in the <em>American Journal of Political Science</em> in 2019.</p>
+<p><em>Abstract</em> Political life in many Muslim-majority countries has been marked by the electoral dominance of Islamist parties. Recent attempts to explain why have highlighted their material and organizational factors, such as the provision of social services. In this article, we revive an older literature that emphasizes the appeal of these parties’ religious nature to voters experiencing economic hardship. Individuals suffering economic strain may vote for Islamists because they believe this to be
+an intrinsically virtuous act that will be met with divine rewards in the afterlife. We explore this hypothesis through a series of laboratory experiments in Tunisia. Individuals assigned to treatment conditions instilling feelings of economic strain exhibit greater support for Islamist parties, and this support is causally mediated by an expectation of divine compensation in the hereafter. The evidence suggests that the religious nature of Islamist parties may thus be an important factor in their electoral success.</p>
+<p>We are going to replicate a small part of their analysis of an experiment:</p>
 <ul>
-<li><span class="math inline">\(Y\)</span> is modelled by a linear function of explanatory variables <span class="math inline">\(X\)</span></li>
-<li><span class="math inline">\(\hat \beta\)</span> is our estimate of how much <span class="math inline">\(X\)</span> influences <span class="math inline">\(Y\)</span> (the slope of the line)</li>
-<li>On average, a one-unit change in <span class="math inline">\(X_{ik}\)</span> is associated with a <span class="math inline">\(\hat \beta_{k}\)</span> change in <span class="math inline">\(Y_i\)</span></li>
-<li>Slope/rate of change is linear, does not depend on where you are in <span class="math inline">\(X\)</span>. Every one-unit change has the same expected increase or decrease</li>
-</ul>
-<p>Sometimes we are dealing with outcome data that are restricted or “limited” in some way such that this standard linear predictor will no longer make sense. If we keep changing <span class="math inline">\(X\)</span> we may eventually generate estimates of <span class="math inline">\(\hat y\)</span> that extend above or below the plausible range of values for our actual observed outcomes.</p>
-<p>The generalized linear model framework helps address this problem by adding two components: a nonlinear transformation and a probability model. This allows us to make predictions of our outcomes that retain the desired bounded qualities of our observed data. Generalized linear models include linear regression as a special case (a case where no nonlinear transformation is required), but as its name suggests, is much more general and can be applied to many different outcome structures.</p>
-<div id="glm-model." class="section level3" number="5.2.1">
-<h3><span class="header-section-number">5.2.1</span> GLM Model.</h3>
-<p>In a GLM, we still have a “linear predictor”: <span class="math inline">\(\eta_i = \beta_o + \beta_1x_{i1} + ... + \beta_kx_{ik}\)</span></p>
+<li>Experiment 2 induced economic strain by exposing participants (n = 201) to four hypothetical financial scenarios
 <ul>
-<li>But our <span class="math inline">\(Y_i\)</span> might be restricted in some way (e.g., might be binary).</li>
-<li>So, now we require a “link” function which tells us how <span class="math inline">\(Y\)</span> depends on the linear predictor. This is the key to making sure our linear predictor, when transformed, will map into sensible units of Y.</li>
-</ul>
-<p>Our <span class="math inline">\(Y_i\)</span> will also now be expressed in terms of a probability model, and it is this probability distribution that generates the randomness (the stochastic component of the model). For example, when we have binary outcome data, such as <span class="math inline">\(y_i =\)</span> 1 or 0 for someone turning out to vote or not, we may try to estimate the probability that someone turns out to vote given certain explanatory variables. We can write this as <span class="math inline">\(Pr(Y_i = 1 | x_i\)</span>).</p>
-<p>In a GLM, we need a way to transform our linear predictor such that as we shift in values of <span class="math inline">\(X\hat \beta\)</span>, we stay within plausible probability ranges.</p>
-<ul>
-<li><p>To do so we use a “link” function that is used to model the data.</p>
-<ul>
-<li>For example, in logistic regression, our link function will be the “logit”:</li>
-</ul>
-<p><span class="math display">\[\begin{align*}
-Pr(Y_i = 1 | x_i) &amp;= \pi_i\\
-\eta_i &amp;= \text{logit}(\pi_i) = \log \frac{\pi_i}{1-\pi_i} &amp;= \beta_o + \beta_1x_{i1} + ... + \beta_kx_{ik}
-\end{align*}\]</span></p></li>
-<li><p>One practical implication of this is that when we generate our coefficient estimates <span class="math inline">\(\hat \beta\)</span>, these will no longer be in units if <span class="math inline">\(y_i\)</span> or even in units of probability. Instead, they will be in units as specified by the link function. In logistic regression, this means they will be in “logits.”</p>
-<ul>
-<li>For every one-unit change in <span class="math inline">\(x_k\)</span>, we get a <span class="math inline">\(\hat \beta_k\)</span> change in <strong>logits</strong> of <span class="math inline">\(y\)</span></li>
+<li>Half were randomly assigned to a “hard” condition, in which the four scenarios involved financial costs that were relatively high, whereas</li>
+<li>Half were assigned to an “easy” condition that involved substantially lower costs.</li>
 </ul></li>
-<li><p>However, the nice thing is that because we know the link function, with a little bit of work, we can use the “response” function to transform our estimates back into the units of <span class="math inline">\(y_i\)</span> that we care about.</p></li>
-</ul>
-<p><span class="math display">\[\begin{align*}
-Pr(Y_i = 1 | x_i) &amp;= \pi_i = g^{-1}(\eta_i) \\
-&amp;= \text{logit}^{-1}(\pi_i) \\
-&amp;= \frac{exp^{x_i&#39;\beta}}{1 + exp^{x_i&#39;\beta}}
-\end{align*}\]</span></p>
-</div>
-<div id="linking-likelihood-and-the-glm" class="section level3" number="5.2.2">
-<h3><span class="header-section-number">5.2.2</span> Linking likelihood and the GLM</h3>
-<p>Let’s use <span class="math inline">\(\theta\)</span> to represent the parameters of the pdf/pmf that we have deemed appropriate for our outcome data. As discussed before, we can write the likelihood for an observation as a probability statement.</p>
+<li>One of the secondary dependent variables was: In Experiment 2, why they chose to vote for the party they did, giving them six options, including “Allah will be
+more pleased if I vote for this party than other parties.”
 <ul>
-<li><span class="math inline">\(\mathcal L (\theta | Y_i) = \Pr(Y=Y_i | \theta)\)</span></li>
+<li>For each answer option, we asked respondents for their
+level of agreement with the statement and</li>
+<li>subsequently asked them to rank each statement they agreed with in
+importance.</li>
+</ul></li>
 </ul>
-<p>In social science, instead of thinking of these parameters as just constants (e.g., <span class="math inline">\(p\)</span> or <span class="math inline">\(\mu\)</span>), we generally believe that they vary according to our explanatory variables in <span class="math inline">\(X\)</span>. We think <span class="math inline">\(Y_i\)</span> is distributed according to a particular probability function and that the parameters that shape that distribution are a function of the covariates.</p>
+<p>Let’s load the data and explore the variables.</p>
+<div class="sourceCode" id="cb732"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb732-1"><a href="heckman-example-using-survey-data.html#cb732-1" aria-hidden="true" tabindex="-1"></a>exp2 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/raw/main/exp2.csv&quot;</span>)</span></code></pre></div>
+<p>The authors are looking to verify that pleasing Allah had something to do with Ennahda vote choice, particularly among poor voters. Let’s look at the variable <code>votenahda</code>, which is a 0 or 1 outcome.</p>
 <ul>
-<li><span class="math inline">\(Y_i \sim f(y_i | \theta_i)\)</span> and <span class="math inline">\(\theta_i = g(X_i, \beta)\)</span></li>
+<li>1 if plan to vote for Ennahda if elections held tomorrow, 0 if not</li>
 </ul>
-<p>Each type of model we come across–guided by the structure of the dependent variable– is just going to have different formulas for each of these components.</p>
-<p><strong>Examples</strong></p>
-<table>
-<colgroup>
-<col width="20%" />
-<col width="17%" />
-<col width="23%" />
-<col width="20%" />
-<col width="17%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Model</th>
-<th>PDF</th>
-<th><span class="math inline">\(\theta_i\)</span> ; Link<span class="math inline">\(^{-1}\)</span></th>
-<th><span class="math inline">\(\eta_i\)</span></th>
-<th align="right"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Linear</td>
-<td><span class="math inline">\(Y_i \sim \mathcal{N}(\mu_i,\sigma^2)\)</span></td>
-<td><span class="math inline">\(\mu_i = X_i^\prime\beta\)</span></td>
-<td><span class="math inline">\(\mu_i\)</span></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">Logit</td>
-<td><span class="math inline">\(Y_i \sim \rm{Bernoulli}(\pi_i)\)</span></td>
-<td><span class="math inline">\(\pi_i=\frac{\exp(X_i^\prime\beta)}{(1+\exp(X_i^\prime\beta))}\)</span></td>
-<td>logit<span class="math inline">\((\pi_i)\)</span></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">Probit</td>
-<td><span class="math inline">\(Y_i \sim \rm{Bernoulli}(\pi_i)\)</span></td>
-<td><span class="math inline">\(\pi_i = \Phi(X_i^\prime\beta)\)</span></td>
-<td><span class="math inline">\(\Phi^{-1}(\pi_i)\)</span></td>
-<td align="right"></td>
-</tr>
-</tbody>
-</table>
-<p>These generalized linear models are then fit through maximum likelihood estimation, through an approach discussed in the next section where we use algorithms to choose the most likely values of the <span class="math inline">\(\beta\)</span> parameters given the observed data.</p>
-<p>Note: not all ML estimators can be written as generalized linear models, though many we use in political science are indeed GLMs. To be a GLM, the distribution we specify for the data generating process has to be a part of the exponential family of probability distributions (fortunately the gaussian normal, poisson, bernouilli, binomial, gamma, and negative binomial are), and after that, we need the linear predictor and link function.</p>
-</div>
-<div id="glm-in-r" class="section level3" number="5.2.3">
-<h3><span class="header-section-number">5.2.3</span> GLM in R</h3>
-<p>The way generalized linear models work in R is very similar to lm.</p>
-<p>Below is a simple example where we will specify a linear model in <code>lm()</code> and <code>glm()</code> to compare.</p>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="generalized-linear-models.html#cb289-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load Data</span></span>
-<span id="cb289-2"><a href="generalized-linear-models.html#cb289-2" aria-hidden="true" tabindex="-1"></a>florida <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ktmccabe/teachingdata/main/florida.csv&quot;</span>)</span>
-<span id="cb289-3"><a href="generalized-linear-models.html#cb289-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb289-4"><a href="generalized-linear-models.html#cb289-4" aria-hidden="true" tabindex="-1"></a>fit.lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Buchanan00 <span class="sc">~</span> Perot96, <span class="at">data=</span>florida)</span>
-<span id="cb289-5"><a href="generalized-linear-models.html#cb289-5" aria-hidden="true" tabindex="-1"></a>fit.glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(Buchanan00 <span class="sc">~</span> Perot96, <span class="at">data=</span>florida, </span>
-<span id="cb289-6"><a href="generalized-linear-models.html#cb289-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span></code></pre></div>
-<p>For the glm, we just need to tell R the family of distributions we are using and the appropriate link function. In this example, we are going to use the normal gaussian distribution to describe the data generating process for <code>Buchanan00</code>. This is appropriate for nice numeric continuous data, even if it isn’t perfectly normal. The normal model has a link function, but it is the special case where the link function is just the identity. There is no nonlinear transformation that takes place. Therefore, we can still interpret the <span class="math inline">\(\hat \beta\)</span> results in units of <span class="math inline">\(Y\)</span> (votes in this case).</p>
-<p>In this special case, the <span class="math inline">\(\hat \beta\)</span> estimates from <code>lm()</code> and <code>glm()</code> will be the same.</p>
-<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="generalized-linear-models.html#cb290-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.lm)</span></code></pre></div>
-<pre><code>(Intercept)     Perot96 
- 1.34575212  0.03591504 </code></pre>
-<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="generalized-linear-models.html#cb292-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.glm)</span></code></pre></div>
-<pre><code>(Intercept)     Perot96 
- 1.34575212  0.03591504 </code></pre>
-<p>There are some differences in the mechanics of how we get to the results in each case, but we will explore those more in the next section. I.e., these coefficients do not come out of thin air. Just like in OLS, we have to work for them.</p>
-</div>
+<div class="sourceCode" id="cb733"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb733-1"><a href="heckman-example-using-survey-data.html#cb733-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(exp2<span class="sc">$</span>votenahda)</span></code></pre></div>
+<pre><code>
+  0   1 
+335  66 </code></pre>
+<p>Whether a voter is poor is determined by if they fall below 7 on the variable <code>inc</code>. Let’s subset our data to only examine poor voters.</p>
+<div class="sourceCode" id="cb735"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb735-1"><a href="heckman-example-using-survey-data.html#cb735-1" aria-hidden="true" tabindex="-1"></a>subdata <span class="ot">&lt;-</span> <span class="fu">subset</span>(exp2, inc <span class="sc">&lt;</span> <span class="dv">7</span>)</span></code></pre></div>
+<p>They want to understand if pleasing Allah was a top reason for voting for the party. This information is only available for those that agreed or strongly agreed with the statement, “Allah will be more pleased if I vote for this party than other parties.”</p>
+<p>This information is in the variable <code>voteAllah2</code></p>
+<ul>
+<li><code>voteAllah2</code>: 1=strongly agree or agree, 0=otherwise</li>
+</ul>
+<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb736-1"><a href="heckman-example-using-survey-data.html#cb736-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(exp2<span class="sc">$</span>voteAllah2)</span></code></pre></div>
+<pre><code>
+  0   1 
+118 169 </code></pre>
+<p>The ranking information is available in the variable, <code>voteAllahrank3</code>:</p>
+<ul>
+<li><code>voteAllahrank3</code>: 1 if voteAllahrank <span class="math inline">\(&gt;\)</span> 4 (top two reasons); NA if voteAllahrank = 0; 0 otherwise.</li>
+</ul>
+<div class="sourceCode" id="cb738"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb738-1"><a href="heckman-example-using-survey-data.html#cb738-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(exp2<span class="sc">$</span>voteAllahrank3)</span></code></pre></div>
+<pre><code>
+  0   1 
+104  64 </code></pre>
+<p>Let’s identify the sample selection issue.</p>
+<ul>
+<li><code>voteAllahrank3</code> is only observed for those who strongly agreed or agreed with the statement</li>
+</ul>
+<div class="sourceCode" id="cb740"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb740-1"><a href="heckman-example-using-survey-data.html#cb740-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="at">RankedTopTwo=</span>exp2<span class="sc">$</span>voteAllahrank3, <span class="at">Agreed=</span>exp2<span class="sc">$</span>voteAllah2)</span></code></pre></div>
+<pre><code>            Agreed
+RankedTopTwo   0   1
+           0   0 104
+           1   0  64</code></pre>
+<p>What makes this a candidate for a Heckman sample selection model?</p>
+<details>
+<summary>
+Try on your own, then expand.
+</summary>
+<ul>
+<li>We are interested in estimating whether Ennahda voters are more likely than others to rank pleasing Allah among the top two reasons. Our desired outcome is <span class="math inline">\(Y_i =\)</span> <code>voteAllahrank3</code>
+<ul>
+<li><span class="math inline">\(Y_i\)</span> only observed for those who met some criteria set by another random variable (in this case <code>voteAllah2</code> = 1).</li>
+<li>However, we still have information on the independent variables for all respondents, regardless of whether they are a 0 or 1 on <code>voteAllah2</code></li>
+</ul></li>
+</ul>
+</details>
+<p>Estimate the two-step process, following the authors in terms of what variables to include in each stage according to columns 2 and 3 in the table.</p>
+<p><img src="images/ajpsjamal.png" style="width:80.0%" /></p>
+<ul>
+<li>Prior to fitting the model, subset the data to include only respondents who voted for <code>votenahda</code>, <code>votenidaa</code>, <code>votejabha</code>,
+<code>voteirada</code>, indicated by respondents being coded as a 1 on these variables. These correspond to the party variables in columns 2 and 3.
+<ul>
+<li>other relevant variables are <code>treat</code> and <code>quran</code></li>
+</ul></li>
+</ul>
+<details>
+<summary>
+Try on your own, then expand for the solution.
+</summary>
+<p>As the authors note, “The ranking is a two-step process, as respondents only get to rank factors that they agree with. To model their rankings, we therefore employ a Heckman selection model, analyzing first who agreed that pleasing Allah is important in their vote choice, and then analyzing second who ranked pleasing Allah as one of their top two factors.”</p>
+<div class="sourceCode" id="cb742"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb742-1"><a href="heckman-example-using-survey-data.html#cb742-1" aria-hidden="true" tabindex="-1"></a>subdata2 <span class="ot">&lt;-</span> <span class="fu">subset</span>(subdata, votenahda<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span></span>
+<span id="cb742-2"><a href="heckman-example-using-survey-data.html#cb742-2" aria-hidden="true" tabindex="-1"></a>                     votenidaa<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span> votejabha<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span></span>
+<span id="cb742-3"><a href="heckman-example-using-survey-data.html#cb742-3" aria-hidden="true" tabindex="-1"></a>                     voteirada<span class="sc">==</span><span class="dv">1</span>)</span>
+<span id="cb742-4"><a href="heckman-example-using-survey-data.html#cb742-4" aria-hidden="true" tabindex="-1"></a>two <span class="ot">&lt;-</span> <span class="fu">selection</span>(<span class="at">selection =</span> voteAllah2<span class="sc">~</span>votenahda<span class="sc">+</span>votejabha<span class="sc">+</span>treat<span class="sc">+</span>quran, </span>
+<span id="cb742-5"><a href="heckman-example-using-survey-data.html#cb742-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">outcome =</span> voteAllahrank3<span class="sc">~</span>votenahda<span class="sc">+</span>votenidaa, </span>
+<span id="cb742-6"><a href="heckman-example-using-survey-data.html#cb742-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data=</span>subdata2, </span>
+<span id="cb742-7"><a href="heckman-example-using-survey-data.html#cb742-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">method=</span><span class="st">&quot;2step&quot;</span>)</span>
+<span id="cb742-8"><a href="heckman-example-using-survey-data.html#cb742-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb742-9"><a href="heckman-example-using-survey-data.html#cb742-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(two)</span></code></pre></div>
+<pre><code>--------------------------------------------
+Tobit 2 model (sample selection model)
+2-step Heckman / heckit estimation
+90 observations (31 censored and 59 observed)
+11 free parameters (df = 80)
+Probit selection equation:
+            Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)   0.3418     0.2897   1.180   0.2415  
+votenahda     0.2442     0.3383   0.722   0.4725  
+votejabha    -0.1369     0.3646  -0.375   0.7083  
+treat        -0.4057     0.2906  -1.396   0.1665  
+quran         0.6495     0.2927   2.219   0.0293 *
+Outcome equation:
+             Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept) -0.007066   0.248585  -0.028   0.9774  
+votenahda    0.312768   0.185545   1.686   0.0958 .
+votenidaa    0.226522   0.161635   1.401   0.1650  
+Multiple R-Squared:0.0558,	Adjusted R-Squared:0.0043
+   Error terms:
+              Estimate Std. Error t value Pr(&gt;|t|)
+invMillsRatio   0.3248     0.3356   0.968    0.336
+sigma           0.5187         NA      NA       NA
+rho             0.6263         NA      NA       NA
+--------------------------------------------</code></pre>
+</details>
+<p>How should we interpret the results in light of the researchers’ hypothesis that Ennahda voters would be more likely to rank pleasing Allah as a top reason?</p>
+<details>
+<summary>
+Try on your own, then expand for the solution.
+</summary>
+<p>As the authors note describing the outcome equation, “results suggest that poor Ennahda voters were about 31% more likely to rank pleasing Allah among their top two factors (p = .096; see the SI, p. 22) than poor supporters of secular parties.”</p>
+<p>We could also perform the adjustment to get an estimated average marginal effect accounting for selection. This ends up being slightly smaller, but still in the same direction as what the authors note.</p>
+<div class="sourceCode" id="cb744"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb744-1"><a href="heckman-example-using-survey-data.html#cb744-1" aria-hidden="true" tabindex="-1"></a>beta.en.sel <span class="ot">&lt;-</span> two<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
+<span id="cb744-2"><a href="heckman-example-using-survey-data.html#cb744-2" aria-hidden="true" tabindex="-1"></a>beta.en.out <span class="ot">&lt;-</span> two<span class="sc">$</span>coefficients[<span class="dv">7</span>]</span>
+<span id="cb744-3"><a href="heckman-example-using-survey-data.html#cb744-3" aria-hidden="true" tabindex="-1"></a>beta.IMR <span class="ot">&lt;-</span> two<span class="sc">$</span>coefficients[<span class="dv">9</span>]</span>
+<span id="cb744-4"><a href="heckman-example-using-survey-data.html#cb744-4" aria-hidden="true" tabindex="-1"></a>delta <span class="ot">&lt;-</span> two<span class="sc">$</span>imrDelta</span>
+<span id="cb744-5"><a href="heckman-example-using-survey-data.html#cb744-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb744-6"><a href="heckman-example-using-survey-data.html#cb744-6" aria-hidden="true" tabindex="-1"></a>marginal.effect <span class="ot">&lt;-</span> beta.en.out <span class="sc">-</span> (beta.en.sel <span class="sc">*</span> beta.IMR <span class="sc">*</span> delta)</span>
+<span id="cb744-7"><a href="heckman-example-using-survey-data.html#cb744-7" aria-hidden="true" tabindex="-1"></a><span class="do">## average marginal effect</span></span>
+<span id="cb744-8"><a href="heckman-example-using-survey-data.html#cb744-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(marginal.effect)</span></code></pre></div>
+<pre><code>[1] 0.2712966</code></pre>
+</details>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="what-is-likelihood.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="mle-estimation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="fitting-sample-selection-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="tobit-model-aka-censored-regression-model.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

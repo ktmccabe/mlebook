@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5.2 Generalized Linear Models | MLE for Political Science</title>
-  <meta name="description" content="5.2 Generalized Linear Models | MLE for Political Science" />
+  <title>11.1 Sample Selection | MLE for Political Science</title>
+  <meta name="description" content="11.1 Sample Selection | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5.2 Generalized Linear Models | MLE for Political Science" />
+  <meta property="og:title" content="11.1 Sample Selection | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5.2 Generalized Linear Models | MLE for Political Science" />
+  <meta name="twitter:title" content="11.1 Sample Selection | MLE for Political Science" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="what-is-likelihood.html"/>
-<link rel="next" href="mle-estimation.html"/>
+<link rel="prev" href="selection.html"/>
+<link rel="next" href="fitting-sample-selection-in-r.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -409,123 +409,88 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="generalized-linear-models" class="section level2" number="5.2">
-<h2><span class="header-section-number">5.2</span> Generalized Linear Models</h2>
-<p>Before we get into the details of deriving the estimators, we are going to discuss another connection between linear models and the types of models we will work with when we are using common maximum likelihood estimators.</p>
-<p>Recall our linear model: <span class="math inline">\(y_i = \beta_o + \beta_1x_{i1} + ... \beta_kx_{ik} + \epsilon\)</span></p>
+<div id="sample-selection" class="section level2" number="11.1">
+<h2><span class="header-section-number">11.1</span> Sample Selection</h2>
+<p>Here are a few thought exercises to underscore the potential issues with common sources of data.</p>
+<p><strong><em>Graduate School Admissions</em></strong>
+Suppose we observe that college grades are uncorrelated with success in graduate school. Can we infer that college grades are irrelevant?</p>
 <ul>
-<li><span class="math inline">\(Y\)</span> is modelled by a linear function of explanatory variables <span class="math inline">\(X\)</span></li>
-<li><span class="math inline">\(\hat \beta\)</span> is our estimate of how much <span class="math inline">\(X\)</span> influences <span class="math inline">\(Y\)</span> (the slope of the line)</li>
-<li>On average, a one-unit change in <span class="math inline">\(X_{ik}\)</span> is associated with a <span class="math inline">\(\hat \beta_{k}\)</span> change in <span class="math inline">\(Y_i\)</span></li>
-<li>Slope/rate of change is linear, does not depend on where you are in <span class="math inline">\(X\)</span>. Every one-unit change has the same expected increase or decrease</li>
-</ul>
-<p>Sometimes we are dealing with outcome data that are restricted or “limited” in some way such that this standard linear predictor will no longer make sense. If we keep changing <span class="math inline">\(X\)</span> we may eventually generate estimates of <span class="math inline">\(\hat y\)</span> that extend above or below the plausible range of values for our actual observed outcomes.</p>
-<p>The generalized linear model framework helps address this problem by adding two components: a nonlinear transformation and a probability model. This allows us to make predictions of our outcomes that retain the desired bounded qualities of our observed data. Generalized linear models include linear regression as a special case (a case where no nonlinear transformation is required), but as its name suggests, is much more general and can be applied to many different outcome structures.</p>
-<div id="glm-model." class="section level3" number="5.2.1">
-<h3><span class="header-section-number">5.2.1</span> GLM Model.</h3>
-<p>In a GLM, we still have a “linear predictor”: <span class="math inline">\(\eta_i = \beta_o + \beta_1x_{i1} + ... + \beta_kx_{ik}\)</span></p>
+<li>No. applicants admitted with low grades may not be representative of the population with low grades. Unmeasured variables (e.g. motivation) used in the admissions process might explain why those who enter graduate school with low grades do as well as those who enter graduate school with high grades.
 <ul>
-<li>But our <span class="math inline">\(Y_i\)</span> might be restricted in some way (e.g., might be binary).</li>
-<li>So, now we require a “link” function which tells us how <span class="math inline">\(Y\)</span> depends on the linear predictor. This is the key to making sure our linear predictor, when transformed, will map into sensible units of Y.</li>
-</ul>
-<p>Our <span class="math inline">\(Y_i\)</span> will also now be expressed in terms of a probability model, and it is this probability distribution that generates the randomness (the stochastic component of the model). For example, when we have binary outcome data, such as <span class="math inline">\(y_i =\)</span> 1 or 0 for someone turning out to vote or not, we may try to estimate the probability that someone turns out to vote given certain explanatory variables. We can write this as <span class="math inline">\(Pr(Y_i = 1 | x_i\)</span>).</p>
-<p>In a GLM, we need a way to transform our linear predictor such that as we shift in values of <span class="math inline">\(X\hat \beta\)</span>, we stay within plausible probability ranges.</p>
-<ul>
-<li><p>To do so we use a “link” function that is used to model the data.</p>
-<ul>
-<li>For example, in logistic regression, our link function will be the “logit”:</li>
-</ul>
-<p><span class="math display">\[\begin{align*}
-Pr(Y_i = 1 | x_i) &amp;= \pi_i\\
-\eta_i &amp;= \text{logit}(\pi_i) = \log \frac{\pi_i}{1-\pi_i} &amp;= \beta_o + \beta_1x_{i1} + ... + \beta_kx_{ik}
-\end{align*}\]</span></p></li>
-<li><p>One practical implication of this is that when we generate our coefficient estimates <span class="math inline">\(\hat \beta\)</span>, these will no longer be in units if <span class="math inline">\(y_i\)</span> or even in units of probability. Instead, they will be in units as specified by the link function. In logistic regression, this means they will be in “logits.”</p>
-<ul>
-<li>For every one-unit change in <span class="math inline">\(x_k\)</span>, we get a <span class="math inline">\(\hat \beta_k\)</span> change in <strong>logits</strong> of <span class="math inline">\(y\)</span></li>
+<li>Selection into graduate school is not random</li>
 </ul></li>
-<li><p>However, the nice thing is that because we know the link function, with a little bit of work, we can use the “response” function to transform our estimates back into the units of <span class="math inline">\(y_i\)</span> that we care about.</p></li>
+<li>Implication: may be unmeasured factors that bias our inferences from the sample we do have complete data about (graduate school students)</li>
+<li>Solution: May want to use a sample selection model to account for non-random sample</li>
 </ul>
-<p><span class="math display">\[\begin{align*}
-Pr(Y_i = 1 | x_i) &amp;= \pi_i = g^{-1}(\eta_i) \\
-&amp;= \text{logit}^{-1}(\pi_i) \\
-&amp;= \frac{exp^{x_i&#39;\beta}}{1 + exp^{x_i&#39;\beta}}
-\end{align*}\]</span></p>
-</div>
-<div id="linking-likelihood-and-the-glm" class="section level3" number="5.2.2">
-<h3><span class="header-section-number">5.2.2</span> Linking likelihood and the GLM</h3>
-<p>Let’s use <span class="math inline">\(\theta\)</span> to represent the parameters of the pdf/pmf that we have deemed appropriate for our outcome data. As discussed before, we can write the likelihood for an observation as a probability statement.</p>
+<p><strong><em>What leads rivals to wage war?</em></strong></p>
+<p><a href="https://doi.org/10.2307/2669352">Lemke and Reed 2001</a> argue that if we only focus on rivals, this may lead to biased inference.</p>
 <ul>
-<li><span class="math inline">\(\mathcal L (\theta | Y_i) = \Pr(Y=Y_i | \theta)\)</span></li>
+<li>Need first DV: whether members of “great power” dyads are rivals</li>
+<li>In addition to second: whether “great power rivals” wage war</li>
 </ul>
-<p>In social science, instead of thinking of these parameters as just constants (e.g., <span class="math inline">\(p\)</span> or <span class="math inline">\(\mu\)</span>), we generally believe that they vary according to our explanatory variables in <span class="math inline">\(X\)</span>. We think <span class="math inline">\(Y_i\)</span> is distributed according to a particular probability function and that the parameters that shape that distribution are a function of the covariates.</p>
+<p>“We discover that what makes great powers more likely to be rivals is statistically related to their propensity to experience war.” Results suggest that any analysis of the onset of war between rivals that fails to control for the prior influence of variables on the existence of rivalry almost surely produces inaccurate estimate.</p>
+<div id="how-do-we-go-about-estimating-this" class="section level3" number="11.1.1">
+<h3><span class="header-section-number">11.1.1</span> How do we go about estimating this?</h3>
+<p>The technical details, followed by implementation.</p>
+<p>Selection equation- into grad school sample?</p>
 <ul>
-<li><span class="math inline">\(Y_i \sim f(y_i | \theta_i)\)</span> and <span class="math inline">\(\theta_i = g(X_i, \beta)\)</span></li>
+<li><span class="math inline">\(\zeta_i = z_i^T\gamma + \delta_i\)</span>
+<ul>
+<li><span class="math inline">\(\zeta_i\)</span> DV of selection equation</li>
+<li><span class="math inline">\(z_i^T\)</span> vector of covariates for selection equation</li>
+<li><span class="math inline">\(\gamma\)</span> vector of coefficients for selection equation</li>
+<li><span class="math inline">\(\delta_i\)</span> random disturbances</li>
+</ul></li>
 </ul>
-<p>Each type of model we come across–guided by the structure of the dependent variable– is just going to have different formulas for each of these components.</p>
-<p><strong>Examples</strong></p>
-<table>
-<colgroup>
-<col width="20%" />
-<col width="17%" />
-<col width="23%" />
-<col width="20%" />
-<col width="17%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Model</th>
-<th>PDF</th>
-<th><span class="math inline">\(\theta_i\)</span> ; Link<span class="math inline">\(^{-1}\)</span></th>
-<th><span class="math inline">\(\eta_i\)</span></th>
-<th align="right"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Linear</td>
-<td><span class="math inline">\(Y_i \sim \mathcal{N}(\mu_i,\sigma^2)\)</span></td>
-<td><span class="math inline">\(\mu_i = X_i^\prime\beta\)</span></td>
-<td><span class="math inline">\(\mu_i\)</span></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">Logit</td>
-<td><span class="math inline">\(Y_i \sim \rm{Bernoulli}(\pi_i)\)</span></td>
-<td><span class="math inline">\(\pi_i=\frac{\exp(X_i^\prime\beta)}{(1+\exp(X_i^\prime\beta))}\)</span></td>
-<td>logit<span class="math inline">\((\pi_i)\)</span></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">Probit</td>
-<td><span class="math inline">\(Y_i \sim \rm{Bernoulli}(\pi_i)\)</span></td>
-<td><span class="math inline">\(\pi_i = \Phi(X_i^\prime\beta)\)</span></td>
-<td><span class="math inline">\(\Phi^{-1}(\pi_i)\)</span></td>
-<td align="right"></td>
-</tr>
-</tbody>
-</table>
-<p>These generalized linear models are then fit through maximum likelihood estimation, through an approach discussed in the next section where we use algorithms to choose the most likely values of the <span class="math inline">\(\beta\)</span> parameters given the observed data.</p>
-<p>Note: not all ML estimators can be written as generalized linear models, though many we use in political science are indeed GLMs. To be a GLM, the distribution we specify for the data generating process has to be a part of the exponential family of probability distributions (fortunately the gaussian normal, poisson, bernouilli, binomial, gamma, and negative binomial are), and after that, we need the linear predictor and link function.</p>
+<p>Outcome equation</p>
+<ul>
+<li><span class="math inline">\(\xi_i = x_i^T\beta + \epsilon_i\)</span>
+<ul>
+<li><span class="math inline">\(\xi_i\)</span> DV of outcome equation (success in grad school)</li>
+<li><span class="math inline">\(x_i^T\)</span> vector of covariates for outcome equation</li>
+<li><span class="math inline">\(\beta\)</span> vector of coefficients for outcome equation</li>
+<li><span class="math inline">\(\epsilon_i\)</span> random disturbances</li>
+</ul></li>
+</ul>
+<p><strong><em>The Problem</em></strong></p>
+<p>We actually want estimates of <span class="math inline">\(Y_i\)</span> not <span class="math inline">\(\xi_i\)</span>.</p>
+<ul>
+<li><span class="math inline">\(Y_i =\)</span></li>
+</ul>
+<span class="math display">\[\begin{cases} \text{missing }, \; \text{for } \zeta_i \leq 0\\ \xi_i,\; 
+\text{for } \zeta_i &gt; 0\end{cases}\]</span>
+<p>Two-step Estimation</p>
+<ul>
+<li>Define a dichotomous outcome to indicate if in the sample or not
+<span class="math inline">\(W_i =\)</span></li>
+</ul>
+<span class="math display">\[\begin{cases} 1, \; \text{if } Y_i \text{ is observed } \\ 0, \; \text{ if } Y_i \text{ is missing } \end{cases}\]</span>
+<ol style="list-style-type: decimal">
+<li>Fit a probit regression with <span class="math inline">\(W_i\)</span> as the outcome with the linear predictor: <span class="math inline">\(\hat \psi_i = z_i^T\hat \gamma\)</span>
+<ul>
+<li>Calculate the “inverse Mills ratio” of <span class="math inline">\(\hat \eta_i = \frac{\phi(\hat \psi_i)}{\Phi(\hat \psi_i)}\)</span></li>
+<li>Note this is <code>dnorm()/pnorm()</code>, ratio of the probability density function over the cumulative distribution function for each i</li>
+</ul></li>
+<li>Use <span class="math inline">\(\hat \eta_i\)</span> as an auxiliary regressor of <span class="math inline">\(Y_i\)</span> on the <span class="math inline">\(x_i^T\)</span> for those where <span class="math inline">\(Y_i\)</span> is observed.
+<ul>
+<li>Note the SEs have to be adjusted (not just the standard OLS errors).</li>
+</ul></li>
+</ol>
 </div>
-<div id="glm-in-r" class="section level3" number="5.2.3">
-<h3><span class="header-section-number">5.2.3</span> GLM in R</h3>
-<p>The way generalized linear models work in R is very similar to lm.</p>
-<p>Below is a simple example where we will specify a linear model in <code>lm()</code> and <code>glm()</code> to compare.</p>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="generalized-linear-models.html#cb289-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load Data</span></span>
-<span id="cb289-2"><a href="generalized-linear-models.html#cb289-2" aria-hidden="true" tabindex="-1"></a>florida <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ktmccabe/teachingdata/main/florida.csv&quot;</span>)</span>
-<span id="cb289-3"><a href="generalized-linear-models.html#cb289-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb289-4"><a href="generalized-linear-models.html#cb289-4" aria-hidden="true" tabindex="-1"></a>fit.lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Buchanan00 <span class="sc">~</span> Perot96, <span class="at">data=</span>florida)</span>
-<span id="cb289-5"><a href="generalized-linear-models.html#cb289-5" aria-hidden="true" tabindex="-1"></a>fit.glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(Buchanan00 <span class="sc">~</span> Perot96, <span class="at">data=</span>florida, </span>
-<span id="cb289-6"><a href="generalized-linear-models.html#cb289-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span></code></pre></div>
-<p>For the glm, we just need to tell R the family of distributions we are using and the appropriate link function. In this example, we are going to use the normal gaussian distribution to describe the data generating process for <code>Buchanan00</code>. This is appropriate for nice numeric continuous data, even if it isn’t perfectly normal. The normal model has a link function, but it is the special case where the link function is just the identity. There is no nonlinear transformation that takes place. Therefore, we can still interpret the <span class="math inline">\(\hat \beta\)</span> results in units of <span class="math inline">\(Y\)</span> (votes in this case).</p>
-<p>In this special case, the <span class="math inline">\(\hat \beta\)</span> estimates from <code>lm()</code> and <code>glm()</code> will be the same.</p>
-<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="generalized-linear-models.html#cb290-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.lm)</span></code></pre></div>
-<pre><code>(Intercept)     Perot96 
- 1.34575212  0.03591504 </code></pre>
-<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="generalized-linear-models.html#cb292-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.glm)</span></code></pre></div>
-<pre><code>(Intercept)     Perot96 
- 1.34575212  0.03591504 </code></pre>
-<p>There are some differences in the mechanics of how we get to the results in each case, but we will explore those more in the next section. I.e., these coefficients do not come out of thin air. Just like in OLS, we have to work for them.</p>
+<div id="sample-selection-model-assumptions" class="section level3" number="11.1.2">
+<h3><span class="header-section-number">11.1.2</span> Sample Selection Model Assumptions</h3>
+<p>Big assumptions</p>
+<ul>
+<li><strong><em>Exclusion restriction</em></strong> – selection equation should contain at least one variable that predicts selection but not the outcome</li>
+<li>Errors in the probit equation are homoskedastic</li>
+<li>Error terms for selection equation and outcome are correlated (<span class="math inline">\(\rho_{\epsilon \delta}\)</span>).
+<ul>
+<li><span class="math inline">\(\epsilon_i\)</span> and <span class="math inline">\(\delta_i\)</span> should be distributed as bivariate normal if using the MLE approach discussed below.</li>
+</ul></li>
+<li><span class="math inline">\(\epsilon_i\)</span> and <span class="math inline">\(\delta_i\)</span> should be independent of the regressors in their equations</li>
+<li>Results can be sensitive to how you specify the selection equation</li>
+</ul>
+<p>A useful discussion in IR about these issues is Simmons and Hopkins (2005). An extension of this model has also been developed for models where the outcome is dichotomous (see: <a href="http://docs.zeligproject.org/articles/zeligchoice_bprobit.html">bivariate probit models</a>)</p>
 </div>
 </div>
             </section>
@@ -533,8 +498,8 @@ Pr(Y_i = 1 | x_i) &amp;= \pi_i = g^{-1}(\eta_i) \\
           </div>
         </div>
       </div>
-<a href="what-is-likelihood.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="mle-estimation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="selection.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="fitting-sample-selection-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

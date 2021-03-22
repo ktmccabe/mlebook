@@ -1,8 +1,0 @@
-```{r, include=F}
-knitr::knit_exit()
-```
-
-
-# Survival Analysis {#surv}
-
-This will provide a brief overview of tools for survival analysis.

@@ -222,7 +222,7 @@ summary(m.senate)
 ```
 
 
-Of course, we could also do this manually, and run the bootstrap ourselves!
+Of course, we could also do this manually, have a quantity of interest [party](https://www.youtube.com/watch?v=M-5zlj49ugk), and run the bootstrap ourselves.
 
 
 ## Practice Problems for Multinomial

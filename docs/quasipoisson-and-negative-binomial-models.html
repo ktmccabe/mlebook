@@ -377,6 +377,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.9.2" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html#zero-inflated-poissonnegative-binomial"><i class="fa fa-check"></i><b>10.9.2</b> Zero Inflated Poisson/Negative binomial</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="11" data-path="selection.html"><a href="selection.html"><i class="fa fa-check"></i><b>11</b> Sample Selection Models</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="sample-selection.html"><a href="sample-selection.html"><i class="fa fa-check"></i><b>11.1</b> Sample Selection</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="sample-selection.html"><a href="sample-selection.html#how-do-we-go-about-estimating-this"><i class="fa fa-check"></i><b>11.1.1</b> How do we go about estimating this?</a></li>
+<li class="chapter" data-level="11.1.2" data-path="sample-selection.html"><a href="sample-selection.html#sample-selection-model-assumptions"><i class="fa fa-check"></i><b>11.1.2</b> Sample Selection Model Assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="fitting-sample-selection-in-r.html"><a href="fitting-sample-selection-in-r.html"><i class="fa fa-check"></i><b>11.2</b> Fitting Sample Selection in R</a></li>
+<li class="chapter" data-level="11.3" data-path="heckman-example-using-survey-data.html"><a href="heckman-example-using-survey-data.html"><i class="fa fa-check"></i><b>11.3</b> Heckman Example Using Survey Data</a></li>
+<li class="chapter" data-level="11.4" data-path="tobit-model-aka-censored-regression-model.html"><a href="tobit-model-aka-censored-regression-model.html"><i class="fa fa-check"></i><b>11.4</b> Tobit Model aka Censored regression model</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="tobit-model-aka-censored-regression-model.html"><a href="tobit-model-aka-censored-regression-model.html#tobit-model-assumptions"><i class="fa fa-check"></i><b>11.4.1</b> Tobit Model Assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="truncated-models.html"><a href="truncated-models.html"><i class="fa fa-check"></i><b>11.5</b> Truncated Models</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -473,7 +488,7 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <li><span class="math inline">\(\mathbf E(Y_i|X) = \lambda_i = e^{\mathbf x_i^\top \beta}\)</span></li>
 <li><span class="math inline">\(\mathbf Var(Y_i|X) = \lambda_i + \lambda_i^2/r\)</span> (note, this is no longer just <span class="math inline">\(\lambda_i\)</span>)</li>
 </ul>
-<p>Note that while the probability distribution looks much uglier the mapping of <span class="math inline">\(\mathbf x_i&#39; \beta\)</span> is the same. We will still have a <span class="math inline">\(\log\)</span> link and exponeniate to get our quantities of interest.</p>
+<p>Note that while the probability distribution looks much uglier, the mapping of <span class="math inline">\(\mathbf x_i&#39; \beta\)</span> is the same. We will still have a <span class="math inline">\(\log\)</span> link and exponeniate to get our quantities of interest. The mechanics work essentially the same as the poisson.</p>
 <p>In R, we use the <code>glm.nb</code> function from the <code>MASS</code> package to fit negative binomial models. Here, we do not need to specify a <code>family</code>, but we do specify the <code>link = "log"</code>.</p>
 <div class="sourceCode" id="cb674"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb674-1"><a href="quasipoisson-and-negative-binomial-models.html#cb674-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
 <span id="cb674-2"><a href="quasipoisson-and-negative-binomial-models.html#cb674-2" aria-hidden="true" tabindex="-1"></a>fitn <span class="ot">&lt;-</span> <span class="fu">glm.nb</span>(allnoncerm_eo <span class="sc">~</span> divided <span class="sc">+</span> inflation <span class="sc">+</span> </span>

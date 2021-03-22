@@ -369,7 +369,7 @@ yhatx0*(exp(coef(fit.biv)["divided"]))
 
 ### Incidence Rate Ratios
 
-Similar to logistic regression where we could exponentiate the coefficients to generate estimated odds ratios, in poisson, we can exponentiate the coefficients to get "incidence rate ratios."
+Relatedly, similar to logistic regression where we could exponentiate the coefficients to generate estimated odds ratios, in poisson, we can exponentiate the coefficients to get "incidence rate ratios."
 
 When we say a one-unit change in the independent variable $x$, this is like saying
 
@@ -405,7 +405,7 @@ Note how this is a percent change interpretation where
 (exp(coef(fit)["divided"])-1)*100
 
 ```
-For a one-unit change going from unified to divided government, we see a 55.8\% increase in executive orders.
+For a one-unit change going from unified to divided government, we see a 55.8\% increase in executive orders during this period.
 
 ### Where Poisson is poisonous:
 
@@ -455,8 +455,8 @@ abline(h = c(-2, 0, 2), lty = c(2, 1, 2))
 
 We are in danger!! This model suffers from overdispersion. We have two options
 
-  - Check our model. Do we think it is misspecified in terms of the covariates? Is it suffering from omitted variable bias? We can change the specification and re-run the test.
-  - Use a different model. Because this assumption is often violated, we tend to use one of the following for count data
+  - Check our model. Do we think it is misspecified in terms of the covariates? Is it suffering from omitted variable bias? We can change the specification and re-run the test. Again, the overdispersion is about the conditional mean and variance, so changing the model may change the diagnostics.
+  - Use a different distribution. Because this assumption is often violated, we tend to use one of the following for count data
       + Overdispersed poisson (quasipoisson)
       + Negative binomial regression
   
@@ -514,7 +514,7 @@ $\Pr(Y=y) = \frac{\Gamma(r+y)}{\Gamma(r) \Gamma(y+1)} (\frac{r}{r+\lambda})^r (\
   - $\mathbf E(Y_i|X) = \lambda_i = e^{\mathbf x_i^\top \beta}$
   - $\mathbf Var(Y_i|X) = \lambda_i + \lambda_i^2/r$ (note, this is no longer just $\lambda_i$)
 
-Note that while the probability distribution looks much uglier the mapping of $\mathbf x_i' \beta$ is the same. We will still have a $\log$ link and exponeniate to get our quantities of interest. 
+Note that while the probability distribution looks much uglier, the mapping of $\mathbf x_i' \beta$ is the same. We will still have a $\log$ link and exponeniate to get our quantities of interest. The mechanics work essentially the same as the poisson.
 
 In R, we use the `glm.nb` function from the `MASS` package to fit negative binomial models. Here, we do not need to specify a `family`, but we do specify the `link = "log"`.
 ```{r}
@@ -677,7 +677,7 @@ ggplot(df, aes(y=pc,x=period))+
 
 For this week's tutorial, we will use data from the article, "Less than you think: Prevalence and predictors of fake news dissemination on Facebook" published in *Science Advances* by Andrew Guess, Jonathan Nagler, and Joshua Tucker available [here](https://advances.sciencemag.org/content/5/1/eaau4586).
 
-Abstract.*So-called “fake news” has renewed concerns about the prevalence and effects of misinformation in political campaigns. Given the potential for widespread dissemination of this material, we examine the individual-level characteristics associated with sharing false articles during the 2016 U.S. presidential campaign. To do so, we uniquely link an original survey with respondents’ sharing activity as recorded in Facebook profile data. First and foremost, we find that sharing this content was a relatively rare activity. Conservatives were more likely to share articles from fake news domains, which in 2016 were largely pro-Trump in orientation, than liberals or moderates. We also find a strong age effect, which persists after controlling for partisanship and ideology: On average, users over 65 shared nearly seven times as many articles from fake news domains as the youngest age group.*
+Abstract.*So-called "fake news" has renewed concerns about the prevalence and effects of misinformation in political campaigns. Given the potential for widespread dissemination of this material, we examine the individual-level characteristics associated with sharing false articles during the 2016 U.S. presidential campaign. To do so, we uniquely link an original survey with respondents’ sharing activity as recorded in Facebook profile data. First and foremost, we find that sharing this content was a relatively rare activity. Conservatives were more likely to share articles from fake news domains, which in 2016 were largely pro-Trump in orientation, than liberals or moderates. We also find a strong age effect, which persists after controlling for partisanship and ideology: On average, users over 65 shared nearly seven times as many articles from fake news domains as the youngest age group.*
 
 The authors look at the demographics predictors of disseminating fake news using survey data and behavioral data on respondents' Facebook sharing history.
 

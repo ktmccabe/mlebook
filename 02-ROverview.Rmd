@@ -303,14 +303,14 @@ A lot of common datasets we use in the social sciences are messy, uninformative,
   - Sometimes we have data shaped into separate columns when we'd rather it be reshaped into different rows.
   - Maybe you have encountered a beautiful dataset that provides many measures of your independent variables of interest, but there's one catch-- it has no variable related to your outcome! You have to merge data from multiple sources to answer your research question.
 
-Below are a few tips and resources. Ultimately, research is a constant debugging process. The nice thing about R is that a lot of researchers constantly post coding tips and questions online. Google ends up being your friend, but it's entirely normal to have to devote several hours (days?) to cleaning data.
+Below are a few tips and resources. Ultimately, research is a constant debugging process. Loving R means seeing [red](https://www.youtube.com/watch?v=G8HnhY_znos) error messages. The nice thing about R is that a lot of researchers constantly post coding tips and questions online. Google ends up being your friend, but it's entirely normal to have to devote several hours (days?) to cleaning data.
 
 ![](images/rgoogle.png){width=75%}
 
 
 ### Dealing with Uninformative Variable Names
 
-Hopefully, there is an easy fix for dealing with uninformative variable names. I say "hopefully" because hopefully when you encounter a dataset with uninformative variable names, the place where you downloaded the data will also include a codebook telling you what each variable name means, and how the corresponding values are coded.
+Hopefully, there is an easy fix for dealing with uninformative variable names. I say "hopefully" because hopefully when you encounter a dataset with uninformative variable names, the place where you downloaded the data will also include a codebook telling you what each variable name means, and how the corresponding values are coded. 
 
 Unfortunately, this may not always be the case. One thing you can do as a researcher is when you create a dataset for your own work, keep a record (in written form, on a word document or in a pdf or code file) of what each variable means (e.g., the survey question it corresponds to or the exact economic measure), as well as how the values of the variables are coded. This good practice will help you in the short-term, as you pause and come back to working on a project over the course of a year, as well as benefit other researchers in the long run after you publish your research.
 

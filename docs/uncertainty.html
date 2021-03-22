@@ -377,6 +377,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.9.2" data-path="how-to-think-about-zero-counts.html"><a href="how-to-think-about-zero-counts.html#zero-inflated-poissonnegative-binomial"><i class="fa fa-check"></i><b>10.9.2</b> Zero Inflated Poisson/Negative binomial</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="11" data-path="selection.html"><a href="selection.html"><i class="fa fa-check"></i><b>11</b> Sample Selection Models</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="sample-selection.html"><a href="sample-selection.html"><i class="fa fa-check"></i><b>11.1</b> Sample Selection</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="sample-selection.html"><a href="sample-selection.html#how-do-we-go-about-estimating-this"><i class="fa fa-check"></i><b>11.1.1</b> How do we go about estimating this?</a></li>
+<li class="chapter" data-level="11.1.2" data-path="sample-selection.html"><a href="sample-selection.html#sample-selection-model-assumptions"><i class="fa fa-check"></i><b>11.1.2</b> Sample Selection Model Assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="fitting-sample-selection-in-r.html"><a href="fitting-sample-selection-in-r.html"><i class="fa fa-check"></i><b>11.2</b> Fitting Sample Selection in R</a></li>
+<li class="chapter" data-level="11.3" data-path="heckman-example-using-survey-data.html"><a href="heckman-example-using-survey-data.html"><i class="fa fa-check"></i><b>11.3</b> Heckman Example Using Survey Data</a></li>
+<li class="chapter" data-level="11.4" data-path="tobit-model-aka-censored-regression-model.html"><a href="tobit-model-aka-censored-regression-model.html"><i class="fa fa-check"></i><b>11.4</b> Tobit Model aka Censored regression model</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="tobit-model-aka-censored-regression-model.html"><a href="tobit-model-aka-censored-regression-model.html#tobit-model-assumptions"><i class="fa fa-check"></i><b>11.4.1</b> Tobit Model Assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="truncated-models.html"><a href="truncated-models.html"><i class="fa fa-check"></i><b>11.5</b> Truncated Models</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -523,29 +538,29 @@ Expand below for more details on what the sample function does.
 7  black    sphere</code></pre>
 <p>I could generate a new “resampled” dataset with the <code>sample</code> function. We tell the function three things: 1) choose from the row numbers in my dataframe (<code>1:nrow(somedata)</code>), 2) pick <span class="math inline">\(N\)</span> row numbers in total (<code>nrow(somedata)</code>), 3) Each time you pick a given row number <span class="math inline">\(i\)</span>, put it back in the data, allowing the possibility that you may randomly sample it again (<code>replace = TRUE</code>).</p>
 <div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="uncertainty.html#cb398-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(somedata), <span class="fu">nrow</span>(somedata), <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>[1] 5 5 6 1 5 1 5</code></pre>
+<pre><code>[1] 1 4 7 6 2 5 1</code></pre>
 <div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="uncertainty.html#cb400-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(somedata), <span class="fu">nrow</span>(somedata), <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>[1] 2 5 5 4 4 2 6</code></pre>
+<pre><code>[1] 3 5 2 2 4 2 5</code></pre>
 <div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="uncertainty.html#cb402-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(somedata), <span class="fu">nrow</span>(somedata), <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>[1] 7 2 6 4 2 6 4</code></pre>
+<pre><code>[1] 1 3 1 4 5 5 3</code></pre>
 <p>What happened is the function generated a set of row numbers. Note how it is possible for the same row number to be picked multiple times. Each time we run the sample function, we get slightly different row numbers.</p>
 <p>We can subset our data based on these row indices.</p>
 <div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="uncertainty.html#cb404-1" aria-hidden="true" tabindex="-1"></a><span class="do">## store row indices</span></span>
 <span id="cb404-2"><a href="uncertainty.html#cb404-2" aria-hidden="true" tabindex="-1"></a>wrows <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(somedata), <span class="fu">nrow</span>(somedata), <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb404-3"><a href="uncertainty.html#cb404-3" aria-hidden="true" tabindex="-1"></a>wrows</span></code></pre></div>
-<pre><code>[1] 3 6 5 6 2 4 4</code></pre>
+<pre><code>[1] 5 2 3 1 1 6 5</code></pre>
 <div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="uncertainty.html#cb406-1" aria-hidden="true" tabindex="-1"></a><span class="do">## subset data to include rows sampled</span></span>
 <span id="cb406-2"><a href="uncertainty.html#cb406-2" aria-hidden="true" tabindex="-1"></a><span class="do">## note if row indices are in wrows more than once, they will also be in the subset more than once</span></span>
 <span id="cb406-3"><a href="uncertainty.html#cb406-3" aria-hidden="true" tabindex="-1"></a>subdata <span class="ot">&lt;-</span> somedata[wrows,]</span>
 <span id="cb406-4"><a href="uncertainty.html#cb406-4" aria-hidden="true" tabindex="-1"></a>subdata</span></code></pre></div>
-<pre><code>    colors    shapes
-3   yellow  triangle
-6   orange      line
-5   purple   diamond
-6.1 orange      line
-2     blue    square
-4    green rectangle
-4.1  green rectangle</code></pre>
+<pre><code>    colors   shapes
+5   purple  diamond
+2     blue   square
+3   yellow triangle
+1      red   circle
+1.1    red   circle
+6   orange     line
+5.1 purple  diamond</code></pre>
 <p>Given that each time the sample function runs, we get slightly different random samples of the data, that’s how we end up with a distribution of slightly different estimates of our quantities of interest. Each time the regression is run with a slightly different dataset.</p>
 </details>
 <p>This gives us one estimate of the average predicted probability stored in <code>p.boot</code>. However, the idea of a bootstrap is that we repeat this procedure at least 1000 times to generate a distribution of estimates of the quantity of interest, the average predicted probability in this case.</p>

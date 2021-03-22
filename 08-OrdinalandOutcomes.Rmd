@@ -102,7 +102,7 @@ text(c(-1.8, -.8,.7,1.5),y=.05, c("C1", "C2", "C3", "C4 (J)"))
 In our ordered model, we assume that there is a latent (unobserved) $Y^\ast_i  = X_i\beta + \epsilon$ 
 
   - This means we can still have a single model $X_i \beta$, which determines what outcome level is achieved (this requires an assumption).
-  - where $\epsilon$ is either assumed to be normally distributed (probit) or distributed logistically (logit), and corresponds to the fuzziness of the cutpoints ($\zeta_j$), which define in which category an outcome is observed to fall.
+  - where $\epsilon$ is either assumed to be normally distributed (probit) or distributed logistically (logit), and corresponds to the fuzziness of the cutpoints ($\zeta_j$), which define in which category an outcome is observed to fall. Instead of [fine lines](https://www.youtube.com/watch?v=Ojp71GGm-LQ), we estimate probabilistically in which category $Y_i$ is predicted to fall.
 
 We observe this category in our outcome: $Y_i$. 
 
