@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Section 11 Sample Selection Models | MLE for Political Science</title>
-  <meta name="description" content="Section 11 Sample Selection Models | MLE for Political Science" />
+  <title>Section 12 Panel and Hierarchical Data | MLE for Political Science</title>
+  <meta name="description" content="Section 12 Panel and Hierarchical Data | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Section 11 Sample Selection Models | MLE for Political Science" />
+  <meta property="og:title" content="Section 12 Panel and Hierarchical Data | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Section 11 Sample Selection Models | MLE for Political Science" />
+  <meta name="twitter:title" content="Section 12 Panel and Hierarchical Data | MLE for Political Science" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="how-to-think-about-zero-counts.html"/>
-<link rel="next" href="sample-selection.html"/>
+<link rel="prev" href="truncated-models.html"/>
+<link rel="next" href="longitudinal-data.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -50,7 +50,6 @@
 
 
 
-<link href="libs/vembedr-0.1.4/css/vembedr.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -392,6 +391,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="11.5" data-path="truncated-models.html"><a href="truncated-models.html"><i class="fa fa-check"></i><b>11.5</b> Truncated Models</a></li>
 </ul></li>
+<li class="chapter" data-level="12" data-path="hier.html"><a href="hier.html"><i class="fa fa-check"></i><b>12</b> Panel and Hierarchical Data</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="longitudinal-data.html"><a href="longitudinal-data.html"><i class="fa fa-check"></i><b>12.1</b> Longitudinal Data</a></li>
+<li class="chapter" data-level="12.2" data-path="fixed-effects.html"><a href="fixed-effects.html"><i class="fa fa-check"></i><b>12.2</b> Fixed Effects</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="fixed-effects.html"><a href="fixed-effects.html#fixed-effects-implementation-in-r"><i class="fa fa-check"></i><b>12.2.1</b> Fixed Effects Implementation in R</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="random-effects.html"><a href="random-effects.html"><i class="fa fa-check"></i><b>12.3</b> Random Effects</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="random-effects.html"><a href="random-effects.html#random-effects-implementation-in-r"><i class="fa fa-check"></i><b>12.3.1</b> Random Effects Implementation in R</a></li>
+<li class="chapter" data-level="12.3.2" data-path="random-effects.html"><a href="random-effects.html#random-effects-extensions"><i class="fa fa-check"></i><b>12.3.2</b> Random Effects Extensions</a></li>
+<li class="chapter" data-level="12.3.3" data-path="random-effects.html"><a href="random-effects.html#generalized-lmer"><i class="fa fa-check"></i><b>12.3.3</b> Generalized LMER</a></li>
+</ul></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -409,65 +422,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="selection" class="section level1" number="11">
-<h1><span class="header-section-number">Section 11</span> Sample Selection Models</h1>
-<p>This section will provide a brief overview of models designed to address issues where we do not observe our full outcome data, or the outcome is censored or truncated in some way. In each of these cases, if we only use the standard methods discussed so far in the course, we may end up with biased estimates.</p>
-<p>Here is a brief video overview.</p>
-<div class="vembedr">
-<div>
-<iframe src="https://www.youtube.com/embed/sY6H9LuamGI" width="533" height="300" frameborder="0" allowfullscreen=""></iframe>
-</div>
-</div>
-<table>
-<colgroup>
-<col width="25%" />
-<col width="21%" />
-<col width="28%" />
-<col width="25%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Sample</th>
-<th>Y</th>
-<th>X</th>
-<th align="right">Example</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Censored</td>
-<td>y is known exactly only if some criterion defined in terms of y is met.</td>
-<td>x variables are observed for the entire sample, regardless of whether y is observed exactly</td>
-<td align="right">If income is measured exactly only if above the poverty line. All other incomes are reported at the poverty line.</td>
-</tr>
-<tr class="even">
-<td align="left">Sample Selected</td>
-<td>y is observed only if a criteria defined in terms of some other random variable (Z) is met.</td>
-<td>the determinants of whether Z =1 are observed for the entire sample, regardless of whether y is observed or not</td>
-<td align="right">Survey data with item or unit non-response</td>
-</tr>
-<tr class="odd">
-<td align="left">Truncated</td>
-<td>y is known only if some criterion defined in terms of y is met</td>
-<td>x variables are observed only if y is observed</td>
-<td align="right">Donations to political campaigns</td>
-</tr>
-</tbody>
-</table>
-<p>Here are supplemental resources</p>
-<ul>
-<li>King, Gary. 1998. Unifying political methodology: The likelihood theory of statistical inference. University of Michigan Press. Chapters: 9. Available online through Rutgers libraries.</li>
-<li>Fox, John. Applied Regression and Generalized Linear Models. Excerpts from Chapter 20 (see Canvas)</li>
-<li>The documentation for the <code>sampleSelection</code> package in R is <a href="https://cran.r-project.org/web/packages/sampleSelection/vignettes/selection.pdf">here</a></li>
-</ul>
+<div id="hier" class="section level1" number="12">
+<h1><span class="header-section-number">Section 12</span> Panel and Hierarchical Data</h1>
+<p>This section will provide an overview of considerations and basic modeling strategies for data that include repeated observations across units or over time.</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="how-to-think-about-zero-counts.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="sample-selection.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="truncated-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="longitudinal-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

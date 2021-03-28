@@ -960,6 +960,7 @@ cbind(sf.count, sf.count.man, sf.count.man2)[1:6,]
 
 ## How to think about Zero Counts
 
+
 Sometimes our outcome data have an excessive number of zeroes. For example, perhaps there are a lot of people that never post on social media at all, and then there are a smaller number of those that do, and they may post in any positive number of times.
 
 For these, we might think there are two decisions
@@ -968,6 +969,16 @@ For these, we might think there are two decisions
   - How many times to post? Ok this sounds more like Poisson or Negative Binomial
   
 A large number of zeroes is not necessarily something that the Poisson and Negative binomial distributions would predict with high probability. For that reason, we might want to use a modeling strategy that accounts for zero excess. We will discuss two: Hurdle models and Zero-inflated poisson/negative binomial.
+
+This video provides the overview.
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library("vembedr")
+library(knitr)
+
+embed_url("https://www.youtube.com/watch?v=sU-_rcLVTMw")
+```
+
 
 ### Hurdle Models
 

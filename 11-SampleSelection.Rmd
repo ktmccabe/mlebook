@@ -2,6 +2,16 @@
 
 This section will provide a brief overview of models designed to address issues where we do not observe our full outcome data, or the outcome is censored or truncated in some way. In each of these cases, if we only use the standard methods discussed so far in the course, we may end up with biased estimates.
 
+Here is a brief video overview.
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library("vembedr")
+library(knitr)
+
+embed_url("https://www.youtube.com/watch?v=sY6H9LuamGI")
+```
+
+
 |Sample | Y | X | Example |
 |:-------|-------|---------|-------:|
 |Censored | y is known exactly only if some criterion defined in terms of y is met. | x variables are observed for the entire sample, regardless of whether y is observed exactly | If income is measured exactly only if above the poverty line. All other incomes are reported at the poverty line. |

@@ -1,0 +1,467 @@
+```{r}
+library(knitr)
+knitr::knit_exit()
+```
+
+# Panel and Hierarchical Data {#hier}
+
+This section will provide an overview of considerations and basic modeling strategies for data that include repeated observations across units or over time.
+
+## Longitudinal Data
+
+$Y_i, X_i$ now become $Y_{it}, X_{it}$ where $i$ is a unique indicator for the unit and $t$ is a unique indicator for time (or question, task, etc., other repeated measurement) 
+
+  - Can be represented in "wide" or "long/stacked" format
+
+Can get more complicated. Perhaps we have a Member of Parliament in a year in a country: $Y_{itj}, X_{itj}$.
+
+The idea is that we don't think these $i$ units are independent. They are linked by their $t$'s and $j$'s.
+
+  - Is the fact that our units are not independent just a nuisance to us, or something we are actually more fundamentally interested in analyzing?
+  
+  
+Why do we like this type of data in social science?
+
+  - We think some $T$ variable is related to some $Y$ outcome.
+  - So we test this with data by comparing data that vary on $T$ to see if they vary systematically on $Y$.
+  - Our goal is to isolate $T$. We want to "control" on everything that differs between our units that could affect $Y$ except for $T$, which varies.
+  - Problem: this can feel almost impossible in cross-sectional data
+      + Example: Bob and Suzy probably differ in a million ways, but we can only measure and account for so many covariates
+      + Example: France and Germany probably differ in a million ways, but we can only measure and account for so many covariates
+      + This makes comparing Bob vs. Suzy and France vs. Germany for our variation in $T$ a somewhat suspect way to show how $T$ relates to $Y$
+      
+Possible solution: enter repeated observations
+
+  - Idea: Bob in wave 1 is probably pretty similar to Bob at wave 2. This might be a more sensible comparison than Bob  vs. Suzy.
+  - Idea: France in 1968 vs. France 1970 is probably a more sensible comparison than France vs. Germany
+      + So, perhaps we incorporate Bob vs. Bob and Suzy vs. Suzy; France vs. France and Germany vs. Germany comparisons instead of just making between-unit comparisons.
+  - Issue: need to learn new methods to account for our grouped/repeated data structure.
+  
+
+Recall OLS
+
+\begin{align*}
+Y_i =  \beta_0 + \beta_1 x_i + \epsilon_i
+\end{align*}
+
+Assumptions:
+
+  - $\mathbf E(\epsilon_i) = 0$; 
+  - Errors independent of regressors: Cov$(\epsilon_i, X_i) = 0$;
+  - Errors of different observations not correlated: Cov$(\epsilon_i, \epsilon_j) = 0$
+  - Constant error variance $V(\epsilon_i | X) = \sigma^2$. 
+
+When we have grouped/longitudinal data, many of these assumptions are likely violated. For elaboration, see this [video](https://www.youtube.com/watch?v=aYx88zmTM0U).
+
+
+
+What if we have
+\begin{align*}
+Y_{it} =  \beta_0 + \beta_1 x_{it} + \epsilon_{it}
+\end{align*}
+
+We could still treat this as OLS if we believe the assumptions hold. But often, we are concerned that our model actually looks like this:
+
+\begin{align*}
+Y_{it} =  \beta_0 + \beta_1x_{it}+ (c_i + \epsilon_{it}).
+\end{align*}
+
+We think there may be unobserved characteristics about our units $i$ that are related to our explanators and our outcomes. If unaccounted for and left as part of the error term, this would cause bias in our coefficients. 
+
+  - Note: in OLS, we assume Cov$(c_i + \epsilon_{it}, x_{it}) = 0$
+
+One Solution: fixed effects: removes time-constant unobserved characteristics about our units.
+
+
+## Fixed Effects
+
+
+\begin{align*}
+Y_{it} &=  \alpha_i + \beta_1x_{it} + \epsilon_{it}
+\end{align*}
+
+where $\alpha_{i}$ is unobserved, time-invariant characteristic for unit $i$.
+
+  - Still assume homoskedastic errors $\rightarrow$ may want to adjust the SE's.
+  - Cannot model "level-2" factors. Problematic if that's what you're interested in! (E.g., if you have time-invariant country-level covariates). Can only do this through interactions.
+  - Only works if you have a decent number of observations
+  - Leverages within-group variation on your outcomes. Need to have this variation for it to make sense!
+
+
+Within-Estimator: Time Demeaning. First calculate averages of the $it$ terms. Note: $\frac{1}{T} \sum_{t=1}^T \alpha_i = \frac{1}{T}*T*\alpha_i = \alpha_i$.
+
+\begin{align*}
+\bar y_i &= \alpha_i +  \beta\bar x_i  + \bar \epsilon_i\\
+\end{align*}
+
+Subtracting we get:
+\begin{align*}
+Y_{it} - \bar y_i &= (\alpha_i -\alpha_i) +  \beta(x_{it}- \bar x_i) + (\epsilon_{it}- \bar \epsilon_i)\\
+\widetilde{Y_{it}} &= \beta\widetilde{x_{it}} + \widetilde{\epsilon_{it}}
+\end{align*}
+$\beta$ is estimated just from deviations of the units from their means. Removes anything that is time-constant.
+
+
+Numerical Equivalent: LSDV regression
+
+OLS with dummy variables for each unit (e.g., countries). Start with "stacked" data where: $Y = X\beta + U\delta + \epsilon$. 
+
+  - $Y$ is $NT \times 1$ outcome vector where $N$ is number of $i$ units and $T$ is number of time points $t$.
+  - $X$ is $NT \times k$ matrix  where $k$ is the number of covariates plus general intercept
+  - $U$ is a set of $m$ dummy variables (e.g., country dummies), leaving one as reference
+  
+  
+### Fixed Effects Implementation in R
+
+Run `install.packages("plm")` and load Grunfeld. 200 observations firm-year.
+
+```{r, warning=F, message=F}
+library(plm)
+data(Grunfeld)
+head(Grunfeld)
+## Unique N- firms
+length(unique(Grunfeld$firm))
+## Unique T- years
+length(unique(Grunfeld$year))
+```
+
+For more detail on {\tt plm}, see [documentation](https://cran.r-project.org/web/packages/plm/vignettes/plm.pdf)
+
+
+Study the effects of `capital` (stock of plant and equipment) on gross investment.
+
+```{r}
+## Pooled model
+fit.pool <- plm(inv~ capital, data = Grunfeld, model = "pooling")
+coef(fit.pool)["capital"]
+
+## Equivalent
+fit.ols  <- lm(inv~ capital, data = Grunfeld)
+coef(fit.ols)["capital"]
+```
+
+We could visualize this model as follows:
+
+```{r, message=F, warning=F}
+library(ggplot2)
+ggplot(Grunfeld, aes(x=capital, y=inv))+
+  geom_point()+
+  geom_smooth(aes(y=inv), se=F, method="lm", color="black")
+```
+
+Fixed effects
+```{r}
+## Within model with firm fixed effects
+fit.within <- plm(inv~capital, 
+                  data = Grunfeld, 
+                  model = "within", 
+                  index = c("firm", "year"))
+coef(fit.within)["capital"]
+
+## numerical equivalent
+fit.lsdv  <- lm(inv~  capital + as.factor(firm), 
+                data = Grunfeld)
+coef(fit.lsdv)["capital"]
+```
+
+What fixed effects does is create a different intercept by firm.
+```{r}
+newdata <- expand.grid(capital = seq(0, 2500, 100),
+            firm = unique(Grunfeld$firm))
+newdata$predictions <- predict(fit.lsdv, newdata = newdata)
+
+library(ggplot2)
+ggplot(Grunfeld, aes(x=capital, y=inv, color=factor(firm)))+
+  geom_point()+
+  geom_smooth(aes(y=inv), se=F, method="lm", color="black")+
+  geom_line(data=newdata, aes(x=capital, y=predictions,
+                         color=factor(firm)))
+```
+
+
+May want to adjust standard errors. Fixed effects assumes homoskedasticity. 
+
+```{r}
+## Cluster robust standard errors to match stata (c only matters if G is small)
+## Generally want G to be 30 or 40
+G <- length(unique(Grunfeld$firm))
+c <- G/(G - 1)
+sqrt(diag(c*vcovHC(fit.within,type = "HC1", cluster = "group")))
+```
+
+PCSE: Observations may be clustered either by "group" to account for timewise heteroskedasticity and serial correlation or by "time" to account for cross-sectional heteroskedasticity and correlation.
+
+```{r}
+## Alternative: Beck and Katz panel corrected standard errors
+sqrt(diag(vcovBK(fit.within, cluster = "group"))) # also can change type
+```
+
+Alternative: Adjusted for heteroskedasticity and/or serial correlation. 
+
+```{r}
+sqrt(diag(vcovHC(fit.within, type = "HC1", method = "arellano")))
+```
+
+For more information, see pg. 24 of this [resource](https://www.princeton.edu/~otorres/Panel101R.pdf)
+
+
+
+## Additional considerations
+
+### Two-way fixed effects
+
+We might be concerned not just about unobserved unit effects but also unobserved time effects
+\begin{align*}
+Y_{it} =  \beta_0 + \beta_1x_{it}+ (c_i + v_t + \epsilon_{it}).
+\end{align*}
+
+Here, we may include fixed effects for both units and time. Warning: can be difficult to interpret.
+
+
+Alternative, sometimes instead of including dummies for each $t$ period, people will include a "time trend." This could be a linear time trend, for example, a year variable treated as numeric.
+
+\begin{align*}
+Y_{it} =  \alpha_i + \beta_1  x_{it}+ \beta_2 year_{t} + \epsilon_{it}.
+\end{align*}
+
+Or this could be a polynomial, such as a cubic time trend
+
+\begin{align*}
+Y_{it} =  \alpha_i + \beta_1 x_{it}+ \beta_2 year_{t} + \beta_3 year_{t}^2 + \beta_4year_{t}^3 + \epsilon_{it}.
+\end{align*}
+
+
+### First Differences
+
+$\Delta Y_{it} = \beta \Delta x_{it} + \Delta \epsilon_{it}$ where, for example, $\Delta Y_{it} = Y_{it} - Y_{it- 1}$. Instead of demeaning over all time. We subtract the previous instance.
+
+  - Both remove unobserved heterogeneity (i.e., $\alpha_i - \alpha_i$)
+  - Requires variation in time. $t$ vs. $t-1$ or else $x_{it} - x_{it-1} = 0$ and falls out
+  - When $T = 2$, fixed effects = first differences
+  - When $T > 2$, fixed effects $\neq$ first differences
+  - Under assumptions, both unbiased and consistent
+  - When no serial correlation, then $SE(\hat \beta_{FD}) > SE(\hat \beta_{FE})$ 
+  - If $\Delta \epsilon_{it}$ are uncorrelated, FD preferred. 
+  - In general, hopefully both produce very similar results
+  
+
+
+Additional Models
+
+```{r}
+## first differences
+fit.fd <- plm(inv~value+capital, data = Grunfeld, model = "fd", 
+              index = c("firm", "year"),
+                  effect = "individual")
+                  
+coef(fit.fd)["capital"]
+
+## firm and year effects
+fit.twoway <- plm(inv~value+capital, data = Grunfeld, model = "within",
+                  index = c("firm", "year"),
+                  effect = "twoways")
+                  
+coef(fit.twoway)["capital"]
+```
+
+
+## Random Effects
+
+
+Tradeoff between complete pooling and no-pooling (i.e., fixed effects). 
+
+  - Complete pooling ignores variation between groups BUT
+  - No-pooling may overfit the data within group 
+
+Example: What will Mookie Betts's batting average be in 2018?
+
+![](images/mookie.png){width=70%}
+
+  - In March, Mookie went 2 for 11. If we fit his average just based on his data $n_{mookie}=11$, we get an average of .182.
+  - Over the entire season, Mookie ended up with an average of .346. Is there any way we could have adjusted our initial estimate to end up with a more accurate estimate of what his average would be?
+  - Possible solution: fit the average based on a combination of Mookie's data ($\bar y_{mookie}$) and data from all players ($\bar y_{all}$). It will move Mookie's estimate closer to the "grand" average across all players.
+
+For the $ith$ observation, we allow the intercept $\alpha$ to vary by some unit $j$. Where $j[i]$ refers to the group-level coding for the $ith$ observation. Perhaps $j=3$ for $j[4]$, the 4th observation.
+
+\begin{align*}
+Y_{ij} &=  \alpha_{j[i]} + \beta x_{ij} + \epsilon_{ij}
+\end{align*}
+
+The group index is a factor with $J$ levels
+
+
+Approximation of multilevel estimates of the group average in case of no predictors:
+
+
+$\hat \alpha_j = \frac{\frac{n_j}{\sigma^2_y}\bar y_j + \frac{1}{\sigma^2_\alpha}\bar y_{all}}{\frac{n_j}{\sigma^2_y} + \frac{1}{\sigma^2_\alpha}}$
+
+  - Assume we have a random sample of $n$ units within each $j$, $n_j$
+  - Then, our estimate for a given group $j$ is a weighted average of observations within $j$ ($\bar y_j$) and the mean overall $j$'s ($\bar y_{all}$).
+  - These are weighted according to the variance in $y$ within $j$ ($\sigma^2_y$) and variance among the averages of $y$ across $j$ ($\sigma^2_\alpha$)
+  - For players like Mookie who had few observations in the sample, these would end up carrying less weight in the overall average
+
+
+Pooling- intercepts all fixed to $\alpha$ ($\sigma^2_{\alpha} = 0$)
+
+No pooling- $\alpha_j$'s correspond to models fit within each $j$. Do not come from a common distribution.
+
+Partial pooling (shrinkage)- $\alpha_j$'s have a probabilitiy distribution $\alpha_j \sim N(u_{\alpha}, \sigma^2_{\alpha})$. Has the effect of pulling estimates of $\alpha_j$ toward the mean of all groups.
+
+  - $\alpha_j = u_{\alpha} + \eta_j$ where $\eta_j$ is a group-level error term (model without group-level predictors)
+  - Must assume $\mathbf E(x_{ij}\alpha_{j[i]}) = 0$. Unmodeled, unmeasured characteristics about your group-level effects (e.g., countries) that affect the outcome are not correlated with the regressors in your model. \underline{Don't need to make this assumption in FE.}
+  - Can include group-level predictors: Now $\alpha_j$ coeffcients have a distribution $\alpha_j \sim N(U_j\gamma, \sigma^2_\alpha)$
+  
+
+### Random Effects Implementation in R
+
+
+If comparing with fixed effects, can use`plm`.
+```{r}
+## Within model with firm random effects
+fit.re <- plm(inv~value+capital, 
+              data = Grunfeld, 
+              model = "random", 
+                index = c("firm"), 
+              effect = "individual")
+coef(fit.re)["capital"]
+```
+
+More flexible package for random effects: `lme4`. Uses REML by default- variation on ML.
+
+```{r, warning=F, message=F}
+library(lme4)
+fit.re2 <- lmer(inv~ value + capital + (1 | firm), data = Grunfeld)
+fixef(fit.re2)["capital"]
+```
+
+WHERE ARE MY P VALUES?!?!?!?!
+```{r}
+summary(fit.re2)$coefficients
+```
+
+Not without controversy. Several ways to compute p-values in these models. This post describes three and provides the [code](https://www.r-bloggers.com/three-ways-to-get-parameter-specific-p-values-from-lmer/)
+
+
+### Random Effects Extensions
+
+Can have multiple levels. E.g., students ($i$) nested in classrooms ($j$) nested in schools ($s$). Each level may or may not have group-level predictors. Example:
+
+  - $ Performance_{ijs} =  \beta_{0js[i]} + \beta_1 Income_{ijs} + \beta_2 Gender_{ijs} + \epsilon_{ijs}$ where
+  - $\beta_{0js} = \gamma_{0s} + \gamma_{3}Teacher_{js} + r_{js}$ and
+  - $\gamma_{0s} = z + v_{s}$
+  - Combined: $Performance_{ijs} = m  + m_{1}Teacher_{js}  + m_2 Income_{ijs} + m_3 Gender_{ijs} + v_{s} + r_{js} + \epsilon_{ijs}$
+
+Levels can be nested or non-nested. Students are nested in schools. Different example: survey questions may not be nested in a single poll. Perhaps some items are repeated across different polls.
+
+  - Can allow slopes (regression coefficients to vary). Perhaps the effect of gender on student success varies by classroom. Then $\beta_{2}$ becomes $\beta_{j, 2} = \gamma_{1s} + r_{1js}$. 
+
+  
+```{r}
+## firm and year random intercepts
+fit.retwoways <- lmer(inv~ value + capital + (1 | firm) + (1 | year), data = Grunfeld)
+fixef(fit.retwoways)["capital"]
+```
+
+Sleep deprivation study: how is a subject's reaction time associated with sleep deprivation?
+
+```{r}
+data(sleepstudy)
+## Random intercepts for subjects
+fit.re3 <- lmer(Reaction ~ Days + (1 | Subject), data = sleepstudy)
+fixef(fit.re3)["Days"]
+
+## Random intercepts for subject, varying slope for days
+fit.re4 <- lmer(Reaction ~ Days + (Days | Subject), data = sleepstudy)
+fixef(fit.re4)["Days"]
+```
+
+
+Caution: `coef()`, `ranef()`, and `fixef()` all different.
+
+  - `coef()` produces the set of regression coefficients associated with each group
+
+```{r}
+## Example from random intercepts model
+head(coef(fit.re3))
+```
+
+  - `fixef()` produces the set of fixed effects regression coefficients-- similar to OLS-- with global intercept.
+
+```{r}
+## Example from random intercepts model
+fixef(fit.re3)
+```
+
+  - `ranef()` produces the set of random effects as deviations from the global estimates
+
+```{r}
+## Example from random intercepts model
+head(ranef(fit.re3)$Subject)
+
+## Note the relationship between the three for the first [1] subject
+fixef(fit.re3)[1] + ranef(fit.re3)$Subject[1,]
+
+coef(fit.re3)$Subject[1,1]
+```
+
+Generating predicted values for each unit
+
+```{r}
+## Manual
+allsubjects <- unique(sleepstudy$Subject)
+for(i in 1:nrow(sleepstudy)){
+  n <- as.character(sleepstudy$Subject[i])
+  sleepstudy$subjectRE[i] <- ranef(fit.re3)$Subject[n, 1]
+}
+
+## XB like usual, but need to add random effects
+yhat <-  model.matrix(fit.re3)%*%fixef(fit.re3) + sleepstudy$subjectRE
+
+## Compare to Automatic
+cbind(yhat, fitted(fit.re3), predict(fit.re3, type = "response"))[1:5,]
+```
+
+Predicting out of sample. Can "ignore" random effects if desired.
+
+```{r}
+predict(fit.re3, newdata= data.frame(Days = 4), type = "response", re.form = NA)
+
+fixef(fit.re3)[1] + 4*fixef(fit.re3)[2]
+```
+
+
+### Generalized LMER
+
+
+Generalized Linear Mixed Effects Regression: `glmer()` is to  `lmer()` as `glm()` is to `lm()`. Example:
+
+```{r}
+## What if reaction time was dichotomous? 
+sleepstudy$rdi <- ifelse(sleepstudy$Reaction > mean(sleepstudy$Reaction), 1, 0)
+
+## GLMER with logit
+fit.glmer <- glmer(rdi ~ Days + (1 | Subject), 
+                   data = sleepstudy, 
+                   family = binomial(link = "logit"))
+```
+
+
+Generating predicted probabilities for each unit
+
+```{r}
+## Manual
+allsubjects <- unique(sleepstudy$Subject)
+for(i in 1:nrow(sleepstudy)){
+  n <- as.character(sleepstudy$Subject[i])
+  sleepstudy$subjectRE[i] <- ranef(fit.glmer)$Subject[n, 1]
+}
+
+## XB like usual, but need to add random effects
+py <-  plogis(model.matrix(fit.glmer)%*%fixef(fit.glmer) + sleepstudy$subjectRE)
+
+## Compare to Automatic
+cbind(py, fitted(fit.glmer), predict(fit.glmer, type = "response"))[1:5,]
+```
+
+
+

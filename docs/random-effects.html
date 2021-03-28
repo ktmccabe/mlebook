@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Section 11 Sample Selection Models | MLE for Political Science</title>
-  <meta name="description" content="Section 11 Sample Selection Models | MLE for Political Science" />
+  <title>12.3 Random Effects | MLE for Political Science</title>
+  <meta name="description" content="12.3 Random Effects | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Section 11 Sample Selection Models | MLE for Political Science" />
+  <meta property="og:title" content="12.3 Random Effects | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Section 11 Sample Selection Models | MLE for Political Science" />
+  <meta name="twitter:title" content="12.3 Random Effects | MLE for Political Science" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="how-to-think-about-zero-counts.html"/>
-<link rel="next" href="sample-selection.html"/>
+<link rel="prev" href="fixed-effects.html"/>
+
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -50,7 +50,6 @@
 
 
 
-<link href="libs/vembedr-0.1.4/css/vembedr.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -392,6 +391,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="11.5" data-path="truncated-models.html"><a href="truncated-models.html"><i class="fa fa-check"></i><b>11.5</b> Truncated Models</a></li>
 </ul></li>
+<li class="chapter" data-level="12" data-path="hier.html"><a href="hier.html"><i class="fa fa-check"></i><b>12</b> Panel and Hierarchical Data</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="longitudinal-data.html"><a href="longitudinal-data.html"><i class="fa fa-check"></i><b>12.1</b> Longitudinal Data</a></li>
+<li class="chapter" data-level="12.2" data-path="fixed-effects.html"><a href="fixed-effects.html"><i class="fa fa-check"></i><b>12.2</b> Fixed Effects</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="fixed-effects.html"><a href="fixed-effects.html#fixed-effects-implementation-in-r"><i class="fa fa-check"></i><b>12.2.1</b> Fixed Effects Implementation in R</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="random-effects.html"><a href="random-effects.html"><i class="fa fa-check"></i><b>12.3</b> Random Effects</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="random-effects.html"><a href="random-effects.html#random-effects-implementation-in-r"><i class="fa fa-check"></i><b>12.3.1</b> Random Effects Implementation in R</a></li>
+<li class="chapter" data-level="12.3.2" data-path="random-effects.html"><a href="random-effects.html#random-effects-extensions"><i class="fa fa-check"></i><b>12.3.2</b> Random Effects Extensions</a></li>
+<li class="chapter" data-level="12.3.3" data-path="random-effects.html"><a href="random-effects.html#generalized-lmer"><i class="fa fa-check"></i><b>12.3.3</b> Generalized LMER</a></li>
+</ul></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -409,65 +422,217 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="selection" class="section level1" number="11">
-<h1><span class="header-section-number">Section 11</span> Sample Selection Models</h1>
-<p>This section will provide a brief overview of models designed to address issues where we do not observe our full outcome data, or the outcome is censored or truncated in some way. In each of these cases, if we only use the standard methods discussed so far in the course, we may end up with biased estimates.</p>
-<p>Here is a brief video overview.</p>
-<div class="vembedr">
-<div>
-<iframe src="https://www.youtube.com/embed/sY6H9LuamGI" width="533" height="300" frameborder="0" allowfullscreen=""></iframe>
-</div>
-</div>
-<table>
-<colgroup>
-<col width="25%" />
-<col width="21%" />
-<col width="28%" />
-<col width="25%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Sample</th>
-<th>Y</th>
-<th>X</th>
-<th align="right">Example</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Censored</td>
-<td>y is known exactly only if some criterion defined in terms of y is met.</td>
-<td>x variables are observed for the entire sample, regardless of whether y is observed exactly</td>
-<td align="right">If income is measured exactly only if above the poverty line. All other incomes are reported at the poverty line.</td>
-</tr>
-<tr class="even">
-<td align="left">Sample Selected</td>
-<td>y is observed only if a criteria defined in terms of some other random variable (Z) is met.</td>
-<td>the determinants of whether Z =1 are observed for the entire sample, regardless of whether y is observed or not</td>
-<td align="right">Survey data with item or unit non-response</td>
-</tr>
-<tr class="odd">
-<td align="left">Truncated</td>
-<td>y is known only if some criterion defined in terms of y is met</td>
-<td>x variables are observed only if y is observed</td>
-<td align="right">Donations to political campaigns</td>
-</tr>
-</tbody>
-</table>
-<p>Here are supplemental resources</p>
+<div id="random-effects" class="section level2" number="12.3">
+<h2><span class="header-section-number">12.3</span> Random Effects</h2>
+<p>Tradeoff between complete pooling and no-pooling (i.e., fixed effects).</p>
 <ul>
-<li>King, Gary. 1998. Unifying political methodology: The likelihood theory of statistical inference. University of Michigan Press. Chapters: 9. Available online through Rutgers libraries.</li>
-<li>Fox, John. Applied Regression and Generalized Linear Models. Excerpts from Chapter 20 (see Canvas)</li>
-<li>The documentation for the <code>sampleSelection</code> package in R is <a href="https://cran.r-project.org/web/packages/sampleSelection/vignettes/selection.pdf">here</a></li>
+<li>Complete pooling ignores variation between groups BUT</li>
+<li>No-pooling may overfit the data within group</li>
 </ul>
+<p>Example: What will Mookie Betts’s batting average be in 2018?</p>
+<p><img src="images/mookie.png" style="width:70.0%" /></p>
+<ul>
+<li>In March, Mookie went 2 for 11. If we fit his average just based on his data <span class="math inline">\(n_{mookie}=11\)</span>, we get an average of .182.</li>
+<li>Over the entire season, Mookie ended up with an average of .346. Is there any way we could have adjusted our initial estimate to end up with a more accurate estimate of what his average would be?</li>
+<li>Possible solution: fit the average based on a combination of Mookie’s data (<span class="math inline">\(\bar y_{mookie}\)</span>) and data from all players (<span class="math inline">\(\bar y_{all}\)</span>). It will move Mookie’s estimate closer to the “grand” average across all players.</li>
+</ul>
+<p>For the <span class="math inline">\(ith\)</span> observation, we allow the intercept <span class="math inline">\(\alpha\)</span> to vary by some unit <span class="math inline">\(j\)</span>. Where <span class="math inline">\(j[i]\)</span> refers to the group-level coding for the <span class="math inline">\(ith\)</span> observation. Perhaps <span class="math inline">\(j=3\)</span> for <span class="math inline">\(j[4]\)</span>, the 4th observation.</p>
+<p><span class="math display">\[\begin{align*}
+Y_{ij} &amp;=  \alpha_{j[i]} + \beta x_{ij} + \epsilon_{ij}
+\end{align*}\]</span></p>
+<p>The group index is a factor with <span class="math inline">\(J\)</span> levels</p>
+<p>Approximation of multilevel estimates of the group average in case of no predictors:</p>
+<p><span class="math inline">\(\hat \alpha_j = \frac{\frac{n_j}{\sigma^2_y}\bar y_j + \frac{1}{\sigma^2_\alpha}\bar y_{all}}{\frac{n_j}{\sigma^2_y} + \frac{1}{\sigma^2_\alpha}}\)</span></p>
+<ul>
+<li>Assume we have a random sample of <span class="math inline">\(n\)</span> units within each <span class="math inline">\(j\)</span>, <span class="math inline">\(n_j\)</span></li>
+<li>Then, our estimate for a given group <span class="math inline">\(j\)</span> is a weighted average of observations within <span class="math inline">\(j\)</span> (<span class="math inline">\(\bar y_j\)</span>) and the mean overall <span class="math inline">\(j\)</span>’s (<span class="math inline">\(\bar y_{all}\)</span>).</li>
+<li>These are weighted according to the variance in <span class="math inline">\(y\)</span> within <span class="math inline">\(j\)</span> (<span class="math inline">\(\sigma^2_y\)</span>) and variance among the averages of <span class="math inline">\(y\)</span> across <span class="math inline">\(j\)</span> (<span class="math inline">\(\sigma^2_\alpha\)</span>)</li>
+<li>For players like Mookie who had few observations in the sample, these would end up carrying less weight in the overall average</li>
+</ul>
+<p>Pooling- intercepts all fixed to <span class="math inline">\(\alpha\)</span> (<span class="math inline">\(\sigma^2_{\alpha} = 0\)</span>)</p>
+<p>No pooling- <span class="math inline">\(\alpha_j\)</span>’s correspond to models fit within each <span class="math inline">\(j\)</span>. Do not come from a common distribution.</p>
+<p>Partial pooling (shrinkage)- <span class="math inline">\(\alpha_j\)</span>’s have a probabilitiy distribution <span class="math inline">\(\alpha_j \sim N(u_{\alpha}, \sigma^2_{\alpha})\)</span>. Has the effect of pulling estimates of <span class="math inline">\(\alpha_j\)</span> toward the mean of all groups.</p>
+<ul>
+<li><span class="math inline">\(\alpha_j = u_{\alpha} + \eta_j\)</span> where <span class="math inline">\(\eta_j\)</span> is a group-level error term (model without group-level predictors)</li>
+<li>Must assume <span class="math inline">\(\mathbf E(x_{ij}\alpha_{j[i]}) = 0\)</span>. Unmodeled, unmeasured characteristics about your group-level effects (e.g., countries) that affect the outcome are not correlated with the regressors in your model. </li>
+<li>Can include group-level predictors: Now <span class="math inline">\(\alpha_j\)</span> coeffcients have a distribution <span class="math inline">\(\alpha_j \sim N(U_j\gamma, \sigma^2_\alpha)\)</span></li>
+</ul>
+<div id="random-effects-implementation-in-r" class="section level3" number="12.3.1">
+<h3><span class="header-section-number">12.3.1</span> Random Effects Implementation in R</h3>
+<p>If comparing with fixed effects, can use<code>plm</code>.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="random-effects.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Within model with firm random effects</span></span>
+<span id="cb28-2"><a href="random-effects.html#cb28-2" aria-hidden="true" tabindex="-1"></a>fit.re <span class="ot">&lt;-</span> <span class="fu">plm</span>(inv<span class="sc">~</span>value<span class="sc">+</span>capital, </span>
+<span id="cb28-3"><a href="random-effects.html#cb28-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> Grunfeld, </span>
+<span id="cb28-4"><a href="random-effects.html#cb28-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">model =</span> <span class="st">&quot;random&quot;</span>, </span>
+<span id="cb28-5"><a href="random-effects.html#cb28-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">index =</span> <span class="fu">c</span>(<span class="st">&quot;firm&quot;</span>), </span>
+<span id="cb28-6"><a href="random-effects.html#cb28-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">effect =</span> <span class="st">&quot;individual&quot;</span>)</span>
+<span id="cb28-7"><a href="random-effects.html#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.re)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
+<pre><code>##  capital 
+## 0.308113</code></pre>
+<p>More flexible package for random effects: <code>lme4</code>. Uses REML by default- variation on ML.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="random-effects.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb30-2"><a href="random-effects.html#cb30-2" aria-hidden="true" tabindex="-1"></a>fit.re2 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(inv<span class="sc">~</span> value <span class="sc">+</span> capital <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> firm), <span class="at">data =</span> Grunfeld)</span>
+<span id="cb30-3"><a href="random-effects.html#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fixef</span>(fit.re2)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
+<pre><code>##   capital 
+## 0.3081881</code></pre>
+<p>WHERE ARE MY P VALUES?!?!?!?!</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="random-effects.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.re2)<span class="sc">$</span>coefficients</span></code></pre></div>
+<pre><code>##                Estimate  Std. Error   t value
+## (Intercept) -57.8644245 29.37775852 -1.969668
+## value         0.1097897  0.01052676 10.429581
+## capital       0.3081881  0.01717127 17.947893</code></pre>
+<p>Not without controversy. Several ways to compute p-values in these models. This post describes three and provides the <a href="https://www.r-bloggers.com/three-ways-to-get-parameter-specific-p-values-from-lmer/">code</a></p>
 </div>
+<div id="random-effects-extensions" class="section level3" number="12.3.2">
+<h3><span class="header-section-number">12.3.2</span> Random Effects Extensions</h3>
+<p>Can have multiple levels. E.g., students (<span class="math inline">\(i\)</span>) nested in classrooms (<span class="math inline">\(j\)</span>) nested in schools (<span class="math inline">\(s\)</span>). Each level may or may not have group-level predictors. Example:</p>
+<ul>
+<li>$ Performance_{ijs} = <em>{0js[i]} + <em>1 Income</em>{ijs} + <em>2 Gender</em>{ijs} + </em>{ijs}$ where</li>
+<li><span class="math inline">\(\beta_{0js} = \gamma_{0s} + \gamma_{3}Teacher_{js} + r_{js}\)</span> and</li>
+<li><span class="math inline">\(\gamma_{0s} = z + v_{s}\)</span></li>
+<li>Combined: <span class="math inline">\(Performance_{ijs} = m + m_{1}Teacher_{js} + m_2 Income_{ijs} + m_3 Gender_{ijs} + v_{s} + r_{js} + \epsilon_{ijs}\)</span></li>
+</ul>
+<p>Levels can be nested or non-nested. Students are nested in schools. Different example: survey questions may not be nested in a single poll. Perhaps some items are repeated across different polls.</p>
+<ul>
+<li>Can allow slopes (regression coefficients to vary). Perhaps the effect of gender on student success varies by classroom. Then <span class="math inline">\(\beta_{2}\)</span> becomes <span class="math inline">\(\beta_{j, 2} = \gamma_{1s} + r_{1js}\)</span>.</li>
+</ul>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="random-effects.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="do">## firm and year random intercepts</span></span>
+<span id="cb34-2"><a href="random-effects.html#cb34-2" aria-hidden="true" tabindex="-1"></a>fit.retwoways <span class="ot">&lt;-</span> <span class="fu">lmer</span>(inv<span class="sc">~</span> value <span class="sc">+</span> capital <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> firm) <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> year), <span class="at">data =</span> Grunfeld)</span></code></pre></div>
+<pre><code>## Warning: Some predictor variables are on very different scales: consider
+## rescaling</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="random-effects.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fixef</span>(fit.retwoways)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
+<pre><code>##   capital 
+## 0.3106319</code></pre>
+<p>Sleep deprivation study: how is a subject’s reaction time associated with sleep deprivation?</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="random-effects.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(sleepstudy)</span>
+<span id="cb38-2"><a href="random-effects.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Random intercepts for subjects</span></span>
+<span id="cb38-3"><a href="random-effects.html#cb38-3" aria-hidden="true" tabindex="-1"></a>fit.re3 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(Reaction <span class="sc">~</span> Days <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> Subject), <span class="at">data =</span> sleepstudy)</span>
+<span id="cb38-4"><a href="random-effects.html#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="fu">fixef</span>(fit.re3)[<span class="st">&quot;Days&quot;</span>]</span></code></pre></div>
+<pre><code>##     Days 
+## 10.46729</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="random-effects.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Random intercepts for subject, varying slope for days</span></span>
+<span id="cb40-2"><a href="random-effects.html#cb40-2" aria-hidden="true" tabindex="-1"></a>fit.re4 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(Reaction <span class="sc">~</span> Days <span class="sc">+</span> (Days <span class="sc">|</span> Subject), <span class="at">data =</span> sleepstudy)</span>
+<span id="cb40-3"><a href="random-effects.html#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fixef</span>(fit.re4)[<span class="st">&quot;Days&quot;</span>]</span></code></pre></div>
+<pre><code>##     Days 
+## 10.46729</code></pre>
+<p>Caution: <code>coef()</code>, <code>ranef()</code>, and <code>fixef()</code> all different.</p>
+<ul>
+<li><code>coef()</code> produces the set of regression coefficients associated with each group</li>
+</ul>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="random-effects.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example from random intercepts model</span></span>
+<span id="cb42-2"><a href="random-effects.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">coef</span>(fit.re3))</span></code></pre></div>
+<pre><code>## $Subject
+##     (Intercept)     Days
+## 308    292.1888 10.46729
+## 309    173.5556 10.46729
+## 310    188.2965 10.46729
+## 330    255.8115 10.46729
+## 331    261.6213 10.46729
+## 332    259.6263 10.46729
+## 333    267.9056 10.46729
+## 334    248.4081 10.46729
+## 335    206.1230 10.46729
+## 337    323.5878 10.46729
+## 349    230.2089 10.46729
+## 350    265.5165 10.46729
+## 351    243.5429 10.46729
+## 352    287.7835 10.46729
+## 369    258.4415 10.46729
+## 370    245.0424 10.46729
+## 371    248.1108 10.46729
+## 372    269.5209 10.46729</code></pre>
+<ul>
+<li><code>fixef()</code> produces the set of fixed effects regression coefficients– similar to OLS– with global intercept.</li>
+</ul>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="random-effects.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example from random intercepts model</span></span>
+<span id="cb44-2"><a href="random-effects.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fixef</span>(fit.re3)</span></code></pre></div>
+<pre><code>## (Intercept)        Days 
+##   251.40510    10.46729</code></pre>
+<ul>
+<li><code>ranef()</code> produces the set of random effects as deviations from the global estimates</li>
+</ul>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="random-effects.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example from random intercepts model</span></span>
+<span id="cb46-2"><a href="random-effects.html#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">ranef</span>(fit.re3)<span class="sc">$</span>Subject)</span></code></pre></div>
+<pre><code>##     (Intercept)
+## 308   40.783710
+## 309  -77.849554
+## 310  -63.108567
+## 330    4.406442
+## 331   10.216189
+## 332    8.221238</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="random-effects.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Note the relationship between the three for the first [1] subject</span></span>
+<span id="cb48-2"><a href="random-effects.html#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fixef</span>(fit.re3)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">ranef</span>(fit.re3)<span class="sc">$</span>Subject[<span class="dv">1</span>,]</span></code></pre></div>
+<pre><code>## (Intercept) 
+##    292.1888</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="random-effects.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.re3)<span class="sc">$</span>Subject[<span class="dv">1</span>,<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## [1] 292.1888</code></pre>
+<p>Generating predicted values for each unit</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="random-effects.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Manual</span></span>
+<span id="cb52-2"><a href="random-effects.html#cb52-2" aria-hidden="true" tabindex="-1"></a>allsubjects <span class="ot">&lt;-</span> <span class="fu">unique</span>(sleepstudy<span class="sc">$</span>Subject)</span>
+<span id="cb52-3"><a href="random-effects.html#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(sleepstudy)){</span>
+<span id="cb52-4"><a href="random-effects.html#cb52-4" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">as.character</span>(sleepstudy<span class="sc">$</span>Subject[i])</span>
+<span id="cb52-5"><a href="random-effects.html#cb52-5" aria-hidden="true" tabindex="-1"></a>  sleepstudy<span class="sc">$</span>subjectRE[i] <span class="ot">&lt;-</span> <span class="fu">ranef</span>(fit.re3)<span class="sc">$</span>Subject[n, <span class="dv">1</span>]</span>
+<span id="cb52-6"><a href="random-effects.html#cb52-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb52-7"><a href="random-effects.html#cb52-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-8"><a href="random-effects.html#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="do">## XB like usual, but need to add random effects</span></span>
+<span id="cb52-9"><a href="random-effects.html#cb52-9" aria-hidden="true" tabindex="-1"></a>yhat <span class="ot">&lt;-</span>  <span class="fu">model.matrix</span>(fit.re3)<span class="sc">%*%</span><span class="fu">fixef</span>(fit.re3) <span class="sc">+</span> sleepstudy<span class="sc">$</span>subjectRE</span>
+<span id="cb52-10"><a href="random-effects.html#cb52-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-11"><a href="random-effects.html#cb52-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Compare to Automatic</span></span>
+<span id="cb52-12"><a href="random-effects.html#cb52-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(yhat, <span class="fu">fitted</span>(fit.re3), <span class="fu">predict</span>(fit.re3, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>))[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span></code></pre></div>
+<pre><code>##       [,1]     [,2]     [,3]
+## 1 292.1888 292.1888 292.1888
+## 2 302.6561 302.6561 302.6561
+## 3 313.1234 313.1234 313.1234
+## 4 323.5907 323.5907 323.5907
+## 5 334.0580 334.0580 334.0580</code></pre>
+<p>Predicting out of sample. Can “ignore” random effects if desired.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="random-effects.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit.re3, <span class="at">newdata=</span> <span class="fu">data.frame</span>(<span class="at">Days =</span> <span class="dv">4</span>), <span class="at">type =</span> <span class="st">&quot;response&quot;</span>, <span class="at">re.form =</span> <span class="cn">NA</span>)</span></code></pre></div>
+<pre><code>##        1 
+## 293.2742</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="random-effects.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fixef</span>(fit.re3)[<span class="dv">1</span>] <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span><span class="fu">fixef</span>(fit.re3)[<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## (Intercept) 
+##    293.2742</code></pre>
+</div>
+<div id="generalized-lmer" class="section level3" number="12.3.3">
+<h3><span class="header-section-number">12.3.3</span> Generalized LMER</h3>
+<p>Generalized Linear Mixed Effects Regression: <code>glmer()</code> is to <code>lmer()</code> as <code>glm()</code> is to <code>lm()</code>. Example:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="random-effects.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="do">## What if reaction time was dichotomous? </span></span>
+<span id="cb58-2"><a href="random-effects.html#cb58-2" aria-hidden="true" tabindex="-1"></a>sleepstudy<span class="sc">$</span>rdi <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(sleepstudy<span class="sc">$</span>Reaction <span class="sc">&gt;</span> <span class="fu">mean</span>(sleepstudy<span class="sc">$</span>Reaction), <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb58-3"><a href="random-effects.html#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-4"><a href="random-effects.html#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="do">## GLMER with logit</span></span>
+<span id="cb58-5"><a href="random-effects.html#cb58-5" aria-hidden="true" tabindex="-1"></a>fit.glmer <span class="ot">&lt;-</span> <span class="fu">glmer</span>(rdi <span class="sc">~</span> Days <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> Subject), </span>
+<span id="cb58-6"><a href="random-effects.html#cb58-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> sleepstudy, </span>
+<span id="cb58-7"><a href="random-effects.html#cb58-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span></code></pre></div>
+<p>Generating predicted probabilities for each unit</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="random-effects.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Manual</span></span>
+<span id="cb59-2"><a href="random-effects.html#cb59-2" aria-hidden="true" tabindex="-1"></a>allsubjects <span class="ot">&lt;-</span> <span class="fu">unique</span>(sleepstudy<span class="sc">$</span>Subject)</span>
+<span id="cb59-3"><a href="random-effects.html#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(sleepstudy)){</span>
+<span id="cb59-4"><a href="random-effects.html#cb59-4" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">as.character</span>(sleepstudy<span class="sc">$</span>Subject[i])</span>
+<span id="cb59-5"><a href="random-effects.html#cb59-5" aria-hidden="true" tabindex="-1"></a>  sleepstudy<span class="sc">$</span>subjectRE[i] <span class="ot">&lt;-</span> <span class="fu">ranef</span>(fit.glmer)<span class="sc">$</span>Subject[n, <span class="dv">1</span>]</span>
+<span id="cb59-6"><a href="random-effects.html#cb59-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb59-7"><a href="random-effects.html#cb59-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-8"><a href="random-effects.html#cb59-8" aria-hidden="true" tabindex="-1"></a><span class="do">## XB like usual, but need to add random effects</span></span>
+<span id="cb59-9"><a href="random-effects.html#cb59-9" aria-hidden="true" tabindex="-1"></a>py <span class="ot">&lt;-</span>  <span class="fu">plogis</span>(<span class="fu">model.matrix</span>(fit.glmer)<span class="sc">%*%</span><span class="fu">fixef</span>(fit.glmer) <span class="sc">+</span> sleepstudy<span class="sc">$</span>subjectRE)</span>
+<span id="cb59-10"><a href="random-effects.html#cb59-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-11"><a href="random-effects.html#cb59-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Compare to Automatic</span></span>
+<span id="cb59-12"><a href="random-effects.html#cb59-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(py, <span class="fu">fitted</span>(fit.glmer), <span class="fu">predict</span>(fit.glmer, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>))[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span></code></pre></div>
+<pre><code>##        [,1]      [,2]      [,3]
+## 1 0.1047843 0.1047843 0.1047843
+## 2 0.1721090 0.1721090 0.1721090
+## 3 0.2696603 0.2696603 0.2696603
+## 4 0.3960526 0.3960526 0.3960526
+## 5 0.5380430 0.5380430 0.5380430</code></pre>
+
+</div>
+</div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="how-to-think-about-zero-counts.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="sample-selection.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="fixed-effects.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
