@@ -242,7 +242,7 @@ For more information, see pg. 24 of this [resource](https://www.princeton.edu/~o
 
 
 
-## Additional considerations
+## Additional considerations for fixed effects
 
 ### Two-way fixed effects
 
