@@ -536,16 +536,7 @@ rho             0.6263         NA      NA       NA
 Try on your own, then expand for the solution.
 </summary>
 <p>As the authors note describing the outcome equation, “results suggest that poor Ennahda voters were about 31% more likely to rank pleasing Allah among their top two factors (p = .096; see the SI, p. 22) than poor supporters of secular parties.”</p>
-<p>We could also perform the adjustment to get an estimated average marginal effect accounting for selection. This ends up being slightly smaller, but still in the same direction as what the authors note.</p>
-<div class="sourceCode" id="cb744"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb744-1"><a href="heckman-example-using-survey-data.html#cb744-1" aria-hidden="true" tabindex="-1"></a>beta.en.sel <span class="ot">&lt;-</span> two<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
-<span id="cb744-2"><a href="heckman-example-using-survey-data.html#cb744-2" aria-hidden="true" tabindex="-1"></a>beta.en.out <span class="ot">&lt;-</span> two<span class="sc">$</span>coefficients[<span class="dv">7</span>]</span>
-<span id="cb744-3"><a href="heckman-example-using-survey-data.html#cb744-3" aria-hidden="true" tabindex="-1"></a>beta.IMR <span class="ot">&lt;-</span> two<span class="sc">$</span>coefficients[<span class="dv">9</span>]</span>
-<span id="cb744-4"><a href="heckman-example-using-survey-data.html#cb744-4" aria-hidden="true" tabindex="-1"></a>delta <span class="ot">&lt;-</span> two<span class="sc">$</span>imrDelta</span>
-<span id="cb744-5"><a href="heckman-example-using-survey-data.html#cb744-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb744-6"><a href="heckman-example-using-survey-data.html#cb744-6" aria-hidden="true" tabindex="-1"></a>marginal.effect <span class="ot">&lt;-</span> beta.en.out <span class="sc">-</span> (beta.en.sel <span class="sc">*</span> beta.IMR <span class="sc">*</span> delta)</span>
-<span id="cb744-7"><a href="heckman-example-using-survey-data.html#cb744-7" aria-hidden="true" tabindex="-1"></a><span class="do">## average marginal effect</span></span>
-<span id="cb744-8"><a href="heckman-example-using-survey-data.html#cb744-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(marginal.effect)</span></code></pre></div>
-<pre><code>[1] 0.2712966</code></pre>
+We have to be careful here, that this is from the outcome equation and does not represent the marginal effect based on both selection and outcome processes.
 </details>
 </div>
             </section>

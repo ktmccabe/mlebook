@@ -50,6 +50,13 @@ Suppose we observe that college grades are uncorrelated with success in graduate
 
 The technical details, followed by implementation.
 
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library("vembedr")
+library(knitr)
+
+embed_url("https://www.youtube.com/watch?v=NRTELwU4EEc")
+```
+
 Selection equation- into grad school sample?
 
   - $\zeta_i = z_i^T\gamma + \delta_i$
@@ -143,6 +150,7 @@ selection1 <- selection(selection = lfp ~ age  +
 summary(selection1)
 ```
 
+If the coefficient estimate on the inverse mills ratio is non-zero, that suggests that the selection probability does influence wages. We do not necessarily have strong evidence here given the high p-value. This may vary by how to specify the model. Note also that the estimate for this coefficient is the multiplication of sigma*rho, where rho is the correlation of the errors between equations and sigma is the standard error of the residuals from the regression equation.
 
 Maximum likelihood also allows us to estimate the equations simultaneously. We just specify `ml` as the method. 
 ```{r}
@@ -304,19 +312,7 @@ How should we interpret the results in light of the researchers' hypothesis that
 
 As the authors note describing the outcome equation, "results suggest that poor Ennahda voters were about 31\% more likely to rank pleasing Allah among their top two factors (p = .096; see the SI, p. 22) than poor supporters of secular parties."
 
-We could also perform the adjustment to get an estimated average marginal effect accounting for selection. This ends up being slightly smaller, but still in the same direction as what the authors note.
-
-```{r}
-beta.en.sel <- two$coefficients[2]
-beta.en.out <- two$coefficients[7]
-beta.IMR <- two$coefficients[9]
-delta <- two$imrDelta
-
-marginal.effect <- beta.en.out - (beta.en.sel * beta.IMR * delta)
-## average marginal effect
-mean(marginal.effect)
-```
-
+We have to be careful here, that this is from the outcome equation and does not represent the marginal effect based on both selection and outcome processes. 
 </details>
 
 

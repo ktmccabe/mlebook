@@ -464,6 +464,7 @@ invMillsRatio  -1.1666     1.5530  -0.751    0.453
 sigma           3.2149         NA      NA       NA
 rho            -0.3629         NA      NA       NA
 --------------------------------------------</code></pre>
+<p>If the coefficient estimate on the inverse mills ratio is non-zero, that suggests that the selection probability does influence wages. We do not necessarily have strong evidence here given the high p-value. This may vary by how to specify the model. Note also that the estimate for this coefficient is the multiplication of sigma*rho, where rho is the correlation of the errors between equations and sigma is the standard error of the residuals from the regression equation.</p>
 <p>Maximum likelihood also allows us to estimate the equations simultaneously. We just specify <code>ml</code> as the method.</p>
 <div class="sourceCode" id="cb727"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb727-1"><a href="fitting-sample-selection-in-r.html#cb727-1" aria-hidden="true" tabindex="-1"></a><span class="do">## alternative using maximum likelihood</span></span>
 <span id="cb727-2"><a href="fitting-sample-selection-in-r.html#cb727-2" aria-hidden="true" tabindex="-1"></a>selection2 <span class="ot">&lt;-</span> <span class="fu">selection</span>(<span class="at">selection =</span> lfp <span class="sc">~</span> age <span class="sc">+</span></span>
