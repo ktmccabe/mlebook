@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>10.8 Additional Considerations | MLE for Political Science</title>
-  <meta name="description" content="10.8 Additional Considerations | MLE for Political Science" />
+  <title>12.3 Additional considerations | MLE for Political Science</title>
+  <meta name="description" content="12.3 Additional considerations | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="10.8 Additional Considerations | MLE for Political Science" />
+  <meta property="og:title" content="12.3 Additional considerations | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="10.8 Additional Considerations | MLE for Political Science" />
+  <meta name="twitter:title" content="12.3 Additional considerations | MLE for Political Science" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="week-8-tutorial.html"/>
-<link rel="next" href="how-to-think-about-zero-counts.html"/>
+<link rel="prev" href="fixed-effects.html"/>
+<link rel="next" href="random-effects.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -392,6 +392,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="11.5" data-path="truncated-models.html"><a href="truncated-models.html"><i class="fa fa-check"></i><b>11.5</b> Truncated Models</a></li>
 </ul></li>
+<li class="chapter" data-level="12" data-path="hier.html"><a href="hier.html"><i class="fa fa-check"></i><b>12</b> Panel and Hierarchical Data</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="longitudinal-and-hierarchical-data.html"><a href="longitudinal-and-hierarchical-data.html"><i class="fa fa-check"></i><b>12.1</b> Longitudinal and Hierarchical Data</a></li>
+<li class="chapter" data-level="12.2" data-path="fixed-effects.html"><a href="fixed-effects.html"><i class="fa fa-check"></i><b>12.2</b> Fixed Effects</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="fixed-effects.html"><a href="fixed-effects.html#within-estimator"><i class="fa fa-check"></i><b>12.2.1</b> Within-Estimator</a></li>
+<li class="chapter" data-level="12.2.2" data-path="fixed-effects.html"><a href="fixed-effects.html#least-squares-dummy-variable-regression"><i class="fa fa-check"></i><b>12.2.2</b> Least Squares Dummy Variable Regression</a></li>
+<li class="chapter" data-level="12.2.3" data-path="fixed-effects.html"><a href="fixed-effects.html#fixed-effects-implementation-in-r"><i class="fa fa-check"></i><b>12.2.3</b> Fixed Effects Implementation in R</a></li>
+<li class="chapter" data-level="12.2.4" data-path="fixed-effects.html"><a href="fixed-effects.html#standard-errors-with-fixed-effects"><i class="fa fa-check"></i><b>12.2.4</b> Standard errors with fixed effects</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="additional-considerations.html"><a href="additional-considerations.html#additional-considerations"><i class="fa fa-check"></i><b>12.3</b> Additional considerations</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="additional-considerations.html"><a href="additional-considerations.html#two-way-fixed-effects"><i class="fa fa-check"></i><b>12.3.1</b> Two-way fixed effects</a></li>
+<li class="chapter" data-level="12.3.2" data-path="additional-considerations.html"><a href="additional-considerations.html#first-differences"><i class="fa fa-check"></i><b>12.3.2</b> First Differences</a></li>
+<li class="chapter" data-level="12.3.3" data-path="additional-considerations.html"><a href="additional-considerations.html#additional-models-in-r"><i class="fa fa-check"></i><b>12.3.3</b> Additional Models in R</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="random-effects.html"><a href="random-effects.html"><i class="fa fa-check"></i><b>12.4</b> Random Effects</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="random-effects.html"><a href="random-effects.html#random-effects-models"><i class="fa fa-check"></i><b>12.4.1</b> Random effects models</a></li>
+<li class="chapter" data-level="12.4.2" data-path="random-effects.html"><a href="random-effects.html#random-effects-implementation-in-r"><i class="fa fa-check"></i><b>12.4.2</b> Random Effects Implementation in R</a></li>
+<li class="chapter" data-level="12.4.3" data-path="random-effects.html"><a href="random-effects.html#random-effects-extensions"><i class="fa fa-check"></i><b>12.4.3</b> Random Effects Extensions</a></li>
+<li class="chapter" data-level="12.4.4" data-path="random-effects.html"><a href="random-effects.html#generating-predicted-values-for-each-unit"><i class="fa fa-check"></i><b>12.4.4</b> Generating predicted values for each unit</a></li>
+<li class="chapter" data-level="12.4.5" data-path="random-effects.html"><a href="random-effects.html#generalized-lmer"><i class="fa fa-check"></i><b>12.4.5</b> Generalized LMER</a></li>
+</ul></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -409,87 +434,57 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="additional-considerations" class="section level2" number="10.8">
-<h2><span class="header-section-number">10.8</span> Additional Considerations</h2>
-<div id="offset" class="section level3" number="10.8.1">
-<h3><span class="header-section-number">10.8.1</span> Offset</h3>
-<p>We said that counts are often considered rates per interval. Sometimes when we have a count, we know the greatest possible value that an observation could take or we think that will be influenced by a particular variable, which varies by observation. This is called the exposure. For example maybe we are looking at the number of traffic accidents per year per population size.</p>
-<p>In contrast, in the example from before, counts of executive orders were just measured as a span of one year.</p>
-<p>We are going to use an example with an exposure from Gelman and Hill and the study of stop-and-frisk as a policy. This is example is based on the tutorial by Clay Ford <a href="http://www.clayford.net/statistics/poisson-regression-ch-6-of-gelman-and-hill/">here</a>.</p>
-<p>The data include an outcome desribing the number of <code>stops</code> in a given area. The regression model looks at the relationship between race/ethnicity <code>factor(eth)</code> and the number of stops made in a precinct.</p>
-<p>Run the few lines below to load and prepare the data according to Gelman and Hill’s instructions:</p>
-<div class="sourceCode" id="cb713"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb713-1"><a href="additional-considerations.html#cb713-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Stop and frisk. Does race/ethnicity influence number of stops?</span></span>
-<span id="cb713-2"><a href="additional-considerations.html#cb713-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Prepare noisy data</span></span>
-<span id="cb713-3"><a href="additional-considerations.html#cb713-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb713-4"><a href="additional-considerations.html#cb713-4" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.table</span>( <span class="st">&quot;http://www.stat.columbia.edu/~gelman/arm/examples/police/frisk_with_noise.dat&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">skip=</span><span class="dv">6</span>)</span>
-<span id="cb713-5"><a href="additional-considerations.html#cb713-5" aria-hidden="true" tabindex="-1"></a>stops <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(<span class="fu">cbind</span>(stops, past.arrests) <span class="sc">~</span> eth <span class="sc">+</span> precinct, <span class="at">data=</span>dat, sum)</span></code></pre></div>
-<p>The unit of analysis after we run this is the number of stops in a given precinct for a particular racial/ethnicity group.</p>
-<div class="sourceCode" id="cb714"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb714-1"><a href="additional-considerations.html#cb714-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(stops)</span></code></pre></div>
-<pre><code>  eth precinct stops past.arrests
-1   1        1   202          980
-2   2        1   102          295
-3   3        1    81          381
-4   1        2   132          753
-5   2        2   144          557
-6   3        2    71          431</code></pre>
-<p>It is possible that the count of the number of stops may be influenced by the number of past arrests of a particular unit of analysis. We might want to measure a count per number of past arrests for an ethnicity group in a precinct instead of just a count per ethnicity group in a precinct. This will be our exposure and the <span class="math inline">\(\log\)</span> <code>past.arrests</code> will be our offset.</p>
-<p>When we have an offset, our model changes to:</p>
+<div id="additional-considerations" class="section level2" number="12.3">
+<h2><span class="header-section-number">12.3</span> Additional considerations</h2>
+<div id="two-way-fixed-effects" class="section level3" number="12.3.1">
+<h3><span class="header-section-number">12.3.1</span> Two-way fixed effects</h3>
+<p>We might be concerned not just about unobserved unit effects but also unobserved time effects
+<span class="math display">\[\begin{align*}
+Y_{it} =  \beta_0 + \beta_1x_{it}+ (c_i + v_t + \epsilon_{it}).
+\end{align*}\]</span></p>
+<p>Here, we may include fixed effects for both units and time. Warning: can be difficult to interpret.</p>
+<p>Alternative, sometimes instead of including dummies for each <span class="math inline">\(t\)</span> period, people will include a “time trend.” This could be a linear time trend, for example, a year variable treated as numeric.</p>
+<p><span class="math display">\[\begin{align*}
+Y_{it} =  \alpha_i + \beta_1  x_{it}+ \beta_2 year_{t} + \epsilon_{it}.
+\end{align*}\]</span></p>
+<p>Or this could be a polynomial, such as a cubic time trend</p>
+<p><span class="math display">\[\begin{align*}
+Y_{it} =  \alpha_i + \beta_1 x_{it}+ \beta_2 year_{t} + \beta_3 year_{t}^2 + \beta_4year_{t}^3 + \epsilon_{it}.
+\end{align*}\]</span></p>
+</div>
+<div id="first-differences" class="section level3" number="12.3.2">
+<h3><span class="header-section-number">12.3.2</span> First Differences</h3>
+<p>The within- and LSDV estimators are not the only way to incorporate fixed effects into our models. Another type of estimation is first differences.</p>
+<p><span class="math inline">\(\Delta Y_{it} = \beta \Delta x_{it} + \Delta \epsilon_{it}\)</span> where, for example, <span class="math inline">\(\Delta Y_{it} = Y_{it} - Y_{it- 1}\)</span>. Instead of demeaning over all time. We subtract the previous instance.</p>
 <ul>
-<li><span class="math inline">\(\frac{\mathbf E(Y_i | X)}{N_i} = \exp(\mathbf x_i&#39;\beta)\)</span> or alternatively</li>
-<li><span class="math inline">\(\mathbf E(Y_i | X) = \exp(\mathbf x_i&#39;\beta + \log N_i)\)</span>.
-<ul>
-<li>The exposure enters the right side of the equation as what is referred to as an “offset”– the <span class="math inline">\(\log\)</span> of the exposure.</li>
-<li>We will not get a regression coeffcient for the offset because it is fixed to 1. However, we will still need to incorporate the offset when we estimate our outcomes.</li>
-</ul></li>
+<li>Both remove unobserved heterogeneity (i.e., <span class="math inline">\(\alpha_i - \alpha_i\)</span>)</li>
+<li>Requires variation in time. <span class="math inline">\(t\)</span> vs. <span class="math inline">\(t-1\)</span> or else <span class="math inline">\(x_{it} - x_{it-1} = 0\)</span> and falls out</li>
+<li>When <span class="math inline">\(T = 2\)</span>, fixed effects = first differences</li>
+<li>When <span class="math inline">\(T &gt; 2\)</span>, fixed effects <span class="math inline">\(\neq\)</span> first differences</li>
+<li>Under assumptions, both unbiased and consistent</li>
+<li>When no serial correlation, then <span class="math inline">\(SE(\hat \beta_{FD}) &gt; SE(\hat \beta_{FE})\)</span></li>
+<li>If <span class="math inline">\(\Delta \epsilon_{it}\)</span> are uncorrelated, FD preferred.</li>
+<li>In general, hopefully both produce very similar results</li>
 </ul>
-<p>Let’s use a quasipoisson model this time. We enter the offset through an explicit argument <code>offset</code>. (Otherwise it will be treated like any regression variable, and its coefficient won’t be fixed to 1.)</p>
-<div class="sourceCode" id="cb716"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb716-1"><a href="additional-considerations.html#cb716-1" aria-hidden="true" tabindex="-1"></a><span class="do">## No natural limit for stops BUT might be influenced by past arrests</span></span>
-<span id="cb716-2"><a href="additional-considerations.html#cb716-2" aria-hidden="true" tabindex="-1"></a>sf<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(stops <span class="sc">~</span> <span class="fu">factor</span>(eth), </span>
-<span id="cb716-3"><a href="additional-considerations.html#cb716-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> stops, </span>
-<span id="cb716-4"><a href="additional-considerations.html#cb716-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">family=</span><span class="st">&quot;quasipoisson&quot;</span>, </span>
-<span id="cb716-5"><a href="additional-considerations.html#cb716-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">offset =</span>  <span class="fu">log</span>(past.arrests))</span>
-<span id="cb716-6"><a href="additional-considerations.html#cb716-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sf<span class="fl">.1</span>)</span></code></pre></div>
-<pre><code>
-Call:
-glm(formula = stops ~ factor(eth), family = &quot;quasipoisson&quot;, data = stops, 
-    offset = log(past.arrests))
-
-Deviance Residuals: 
-    Min       1Q   Median       3Q      Max  
--47.327   -7.740   -0.182   10.241   39.140  
-
-Coefficients:
-             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  -0.58809    0.05646 -10.416   &lt;2e-16 ***
-factor(eth)2  0.07021    0.09042   0.777    0.438    
-factor(eth)3 -0.16158    0.12767  -1.266    0.207    
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-
-(Dispersion parameter for quasipoisson family taken to be 222.5586)
-
-    Null deviance: 46120  on 224  degrees of freedom
-Residual deviance: 45437  on 222  degrees of freedom
-AIC: NA
-
-Number of Fisher Scoring iterations: 5</code></pre>
-<p>When we calculate our quantities of interest, <code>predict</code> will automatically incorporate the offset. When we calculate them manually, we need to explicitly enter the offset.</p>
-<div class="sourceCode" id="cb718"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb718-1"><a href="additional-considerations.html#cb718-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Predicted counts with offsets exp(XB + log(N))</span></span>
-<span id="cb718-2"><a href="additional-considerations.html#cb718-2" aria-hidden="true" tabindex="-1"></a>sf.count <span class="ot">&lt;-</span> <span class="fu">predict</span>(sf<span class="fl">.1</span>, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
-<span id="cb718-3"><a href="additional-considerations.html#cb718-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb718-4"><a href="additional-considerations.html#cb718-4" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(sf<span class="fl">.1</span>)</span>
-<span id="cb718-5"><a href="additional-considerations.html#cb718-5" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">coef</span>(sf<span class="fl">.1</span>)</span>
-<span id="cb718-6"><a href="additional-considerations.html#cb718-6" aria-hidden="true" tabindex="-1"></a>sf.count.man <span class="ot">&lt;-</span> <span class="fu">exp</span>(X <span class="sc">%*%</span> B <span class="sc">+</span> <span class="fu">log</span>(stops<span class="sc">$</span>past.arrests))</span></code></pre></div>
-<p>Note that <span class="math inline">\(e^{X\hat\beta + \log N} = e^{X\hat\beta} * e^ {\log N} = N*e^{X\hat\beta}\)</span>. This means we could equivalently write:</p>
-<div class="sourceCode" id="cb719"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb719-1"><a href="additional-considerations.html#cb719-1" aria-hidden="true" tabindex="-1"></a>sf.count.man2 <span class="ot">&lt;-</span> <span class="fu">exp</span>(X <span class="sc">%*%</span> B)<span class="sc">*</span>stops<span class="sc">$</span>past.arrests</span>
-<span id="cb719-2"><a href="additional-considerations.html#cb719-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(sf.count, sf.count.man, sf.count.man2)[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,]</span></code></pre></div>
-<pre><code>  sf.count                  
-1 544.2816 544.2816 544.2816
-2 175.7562 175.7562 175.7562
-3 180.0316 180.0316 180.0316
-4 418.2082 418.2082 418.2082
-5 331.8515 331.8515 331.8515
-6 203.6578 203.6578 203.6578</code></pre>
+<p>I recommend watching this <a href="https://www.youtube.com/watch?v=1SchyQ77VFg&amp;ab_channel=BenLambert">video</a> by Ben Lambert who provides a summary overview of the differences between fixed effects, first differences, and pooled OLS.</p>
+</div>
+<div id="additional-models-in-r" class="section level3" number="12.3.3">
+<h3><span class="header-section-number">12.3.3</span> Additional Models in R</h3>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="additional-considerations.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">## first differences</span></span>
+<span id="cb24-2"><a href="additional-considerations.html#cb24-2" aria-hidden="true" tabindex="-1"></a>fit.fd <span class="ot">&lt;-</span> <span class="fu">plm</span>(inv<span class="sc">~</span>value<span class="sc">+</span>capital, <span class="at">data =</span> Grunfeld, <span class="at">model =</span> <span class="st">&quot;fd&quot;</span>, </span>
+<span id="cb24-3"><a href="additional-considerations.html#cb24-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">index =</span> <span class="fu">c</span>(<span class="st">&quot;firm&quot;</span>, <span class="st">&quot;year&quot;</span>),</span>
+<span id="cb24-4"><a href="additional-considerations.html#cb24-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">effect =</span> <span class="st">&quot;individual&quot;</span>)</span>
+<span id="cb24-5"><a href="additional-considerations.html#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.fd)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
+<pre><code>##   capital 
+## 0.2917667</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="additional-considerations.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="do">## firm and year effects</span></span>
+<span id="cb26-2"><a href="additional-considerations.html#cb26-2" aria-hidden="true" tabindex="-1"></a>fit.twoway <span class="ot">&lt;-</span> <span class="fu">plm</span>(inv<span class="sc">~</span>value<span class="sc">+</span>capital, <span class="at">data =</span> Grunfeld, <span class="at">model =</span> <span class="st">&quot;within&quot;</span>,</span>
+<span id="cb26-3"><a href="additional-considerations.html#cb26-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">index =</span> <span class="fu">c</span>(<span class="st">&quot;firm&quot;</span>, <span class="st">&quot;year&quot;</span>),</span>
+<span id="cb26-4"><a href="additional-considerations.html#cb26-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">effect =</span> <span class="st">&quot;twoways&quot;</span>)</span>
+<span id="cb26-5"><a href="additional-considerations.html#cb26-5" aria-hidden="true" tabindex="-1"></a>                  </span>
+<span id="cb26-6"><a href="additional-considerations.html#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.twoway)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
+<pre><code>##   capital 
+## 0.3579163</code></pre>
 </div>
 </div>
             </section>
@@ -497,8 +492,8 @@ Number of Fisher Scoring iterations: 5</code></pre>
           </div>
         </div>
       </div>
-<a href="week-8-tutorial.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="how-to-think-about-zero-counts.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="fixed-effects.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="random-effects.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

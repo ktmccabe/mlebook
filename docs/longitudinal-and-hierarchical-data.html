@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>12.1 Longitudinal Data | MLE for Political Science</title>
-  <meta name="description" content="12.1 Longitudinal Data | MLE for Political Science" />
+  <title>12.1 Longitudinal and Hierarchical Data | MLE for Political Science</title>
+  <meta name="description" content="12.1 Longitudinal and Hierarchical Data | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="12.1 Longitudinal Data | MLE for Political Science" />
+  <meta property="og:title" content="12.1 Longitudinal and Hierarchical Data | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="12.1 Longitudinal Data | MLE for Political Science" />
+  <meta name="twitter:title" content="12.1 Longitudinal and Hierarchical Data | MLE for Political Science" />
   
   
   
@@ -394,7 +394,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="12" data-path="hier.html"><a href="hier.html"><i class="fa fa-check"></i><b>12</b> Panel and Hierarchical Data</a>
 <ul>
-<li class="chapter" data-level="12.1" data-path="longitudinal-data.html"><a href="longitudinal-data.html"><i class="fa fa-check"></i><b>12.1</b> Longitudinal Data</a></li>
+<li class="chapter" data-level="12.1" data-path="longitudinal-and-hierarchical-data.html"><a href="longitudinal-and-hierarchical-data.html"><i class="fa fa-check"></i><b>12.1</b> Longitudinal and Hierarchical Data</a></li>
 <li class="chapter" data-level="12.2" data-path="fixed-effects.html"><a href="fixed-effects.html"><i class="fa fa-check"></i><b>12.2</b> Fixed Effects</a>
 <ul>
 <li class="chapter" data-level="12.2.1" data-path="fixed-effects.html"><a href="fixed-effects.html#within-estimator"><i class="fa fa-check"></i><b>12.2.1</b> Within-Estimator</a></li>
@@ -434,24 +434,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="longitudinal-data" class="section level2" number="12.1">
-<h2><span class="header-section-number">12.1</span> Longitudinal Data</h2>
+<div id="longitudinal-and-hierarchical-data" class="section level2" number="12.1">
+<h2><span class="header-section-number">12.1</span> Longitudinal and Hierarchical Data</h2>
 <p><span class="math inline">\(Y_i, X_i\)</span> now become <span class="math inline">\(Y_{it}, X_{it}\)</span> where <span class="math inline">\(i\)</span> is a unique indicator for the unit and <span class="math inline">\(t\)</span> is a unique indicator for time (or question, task, etc., other repeated measurement)</p>
 <ul>
 <li>For example, perhaps we observe a set of <span class="math inline">\(N\)</span> European countries, each indexed by <span class="math inline">\(i\)</span> over <span class="math inline">\(10=T\)</span> years, each indexed by <span class="math inline">\(t\)</span>.</li>
 <li>The dataset can be represented in “wide” or “long/stacked” format (see section 2 of the course notes)</li>
 <li>Can get more complicated. Perhaps we have a Member of Parliament in a year in a country: <span class="math inline">\(Y_{itj}, X_{itj}\)</span>. Now we have three indices for our variables.</li>
+<li>We also might not have variation over time, but instead, multiple levels of units– perhaps students (<span class="math inline">\(i\)</span>) nested in schools (<span class="math inline">\(j\)</span>).</li>
 </ul>
 <p><strong><em>Why do we like this type of data in social science?</em></strong></p>
 <ul>
-<li>We think some <span class="math inline">\(T\)</span> variable is related to some <span class="math inline">\(Y\)</span> outcome.</li>
-<li>So we test this with data by comparing data that vary on <span class="math inline">\(T\)</span> to see if they vary systematically on <span class="math inline">\(Y\)</span>.</li>
-<li>Our goal is to isolate <span class="math inline">\(T\)</span>. We want to “control” on everything that differs between our units that could affect <span class="math inline">\(Y\)</span> except for <span class="math inline">\(T\)</span>, which varies.</li>
+<li>We think some <span class="math inline">\(Z\)</span> variable is related to some <span class="math inline">\(Y\)</span> outcome.</li>
+<li>So we test this with data by comparing data that vary on <span class="math inline">\(Z\)</span> to see if they vary systematically on <span class="math inline">\(Y\)</span>.</li>
+<li>Our goal is to isolate <span class="math inline">\(Z\)</span>. We want to “control” on everything that differs between our units that could affect <span class="math inline">\(Y\)</span> except for <span class="math inline">\(Z\)</span>, which varies.</li>
 <li>Problem: this can feel almost impossible in cross-sectional data
 <ul>
 <li>Example: Bob and Suzy probably differ in a million ways, but we can only measure and account for so many covariates</li>
 <li>Example: France and Germany probably differ in a million ways, but we can only measure and account for so many covariates</li>
-<li>This makes comparing Bob vs. Suzy and France vs. Germany for our variation in <span class="math inline">\(T\)</span> a somewhat suspect way to show how <span class="math inline">\(T\)</span> relates to <span class="math inline">\(Y\)</span></li>
+<li>This makes comparing Bob vs. Suzy and France vs. Germany for our variation is a somewhat suspect way to show how <span class="math inline">\(Z\)</span> relates to <span class="math inline">\(Y\)</span> if we cannot control on all possible relevant factors.</li>
 </ul></li>
 </ul>
 <p>Possible solution: enter repeated observations</p>
@@ -463,8 +464,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li>Issue: need to learn new methods to account for our grouped/repeated data structure.</li>
 </ul>
-<p>However, adding these types of similar or repeated observations is going to complicate how we estimate our models.</p>
-<p>Recall OLS</p>
+<p>Why?</p>
+<p><strong><em>Recall OLS</em></strong></p>
 <p><span class="math display">\[\begin{align*}
 Y_i =  \beta_0 + \beta_1 x_i + \epsilon_i
 \end{align*}\]</span></p>
