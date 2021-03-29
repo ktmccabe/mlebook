@@ -489,7 +489,7 @@ Y_{ij} &amp;=  \alpha_{j[i]} + \beta x_{ij} + \epsilon_{ij}
 <span id="cb771-7"><a href="random-effects.html#cb771-7" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.re)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
 <pre><code> capital 
 0.308113 </code></pre>
-<p>More flexible package for random effects: <code>lme4</code>. Uses REML by default- variation on ML.</p>
+<p>More flexible package for random effects: <code>lme4</code>. Uses REML by default- variation on ML. Ben Bolker provides a great overview of this <a href="https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html">here</a></p>
 <div class="sourceCode" id="cb773"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb773-1"><a href="random-effects.html#cb773-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
 <span id="cb773-2"><a href="random-effects.html#cb773-2" aria-hidden="true" tabindex="-1"></a>fit.re2 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(inv<span class="sc">~</span> value <span class="sc">+</span> capital <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> firm), <span class="at">data =</span> Grunfeld)</span>
 <span id="cb773-3"><a href="random-effects.html#cb773-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fixef</span>(fit.re2)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
@@ -501,7 +501,7 @@ Y_{ij} &amp;=  \alpha_{j[i]} + \beta x_{ij} + \epsilon_{ij}
 (Intercept) -57.8644245 29.37775852 -1.969668
 value         0.1097897  0.01052676 10.429581
 capital       0.3081881  0.01717127 17.947893</code></pre>
-<p>Not without controversy. Several ways to compute p-values in these models. This post describes three and provides the <a href="https://www.r-bloggers.com/three-ways-to-get-parameter-specific-p-values-from-lmer/">code</a></p>
+<p>Not without controversy. Several ways to compute p-values in these models. This post describes three and provides the <a href="https://www.r-bloggers.com/three-ways-to-get-parameter-specific-p-values-from-lmer/">code</a>.</p>
 </div>
 <div id="random-effects-extensions" class="section level3" number="12.4.3">
 <h3><span class="header-section-number">12.4.3</span> Random Effects Extensions</h3>
@@ -512,10 +512,8 @@ capital       0.3081881  0.01717127 17.947893</code></pre>
 <li><span class="math inline">\(\gamma_{0s} = z + v_{s}\)</span></li>
 <li>Combined: <span class="math inline">\(Performance_{ijs} = m + m_{1}Teacher_{js} + m_2 Income_{ijs} + m_3 Gender_{ijs} + v_{s} + r_{js} + \epsilon_{ijs}\)</span></li>
 </ul>
-<p>Levels can be nested or non-nested. Students are nested in schools, but for a different example, survey questions may not be nested in a single poll. Perhaps some items are repeated across different polls.</p>
-<ul>
-<li>Can allow slopes (regression coefficients to vary). Perhaps the effect of gender on student success varies by classroom. Then <span class="math inline">\(\beta_{2}\)</span> becomes <span class="math inline">\(\beta_{j, 2} = \gamma_{1s} + r_{1js}\)</span>.</li>
-</ul>
+<p>Levels can be nested or non-nested. Students are nested in schools, but for a different example, survey questions may not be nested in a single poll. Perhaps some items are repeated <em>across</em> different polls.</p>
+<p>Can allow slopes (regression coefficients to vary). Perhaps the effect of gender on student success varies by classroom. Then <span class="math inline">\(\beta_{2}\)</span> becomes <span class="math inline">\(\beta_{j, 2} = \gamma_{1s} + r_{1js}\)</span>.</p>
 <p>Let’s return to the <code>Grunfeld</code> data and fit the following model:</p>
 <div class="sourceCode" id="cb777"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb777-1"><a href="random-effects.html#cb777-1" aria-hidden="true" tabindex="-1"></a><span class="do">## firm and year random intercepts</span></span>
 <span id="cb777-2"><a href="random-effects.html#cb777-2" aria-hidden="true" tabindex="-1"></a>fit.retwoways <span class="ot">&lt;-</span> <span class="fu">lmer</span>(inv<span class="sc">~</span> value <span class="sc">+</span> capital <span class="sc">+</span> </span>
@@ -527,7 +525,7 @@ rescaling</code></pre>
 <div class="sourceCode" id="cb779"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb779-1"><a href="random-effects.html#cb779-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fixef</span>(fit.retwoways)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
 <pre><code>  capital 
 0.3106319 </code></pre>
-<p>Sleep deprivation study: how is a subject’s reaction time associated with sleep deprivation?</p>
+<p><strong><em>Sleep deprivation study</em></strong>: how is a subject’s reaction time associated with sleep deprivation?</p>
 <div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb781-1"><a href="random-effects.html#cb781-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(sleepstudy)</span>
 <span id="cb781-2"><a href="random-effects.html#cb781-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Random intercepts for subjects</span></span>
 <span id="cb781-3"><a href="random-effects.html#cb781-3" aria-hidden="true" tabindex="-1"></a>fit.re3 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(Reaction <span class="sc">~</span> Days <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> Subject), <span class="at">data =</span> sleepstudy)</span>

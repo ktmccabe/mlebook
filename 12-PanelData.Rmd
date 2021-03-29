@@ -367,7 +367,7 @@ fit.re <- plm(inv~value+capital,
 coef(fit.re)["capital"]
 ```
 
-More flexible package for random effects: `lme4`. Uses REML by default- variation on ML.
+More flexible package for random effects: `lme4`. Uses REML by default- variation on ML. Ben Bolker provides a great overview of this [here](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html)
 
 ```{r, warning=F, message=F}
 library(lme4)
@@ -380,7 +380,7 @@ WHERE ARE MY P VALUES?!?!?!?!
 summary(fit.re2)$coefficients
 ```
 
-Not without controversy. Several ways to compute p-values in these models. This post describes three and provides the [code](https://www.r-bloggers.com/three-ways-to-get-parameter-specific-p-values-from-lmer/)
+Not without controversy. Several ways to compute p-values in these models. This post describes three and provides the [code](https://www.r-bloggers.com/three-ways-to-get-parameter-specific-p-values-from-lmer/).
 
 
 ### Random Effects Extensions
@@ -392,9 +392,9 @@ Can have multiple levels. E.g., students ($i$) nested in classrooms ($j$) nested
   - $\gamma_{0s} = z + v_{s}$
   - Combined: $Performance_{ijs} = m  + m_{1}Teacher_{js}  + m_2 Income_{ijs} + m_3 Gender_{ijs} + v_{s} + r_{js} + \epsilon_{ijs}$
 
-Levels can be nested or non-nested. Students are nested in schools, but for a different example, survey questions may not be nested in a single poll. Perhaps some items are repeated across different polls.
+Levels can be nested or non-nested. Students are nested in schools, but for a different example, survey questions may not be nested in a single poll. Perhaps some items are repeated *across* different polls.
 
-  - Can allow slopes (regression coefficients to vary). Perhaps the effect of gender on student success varies by classroom. Then $\beta_{2}$ becomes $\beta_{j, 2} = \gamma_{1s} + r_{1js}$. 
+Can allow slopes (regression coefficients to vary). Perhaps the effect of gender on student success varies by classroom. Then $\beta_{2}$ becomes $\beta_{j, 2} = \gamma_{1s} + r_{1js}$. 
 
 Let's return to the `Grunfeld` data and fit the following model:
 ```{r}
@@ -407,7 +407,7 @@ fixef(fit.retwoways)["capital"]
 ```
 
 
-Sleep deprivation study: how is a subject's reaction time associated with sleep deprivation?
+***Sleep deprivation study***: how is a subject's reaction time associated with sleep deprivation?
 
 ```{r}
 data(sleepstudy)
