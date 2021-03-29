@@ -440,7 +440,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span class="math display">\[\begin{align*}
 Y_{it} &amp;=  \alpha_i + \beta_1x_{it} + \epsilon_{it}
 \end{align*}\]</span></p>
-<p>where <span class="math inline">\(\alpha_{i}\)</span> is unobserved, time-invariant characteristic for unit <span class="math inline">\(i\)</span> (e.g., features of geography, culture, etc.)</p>
+<p>where <span class="math inline">\(\alpha_{i}\)</span> absorbs all time-invariant characteristics for unit <span class="math inline">\(i\)</span> (e.g., features of geography, culture, etc.)</p>
+<ul>
+<li>This is huge! It’s going to help us get around the assumption we just talked about. The idea is that when we are comparing observations within a particular unit (e.g., within France), all of those time-invariant characteristics specific to France are held constant.</li>
+</ul>
+<p>Below we discuss how to estimate fixed effects models. It is not the solution to everything. Keep these in mind.</p>
 <ul>
 <li>Still assume homoskedastic errors <span class="math inline">\(\rightarrow\)</span> may want to adjust the SE’s.</li>
 <li>Cannot model “level-2” factors. Problematic if that’s what you’re interested in! (E.g., if you have time-invariant country-level covariates). Can only do this through interactions.

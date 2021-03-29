@@ -486,9 +486,9 @@ Y_{it} =  \beta_0 + \beta_1 x_{it} + \epsilon_{it}
 <p><span class="math display">\[\begin{align*}
 Y_{it} =  \beta_0 + \beta_1x_{it}+ (c_i + \epsilon_{it}).
 \end{align*}\]</span></p>
-<p>We think there may be <span class="math inline">\(c_i\)</span> unobserved characteristics about our units <span class="math inline">\(i\)</span> that are related to our explanators and our outcomes. If unaccounted for and left as part of the error term, this would cause bias in our coefficients.</p>
+<p>We think there may be <span class="math inline">\(c_i\)</span> unobserved characteristics about our units <span class="math inline">\(i\)</span> that are related to our explanators. If unaccounted for and left as part of the error term, this would cause bias in our coefficients.</p>
 <ul>
-<li>Note: in OLS, we assume Cov<span class="math inline">\((c_i + \epsilon_{it}, x_{it}) = 0\)</span></li>
+<li>Note: in OLS, we assume Cov<span class="math inline">\((c_i + \epsilon_{it}, x_{it}) = 0\)</span>. Here, we believe there may be unmeasured factors that induce covariance between <span class="math inline">\(c_i\)</span> and <span class="math inline">\(x_{it}\)</span>.</li>
 </ul>
 <p>One Solution: fixed effects: removes time-constant unobserved characteristics about our units.</p>
 </div>

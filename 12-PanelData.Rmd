@@ -1,6 +1,6 @@
 # Panel and Hierarchical Data {#hier}
 
-This section will provide an overview of considerations and basic modeling strategies for data that include repeated observations across units or over time.
+This section will provide an overview of considerations and basic modeling strategies for data that include repeated observations across units or over time. This may relate to panel data, time series cross-sectional data, and hierarchical data.
 
 To motivate why we might use different models in these cases, please watch this video from Ben Lambert (like and/or subscribe to support him).
 
@@ -15,14 +15,14 @@ embed_url("https://www.youtube.com/watch?v=aYx88zmTM0U")
 
 These are some supplemental resources
 
-  - Nathaniel Beck and Jonathan Katz. "Time-Series–Cross-Section Issues: Dynamics, 2004." [here](http://www.nyu.edu/gsas/dept/politics/faculty/beck/beckkatz.pdf). Related papers:
+  - Oscar Torres-Reyna's [introduction](https://www.princeton.edu/~otorres/Panel101R.pdf) to fixed/random effects
+  - Gelman and Hill, Data Analysis Using Regression and Multilevel/Hierarchical Models, Part 2A, Cambridge University Press.
+  - Jeffrey M. Wooldridge. 2010. Econometric Analysis of Cross-Sectional and Panel Data. MIT Press. Chapter 10.
+  - Related papers:
+      + Nathaniel Beck. "TIME-SERIES–CROSS-SECTION DATA: What
+Have We Learned in the Past Few Years?" [Annual Review of Political Science. 2001.](https://www.annualreviews.org/doi/abs/10.1146/annurev.polisci.4.1.271) 
       + Donald P. Green, Soo Yeon Kim, and David H. Yoon. "Dirty Pool." International Organization 55, 2, Spring 2001, 441-468.
       + Nathaniel Beck and Jonathan Katz. "Throwing Out the Baby with the Bath Water: A comment on Green, Kim, and Yoon." International Organization 55, 2, Spring, 2001, pp. 487-495.
-  
-Textbook Resources for Multilevel Data:
-
-  - Bradford Jones.Available [here](http://psfaculty.ucdavis.edu/bsjjones/oxfordML.pdf)
-  - Gelman and Hill, Data Analysis Using Regression and Multilevel/Hierarchical Models, Part 2A, Cambridge University Press.
 
 ## Longitudinal and Hierarchical Data
 
@@ -81,9 +81,9 @@ We could still treat this as OLS if we believe the assumptions hold. But often, 
 Y_{it} =  \beta_0 + \beta_1x_{it}+ (c_i + \epsilon_{it}).
 \end{align*}
 
-We think there may be $c_i$ unobserved characteristics about our units $i$ that are related to our explanators and our outcomes. If unaccounted for and left as part of the error term, this would cause bias in our coefficients. 
+We think there may be $c_i$ unobserved characteristics about our units $i$ that are related to our explanators. If unaccounted for and left as part of the error term, this would cause bias in our coefficients. 
 
-  - Note: in OLS, we assume Cov$(c_i + \epsilon_{it}, x_{it}) = 0$
+  - Note: in OLS, we assume Cov$(c_i + \epsilon_{it}, x_{it}) = 0$. Here, we believe there may be unmeasured factors that induce covariance between $c_i$ and $x_{it}$.
 
 One Solution: fixed effects: removes time-constant unobserved characteristics about our units.
 
@@ -96,7 +96,11 @@ In fixed effects, we allow the intercept to be different across our $N$ groups (
 Y_{it} &=  \alpha_i + \beta_1x_{it} + \epsilon_{it}
 \end{align*}
 
-where $\alpha_{i}$ is unobserved, time-invariant characteristic for unit $i$ (e.g., features of geography, culture, etc.)
+where $\alpha_{i}$ absorbs all time-invariant characteristics for unit $i$ (e.g., features of geography, culture, etc.)
+
+  - This is huge! It's going to help us get around the assumption we just talked about. The idea is that when we are comparing observations within a particular unit (e.g., within France), all of those time-invariant characteristics specific to France are held constant. 
+
+Below we discuss how to estimate fixed effects models. It is not the solution to everything. Keep these in mind.
 
   - Still assume homoskedastic errors $\rightarrow$ may want to adjust the SE's.
   - Cannot model "level-2" factors. Problematic if that's what you're interested in! (E.g., if you have time-invariant country-level covariates). Can only do this through interactions.
