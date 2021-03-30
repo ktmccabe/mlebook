@@ -440,7 +440,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span class="math display">\[\begin{align*}
 Y_{it} &amp;=  \alpha_i + \beta_1x_{it} + \epsilon_{it}
 \end{align*}\]</span></p>
-<p>where <span class="math inline">\(\alpha_{i}\)</span> absorbs all time-invariant characteristics for unit <span class="math inline">\(i\)</span> (e.g., features of geography, culture, etc.)</p>
+<p>where <span class="math inline">\(\alpha_{i}\)</span> absorbs all unobserved time-invariant characteristics for unit <span class="math inline">\(i\)</span> (e.g., features of geography, culture, etc.)</p>
 <ul>
 <li>This is huge! It’s going to help us get around the assumption we just talked about. The idea is that when we are comparing observations within a particular unit (e.g., within France), all of those time-invariant characteristics specific to France are held constant.</li>
 </ul>
@@ -547,12 +547,18 @@ Y_{it} - \bar y_i &amp;= (\alpha_i -\alpha_i) +  \beta(x_{it}- \bar x_i) + (\eps
 <span id="cb759-5"><a href="fixed-effects.html#cb759-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">y=</span>inv), <span class="at">se=</span>F, <span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">color=</span><span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
 <span id="cb759-6"><a href="fixed-effects.html#cb759-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>fit.lsdvpred))</span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-347-1.svg" width="672" />
-In this particular example, we might also be worried about making predictions at very high levels of capital, because it would rely heavily on information from just one firm.</p>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-347-1.svg" width="672" /></p>
+<p><a href="https://www.cambridge.org/core/journals/international-organization/article/abs/dirty-pool/F58CBC01FE96E2BADFDB9EFE2A943C73">Green et al. (2003)</a> also discuss the dangers of pooling data in certain cases in the article ``Dirty Pool." Below are three examples. In the first two, pooling vs. fixed effects will not make much of a difference, but it will in the third.</p>
+<p>As the authors describe, “The plot in Figure 1 depicts a positive relationship between X and Y where N = 2 and T = 50. Because both dyads share a common intercept, pooling creates no estimation problems. One obtains similar regression estimates regardless of whether one controls for fixed effects by introducing a dummy variable for each dyad. A pooled regression is preferable in this instance because it saves a degree of freedom. In Figure 2 we encounter another instance in which dyads have different intercepts, but there is no correlation between the intercepts and
+X. The average value of the independent variable is the same in each dyad. Again,
+pooled regression and regression with fixed effects give estimates with the same
+expected value. Figure 3 illustrates a situation in which pooled regression goes awry. Here, the causal relationship between X and Y is negative; in each dyad higher
+values of X coincide with lower values of Y. Yet when the dyads are pooled together, we obtain a spurious positive relationship. Because the dyad with higher values of X also has a higher intercept, ignoring fixed effects biases the regression line in the positive direction. Controlling for fixed effects, we correctly ascertain the true negative relationship between X and Y” (443-445).</p>
+<p><img src="images/dirtypool1.png" style="width:40.0%" /> <img src="images/dirtypool2.png" style="width:40.0%" /></p>
 </div>
 <div id="standard-errors-with-fixed-effects" class="section level3" number="12.2.4">
 <h3><span class="header-section-number">12.2.4</span> Standard errors with fixed effects</h3>
-<p>May want to adjust standard errors. Fixed effects assumes homoskedasticity (constant error variance). We might instead think that the random error disturbances are correlated in some way or vary across time or units. For example, we might fear we have serial correlation (autocorrelation), where errors are correlated over time. Below are a few options.</p>
+<p>Even if we use fixed effects, we may want to adjust standard errors. Fixed effects assumes homoskedasticity (constant error variance). We might instead think that the random error disturbances are correlated in some way or vary across time or units. For example, we might fear we have serial correlation (autocorrelation), where errors are correlated over time. Below are a few options.</p>
 <p><em>Clustered standard errors</em>. We came across this before in our section on ordinal probit models and the Paluck and Green paper. This blog post discusses why you may still want to cluster standard errors even if you have added <a href="https://stats.stackexchange.com/questions/185378/when-to-use-fixed-effects-vs-using-cluster-ses">fixed effects</a>.</p>
 <p>Note: the functions below are designed to work with the <code>plm</code> package and models. For models fit through other functions, you may need to use different functions to make adjustments.</p>
 <div class="sourceCode" id="cb761"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb761-1"><a href="fixed-effects.html#cb761-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Cluster robust standard errors to match stata (c only matters if G is small). Can omit if do not want to adjust for degrees of freedom.</span></span>

@@ -456,26 +456,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span class="math display">\[\begin{align*}
 Y_{ij} &amp;=  \alpha_{j[i]} + \beta x_{ij} + \epsilon_{ij}
 \end{align*}\]</span></p>
-<p>The group index is a factor with <span class="math inline">\(J\)</span> levels</p>
+<p>The group index is a factor with <span class="math inline">\(J\)</span> levels.</p>
 <p>Approximation of multilevel estimates of the group average in case of no predictors:</p>
 <p><span class="math inline">\(\hat \alpha_j = \frac{\frac{n_j}{\sigma^2_y}\bar y_j + \frac{1}{\sigma^2_\alpha}\bar y_{all}}{\frac{n_j}{\sigma^2_y} + \frac{1}{\sigma^2_\alpha}}\)</span></p>
 <ul>
 <li>Assume we have a random sample of <span class="math inline">\(n\)</span> units within each <span class="math inline">\(j\)</span>, <span class="math inline">\(n_j\)</span></li>
 <li>Then, our estimate for a given group <span class="math inline">\(j\)</span> is a weighted average of observations within <span class="math inline">\(j\)</span> (<span class="math inline">\(\bar y_j\)</span>) and the mean overall <span class="math inline">\(j\)</span>’s (<span class="math inline">\(\bar y_{all}\)</span>).</li>
 <li>These are weighted according to the variance in <span class="math inline">\(y\)</span> within <span class="math inline">\(j\)</span> (<span class="math inline">\(\sigma^2_y\)</span>) and variance among the averages of <span class="math inline">\(y\)</span> across <span class="math inline">\(j\)</span> (<span class="math inline">\(\sigma^2_\alpha\)</span>)</li>
-<li>For players like Mookie who had few observations in the sample, these would end up carrying less weight in the overall average</li>
+</ul>
+<p>This <a href="https://www.youtube.com/watch?v=EbdBHJYbOrg&amp;ab_channel=BenLambert">video</a> by Ben Lambert shows how this idea of a “weighted average” extends to regression with covariates. Random effects provides a balance between fixed effects and OLS, no-pooling and pooling, which is why it is considered partial pooling.</p>
+<ul>
+<li>When <span class="math inline">\(\sigma^2_\alpha\)</span> is very small, random effects will be close to OLS.</li>
+<li>If <span class="math inline">\(\sigma^2_\alpha\)</span> is very big, then the weighted balance will be closer to fixed effects.</li>
 </ul>
 <p><strong><em>Differences with pooling and no pooling</em></strong></p>
 <ul>
 <li>Pooling- intercepts all fixed to <span class="math inline">\(\alpha\)</span> (<span class="math inline">\(\sigma^2_{\alpha} = 0\)</span>)</li>
-<li>No pooling- <span class="math inline">\(\alpha_j\)</span>’s correspond to models fit within each <span class="math inline">\(j\)</span>. Do not come from a common distribution.</li>
+<li>No pooling- <span class="math inline">\(\alpha_j\)</span>’s correspond to models fit within each <span class="math inline">\(j\)</span>. Do not come from a common distribution.
+<ul>
+<li>A downside: cannot include time-invariant group characteristics.</li>
+</ul></li>
 <li>Partial pooling (shrinkage)- <span class="math inline">\(\alpha_j\)</span>’s have a probabilitiy distribution <span class="math inline">\(\alpha_j \sim N(u_{\alpha}, \sigma^2_{\alpha})\)</span>. Has the effect of pulling estimates of <span class="math inline">\(\alpha_j\)</span> toward the mean of all groups.
 <ul>
 <li><span class="math inline">\(\alpha_j = u_{\alpha} + \eta_j\)</span> where <span class="math inline">\(\eta_j\)</span> is a group-level error term (model without group-level predictors)</li>
-<li>Must assume <span class="math inline">\(\mathbf E(x_{ij}\alpha_{j[i]}) = 0\)</span>. Unmodeled, unmeasured characteristics about your group-level effects (e.g., countries) that affect the outcome are not correlated with the regressors in your model. </li>
-<li>Can include group-level predictors: Now <span class="math inline">\(\alpha_j\)</span> coeffcients have a distribution <span class="math inline">\(\alpha_j \sim N(U_j\gamma, \sigma^2_\alpha)\)</span></li>
+<li><strong><em>Must assume <span class="math inline">\(\mathbf E(x_{ij}\alpha_{j[i]}) = 0\)</span></em></strong>. Unmodeled, unmeasured characteristics about your group-level effects (e.g., countries) that affect the outcome are not correlated with the regressors in your model. </li>
+<li>Good news: Can include group-level predictors: Now <span class="math inline">\(\alpha_j\)</span> coeffcients have a distribution <span class="math inline">\(\alpha_j \sim N(U_j\gamma, \sigma^2_\alpha)\)</span></li>
 </ul></li>
 </ul>
+<p>Scholars can have strong feelings about these choices, which often vary by subfield conventions along with the specifics of any research question. For example, the Green et al. piece advocating the use of fixed effects called pooling a ``Dirty Pool." In response, <a href="https://www.jstor.org/stable/3078640">Beck and Katz</a> made the analogy that “Green, Kim, and Yoon’s fixed-effects”cure" for column 3 is akin to curing a cold with chemotherapy" (492).</p>
 </div>
 <div id="random-effects-implementation-in-r" class="section level3" number="12.4.2">
 <h3><span class="header-section-number">12.4.2</span> Random Effects Implementation in R</h3>

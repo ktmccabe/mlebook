@@ -96,7 +96,7 @@ In fixed effects, we allow the intercept to be different across our $N$ groups (
 Y_{it} &=  \alpha_i + \beta_1x_{it} + \epsilon_{it}
 \end{align*}
 
-where $\alpha_{i}$ absorbs all time-invariant characteristics for unit $i$ (e.g., features of geography, culture, etc.)
+where $\alpha_{i}$ absorbs all unobserved time-invariant characteristics for unit $i$ (e.g., features of geography, culture, etc.)
 
   - This is huge! It's going to help us get around the assumption we just talked about. The idea is that when we are comparing observations within a particular unit (e.g., within France), all of those time-invariant characteristics specific to France are held constant. 
 
@@ -212,11 +212,21 @@ ggplot(Grunfeld, aes(x=capital, y=inv, color=factor(firm)))+
   geom_line(aes(y=fit.lsdvpred))
 
 ```
-In this particular example, we might also be worried about making predictions at very high levels of capital, because it would rely heavily on information from just one firm.
+
+[Green et al. (2003)](https://www.cambridge.org/core/journals/international-organization/article/abs/dirty-pool/F58CBC01FE96E2BADFDB9EFE2A943C73) also discuss the dangers of pooling data in certain cases in the article ``Dirty Pool." Below are three examples. In the first two, pooling vs. fixed effects will not make much of a difference, but it will in the third. 
+
+As the authors describe, "The plot in Figure 1 depicts a positive relationship between X and Y where N = 2 and T = 50. Because both dyads share a common intercept, pooling creates no estimation problems. One obtains similar regression estimates regardless of whether one controls for fixed effects by introducing a dummy variable for each dyad. A pooled regression is preferable in this instance because it saves a degree of freedom. In Figure 2 we encounter another instance in which dyads have different intercepts, but there is no correlation between the intercepts and
+ X. The average value of the independent variable is the same in each dyad. Again,
+ pooled regression and regression with fixed effects give estimates with the same
+ expected value. Figure 3 illustrates a situation in which pooled regression goes awry. Here, the causal relationship between X and Y is negative; in each dyad higher
+ values of X coincide with lower values of Y. Yet when the dyads are pooled together, we obtain a spurious positive relationship. Because the dyad with higher values of X also has a higher intercept, ignoring fixed effects biases the regression line in the positive direction. Controlling for fixed effects, we correctly ascertain the true negative relationship between X and Y" (443-445).
+
+![](images/dirtypool1.png){width=40%} ![](images/dirtypool2.png){width=40%}
+
 
 ### Standard errors with fixed effects
 
-May want to adjust standard errors. Fixed effects assumes homoskedasticity (constant error variance). We might instead think that the random error disturbances are correlated in some way or vary across time or units. For example, we might fear we have serial correlation (autocorrelation), where errors are correlated over time. Below are a few options.
+Even if we use fixed effects, we may want to adjust standard errors. Fixed effects assumes homoskedasticity (constant error variance). We might instead think that the random error disturbances are correlated in some way or vary across time or units. For example, we might fear we have serial correlation (autocorrelation), where errors are correlated over time. Below are a few options.
 
 *Clustered standard errors*. We came across this before in our section on ordinal probit models and the Paluck and Green paper. This blog post discusses why you may still want to cluster standard errors even if you have added [fixed effects](https://stats.stackexchange.com/questions/185378/when-to-use-fixed-effects-vs-using-cluster-ses).
 
@@ -332,7 +342,7 @@ In random effects estimation, for the $ith$ observation, we allow the intercept 
 Y_{ij} &=  \alpha_{j[i]} + \beta x_{ij} + \epsilon_{ij}
 \end{align*}
 
-The group index is a factor with $J$ levels
+The group index is a factor with $J$ levels.
 
 Approximation of multilevel estimates of the group average in case of no predictors:
 
@@ -341,20 +351,26 @@ $\hat \alpha_j = \frac{\frac{n_j}{\sigma^2_y}\bar y_j + \frac{1}{\sigma^2_\alpha
   - Assume we have a random sample of $n$ units within each $j$, $n_j$
   - Then, our estimate for a given group $j$ is a weighted average of observations within $j$ ($\bar y_j$) and the mean overall $j$'s ($\bar y_{all}$).
   - These are weighted according to the variance in $y$ within $j$ ($\sigma^2_y$) and variance among the averages of $y$ across $j$ ($\sigma^2_\alpha$)
-  - For players like Mookie who had few observations in the sample, these would end up carrying less weight in the overall average
+
+This [video](https://www.youtube.com/watch?v=EbdBHJYbOrg&ab_channel=BenLambert) by Ben Lambert shows how this idea of a "weighted average" extends to regression with covariates. Random effects provides a balance between fixed effects and OLS, no-pooling and pooling, which is why it is considered partial pooling.
+
+  - When $\sigma^2_\alpha$ is very small, random effects will be close to OLS.
+  - If $\sigma^2_\alpha$ is very big, then the weighted balance will be closer to fixed effects.
 
 ***Differences with pooling and no pooling***
 
   - Pooling- intercepts all fixed to $\alpha$ ($\sigma^2_{\alpha} = 0$)
   - No pooling- $\alpha_j$'s correspond to models fit within each $j$. Do not come from a common distribution.
+      + A downside: cannot include time-invariant group characteristics.
   - Partial pooling (shrinkage)- $\alpha_j$'s have a probabilitiy distribution $\alpha_j \sim N(u_{\alpha}, \sigma^2_{\alpha})$. Has the effect of pulling estimates of $\alpha_j$ toward the mean of all groups.
       + $\alpha_j = u_{\alpha} + \eta_j$ where $\eta_j$ is a group-level error term (model without group-level predictors)
-      + Must assume $\mathbf E(x_{ij}\alpha_{j[i]}) = 0$. Unmodeled, unmeasured characteristics about your group-level effects (e.g., countries) that affect the outcome are not correlated with the regressors in your model. \underline{Don't need to make this assumption in FE.}
-      + Can include group-level predictors: Now $\alpha_j$ coeffcients have a distribution $\alpha_j \sim N(U_j\gamma, \sigma^2_\alpha)$
+      + ***Must assume $\mathbf E(x_{ij}\alpha_{j[i]}) = 0$***. Unmodeled, unmeasured characteristics about your group-level effects (e.g., countries) that affect the outcome are not correlated with the regressors in your model. \underline{Don't need to make this assumption in FE.}
+      + Good news: Can include group-level predictors: Now $\alpha_j$ coeffcients have a distribution $\alpha_j \sim N(U_j\gamma, \sigma^2_\alpha)$
   
 
-### Random Effects Implementation in R
+Scholars can have strong feelings about these choices, which often vary by subfield conventions along with the specifics of any research question. For example, the Green et al. piece advocating the use of fixed effects called pooling a ``Dirty Pool." In response, [Beck and Katz](https://www.jstor.org/stable/3078640) made the analogy that "Green, Kim, and Yoon's fixed-effects "cure" for column 3 is akin to curing a cold with chemotherapy" (492).
 
+### Random Effects Implementation in R
 
 If comparing with fixed effects, can use`plm`.
 ```{r}
