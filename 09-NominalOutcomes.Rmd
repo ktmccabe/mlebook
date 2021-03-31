@@ -355,10 +355,12 @@ lst$ins <- relevel(lst$ins, ref = "marketplace")
 
 Let's conduct a multinomial logistic regression of the following form:
 
-$\log \frac{ \pi_{j}}{ \pi_{J}} = \alpha_{ij} + Republican_i\beta_{kj} + 
-age2_i \beta_{j} + ed_i\beta_{kj}  + racethn_i \beta_{kj} + income2_i\beta_{kj} + sex_i\beta_{kj}  + empl2_i\beta_{kj}$
+\begin{align*}
+\log \frac{ \pi_{j}}{ \pi_{J}} &= \alpha_{j} + Republican_i\beta_{1j} + \\ &
+age2_i \beta_{2j} + ed_i\boldsymbol{ \beta_{kj}} \\ & + racethn_i \boldsymbol{ \beta_{kj}} + income2_i\boldsymbol{ \beta_{kj}} \\ & + sex_i\boldsymbol{ \beta_{kj}}  + empl2_i\boldsymbol{ \beta_{kj}}
+\end{align*}
 
-where all covariates are treated as factor variables.
+where all covariates are treated as factor variables. Note that the $k$'s are just a placeholder for the coeffcient numbers. For factor variables with several categories, you will end up with several $k$ coefficients for each variable (e.g., one for racethn = Asian, one for racethn = Black, etc.)
 
 <details> <summary>Run the model.</summary>
 

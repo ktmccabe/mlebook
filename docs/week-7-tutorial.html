@@ -483,8 +483,11 @@ Go ahead and recode the variable as necessary.
 <span id="cb602-4"><a href="week-7-tutorial.html#cb602-4" aria-hidden="true" tabindex="-1"></a>lst<span class="sc">$</span>ins <span class="ot">&lt;-</span> <span class="fu">relevel</span>(lst<span class="sc">$</span>ins, <span class="at">ref =</span> <span class="st">&quot;marketplace&quot;</span>)</span></code></pre></div>
 </details>
 <p>Let’s conduct a multinomial logistic regression of the following form:</p>
-<p><span class="math inline">\(\log \frac{ \pi_{j}}{ \pi_{J}} = \alpha_{ij} + Republican_i\beta_{kj} + age2_i \beta_{j} + ed_i\beta_{kj} + racethn_i \beta_{kj} + income2_i\beta_{kj} + sex_i\beta_{kj} + empl2_i\beta_{kj}\)</span></p>
-<p>where all covariates are treated as factor variables.</p>
+<p><span class="math display">\[\begin{align*}
+\log \frac{ \pi_{j}}{ \pi_{J}} &amp;= \alpha_{j} + Republican_i\beta_{1j} + \\ &amp;
+age2_i \beta_{2j} + ed_i\boldsymbol{ \beta_{kj}} \\ &amp; + racethn_i \boldsymbol{ \beta_{kj}} + income2_i\boldsymbol{ \beta_{kj}} \\ &amp; + sex_i\boldsymbol{ \beta_{kj}}  + empl2_i\boldsymbol{ \beta_{kj}}
+\end{align*}\]</span></p>
+<p>where all covariates are treated as factor variables. Note that the <span class="math inline">\(k\)</span>’s are just a placeholder for the coeffcient numbers. For factor variables with several categories, you will end up with several <span class="math inline">\(k\)</span> coefficients for each variable (e.g., one for racethn = Asian, one for racethn = Black, etc.)</p>
 <details>
 <summary>
 Run the model.
