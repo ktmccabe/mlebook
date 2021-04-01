@@ -24,7 +24,100 @@ Have We Learned in the Past Few Years?" [Annual Review of Political Science. 200
       + Donald P. Green, Soo Yeon Kim, and David H. Yoon. "Dirty Pool." International Organization 55, 2, Spring 2001, 441-468.
       + Nathaniel Beck and Jonathan Katz. "Throwing Out the Baby with the Bath Water: A comment on Green, Kim, and Yoon." International Organization 55, 2, Spring, 2001, pp. 487-495.
 
-## Longitudinal and Hierarchical Data
+
+
+## Week 10 Tutorial
+
+In this section, we are going to use data from the CDC on national and state-level COVID hospitalizations and positive case increases between July 2020- end September 2020.
+
+Let's load the national and state data.
+
+```{r}
+library(rio)
+national <- import("https://github.com/ktmccabe/teachingdata/blob/main/national.RData?raw=true")
+states <- import("https://github.com/ktmccabe/teachingdata/blob/main/states.RData?raw=true")
+
+head(national)
+
+head(states)
+```
+During this time period, the national level of hospitalizations was declining.
+
+```{r, warning=F, message=F}
+library(ggplot2)
+ggplot(national, aes(x=date, y=hospitalizedCurrently))+
+  geom_line()
+```
+
+However, the national data represents aggregated state-level data. It is possible that these trends might look different if we looked within each state.
+
+```{r, fig.height=15, fig.width=15, warning=F, message=F}
+ggplot(states, aes(x=date, y=hospitalizedCurrently))+
+  geom_line()+
+  facet_wrap(~state, scales = "free")
+```
+
+When we have data that are grouped in some way, it is important to consider how group-specific factors may influence the results. 
+
+Let's look at the relationship between positive increases in cases and hospitalizations using the state-level data. Note, we are not epidemiologists here, so this is in no way exactly how you would want to model this in practice. We will leave that to the experts. Nonetheless, it will give us some visualizations. The regression line below is from the following regression, which pools across states and dates:
+
+$hospitalizedCurrently_{it} = \alpha + positiveIncrease_{it} + \epsilon_{it}$
+
+```{r, warning=F, message=F}
+ggplot(states, aes(x=positiveIncrease, y=hospitalizedCurrently, color=state))+
+  geom_point()+
+  geom_smooth(aes(y=hospitalizedCurrently),method="lm", se=F, color="black")+
+  ylim(0, 15000)
+```
+
+
+What issues do you have with that type of analysis?
+
+  - How could we improve it?
+  
+Let's look at the variation by state.
+
+```{r, fig.height=15, fig.width=15, warning=F, message=F}
+ggplot(states, aes(x=positiveIncrease, y=hospitalizedCurrently, color=state))+
+  geom_point()+
+  geom_smooth(method="lm", se=F)+
+  facet_wrap(~state, scales = "free")
+
+```
+One thing we could do to account for the variation in cases, is to add controls for state. This is called adding "fixed effects." It allows the intercept for each state to be different in regression, but the slopes are considered the same.
+
+```{r, fig.height=15, fig.width=15, warning=F, message=F}
+fit <- lm(hospitalizedCurrently ~ positiveIncrease + as.factor(state), data=states)
+fit.pred <- predict(fit)
+
+ggplot(states, aes(x=positiveIncrease, y=hospitalizedCurrently, color=state))+
+  geom_point()+
+  geom_smooth(aes(y=hospitalizedCurrently),method="lm", se=F, color="black")+
+  geom_line(aes(y=fit.pred))+
+  ylim(0, 15000)
+
+ggplot(states, aes(x=positiveIncrease, y=hospitalizedCurrently, color=state))+
+  geom_point()+
+  geom_line(aes(y=fit.pred))+
+  facet_wrap(~state, scales = "free")
+```
+
+We could also add interactions with state, which will allow the slopes to vary.
+
+```{r, fig.height=15, fig.width=15, warning=F, message=F}
+fit <- lm(hospitalizedCurrently ~ positiveIncrease*as.factor(state), data=states)
+fit.pred <- predict(fit)
+
+
+ggplot(states, aes(x=positiveIncrease, y=hospitalizedCurrently, color=state))+
+  geom_point()+
+  geom_line(aes(y=fit.pred))+
+  facet_wrap(~state, scales = "free")
+```
+
+Any downsides to adding interactions?
+
+## Panel and Hierarchical Data
 
 $Y_i, X_i$ now become $Y_{it}, X_{it}$ where $i$ is a unique indicator for the unit and $t$ is a unique indicator for time (or question, task, etc., other repeated measurement) 
 
@@ -257,6 +350,16 @@ For more information, see pg. 24 of this [resource](https://www.princeton.edu/~o
 
 
 ## Additional considerations for fixed effects
+
+### Binary dependent variables
+
+You should use caution when adding fixed effects to binary models, such as the logit. They can suffer from the "incidental parameters" [problem](https://stats.stackexchange.com/questions/185998/incidental-parameter-problem). Instead of using the logit, with a large number of fixed effects (some would even say not that large), you can use a linear probability model or the *conditional* logit mode.
+
+For a resource on fitting the conditional logit in R, see [here](https://data.princeton.edu/wws509/r/fixedRandom3).
+
+  - The `xtlogit` fe command in Stata fits this type of model
+  - Note that computing marginal effects and predictions from this model can be more difficult
+
 
 ### Two-way fixed effects
 
