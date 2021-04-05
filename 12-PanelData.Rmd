@@ -15,6 +15,7 @@ embed_url("https://www.youtube.com/watch?v=aYx88zmTM0U")
 
 These are some supplemental resources
 
+  - Vignettes describing use of `plm` package [here](https://mran.microsoft.com/snapshot/2018-07-03/web/packages/plm/vignettes/plm.pdf)
   - Oscar Torres-Reyna's [introduction](https://www.princeton.edu/~otorres/Panel101R.pdf) to fixed/random effects
   - Gelman and Hill, Data Analysis Using Regression and Multilevel/Hierarchical Models, Part 2A, Cambridge University Press.
   - Jeffrey M. Wooldridge. 2010. Econometric Analysis of Cross-Sectional and Panel Data. MIT Press. Chapter 10.
@@ -323,7 +324,7 @@ Even if we use fixed effects, we may want to adjust standard errors. Fixed effec
 
 *Clustered standard errors*. We came across this before in our section on ordinal probit models and the Paluck and Green paper. This blog post discusses why you may still want to cluster standard errors even if you have added [fixed effects](https://stats.stackexchange.com/questions/185378/when-to-use-fixed-effects-vs-using-cluster-ses).
 
-Note: the functions below are designed to work with the `plm` package and models. For models fit through other functions, you may need to use different functions to make adjustments.
+*Note: the functions below are designed to work with the `plm` package and models. For models fit through other functions, you may need to use different functions to make adjustments. See section 8.5.1. For linear models `lm_robust` from the `estimatr` package works well. For other models, see the alternative applications in that section.*
 ```{r}
 ## Cluster robust standard errors to match stata (c only matters if G is small). Can omit if do not want to adjust for degrees of freedom.
 ## Generally want G to be 30 or 40
@@ -399,6 +400,13 @@ $\Delta Y_{it} = \beta \Delta x_{it} + \Delta \epsilon_{it}$ where, for example,
   - In general, hopefully both produce very similar results
   
 I recommend watching this [video](https://www.youtube.com/watch?v=1SchyQ77VFg&ab_channel=BenLambert) by Ben Lambert who provides a summary overview of the differences between fixed effects, first differences, and pooled OLS.
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library("vembedr")
+library(knitr)
+
+embed_url("https://www.youtube.com/watch?v=1SchyQ77VFg")
+```
 
 ### Additional Models in R
 
@@ -478,6 +486,7 @@ Scholars can have strong feelings about these choices, which often vary by subfi
 If comparing with fixed effects, can use`plm`.
 ```{r}
 ## Within model with firm random effects
+data("Grunfeld")
 fit.re <- plm(inv~value+capital, 
               data = Grunfeld, 
               model = "random", 
@@ -486,11 +495,28 @@ fit.re <- plm(inv~value+capital,
 coef(fit.re)["capital"]
 ```
 
+One approach to deciding whether to use fixed vs. random effects is the Hausman test, which assesses the correlation assumption.
+
+```{r}
+## Compares beta hats for FE and RE and covariance
+## Under null hypothesis of no correlation estimates should be similar
+## Under null, RE preferred due to efficiency gains
+fit.within <- plm(inv~capital, 
+                  data = Grunfeld, 
+                  model = "within", 
+                  index = c("firm", "year"))
+phtest(fit.within, fit.re) 
+```
+With a small p-value, we reject the null, suggesting fixed effects is preferred for this model. Note: while the test provides one way to adjudicate between fixed and random effects, it cannot tell you if the model you have specified is "correct."
+
+### Using lme4 for random effects
+
 More flexible package for random effects: `lme4`. Uses REML by default- variation on ML. Ben Bolker provides a great overview of this [here](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html)
 
 ```{r, warning=F, message=F}
 library(lme4)
 fit.re2 <- lmer(inv~ value + capital + (1 | firm), data = Grunfeld)
+
 fixef(fit.re2)["capital"]
 ```
 
@@ -501,8 +527,33 @@ summary(fit.re2)$coefficients
 
 Not without controversy. Several ways to compute p-values in these models. This post describes three and provides the [code](https://www.r-bloggers.com/three-ways-to-get-parameter-specific-p-values-from-lmer/).
 
+For example, if you load the package `lmerTest` prior to running the model, it will include these results using the Satterthwaite method by default. Clicking on the pdf through this [link](https://www.jstatsoft.org/article/view/v082i13) will give you information on what this package does.
+
+```{r, warning=F, message=F}
+library(lme4)
+library(lmerTest)
+fit.re2 <- lmer(inv~ value + capital + (1 | firm), data = Grunfeld)
+
+summary(fit.re2)
+```
+
+
+Can use output to interpret the nature of the variance. Note that the summary output includes a table for the Random Effects, the variance, and Std. Dev. of each. We can interpret the intercept row as the variability of the intercept across firms (firm-to-firm) variability. The residual is the left-over or within-firm variability. One use of this is to compute the intraclass correlation coefficient (ICC).
+
+
+The ICC is the proportion of the variance explained by the grouping structure in the population. The Adjusted ICC indexes how strongly measurements in the same group resemble each other. This index goes from 0, if the grouping conveys no information, to 1, if all observations in a group are identical (Gelman \& Hill, 2007, p. 258). If the value were really small, you might not need to include random effects for the grouping factor.
+
+```{r}
+# install.packages("performance")
+7367/(7367+2781)
+
+performance::icc(fit.re2)
+```
+
 
 ### Random Effects Extensions
+
+
 
 Can have multiple levels. E.g., students ($i$) nested in classrooms ($j$) nested in schools ($s$). Each level may or may not have group-level predictors. Example:
 
@@ -539,6 +590,15 @@ fit.re4 <- lmer(Reaction ~ Days + (Days | Subject), data = sleepstudy)
 fixef(fit.re4)["Days"]
 ```
 
+Recall, the big assumption when adding random effects is that the unobserved group-level random disturbances caught through the intercept terms are not correlated with the regressors. 
+
+One suggestion is if concerned about correlation between predictors $x_i$ and group effects $\alpha_j$, add group means of regressors as predictors in the model. 
+
+  - See [here](http://www.stat.columbia.edu/~gelman/research/unpublished/Bafumi_Gelman_Midwest06.pdf) and [here](https://www.r-bloggers.com/why-i-use-panelmultilevel-methods/).
+  - Disentangles individual vs. contextual effect of regressors on outcome. First proposed by Mundlak (1978).
+
+
+### Extracting lmer output
 
 Caution: `coef()`, `ranef()`, and `fixef()` all different.
 
@@ -593,6 +653,86 @@ predict(fit.re3, newdata= data.frame(Days = 4), type = "response", re.form = NA)
 fixef(fit.re3)[1] + 4*fixef(fit.re3)[2]
 ```
 
+Compare predictions if we ignored the random effects:
+
+```{r}
+cbind(yhat, 
+      predict(fit.re3, type = "response"),
+      predict(fit.re3, type = "response", re.form=NA),
+      model.matrix(fit.re3)%*%fixef(fit.re3))[1:5,]
+```
+
+### Week 11 Tutorial
+
+In this section, we are going to again use data from the CDC on national and state-level COVID hospitalizations and positive case increases between July 2020- end September 2020 to give some examples of how to visualize random effects.
+
+Let's load the state data.
+
+```{r}
+library(rio)
+states <- import("https://github.com/ktmccabe/teachingdata/blob/main/states.RData?raw=true")
+head(states)
+```
+
+Let's fit a random effects model with random intercepts for states.
+```{r, warning=F, message=F}
+
+## Random Effects
+library(lme4)
+library(ggplot2)
+fit.re <- lmer(hospitalizedCurrently ~ positiveIncrease 
+               + (1 | state), data=states)
+summary(fit.re)
+performance::icc(fit.re)
+```
+
+The function `dotplot` from the `lattice` package provides a fast way to visualize the random effects of the model.
+
+```{r, fig.width=15, fig.height=15}
+library(lattice)
+dotplot(ranef(fit.re), condVar=TRUE)
+```
+
+
+The `merTools` package also has many useful functions. For example, the `plotREsim` function acts similar to the `dotplot` function and will plot the random effects for each group.
+
+```{r, fig.width=15, fig.height=15}
+## install.packages("merTools")
+library(merTools)
+plotREsim(REsim(fit.re), labs=TRUE)+
+  coord_flip()
+```
+
+The package also has a tool for plotting the coefficient results with confidence intervals constructed through simulation. If you had several variables, the plot would display all coefficients.
+
+```{r}
+feEx <- FEsim(fit.re, 1000)
+head(feEx)
+
+plotFEsim(feEx) +
+  theme_bw() + 
+  labs(title = "Coefficient Plot",
+       x = "Median Effect Estimate", 
+       y = "Hospitalizations")
+
+```
+
+For more on this tool's capabilities, particularly as it relates to generating predicted values, see [here](https://cran.r-project.org/web/packages/merTools/vignettes/merToolsIntro.html).
+
+Finally, let's try another model using the `sleepstudy` data to show how the plots can also incorporate varying slopes.
+
+```{r}
+library(lme4)
+data("sleepstudy")
+## Random intercepts for subject, varying slope for days
+fit.re4 <- lmer(Reaction ~ Days + (Days | Subject), data = sleepstudy)
+```
+
+```{r, fig.width=15, fig.height=15}
+library(merTools)
+plotREsim(REsim(fit.re4), labs=TRUE)+
+  coord_flip()
+```
 
 ### Generalized LMER
 
@@ -628,4 +768,44 @@ cbind(py, fitted(fit.glmer), predict(fit.glmer, type = "response"))[1:5,]
 ```
 
 
+## Summing Up
+
+In your own research you might ask the following questions:
+
+  - Are my observations independent?
+      + Then, you might be fine with a standard model
+  - Is there some grouping structure to my data?
+      + What are the different levels?
+  - Are observations repeated over time?
+      + Large N, few T, generally considered panel data
+      + Large T, fewer N, generally considered time series cross-sectional
+
+Then, you might consider the following choices:
+
+  - Consider clustering standard errors by group in a standard model
+      + See guidance [here](https://economics.mit.edu/files/13927), [here](https://blogs.worldbank.org/impactevaluations/when-should-you-cluster-standard-errors-new-wisdom-econometrics-oracle), and [here](https://stats.stackexchange.com/questions/185378/when-to-use-fixed-effects-vs-using-cluster-ses#:~:text=Clustered%20standard%20errors%20are%20for,panel%20of%20firms%20across%20time.)
+  - Or, incorporating the grouping structure into a multilevel random effects model
+      + Do you meet the random effects assumptions?
+      + Do you need random effects? Perhaps use the ICC to help with this.
+      + Should you add varying slopes?
+  - Or, incorporating fixed effects for the groups and/or time
+      + How much data do you have within groups?
+      + Do you need to model "level-2" factors?
+
+What we have not yet discussed are the following issues. See links for further study.
+
+  - Using fixed effects models for causal inference, specifically
+      + See [Imai and Kim (2019)](https://imai.fas.harvard.edu/research/files/FEmatch.pdf), [Imai and Kim (2020)](https://www.cambridge.org/core/journals/political-analysis/article/on-the-use-of-twoway-fixed-effects-regression-models-for-causal-inference-with-panel-data/F10006D0210407C5F9C7CAC1EEE3EF0D) 
+      + And R packages [PanelMatch](https://github.com/insongkim/PanelMatch) and [wfe](https://cran.r-project.org/web/packages/wfe/wfe.pdf)
+  - Incorporating dynamics into longitudinal data: $Y_it = \alpha_i + \rho Y_{i t-1} + \beta x_{it} + \epsilon_{it}$
+      + Outcome of today is a function of the past outcome modified by new information. Consider including if you think past outcomes influence future outcomes.
+      + $\rho$ is an "autocorrelation" term such that $|\rho| < 1$.
+      + Problem: Unless $\rho = 0$, correlation created between regressors and error term $\rightarrow$ strict exogeneity violated $\rightarrow$ Nickell Bias. In random effects models, $y_{it-1}$ also correlated with any group-level effects $\alpha_i$.
+      + Video [explanation](https://www.youtube.com/watch?reload=9&v=wL8NgC0Fm0Y). 
+      + Concern greatest in samples with small$T$.
+      + A lot of debates on the inclusion of an LDV and "dynamic" models in general. See [here](https://www.univ-orleans.fr/deg/masters/ESA/CH/Geneve_Chapitre2.pdf) 
+          + Achen C. H. (2001) Why lagged dependent variables can suppress the explanatory power of other independent variables
+          + Keele, L. and Kelly N. J. (2005) Dynamic models for dynamic theories: the ins and outs of lagged dependent variables
+          + Arjun Wilkins. (2017). To Lag or Not to Lag?: Re-Evaluating the Use of Lagged Dependent Variables in Regression Analysis
+          + Arellano-Bond and Anderson-Hsiao estimators
 
