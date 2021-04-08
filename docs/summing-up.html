@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="random-effects.html"/>
-
+<link rel="next" href="survey.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -423,6 +423,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="12.6" data-path="summing-up.html"><a href="summing-up.html"><i class="fa fa-check"></i><b>12.6</b> Summing Up</a></li>
 </ul></li>
+<li class="chapter" data-level="13" data-path="survey.html"><a href="survey.html"><i class="fa fa-check"></i><b>13</b> Survey Data</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="whats-the-fuss.html"><a href="whats-the-fuss.html"><i class="fa fa-check"></i><b>13.1</b> What’s the fuss?</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="whats-the-fuss.html"><a href="whats-the-fuss.html#weighting-surveys"><i class="fa fa-check"></i><b>13.1.1</b> Weighting Surveys</a></li>
+<li class="chapter" data-level="13.1.2" data-path="whats-the-fuss.html"><a href="whats-the-fuss.html#broad-types-of-survey-sampling-techniques"><i class="fa fa-check"></i><b>13.1.2</b> Broad Types of Survey Sampling Techniques</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="survey-r-package.html"><a href="survey-r-package.html"><i class="fa fa-check"></i><b>13.2</b> Survey R package</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="survey-r-package.html"><a href="survey-r-package.html#examples-of-specifying-svydesigns"><i class="fa fa-check"></i><b>13.2.1</b> Examples of specifying svydesigns</a></li>
+<li class="chapter" data-level="13.2.2" data-path="survey-r-package.html"><a href="survey-r-package.html#working-with-survey-designs"><i class="fa fa-check"></i><b>13.2.2</b> Working with survey designs</a></li>
+<li class="chapter" data-level="13.2.3" data-path="survey-r-package.html"><a href="survey-r-package.html#why-do-we-need-the-survey-package"><i class="fa fa-check"></i><b>13.2.3</b> Why do we need the <code>survey</code> package?</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="constructing-your-own-weights.html"><a href="constructing-your-own-weights.html"><i class="fa fa-check"></i><b>13.3</b> Constructing your own weights</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -444,11 +459,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">12.6</span> Summing Up</h2>
 <p>In your own research you might ask the following questions:</p>
 <ul>
-<li>Are my observations independent?
+<li>Are my observations independent? Do I have constant error variance?
 <ul>
-<li>Then, you might be fine with a standard model</li>
+<li>If independent, you might be fine with a standard model</li>
+<li>If worried about the error variance, you could be fine with implementing some type of robust standard errors. See Gary King’s <a href="https://www.youtube.com/watch?v=j3Sxbkd9iIs&amp;ab_channel=GaryKing">video</a> for guidance and section 8.5.1 of the course notes.</li>
 </ul></li>
-<li>Is there some grouping structure to my data?
+<li>Alternatively, is there some grouping structure to my data?
 <ul>
 <li>What are the different levels?</li>
 </ul></li>
@@ -458,7 +474,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Large T, fewer N, generally considered time series cross-sectional</li>
 </ul></li>
 </ul>
-<p>Then, you might consider the following choices:</p>
+<p>Then, you might consider the following choices if you have a grouping structure:</p>
 <ul>
 <li>Consider clustering standard errors by group in a standard model
 <ul>
@@ -483,13 +499,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>See <a href="https://imai.fas.harvard.edu/research/files/FEmatch.pdf">Imai and Kim (2019)</a>, <a href="https://www.cambridge.org/core/journals/political-analysis/article/on-the-use-of-twoway-fixed-effects-regression-models-for-causal-inference-with-panel-data/F10006D0210407C5F9C7CAC1EEE3EF0D">Imai and Kim (2020)</a></li>
 <li>And R packages <a href="https://github.com/insongkim/PanelMatch">PanelMatch</a> and <a href="https://cran.r-project.org/web/packages/wfe/wfe.pdf">wfe</a></li>
 </ul></li>
-<li>Incorporating dynamics into longitudinal data: <span class="math inline">\(Y_it = \alpha_i + \rho Y_{i t-1} + \beta x_{it} + \epsilon_{it}\)</span>
+<li>Incorporating dynamics into longitudinal data: <span class="math inline">\(Y_{it} = \alpha_i + \rho Y_{i t-1} + \beta x_{it} + \epsilon_{it}\)</span>
 <ul>
 <li>Outcome of today is a function of the past outcome modified by new information. Consider including if you think past outcomes influence future outcomes.</li>
 <li><span class="math inline">\(\rho\)</span> is an “autocorrelation” term such that <span class="math inline">\(|\rho| &lt; 1\)</span>.</li>
 <li>Problem: Unless <span class="math inline">\(\rho = 0\)</span>, correlation created between regressors and error term <span class="math inline">\(\rightarrow\)</span> strict exogeneity violated <span class="math inline">\(\rightarrow\)</span> Nickell Bias. In random effects models, <span class="math inline">\(y_{it-1}\)</span> also correlated with any group-level effects <span class="math inline">\(\alpha_i\)</span>.</li>
 <li>Video <a href="https://www.youtube.com/watch?reload=9&amp;v=wL8NgC0Fm0Y">explanation</a>.</li>
-<li>Concern greatest in samples with small<span class="math inline">\(T\)</span>.</li>
+<li>Concern greatest in samples with small <span class="math inline">\(T\)</span>.</li>
 <li>A lot of debates on the inclusion of an LDV and “dynamic” models in general. See <a href="https://www.univ-orleans.fr/deg/masters/ESA/CH/Geneve_Chapitre2.pdf">here</a>
 <ul>
 <li>Achen C. H. (2001) Why lagged dependent variables can suppress the explanatory power of other independent variables</li>
@@ -507,8 +523,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="random-effects.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="random-effects.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="survey.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

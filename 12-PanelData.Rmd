@@ -511,12 +511,20 @@ With a small p-value, we reject the null, suggesting fixed effects is preferred 
 
 ### Using lme4 for random effects
 
-More flexible package for random effects: `lme4`. Uses REML by default- variation on ML. Ben Bolker provides a great overview of this [here](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html)
+More flexible package for random effects: `lme4`. Uses "REML" by default- a variation on MLE. Ben Bolker provides a great overview of the package [here](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html). Here is a video walking through the syntax and output.
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library("vembedr")
+library(knitr)
+
+embed_url("https://www.youtube.com/watch?v=Myk4bV-LrN0")
+```
 
 ```{r, warning=F, message=F}
 library(lme4)
 fit.re2 <- lmer(inv~ value + capital + (1 | firm), data = Grunfeld)
 
+## extract model coefficients
 fixef(fit.re2)["capital"]
 ```
 
@@ -543,7 +551,7 @@ Can use output to interpret the nature of the variance. Note that the summary ou
 
 The ICC is the proportion of the variance explained by the grouping structure in the population. The Adjusted ICC indexes how strongly measurements in the same group resemble each other. This index goes from 0, if the grouping conveys no information, to 1, if all observations in a group are identical (Gelman \& Hill, 2007, p. 258). If the value were really small, you might not need to include random effects for the grouping factor.
 
-```{r}
+```{r, warning=F, message=F}
 # install.packages("performance")
 7367/(7367+2781)
 
@@ -567,7 +575,7 @@ Levels can be nested or non-nested. Students are nested in schools, but for a di
 Can allow slopes (regression coefficients to vary). Perhaps the effect of gender on student success varies by classroom. Then $\beta_{2}$ becomes $\beta_{j, 2} = \gamma_{1s} + r_{1js}$. 
 
 Let's return to the `Grunfeld` data and fit the following model:
-```{r}
+```{r, warning=F, message=F}
 ## firm and year random intercepts
 fit.retwoways <- lmer(inv~ value + capital + 
                         (1 | firm) + 
@@ -579,7 +587,7 @@ fixef(fit.retwoways)["capital"]
 
 ***Sleep deprivation study***: how is a subject's reaction time associated with sleep deprivation?
 
-```{r}
+```{r, warning=F, message=F}
 data(sleepstudy)
 ## Random intercepts for subjects
 fit.re3 <- lmer(Reaction ~ Days + (1 | Subject), data = sleepstudy)
@@ -647,6 +655,8 @@ cbind(yhat, fitted(fit.re3), predict(fit.re3, type = "response"))[1:5,]
 
 Predicting out of sample. Can "ignore" random effects if desired.
 
+  - This is often how people make predictions for hypothetical values of the main covariates-- without specifying specific groups.
+
 ```{r}
 predict(fit.re3, newdata= data.frame(Days = 4), type = "response", re.form = NA)
 
@@ -668,7 +678,7 @@ In this section, we are going to again use data from the CDC on national and sta
 
 Let's load the state data.
 
-```{r}
+```{r, warning=F, message=F}
 library(rio)
 states <- import("https://github.com/ktmccabe/teachingdata/blob/main/states.RData?raw=true")
 head(states)
@@ -679,7 +689,6 @@ Let's fit a random effects model with random intercepts for states.
 
 ## Random Effects
 library(lme4)
-library(ggplot2)
 fit.re <- lmer(hospitalizedCurrently ~ positiveIncrease 
                + (1 | state), data=states)
 summary(fit.re)
@@ -688,7 +697,7 @@ performance::icc(fit.re)
 
 The function `dotplot` from the `lattice` package provides a fast way to visualize the random effects of the model.
 
-```{r, fig.width=15, fig.height=15}
+```{r, fig.width=15, fig.height=15, warning=F, message=F}
 library(lattice)
 dotplot(ranef(fit.re), condVar=TRUE)
 ```
@@ -696,7 +705,7 @@ dotplot(ranef(fit.re), condVar=TRUE)
 
 The `merTools` package also has many useful functions. For example, the `plotREsim` function acts similar to the `dotplot` function and will plot the random effects for each group.
 
-```{r, fig.width=15, fig.height=15}
+```{r, fig.width=15, fig.height=15, warning=F, message=F}
 ## install.packages("merTools")
 library(merTools)
 plotREsim(REsim(fit.re), labs=TRUE)+
@@ -705,7 +714,7 @@ plotREsim(REsim(fit.re), labs=TRUE)+
 
 The package also has a tool for plotting the coefficient results with confidence intervals constructed through simulation. If you had several variables, the plot would display all coefficients.
 
-```{r}
+```{r, warning=F, message=F}
 feEx <- FEsim(fit.re, 1000)
 head(feEx)
 
@@ -721,14 +730,14 @@ For more on this tool's capabilities, particularly as it relates to generating p
 
 Finally, let's try another model using the `sleepstudy` data to show how the plots can also incorporate varying slopes.
 
-```{r}
+```{r, warning=F, message=F}
 library(lme4)
 data("sleepstudy")
 ## Random intercepts for subject, varying slope for days
 fit.re4 <- lmer(Reaction ~ Days + (Days | Subject), data = sleepstudy)
 ```
 
-```{r, fig.width=15, fig.height=15}
+```{r, fig.width=15, fig.height=15, warning=F, message=F}
 library(merTools)
 plotREsim(REsim(fit.re4), labs=TRUE)+
   coord_flip()
@@ -738,7 +747,7 @@ plotREsim(REsim(fit.re4), labs=TRUE)+
 
 Generalized Linear Mixed Effects Regression: `glmer()` is to  `lmer()` as `glm()` is to `lm()`. Example:
 
-```{r}
+```{r, warning=F, message=F}
 ## What if reaction time was dichotomous? 
 sleepstudy$rdi <- ifelse(sleepstudy$Reaction >
                          mean(sleepstudy$Reaction), 1, 0)
@@ -772,15 +781,16 @@ cbind(py, fitted(fit.glmer), predict(fit.glmer, type = "response"))[1:5,]
 
 In your own research you might ask the following questions:
 
-  - Are my observations independent?
-      + Then, you might be fine with a standard model
-  - Is there some grouping structure to my data?
+  - Are my observations independent? Do I have constant error variance?
+      + If independent, you might be fine with a standard model
+      + If worried about the error variance, you could be fine with implementing some type of robust standard errors. See Gary King's [video](https://www.youtube.com/watch?v=j3Sxbkd9iIs&ab_channel=GaryKing) for guidance and section 8.5.1 of the course notes.
+  - Alternatively, is there some grouping structure to my data?
       + What are the different levels?
   - Are observations repeated over time?
       + Large N, few T, generally considered panel data
       + Large T, fewer N, generally considered time series cross-sectional
 
-Then, you might consider the following choices:
+Then, you might consider the following choices if you have a grouping structure:
 
   - Consider clustering standard errors by group in a standard model
       + See guidance [here](https://economics.mit.edu/files/13927), [here](https://blogs.worldbank.org/impactevaluations/when-should-you-cluster-standard-errors-new-wisdom-econometrics-oracle), and [here](https://stats.stackexchange.com/questions/185378/when-to-use-fixed-effects-vs-using-cluster-ses#:~:text=Clustered%20standard%20errors%20are%20for,panel%20of%20firms%20across%20time.)
@@ -797,12 +807,12 @@ What we have not yet discussed are the following issues. See links for further s
   - Using fixed effects models for causal inference, specifically
       + See [Imai and Kim (2019)](https://imai.fas.harvard.edu/research/files/FEmatch.pdf), [Imai and Kim (2020)](https://www.cambridge.org/core/journals/political-analysis/article/on-the-use-of-twoway-fixed-effects-regression-models-for-causal-inference-with-panel-data/F10006D0210407C5F9C7CAC1EEE3EF0D) 
       + And R packages [PanelMatch](https://github.com/insongkim/PanelMatch) and [wfe](https://cran.r-project.org/web/packages/wfe/wfe.pdf)
-  - Incorporating dynamics into longitudinal data: $Y_it = \alpha_i + \rho Y_{i t-1} + \beta x_{it} + \epsilon_{it}$
+  - Incorporating dynamics into longitudinal data: $Y_{it} = \alpha_i + \rho Y_{i t-1} + \beta x_{it} + \epsilon_{it}$
       + Outcome of today is a function of the past outcome modified by new information. Consider including if you think past outcomes influence future outcomes.
       + $\rho$ is an "autocorrelation" term such that $|\rho| < 1$.
       + Problem: Unless $\rho = 0$, correlation created between regressors and error term $\rightarrow$ strict exogeneity violated $\rightarrow$ Nickell Bias. In random effects models, $y_{it-1}$ also correlated with any group-level effects $\alpha_i$.
       + Video [explanation](https://www.youtube.com/watch?reload=9&v=wL8NgC0Fm0Y). 
-      + Concern greatest in samples with small$T$.
+      + Concern greatest in samples with small $T$.
       + A lot of debates on the inclusion of an LDV and "dynamic" models in general. See [here](https://www.univ-orleans.fr/deg/masters/ESA/CH/Geneve_Chapitre2.pdf) 
           + Achen C. H. (2001) Why lagged dependent variables can suppress the explanatory power of other independent variables
           + Keele, L. and Kelly N. J. (2005) Dynamic models for dynamic theories: the ins and outs of lagged dependent variables

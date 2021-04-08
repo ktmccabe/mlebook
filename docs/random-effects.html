@@ -423,6 +423,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="12.6" data-path="summing-up.html"><a href="summing-up.html"><i class="fa fa-check"></i><b>12.6</b> Summing Up</a></li>
 </ul></li>
+<li class="chapter" data-level="13" data-path="survey.html"><a href="survey.html"><i class="fa fa-check"></i><b>13</b> Survey Data</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="whats-the-fuss.html"><a href="whats-the-fuss.html"><i class="fa fa-check"></i><b>13.1</b> What’s the fuss?</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="whats-the-fuss.html"><a href="whats-the-fuss.html#weighting-surveys"><i class="fa fa-check"></i><b>13.1.1</b> Weighting Surveys</a></li>
+<li class="chapter" data-level="13.1.2" data-path="whats-the-fuss.html"><a href="whats-the-fuss.html#broad-types-of-survey-sampling-techniques"><i class="fa fa-check"></i><b>13.1.2</b> Broad Types of Survey Sampling Techniques</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="survey-r-package.html"><a href="survey-r-package.html"><i class="fa fa-check"></i><b>13.2</b> Survey R package</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="survey-r-package.html"><a href="survey-r-package.html#examples-of-specifying-svydesigns"><i class="fa fa-check"></i><b>13.2.1</b> Examples of specifying svydesigns</a></li>
+<li class="chapter" data-level="13.2.2" data-path="survey-r-package.html"><a href="survey-r-package.html#working-with-survey-designs"><i class="fa fa-check"></i><b>13.2.2</b> Working with survey designs</a></li>
+<li class="chapter" data-level="13.2.3" data-path="survey-r-package.html"><a href="survey-r-package.html#why-do-we-need-the-survey-package"><i class="fa fa-check"></i><b>13.2.3</b> Why do we need the <code>survey</code> package?</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="constructing-your-own-weights.html"><a href="constructing-your-own-weights.html"><i class="fa fa-check"></i><b>13.3</b> Constructing your own weights</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -494,96 +509,102 @@ Y_{ij} &amp;=  \alpha_{j[i]} + \beta x_{ij} + \epsilon_{ij}
 <div id="random-effects-implementation-in-r" class="section level3" number="12.5.2">
 <h3><span class="header-section-number">12.5.2</span> Random Effects Implementation in R</h3>
 <p>If comparing with fixed effects, can use<code>plm</code>.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="random-effects.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Within model with firm random effects</span></span>
-<span id="cb39-2"><a href="random-effects.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;Grunfeld&quot;</span>)</span>
-<span id="cb39-3"><a href="random-effects.html#cb39-3" aria-hidden="true" tabindex="-1"></a>fit.re <span class="ot">&lt;-</span> <span class="fu">plm</span>(inv<span class="sc">~</span>value<span class="sc">+</span>capital, </span>
-<span id="cb39-4"><a href="random-effects.html#cb39-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> Grunfeld, </span>
-<span id="cb39-5"><a href="random-effects.html#cb39-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">model =</span> <span class="st">&quot;random&quot;</span>, </span>
-<span id="cb39-6"><a href="random-effects.html#cb39-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">index =</span> <span class="fu">c</span>(<span class="st">&quot;firm&quot;</span>), </span>
-<span id="cb39-7"><a href="random-effects.html#cb39-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">effect =</span> <span class="st">&quot;individual&quot;</span>)</span>
-<span id="cb39-8"><a href="random-effects.html#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.re)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
-<pre><code>##  capital 
-## 0.308113</code></pre>
+<div class="sourceCode" id="cb782"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb782-1"><a href="random-effects.html#cb782-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Within model with firm random effects</span></span>
+<span id="cb782-2"><a href="random-effects.html#cb782-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;Grunfeld&quot;</span>)</span>
+<span id="cb782-3"><a href="random-effects.html#cb782-3" aria-hidden="true" tabindex="-1"></a>fit.re <span class="ot">&lt;-</span> <span class="fu">plm</span>(inv<span class="sc">~</span>value<span class="sc">+</span>capital, </span>
+<span id="cb782-4"><a href="random-effects.html#cb782-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> Grunfeld, </span>
+<span id="cb782-5"><a href="random-effects.html#cb782-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">model =</span> <span class="st">&quot;random&quot;</span>, </span>
+<span id="cb782-6"><a href="random-effects.html#cb782-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">index =</span> <span class="fu">c</span>(<span class="st">&quot;firm&quot;</span>), </span>
+<span id="cb782-7"><a href="random-effects.html#cb782-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">effect =</span> <span class="st">&quot;individual&quot;</span>)</span>
+<span id="cb782-8"><a href="random-effects.html#cb782-8" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.re)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
+<pre><code> capital 
+0.308113 </code></pre>
 <p>One approach to deciding whether to use fixed vs. random effects is the Hausman test, which assesses the correlation assumption.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="random-effects.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Compares beta hats for FE and RE and covariance</span></span>
-<span id="cb41-2"><a href="random-effects.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Under null hypothesis of no correlation estimates should be similar</span></span>
-<span id="cb41-3"><a href="random-effects.html#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Under null, RE preferred due to efficiency gains</span></span>
-<span id="cb41-4"><a href="random-effects.html#cb41-4" aria-hidden="true" tabindex="-1"></a>fit.within <span class="ot">&lt;-</span> <span class="fu">plm</span>(inv<span class="sc">~</span>capital, </span>
-<span id="cb41-5"><a href="random-effects.html#cb41-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data =</span> Grunfeld, </span>
-<span id="cb41-6"><a href="random-effects.html#cb41-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">model =</span> <span class="st">&quot;within&quot;</span>, </span>
-<span id="cb41-7"><a href="random-effects.html#cb41-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">index =</span> <span class="fu">c</span>(<span class="st">&quot;firm&quot;</span>, <span class="st">&quot;year&quot;</span>))</span>
-<span id="cb41-8"><a href="random-effects.html#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="fu">phtest</span>(fit.within, fit.re) </span></code></pre></div>
-<pre><code>## 
-## 	Hausman Test
-## 
-## data:  inv ~ capital
-## chisq = 49.081, df = 1, p-value = 2.456e-12
-## alternative hypothesis: one model is inconsistent</code></pre>
+<div class="sourceCode" id="cb784"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb784-1"><a href="random-effects.html#cb784-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Compares beta hats for FE and RE and covariance</span></span>
+<span id="cb784-2"><a href="random-effects.html#cb784-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Under null hypothesis of no correlation estimates should be similar</span></span>
+<span id="cb784-3"><a href="random-effects.html#cb784-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Under null, RE preferred due to efficiency gains</span></span>
+<span id="cb784-4"><a href="random-effects.html#cb784-4" aria-hidden="true" tabindex="-1"></a>fit.within <span class="ot">&lt;-</span> <span class="fu">plm</span>(inv<span class="sc">~</span>capital, </span>
+<span id="cb784-5"><a href="random-effects.html#cb784-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data =</span> Grunfeld, </span>
+<span id="cb784-6"><a href="random-effects.html#cb784-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">model =</span> <span class="st">&quot;within&quot;</span>, </span>
+<span id="cb784-7"><a href="random-effects.html#cb784-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">index =</span> <span class="fu">c</span>(<span class="st">&quot;firm&quot;</span>, <span class="st">&quot;year&quot;</span>))</span>
+<span id="cb784-8"><a href="random-effects.html#cb784-8" aria-hidden="true" tabindex="-1"></a><span class="fu">phtest</span>(fit.within, fit.re) </span></code></pre></div>
+<pre><code>
+	Hausman Test
+
+data:  inv ~ capital
+chisq = 49.081, df = 1, p-value = 2.456e-12
+alternative hypothesis: one model is inconsistent</code></pre>
 <p>With a small p-value, we reject the null, suggesting fixed effects is preferred for this model. Note: while the test provides one way to adjudicate between fixed and random effects, it cannot tell you if the model you have specified is “correct.”</p>
 </div>
 <div id="using-lme4-for-random-effects" class="section level3" number="12.5.3">
 <h3><span class="header-section-number">12.5.3</span> Using lme4 for random effects</h3>
-<p>More flexible package for random effects: <code>lme4</code>. Uses REML by default- variation on ML. Ben Bolker provides a great overview of this <a href="https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html">here</a></p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="random-effects.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
-<span id="cb43-2"><a href="random-effects.html#cb43-2" aria-hidden="true" tabindex="-1"></a>fit.re2 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(inv<span class="sc">~</span> value <span class="sc">+</span> capital <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> firm), <span class="at">data =</span> Grunfeld)</span>
-<span id="cb43-3"><a href="random-effects.html#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-4"><a href="random-effects.html#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="fu">fixef</span>(fit.re2)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
-<pre><code>##   capital 
-## 0.3081881</code></pre>
+<p>More flexible package for random effects: <code>lme4</code>. Uses “REML” by default- a variation on MLE. Ben Bolker provides a great overview of the package <a href="https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html">here</a>. Here is a video walking through the syntax and output.</p>
+<div class="vembedr">
+<div>
+<iframe src="https://www.youtube.com/embed/Myk4bV-LrN0" width="533" height="300" frameborder="0" allowfullscreen=""></iframe>
+</div>
+</div>
+<div class="sourceCode" id="cb786"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb786-1"><a href="random-effects.html#cb786-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb786-2"><a href="random-effects.html#cb786-2" aria-hidden="true" tabindex="-1"></a>fit.re2 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(inv<span class="sc">~</span> value <span class="sc">+</span> capital <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> firm), <span class="at">data =</span> Grunfeld)</span>
+<span id="cb786-3"><a href="random-effects.html#cb786-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb786-4"><a href="random-effects.html#cb786-4" aria-hidden="true" tabindex="-1"></a><span class="do">## extract model coefficients</span></span>
+<span id="cb786-5"><a href="random-effects.html#cb786-5" aria-hidden="true" tabindex="-1"></a><span class="fu">fixef</span>(fit.re2)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
+<pre><code>  capital 
+0.3081881 </code></pre>
 <p>WHERE ARE MY P VALUES?!?!?!?!</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="random-effects.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.re2)<span class="sc">$</span>coefficients</span></code></pre></div>
-<pre><code>##                Estimate  Std. Error   t value
-## (Intercept) -57.8644245 29.37775852 -1.969668
-## value         0.1097897  0.01052676 10.429581
-## capital       0.3081881  0.01717127 17.947893</code></pre>
+<div class="sourceCode" id="cb788"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb788-1"><a href="random-effects.html#cb788-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.re2)<span class="sc">$</span>coefficients</span></code></pre></div>
+<pre><code>               Estimate  Std. Error   t value
+(Intercept) -57.8644245 29.37775852 -1.969668
+value         0.1097897  0.01052676 10.429581
+capital       0.3081881  0.01717127 17.947893</code></pre>
 <p>Not without controversy. Several ways to compute p-values in these models. This post describes three and provides the <a href="https://www.r-bloggers.com/three-ways-to-get-parameter-specific-p-values-from-lmer/">code</a>.</p>
 <p>For example, if you load the package <code>lmerTest</code> prior to running the model, it will include these results using the Satterthwaite method by default. Clicking on the pdf through this <a href="https://www.jstatsoft.org/article/view/v082i13">link</a> will give you information on what this package does.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="random-effects.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
-<span id="cb47-2"><a href="random-effects.html#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmerTest)</span>
-<span id="cb47-3"><a href="random-effects.html#cb47-3" aria-hidden="true" tabindex="-1"></a>fit.re2 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(inv<span class="sc">~</span> value <span class="sc">+</span> capital <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> firm), <span class="at">data =</span> Grunfeld)</span>
-<span id="cb47-4"><a href="random-effects.html#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-5"><a href="random-effects.html#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.re2)</span></code></pre></div>
-<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
-## lmerModLmerTest]
-## Formula: inv ~ value + capital + (1 | firm)
-##    Data: Grunfeld
-## 
-## REML criterion at convergence: 2195.9
-## 
-## Scaled residuals: 
-##     Min      1Q  Median      3Q     Max 
-## -3.4319 -0.3498  0.0210  0.3592  4.8145 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  firm     (Intercept) 7367     85.83   
-##  Residual             2781     52.74   
-## Number of obs: 200, groups:  firm, 10
-## 
-## Fixed effects:
-##              Estimate Std. Error        df t value Pr(&gt;|t|)    
-## (Intercept) -57.86442   29.37776  11.10912   -1.97   0.0743 .  
-## value         0.10979    0.01053 120.76227   10.43   &lt;2e-16 ***
-## capital       0.30819    0.01717 193.71234   17.95   &lt;2e-16 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Correlation of Fixed Effects:
-##         (Intr) value 
-## value   -0.328       
-## capital -0.019 -0.368
-## fit warnings:
-## Some predictor variables are on very different scales: consider rescaling</code></pre>
+<div class="sourceCode" id="cb790"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb790-1"><a href="random-effects.html#cb790-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb790-2"><a href="random-effects.html#cb790-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmerTest)</span>
+<span id="cb790-3"><a href="random-effects.html#cb790-3" aria-hidden="true" tabindex="-1"></a>fit.re2 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(inv<span class="sc">~</span> value <span class="sc">+</span> capital <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> firm), <span class="at">data =</span> Grunfeld)</span>
+<span id="cb790-4"><a href="random-effects.html#cb790-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb790-5"><a href="random-effects.html#cb790-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.re2)</span></code></pre></div>
+<pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+lmerModLmerTest]
+Formula: inv ~ value + capital + (1 | firm)
+   Data: Grunfeld
+
+REML criterion at convergence: 2195.9
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-3.4319 -0.3498  0.0210  0.3592  4.8145 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ firm     (Intercept) 7367     85.83   
+ Residual             2781     52.74   
+Number of obs: 200, groups:  firm, 10
+
+Fixed effects:
+             Estimate Std. Error        df t value Pr(&gt;|t|)    
+(Intercept) -57.86442   29.37776  11.10912   -1.97   0.0743 .  
+value         0.10979    0.01053 120.76227   10.43   &lt;2e-16 ***
+capital       0.30819    0.01717 193.71234   17.95   &lt;2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Correlation of Fixed Effects:
+        (Intr) value 
+value   -0.328       
+capital -0.019 -0.368
+fit warnings:
+Some predictor variables are on very different scales: consider rescaling</code></pre>
 <p>Can use output to interpret the nature of the variance. Note that the summary output includes a table for the Random Effects, the variance, and Std. Dev. of each. We can interpret the intercept row as the variability of the intercept across firms (firm-to-firm) variability. The residual is the left-over or within-firm variability. One use of this is to compute the intraclass correlation coefficient (ICC).</p>
 <p>The ICC is the proportion of the variance explained by the grouping structure in the population. The Adjusted ICC indexes how strongly measurements in the same group resemble each other. This index goes from 0, if the grouping conveys no information, to 1, if all observations in a group are identical (Gelman &amp; Hill, 2007, p. 258). If the value were really small, you might not need to include random effects for the grouping factor.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="random-effects.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;performance&quot;)</span></span>
-<span id="cb49-2"><a href="random-effects.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="dv">7367</span><span class="sc">/</span>(<span class="dv">7367</span><span class="sc">+</span><span class="dv">2781</span>)</span></code></pre></div>
-<pre><code>## [1] 0.7259559</code></pre>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="random-effects.html#cb51-1" aria-hidden="true" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">icc</span>(fit.re2)</span></code></pre></div>
-<pre><code>## # Intraclass Correlation Coefficient
-## 
-##      Adjusted ICC: 0.726
-##   Conditional ICC: 0.140</code></pre>
+<div class="sourceCode" id="cb792"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb792-1"><a href="random-effects.html#cb792-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;performance&quot;)</span></span>
+<span id="cb792-2"><a href="random-effects.html#cb792-2" aria-hidden="true" tabindex="-1"></a><span class="dv">7367</span><span class="sc">/</span>(<span class="dv">7367</span><span class="sc">+</span><span class="dv">2781</span>)</span></code></pre></div>
+<pre><code>[1] 0.7259559</code></pre>
+<div class="sourceCode" id="cb794"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb794-1"><a href="random-effects.html#cb794-1" aria-hidden="true" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">icc</span>(fit.re2)</span></code></pre></div>
+<pre><code># Intraclass Correlation Coefficient
+
+     Adjusted ICC: 0.726
+  Conditional ICC: 0.140</code></pre>
 </div>
 <div id="random-effects-extensions" class="section level3" number="12.5.4">
 <h3><span class="header-section-number">12.5.4</span> Random Effects Extensions</h3>
@@ -597,31 +618,26 @@ Y_{ij} &amp;=  \alpha_{j[i]} + \beta x_{ij} + \epsilon_{ij}
 <p>Levels can be nested or non-nested. Students are nested in schools, but for a different example, survey questions may not be nested in a single poll. Perhaps some items are repeated <em>across</em> different polls.</p>
 <p>Can allow slopes (regression coefficients to vary). Perhaps the effect of gender on student success varies by classroom. Then <span class="math inline">\(\beta_{2}\)</span> becomes <span class="math inline">\(\beta_{j, 2} = \gamma_{1s} + r_{1js}\)</span>.</p>
 <p>Let’s return to the <code>Grunfeld</code> data and fit the following model:</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="random-effects.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="do">## firm and year random intercepts</span></span>
-<span id="cb53-2"><a href="random-effects.html#cb53-2" aria-hidden="true" tabindex="-1"></a>fit.retwoways <span class="ot">&lt;-</span> <span class="fu">lmer</span>(inv<span class="sc">~</span> value <span class="sc">+</span> capital <span class="sc">+</span> </span>
-<span id="cb53-3"><a href="random-effects.html#cb53-3" aria-hidden="true" tabindex="-1"></a>                        (<span class="dv">1</span> <span class="sc">|</span> firm) <span class="sc">+</span> </span>
-<span id="cb53-4"><a href="random-effects.html#cb53-4" aria-hidden="true" tabindex="-1"></a>                        (<span class="dv">1</span> <span class="sc">|</span> year), </span>
-<span id="cb53-5"><a href="random-effects.html#cb53-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data =</span> Grunfeld)</span></code></pre></div>
-<pre><code>## Warning: Some predictor variables are on very different scales: consider
-## rescaling
-
-## Warning: Some predictor variables are on very different scales: consider
-## rescaling</code></pre>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="random-effects.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fixef</span>(fit.retwoways)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
-<pre><code>##   capital 
-## 0.3106319</code></pre>
+<div class="sourceCode" id="cb796"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb796-1"><a href="random-effects.html#cb796-1" aria-hidden="true" tabindex="-1"></a><span class="do">## firm and year random intercepts</span></span>
+<span id="cb796-2"><a href="random-effects.html#cb796-2" aria-hidden="true" tabindex="-1"></a>fit.retwoways <span class="ot">&lt;-</span> <span class="fu">lmer</span>(inv<span class="sc">~</span> value <span class="sc">+</span> capital <span class="sc">+</span> </span>
+<span id="cb796-3"><a href="random-effects.html#cb796-3" aria-hidden="true" tabindex="-1"></a>                        (<span class="dv">1</span> <span class="sc">|</span> firm) <span class="sc">+</span> </span>
+<span id="cb796-4"><a href="random-effects.html#cb796-4" aria-hidden="true" tabindex="-1"></a>                        (<span class="dv">1</span> <span class="sc">|</span> year), </span>
+<span id="cb796-5"><a href="random-effects.html#cb796-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data =</span> Grunfeld)</span>
+<span id="cb796-6"><a href="random-effects.html#cb796-6" aria-hidden="true" tabindex="-1"></a><span class="fu">fixef</span>(fit.retwoways)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
+<pre><code>  capital 
+0.3106319 </code></pre>
 <p><strong><em>Sleep deprivation study</em></strong>: how is a subject’s reaction time associated with sleep deprivation?</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="random-effects.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(sleepstudy)</span>
-<span id="cb57-2"><a href="random-effects.html#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Random intercepts for subjects</span></span>
-<span id="cb57-3"><a href="random-effects.html#cb57-3" aria-hidden="true" tabindex="-1"></a>fit.re3 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(Reaction <span class="sc">~</span> Days <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> Subject), <span class="at">data =</span> sleepstudy)</span>
-<span id="cb57-4"><a href="random-effects.html#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="fu">fixef</span>(fit.re3)[<span class="st">&quot;Days&quot;</span>]</span></code></pre></div>
-<pre><code>##     Days 
-## 10.46729</code></pre>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="random-effects.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Random intercepts for subject, varying slope for days</span></span>
-<span id="cb59-2"><a href="random-effects.html#cb59-2" aria-hidden="true" tabindex="-1"></a>fit.re4 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(Reaction <span class="sc">~</span> Days <span class="sc">+</span> (Days <span class="sc">|</span> Subject), <span class="at">data =</span> sleepstudy)</span>
-<span id="cb59-3"><a href="random-effects.html#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fixef</span>(fit.re4)[<span class="st">&quot;Days&quot;</span>]</span></code></pre></div>
-<pre><code>##     Days 
-## 10.46729</code></pre>
+<div class="sourceCode" id="cb798"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb798-1"><a href="random-effects.html#cb798-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(sleepstudy)</span>
+<span id="cb798-2"><a href="random-effects.html#cb798-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Random intercepts for subjects</span></span>
+<span id="cb798-3"><a href="random-effects.html#cb798-3" aria-hidden="true" tabindex="-1"></a>fit.re3 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(Reaction <span class="sc">~</span> Days <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> Subject), <span class="at">data =</span> sleepstudy)</span>
+<span id="cb798-4"><a href="random-effects.html#cb798-4" aria-hidden="true" tabindex="-1"></a><span class="fu">fixef</span>(fit.re3)[<span class="st">&quot;Days&quot;</span>]</span></code></pre></div>
+<pre><code>    Days 
+10.46729 </code></pre>
+<div class="sourceCode" id="cb800"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb800-1"><a href="random-effects.html#cb800-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Random intercepts for subject, varying slope for days</span></span>
+<span id="cb800-2"><a href="random-effects.html#cb800-2" aria-hidden="true" tabindex="-1"></a>fit.re4 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(Reaction <span class="sc">~</span> Days <span class="sc">+</span> (Days <span class="sc">|</span> Subject), <span class="at">data =</span> sleepstudy)</span>
+<span id="cb800-3"><a href="random-effects.html#cb800-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fixef</span>(fit.re4)[<span class="st">&quot;Days&quot;</span>]</span></code></pre></div>
+<pre><code>    Days 
+10.46729 </code></pre>
 <p>Recall, the big assumption when adding random effects is that the unobserved group-level random disturbances caught through the intercept terms are not correlated with the regressors.</p>
 <p>One suggestion is if concerned about correlation between predictors <span class="math inline">\(x_i\)</span> and group effects <span class="math inline">\(\alpha_j\)</span>, add group means of regressors as predictors in the model.</p>
 <ul>
@@ -635,227 +651,214 @@ Y_{ij} &amp;=  \alpha_{j[i]} + \beta x_{ij} + \epsilon_{ij}
 <ul>
 <li><code>coef()</code> produces the set of regression coefficients associated with each group</li>
 </ul>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="random-effects.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example from random intercepts model</span></span>
-<span id="cb61-2"><a href="random-effects.html#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">coef</span>(fit.re3))</span></code></pre></div>
-<pre><code>## $Subject
-##     (Intercept)     Days
-## 308    292.1888 10.46729
-## 309    173.5556 10.46729
-## 310    188.2965 10.46729
-## 330    255.8115 10.46729
-## 331    261.6213 10.46729
-## 332    259.6263 10.46729
-## 333    267.9056 10.46729
-## 334    248.4081 10.46729
-## 335    206.1230 10.46729
-## 337    323.5878 10.46729
-## 349    230.2089 10.46729
-## 350    265.5165 10.46729
-## 351    243.5429 10.46729
-## 352    287.7835 10.46729
-## 369    258.4415 10.46729
-## 370    245.0424 10.46729
-## 371    248.1108 10.46729
-## 372    269.5209 10.46729</code></pre>
+<div class="sourceCode" id="cb802"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb802-1"><a href="random-effects.html#cb802-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example from random intercepts model</span></span>
+<span id="cb802-2"><a href="random-effects.html#cb802-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">coef</span>(fit.re3))</span></code></pre></div>
+<pre><code>$Subject
+    (Intercept)     Days
+308    292.1888 10.46729
+309    173.5556 10.46729
+310    188.2965 10.46729
+330    255.8115 10.46729
+331    261.6213 10.46729
+332    259.6263 10.46729
+333    267.9056 10.46729
+334    248.4081 10.46729
+335    206.1230 10.46729
+337    323.5878 10.46729
+349    230.2089 10.46729
+350    265.5165 10.46729
+351    243.5429 10.46729
+352    287.7835 10.46729
+369    258.4415 10.46729
+370    245.0424 10.46729
+371    248.1108 10.46729
+372    269.5209 10.46729</code></pre>
 <ul>
 <li><code>fixef()</code> produces the set of fixed effects regression coefficients– similar to OLS– with global intercept.</li>
 </ul>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="random-effects.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example from random intercepts model</span></span>
-<span id="cb63-2"><a href="random-effects.html#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fixef</span>(fit.re3)</span></code></pre></div>
-<pre><code>## (Intercept)        Days 
-##   251.40510    10.46729</code></pre>
+<div class="sourceCode" id="cb804"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb804-1"><a href="random-effects.html#cb804-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example from random intercepts model</span></span>
+<span id="cb804-2"><a href="random-effects.html#cb804-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fixef</span>(fit.re3)</span></code></pre></div>
+<pre><code>(Intercept)        Days 
+  251.40510    10.46729 </code></pre>
 <ul>
 <li><code>ranef()</code> produces the set of random effects as deviations from the global estimates</li>
 </ul>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="random-effects.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example from random intercepts model</span></span>
-<span id="cb65-2"><a href="random-effects.html#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">ranef</span>(fit.re3)<span class="sc">$</span>Subject)</span></code></pre></div>
-<pre><code>##     (Intercept)
-## 308   40.783710
-## 309  -77.849554
-## 310  -63.108567
-## 330    4.406442
-## 331   10.216189
-## 332    8.221238</code></pre>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="random-effects.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Note the relationship between the three for the first [1] subject</span></span>
-<span id="cb67-2"><a href="random-effects.html#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fixef</span>(fit.re3)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">ranef</span>(fit.re3)<span class="sc">$</span>Subject[<span class="dv">1</span>,]</span></code></pre></div>
-<pre><code>## (Intercept) 
-##    292.1888</code></pre>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="random-effects.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.re3)<span class="sc">$</span>Subject[<span class="dv">1</span>,<span class="dv">1</span>]</span></code></pre></div>
-<pre><code>## [1] 292.1888</code></pre>
+<div class="sourceCode" id="cb806"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb806-1"><a href="random-effects.html#cb806-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example from random intercepts model</span></span>
+<span id="cb806-2"><a href="random-effects.html#cb806-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">ranef</span>(fit.re3)<span class="sc">$</span>Subject)</span></code></pre></div>
+<pre><code>    (Intercept)
+308   40.783710
+309  -77.849554
+310  -63.108567
+330    4.406442
+331   10.216189
+332    8.221238</code></pre>
+<div class="sourceCode" id="cb808"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb808-1"><a href="random-effects.html#cb808-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Note the relationship between the three for the first [1] subject</span></span>
+<span id="cb808-2"><a href="random-effects.html#cb808-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fixef</span>(fit.re3)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">ranef</span>(fit.re3)<span class="sc">$</span>Subject[<span class="dv">1</span>,]</span></code></pre></div>
+<pre><code>(Intercept) 
+   292.1888 </code></pre>
+<div class="sourceCode" id="cb810"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb810-1"><a href="random-effects.html#cb810-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.re3)<span class="sc">$</span>Subject[<span class="dv">1</span>,<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>[1] 292.1888</code></pre>
 </div>
 <div id="generating-predicted-values-for-each-unit" class="section level3" number="12.5.6">
 <h3><span class="header-section-number">12.5.6</span> Generating predicted values for each unit</h3>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="random-effects.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Manual</span></span>
-<span id="cb71-2"><a href="random-effects.html#cb71-2" aria-hidden="true" tabindex="-1"></a>allsubjects <span class="ot">&lt;-</span> <span class="fu">unique</span>(sleepstudy<span class="sc">$</span>Subject)</span>
-<span id="cb71-3"><a href="random-effects.html#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(sleepstudy)){</span>
-<span id="cb71-4"><a href="random-effects.html#cb71-4" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">as.character</span>(sleepstudy<span class="sc">$</span>Subject[i])</span>
-<span id="cb71-5"><a href="random-effects.html#cb71-5" aria-hidden="true" tabindex="-1"></a>  sleepstudy<span class="sc">$</span>subjectRE[i] <span class="ot">&lt;-</span> <span class="fu">ranef</span>(fit.re3)<span class="sc">$</span>Subject[n, <span class="dv">1</span>]</span>
-<span id="cb71-6"><a href="random-effects.html#cb71-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb71-7"><a href="random-effects.html#cb71-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb71-8"><a href="random-effects.html#cb71-8" aria-hidden="true" tabindex="-1"></a><span class="do">## XB like usual, but need to add random effects</span></span>
-<span id="cb71-9"><a href="random-effects.html#cb71-9" aria-hidden="true" tabindex="-1"></a>yhat <span class="ot">&lt;-</span>  <span class="fu">model.matrix</span>(fit.re3)<span class="sc">%*%</span><span class="fu">fixef</span>(fit.re3) <span class="sc">+</span> sleepstudy<span class="sc">$</span>subjectRE</span>
-<span id="cb71-10"><a href="random-effects.html#cb71-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb71-11"><a href="random-effects.html#cb71-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Compare to Automatic</span></span>
-<span id="cb71-12"><a href="random-effects.html#cb71-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(yhat, <span class="fu">fitted</span>(fit.re3), <span class="fu">predict</span>(fit.re3, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>))[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span></code></pre></div>
-<pre><code>##       [,1]     [,2]     [,3]
-## 1 292.1888 292.1888 292.1888
-## 2 302.6561 302.6561 302.6561
-## 3 313.1234 313.1234 313.1234
-## 4 323.5907 323.5907 323.5907
-## 5 334.0580 334.0580 334.0580</code></pre>
+<div class="sourceCode" id="cb812"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb812-1"><a href="random-effects.html#cb812-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Manual</span></span>
+<span id="cb812-2"><a href="random-effects.html#cb812-2" aria-hidden="true" tabindex="-1"></a>allsubjects <span class="ot">&lt;-</span> <span class="fu">unique</span>(sleepstudy<span class="sc">$</span>Subject)</span>
+<span id="cb812-3"><a href="random-effects.html#cb812-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(sleepstudy)){</span>
+<span id="cb812-4"><a href="random-effects.html#cb812-4" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">as.character</span>(sleepstudy<span class="sc">$</span>Subject[i])</span>
+<span id="cb812-5"><a href="random-effects.html#cb812-5" aria-hidden="true" tabindex="-1"></a>  sleepstudy<span class="sc">$</span>subjectRE[i] <span class="ot">&lt;-</span> <span class="fu">ranef</span>(fit.re3)<span class="sc">$</span>Subject[n, <span class="dv">1</span>]</span>
+<span id="cb812-6"><a href="random-effects.html#cb812-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb812-7"><a href="random-effects.html#cb812-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb812-8"><a href="random-effects.html#cb812-8" aria-hidden="true" tabindex="-1"></a><span class="do">## XB like usual, but need to add random effects</span></span>
+<span id="cb812-9"><a href="random-effects.html#cb812-9" aria-hidden="true" tabindex="-1"></a>yhat <span class="ot">&lt;-</span>  <span class="fu">model.matrix</span>(fit.re3)<span class="sc">%*%</span><span class="fu">fixef</span>(fit.re3) <span class="sc">+</span> sleepstudy<span class="sc">$</span>subjectRE</span>
+<span id="cb812-10"><a href="random-effects.html#cb812-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb812-11"><a href="random-effects.html#cb812-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Compare to Automatic</span></span>
+<span id="cb812-12"><a href="random-effects.html#cb812-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(yhat, <span class="fu">fitted</span>(fit.re3), <span class="fu">predict</span>(fit.re3, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>))[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span></code></pre></div>
+<pre><code>      [,1]     [,2]     [,3]
+1 292.1888 292.1888 292.1888
+2 302.6561 302.6561 302.6561
+3 313.1234 313.1234 313.1234
+4 323.5907 323.5907 323.5907
+5 334.0580 334.0580 334.0580</code></pre>
 <p>Predicting out of sample. Can “ignore” random effects if desired.</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="random-effects.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit.re3, <span class="at">newdata=</span> <span class="fu">data.frame</span>(<span class="at">Days =</span> <span class="dv">4</span>), <span class="at">type =</span> <span class="st">&quot;response&quot;</span>, <span class="at">re.form =</span> <span class="cn">NA</span>)</span></code></pre></div>
-<pre><code>##        1 
-## 293.2742</code></pre>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="random-effects.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fixef</span>(fit.re3)[<span class="dv">1</span>] <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span><span class="fu">fixef</span>(fit.re3)[<span class="dv">2</span>]</span></code></pre></div>
-<pre><code>## (Intercept) 
-##    293.2742</code></pre>
+<ul>
+<li>This is often how people make predictions for hypothetical values of the main covariates– without specifying specific groups.</li>
+</ul>
+<div class="sourceCode" id="cb814"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb814-1"><a href="random-effects.html#cb814-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit.re3, <span class="at">newdata=</span> <span class="fu">data.frame</span>(<span class="at">Days =</span> <span class="dv">4</span>), <span class="at">type =</span> <span class="st">&quot;response&quot;</span>, <span class="at">re.form =</span> <span class="cn">NA</span>)</span></code></pre></div>
+<pre><code>       1 
+293.2742 </code></pre>
+<div class="sourceCode" id="cb816"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb816-1"><a href="random-effects.html#cb816-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fixef</span>(fit.re3)[<span class="dv">1</span>] <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span><span class="fu">fixef</span>(fit.re3)[<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>(Intercept) 
+   293.2742 </code></pre>
 <p>Compare predictions if we ignored the random effects:</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="random-effects.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(yhat, </span>
-<span id="cb77-2"><a href="random-effects.html#cb77-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">predict</span>(fit.re3, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>),</span>
-<span id="cb77-3"><a href="random-effects.html#cb77-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">predict</span>(fit.re3, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>, <span class="at">re.form=</span><span class="cn">NA</span>),</span>
-<span id="cb77-4"><a href="random-effects.html#cb77-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">model.matrix</span>(fit.re3)<span class="sc">%*%</span><span class="fu">fixef</span>(fit.re3))[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span></code></pre></div>
-<pre><code>##       [,1]     [,2]     [,3]     [,4]
-## 1 292.1888 292.1888 251.4051 251.4051
-## 2 302.6561 302.6561 261.8724 261.8724
-## 3 313.1234 313.1234 272.3397 272.3397
-## 4 323.5907 323.5907 282.8070 282.8070
-## 5 334.0580 334.0580 293.2742 293.2742</code></pre>
+<div class="sourceCode" id="cb818"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb818-1"><a href="random-effects.html#cb818-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(yhat, </span>
+<span id="cb818-2"><a href="random-effects.html#cb818-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">predict</span>(fit.re3, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>),</span>
+<span id="cb818-3"><a href="random-effects.html#cb818-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">predict</span>(fit.re3, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>, <span class="at">re.form=</span><span class="cn">NA</span>),</span>
+<span id="cb818-4"><a href="random-effects.html#cb818-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">model.matrix</span>(fit.re3)<span class="sc">%*%</span><span class="fu">fixef</span>(fit.re3))[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span></code></pre></div>
+<pre><code>      [,1]     [,2]     [,3]     [,4]
+1 292.1888 292.1888 251.4051 251.4051
+2 302.6561 302.6561 261.8724 261.8724
+3 313.1234 313.1234 272.3397 272.3397
+4 323.5907 323.5907 282.8070 282.8070
+5 334.0580 334.0580 293.2742 293.2742</code></pre>
 </div>
 <div id="week-11-tutorial" class="section level3" number="12.5.7">
 <h3><span class="header-section-number">12.5.7</span> Week 11 Tutorial</h3>
 <p>In this section, we are going to again use data from the CDC on national and state-level COVID hospitalizations and positive case increases between July 2020- end September 2020 to give some examples of how to visualize random effects.</p>
 <p>Let’s load the state data.</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="random-effects.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
-<span id="cb79-2"><a href="random-effects.html#cb79-2" aria-hidden="true" tabindex="-1"></a>states <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/states.RData?raw=true&quot;</span>)</span>
-<span id="cb79-3"><a href="random-effects.html#cb79-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(states)</span></code></pre></div>
-<pre><code>##            date hospitalizedCurrently positiveIncrease state
-## 8849 2020-09-30                    53              104    AK
-## 8850 2020-09-30                   776             1147    AL
-## 8851 2020-09-30                   484              942    AR
-## 8853 2020-09-30                   560              323    AZ
-## 8854 2020-09-30                  3267             3200    CA
-## 8855 2020-09-30                   264              511    CO</code></pre>
+<div class="sourceCode" id="cb820"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb820-1"><a href="random-effects.html#cb820-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
+<span id="cb820-2"><a href="random-effects.html#cb820-2" aria-hidden="true" tabindex="-1"></a>states <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/states.RData?raw=true&quot;</span>)</span>
+<span id="cb820-3"><a href="random-effects.html#cb820-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(states)</span></code></pre></div>
+<pre><code>           date hospitalizedCurrently positiveIncrease state
+8849 2020-09-30                    53              104    AK
+8850 2020-09-30                   776             1147    AL
+8851 2020-09-30                   484              942    AR
+8853 2020-09-30                   560              323    AZ
+8854 2020-09-30                  3267             3200    CA
+8855 2020-09-30                   264              511    CO</code></pre>
 <p>Let’s fit a random effects model with random intercepts for states.</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="random-effects.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Random Effects</span></span>
-<span id="cb81-2"><a href="random-effects.html#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
-<span id="cb81-3"><a href="random-effects.html#cb81-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb81-4"><a href="random-effects.html#cb81-4" aria-hidden="true" tabindex="-1"></a>fit.re <span class="ot">&lt;-</span> <span class="fu">lmer</span>(hospitalizedCurrently <span class="sc">~</span> positiveIncrease </span>
-<span id="cb81-5"><a href="random-effects.html#cb81-5" aria-hidden="true" tabindex="-1"></a>               <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> state), <span class="at">data=</span>states)</span>
-<span id="cb81-6"><a href="random-effects.html#cb81-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.re)</span></code></pre></div>
-<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
-## lmerModLmerTest]
-## Formula: hospitalizedCurrently ~ positiveIncrease + (1 | state)
-##    Data: states
-## 
-## REML criterion at convergence: 72042.8
-## 
-## Scaled residuals: 
-##      Min       1Q   Median       3Q      Max 
-## -21.4649  -0.1578   0.0012   0.1414  12.3407 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  state    (Intercept) 439843   663.2   
-##  Residual             194044   440.5   
-## Number of obs: 4780, groups:  state, 53
-## 
-## Fixed effects:
-##                   Estimate Std. Error        df t value Pr(&gt;|t|)    
-## (Intercept)      3.273e+02  9.160e+01 5.131e+01   3.573 0.000779 ***
-## positiveIncrease 5.317e-01  7.745e-03 4.774e+03  68.644  &lt; 2e-16 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Correlation of Fixed Effects:
-##             (Intr)
-## positvIncrs -0.078
-## fit warnings:
-## Some predictor variables are on very different scales: consider rescaling</code></pre>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="random-effects.html#cb83-1" aria-hidden="true" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">icc</span>(fit.re)</span></code></pre></div>
-<pre><code>## # Intraclass Correlation Coefficient
-## 
-##      Adjusted ICC: 0.694
-##   Conditional ICC: 0.325</code></pre>
+<div class="sourceCode" id="cb822"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb822-1"><a href="random-effects.html#cb822-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Random Effects</span></span>
+<span id="cb822-2"><a href="random-effects.html#cb822-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb822-3"><a href="random-effects.html#cb822-3" aria-hidden="true" tabindex="-1"></a>fit.re <span class="ot">&lt;-</span> <span class="fu">lmer</span>(hospitalizedCurrently <span class="sc">~</span> positiveIncrease </span>
+<span id="cb822-4"><a href="random-effects.html#cb822-4" aria-hidden="true" tabindex="-1"></a>               <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> state), <span class="at">data=</span>states)</span>
+<span id="cb822-5"><a href="random-effects.html#cb822-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.re)</span></code></pre></div>
+<pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+lmerModLmerTest]
+Formula: hospitalizedCurrently ~ positiveIncrease + (1 | state)
+   Data: states
+
+REML criterion at convergence: 72042.8
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-21.4649  -0.1578   0.0012   0.1414  12.3407 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ state    (Intercept) 439843   663.2   
+ Residual             194044   440.5   
+Number of obs: 4780, groups:  state, 53
+
+Fixed effects:
+                  Estimate Std. Error        df t value Pr(&gt;|t|)    
+(Intercept)      3.273e+02  9.160e+01 5.131e+01   3.573 0.000779 ***
+positiveIncrease 5.317e-01  7.745e-03 4.774e+03  68.644  &lt; 2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Correlation of Fixed Effects:
+            (Intr)
+positvIncrs -0.078
+fit warnings:
+Some predictor variables are on very different scales: consider rescaling</code></pre>
+<div class="sourceCode" id="cb824"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb824-1"><a href="random-effects.html#cb824-1" aria-hidden="true" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">icc</span>(fit.re)</span></code></pre></div>
+<pre><code># Intraclass Correlation Coefficient
+
+     Adjusted ICC: 0.694
+  Conditional ICC: 0.325</code></pre>
 <p>The function <code>dotplot</code> from the <code>lattice</code> package provides a fast way to visualize the random effects of the model.</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="random-effects.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lattice)</span>
-<span id="cb85-2"><a href="random-effects.html#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dotplot</span>(<span class="fu">ranef</span>(fit.re), <span class="at">condVar=</span><span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>## $state</code></pre>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-35-1.svg" width="1440" /></p>
+<div class="sourceCode" id="cb826"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb826-1"><a href="random-effects.html#cb826-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lattice)</span>
+<span id="cb826-2"><a href="random-effects.html#cb826-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dotplot</span>(<span class="fu">ranef</span>(fit.re), <span class="at">condVar=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>$state</code></pre>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-377-1.svg" width="1440" /></p>
 <p>The <code>merTools</code> package also has many useful functions. For example, the <code>plotREsim</code> function acts similar to the <code>dotplot</code> function and will plot the random effects for each group.</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="random-effects.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;merTools&quot;)</span></span>
-<span id="cb87-2"><a href="random-effects.html#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(merTools)</span></code></pre></div>
-<pre><code>## Warning: package &#39;merTools&#39; was built under R version 4.0.2</code></pre>
-<pre><code>## Loading required package: arm</code></pre>
-<pre><code>## Warning: package &#39;arm&#39; was built under R version 4.0.2</code></pre>
-<pre><code>## Loading required package: MASS</code></pre>
-<pre><code>## 
-## arm (Version 1.11-2, built: 2020-7-27)</code></pre>
-<pre><code>## Working directory is /Users/ktmccabe/Dropbox/GitHub2/mlebook</code></pre>
-<pre><code>## 
-## Attaching package: &#39;arm&#39;</code></pre>
-<pre><code>## The following object is masked _by_ &#39;.GlobalEnv&#39;:
-## 
-##     G</code></pre>
-<pre><code>## Registered S3 method overwritten by &#39;broom.mixed&#39;:
-##   method      from 
-##   tidy.gamlss broom</code></pre>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="random-effects.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotREsim</span>(<span class="fu">REsim</span>(fit.re), <span class="at">labs=</span><span class="cn">TRUE</span>)<span class="sc">+</span></span>
-<span id="cb97-2"><a href="random-effects.html#cb97-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-36-1.svg" width="1440" /></p>
+<div class="sourceCode" id="cb828"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb828-1"><a href="random-effects.html#cb828-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;merTools&quot;)</span></span>
+<span id="cb828-2"><a href="random-effects.html#cb828-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(merTools)</span>
+<span id="cb828-3"><a href="random-effects.html#cb828-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plotREsim</span>(<span class="fu">REsim</span>(fit.re), <span class="at">labs=</span><span class="cn">TRUE</span>)<span class="sc">+</span></span>
+<span id="cb828-4"><a href="random-effects.html#cb828-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-378-1.svg" width="1440" /></p>
 <p>The package also has a tool for plotting the coefficient results with confidence intervals constructed through simulation. If you had several variables, the plot would display all coefficients.</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="random-effects.html#cb98-1" aria-hidden="true" tabindex="-1"></a>feEx <span class="ot">&lt;-</span> <span class="fu">FEsim</span>(fit.re, <span class="dv">1000</span>)</span>
-<span id="cb98-2"><a href="random-effects.html#cb98-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(feEx)</span></code></pre></div>
-<pre><code>##               term        mean      median           sd
-## 1      (Intercept) 326.8122271 323.0156324 93.204929739
-## 2 positiveIncrease   0.5318148   0.5313334  0.007832926</code></pre>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="random-effects.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFEsim</span>(feEx) <span class="sc">+</span></span>
-<span id="cb100-2"><a href="random-effects.html#cb100-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
-<span id="cb100-3"><a href="random-effects.html#cb100-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Coefficient Plot&quot;</span>,</span>
-<span id="cb100-4"><a href="random-effects.html#cb100-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Median Effect Estimate&quot;</span>, </span>
-<span id="cb100-5"><a href="random-effects.html#cb100-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Hospitalizations&quot;</span>)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-37-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb829"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb829-1"><a href="random-effects.html#cb829-1" aria-hidden="true" tabindex="-1"></a>feEx <span class="ot">&lt;-</span> <span class="fu">FEsim</span>(fit.re, <span class="dv">1000</span>)</span>
+<span id="cb829-2"><a href="random-effects.html#cb829-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(feEx)</span></code></pre></div>
+<pre><code>              term        mean      median           sd
+1      (Intercept) 329.9960634 326.9098575 89.830835351
+2 positiveIncrease   0.5316118   0.5316907  0.007843397</code></pre>
+<div class="sourceCode" id="cb831"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb831-1"><a href="random-effects.html#cb831-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotFEsim</span>(feEx) <span class="sc">+</span></span>
+<span id="cb831-2"><a href="random-effects.html#cb831-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb831-3"><a href="random-effects.html#cb831-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Coefficient Plot&quot;</span>,</span>
+<span id="cb831-4"><a href="random-effects.html#cb831-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Median Effect Estimate&quot;</span>, </span>
+<span id="cb831-5"><a href="random-effects.html#cb831-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Hospitalizations&quot;</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-379-1.svg" width="672" /></p>
 <p>For more on this tool’s capabilities, particularly as it relates to generating predicted values, see <a href="https://cran.r-project.org/web/packages/merTools/vignettes/merToolsIntro.html">here</a>.</p>
 <p>Finally, let’s try another model using the <code>sleepstudy</code> data to show how the plots can also incorporate varying slopes.</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="random-effects.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
-<span id="cb101-2"><a href="random-effects.html#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;sleepstudy&quot;</span>)</span>
-<span id="cb101-3"><a href="random-effects.html#cb101-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Random intercepts for subject, varying slope for days</span></span>
-<span id="cb101-4"><a href="random-effects.html#cb101-4" aria-hidden="true" tabindex="-1"></a>fit.re4 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(Reaction <span class="sc">~</span> Days <span class="sc">+</span> (Days <span class="sc">|</span> Subject), <span class="at">data =</span> sleepstudy)</span></code></pre></div>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="random-effects.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(merTools)</span>
-<span id="cb102-2"><a href="random-effects.html#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotREsim</span>(<span class="fu">REsim</span>(fit.re4), <span class="at">labs=</span><span class="cn">TRUE</span>)<span class="sc">+</span></span>
-<span id="cb102-3"><a href="random-effects.html#cb102-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-39-1.svg" width="1440" /></p>
+<div class="sourceCode" id="cb832"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb832-1"><a href="random-effects.html#cb832-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb832-2"><a href="random-effects.html#cb832-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;sleepstudy&quot;</span>)</span>
+<span id="cb832-3"><a href="random-effects.html#cb832-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Random intercepts for subject, varying slope for days</span></span>
+<span id="cb832-4"><a href="random-effects.html#cb832-4" aria-hidden="true" tabindex="-1"></a>fit.re4 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(Reaction <span class="sc">~</span> Days <span class="sc">+</span> (Days <span class="sc">|</span> Subject), <span class="at">data =</span> sleepstudy)</span></code></pre></div>
+<div class="sourceCode" id="cb833"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb833-1"><a href="random-effects.html#cb833-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(merTools)</span>
+<span id="cb833-2"><a href="random-effects.html#cb833-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotREsim</span>(<span class="fu">REsim</span>(fit.re4), <span class="at">labs=</span><span class="cn">TRUE</span>)<span class="sc">+</span></span>
+<span id="cb833-3"><a href="random-effects.html#cb833-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-381-1.svg" width="1440" /></p>
 </div>
 <div id="generalized-lmer" class="section level3" number="12.5.8">
 <h3><span class="header-section-number">12.5.8</span> Generalized LMER</h3>
 <p>Generalized Linear Mixed Effects Regression: <code>glmer()</code> is to <code>lmer()</code> as <code>glm()</code> is to <code>lm()</code>. Example:</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="random-effects.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="do">## What if reaction time was dichotomous? </span></span>
-<span id="cb103-2"><a href="random-effects.html#cb103-2" aria-hidden="true" tabindex="-1"></a>sleepstudy<span class="sc">$</span>rdi <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(sleepstudy<span class="sc">$</span>Reaction <span class="sc">&gt;</span></span>
-<span id="cb103-3"><a href="random-effects.html#cb103-3" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">mean</span>(sleepstudy<span class="sc">$</span>Reaction), <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb103-4"><a href="random-effects.html#cb103-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb103-5"><a href="random-effects.html#cb103-5" aria-hidden="true" tabindex="-1"></a><span class="do">## GLMER with logit</span></span>
-<span id="cb103-6"><a href="random-effects.html#cb103-6" aria-hidden="true" tabindex="-1"></a>fit.glmer <span class="ot">&lt;-</span> <span class="fu">glmer</span>(rdi <span class="sc">~</span> Days <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> Subject), </span>
-<span id="cb103-7"><a href="random-effects.html#cb103-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> sleepstudy, </span>
-<span id="cb103-8"><a href="random-effects.html#cb103-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb834"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb834-1"><a href="random-effects.html#cb834-1" aria-hidden="true" tabindex="-1"></a><span class="do">## What if reaction time was dichotomous? </span></span>
+<span id="cb834-2"><a href="random-effects.html#cb834-2" aria-hidden="true" tabindex="-1"></a>sleepstudy<span class="sc">$</span>rdi <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(sleepstudy<span class="sc">$</span>Reaction <span class="sc">&gt;</span></span>
+<span id="cb834-3"><a href="random-effects.html#cb834-3" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">mean</span>(sleepstudy<span class="sc">$</span>Reaction), <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb834-4"><a href="random-effects.html#cb834-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb834-5"><a href="random-effects.html#cb834-5" aria-hidden="true" tabindex="-1"></a><span class="do">## GLMER with logit</span></span>
+<span id="cb834-6"><a href="random-effects.html#cb834-6" aria-hidden="true" tabindex="-1"></a>fit.glmer <span class="ot">&lt;-</span> <span class="fu">glmer</span>(rdi <span class="sc">~</span> Days <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> Subject), </span>
+<span id="cb834-7"><a href="random-effects.html#cb834-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> sleepstudy, </span>
+<span id="cb834-8"><a href="random-effects.html#cb834-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span></code></pre></div>
 <p>Generating predicted probabilities for each unit</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="random-effects.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Manual</span></span>
-<span id="cb104-2"><a href="random-effects.html#cb104-2" aria-hidden="true" tabindex="-1"></a>allsubjects <span class="ot">&lt;-</span> <span class="fu">unique</span>(sleepstudy<span class="sc">$</span>Subject)</span>
-<span id="cb104-3"><a href="random-effects.html#cb104-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(sleepstudy)){</span>
-<span id="cb104-4"><a href="random-effects.html#cb104-4" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">as.character</span>(sleepstudy<span class="sc">$</span>Subject[i])</span>
-<span id="cb104-5"><a href="random-effects.html#cb104-5" aria-hidden="true" tabindex="-1"></a>  sleepstudy<span class="sc">$</span>subjectRE[i] <span class="ot">&lt;-</span> <span class="fu">ranef</span>(fit.glmer)<span class="sc">$</span>Subject[n, <span class="dv">1</span>]</span>
-<span id="cb104-6"><a href="random-effects.html#cb104-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb104-7"><a href="random-effects.html#cb104-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb104-8"><a href="random-effects.html#cb104-8" aria-hidden="true" tabindex="-1"></a><span class="do">## XB like usual, but need to add random effects</span></span>
-<span id="cb104-9"><a href="random-effects.html#cb104-9" aria-hidden="true" tabindex="-1"></a>py <span class="ot">&lt;-</span>  <span class="fu">plogis</span>(<span class="fu">model.matrix</span>(fit.glmer)<span class="sc">%*%</span><span class="fu">fixef</span>(fit.glmer) <span class="sc">+</span> sleepstudy<span class="sc">$</span>subjectRE)</span>
-<span id="cb104-10"><a href="random-effects.html#cb104-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb104-11"><a href="random-effects.html#cb104-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Compare to Automatic</span></span>
-<span id="cb104-12"><a href="random-effects.html#cb104-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(py, <span class="fu">fitted</span>(fit.glmer), <span class="fu">predict</span>(fit.glmer, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>))[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span></code></pre></div>
-<pre><code>##        [,1]      [,2]      [,3]
-## 1 0.1047843 0.1047843 0.1047843
-## 2 0.1721090 0.1721090 0.1721090
-## 3 0.2696603 0.2696603 0.2696603
-## 4 0.3960526 0.3960526 0.3960526
-## 5 0.5380430 0.5380430 0.5380430</code></pre>
+<div class="sourceCode" id="cb835"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb835-1"><a href="random-effects.html#cb835-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Manual</span></span>
+<span id="cb835-2"><a href="random-effects.html#cb835-2" aria-hidden="true" tabindex="-1"></a>allsubjects <span class="ot">&lt;-</span> <span class="fu">unique</span>(sleepstudy<span class="sc">$</span>Subject)</span>
+<span id="cb835-3"><a href="random-effects.html#cb835-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(sleepstudy)){</span>
+<span id="cb835-4"><a href="random-effects.html#cb835-4" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">as.character</span>(sleepstudy<span class="sc">$</span>Subject[i])</span>
+<span id="cb835-5"><a href="random-effects.html#cb835-5" aria-hidden="true" tabindex="-1"></a>  sleepstudy<span class="sc">$</span>subjectRE[i] <span class="ot">&lt;-</span> <span class="fu">ranef</span>(fit.glmer)<span class="sc">$</span>Subject[n, <span class="dv">1</span>]</span>
+<span id="cb835-6"><a href="random-effects.html#cb835-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb835-7"><a href="random-effects.html#cb835-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb835-8"><a href="random-effects.html#cb835-8" aria-hidden="true" tabindex="-1"></a><span class="do">## XB like usual, but need to add random effects</span></span>
+<span id="cb835-9"><a href="random-effects.html#cb835-9" aria-hidden="true" tabindex="-1"></a>py <span class="ot">&lt;-</span>  <span class="fu">plogis</span>(<span class="fu">model.matrix</span>(fit.glmer)<span class="sc">%*%</span><span class="fu">fixef</span>(fit.glmer) <span class="sc">+</span> sleepstudy<span class="sc">$</span>subjectRE)</span>
+<span id="cb835-10"><a href="random-effects.html#cb835-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb835-11"><a href="random-effects.html#cb835-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Compare to Automatic</span></span>
+<span id="cb835-12"><a href="random-effects.html#cb835-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(py, <span class="fu">fitted</span>(fit.glmer), <span class="fu">predict</span>(fit.glmer, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>))[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span></code></pre></div>
+<pre><code>       [,1]      [,2]      [,3]
+1 0.1047843 0.1047843 0.1047843
+2 0.1721090 0.1721090 0.1721090
+3 0.2696603 0.2696603 0.2696603
+4 0.3960526 0.3960526 0.3960526
+5 0.5380430 0.5380430 0.5380430</code></pre>
 </div>
 </div>
             </section>

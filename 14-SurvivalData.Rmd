@@ -1,0 +1,70 @@
+```{r}
+knitr::knit_exit()
+```
+
+# Survival Data {#survival}
+
+This section will provide a brief introduction to survival data analysis, or similarly, "event history" or "duration" analysis.
+
+Here are some supplemental resources:
+
+  - Overviews with R code (less on the technical aspects)
+      + Focus on cox proportional hazards description [here](https://www.datacamp.com/community/tutorials/survival-analysis-R)
+      + Also includes [Weibull and exponential models](https://folk.ntnu.no/bo/TMA4275/Download/R.tutorialDiez.pdf)
+      + Several examples (not much explanation) [here](https://stats.idre.ucla.edu/other/examples/asa2/)
+  - Overview of the stats
+      + Freedman. (2008). ["Survival Analysis: A Primer" The American Statistician, Vol. 62, pp. 110–119.](https://www.stat.berkeley.edu/~census/survival.pdf)
+      + And Chapter excerpt from [Sage](https://www.sagepub.com/sites/default/files/upm-binaries/39847_9781848601017_Mills.pdf)
+  - Applications and discussions in political science
+      + [Alt and King.(1994).](https://gking.harvard.edu/files/abs/transfers-abs.shtml) (debate on government power transfers)
+      + Box-Steffensmeier, Janet M. and Bradford S. Jones. 1997. "Time is of the Essence: Event History Models in Political Science." American Journal of Political Science 45:972–988.
+      + Beck, Nathaniel, Jonathan Katz, and Richard Tucker. 1998.
+      "Taking Time Seriously: Time-Series-Cross-Section Analysis with a Binary Dependent Variable." American Journal of Political Science 42:1260-1288.
+      
+      
+## Survival Overview
+
+Survival data is also known as event history or duration data analysis. When we have this type of data, we are generally interested in these types of questions:
+
+  - How long does something last? 
+      + Examples: length of conflict, length of peace agreement, length of congressional career
+  - What is the expected time to an event?
+  - And how does this duration differ across subgroups?
+  - How do covariates influence this duration?
+
+
+### Survival and hazard functions
+  
+We might call something "survival" analysis in a context where we were interested in the time to death of someone who has just had a particular medical diagnosis. 
+
+We will have two primary components: the survival function $S(Y)$:
+
+Time to failure $Y_i$ as outcome: $Y_i \geq 0$ 
+
+  - $S(y) = Pr(Y_i > y) = 1 - Pr(Y_i \leq y)$ 
+      + where $Pr(Y_i \leq y)$ is the CDF
+  - PDF $f(y) = - \frac{d}{dy} S(y)$
+  - where this is monotonically decreasing
+
+And the hazard function $h(y)$: Given survival up until $y$, the instantaneous rate at which something fails.
+
+  - $h(y)=\frac{f(y)}{S(y)} =- \frac{d}{dy} \log S(y)$
+  - $f(y)=\frac{h(y)}{S(y)}$
+  - $S(y) = exp (-\int_0^y h(t)dt)$
+
+Note: hazard rate is not exactly a probability and is difficult to interpret, but higher hazard rates reflect greater likelihood of failure.
+
+### Censoring
+
+In survival data, right-censoring of the data is common
+
+  - E.g., An observation does not experience an event during the study period, but the study period ends.
+      + Example: How many years does it take to finish grad school? If we cut off our period of study right now, you might be a censored observation. You are going to finish grad school at some point, but we have not observed that during our observation period.
+      + Can address by assumption: Given covariates, hazard rates of those who are censored $C_i$ do not systematically differ from those who are not: $Y_i \indep C_i | X_i$. $Y_i$ independent of censoring status, conditional on covariates.
+      
+  
+
+  
+
+
+  
