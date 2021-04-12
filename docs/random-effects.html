@@ -438,6 +438,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="13.3" data-path="constructing-your-own-weights.html"><a href="constructing-your-own-weights.html"><i class="fa fa-check"></i><b>13.3</b> Constructing your own weights</a></li>
 </ul></li>
+<li class="chapter" data-level="14" data-path="survival.html"><a href="survival.html"><i class="fa fa-check"></i><b>14</b> Survival Data</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="survival-overview.html"><a href="survival-overview.html"><i class="fa fa-check"></i><b>14.1</b> Survival Overview</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="survival-overview.html"><a href="survival-overview.html#survival-and-hazard-functions"><i class="fa fa-check"></i><b>14.1.1</b> Survival and hazard functions</a></li>
+<li class="chapter" data-level="14.1.2" data-path="survival-overview.html"><a href="survival-overview.html#censoring"><i class="fa fa-check"></i><b>14.1.2</b> Censoring</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="kaplan-meier-survival-function.html"><a href="kaplan-meier-survival-function.html"><i class="fa fa-check"></i><b>14.2</b> Kaplan-Meier Survival Function</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="kaplan-meier-survival-function.html"><a href="kaplan-meier-survival-function.html#kaplan-meier-in-r"><i class="fa fa-check"></i><b>14.2.1</b> Kaplan-Meier in R</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="modeling-approaches.html"><a href="modeling-approaches.html"><i class="fa fa-check"></i><b>14.3</b> Modeling Approaches</a>
+<ul>
+<li class="chapter" data-level="14.3.1" data-path="modeling-approaches.html"><a href="modeling-approaches.html#survival-models-in-r"><i class="fa fa-check"></i><b>14.3.1</b> Survival Models in R</a></li>
+<li class="chapter" data-level="14.3.2" data-path="modeling-approaches.html"><a href="modeling-approaches.html#weibull-model"><i class="fa fa-check"></i><b>14.3.2</b> Weibull Model</a></li>
+<li class="chapter" data-level="14.3.3" data-path="modeling-approaches.html"><a href="modeling-approaches.html#cox-proportional-hazards-model"><i class="fa fa-check"></i><b>14.3.3</b> Cox proportional Hazards Model</a></li>
+</ul></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -509,7 +527,7 @@ Y_{ij} &amp;=  \alpha_{j[i]} + \beta x_{ij} + \epsilon_{ij}
 <div id="random-effects-implementation-in-r" class="section level3" number="12.5.2">
 <h3><span class="header-section-number">12.5.2</span> Random Effects Implementation in R</h3>
 <p>If comparing with fixed effects, can use<code>plm</code>.</p>
-<div class="sourceCode" id="cb782"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb782-1"><a href="random-effects.html#cb782-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Within model with firm random effects</span></span>
+<div class="sourceCode" id="cb782"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb782-1"><a href="random-effects.html#cb782-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Firm random effects</span></span>
 <span id="cb782-2"><a href="random-effects.html#cb782-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;Grunfeld&quot;</span>)</span>
 <span id="cb782-3"><a href="random-effects.html#cb782-3" aria-hidden="true" tabindex="-1"></a>fit.re <span class="ot">&lt;-</span> <span class="fu">plm</span>(inv<span class="sc">~</span>value<span class="sc">+</span>capital, </span>
 <span id="cb782-4"><a href="random-effects.html#cb782-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> Grunfeld, </span>
@@ -523,7 +541,7 @@ Y_{ij} &amp;=  \alpha_{j[i]} + \beta x_{ij} + \epsilon_{ij}
 <div class="sourceCode" id="cb784"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb784-1"><a href="random-effects.html#cb784-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Compares beta hats for FE and RE and covariance</span></span>
 <span id="cb784-2"><a href="random-effects.html#cb784-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Under null hypothesis of no correlation estimates should be similar</span></span>
 <span id="cb784-3"><a href="random-effects.html#cb784-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Under null, RE preferred due to efficiency gains</span></span>
-<span id="cb784-4"><a href="random-effects.html#cb784-4" aria-hidden="true" tabindex="-1"></a>fit.within <span class="ot">&lt;-</span> <span class="fu">plm</span>(inv<span class="sc">~</span>capital, </span>
+<span id="cb784-4"><a href="random-effects.html#cb784-4" aria-hidden="true" tabindex="-1"></a>fit.within <span class="ot">&lt;-</span> <span class="fu">plm</span>(inv<span class="sc">~</span>capital<span class="sc">+</span>value, </span>
 <span id="cb784-5"><a href="random-effects.html#cb784-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data =</span> Grunfeld, </span>
 <span id="cb784-6"><a href="random-effects.html#cb784-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">model =</span> <span class="st">&quot;within&quot;</span>, </span>
 <span id="cb784-7"><a href="random-effects.html#cb784-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">index =</span> <span class="fu">c</span>(<span class="st">&quot;firm&quot;</span>, <span class="st">&quot;year&quot;</span>))</span>
@@ -531,10 +549,10 @@ Y_{ij} &amp;=  \alpha_{j[i]} + \beta x_{ij} + \epsilon_{ij}
 <pre><code>
 	Hausman Test
 
-data:  inv ~ capital
-chisq = 49.081, df = 1, p-value = 2.456e-12
+data:  inv ~ capital + value
+chisq = 2.3304, df = 2, p-value = 0.3119
 alternative hypothesis: one model is inconsistent</code></pre>
-<p>With a small p-value, we reject the null, suggesting fixed effects is preferred for this model. Note: while the test provides one way to adjudicate between fixed and random effects, it cannot tell you if the model you have specified is “correct.”</p>
+<p>With a small p-value, we reject the null, suggesting fixed effects is preferred for this model. With a large p-value, we fail to reject the null, suggesting random effects is preferred. Note: while the test provides one way to adjudicate between fixed and random effects, it cannot tell you if the model you have specified is “correct.”</p>
 </div>
 <div id="using-lme4-for-random-effects" class="section level3" number="12.5.3">
 <h3><span class="header-section-number">12.5.3</span> Using lme4 for random effects</h3>
@@ -758,9 +776,10 @@ Some predictor variables are on very different scales: consider rescaling</code>
 <p>Let’s fit a random effects model with random intercepts for states.</p>
 <div class="sourceCode" id="cb822"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb822-1"><a href="random-effects.html#cb822-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Random Effects</span></span>
 <span id="cb822-2"><a href="random-effects.html#cb822-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
-<span id="cb822-3"><a href="random-effects.html#cb822-3" aria-hidden="true" tabindex="-1"></a>fit.re <span class="ot">&lt;-</span> <span class="fu">lmer</span>(hospitalizedCurrently <span class="sc">~</span> positiveIncrease </span>
-<span id="cb822-4"><a href="random-effects.html#cb822-4" aria-hidden="true" tabindex="-1"></a>               <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> state), <span class="at">data=</span>states)</span>
-<span id="cb822-5"><a href="random-effects.html#cb822-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.re)</span></code></pre></div>
+<span id="cb822-3"><a href="random-effects.html#cb822-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmerTest)</span>
+<span id="cb822-4"><a href="random-effects.html#cb822-4" aria-hidden="true" tabindex="-1"></a>fit.re <span class="ot">&lt;-</span> <span class="fu">lmer</span>(hospitalizedCurrently <span class="sc">~</span> positiveIncrease </span>
+<span id="cb822-5"><a href="random-effects.html#cb822-5" aria-hidden="true" tabindex="-1"></a>               <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> state), <span class="at">data=</span>states)</span>
+<span id="cb822-6"><a href="random-effects.html#cb822-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.re)</span></code></pre></div>
 <pre><code>Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
 lmerModLmerTest]
 Formula: hospitalizedCurrently ~ positiveIncrease + (1 | state)

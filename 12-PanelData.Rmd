@@ -485,7 +485,7 @@ Scholars can have strong feelings about these choices, which often vary by subfi
 
 If comparing with fixed effects, can use`plm`.
 ```{r}
-## Within model with firm random effects
+## Firm random effects
 data("Grunfeld")
 fit.re <- plm(inv~value+capital, 
               data = Grunfeld, 
@@ -501,13 +501,13 @@ One approach to deciding whether to use fixed vs. random effects is the Hausman 
 ## Compares beta hats for FE and RE and covariance
 ## Under null hypothesis of no correlation estimates should be similar
 ## Under null, RE preferred due to efficiency gains
-fit.within <- plm(inv~capital, 
+fit.within <- plm(inv~capital+value, 
                   data = Grunfeld, 
                   model = "within", 
                   index = c("firm", "year"))
 phtest(fit.within, fit.re) 
 ```
-With a small p-value, we reject the null, suggesting fixed effects is preferred for this model. Note: while the test provides one way to adjudicate between fixed and random effects, it cannot tell you if the model you have specified is "correct."
+With a small p-value, we reject the null, suggesting fixed effects is preferred for this model. With a large p-value, we fail to reject the null, suggesting random effects is preferred. Note: while the test provides one way to adjudicate between fixed and random effects, it cannot tell you if the model you have specified is "correct."
 
 ### Using lme4 for random effects
 
@@ -689,6 +689,7 @@ Let's fit a random effects model with random intercepts for states.
 
 ## Random Effects
 library(lme4)
+library(lmerTest)
 fit.re <- lmer(hospitalizedCurrently ~ positiveIncrease 
                + (1 | state), data=states)
 summary(fit.re)
