@@ -511,6 +511,889 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Conduct and present an analysis that can help answer the question.</li>
 </ul>
+<details>
+<summary>
+Try on your own, then expand to see the authors’ approach.
+</summary>
+<p>This dataset comes from <a href="https://onlinelibrary.wiley.com/doi/epdf/10.1111/ajps.12275">“Ideologically Sophisticated Donors: WhichCandidates Do Individual Contributors Finance?”</a> by Michael J. Barber, Brandice Canes-Wrone, and Sharece Thrower. It was published in the <em>American Journal of Political Science</em> in 2017.</p>
+<p>The authors use a “rare events logit” with clustered standard errors by donor “in order to account for the fact that the decision to give to a candidate may be correlated with decisions regarding other campaigns.” They also use a standard logistic regression as a robustness check in the appendix. They conduct an analysis among the full data, as well as theoretically interesting senator-respondent combinations.</p>
+<p><img src="images/barber1.png" style="width:80.0%" /></p>
+<p>For information on rare events logits, as a special form of the logit model, see <a href="https://gking.harvard.edu/files/0s.pdf">here</a>, a response <a href="https://statisticalhorizons.com/logistic-regression-for-rare-events">here</a>, and R code <a href="http://docs.zeligproject.org/articles/zelig_relogit.html">here</a>.</p>
+<p>They also analyze the amount given by transforming the variable into an incremental count outcome. “Because donations tend to be given in $50 increments, we use a rank-ordered variable that equals 0 for $0, 1 for $1–$49, 2 for $50–$99, and so on. Supplemental Table A9 shows that the results are robust to using the exact dollar amount, a rank based on $100 increments, and one based on $500 increments. Because donations are capped at $5,000, all of these dependent variables reflect this maximum. Moreover, as with the probability of donating, there is an overdispersion of zeros representing cases where a donor did not give to a senator. We accordingly use a zero-inflated negative binomial regression model for analyses of the amount donated. Additionally, for purposes of comparison, we show results for Tobit specifications.”</p>
+<ul>
+<li>We discussed zero-inflated models in section <a href="https://ktmccabe.github.io/mlebook/how-to-think-about-zero-counts.html">10.9.2</a></li>
+<li>We discussed Tobit models in <a href="https://ktmccabe.github.io/mlebook/truncated-models.html">11.4</a></li>
+</ul>
+<p>In our live discussion, we came up with several different possibles approaches, frequently using binary logistic regression with <code>donation</code> as the outcome or a linear model with <code>total_donation</code> as the outcome. Some suggested specifications also included fixed effects for the donors using the <code>plm</code> package and fitting a <code>within</code> model. Finally, we explored using random effects in <code>plm</code> or <code>lme4</code>, though the <code>lme4</code> approach appeared very stressful for our computers!</p>
+<p>Overall, we came up with consistent support for the positive relationship between policy agreement and giving to campaigns. Here are a few approaches developed:</p>
+<div class="sourceCode" id="cb838"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb838-1"><a href="week-12-exercise.html#cb838-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(donation <span class="sc">~</span> peragsen <span class="sc">+</span> </span>
+<span id="cb838-2"><a href="week-12-exercise.html#cb838-2" aria-hidden="true" tabindex="-1"></a>             terms <span class="sc">+</span> same_state <span class="sc">+</span> </span>
+<span id="cb838-3"><a href="week-12-exercise.html#cb838-3" aria-hidden="true" tabindex="-1"></a>             idfold2, <span class="at">data=</span>don, </span>
+<span id="cb838-4"><a href="week-12-exercise.html#cb838-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb838-5"><a href="week-12-exercise.html#cb838-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb838-6"><a href="week-12-exercise.html#cb838-6" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(donation <span class="sc">~</span> peragsen <span class="sc">+</span> cook <span class="sc">+</span></span>
+<span id="cb838-7"><a href="week-12-exercise.html#cb838-7" aria-hidden="true" tabindex="-1"></a>              NetWorth <span class="sc">+</span> idfold2 <span class="sc">+</span> notwhite <span class="sc">+</span> malerespondent <span class="sc">+</span> terms,</span>
+<span id="cb838-8"><a href="week-12-exercise.html#cb838-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">data=</span>don, </span>
+<span id="cb838-9"><a href="week-12-exercise.html#cb838-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb838-10"><a href="week-12-exercise.html#cb838-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb838-11"><a href="week-12-exercise.html#cb838-11" aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(donation <span class="sc">~</span> peragsen <span class="sc">+</span> cook <span class="sc">+</span></span>
+<span id="cb838-12"><a href="week-12-exercise.html#cb838-12" aria-hidden="true" tabindex="-1"></a>              NetWorth <span class="sc">+</span> idfold2 <span class="sc">+</span> notwhite <span class="sc">+</span> malerespondent <span class="sc">+</span> terms <span class="sc">+</span> sameparty,</span>
+<span id="cb838-13"><a href="week-12-exercise.html#cb838-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">data=</span>don, </span>
+<span id="cb838-14"><a href="week-12-exercise.html#cb838-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb838-15"><a href="week-12-exercise.html#cb838-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb838-16"><a href="week-12-exercise.html#cb838-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plm)</span>
+<span id="cb838-17"><a href="week-12-exercise.html#cb838-17" aria-hidden="true" tabindex="-1"></a><span class="do">## remove missing data from the fixed effect to get plm to work</span></span>
+<span id="cb838-18"><a href="week-12-exercise.html#cb838-18" aria-hidden="true" tabindex="-1"></a>don2 <span class="ot">&lt;-</span> <span class="fu">subset</span>(don, <span class="fu">is.na</span>(donor_id) <span class="sc">==</span>F)</span>
+<span id="cb838-19"><a href="week-12-exercise.html#cb838-19" aria-hidden="true" tabindex="-1"></a>fit5 <span class="ot">&lt;-</span> <span class="fu">plm</span>(total_donation <span class="sc">~</span> peragsen, <span class="at">data =</span> don2,</span>
+<span id="cb838-20"><a href="week-12-exercise.html#cb838-20" aria-hidden="true" tabindex="-1"></a>            <span class="at">model =</span> <span class="st">&quot;within&quot;</span>,</span>
+<span id="cb838-21"><a href="week-12-exercise.html#cb838-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">index =</span> <span class="fu">c</span>(<span class="st">&quot;donor_id&quot;</span>))</span>
+<span id="cb838-22"><a href="week-12-exercise.html#cb838-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb838-23"><a href="week-12-exercise.html#cb838-23" aria-hidden="true" tabindex="-1"></a><span class="do">## random effects</span></span>
+<span id="cb838-24"><a href="week-12-exercise.html#cb838-24" aria-hidden="true" tabindex="-1"></a>fit6 <span class="ot">&lt;-</span> <span class="fu">plm</span>(total_donation <span class="sc">~</span> peragsen, <span class="at">data =</span> don2,</span>
+<span id="cb838-25"><a href="week-12-exercise.html#cb838-25" aria-hidden="true" tabindex="-1"></a>            <span class="at">model =</span> <span class="st">&quot;random&quot;</span>,</span>
+<span id="cb838-26"><a href="week-12-exercise.html#cb838-26" aria-hidden="true" tabindex="-1"></a>            <span class="at">index =</span> <span class="fu">c</span>(<span class="st">&quot;donor_id&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb839"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb839-1"><a href="week-12-exercise.html#cb839-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreg)</span>
+<span id="cb839-2"><a href="week-12-exercise.html#cb839-2" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(<span class="fu">list</span>(fit, fit2, fit3, fit5, fit6),</span>
+<span id="cb839-3"><a href="week-12-exercise.html#cb839-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">&quot;Logit&quot;</span>, <span class="st">&quot;logit&quot;</span>, <span class="st">&quot;logit&quot;</span>, <span class="st">&quot;Lin. FE&quot;</span>, <span class="st">&quot;Lin. RE&quot;</span>))</span></code></pre></div>
+<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
+<caption>
+Statistical models
+</caption>
+<thead>
+<tr>
+<th style="padding-left: 5px;padding-right: 5px;">
+ 
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Logit
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+logit
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+logit
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Lin. FE
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Lin. RE
+</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+(Intercept)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-4.38<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-6.38<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-6.20<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-4.40
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.08)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.14)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.14)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(3.39)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+peragsen
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+2.02<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+2.64<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1.62<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+97.09<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+90.87<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.11)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.11)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.14)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(5.19)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(4.99)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+terms
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.13<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.07<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.05
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.03)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.03)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.03)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+same_state
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+2.65<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+idfold2
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.19<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.17<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.23<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.02)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.02)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.02)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+cook
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.28<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.29<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.02)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.02)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+NetWorth
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.22<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.21<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.01)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.01)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+notwhite
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.37<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.38<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.11)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.11)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+malerespondent
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.30<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.32<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+sameparty
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.85<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+</tr>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+AIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+16167.66
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+15151.83
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+14935.63
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+BIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+16212.69
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+15222.81
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+15015.45
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Log Likelihood
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-8078.83
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-7567.92
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-7458.81
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Deviance
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+16157.66
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+15135.83
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+14917.63
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. obs.
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60280
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+52734
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+52536
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+62544
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+62544
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+R<sup>2</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.01
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Adj. R<sup>2</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.04
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+s_idios
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+316.11
+</td>
+</tr>
+<tr style="border-bottom: 2px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+s_id
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+83.38
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="font-size: 0.8em;" colspan="6">
+<sup><em><strong></sup>p &lt; 0.001; <sup></strong></sup>p &lt; 0.01; <sup></em></sup>p &lt; 0.05
+</td>
+</tr>
+</tfoot>
+</table>
+<p>We also discussed that one could use clustered standard errors like the authors after fitting a logistic regression model. Here is an example using <code>fit3</code>.</p>
+<div class="sourceCode" id="cb840"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb840-1"><a href="week-12-exercise.html#cb840-1" aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(donation <span class="sc">~</span> peragsen <span class="sc">+</span> cook <span class="sc">+</span></span>
+<span id="cb840-2"><a href="week-12-exercise.html#cb840-2" aria-hidden="true" tabindex="-1"></a>              NetWorth <span class="sc">+</span> idfold2 <span class="sc">+</span> notwhite <span class="sc">+</span> malerespondent <span class="sc">+</span> terms <span class="sc">+</span> sameparty,</span>
+<span id="cb840-3"><a href="week-12-exercise.html#cb840-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data=</span>don, </span>
+<span id="cb840-4"><a href="week-12-exercise.html#cb840-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb840-5"><a href="week-12-exercise.html#cb840-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb840-6"><a href="week-12-exercise.html#cb840-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
+<span id="cb840-7"><a href="week-12-exercise.html#cb840-7" aria-hidden="true" tabindex="-1"></a>clval <span class="ot">&lt;-</span> <span class="fu">vcovCL</span>(fit3, <span class="at">type=</span><span class="st">&quot;HC0&quot;</span>, <span class="at">cluster =</span> don<span class="sc">$</span>donor_id)</span>
+<span id="cb840-8"><a href="week-12-exercise.html#cb840-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb840-9"><a href="week-12-exercise.html#cb840-9" aria-hidden="true" tabindex="-1"></a>newfit3sum <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(fit3, <span class="at">vcov=</span>clval)</span></code></pre></div>
+<p>You can override the inputs in the <code>texreg</code> functions to incorporate these adjustments. For example:</p>
+<div class="sourceCode" id="cb841"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb841-1"><a href="week-12-exercise.html#cb841-1" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(<span class="fu">list</span>(fit3),</span>
+<span id="cb841-2"><a href="week-12-exercise.html#cb841-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">override.se =</span> newfit3sum[, <span class="dv">2</span>],</span>
+<span id="cb841-3"><a href="week-12-exercise.html#cb841-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">override.pvalues =</span> newfit3sum[, <span class="dv">4</span>])</span></code></pre></div>
+<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
+<caption>
+Statistical models
+</caption>
+<thead>
+<tr>
+<th style="padding-left: 5px;padding-right: 5px;">
+ 
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Model 1
+</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+(Intercept)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-6.20<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.17)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+peragsen
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1.62<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.16)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+cook
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.29<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.02)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+NetWorth
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.21<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.02)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+idfold2
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.23<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+notwhite
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.38<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.15)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+malerespondent
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.32<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.08)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+terms
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.05
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+sameparty
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.85<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.10)
+</td>
+</tr>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+AIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+14935.63
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+BIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+15015.45
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Log Likelihood
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-7458.81
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Deviance
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+14917.63
+</td>
+</tr>
+<tr style="border-bottom: 2px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. obs.
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+52536
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="font-size: 0.8em;" colspan="2">
+<sup><em><strong></sup>p &lt; 0.001; <sup></strong></sup>p &lt; 0.01; <sup></em></sup>p &lt; 0.05
+</td>
+</tr>
+</tfoot>
+</table>
+</details>
 
 </div>
 <!-- </div> -->

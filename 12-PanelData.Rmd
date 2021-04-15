@@ -866,4 +866,82 @@ Key Variables include:
 
 
 
+<details> <summary>Try on your own, then expand to see the authors' approach.</summary>
+
+This dataset comes from ["Ideologically Sophisticated Donors: WhichCandidates Do Individual Contributors Finance?"](https://onlinelibrary.wiley.com/doi/epdf/10.1111/ajps.12275) by Michael J. Barber, Brandice Canes-Wrone, and Sharece Thrower. It was published in the *American Journal of Political Science* in 2017. 
+
+The authors use a "rare events logit" with clustered standard errors by donor "in order to account for the fact that the decision to give to a candidate may be correlated with decisions regarding other campaigns." They also use a standard logistic regression as a robustness check in the appendix. They conduct an analysis among the full data, as well as theoretically interesting senator-respondent combinations.
+
+![](images/barber1.png){width=80%}
+
+For information on rare events logits, as a special form of the logit model, see [here](https://gking.harvard.edu/files/0s.pdf), a response [here](https://statisticalhorizons.com/logistic-regression-for-rare-events), and R code [here](http://docs.zeligproject.org/articles/zelig_relogit.html).
+
+
+They also analyze the amount given by transforming the variable into an incremental count outcome. "Because donations tend to be given in \$50 increments, we use a rank-ordered variable that equals 0 for \$0, 1 for \$1–\$49, 2 for \$50–\$99, and so on. Supplemental Table A9 shows that the results are robust to using the exact dollar amount, a rank based on \$100 increments, and one based on \$500 increments. Because donations are capped at \$5,000, all of these dependent variables reflect this maximum. Moreover, as with the probability of donating, there is an overdispersion of zeros representing cases where a donor did not give to a senator. We accordingly use a zero-inflated negative binomial regression model for analyses of the amount donated. Additionally, for purposes of comparison, we show results for Tobit specifications."
+
+  - We discussed zero-inflated models in section [10.9.2](https://ktmccabe.github.io/mlebook/how-to-think-about-zero-counts.html)
+  - We discussed Tobit models in [11.4](https://ktmccabe.github.io/mlebook/truncated-models.html)
+
+In our live discussion, we came up with several different possibles approaches, frequently using binary logistic regression with `donation` as the outcome or a linear model with `total_donation` as the outcome. Some suggested specifications also included fixed effects for the donors using the `plm` package and fitting a `within` model. Finally, we explored using random effects in `plm` or `lme4`, though the `lme4` approach appeared very stressful for our computers! 
+
+Overall, we came up with consistent support for the positive relationship between policy agreement and giving to campaigns. Here are a few approaches developed:
+
+```{r, warning=F, message=F}
+fit <- glm(donation ~ peragsen + 
+             terms + same_state + 
+             idfold2, data=don, 
+           family=binomial(link = "logit"))
+
+fit2 <- glm(donation ~ peragsen + cook +
+              NetWorth + idfold2 + notwhite + malerespondent + terms,
+            data=don, 
+            family=binomial(link = "logit"))
+
+fit3 <- glm(donation ~ peragsen + cook +
+              NetWorth + idfold2 + notwhite + malerespondent + terms + sameparty,
+            data=don, 
+            family=binomial(link = "logit"))
+
+library(plm)
+## remove missing data from the fixed effect to get plm to work
+don2 <- subset(don, is.na(donor_id) ==F)
+fit5 <- plm(total_donation ~ peragsen, data = don2,
+            model = "within",
+            index = c("donor_id"))
+
+## random effects
+fit6 <- plm(total_donation ~ peragsen, data = don2,
+            model = "random",
+            index = c("donor_id"))
+```
+
+```{r, warning=F, message=F, results="asis"}
+library(texreg)
+htmlreg(list(fit, fit2, fit3, fit5, fit6),
+        custom.model.names = c("Logit", "logit", "logit", "Lin. FE", "Lin. RE"))
+```
+
+We also discussed that one could use clustered standard errors like the authors after fitting a logistic regression model. Here is an example using `fit3`.
+
+```{r, warning=F, message=F}
+fit3 <- glm(donation ~ peragsen + cook +
+              NetWorth + idfold2 + notwhite + malerespondent + terms + sameparty,
+            data=don, 
+            family=binomial(link = "logit"))
+
+library(sandwich)
+clval <- vcovCL(fit3, type="HC0", cluster = don$donor_id)
+library(lmtest)
+newfit3sum <- coeftest(fit3, vcov=clval)
+```
+
+You can override the inputs in the `texreg` functions to incorporate these adjustments. For example:
+
+```{r, warning=F, message=F, results="asis"}
+htmlreg(list(fit3),
+        override.se = newfit3sum[, 2],
+        override.pvalues = newfit3sum[, 4])
+```
+
+</details>
 

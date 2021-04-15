@@ -502,10 +502,10 @@ covariates <span class="math inline">\(r(x) = \mu_i\)</span> in this case. Non-m
 </div>
 <div id="weibull-model" class="section level3" number="14.3.2">
 <h3><span class="header-section-number">14.3.2</span> Weibull Model</h3>
-<div class="sourceCode" id="cb866"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb866-1"><a href="modeling-approaches.html#cb866-1" aria-hidden="true" tabindex="-1"></a>wfit <span class="ot">&lt;-</span> <span class="fu">survreg</span>(<span class="fu">Surv</span>(<span class="at">time=</span>time, <span class="at">event=</span>status)<span class="sc">~</span> age <span class="sc">+</span> sex, </span>
-<span id="cb866-2"><a href="modeling-approaches.html#cb866-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>lung,</span>
-<span id="cb866-3"><a href="modeling-approaches.html#cb866-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">dist =</span> <span class="st">&quot;weibull&quot;</span>)</span>
-<span id="cb866-4"><a href="modeling-approaches.html#cb866-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(wfit)</span></code></pre></div>
+<div class="sourceCode" id="cb870"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb870-1"><a href="modeling-approaches.html#cb870-1" aria-hidden="true" tabindex="-1"></a>wfit <span class="ot">&lt;-</span> <span class="fu">survreg</span>(<span class="fu">Surv</span>(<span class="at">time=</span>time, <span class="at">event=</span>status)<span class="sc">~</span> age <span class="sc">+</span> sex, </span>
+<span id="cb870-2"><a href="modeling-approaches.html#cb870-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>lung,</span>
+<span id="cb870-3"><a href="modeling-approaches.html#cb870-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">dist =</span> <span class="st">&quot;weibull&quot;</span>)</span>
+<span id="cb870-4"><a href="modeling-approaches.html#cb870-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(wfit)</span></code></pre></div>
 <pre><code>
 Call:
 survreg(formula = Surv(time = time, event = status) ~ age + sex, 
@@ -525,27 +525,27 @@ Number of Newton-Raphson Iterations: 5
 n= 228 </code></pre>
 <p>We can interpret this as women having a higher survival duration than men. Positive coefficients for this model are associated with longer duration times. The hazard decreases and average survival time increases as the <span class="math inline">\(x\)</span> covariate increases.</p>
 <p>We can get different quantities of interest, such as a point at which 90% of patients survive.</p>
-<div class="sourceCode" id="cb868"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb868-1"><a href="modeling-approaches.html#cb868-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 90% of patients of these types survive past time point above</span></span>
-<span id="cb868-2"><a href="modeling-approaches.html#cb868-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(wfit, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">p =</span><span class="dv">1</span><span class="fl">-0.9</span>,<span class="at">newdata =</span></span>
-<span id="cb868-3"><a href="modeling-approaches.html#cb868-3" aria-hidden="true" tabindex="-1"></a>          <span class="fu">data.frame</span>(<span class="at">age=</span><span class="dv">65</span>, <span class="at">sex=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb872"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb872-1"><a href="modeling-approaches.html#cb872-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 90% of patients of these types survive past time point above</span></span>
+<span id="cb872-2"><a href="modeling-approaches.html#cb872-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(wfit, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">p =</span><span class="dv">1</span><span class="fl">-0.9</span>,<span class="at">newdata =</span></span>
+<span id="cb872-3"><a href="modeling-approaches.html#cb872-3" aria-hidden="true" tabindex="-1"></a>          <span class="fu">data.frame</span>(<span class="at">age=</span><span class="dv">65</span>, <span class="at">sex=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)))</span></code></pre></div>
 <pre><code>       1        2 
 64.28587 94.20046 </code></pre>
 <p>A survival curve can then be visualized as follows:</p>
-<div class="sourceCode" id="cb870"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb870-1"><a href="modeling-approaches.html#cb870-1" aria-hidden="true" tabindex="-1"></a>pct <span class="ot">&lt;-</span> <span class="fu">seq</span>(.<span class="dv">99</span>, .<span class="dv">01</span>, <span class="at">by =</span> <span class="sc">-</span>.<span class="dv">01</span>)</span>
-<span id="cb870-2"><a href="modeling-approaches.html#cb870-2" aria-hidden="true" tabindex="-1"></a>wb <span class="ot">&lt;-</span> <span class="fu">predict</span>(wfit, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">p =</span><span class="dv">1</span><span class="sc">-</span>pct,<span class="at">newdata =</span></span>
-<span id="cb870-3"><a href="modeling-approaches.html#cb870-3" aria-hidden="true" tabindex="-1"></a>          <span class="fu">data.frame</span>(<span class="at">age=</span><span class="dv">65</span>, <span class="at">sex=</span><span class="dv">1</span>))</span>
-<span id="cb870-4"><a href="modeling-approaches.html#cb870-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb870-5"><a href="modeling-approaches.html#cb870-5" aria-hidden="true" tabindex="-1"></a>survwb <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">time =</span> wb, <span class="at">surv =</span> pct, </span>
-<span id="cb870-6"><a href="modeling-approaches.html#cb870-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">upper =</span> <span class="cn">NA</span>, <span class="at">lower =</span> <span class="cn">NA</span>, <span class="at">std.err =</span> <span class="cn">NA</span>)</span>
-<span id="cb870-7"><a href="modeling-approaches.html#cb870-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsurvplot</span>(<span class="at">fit =</span> survwb, <span class="at">surv.geom =</span> geom_line, </span>
-<span id="cb870-8"><a href="modeling-approaches.html#cb870-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">legend.labs=</span><span class="st">&quot;Male, 65&quot;</span>)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-402-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb874"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb874-1"><a href="modeling-approaches.html#cb874-1" aria-hidden="true" tabindex="-1"></a>pct <span class="ot">&lt;-</span> <span class="fu">seq</span>(.<span class="dv">99</span>, .<span class="dv">01</span>, <span class="at">by =</span> <span class="sc">-</span>.<span class="dv">01</span>)</span>
+<span id="cb874-2"><a href="modeling-approaches.html#cb874-2" aria-hidden="true" tabindex="-1"></a>wb <span class="ot">&lt;-</span> <span class="fu">predict</span>(wfit, <span class="at">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="at">p =</span><span class="dv">1</span><span class="sc">-</span>pct,<span class="at">newdata =</span></span>
+<span id="cb874-3"><a href="modeling-approaches.html#cb874-3" aria-hidden="true" tabindex="-1"></a>          <span class="fu">data.frame</span>(<span class="at">age=</span><span class="dv">65</span>, <span class="at">sex=</span><span class="dv">1</span>))</span>
+<span id="cb874-4"><a href="modeling-approaches.html#cb874-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb874-5"><a href="modeling-approaches.html#cb874-5" aria-hidden="true" tabindex="-1"></a>survwb <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">time =</span> wb, <span class="at">surv =</span> pct, </span>
+<span id="cb874-6"><a href="modeling-approaches.html#cb874-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">upper =</span> <span class="cn">NA</span>, <span class="at">lower =</span> <span class="cn">NA</span>, <span class="at">std.err =</span> <span class="cn">NA</span>)</span>
+<span id="cb874-7"><a href="modeling-approaches.html#cb874-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsurvplot</span>(<span class="at">fit =</span> survwb, <span class="at">surv.geom =</span> geom_line, </span>
+<span id="cb874-8"><a href="modeling-approaches.html#cb874-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">legend.labs=</span><span class="st">&quot;Male, 65&quot;</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-406-1.svg" width="672" /></p>
 </div>
 <div id="cox-proportional-hazards-model" class="section level3" number="14.3.3">
 <h3><span class="header-section-number">14.3.3</span> Cox proportional Hazards Model</h3>
-<div class="sourceCode" id="cb871"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb871-1"><a href="modeling-approaches.html#cb871-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(time, status) <span class="sc">~</span> age  <span class="sc">+</span> sex, </span>
-<span id="cb871-2"><a href="modeling-approaches.html#cb871-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> lung) </span>
-<span id="cb871-3"><a href="modeling-approaches.html#cb871-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code></pre></div>
+<div class="sourceCode" id="cb875"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb875-1"><a href="modeling-approaches.html#cb875-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(time, status) <span class="sc">~</span> age  <span class="sc">+</span> sex, </span>
+<span id="cb875-2"><a href="modeling-approaches.html#cb875-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> lung) </span>
+<span id="cb875-3"><a href="modeling-approaches.html#cb875-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code></pre></div>
 <pre><code>Call:
 coxph(formula = Surv(time, status) ~ age + sex, data = lung)
 
@@ -575,16 +575,16 @@ Score (logrank) test = 13.72  on 2 df,   p=0.001</code></pre>
 <li>The <code>survminer</code> package has some shortcuts for this type of model.</li>
 <li>A simple plot would be the overall survival probabilities from the model</li>
 </ul>
-<div class="sourceCode" id="cb873"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb873-1"><a href="modeling-approaches.html#cb873-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb873-2"><a href="modeling-approaches.html#cb873-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survminer)</span>
-<span id="cb873-3"><a href="modeling-approaches.html#cb873-3" aria-hidden="true" tabindex="-1"></a>cox1 <span class="ot">&lt;-</span> <span class="fu">survfit</span>(fit)</span>
-<span id="cb873-4"><a href="modeling-approaches.html#cb873-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsurvplot</span>(cox1, <span class="at">data =</span> lung)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-404-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb877"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb877-1"><a href="modeling-approaches.html#cb877-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb877-2"><a href="modeling-approaches.html#cb877-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survminer)</span>
+<span id="cb877-3"><a href="modeling-approaches.html#cb877-3" aria-hidden="true" tabindex="-1"></a>cox1 <span class="ot">&lt;-</span> <span class="fu">survfit</span>(fit)</span>
+<span id="cb877-4"><a href="modeling-approaches.html#cb877-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsurvplot</span>(cox1, <span class="at">data =</span> lung)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-408-1.svg" width="672" /></p>
 <p>We can also visualize the results by using the same types of approaches we do when we use the <code>predict()</code> function and specify new <span class="math inline">\(X\)</span> data in other types of regression. Here, we will use the command <code>survfit</code>.</p>
-<div class="sourceCode" id="cb874"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb874-1"><a href="modeling-approaches.html#cb874-1" aria-hidden="true" tabindex="-1"></a>sex_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">sex =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">62</span>, <span class="dv">62</span>) )</span>
-<span id="cb874-2"><a href="modeling-approaches.html#cb874-2" aria-hidden="true" tabindex="-1"></a>cox1 <span class="ot">&lt;-</span> <span class="fu">survfit</span>(fit, <span class="at">data =</span> lung, <span class="at">newdata =</span> sex_df)</span>
-<span id="cb874-3"><a href="modeling-approaches.html#cb874-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsurvplot</span>(cox1, <span class="at">data =</span> lung, <span class="at">legend.labs=</span><span class="fu">c</span>(<span class="st">&quot;Sex=1&quot;</span>, <span class="st">&quot;Sex=2&quot;</span>))</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-405-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb878"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb878-1"><a href="modeling-approaches.html#cb878-1" aria-hidden="true" tabindex="-1"></a>sex_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">sex =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">62</span>, <span class="dv">62</span>) )</span>
+<span id="cb878-2"><a href="modeling-approaches.html#cb878-2" aria-hidden="true" tabindex="-1"></a>cox1 <span class="ot">&lt;-</span> <span class="fu">survfit</span>(fit, <span class="at">data =</span> lung, <span class="at">newdata =</span> sex_df)</span>
+<span id="cb878-3"><a href="modeling-approaches.html#cb878-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsurvplot</span>(cox1, <span class="at">data =</span> lung, <span class="at">legend.labs=</span><span class="fu">c</span>(<span class="st">&quot;Sex=1&quot;</span>, <span class="st">&quot;Sex=2&quot;</span>))</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-409-1.svg" width="672" /></p>
 <p>You may wish to test the proportional hazards assumption. Here are two resources for this <a href="http://www.sthda.com/english/wiki/cox-model-assumptions">here</a> and <a href="https://stats.stackexchange.com/questions/61131/test-cox-proportional-hazard-assumption-bad-schoenfeld-residual">here</a>.</p>
 
 </div>

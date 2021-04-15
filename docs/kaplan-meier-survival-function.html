@@ -492,10 +492,10 @@ counted as at risk.</li>
 <div id="kaplan-meier-in-r" class="section level3" number="14.2.1">
 <h3><span class="header-section-number">14.2.1</span> Kaplan-Meier in R</h3>
 <p>We will use the <code>lung</code> data from the <code>survival</code> package. For plotting, we will use the package <code>survminer</code>.</p>
-<div class="sourceCode" id="cb863"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb863-1"><a href="kaplan-meier-survival-function.html#cb863-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;survival&quot;)</span></span>
-<span id="cb863-2"><a href="kaplan-meier-survival-function.html#cb863-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
-<span id="cb863-3"><a href="kaplan-meier-survival-function.html#cb863-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;lung&quot;</span>)</span>
-<span id="cb863-4"><a href="kaplan-meier-survival-function.html#cb863-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(lung)</span></code></pre></div>
+<div class="sourceCode" id="cb867"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb867-1"><a href="kaplan-meier-survival-function.html#cb867-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;survival&quot;)</span></span>
+<span id="cb867-2"><a href="kaplan-meier-survival-function.html#cb867-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
+<span id="cb867-3"><a href="kaplan-meier-survival-function.html#cb867-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;lung&quot;</span>)</span>
+<span id="cb867-4"><a href="kaplan-meier-survival-function.html#cb867-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(lung)</span></code></pre></div>
 <pre><code>  inst time status age sex ph.ecog ph.karno pat.karno meal.cal wt.loss
 1    3  306      2  74   1       1       90       100     1175      NA
 2    3  455      2  68   1       0       90        90     1225      15
@@ -509,19 +509,19 @@ counted as at risk.</li>
 <li><code>sex</code>: Male=1; Female =2</li>
 </ul>
 <p>Note: the place where we would normally put our outcome variable in a regression formula now takes <code>Surv(time, event)</code></p>
-<div class="sourceCode" id="cb865"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb865-1"><a href="kaplan-meier-survival-function.html#cb865-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Kaplan-Meier</span></span>
-<span id="cb865-2"><a href="kaplan-meier-survival-function.html#cb865-2" aria-hidden="true" tabindex="-1"></a>sfit <span class="ot">&lt;-</span> <span class="fu">survfit</span>(<span class="fu">Surv</span>(<span class="at">time=</span>time, <span class="at">event=</span>status)<span class="sc">~</span>sex, <span class="at">data=</span>lung)</span>
-<span id="cb865-3"><a href="kaplan-meier-survival-function.html#cb865-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb865-4"><a href="kaplan-meier-survival-function.html#cb865-4" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;survminer&quot;)</span></span>
-<span id="cb865-5"><a href="kaplan-meier-survival-function.html#cb865-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survminer)</span>
-<span id="cb865-6"><a href="kaplan-meier-survival-function.html#cb865-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsurvplot</span>(sfit, </span>
-<span id="cb865-7"><a href="kaplan-meier-survival-function.html#cb865-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">conf.int=</span><span class="cn">TRUE</span>, </span>
-<span id="cb865-8"><a href="kaplan-meier-survival-function.html#cb865-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">risk.table=</span><span class="cn">TRUE</span>, </span>
-<span id="cb865-9"><a href="kaplan-meier-survival-function.html#cb865-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">pval =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb865-10"><a href="kaplan-meier-survival-function.html#cb865-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">legend.labs=</span><span class="fu">c</span>(<span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>), </span>
-<span id="cb865-11"><a href="kaplan-meier-survival-function.html#cb865-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">legend.title=</span><span class="st">&quot;Sex&quot;</span>,  </span>
-<span id="cb865-12"><a href="kaplan-meier-survival-function.html#cb865-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">title=</span><span class="st">&quot;Kaplan-Meier: for Lung Cancer Survival&quot;</span>)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-399-1.svg" width="960" /></p>
+<div class="sourceCode" id="cb869"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb869-1"><a href="kaplan-meier-survival-function.html#cb869-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Kaplan-Meier</span></span>
+<span id="cb869-2"><a href="kaplan-meier-survival-function.html#cb869-2" aria-hidden="true" tabindex="-1"></a>sfit <span class="ot">&lt;-</span> <span class="fu">survfit</span>(<span class="fu">Surv</span>(<span class="at">time=</span>time, <span class="at">event=</span>status)<span class="sc">~</span>sex, <span class="at">data=</span>lung)</span>
+<span id="cb869-3"><a href="kaplan-meier-survival-function.html#cb869-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb869-4"><a href="kaplan-meier-survival-function.html#cb869-4" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;survminer&quot;)</span></span>
+<span id="cb869-5"><a href="kaplan-meier-survival-function.html#cb869-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survminer)</span>
+<span id="cb869-6"><a href="kaplan-meier-survival-function.html#cb869-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsurvplot</span>(sfit, </span>
+<span id="cb869-7"><a href="kaplan-meier-survival-function.html#cb869-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">conf.int=</span><span class="cn">TRUE</span>, </span>
+<span id="cb869-8"><a href="kaplan-meier-survival-function.html#cb869-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">risk.table=</span><span class="cn">TRUE</span>, </span>
+<span id="cb869-9"><a href="kaplan-meier-survival-function.html#cb869-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">pval =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb869-10"><a href="kaplan-meier-survival-function.html#cb869-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">legend.labs=</span><span class="fu">c</span>(<span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>), </span>
+<span id="cb869-11"><a href="kaplan-meier-survival-function.html#cb869-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">legend.title=</span><span class="st">&quot;Sex&quot;</span>,  </span>
+<span id="cb869-12"><a href="kaplan-meier-survival-function.html#cb869-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">title=</span><span class="st">&quot;Kaplan-Meier: for Lung Cancer Survival&quot;</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-403-1.svg" width="960" /></p>
 </div>
 </div>
             </section>
