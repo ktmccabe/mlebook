@@ -422,6 +422,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="12.5.8" data-path="random-effects.html"><a href="random-effects.html#generalized-lmer"><i class="fa fa-check"></i><b>12.5.8</b> Generalized LMER</a></li>
 </ul></li>
 <li class="chapter" data-level="12.6" data-path="summing-up.html"><a href="summing-up.html"><i class="fa fa-check"></i><b>12.6</b> Summing Up</a></li>
+<li class="chapter" data-level="12.7" data-path="week-12-exercise.html"><a href="week-12-exercise.html"><i class="fa fa-check"></i><b>12.7</b> Week 12 Exercise</a></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="survey.html"><a href="survey.html"><i class="fa fa-check"></i><b>13</b> Survey Data</a>
 <ul>
@@ -502,12 +503,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>PDF <span class="math inline">\(f(y) = - \frac{d}{dy} S(y)\)</span></li>
 <li>This is nondecreasing.</li>
 </ul>
-<div class="sourceCode" id="cb861"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb861-1"><a href="survival-overview.html#cb861-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example of S(y) according to the Weibull distribution</span></span>
-<span id="cb861-2"><a href="survival-overview.html#cb861-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Note: It is 1-pweibull()</span></span>
-<span id="cb861-3"><a href="survival-overview.html#cb861-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">1</span>)</span>
-<span id="cb861-4"><a href="survival-overview.html#cb861-4" aria-hidden="true" tabindex="-1"></a>Fy <span class="ot">&lt;-</span> <span class="fu">pweibull</span>(y, <span class="at">shape=</span><span class="dv">2</span>, <span class="at">scale=</span><span class="dv">50</span>)</span>
-<span id="cb861-5"><a href="survival-overview.html#cb861-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>y, <span class="at">y=</span>(<span class="dv">1</span><span class="sc">-</span>Fy), <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-396-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb862"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb862-1"><a href="survival-overview.html#cb862-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example of S(y) according to the Weibull distribution</span></span>
+<span id="cb862-2"><a href="survival-overview.html#cb862-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Note: It is 1-pweibull()</span></span>
+<span id="cb862-3"><a href="survival-overview.html#cb862-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">1</span>)</span>
+<span id="cb862-4"><a href="survival-overview.html#cb862-4" aria-hidden="true" tabindex="-1"></a>Fy <span class="ot">&lt;-</span> <span class="fu">pweibull</span>(y, <span class="at">shape=</span><span class="dv">2</span>, <span class="at">scale=</span><span class="dv">50</span>)</span>
+<span id="cb862-5"><a href="survival-overview.html#cb862-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>y, <span class="at">y=</span>(<span class="dv">1</span><span class="sc">-</span>Fy), <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-397-1.svg" width="672" /></p>
 <p>More on the Weibull distribution <a href="https://www.weibull.com/hotwire/issue14/relbasics14.htm">here</a>.</p>
 <p>And the hazard function <span class="math inline">\(h(y)\)</span>: Given survival up until <span class="math inline">\(y\)</span>, the instantaneous rate at which something fails (that the event occurs).</p>
 <ul>

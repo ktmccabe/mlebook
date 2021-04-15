@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.6 Practice Problems | MLE for Political Science</title>
-  <meta name="description" content="3.6 Practice Problems | MLE for Political Science" />
+  <title>12.7 Week 12 Exercise | MLE for Political Science</title>
+  <meta name="description" content="12.7 Week 12 Exercise | MLE for Political Science" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.6 Practice Problems | MLE for Political Science" />
+  <meta property="og:title" content="12.7 Week 12 Exercise | MLE for Political Science" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.6 Practice Problems | MLE for Political Science" />
+  <meta name="twitter:title" content="12.7 Week 12 Exercise | MLE for Political Science" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="additional-matrix-tidbits-that-will-come-up.html"/>
-<link rel="next" href="ols.html"/>
+<link rel="prev" href="summing-up.html"/>
+<link rel="next" href="survey.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -474,102 +474,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="practice-problems" class="section level2" number="3.6">
-<h2><span class="header-section-number">3.6</span> Practice Problems</h2>
-<ol style="list-style-type: decimal">
-<li>What is <span class="math inline">\(24/3 + 5^2 - (8 -4)\)</span>?</li>
-<li>What is <span class="math inline">\(\sum_{i = 1}^5 (i*3)\)</span>?</li>
-<li>Take the derivative of <span class="math inline">\(f(x) =v(4x^2 + 6)^2\)</span> with respect to <span class="math inline">\(x\)</span>.</li>
-<li>Take the derivative of <span class="math inline">\(f(x) = e^{2x + 3}\)</span> with respect to <span class="math inline">\(x\)</span>.</li>
-<li>Take the derivative of <span class="math inline">\(f(x) = log (x + 3)^2\)</span> with respect to <span class="math inline">\(x\)</span>.</li>
-</ol>
-<p>Given <span class="math inline">\(X\)</span> is an <span class="math inline">\(n\)</span> x <span class="math inline">\(k\)</span> matrix,</p>
-<ol start="6" style="list-style-type: decimal">
-<li><span class="math inline">\((X^{T}X)^{-1}X^{T}X\)</span> can be simplified to?</li>
-<li><span class="math inline">\(((X^{T}X)^{-1}X^{T})^{T} =\)</span> ?</li>
-<li>If <span class="math inline">\(\nu\)</span> is a constant, how does <span class="math inline">\((X^{T}X)^{-1}X^{T} \nu X(X^{T}X)^{-1}\)</span> simplify?</li>
-<li>If a matrix <span class="math inline">\(P\)</span> is idempotent, <span class="math inline">\(PP =\)</span> ?</li>
-</ol>
-<div id="practice-problem-solutions" class="section level3" number="3.6.1">
-<h3><span class="header-section-number">3.6.1</span> Practice Problem Solutions</h3>
-<ol style="list-style-type: decimal">
-<li>What is <span class="math inline">\(24/3 + 5^2 - (8 -4)\)</span>?</li>
-</ol>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="practice-problems.html#cb176-1" aria-hidden="true" tabindex="-1"></a><span class="dv">24</span><span class="sc">/</span><span class="dv">3</span> <span class="sc">+</span> <span class="dv">5</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> (<span class="dv">8</span> <span class="sc">-</span><span class="dv">4</span>)</span></code></pre></div>
-<pre><code>[1] 29</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>What is <span class="math inline">\(\sum_{i = 1}^5 (i*3)\)</span>?
+<div id="week-12-exercise" class="section level2" number="12.7">
+<h2><span class="header-section-number">12.7</span> Week 12 Exercise</h2>
+<p>Please load <code>donation.dta</code>. This is a data set that includes an original survey of 2815 past campaign donors in the United States.</p>
+<div class="sourceCode" id="cb837"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb837-1"><a href="week-12-exercise.html#cb837-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
+<span id="cb837-2"><a href="week-12-exercise.html#cb837-2" aria-hidden="true" tabindex="-1"></a>don <span class="ot">&lt;-</span> <span class="fu">read.dta</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/donation.dta?raw=true&quot;</span>)</span></code></pre></div>
+<p>The researchers randomly sampled survey respondents based on a list from the FEC, which contained the names of anyone who gave $200 or more to a candidate in the two years prior to 2012. The sampling process was designed to focus on donation behavior to the 22 senators who sought reelection in 2013–selecting people who might donate or might be pursued for a donation by one of these senators. The idea was that this sample would represent the senators’ potential “donorate”. Each observation is a senator-donor dyad: with 22 incumbent senators running for reelection and 2815 respondents, there are approximately 61,930 dyads (observations). For each observation, the data contain variables that indicate whether or not a respondent donated to the senator and how much that donation was, as well as the respondent’s total donations. Senators are required to record donations above $200, but some senators voluntarily report donations below this amount. Therefore, the data may include some donation totals between 0 and $200.</p>
+<p>Key Variables include:</p>
 <ul>
-<li>By hand: <span class="math inline">\(1 \times 3 + 2 \times 3 + 3 \times 3 + 4 \times 3 + 5 \times 3\)</span></li>
-</ul></li>
-</ol>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="practice-problems.html#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="do">## sol 1</span></span>
-<span id="cb178-2"><a href="practice-problems.html#cb178-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">*</span><span class="dv">3</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span><span class="dv">3</span> <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span><span class="dv">3</span> <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span><span class="dv">3</span> <span class="sc">+</span> <span class="dv">5</span><span class="sc">*</span><span class="dv">3</span></span></code></pre></div>
-<pre><code>[1] 45</code></pre>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="practice-problems.html#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="do">## sol 2</span></span>
-<span id="cb180-2"><a href="practice-problems.html#cb180-2" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span></span>
-<span id="cb180-3"><a href="practice-problems.html#cb180-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(i<span class="sc">*</span><span class="dv">3</span>)</span></code></pre></div>
-<pre><code>[1] 45</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Take the derivative of <span class="math inline">\(f(x) =v(4x^2 + 6)^2\)</span> with respect to <span class="math inline">\(x\)</span>.
+<li><code>donation</code>: 1=made donation to senator, 0=no donation made</li>
+<li><code>total_donation</code>: Dollar amount of donation made by donor to Senator.</li>
+<li><code>total_donation_all</code>: Dollar amount of all FEC recorded donations made by this donor.</li>
+<li><code>maxdon</code>: Dollar amount of the donor’s largest donation.</li>
+<li><code>numsens</code>: Number of unique senators a donor gave to.</li>
+<li><code>numdonation</code>: Number of unique donations a donor gave.</li>
+<li><code>peragsen</code>: policy agreement, percent issue agreement between donor and senator</li>
+<li><code>per2agchal</code>: percent issue agreement between donor and the senator’s challenger</li>
+<li><code>cook</code>: Cook competitiveness score for the senator’s race. 1 = Solid Dem or Solid Rep; 2 = Likely Dem or Likely Rep; 3 = Leans Dem or Leans Rep; 4 = Toss Up</li>
+<li><code>same_state</code>: 1=donor is from senator’s state, 0=otherwise</li>
+<li><code>sameparty</code>: 1=self-identifies as being in the candidate’s party; 0 otherwise</li>
+<li><code>matchcommf</code>: 1=Senator committee matches donor’s profession as reported in FEC file; 0=otherwise</li>
+<li><code>NetWorth</code>: Donor’s self-estimated net worth. 1=less than 250k, 2=250-500k; 3=500k-1m; 4=1-2.5m; 5=2.5-5m; 6=5-10m; 7=more than 10m</li>
+<li><code>IncomeLastYear</code>: Donor’s household annual income in 2013. 1=less than 50k; 2=50-100k; 3=100-125k; 4=125-150k; 5=150-250k; 6=250-300k; 7=300-350k; 8=350-400k; 9=400-500k; 10=more than 500k</li>
+<li><code>idfold2</code>: Donor’s self-described political ideology. 0 = moderate; 1=somewhat conservative or somewhat liberal; 2=conservative or liberal; 3=very liberal or very conservative</li>
+<li><code>notwhite</code>: Donor’s self-described ethnicity. 1=not white; 0=white</li>
+<li><code>malerespondent</code>: Donor’s self-described gender. 1=male; 0=female</li>
+<li><code>terms</code>: The number of terms a legislator has been in office</li>
+<li><code>YearBorn</code>: Donor’s year of birth.</li>
+<li><code>Edsum</code>: Donor’s self-described educational attainment. 1=less than high school; 2=high school; 3=some college; 4=2-year college degree; 5=4-year college degree; 6=graduate degree</li>
+<li><code>ideologue2</code>: 1=respondent suggested the candidate’s ideological position was “extremely important” or if the respondent attached more importance to this factor than to both whether the “candidate could affect my industry or work” and “I know the candidate personally”, 0=otherwise</li>
+<li><code>IK2</code>: 1=respondent suggested “I know the candidate personally” was “extremely important” or if the respondent attached more importance to this factor than to both whether the “candidate’s position on the issues is similar to mine” and “the candidate could affect my industry or work”, 0=otherwise</li>
+<li><code>donor_id</code>: donor respondent unique id (each respondent is in the data 22 times)</li>
+<li>The data also include dummy variables for each senator (e.g., <code>sendum1</code>, <code>sendum2</code>)</li>
+</ul>
+<p><strong><em>Research Question</em></strong>: Does policy agreement motivate people to give to campaigns?</p>
 <ul>
-<li>We can treat <span class="math inline">\(v\)</span> as a number.</li>
-</ul></li>
-</ol>
-<p><span class="math display">\[\begin{align*}
-f&#39;(x) &amp;= 2* v(4x^2 + 6) * 8x\\
-&amp;= 16vx(4x^2 + 6)
-\end{align*}\]</span></p>
-<ol start="4" style="list-style-type: decimal">
-<li>Take the derivative of <span class="math inline">\(f(x) = e^{2x + 3}\)</span> with respect to <span class="math inline">\(x\)</span>.</li>
-</ol>
-<p><span class="math display">\[\begin{align*}
-f&#39;(x) &amp;= 2* e^{2x + 3}\\
-&amp;= 2e^{2x + 3}
-\end{align*}\]</span></p>
-<ol start="5" style="list-style-type: decimal">
-<li>Take the derivative of <span class="math inline">\(f(x) = log (x + 3)^2\)</span> with respect to <span class="math inline">\(x\)</span>.
-<ul>
-<li>Note we can re-write this as <span class="math inline">\(2 * log (x + 3)\)</span>.</li>
-</ul></li>
-</ol>
-<p><span class="math display">\[\begin{align*}
-f&#39;(x) &amp;= 2 * \frac{1}{(x + 3)} * 1\\
-&amp;= \frac{2}{(x + 3)}
-\end{align*}\]</span>
-If we didn’t take that simplifying step, we can still solve:</p>
-<p><span class="math display">\[\begin{align*}
-      f&#39;(x) &amp;= \frac{1}{(x + 3)^2} * 2 * (x + 3) *1\\
-      &amp;= \frac{2}{(x + 3)}
-      \end{align*}\]</span></p>
-<p>Given <span class="math inline">\(X\)</span> is an <span class="math inline">\(n\)</span> x <span class="math inline">\(k\)</span> matrix,</p>
-<ol start="6" style="list-style-type: decimal">
-<li><span class="math inline">\((X^{T}X)^{-1}X^{T}X\)</span> can be simplified to?
-<ul>
-<li><span class="math inline">\(I_k\)</span> the identity matrix</li>
-</ul></li>
-<li><span class="math inline">\(((X^{T}X)^{-1}X^{T})^{T} =\)</span> ?
-<ul>
-<li>Recall our rule <span class="math inline">\((AB)^T = B^TA^T\)</span></li>
-<li><span class="math inline">\(X(X^TX)^{-1}\)</span></li>
-</ul></li>
-<li>If <span class="math inline">\(\nu\)</span> is a constant, how does <span class="math inline">\((X^{T}X)^{-1}X^{T} \nu X(X^{T}X)^{-1}\)</span> simplify?
-<ul>
-<li>We can pull it out front.</li>
-</ul></li>
-</ol>
-<p><span class="math display">\[\begin{align*}
-    &amp;= \nu(X^{T}X)^{-1}X^{T}X(X^{T}X)^{-1} \\
-    &amp;= \nu (X^{T}X)^{-1}
-    \end{align*}\]</span></p>
-<ol start="9" style="list-style-type: decimal">
-<li>If a matrix <span class="math inline">\(P\)</span> is idempotent, <span class="math inline">\(PP =\)</span> ?
-<ul>
-<li><span class="math inline">\(P\)</span> from section 3.5.2</li>
-</ul></li>
-</ol>
+<li>Conduct and present an analysis that can help answer the question.</li>
+</ul>
 
-</div>
 </div>
 <!-- </div> -->
             </section>
@@ -577,8 +519,8 @@ If we didn’t take that simplifying step, we can still solve:</p>
           </div>
         </div>
       </div>
-<a href="additional-matrix-tidbits-that-will-come-up.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="ols.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="summing-up.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="survey.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

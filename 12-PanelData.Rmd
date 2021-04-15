@@ -794,7 +794,7 @@ In your own research you might ask the following questions:
 Then, you might consider the following choices if you have a grouping structure:
 
   - Consider clustering standard errors by group in a standard model
-      + See guidance [here](https://economics.mit.edu/files/13927), [here](https://blogs.worldbank.org/impactevaluations/when-should-you-cluster-standard-errors-new-wisdom-econometrics-oracle), and [here](https://stats.stackexchange.com/questions/185378/when-to-use-fixed-effects-vs-using-cluster-ses#:~:text=Clustered%20standard%20errors%20are%20for,panel%20of%20firms%20across%20time.)
+      + See guidance [here](https://economics.mit.edu/files/13927), [here](https://blogs.worldbank.org/impactevaluations/when-should-you-cluster-standard-errors-new-wisdom-econometrics-oracle), and [here](https://stats.stackexchange.com/questions/185378/when-to-use-fixed-effects-vs-using-cluster-ses#:~:text=Clustered%20standard%20errors%20are%20for,panel%20of%20firms%20across%20time.). For R code, see section [8.5.1.](https://ktmccabe.github.io/mlebook/ordinal-practice-problems.html#a-note-on-robust-standard-errors)
   - Or, incorporating the grouping structure into a multilevel random effects model
       + Do you meet the random effects assumptions?
       + Do you need random effects? Perhaps use the ICC to help with this.
@@ -819,4 +819,51 @@ What we have not yet discussed are the following issues. See links for further s
           + Keele, L. and Kelly N. J. (2005) Dynamic models for dynamic theories: the ins and outs of lagged dependent variables
           + Arjun Wilkins. (2017). To Lag or Not to Lag?: Re-Evaluating the Use of Lagged Dependent Variables in Regression Analysis
           + Arellano-Bond and Anderson-Hsiao estimators
+
+
+## Week 12 Exercise
+
+Please load `donation.dta`. This is a data set that includes an original survey of 2815 past campaign donors in the United States. 
+
+```{r}
+library(foreign)
+don <- read.dta("https://github.com/ktmccabe/teachingdata/blob/main/donation.dta?raw=true")
+```
+
+The researchers randomly sampled survey respondents based on a list from the FEC, which contained the names of anyone who gave \$200 or more to a candidate in the two years prior to 2012. The sampling process was designed to focus on donation behavior to the 22 senators who sought reelection in 2013--selecting people who might donate or might be pursued for a donation by one of these senators. The idea was that this sample would represent the senators' potential "donorate". Each observation is a senator-donor dyad: with 22 incumbent senators running for reelection and 2815 respondents, there are approximately 61,930 dyads (observations). For each observation, the data contain variables that indicate whether or not a respondent donated to the senator and how much that donation was, as well as the respondent's total donations. Senators are required to record donations above \$200, but some senators voluntarily report donations below this amount. Therefore, the data may include some donation totals between 0 and \$200. 
+
+Key Variables include:
+
+  - `donation`:	1=made	donation	to	senator,	0=no	donation	made
+  - `total_donation`:	Dollar	amount	of	donation	made	by	donor	to	Senator.
+  - `total_donation_all`: Dollar	amount	of	all	FEC	recorded	donations	made by this donor.
+  - `maxdon`:	Dollar	amount	of	the	donor's	largest	donation.
+  - `numsens`:	Number	of	unique	senators	a	donor	gave	to.
+  - `numdonation`:	Number	of	unique	donations	a	donor	gave.
+  - `peragsen`:	policy agreement, percent	issue	agreement	between	donor	and	senator
+  - `per2agchal`:	percent	issue	agreement	between	donor	and	the	senator's	challenger
+  - `cook`:	Cook	competitiveness	score	for	the	senator's	race. 1	=	Solid	Dem	or	Solid	Rep; 2	=	Likely Dem	or	Likely	Rep; 3	=	Leans	Dem	or	Leans	Rep; 4	=	Toss	Up
+  - `same_state`: 1=donor	is	from	senator's	state,	0=otherwise
+  - `sameparty`: 1=self-identifies	as	being	in the	candidate's	party;	0	otherwise
+  - `matchcommf`: 1=Senator	committee	matches	donor's	profession	as	reported	in	FEC	file;	0=otherwise
+  - `NetWorth`: Donor's	self-estimated	net	worth.	1=less	than	250k,	2=250-500k;	 3=500k-1m;	4=1-2.5m;	5=2.5-5m; 6=5-10m;	7=more	than	10m
+  - `IncomeLastYear`:	Donor's	household	annual	income	in	2013. 1=less	than	50k; 2=50-100k;	3=100-125k;	4=125-150k;	5=150-250k;	6=250-300k;	7=300-350k;	8=350-400k;	9=400-500k;	10=more	than	500k
+  - `idfold2`:	Donor's	self-described	political ideology.	0	=	moderate; 1=somewhat	 conservative	or somewhat	liberal; 2=conservative	or	liberal; 3=very	liberal	or	very conservative
+  - `notwhite`:	Donor's	self-described	ethnicity. 1=not	white;	0=white
+  - `malerespondent`: Donor's	self-described	gender.	1=male;	0=female
+  - `terms`: The	number	of	terms	a	legislator	has	been	in	office
+  - `YearBorn`: Donor's	year	of	birth.
+  - `Edsum`: Donor's	self-described	educational	attainment.	1=less	than	high	school;	2=high	school; 3=some	college;	4=2-year	college	degree;	5=4-year	college	degree;	6=graduate	degree
+  - `ideologue2`:	1=respondent	suggested	the	candidate's	ideological	position	was	 "extremely	important" or	if	the	respondent	attached	more	importance	to	this	factor than	to	both	whether	the	"candidate	could	affect	my	industry	or	work"	and	"I	know the	candidate	personally", 0=otherwise
+  - `IK2`:	1=respondent	suggested	"I	know	the	candidate	personally"	was	"extremely important" or	if	the	respondent	attached	more	importance	to	this	factor	than	to	both	whether	the "candidate's position on the issues is similar to mine" and	"the candidate	could	affect	my	industry	or	work",	0=otherwise
+  - `donor_id`:	donor respondent	unique	id (each respondent is in the data 22 times)
+  - The data also include dummy variables for each senator (e.g., `sendum1`, `sendum2`)
+
+
+***Research Question***: Does policy agreement motivate people to give to campaigns? 
+
+  - Conduct and present an analysis that can help answer the question. 
+
+
+
 
