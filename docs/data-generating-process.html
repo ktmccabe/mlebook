@@ -160,6 +160,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.1" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#r-markdown"><i class="fa fa-check"></i><b>2.4.1</b> R Markdown</a></li>
 <li class="chapter" data-level="2.4.2" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#latex"><i class="fa fa-check"></i><b>2.4.2</b> LaTex</a></li>
 <li class="chapter" data-level="2.4.3" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#formatting-and-exporting-r-results"><i class="fa fa-check"></i><b>2.4.3</b> Formatting and Exporting R Results</a></li>
+<li class="chapter" data-level="2.4.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-formatting-examples"><i class="fa fa-check"></i><b>2.4.4</b> Additional formatting examples</a></li>
+<li class="chapter" data-level="2.4.5" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-table-types"><i class="fa fa-check"></i><b>2.4.5</b> Additional Table Types</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
@@ -484,8 +486,8 @@ Y_i = \begin{cases}1, \;\text{a dispute happened}\\ 0,\;
 <ul>
 <li>Outside of political science, for example, in the field of higher education, we might instead think about an outcome related to whether a student has (= 1) or has not (= 0) had a negative advising experience.</li>
 </ul>
-<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="data-generating-process.html#cb331-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of first 20 observations (Y1, Y2, ..., Y20)</span></span>
-<span id="cb331-2"><a href="data-generating-process.html#cb331-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="data-generating-process.html#cb340-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of first 20 observations (Y1, Y2, ..., Y20)</span></span>
+<span id="cb340-2"><a href="data-generating-process.html#cb340-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span></span></code></pre></div>
 <p>We need to align these data with a data generating process and distribution.</p>
 <ul>
 <li>For each <span class="math inline">\(Y_i\)</span>, it is like a single trial, where you have a dispute with some probability <span class="math inline">\((\pi)\)</span>

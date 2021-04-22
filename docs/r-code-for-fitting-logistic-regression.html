@@ -160,6 +160,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.1" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#r-markdown"><i class="fa fa-check"></i><b>2.4.1</b> R Markdown</a></li>
 <li class="chapter" data-level="2.4.2" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#latex"><i class="fa fa-check"></i><b>2.4.2</b> LaTex</a></li>
 <li class="chapter" data-level="2.4.3" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#formatting-and-exporting-r-results"><i class="fa fa-check"></i><b>2.4.3</b> Formatting and Exporting R Results</a></li>
+<li class="chapter" data-level="2.4.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-formatting-examples"><i class="fa fa-check"></i><b>2.4.4</b> Additional formatting examples</a></li>
+<li class="chapter" data-level="2.4.5" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-table-types"><i class="fa fa-check"></i><b>2.4.5</b> Additional Table Types</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
@@ -477,13 +479,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="r-code-for-fitting-logistic-regression" class="section level2" number="6.2">
 <h2><span class="header-section-number">6.2</span> R code for fitting logistic regression</h2>
 <p>We can fit logistic regressions in R through <code>glm()</code>. Let’s build on the ANES example from section 5.3 and analyze a dichotomized measure of participation where 1=participated in at least some form and 0=did not participate.</p>
-<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="r-code-for-fitting-logistic-regression.html#cb332-1" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ktmccabe/teachingdata/main/anesdems.csv&quot;</span>)</span>
-<span id="cb332-2"><a href="r-code-for-fitting-logistic-regression.html#cb332-2" aria-hidden="true" tabindex="-1"></a>anes<span class="sc">$</span>partbinary <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(anes<span class="sc">$</span>participation <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="r-code-for-fitting-logistic-regression.html#cb341-1" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ktmccabe/teachingdata/main/anesdems.csv&quot;</span>)</span>
+<span id="cb341-2"><a href="r-code-for-fitting-logistic-regression.html#cb341-2" aria-hidden="true" tabindex="-1"></a>anes<span class="sc">$</span>partbinary <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(anes<span class="sc">$</span>participation <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code></pre></div>
 <p>We can then fit using <code>glm</code> where <code>family = binomial(link="logit")</code></p>
-<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="r-code-for-fitting-logistic-regression.html#cb333-1" aria-hidden="true" tabindex="-1"></a>out.logit <span class="ot">&lt;-</span> <span class="fu">glm</span>(partbinary <span class="sc">~</span> female <span class="sc">+</span> edu <span class="sc">+</span> age <span class="sc">+</span> sexism, <span class="at">data=</span>anes,</span>
-<span id="cb333-2"><a href="r-code-for-fitting-logistic-regression.html#cb333-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link=</span><span class="st">&quot;logit&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="r-code-for-fitting-logistic-regression.html#cb342-1" aria-hidden="true" tabindex="-1"></a>out.logit <span class="ot">&lt;-</span> <span class="fu">glm</span>(partbinary <span class="sc">~</span> female <span class="sc">+</span> edu <span class="sc">+</span> age <span class="sc">+</span> sexism, <span class="at">data=</span>anes,</span>
+<span id="cb342-2"><a href="r-code-for-fitting-logistic-regression.html#cb342-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link=</span><span class="st">&quot;logit&quot;</span>))</span></code></pre></div>
 <p>The summary output includes the logit coefficients, standard errors, z-scores, and p-values.</p>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="r-code-for-fitting-logistic-regression.html#cb334-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(out.logit)</span></code></pre></div>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="r-code-for-fitting-logistic-regression.html#cb343-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(out.logit)</span></code></pre></div>
 <pre><code>
 Call:
 glm(formula = partbinary ~ female + edu + age + sexism, family = binomial(link = &quot;logit&quot;), 
@@ -520,15 +522,15 @@ Number of Fisher Scoring iterations: 5</code></pre>
 <li><span class="math inline">\(Pr(Y_i = 1 | \mathbf{x}_i) = logit^{-1}(\mathbf{x}_i&#39;\beta) = \frac{exp(\mathbf{x_i&#39;}\beta)}{(1 + exp(\mathbf{x_i&#39;}\beta)}\)</span></li>
 </ul>
 <p>(You can also write out the individual variable names.) There is a new R package <a href="https://github.com/datalorax/equatiomatic">equatiomatic</a> that can also be used to help write the equations from regression models. It’s not perfect, but should get you there for most basic models.</p>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="r-code-for-fitting-logistic-regression.html#cb336-1" aria-hidden="true" tabindex="-1"></a><span class="do">## First time, you need to install one of these</span></span>
-<span id="cb336-2"><a href="r-code-for-fitting-logistic-regression.html#cb336-2" aria-hidden="true" tabindex="-1"></a><span class="co">#remotes::install_github(&quot;datalorax/equatiomatic&quot;)</span></span>
-<span id="cb336-3"><a href="r-code-for-fitting-logistic-regression.html#cb336-3" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;equatiomatic&quot;)</span></span>
-<span id="cb336-4"><a href="r-code-for-fitting-logistic-regression.html#cb336-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb336-5"><a href="r-code-for-fitting-logistic-regression.html#cb336-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Each time after, run library</span></span>
-<span id="cb336-6"><a href="r-code-for-fitting-logistic-regression.html#cb336-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(equatiomatic)</span>
-<span id="cb336-7"><a href="r-code-for-fitting-logistic-regression.html#cb336-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb336-8"><a href="r-code-for-fitting-logistic-regression.html#cb336-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Will output in latex code, though see package for details on options</span></span>
-<span id="cb336-9"><a href="r-code-for-fitting-logistic-regression.html#cb336-9" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_eq</span>(out.logit, <span class="at">wrap =</span> <span class="cn">TRUE</span>, <span class="at">terms_per_line =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="r-code-for-fitting-logistic-regression.html#cb345-1" aria-hidden="true" tabindex="-1"></a><span class="do">## First time, you need to install one of these</span></span>
+<span id="cb345-2"><a href="r-code-for-fitting-logistic-regression.html#cb345-2" aria-hidden="true" tabindex="-1"></a><span class="co">#remotes::install_github(&quot;datalorax/equatiomatic&quot;)</span></span>
+<span id="cb345-3"><a href="r-code-for-fitting-logistic-regression.html#cb345-3" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;equatiomatic&quot;)</span></span>
+<span id="cb345-4"><a href="r-code-for-fitting-logistic-regression.html#cb345-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb345-5"><a href="r-code-for-fitting-logistic-regression.html#cb345-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Each time after, run library</span></span>
+<span id="cb345-6"><a href="r-code-for-fitting-logistic-regression.html#cb345-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(equatiomatic)</span>
+<span id="cb345-7"><a href="r-code-for-fitting-logistic-regression.html#cb345-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb345-8"><a href="r-code-for-fitting-logistic-regression.html#cb345-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Will output in latex code, though see package for details on options</span></span>
+<span id="cb345-9"><a href="r-code-for-fitting-logistic-regression.html#cb345-9" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_eq</span>(out.logit, <span class="at">wrap =</span> <span class="cn">TRUE</span>, <span class="at">terms_per_line =</span> <span class="dv">3</span>)</span></code></pre></div>
 <p><span class="math display">\[
 \begin{aligned}
 \log\left[ \frac { P( \operatorname{partbinary} = \operatorname{1} ) }{ 1 - P( \operatorname{partbinary} = \operatorname{1} ) } \right] &amp;= \alpha + \beta_{1}(\operatorname{female}) + \beta_{2}(\operatorname{edu})\ + \\

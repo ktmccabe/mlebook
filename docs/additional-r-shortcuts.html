@@ -160,6 +160,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.1" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#r-markdown"><i class="fa fa-check"></i><b>2.4.1</b> R Markdown</a></li>
 <li class="chapter" data-level="2.4.2" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#latex"><i class="fa fa-check"></i><b>2.4.2</b> LaTex</a></li>
 <li class="chapter" data-level="2.4.3" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#formatting-and-exporting-r-results"><i class="fa fa-check"></i><b>2.4.3</b> Formatting and Exporting R Results</a></li>
+<li class="chapter" data-level="2.4.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-formatting-examples"><i class="fa fa-check"></i><b>2.4.4</b> Additional formatting examples</a></li>
+<li class="chapter" data-level="2.4.5" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-table-types"><i class="fa fa-check"></i><b>2.4.5</b> Additional Table Types</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
@@ -480,10 +482,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="prediction" class="section level3" number="7.5.1">
 <h3><span class="header-section-number">7.5.1</span> Prediction</h3>
 <p>We’ve already used the prediction package, but now let’s add uncertainty calculation to this. This package is useful for generating confidence intervals around single quantities of interest. The package below is better for constructing confidence intervals around the difference between quantities of interest.</p>
-<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="additional-r-shortcuts.html#cb436-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prediction)</span>
-<span id="cb436-2"><a href="additional-r-shortcuts.html#cb436-2" aria-hidden="true" tabindex="-1"></a>preout <span class="ot">&lt;-</span> <span class="fu">prediction</span>(out.logit, <span class="at">at =</span> <span class="fu">list</span>(<span class="at">Allies =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)), </span>
-<span id="cb436-3"><a href="additional-r-shortcuts.html#cb436-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">type =</span> <span class="st">&quot;response&quot;</span>, <span class="at">calculate_se =</span> T)</span>
-<span id="cb436-4"><a href="additional-r-shortcuts.html#cb436-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(preout)</span></code></pre></div>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="additional-r-shortcuts.html#cb445-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prediction)</span>
+<span id="cb445-2"><a href="additional-r-shortcuts.html#cb445-2" aria-hidden="true" tabindex="-1"></a>preout <span class="ot">&lt;-</span> <span class="fu">prediction</span>(out.logit, <span class="at">at =</span> <span class="fu">list</span>(<span class="at">Allies =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)), </span>
+<span id="cb445-3"><a href="additional-r-shortcuts.html#cb445-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">type =</span> <span class="st">&quot;response&quot;</span>, <span class="at">calculate_se =</span> T)</span>
+<span id="cb445-4"><a href="additional-r-shortcuts.html#cb445-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(preout)</span></code></pre></div>
 <pre><code> at(Allies) Prediction        SE      z         p    lower    upper
           0   0.003711 0.0002270 16.343 4.878e-60 0.003266 0.004156
           1   0.002760 0.0003135  8.804 1.322e-18 0.002145 0.003374</code></pre>
@@ -493,74 +495,74 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">7.5.2</span> Margins</h3>
 <p>Thomas Leeper developed a package called <code>margins</code> which is modeled after the Stata <code>margins</code> command. Here is some <a href="https://thomasleeper.com/margins/articles/Introduction.html">documentation</a> for this package.</p>
 <p>We first fit a regression model like normal.</p>
-<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="additional-r-shortcuts.html#cb438-1" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">glm</span>(Conflict <span class="sc">~</span>  MajorPower <span class="sc">+</span> Contiguity <span class="sc">+</span> Allies <span class="sc">+</span> ForeignPolicy <span class="sc">+</span></span>
-<span id="cb438-2"><a href="additional-r-shortcuts.html#cb438-2" aria-hidden="true" tabindex="-1"></a>    BalanceOfPower <span class="sc">+</span> YearsSince, <span class="at">data=</span>mids, <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="additional-r-shortcuts.html#cb447-1" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">glm</span>(Conflict <span class="sc">~</span>  MajorPower <span class="sc">+</span> Contiguity <span class="sc">+</span> Allies <span class="sc">+</span> ForeignPolicy <span class="sc">+</span></span>
+<span id="cb447-2"><a href="additional-r-shortcuts.html#cb447-2" aria-hidden="true" tabindex="-1"></a>    BalanceOfPower <span class="sc">+</span> YearsSince, <span class="at">data=</span>mids, <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span></code></pre></div>
 <p>Open the package and use the <code>margins</code> command. It is similar to <code>prediction</code> but we will specify the uncertainty with <code>vce</code> and tell it which variable we want the marginal effect, and what type of change in that variable we want to calculate the effect.</p>
-<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="additional-r-shortcuts.html#cb439-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;margins&quot;)</span></span>
-<span id="cb439-2"><a href="additional-r-shortcuts.html#cb439-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(margins)</span></code></pre></div>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="additional-r-shortcuts.html#cb448-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;margins&quot;)</span></span>
+<span id="cb448-2"><a href="additional-r-shortcuts.html#cb448-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(margins)</span></code></pre></div>
 <pre><code>Warning: package &#39;margins&#39; was built under R version 4.0.2</code></pre>
-<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="additional-r-shortcuts.html#cb441-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Difference in Allies 0 vs. 1 holding other covariates at 0</span></span>
-<span id="cb441-2"><a href="additional-r-shortcuts.html#cb441-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Using Delta Method for uncertainty</span></span>
-<span id="cb441-3"><a href="additional-r-shortcuts.html#cb441-3" aria-hidden="true" tabindex="-1"></a>marg1 <span class="ot">&lt;-</span> <span class="fu">margins</span>(out, <span class="at">vce =</span> <span class="st">&quot;delta&quot;</span>,</span>
-<span id="cb441-4"><a href="additional-r-shortcuts.html#cb441-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">at =</span> <span class="fu">list</span>(<span class="at">MajorPower=</span><span class="dv">0</span>, <span class="at">Contiguity=</span><span class="dv">0</span>,</span>
-<span id="cb441-5"><a href="additional-r-shortcuts.html#cb441-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">ForeignPolicy=</span><span class="dv">0</span>, <span class="at">BalanceOfPower=</span><span class="dv">0</span>, <span class="at">YearsSince=</span><span class="dv">0</span>),</span>
-<span id="cb441-6"><a href="additional-r-shortcuts.html#cb441-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">variables =</span> <span class="st">&quot;Allies&quot;</span>,</span>
-<span id="cb441-7"><a href="additional-r-shortcuts.html#cb441-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">change =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb441-8"><a href="additional-r-shortcuts.html#cb441-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">type=</span><span class="st">&quot;response&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="additional-r-shortcuts.html#cb450-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Difference in Allies 0 vs. 1 holding other covariates at 0</span></span>
+<span id="cb450-2"><a href="additional-r-shortcuts.html#cb450-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Using Delta Method for uncertainty</span></span>
+<span id="cb450-3"><a href="additional-r-shortcuts.html#cb450-3" aria-hidden="true" tabindex="-1"></a>marg1 <span class="ot">&lt;-</span> <span class="fu">margins</span>(out, <span class="at">vce =</span> <span class="st">&quot;delta&quot;</span>,</span>
+<span id="cb450-4"><a href="additional-r-shortcuts.html#cb450-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">at =</span> <span class="fu">list</span>(<span class="at">MajorPower=</span><span class="dv">0</span>, <span class="at">Contiguity=</span><span class="dv">0</span>,</span>
+<span id="cb450-5"><a href="additional-r-shortcuts.html#cb450-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">ForeignPolicy=</span><span class="dv">0</span>, <span class="at">BalanceOfPower=</span><span class="dv">0</span>, <span class="at">YearsSince=</span><span class="dv">0</span>),</span>
+<span id="cb450-6"><a href="additional-r-shortcuts.html#cb450-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">variables =</span> <span class="st">&quot;Allies&quot;</span>,</span>
+<span id="cb450-7"><a href="additional-r-shortcuts.html#cb450-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">change =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb450-8"><a href="additional-r-shortcuts.html#cb450-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">type=</span><span class="st">&quot;response&quot;</span>) </span></code></pre></div>
 <pre><code>Warning in check_values(data, at): A &#39;at&#39; value for &#39;BalanceOfPower&#39; is outside
 observed data range (0.000173599997651763,1)!</code></pre>
-<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="additional-r-shortcuts.html#cb443-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(marg1)</span></code></pre></div>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="additional-r-shortcuts.html#cb452-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(marg1)</span></code></pre></div>
 <pre><code> factor MajorPower Contiguity ForeignPolicy BalanceOfPower YearsSince     AME
  Allies     0.0000     0.0000        0.0000         0.0000     0.0000 -0.0010
      SE       z      p   lower   upper
  0.0004 -2.3910 0.0168 -0.0018 -0.0002</code></pre>
 <p>Let’s try a second example, shifting the uncertainty estimate and the X covariates.</p>
-<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="additional-r-shortcuts.html#cb445-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Difference in Allies 0 vs. 1 holding MajorPower at 1, other covariates at observed values</span></span>
-<span id="cb445-2"><a href="additional-r-shortcuts.html#cb445-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Using simulations for uncertainty</span></span>
-<span id="cb445-3"><a href="additional-r-shortcuts.html#cb445-3" aria-hidden="true" tabindex="-1"></a>marg2 <span class="ot">&lt;-</span> <span class="fu">margins</span>(out, <span class="at">vce =</span> <span class="st">&quot;simulation&quot;</span>,</span>
-<span id="cb445-4"><a href="additional-r-shortcuts.html#cb445-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">at =</span> <span class="fu">list</span>(<span class="at">MajorPower =</span><span class="dv">1</span>),</span>
-<span id="cb445-5"><a href="additional-r-shortcuts.html#cb445-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">variables =</span> <span class="st">&quot;Allies&quot;</span>,</span>
-<span id="cb445-6"><a href="additional-r-shortcuts.html#cb445-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">change =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb445-7"><a href="additional-r-shortcuts.html#cb445-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">type=</span><span class="st">&quot;response&quot;</span>) </span>
-<span id="cb445-8"><a href="additional-r-shortcuts.html#cb445-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(marg2)</span></code></pre></div>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="additional-r-shortcuts.html#cb454-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Difference in Allies 0 vs. 1 holding MajorPower at 1, other covariates at observed values</span></span>
+<span id="cb454-2"><a href="additional-r-shortcuts.html#cb454-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Using simulations for uncertainty</span></span>
+<span id="cb454-3"><a href="additional-r-shortcuts.html#cb454-3" aria-hidden="true" tabindex="-1"></a>marg2 <span class="ot">&lt;-</span> <span class="fu">margins</span>(out, <span class="at">vce =</span> <span class="st">&quot;simulation&quot;</span>,</span>
+<span id="cb454-4"><a href="additional-r-shortcuts.html#cb454-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">at =</span> <span class="fu">list</span>(<span class="at">MajorPower =</span><span class="dv">1</span>),</span>
+<span id="cb454-5"><a href="additional-r-shortcuts.html#cb454-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">variables =</span> <span class="st">&quot;Allies&quot;</span>,</span>
+<span id="cb454-6"><a href="additional-r-shortcuts.html#cb454-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">change =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb454-7"><a href="additional-r-shortcuts.html#cb454-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">type=</span><span class="st">&quot;response&quot;</span>) </span>
+<span id="cb454-8"><a href="additional-r-shortcuts.html#cb454-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(marg2)</span></code></pre></div>
 <pre><code> factor MajorPower     AME     SE       z      p   lower  upper
  Allies     1.0000 -0.0020 0.0010 -1.9576 0.0503 -0.0041 0.0000</code></pre>
-<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="additional-r-shortcuts.html#cb447-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Manual equivalent of point estimate</span></span>
-<span id="cb447-2"><a href="additional-r-shortcuts.html#cb447-2" aria-hidden="true" tabindex="-1"></a>X.marg1 <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(out)</span>
-<span id="cb447-3"><a href="additional-r-shortcuts.html#cb447-3" aria-hidden="true" tabindex="-1"></a>X.marg1[, <span class="st">&quot;Allies&quot;</span>] <span class="ot">&lt;-</span><span class="dv">1</span></span>
-<span id="cb447-4"><a href="additional-r-shortcuts.html#cb447-4" aria-hidden="true" tabindex="-1"></a>X.marg1[, <span class="st">&quot;MajorPower&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb447-5"><a href="additional-r-shortcuts.html#cb447-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb447-6"><a href="additional-r-shortcuts.html#cb447-6" aria-hidden="true" tabindex="-1"></a>X.marg0 <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(out)</span>
-<span id="cb447-7"><a href="additional-r-shortcuts.html#cb447-7" aria-hidden="true" tabindex="-1"></a>X.marg0[, <span class="st">&quot;Allies&quot;</span>] <span class="ot">&lt;-</span><span class="dv">0</span></span>
-<span id="cb447-8"><a href="additional-r-shortcuts.html#cb447-8" aria-hidden="true" tabindex="-1"></a>X.marg0[, <span class="st">&quot;MajorPower&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb447-9"><a href="additional-r-shortcuts.html#cb447-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb447-10"><a href="additional-r-shortcuts.html#cb447-10" aria-hidden="true" tabindex="-1"></a>BH <span class="ot">&lt;-</span> <span class="fu">coef</span>(out)</span>
-<span id="cb447-11"><a href="additional-r-shortcuts.html#cb447-11" aria-hidden="true" tabindex="-1"></a>ame <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(X.marg1 <span class="sc">%*%</span> BH) <span class="sc">-</span> <span class="fu">plogis</span>(X.marg0 <span class="sc">%*%</span> BH))</span>
-<span id="cb447-12"><a href="additional-r-shortcuts.html#cb447-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb447-13"><a href="additional-r-shortcuts.html#cb447-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Compare</span></span>
-<span id="cb447-14"><a href="additional-r-shortcuts.html#cb447-14" aria-hidden="true" tabindex="-1"></a>ame</span></code></pre></div>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="additional-r-shortcuts.html#cb456-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Manual equivalent of point estimate</span></span>
+<span id="cb456-2"><a href="additional-r-shortcuts.html#cb456-2" aria-hidden="true" tabindex="-1"></a>X.marg1 <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(out)</span>
+<span id="cb456-3"><a href="additional-r-shortcuts.html#cb456-3" aria-hidden="true" tabindex="-1"></a>X.marg1[, <span class="st">&quot;Allies&quot;</span>] <span class="ot">&lt;-</span><span class="dv">1</span></span>
+<span id="cb456-4"><a href="additional-r-shortcuts.html#cb456-4" aria-hidden="true" tabindex="-1"></a>X.marg1[, <span class="st">&quot;MajorPower&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb456-5"><a href="additional-r-shortcuts.html#cb456-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb456-6"><a href="additional-r-shortcuts.html#cb456-6" aria-hidden="true" tabindex="-1"></a>X.marg0 <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(out)</span>
+<span id="cb456-7"><a href="additional-r-shortcuts.html#cb456-7" aria-hidden="true" tabindex="-1"></a>X.marg0[, <span class="st">&quot;Allies&quot;</span>] <span class="ot">&lt;-</span><span class="dv">0</span></span>
+<span id="cb456-8"><a href="additional-r-shortcuts.html#cb456-8" aria-hidden="true" tabindex="-1"></a>X.marg0[, <span class="st">&quot;MajorPower&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb456-9"><a href="additional-r-shortcuts.html#cb456-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb456-10"><a href="additional-r-shortcuts.html#cb456-10" aria-hidden="true" tabindex="-1"></a>BH <span class="ot">&lt;-</span> <span class="fu">coef</span>(out)</span>
+<span id="cb456-11"><a href="additional-r-shortcuts.html#cb456-11" aria-hidden="true" tabindex="-1"></a>ame <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(X.marg1 <span class="sc">%*%</span> BH) <span class="sc">-</span> <span class="fu">plogis</span>(X.marg0 <span class="sc">%*%</span> BH))</span>
+<span id="cb456-12"><a href="additional-r-shortcuts.html#cb456-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb456-13"><a href="additional-r-shortcuts.html#cb456-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Compare</span></span>
+<span id="cb456-14"><a href="additional-r-shortcuts.html#cb456-14" aria-hidden="true" tabindex="-1"></a>ame</span></code></pre></div>
 <pre><code>[1] -0.002039019</code></pre>
-<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="additional-r-shortcuts.html#cb449-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(marg2)<span class="sc">$</span>AME</span></code></pre></div>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="additional-r-shortcuts.html#cb458-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(marg2)<span class="sc">$</span>AME</span></code></pre></div>
 <pre><code>      Allies 
 -0.002039019 </code></pre>
 </div>
 <div id="zelig" class="section level3" number="7.5.3">
 <h3><span class="header-section-number">7.5.3</span> Zelig</h3>
 <p>Zelig has a lot of built-in plotting functions. This can be a great package if you want to present results the way they have set up the package. They make it slightly harder to extract specific elements from the results. Documentation <a href="https://docs.zeligproject.org/index.html">here</a>.</p>
-<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="additional-r-shortcuts.html#cb451-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;Zelig&quot;)</span></span>
-<span id="cb451-2"><a href="additional-r-shortcuts.html#cb451-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Zelig)</span>
-<span id="cb451-3"><a href="additional-r-shortcuts.html#cb451-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb451-4"><a href="additional-r-shortcuts.html#cb451-4" aria-hidden="true" tabindex="-1"></a>z.out <span class="ot">&lt;-</span> <span class="fu">zelig</span>(Conflict <span class="sc">~</span>  MajorPower <span class="sc">+</span> Contiguity <span class="sc">+</span> Allies <span class="sc">+</span> ForeignPolicy <span class="sc">+</span></span>
-<span id="cb451-5"><a href="additional-r-shortcuts.html#cb451-5" aria-hidden="true" tabindex="-1"></a>    BalanceOfPower <span class="sc">+</span> YearsSince, <span class="at">data=</span>mids, <span class="at">model =</span> <span class="st">&quot;logit&quot;</span>, <span class="at">cite =</span> F)</span>
-<span id="cb451-6"><a href="additional-r-shortcuts.html#cb451-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb451-7"><a href="additional-r-shortcuts.html#cb451-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Use function setx to designate values of X</span></span>
-<span id="cb451-8"><a href="additional-r-shortcuts.html#cb451-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s set everything to 0</span></span>
-<span id="cb451-9"><a href="additional-r-shortcuts.html#cb451-9" aria-hidden="true" tabindex="-1"></a>set.x <span class="ot">&lt;-</span> <span class="fu">setx</span>(z.out, <span class="at">MajorPower=</span><span class="dv">0</span>, <span class="at">Contiguity=</span><span class="dv">0</span>, <span class="at">Allies=</span><span class="dv">0</span>,</span>
-<span id="cb451-10"><a href="additional-r-shortcuts.html#cb451-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">ForeignPolicy=</span><span class="dv">0</span>, <span class="at">BalanceOfPower=</span><span class="dv">0</span>, <span class="at">YearsSince=</span><span class="dv">0</span>)</span>
-<span id="cb451-11"><a href="additional-r-shortcuts.html#cb451-11" aria-hidden="true" tabindex="-1"></a>s.out1 <span class="ot">&lt;-</span> <span class="fu">sim</span>(z.out, set.x, <span class="at">num =</span> <span class="dv">100</span>) <span class="co"># should do more like 1000</span></span>
-<span id="cb451-12"><a href="additional-r-shortcuts.html#cb451-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb451-13"><a href="additional-r-shortcuts.html#cb451-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Expected value and 95% CI</span></span>
-<span id="cb451-14"><a href="additional-r-shortcuts.html#cb451-14" aria-hidden="true" tabindex="-1"></a>s.out1</span></code></pre></div>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="additional-r-shortcuts.html#cb460-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;Zelig&quot;)</span></span>
+<span id="cb460-2"><a href="additional-r-shortcuts.html#cb460-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Zelig)</span>
+<span id="cb460-3"><a href="additional-r-shortcuts.html#cb460-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb460-4"><a href="additional-r-shortcuts.html#cb460-4" aria-hidden="true" tabindex="-1"></a>z.out <span class="ot">&lt;-</span> <span class="fu">zelig</span>(Conflict <span class="sc">~</span>  MajorPower <span class="sc">+</span> Contiguity <span class="sc">+</span> Allies <span class="sc">+</span> ForeignPolicy <span class="sc">+</span></span>
+<span id="cb460-5"><a href="additional-r-shortcuts.html#cb460-5" aria-hidden="true" tabindex="-1"></a>    BalanceOfPower <span class="sc">+</span> YearsSince, <span class="at">data=</span>mids, <span class="at">model =</span> <span class="st">&quot;logit&quot;</span>, <span class="at">cite =</span> F)</span>
+<span id="cb460-6"><a href="additional-r-shortcuts.html#cb460-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb460-7"><a href="additional-r-shortcuts.html#cb460-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Use function setx to designate values of X</span></span>
+<span id="cb460-8"><a href="additional-r-shortcuts.html#cb460-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s set everything to 0</span></span>
+<span id="cb460-9"><a href="additional-r-shortcuts.html#cb460-9" aria-hidden="true" tabindex="-1"></a>set.x <span class="ot">&lt;-</span> <span class="fu">setx</span>(z.out, <span class="at">MajorPower=</span><span class="dv">0</span>, <span class="at">Contiguity=</span><span class="dv">0</span>, <span class="at">Allies=</span><span class="dv">0</span>,</span>
+<span id="cb460-10"><a href="additional-r-shortcuts.html#cb460-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">ForeignPolicy=</span><span class="dv">0</span>, <span class="at">BalanceOfPower=</span><span class="dv">0</span>, <span class="at">YearsSince=</span><span class="dv">0</span>)</span>
+<span id="cb460-11"><a href="additional-r-shortcuts.html#cb460-11" aria-hidden="true" tabindex="-1"></a>s.out1 <span class="ot">&lt;-</span> <span class="fu">sim</span>(z.out, set.x, <span class="at">num =</span> <span class="dv">100</span>) <span class="co"># should do more like 1000</span></span>
+<span id="cb460-12"><a href="additional-r-shortcuts.html#cb460-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb460-13"><a href="additional-r-shortcuts.html#cb460-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Expected value and 95% CI</span></span>
+<span id="cb460-14"><a href="additional-r-shortcuts.html#cb460-14" aria-hidden="true" tabindex="-1"></a>s.out1</span></code></pre></div>
 <pre><code>
  sim x :
  -----
@@ -570,44 +572,44 @@ ev
 pv
      0 1
 [1,] 1 0</code></pre>
-<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="additional-r-shortcuts.html#cb453-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Change Allies to 1, and let&#39;s look at the difference between Allies vs. Non-Allies</span></span>
-<span id="cb453-2"><a href="additional-r-shortcuts.html#cb453-2" aria-hidden="true" tabindex="-1"></a>set.x1 <span class="ot">&lt;-</span> <span class="fu">setx1</span>(z.out, <span class="at">MajorPower=</span><span class="dv">0</span>, <span class="at">Contiguity=</span><span class="dv">0</span>, <span class="at">Allies=</span><span class="dv">1</span>,</span>
-<span id="cb453-3"><a href="additional-r-shortcuts.html#cb453-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">ForeignPolicy=</span><span class="dv">0</span>, <span class="at">BalanceOfPower=</span><span class="dv">0</span>, <span class="at">YearsSince=</span><span class="dv">0</span>)</span>
-<span id="cb453-4"><a href="additional-r-shortcuts.html#cb453-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-5"><a href="additional-r-shortcuts.html#cb453-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s look at the QOI that is the difference between these</span></span>
-<span id="cb453-6"><a href="additional-r-shortcuts.html#cb453-6" aria-hidden="true" tabindex="-1"></a>s.out2 <span class="ot">&lt;-</span> <span class="fu">sim</span>(z.out, set.x, set.x1, <span class="at">num =</span> <span class="dv">50</span>)</span>
-<span id="cb453-7"><a href="additional-r-shortcuts.html#cb453-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-8"><a href="additional-r-shortcuts.html#cb453-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Get mean and CI&#39;s from distribution</span></span>
-<span id="cb453-9"><a href="additional-r-shortcuts.html#cb453-9" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(s.out2<span class="sc">$</span><span class="fu">get_qi</span>(<span class="at">qi=</span><span class="st">&quot;fd&quot;</span>, <span class="at">xvalue=</span><span class="st">&quot;x1&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="additional-r-shortcuts.html#cb462-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Change Allies to 1, and let&#39;s look at the difference between Allies vs. Non-Allies</span></span>
+<span id="cb462-2"><a href="additional-r-shortcuts.html#cb462-2" aria-hidden="true" tabindex="-1"></a>set.x1 <span class="ot">&lt;-</span> <span class="fu">setx1</span>(z.out, <span class="at">MajorPower=</span><span class="dv">0</span>, <span class="at">Contiguity=</span><span class="dv">0</span>, <span class="at">Allies=</span><span class="dv">1</span>,</span>
+<span id="cb462-3"><a href="additional-r-shortcuts.html#cb462-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">ForeignPolicy=</span><span class="dv">0</span>, <span class="at">BalanceOfPower=</span><span class="dv">0</span>, <span class="at">YearsSince=</span><span class="dv">0</span>)</span>
+<span id="cb462-4"><a href="additional-r-shortcuts.html#cb462-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb462-5"><a href="additional-r-shortcuts.html#cb462-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s look at the QOI that is the difference between these</span></span>
+<span id="cb462-6"><a href="additional-r-shortcuts.html#cb462-6" aria-hidden="true" tabindex="-1"></a>s.out2 <span class="ot">&lt;-</span> <span class="fu">sim</span>(z.out, set.x, set.x1, <span class="at">num =</span> <span class="dv">50</span>)</span>
+<span id="cb462-7"><a href="additional-r-shortcuts.html#cb462-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb462-8"><a href="additional-r-shortcuts.html#cb462-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Get mean and CI&#39;s from distribution</span></span>
+<span id="cb462-9"><a href="additional-r-shortcuts.html#cb462-9" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(s.out2<span class="sc">$</span><span class="fu">get_qi</span>(<span class="at">qi=</span><span class="st">&quot;fd&quot;</span>, <span class="at">xvalue=</span><span class="st">&quot;x1&quot;</span>))</span></code></pre></div>
 <pre><code>[1] -0.0009859548</code></pre>
-<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="additional-r-shortcuts.html#cb455-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(s.out2<span class="sc">$</span><span class="fu">get_qi</span>(<span class="at">qi=</span><span class="st">&quot;fd&quot;</span>, <span class="at">xvalue=</span><span class="st">&quot;x1&quot;</span>), <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="additional-r-shortcuts.html#cb464-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(s.out2<span class="sc">$</span><span class="fu">get_qi</span>(<span class="at">qi=</span><span class="st">&quot;fd&quot;</span>, <span class="at">xvalue=</span><span class="st">&quot;x1&quot;</span>), <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div>
 <pre><code>         2.5%         97.5% 
 -0.0018093458 -0.0002380693 </code></pre>
 </div>
 <div id="using-expand.grid" class="section level3" number="7.5.4">
 <h3><span class="header-section-number">7.5.4</span> Using <code>expand.grid</code></h3>
 <p>When we use the <code>predict</code> function in R, we specify a “`newdata” dataframe to indicate for which values of <span class="math inline">\(X\)</span> we want to estimate values of the outcome. When we do this, we are actually building a dataframe, like the below:</p>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="additional-r-shortcuts.html#cb457-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">MajorPower =</span> <span class="dv">0</span>, <span class="at">Allies=</span><span class="dv">1</span>, <span class="at">Contiguity =</span> <span class="dv">0</span>)</span>
-<span id="cb457-2"><a href="additional-r-shortcuts.html#cb457-2" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="additional-r-shortcuts.html#cb466-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">MajorPower =</span> <span class="dv">0</span>, <span class="at">Allies=</span><span class="dv">1</span>, <span class="at">Contiguity =</span> <span class="dv">0</span>)</span>
+<span id="cb466-2"><a href="additional-r-shortcuts.html#cb466-2" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div>
 <pre><code>  MajorPower Allies Contiguity
 1          0      1          0</code></pre>
 <p>In cases where we want to make predictions for multiple values of a given variable, we can feed a vector into the data.frame:</p>
-<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="additional-r-shortcuts.html#cb459-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">MajorPower =</span> <span class="dv">0</span>, <span class="at">Allies=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">Contiguity =</span> <span class="dv">0</span>)</span>
-<span id="cb459-2"><a href="additional-r-shortcuts.html#cb459-2" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="additional-r-shortcuts.html#cb468-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">MajorPower =</span> <span class="dv">0</span>, <span class="at">Allies=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">Contiguity =</span> <span class="dv">0</span>)</span>
+<span id="cb468-2"><a href="additional-r-shortcuts.html#cb468-2" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div>
 <pre><code>  MajorPower Allies Contiguity
 1          0      0          0
 2          0      1          0</code></pre>
 <p>However, this becomes more tedious when we want to estimate for combinations of different variables (e.g., <code>MajorPower</code> and <code>Allies</code> as 0 or 1). You have to tell R precisely which rows should include which values. This means indicating four separate values for each variables to get all possible combinations.</p>
-<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="additional-r-shortcuts.html#cb461-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">MajorPower =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>,<span class="dv">1</span>), <span class="at">Allies=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">Contiguity =</span> <span class="dv">0</span>)</span>
-<span id="cb461-2"><a href="additional-r-shortcuts.html#cb461-2" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="additional-r-shortcuts.html#cb470-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">MajorPower =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>,<span class="dv">1</span>), <span class="at">Allies=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">Contiguity =</span> <span class="dv">0</span>)</span>
+<span id="cb470-2"><a href="additional-r-shortcuts.html#cb470-2" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div>
 <pre><code>  MajorPower Allies Contiguity
 1          0      0          0
 2          0      1          0
 3          1      0          0
 4          1      1          0</code></pre>
 <p>What <code>expand.grid</code> does is let you more quickly indicate that you want to estimate for all possibles combinations of the values of the variables you supply. E.g.:</p>
-<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="additional-r-shortcuts.html#cb463-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">MajorPower =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">Allies=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">Contiguity =</span> <span class="dv">0</span>)</span>
-<span id="cb463-2"><a href="additional-r-shortcuts.html#cb463-2" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="additional-r-shortcuts.html#cb472-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">MajorPower =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">Allies=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">Contiguity =</span> <span class="dv">0</span>)</span>
+<span id="cb472-2"><a href="additional-r-shortcuts.html#cb472-2" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div>
 <pre><code>  MajorPower Allies Contiguity
 1          0      0          0
 2          1      0          0

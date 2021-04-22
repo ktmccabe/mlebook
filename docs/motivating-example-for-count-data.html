@@ -160,6 +160,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.1" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#r-markdown"><i class="fa fa-check"></i><b>2.4.1</b> R Markdown</a></li>
 <li class="chapter" data-level="2.4.2" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#latex"><i class="fa fa-check"></i><b>2.4.2</b> LaTex</a></li>
 <li class="chapter" data-level="2.4.3" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#formatting-and-exporting-r-results"><i class="fa fa-check"></i><b>2.4.3</b> Formatting and Exporting R Results</a></li>
+<li class="chapter" data-level="2.4.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-formatting-examples"><i class="fa fa-check"></i><b>2.4.4</b> Additional formatting examples</a></li>
+<li class="chapter" data-level="2.4.5" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-table-types"><i class="fa fa-check"></i><b>2.4.5</b> Additional Table Types</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
@@ -485,10 +487,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Other explanatory variables include dummy variables for the president, an indicator if it is war time, measures related to the economy, and whether it is close to the beginning or end of an administration</li>
 </ul>
 <p>Let’s load the data and look at the outcome variable.</p>
-<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb623-1"><a href="motivating-example-for-count-data.html#cb623-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
-<span id="cb623-2"><a href="motivating-example-for-count-data.html#cb623-2" aria-hidden="true" tabindex="-1"></a>bolton <span class="ot">&lt;-</span> <span class="fu">read.dta</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/bt.dta?raw=true&quot;</span>)</span>
-<span id="cb623-3"><a href="motivating-example-for-count-data.html#cb623-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb623-4"><a href="motivating-example-for-count-data.html#cb623-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(bolton<span class="sc">$</span>allnoncerm_eo)</span></code></pre></div>
+<div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb632-1"><a href="motivating-example-for-count-data.html#cb632-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
+<span id="cb632-2"><a href="motivating-example-for-count-data.html#cb632-2" aria-hidden="true" tabindex="-1"></a>bolton <span class="ot">&lt;-</span> <span class="fu">read.dta</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/bt.dta?raw=true&quot;</span>)</span>
+<span id="cb632-3"><a href="motivating-example-for-count-data.html#cb632-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb632-4"><a href="motivating-example-for-count-data.html#cb632-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(bolton<span class="sc">$</span>allnoncerm_eo)</span></code></pre></div>
 <pre><code>
  20  26  30  31  34  35  37  38  39  40  41  42  43  45  48  49  50  52  53  54 
   1   2   1   2   2   2   3   1   1   1   3   2   1   4   2   3   1   2   2   2 
@@ -499,36 +501,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 273 286 287 303 305 307 309 315 319 328 338 339 345 358 382 393 438 471 473 501 
   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1 </code></pre>
 <p>Often for count variables, it can be useful to visualize them in a histogram. Here is a <code>ggplot</code> version.</p>
-<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="motivating-example-for-count-data.html#cb625-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb625-2"><a href="motivating-example-for-count-data.html#cb625-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(bolton, <span class="fu">aes</span>(allnoncerm_eo))<span class="sc">+</span></span>
-<span id="cb625-3"><a href="motivating-example-for-count-data.html#cb625-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">5</span>)<span class="sc">+</span></span>
-<span id="cb625-4"><a href="motivating-example-for-count-data.html#cb625-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-286-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb634-1"><a href="motivating-example-for-count-data.html#cb634-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb634-2"><a href="motivating-example-for-count-data.html#cb634-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(bolton, <span class="fu">aes</span>(allnoncerm_eo))<span class="sc">+</span></span>
+<span id="cb634-3"><a href="motivating-example-for-count-data.html#cb634-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">5</span>)<span class="sc">+</span></span>
+<span id="cb634-4"><a href="motivating-example-for-count-data.html#cb634-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-295-1.svg" width="672" /></p>
 <p>The authors distinguish time pre- and post-1945 based on different levels of Congressional capacity. We can look at how the outcome changed over time and note how there were far more executive orders in the earlier period.</p>
-<div class="sourceCode" id="cb626"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb626-1"><a href="motivating-example-for-count-data.html#cb626-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>bolton<span class="sc">$</span>year, <span class="at">y=</span>bolton<span class="sc">$</span>allnoncerm_eo, <span class="at">pch =</span><span class="dv">20</span>, </span>
-<span id="cb626-2"><a href="motivating-example-for-count-data.html#cb626-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Executive Orders by Year&quot;</span>, </span>
-<span id="cb626-3"><a href="motivating-example-for-count-data.html#cb626-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.main =</span> .<span class="dv">8</span>, </span>
-<span id="cb626-4"><a href="motivating-example-for-count-data.html#cb626-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">500</span>))</span>
-<span id="cb626-5"><a href="motivating-example-for-count-data.html#cb626-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="dv">1945</span>, <span class="at">lty =</span><span class="dv">2</span>) <span class="co"># vertical line at 1945</span></span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-287-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb635"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb635-1"><a href="motivating-example-for-count-data.html#cb635-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>bolton<span class="sc">$</span>year, <span class="at">y=</span>bolton<span class="sc">$</span>allnoncerm_eo, <span class="at">pch =</span><span class="dv">20</span>, </span>
+<span id="cb635-2"><a href="motivating-example-for-count-data.html#cb635-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Executive Orders by Year&quot;</span>, </span>
+<span id="cb635-3"><a href="motivating-example-for-count-data.html#cb635-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.main =</span> .<span class="dv">8</span>, </span>
+<span id="cb635-4"><a href="motivating-example-for-count-data.html#cb635-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">500</span>))</span>
+<span id="cb635-5"><a href="motivating-example-for-count-data.html#cb635-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="dv">1945</span>, <span class="at">lty =</span><span class="dv">2</span>) <span class="co"># vertical line at 1945</span></span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-296-1.svg" width="672" /></p>
 <div id="fitting-poisson-in-r" class="section level3" number="10.3.1">
 <h3><span class="header-section-number">10.3.1</span> Fitting Poisson in R</h3>
 <p>We will investigate the relationship between divided government and executive orders in the first time period.</p>
 <p>The authors’ hypothesize, "During periods of low legislative capacity (prior to the mid-1940s), the president issues more executive orders under divided government.</p>
 <p>To fit a Poisson model in R, we use the <code>glm</code> function. However, now we have a different <code>family= "poisson"</code> and <code>link = "log"</code>. We don’t actually have to explicitly write the link because R will use this link by default.</p>
 <p>Let’s fit a regression of our outcome on the key explanatory variables, along with other controls the authors use. Note that because I want the early period, I have to subset the data. I can do this outside, prior to the regression. Or, I can subset in the <code>data</code> argument, as is done in the below code:</p>
-<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="motivating-example-for-count-data.html#cb627-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(allnoncerm_eo <span class="sc">~</span> divided <span class="sc">+</span> inflation <span class="sc">+</span> </span>
-<span id="cb627-2"><a href="motivating-example-for-count-data.html#cb627-2" aria-hidden="true" tabindex="-1"></a>             spending_percent_gdp <span class="sc">+</span> war <span class="sc">+</span> lame_duck <span class="sc">+</span></span>
-<span id="cb627-3"><a href="motivating-example-for-count-data.html#cb627-3" aria-hidden="true" tabindex="-1"></a>                 administration_change <span class="sc">+</span> trend <span class="sc">+</span></span>
-<span id="cb627-4"><a href="motivating-example-for-count-data.html#cb627-4" aria-hidden="true" tabindex="-1"></a>           <span class="sc">+</span> tr<span class="sc">+</span> taft <span class="sc">+</span> wilson <span class="sc">+</span> harding </span>
-<span id="cb627-5"><a href="motivating-example-for-count-data.html#cb627-5" aria-hidden="true" tabindex="-1"></a>           <span class="sc">+</span> coolidge <span class="sc">+</span> hoover, </span>
-<span id="cb627-6"><a href="motivating-example-for-count-data.html#cb627-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">family =</span> <span class="st">&quot;poisson&quot;</span>, </span>
-<span id="cb627-7"><a href="motivating-example-for-count-data.html#cb627-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> <span class="fu">subset</span>(bolton, year <span class="sc">&lt;</span> <span class="dv">1945</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="motivating-example-for-count-data.html#cb636-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(allnoncerm_eo <span class="sc">~</span> divided <span class="sc">+</span> inflation <span class="sc">+</span> </span>
+<span id="cb636-2"><a href="motivating-example-for-count-data.html#cb636-2" aria-hidden="true" tabindex="-1"></a>             spending_percent_gdp <span class="sc">+</span> war <span class="sc">+</span> lame_duck <span class="sc">+</span></span>
+<span id="cb636-3"><a href="motivating-example-for-count-data.html#cb636-3" aria-hidden="true" tabindex="-1"></a>                 administration_change <span class="sc">+</span> trend <span class="sc">+</span></span>
+<span id="cb636-4"><a href="motivating-example-for-count-data.html#cb636-4" aria-hidden="true" tabindex="-1"></a>           <span class="sc">+</span> tr<span class="sc">+</span> taft <span class="sc">+</span> wilson <span class="sc">+</span> harding </span>
+<span id="cb636-5"><a href="motivating-example-for-count-data.html#cb636-5" aria-hidden="true" tabindex="-1"></a>           <span class="sc">+</span> coolidge <span class="sc">+</span> hoover, </span>
+<span id="cb636-6"><a href="motivating-example-for-count-data.html#cb636-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">family =</span> <span class="st">&quot;poisson&quot;</span>, </span>
+<span id="cb636-7"><a href="motivating-example-for-count-data.html#cb636-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> <span class="fu">subset</span>(bolton, year <span class="sc">&lt;</span> <span class="dv">1945</span>))</span></code></pre></div>
 </div>
 <div id="interpreting-regression-output" class="section level3" number="10.3.2">
 <h3><span class="header-section-number">10.3.2</span> Interpreting regression output</h3>
 <p>The summary output for Poisson is much nicer than the multinomial output we were working with previously. Let’s extract just the <code>divided</code> coefficient output from the summary.</p>
-<div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb628-1"><a href="motivating-example-for-count-data.html#cb628-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)<span class="sc">$</span>coefficients[<span class="dv">2</span>,]</span></code></pre></div>
+<div class="sourceCode" id="cb637"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb637-1"><a href="motivating-example-for-count-data.html#cb637-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)<span class="sc">$</span>coefficients[<span class="dv">2</span>,]</span></code></pre></div>
 <pre><code>    Estimate   Std. Error      z value     Pr(&gt;|z|) 
 4.435893e-01 4.195090e-02 1.057401e+01 3.933025e-26 </code></pre>
 <p><strong><em>How should we interpret this coefficient?</em></strong></p>

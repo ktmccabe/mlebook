@@ -128,7 +128,7 @@ By using parametric approaches (using an underlying probability distribution), w
   1. Exponential: $h(y) = \tau$
       + hazard function is constant (the hazard of exiting is the same regardless of how long it's been succeeding). no duration dependence.
   2. Weibull: $h(y) = \frac{\gamma}{\mu_i^\gamma}y^{\gamma-1}$
-      + Generalizes exponential. Adds parameter for duration dependence. Monotonic.
+      + Generalizes exponential. Adds parameter for duration dependence. 
   3. Cox proportional hazards: $h(y|x) = h_0(y) \times r(x)$
       + Generalizes Weibull. Multiplicative effect of the baseline hazard $h_0(y)$ and changes in
 covariates $r(x) = \mu_i$ in this case. Non-monotonic.
@@ -144,7 +144,11 @@ Example of Cox Proportional Hazards table from Simmons (2000)
 
 We will do an example of these modeling approaches using the same package in R and dataset.
 
+The workhorse of survival modeling is the `Surv()` function, which tells R the nature of your survival data, such as the duration variable and if the origin should be assumed to be 0 or if, instead, it is located under a different variable. The examples we use are very basic. If you are using this for your own research, I recommend investigating the options available in this function. The documentation is [here](https://www.rdocumentation.org/packages/survival/versions/2.11-4/topics/Surv).
+
 ### Weibull Model
+
+Note: `survreg()` fits what are called accelerated failure models, not proportional hazards models. The coefficients are logarithms of ratios of survival times, so a positive coefficient means longer survival. This is a different type of modeling specification than what other softwares, such as Stata, will default to when fitting the Weibull model. Both can be valid, but it matters for interpretation (what a positive vs. negative sign means in the model). Sarah Haile describes alternative ways to present these models using supplemental functions [here](https://cran.r-project.org/web/packages/SurvRegCensCov/vignettes/weibull.pdf).
 
 ```{r}
 wfit <- survreg(Surv(time=time, event=status)~ age + sex, 
@@ -175,6 +179,8 @@ ggsurvplot(fit = survwb, surv.geom = geom_line,
 ```
 
 ### Cox proportional Hazards Model
+
+This model will rely on a different R function `coxph()`. Note the difference in interpretation.
 
 ```{r}
 fit <- coxph(Surv(time, status) ~ age  + sex, 

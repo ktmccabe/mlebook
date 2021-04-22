@@ -160,6 +160,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.1" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#r-markdown"><i class="fa fa-check"></i><b>2.4.1</b> R Markdown</a></li>
 <li class="chapter" data-level="2.4.2" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#latex"><i class="fa fa-check"></i><b>2.4.2</b> LaTex</a></li>
 <li class="chapter" data-level="2.4.3" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#formatting-and-exporting-r-results"><i class="fa fa-check"></i><b>2.4.3</b> Formatting and Exporting R Results</a></li>
+<li class="chapter" data-level="2.4.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-formatting-examples"><i class="fa fa-check"></i><b>2.4.4</b> Additional formatting examples</a></li>
+<li class="chapter" data-level="2.4.5" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-table-types"><i class="fa fa-check"></i><b>2.4.5</b> Additional Table Types</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
@@ -524,19 +526,19 @@ Y_{it} =  \alpha_i + \beta_1 x_{it}+ \beta_2 year_{t} + \beta_3 year_{t}^2 + \be
 </div>
 <div id="additional-models-in-r" class="section level3" number="12.4.4">
 <h3><span class="header-section-number">12.4.4</span> Additional Models in R</h3>
-<div class="sourceCode" id="cb778"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb778-1"><a href="additional-considerations-for-fixed-effects.html#cb778-1" aria-hidden="true" tabindex="-1"></a><span class="do">## first differences</span></span>
-<span id="cb778-2"><a href="additional-considerations-for-fixed-effects.html#cb778-2" aria-hidden="true" tabindex="-1"></a>fit.fd <span class="ot">&lt;-</span> <span class="fu">plm</span>(inv<span class="sc">~</span>value<span class="sc">+</span>capital, <span class="at">data =</span> Grunfeld, <span class="at">model =</span> <span class="st">&quot;fd&quot;</span>, </span>
-<span id="cb778-3"><a href="additional-considerations-for-fixed-effects.html#cb778-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">index =</span> <span class="fu">c</span>(<span class="st">&quot;firm&quot;</span>, <span class="st">&quot;year&quot;</span>),</span>
-<span id="cb778-4"><a href="additional-considerations-for-fixed-effects.html#cb778-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">effect =</span> <span class="st">&quot;individual&quot;</span>)</span>
-<span id="cb778-5"><a href="additional-considerations-for-fixed-effects.html#cb778-5" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.fd)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb787"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb787-1"><a href="additional-considerations-for-fixed-effects.html#cb787-1" aria-hidden="true" tabindex="-1"></a><span class="do">## first differences</span></span>
+<span id="cb787-2"><a href="additional-considerations-for-fixed-effects.html#cb787-2" aria-hidden="true" tabindex="-1"></a>fit.fd <span class="ot">&lt;-</span> <span class="fu">plm</span>(inv<span class="sc">~</span>value<span class="sc">+</span>capital, <span class="at">data =</span> Grunfeld, <span class="at">model =</span> <span class="st">&quot;fd&quot;</span>, </span>
+<span id="cb787-3"><a href="additional-considerations-for-fixed-effects.html#cb787-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">index =</span> <span class="fu">c</span>(<span class="st">&quot;firm&quot;</span>, <span class="st">&quot;year&quot;</span>),</span>
+<span id="cb787-4"><a href="additional-considerations-for-fixed-effects.html#cb787-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">effect =</span> <span class="st">&quot;individual&quot;</span>)</span>
+<span id="cb787-5"><a href="additional-considerations-for-fixed-effects.html#cb787-5" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.fd)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
 <pre><code>  capital 
 0.2917667 </code></pre>
-<div class="sourceCode" id="cb780"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb780-1"><a href="additional-considerations-for-fixed-effects.html#cb780-1" aria-hidden="true" tabindex="-1"></a><span class="do">## firm and year effects</span></span>
-<span id="cb780-2"><a href="additional-considerations-for-fixed-effects.html#cb780-2" aria-hidden="true" tabindex="-1"></a>fit.twoway <span class="ot">&lt;-</span> <span class="fu">plm</span>(inv<span class="sc">~</span>value<span class="sc">+</span>capital, <span class="at">data =</span> Grunfeld, <span class="at">model =</span> <span class="st">&quot;within&quot;</span>,</span>
-<span id="cb780-3"><a href="additional-considerations-for-fixed-effects.html#cb780-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">index =</span> <span class="fu">c</span>(<span class="st">&quot;firm&quot;</span>, <span class="st">&quot;year&quot;</span>),</span>
-<span id="cb780-4"><a href="additional-considerations-for-fixed-effects.html#cb780-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">effect =</span> <span class="st">&quot;twoways&quot;</span>)</span>
-<span id="cb780-5"><a href="additional-considerations-for-fixed-effects.html#cb780-5" aria-hidden="true" tabindex="-1"></a>                  </span>
-<span id="cb780-6"><a href="additional-considerations-for-fixed-effects.html#cb780-6" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.twoway)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb789"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb789-1"><a href="additional-considerations-for-fixed-effects.html#cb789-1" aria-hidden="true" tabindex="-1"></a><span class="do">## firm and year effects</span></span>
+<span id="cb789-2"><a href="additional-considerations-for-fixed-effects.html#cb789-2" aria-hidden="true" tabindex="-1"></a>fit.twoway <span class="ot">&lt;-</span> <span class="fu">plm</span>(inv<span class="sc">~</span>value<span class="sc">+</span>capital, <span class="at">data =</span> Grunfeld, <span class="at">model =</span> <span class="st">&quot;within&quot;</span>,</span>
+<span id="cb789-3"><a href="additional-considerations-for-fixed-effects.html#cb789-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">index =</span> <span class="fu">c</span>(<span class="st">&quot;firm&quot;</span>, <span class="st">&quot;year&quot;</span>),</span>
+<span id="cb789-4"><a href="additional-considerations-for-fixed-effects.html#cb789-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">effect =</span> <span class="st">&quot;twoways&quot;</span>)</span>
+<span id="cb789-5"><a href="additional-considerations-for-fixed-effects.html#cb789-5" aria-hidden="true" tabindex="-1"></a>                  </span>
+<span id="cb789-6"><a href="additional-considerations-for-fixed-effects.html#cb789-6" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.twoway)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
 <pre><code>  capital 
 0.3579163 </code></pre>
 </div>

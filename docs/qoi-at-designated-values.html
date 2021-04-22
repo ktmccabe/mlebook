@@ -160,6 +160,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.1" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#r-markdown"><i class="fa fa-check"></i><b>2.4.1</b> R Markdown</a></li>
 <li class="chapter" data-level="2.4.2" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#latex"><i class="fa fa-check"></i><b>2.4.2</b> LaTex</a></li>
 <li class="chapter" data-level="2.4.3" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#formatting-and-exporting-r-results"><i class="fa fa-check"></i><b>2.4.3</b> Formatting and Exporting R Results</a></li>
+<li class="chapter" data-level="2.4.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-formatting-examples"><i class="fa fa-check"></i><b>2.4.4</b> Additional formatting examples</a></li>
+<li class="chapter" data-level="2.4.5" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-table-types"><i class="fa fa-check"></i><b>2.4.5</b> Additional Table Types</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
@@ -490,41 +492,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p><strong>Example 1</strong></p>
 <p>Example using the Conflict data using different approaches in R.</p>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="qoi-at-designated-values.html#cb364-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Predicted probability when Allies = 1, and all other covariates = 0</span></span>
-<span id="cb364-2"><a href="qoi-at-designated-values.html#cb364-2" aria-hidden="true" tabindex="-1"></a>allies1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(out.logit, <span class="at">newdata =</span> </span>
-<span id="cb364-3"><a href="qoi-at-designated-values.html#cb364-3" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">data.frame</span>( <span class="at">MajorPower =</span> <span class="dv">0</span>,</span>
-<span id="cb364-4"><a href="qoi-at-designated-values.html#cb364-4" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">Contiguity =</span> <span class="dv">0</span>, </span>
-<span id="cb364-5"><a href="qoi-at-designated-values.html#cb364-5" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">Allies =</span> <span class="dv">1</span>, </span>
-<span id="cb364-6"><a href="qoi-at-designated-values.html#cb364-6" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">ForeignPolicy =</span> <span class="dv">0</span>,<span class="at">BalanceOfPower =</span> <span class="dv">0</span>, </span>
-<span id="cb364-7"><a href="qoi-at-designated-values.html#cb364-7" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">YearsSince =</span> <span class="dv">0</span>),</span>
-<span id="cb364-8"><a href="qoi-at-designated-values.html#cb364-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
-<span id="cb364-9"><a href="qoi-at-designated-values.html#cb364-9" aria-hidden="true" tabindex="-1"></a>allies1</span></code></pre></div>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="qoi-at-designated-values.html#cb373-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Predicted probability when Allies = 1, and all other covariates = 0</span></span>
+<span id="cb373-2"><a href="qoi-at-designated-values.html#cb373-2" aria-hidden="true" tabindex="-1"></a>allies1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(out.logit, <span class="at">newdata =</span> </span>
+<span id="cb373-3"><a href="qoi-at-designated-values.html#cb373-3" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">data.frame</span>( <span class="at">MajorPower =</span> <span class="dv">0</span>,</span>
+<span id="cb373-4"><a href="qoi-at-designated-values.html#cb373-4" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">Contiguity =</span> <span class="dv">0</span>, </span>
+<span id="cb373-5"><a href="qoi-at-designated-values.html#cb373-5" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">Allies =</span> <span class="dv">1</span>, </span>
+<span id="cb373-6"><a href="qoi-at-designated-values.html#cb373-6" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">ForeignPolicy =</span> <span class="dv">0</span>,<span class="at">BalanceOfPower =</span> <span class="dv">0</span>, </span>
+<span id="cb373-7"><a href="qoi-at-designated-values.html#cb373-7" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">YearsSince =</span> <span class="dv">0</span>),</span>
+<span id="cb373-8"><a href="qoi-at-designated-values.html#cb373-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb373-9"><a href="qoi-at-designated-values.html#cb373-9" aria-hidden="true" tabindex="-1"></a>allies1</span></code></pre></div>
 <pre><code>          1 
 0.002632504 </code></pre>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="qoi-at-designated-values.html#cb366-1" aria-hidden="true" tabindex="-1"></a><span class="do">## for allies = 1, careful of the order to make same as coefficients</span></span>
-<span id="cb366-2"><a href="qoi-at-designated-values.html#cb366-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span> , <span class="dv">0</span>) </span>
-<span id="cb366-3"><a href="qoi-at-designated-values.html#cb366-3" aria-hidden="true" tabindex="-1"></a>Bh <span class="ot">&lt;-</span> <span class="fu">coef</span>(out.logit)</span>
-<span id="cb366-4"><a href="qoi-at-designated-values.html#cb366-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb366-5"><a href="qoi-at-designated-values.html#cb366-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Approach 1</span></span>
-<span id="cb366-6"><a href="qoi-at-designated-values.html#cb366-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(X <span class="sc">%*%</span> bh)</span></code></pre></div>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="qoi-at-designated-values.html#cb375-1" aria-hidden="true" tabindex="-1"></a><span class="do">## for allies = 1, careful of the order to make same as coefficients</span></span>
+<span id="cb375-2"><a href="qoi-at-designated-values.html#cb375-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span> , <span class="dv">0</span>) </span>
+<span id="cb375-3"><a href="qoi-at-designated-values.html#cb375-3" aria-hidden="true" tabindex="-1"></a>Bh <span class="ot">&lt;-</span> <span class="fu">coef</span>(out.logit)</span>
+<span id="cb375-4"><a href="qoi-at-designated-values.html#cb375-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb375-5"><a href="qoi-at-designated-values.html#cb375-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Approach 1</span></span>
+<span id="cb375-6"><a href="qoi-at-designated-values.html#cb375-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(X <span class="sc">%*%</span> bh)</span></code></pre></div>
 <pre><code>            [,1]
 [1,] 0.002632504</code></pre>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="qoi-at-designated-values.html#cb368-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Approach 2</span></span>
-<span id="cb368-2"><a href="qoi-at-designated-values.html#cb368-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(X<span class="sc">%*%</span> bh)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(X<span class="sc">%*%</span> Bh))</span></code></pre></div>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="qoi-at-designated-values.html#cb377-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Approach 2</span></span>
+<span id="cb377-2"><a href="qoi-at-designated-values.html#cb377-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(X<span class="sc">%*%</span> bh)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(X<span class="sc">%*%</span> Bh))</span></code></pre></div>
 <pre><code>            [,1]
 [1,] 0.002632504</code></pre>
 <p><strong>Example 2</strong></p>
 <p>Second example keeping X at observed values. Here the manual approach is easier given the limitations of <code>predict</code> (at least until we learn a new package). Now we are estimating <span class="math inline">\(N\)</span> predicted probabilities, so we take the mean to get the average estimate.</p>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="qoi-at-designated-values.html#cb370-1" aria-hidden="true" tabindex="-1"></a><span class="do">## for allies = 1careful of the order to make same as coefficients</span></span>
-<span id="cb370-2"><a href="qoi-at-designated-values.html#cb370-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(out.logit)</span>
-<span id="cb370-3"><a href="qoi-at-designated-values.html#cb370-3" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;Allies&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># change Allies to 1, leave everything else as is</span></span>
-<span id="cb370-4"><a href="qoi-at-designated-values.html#cb370-4" aria-hidden="true" tabindex="-1"></a>Bh <span class="ot">&lt;-</span> <span class="fu">coef</span>(out.logit)</span>
-<span id="cb370-5"><a href="qoi-at-designated-values.html#cb370-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb370-6"><a href="qoi-at-designated-values.html#cb370-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Approach 1</span></span>
-<span id="cb370-7"><a href="qoi-at-designated-values.html#cb370-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">plogis</span>(X <span class="sc">%*%</span> bh))</span></code></pre></div>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="qoi-at-designated-values.html#cb379-1" aria-hidden="true" tabindex="-1"></a><span class="do">## for allies = 1careful of the order to make same as coefficients</span></span>
+<span id="cb379-2"><a href="qoi-at-designated-values.html#cb379-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(out.logit)</span>
+<span id="cb379-3"><a href="qoi-at-designated-values.html#cb379-3" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;Allies&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># change Allies to 1, leave everything else as is</span></span>
+<span id="cb379-4"><a href="qoi-at-designated-values.html#cb379-4" aria-hidden="true" tabindex="-1"></a>Bh <span class="ot">&lt;-</span> <span class="fu">coef</span>(out.logit)</span>
+<span id="cb379-5"><a href="qoi-at-designated-values.html#cb379-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb379-6"><a href="qoi-at-designated-values.html#cb379-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Approach 1</span></span>
+<span id="cb379-7"><a href="qoi-at-designated-values.html#cb379-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">plogis</span>(X <span class="sc">%*%</span> bh))</span></code></pre></div>
 <pre><code>[1] 0.002759902</code></pre>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="qoi-at-designated-values.html#cb372-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Approach 2</span></span>
-<span id="cb372-2"><a href="qoi-at-designated-values.html#cb372-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">exp</span>(X<span class="sc">%*%</span> bh)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(X<span class="sc">%*%</span> Bh)))</span></code></pre></div>
+<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="qoi-at-designated-values.html#cb381-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Approach 2</span></span>
+<span id="cb381-2"><a href="qoi-at-designated-values.html#cb381-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">exp</span>(X<span class="sc">%*%</span> bh)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(X<span class="sc">%*%</span> Bh)))</span></code></pre></div>
 <pre><code>[1] 0.002759902</code></pre>
 <p>This is the average predicted probability of having a dispute when the dyad states are Allies, holding other covariates at their observed values.</p>
 <p>Here is a brief video with a second example of the process above, leading into the discussion of marginal effects below. It uses the <a href="https://raw.githubusercontent.com/ktmccabe/teachingdata/main/anesdems.csv">anes data</a> from Banda and Cassese in section 6.</p>
@@ -585,20 +587,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>We report the average of these estimates</li>
 </ul>
 <p>Here is an example for average marginal effects. Let’s sat we were interested in the difference in probability of a dispute for Allies vs. non-Allies, when all other covariates are zero. We can do this manually or in <code>predict</code>.</p>
-<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="qoi-at-designated-values.html#cb374-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Extract beta coefficients</span></span>
-<span id="cb374-2"><a href="qoi-at-designated-values.html#cb374-2" aria-hidden="true" tabindex="-1"></a>Bh <span class="ot">&lt;-</span> <span class="fu">coef</span>(out.logit)</span>
-<span id="cb374-3"><a href="qoi-at-designated-values.html#cb374-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb374-4"><a href="qoi-at-designated-values.html#cb374-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Set Allies to 1, hold all other covariates as observed</span></span>
-<span id="cb374-5"><a href="qoi-at-designated-values.html#cb374-5" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(out.logit)</span>
-<span id="cb374-6"><a href="qoi-at-designated-values.html#cb374-6" aria-hidden="true" tabindex="-1"></a>X1[, <span class="st">&quot;Allies&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb374-7"><a href="qoi-at-designated-values.html#cb374-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb374-8"><a href="qoi-at-designated-values.html#cb374-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Set Allies to 0, hold all other covariates as observed</span></span>
-<span id="cb374-9"><a href="qoi-at-designated-values.html#cb374-9" aria-hidden="true" tabindex="-1"></a>X0 <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(out.logit)</span>
-<span id="cb374-10"><a href="qoi-at-designated-values.html#cb374-10" aria-hidden="true" tabindex="-1"></a>X0[, <span class="st">&quot;Allies&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb374-11"><a href="qoi-at-designated-values.html#cb374-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb374-12"><a href="qoi-at-designated-values.html#cb374-12" aria-hidden="true" tabindex="-1"></a>pp1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(X1 <span class="sc">%*%</span> Bh))</span>
-<span id="cb374-13"><a href="qoi-at-designated-values.html#cb374-13" aria-hidden="true" tabindex="-1"></a>pp0 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(X0 <span class="sc">%*%</span> Bh))</span>
-<span id="cb374-14"><a href="qoi-at-designated-values.html#cb374-14" aria-hidden="true" tabindex="-1"></a>pp1 <span class="sc">-</span> pp0</span></code></pre></div>
+<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="qoi-at-designated-values.html#cb383-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Extract beta coefficients</span></span>
+<span id="cb383-2"><a href="qoi-at-designated-values.html#cb383-2" aria-hidden="true" tabindex="-1"></a>Bh <span class="ot">&lt;-</span> <span class="fu">coef</span>(out.logit)</span>
+<span id="cb383-3"><a href="qoi-at-designated-values.html#cb383-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb383-4"><a href="qoi-at-designated-values.html#cb383-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Set Allies to 1, hold all other covariates as observed</span></span>
+<span id="cb383-5"><a href="qoi-at-designated-values.html#cb383-5" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(out.logit)</span>
+<span id="cb383-6"><a href="qoi-at-designated-values.html#cb383-6" aria-hidden="true" tabindex="-1"></a>X1[, <span class="st">&quot;Allies&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb383-7"><a href="qoi-at-designated-values.html#cb383-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb383-8"><a href="qoi-at-designated-values.html#cb383-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Set Allies to 0, hold all other covariates as observed</span></span>
+<span id="cb383-9"><a href="qoi-at-designated-values.html#cb383-9" aria-hidden="true" tabindex="-1"></a>X0 <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(out.logit)</span>
+<span id="cb383-10"><a href="qoi-at-designated-values.html#cb383-10" aria-hidden="true" tabindex="-1"></a>X0[, <span class="st">&quot;Allies&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb383-11"><a href="qoi-at-designated-values.html#cb383-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb383-12"><a href="qoi-at-designated-values.html#cb383-12" aria-hidden="true" tabindex="-1"></a>pp1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(X1 <span class="sc">%*%</span> Bh))</span>
+<span id="cb383-13"><a href="qoi-at-designated-values.html#cb383-13" aria-hidden="true" tabindex="-1"></a>pp0 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(X0 <span class="sc">%*%</span> Bh))</span>
+<span id="cb383-14"><a href="qoi-at-designated-values.html#cb383-14" aria-hidden="true" tabindex="-1"></a>pp1 <span class="sc">-</span> pp0</span></code></pre></div>
 <pre><code>[1] -0.0009506303</code></pre>
 <p>This represents the average difference in predicted probability of having a dispute for Dyads that are Allies vs. not Allies.</p>
 </div>
@@ -606,12 +608,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">7.2.5</span> <code>prediction</code> and <code>margins</code> packages.</h3>
 <p>There are functions that can make this easier so long as you understand what they are doing. One package developed by Dr. Thomas Leeper is <code>prediction</code>. A second is <code>margins</code>. Documentation available <a href="https://github.com/leeper/prediction">here</a> and <a href="https://github.com/leeper/margins">here</a>. It is always important to understand what’s going on in a package because, for one, it’s possible that the package will stop being updated, and you will have to find an alternative solution.</p>
 <p>We will focus on the <code>prediction</code> package first. The <code>prediction</code> function generates specific quantities of interest. An advantage it has over the built-in <code>predict</code> function is that it makes it easier to “hold all other variables at observed values.” In the <code>prediction</code> function, you specify the designated values for particular variables, and then by default, it assumes you want to hold all other variables at observed values. Here is an example of generating predicted probabilities for <code>Allies = 1</code> and <code>Allies = 0</code>. It will generate the summary means of these two predictions.</p>
-<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="qoi-at-designated-values.html#cb376-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;prediction&quot;)</span></span>
-<span id="cb376-2"><a href="qoi-at-designated-values.html#cb376-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prediction)</span>
-<span id="cb376-3"><a href="qoi-at-designated-values.html#cb376-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb376-4"><a href="qoi-at-designated-values.html#cb376-4" aria-hidden="true" tabindex="-1"></a><span class="do">## By default, allows covariates to stay at observed values unless specified</span></span>
-<span id="cb376-5"><a href="qoi-at-designated-values.html#cb376-5" aria-hidden="true" tabindex="-1"></a><span class="fu">prediction</span>(out.logit, <span class="at">at =</span> <span class="fu">list</span>(<span class="at">Allies =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)), </span>
-<span id="cb376-6"><a href="qoi-at-designated-values.html#cb376-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="qoi-at-designated-values.html#cb385-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;prediction&quot;)</span></span>
+<span id="cb385-2"><a href="qoi-at-designated-values.html#cb385-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prediction)</span>
+<span id="cb385-3"><a href="qoi-at-designated-values.html#cb385-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb385-4"><a href="qoi-at-designated-values.html#cb385-4" aria-hidden="true" tabindex="-1"></a><span class="do">## By default, allows covariates to stay at observed values unless specified</span></span>
+<span id="cb385-5"><a href="qoi-at-designated-values.html#cb385-5" aria-hidden="true" tabindex="-1"></a><span class="fu">prediction</span>(out.logit, <span class="at">at =</span> <span class="fu">list</span>(<span class="at">Allies =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)), </span>
+<span id="cb385-6"><a href="qoi-at-designated-values.html#cb385-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
 <pre><code>Data frame with 200000 predictions from
  glm(formula = Conflict ~ MajorPower + Contiguity + Allies + ForeignPolicy + 
     BalanceOfPower + YearsSince, family = binomial(link = &quot;logit&quot;), 
@@ -620,10 +622,10 @@ with average predictions:</code></pre>
 <pre><code> Allies        x
       0 0.003711
       1 0.002760</code></pre>
-<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="qoi-at-designated-values.html#cb379-1" aria-hidden="true" tabindex="-1"></a><span class="do">## compare with the manual calculated values above</span></span>
-<span id="cb379-2"><a href="qoi-at-designated-values.html#cb379-2" aria-hidden="true" tabindex="-1"></a>pp0</span></code></pre></div>
+<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="qoi-at-designated-values.html#cb388-1" aria-hidden="true" tabindex="-1"></a><span class="do">## compare with the manual calculated values above</span></span>
+<span id="cb388-2"><a href="qoi-at-designated-values.html#cb388-2" aria-hidden="true" tabindex="-1"></a>pp0</span></code></pre></div>
 <pre><code>[1] 0.003710532</code></pre>
-<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="qoi-at-designated-values.html#cb381-1" aria-hidden="true" tabindex="-1"></a>pp1</span></code></pre></div>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="qoi-at-designated-values.html#cb390-1" aria-hidden="true" tabindex="-1"></a>pp1</span></code></pre></div>
 <pre><code>[1] 0.002759902</code></pre>
 </div>
 <div id="qoi-practice-problems" class="section level3" number="7.2.6">
@@ -640,14 +642,14 @@ with average predictions:</code></pre>
 <summary>
 Try on your own, then expand for the solution.
 </summary>
-<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="qoi-at-designated-values.html#cb383-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Problem 1</span></span>
-<span id="cb383-2"><a href="qoi-at-designated-values.html#cb383-2" aria-hidden="true" tabindex="-1"></a>out.logit2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(Conflict <span class="sc">~</span> Allies <span class="sc">+</span> MajorPower <span class="sc">+</span> ForeignPolicy, <span class="at">data=</span>mids,</span>
-<span id="cb383-3"><a href="qoi-at-designated-values.html#cb383-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
-<span id="cb383-4"><a href="qoi-at-designated-values.html#cb383-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb383-5"><a href="qoi-at-designated-values.html#cb383-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Problem 2</span></span>
-<span id="cb383-6"><a href="qoi-at-designated-values.html#cb383-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prediction)</span>
-<span id="cb383-7"><a href="qoi-at-designated-values.html#cb383-7" aria-hidden="true" tabindex="-1"></a><span class="fu">prediction</span>(out.logit, <span class="at">at =</span> <span class="fu">list</span>(<span class="at">MajorPower =</span> <span class="dv">1</span>), </span>
-<span id="cb383-8"><a href="qoi-at-designated-values.html#cb383-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="qoi-at-designated-values.html#cb392-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Problem 1</span></span>
+<span id="cb392-2"><a href="qoi-at-designated-values.html#cb392-2" aria-hidden="true" tabindex="-1"></a>out.logit2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(Conflict <span class="sc">~</span> Allies <span class="sc">+</span> MajorPower <span class="sc">+</span> ForeignPolicy, <span class="at">data=</span>mids,</span>
+<span id="cb392-3"><a href="qoi-at-designated-values.html#cb392-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb392-4"><a href="qoi-at-designated-values.html#cb392-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb392-5"><a href="qoi-at-designated-values.html#cb392-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Problem 2</span></span>
+<span id="cb392-6"><a href="qoi-at-designated-values.html#cb392-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prediction)</span>
+<span id="cb392-7"><a href="qoi-at-designated-values.html#cb392-7" aria-hidden="true" tabindex="-1"></a><span class="fu">prediction</span>(out.logit, <span class="at">at =</span> <span class="fu">list</span>(<span class="at">MajorPower =</span> <span class="dv">1</span>), </span>
+<span id="cb392-8"><a href="qoi-at-designated-values.html#cb392-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
 <pre><code>Data frame with 100000 predictions from
  glm(formula = Conflict ~ MajorPower + Contiguity + Allies + ForeignPolicy + 
     BalanceOfPower + YearsSince, family = binomial(link = &quot;logit&quot;), 
@@ -655,23 +657,23 @@ Try on your own, then expand for the solution.
 with average prediction:</code></pre>
 <pre><code> MajorPower        x
           1 0.007745</code></pre>
-<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="qoi-at-designated-values.html#cb386-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Problem 3</span></span>
-<span id="cb386-2"><a href="qoi-at-designated-values.html#cb386-2" aria-hidden="true" tabindex="-1"></a>out.probit <span class="ot">&lt;-</span> <span class="fu">glm</span>(Conflict <span class="sc">~</span> Allies <span class="sc">+</span> MajorPower <span class="sc">+</span> ForeignPolicy, <span class="at">data=</span>mids,</span>
-<span id="cb386-3"><a href="qoi-at-designated-values.html#cb386-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;probit&quot;</span>))</span>
-<span id="cb386-4"><a href="qoi-at-designated-values.html#cb386-4" aria-hidden="true" tabindex="-1"></a><span class="fu">prediction</span>(out.probit, <span class="at">at =</span> <span class="fu">list</span>(<span class="at">MajorPower =</span> <span class="dv">1</span>), </span>
-<span id="cb386-5"><a href="qoi-at-designated-values.html#cb386-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="qoi-at-designated-values.html#cb395-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Problem 3</span></span>
+<span id="cb395-2"><a href="qoi-at-designated-values.html#cb395-2" aria-hidden="true" tabindex="-1"></a>out.probit <span class="ot">&lt;-</span> <span class="fu">glm</span>(Conflict <span class="sc">~</span> Allies <span class="sc">+</span> MajorPower <span class="sc">+</span> ForeignPolicy, <span class="at">data=</span>mids,</span>
+<span id="cb395-3"><a href="qoi-at-designated-values.html#cb395-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;probit&quot;</span>))</span>
+<span id="cb395-4"><a href="qoi-at-designated-values.html#cb395-4" aria-hidden="true" tabindex="-1"></a><span class="fu">prediction</span>(out.probit, <span class="at">at =</span> <span class="fu">list</span>(<span class="at">MajorPower =</span> <span class="dv">1</span>), </span>
+<span id="cb395-5"><a href="qoi-at-designated-values.html#cb395-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
 <pre><code>Data frame with 100000 predictions from
  glm(formula = Conflict ~ Allies + MajorPower + ForeignPolicy, 
     family = binomial(link = &quot;probit&quot;), data = mids)
 with average prediction:</code></pre>
 <pre><code> MajorPower       x
           1 0.01451</code></pre>
-<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="qoi-at-designated-values.html#cb389-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Manual approach</span></span>
-<span id="cb389-2"><a href="qoi-at-designated-values.html#cb389-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(out.probit)</span>
-<span id="cb389-3"><a href="qoi-at-designated-values.html#cb389-3" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;MajorPower&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb389-4"><a href="qoi-at-designated-values.html#cb389-4" aria-hidden="true" tabindex="-1"></a>Bhat <span class="ot">&lt;-</span> <span class="fu">coef</span>(out.probit)</span>
-<span id="cb389-5"><a href="qoi-at-designated-values.html#cb389-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb389-6"><a href="qoi-at-designated-values.html#cb389-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">pnorm</span>(X <span class="sc">%*%</span> Bhat))</span></code></pre></div>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="qoi-at-designated-values.html#cb398-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Manual approach</span></span>
+<span id="cb398-2"><a href="qoi-at-designated-values.html#cb398-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(out.probit)</span>
+<span id="cb398-3"><a href="qoi-at-designated-values.html#cb398-3" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;MajorPower&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb398-4"><a href="qoi-at-designated-values.html#cb398-4" aria-hidden="true" tabindex="-1"></a>Bhat <span class="ot">&lt;-</span> <span class="fu">coef</span>(out.probit)</span>
+<span id="cb398-5"><a href="qoi-at-designated-values.html#cb398-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb398-6"><a href="qoi-at-designated-values.html#cb398-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">pnorm</span>(X <span class="sc">%*%</span> Bhat))</span></code></pre></div>
 <pre><code>[1] 0.01450613</code></pre>
 </details>
 </div>

@@ -160,6 +160,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.1" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#r-markdown"><i class="fa fa-check"></i><b>2.4.1</b> R Markdown</a></li>
 <li class="chapter" data-level="2.4.2" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#latex"><i class="fa fa-check"></i><b>2.4.2</b> LaTex</a></li>
 <li class="chapter" data-level="2.4.3" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#formatting-and-exporting-r-results"><i class="fa fa-check"></i><b>2.4.3</b> Formatting and Exporting R Results</a></li>
+<li class="chapter" data-level="2.4.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-formatting-examples"><i class="fa fa-check"></i><b>2.4.4</b> Additional formatting examples</a></li>
+<li class="chapter" data-level="2.4.5" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-table-types"><i class="fa fa-check"></i><b>2.4.5</b> Additional Table Types</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
@@ -594,10 +596,10 @@ Num. obs.
 <span id="cb69-3"><a href="tools-for-writing-up-results.html#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreg)</span>
 <span id="cb69-4"><a href="tools-for-writing-up-results.html#cb69-4" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(<span class="fu">list</span>(fit, fit2),</span>
 <span id="cb69-5"><a href="tools-for-writing-up-results.html#cb69-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">stars=</span><span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>),</span>
-<span id="cb69-6"><a href="tools-for-writing-up-results.html#cb69-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">caption =</span> <span class="st">&quot;Regression of Call Backs on Rac and Sex&quot;</span>)</span></code></pre></div>
+<span id="cb69-6"><a href="tools-for-writing-up-results.html#cb69-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">caption =</span> <span class="st">&quot;Regression of Call Backs on Race and Sex&quot;</span>)</span></code></pre></div>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
-Regression of Call Backs on Rac and Sex
+Regression of Call Backs on Race and Sex
 </caption>
 <thead>
 <tr>
@@ -720,6 +722,117 @@ Num. obs.
 </td>
 </tr>
 </tfoot>
+</table>
+</div>
+<div id="additional-formatting-examples" class="section level3" number="2.4.4">
+<h3><span class="header-section-number">2.4.4</span> Additional formatting examples</h3>
+<p>Here are some additional examples with different formats. You can run them on your own computer to see what the output looks like.</p>
+<p>The package <code>texreg</code> has three primary formats</p>
+<ul>
+<li><code>texreg()</code> for LATEX output;</li>
+<li><code>htmlreg()</code> for HTML, Markdown-compatible and Microsoft Word-compatible output;</li>
+<li><code>screenreg()</code> for text output to the R console.</li>
+</ul>
+<p>If you are working with a LaTex document, I recommend using <code>texreg()</code>, which will output LaTex syntax in your R console, which you can copy and paste into your article document.</p>
+<p>Note: this function allows you to customize model and coefficient names.</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="tools-for-writing-up-results.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreg)</span>
+<span id="cb70-2"><a href="tools-for-writing-up-results.html#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">texreg</span>(<span class="fu">list</span>(fit, fit2),</span>
+<span id="cb70-3"><a href="tools-for-writing-up-results.html#cb70-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">stars=</span><span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>),</span>
+<span id="cb70-4"><a href="tools-for-writing-up-results.html#cb70-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">caption =</span> <span class="st">&quot;Regression of Call Backs on Race and Sex&quot;</span>,</span>
+<span id="cb70-5"><a href="tools-for-writing-up-results.html#cb70-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">&quot;Bivariate&quot;</span>, <span class="st">&quot;Includes Sex&quot;</span>),</span>
+<span id="cb70-6"><a href="tools-for-writing-up-results.html#cb70-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">custom.coef.names =</span> <span class="fu">c</span>(<span class="st">&quot;Intercept&quot;</span>,</span>
+<span id="cb70-7"><a href="tools-for-writing-up-results.html#cb70-7" aria-hidden="true" tabindex="-1"></a>                             <span class="st">&quot;Race- White&quot;</span>,</span>
+<span id="cb70-8"><a href="tools-for-writing-up-results.html#cb70-8" aria-hidden="true" tabindex="-1"></a>                             <span class="st">&quot;Sex- Male&quot;</span>))</span></code></pre></div>
+<p>If you are working with a Microsoft Word document, I recommend using <code>htmlreg()</code> and specifying a file name for your output. This will export a file to your working directory, which you can copy and paste into your Word article document. Otherwise, the syntax is the same as above.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="tools-for-writing-up-results.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreg)</span>
+<span id="cb71-2"><a href="tools-for-writing-up-results.html#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(<span class="fu">list</span>(fit, fit2), <span class="at">file =</span> <span class="st">&quot;models.doc&quot;</span>,</span>
+<span id="cb71-3"><a href="tools-for-writing-up-results.html#cb71-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">stars=</span><span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>),</span>
+<span id="cb71-4"><a href="tools-for-writing-up-results.html#cb71-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">caption =</span> <span class="st">&quot;Regression of Call Backs on Race and Sex&quot;</span>,</span>
+<span id="cb71-5"><a href="tools-for-writing-up-results.html#cb71-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">&quot;Bivariate&quot;</span>, <span class="st">&quot;Includes Sex&quot;</span>),</span>
+<span id="cb71-6"><a href="tools-for-writing-up-results.html#cb71-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">custom.coef.names =</span> <span class="fu">c</span>(<span class="st">&quot;Intercept&quot;</span>,</span>
+<span id="cb71-7"><a href="tools-for-writing-up-results.html#cb71-7" aria-hidden="true" tabindex="-1"></a>                             <span class="st">&quot;Race- White&quot;</span>,</span>
+<span id="cb71-8"><a href="tools-for-writing-up-results.html#cb71-8" aria-hidden="true" tabindex="-1"></a>                             <span class="st">&quot;Sex- Male&quot;</span>))</span></code></pre></div>
+<p>If you are trying to read the output in your R console, that’s when I would use <code>screenreg()</code>. However, for professional manuscript submissions, I would recommend the other formats.</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="tools-for-writing-up-results.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreg)</span>
+<span id="cb72-2"><a href="tools-for-writing-up-results.html#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="fu">screenreg</span>(<span class="fu">list</span>(fit, fit2), </span>
+<span id="cb72-3"><a href="tools-for-writing-up-results.html#cb72-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">stars=</span><span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">0.05</span>),</span>
+<span id="cb72-4"><a href="tools-for-writing-up-results.html#cb72-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">caption =</span> <span class="st">&quot;Regression of Call Backs on Race and Sex&quot;</span>,</span>
+<span id="cb72-5"><a href="tools-for-writing-up-results.html#cb72-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">&quot;Bivariate&quot;</span>, <span class="st">&quot;Includes Sex&quot;</span>),</span>
+<span id="cb72-6"><a href="tools-for-writing-up-results.html#cb72-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">custom.coef.names =</span> <span class="fu">c</span>(<span class="st">&quot;Intercept&quot;</span>,</span>
+<span id="cb72-7"><a href="tools-for-writing-up-results.html#cb72-7" aria-hidden="true" tabindex="-1"></a>                             <span class="st">&quot;Race- White&quot;</span>,</span>
+<span id="cb72-8"><a href="tools-for-writing-up-results.html#cb72-8" aria-hidden="true" tabindex="-1"></a>                             <span class="st">&quot;Sex- Male&quot;</span>))</span></code></pre></div>
+<p>The package <code>stargazer</code> allows similar options. I don’t think there are particular advantages to either package. Whatever comes easiest to you. The default for stargazer will output LaTex code into your R console.</p>
+<ul>
+<li>Note that the syntax is similar but has slightly different argument names from the <code>texreg</code> package.</li>
+<li>Also, the intercept is at the bottom by default for <code>stargazer</code>. Be careful of the covariate ordering when you add labels.</li>
+</ul>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="tools-for-writing-up-results.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span>
+<span id="cb73-2"><a href="tools-for-writing-up-results.html#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(<span class="fu">list</span>(fit, fit2), </span>
+<span id="cb73-3"><a href="tools-for-writing-up-results.html#cb73-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">star.cutoffs=</span><span class="fu">c</span>(<span class="fl">0.05</span>,<span class="fl">0.01</span>, <span class="fl">0.001</span>),</span>
+<span id="cb73-4"><a href="tools-for-writing-up-results.html#cb73-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span> <span class="st">&quot;Regression of Call Backs on Race and Sex&quot;</span>,</span>
+<span id="cb73-5"><a href="tools-for-writing-up-results.html#cb73-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">dep.var.labels.include =</span> F,</span>
+<span id="cb73-6"><a href="tools-for-writing-up-results.html#cb73-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">column.labels =</span> <span class="fu">c</span>(<span class="st">&quot;Call Back&quot;</span>, <span class="st">&quot;Call Back&quot;</span>),</span>
+<span id="cb73-7"><a href="tools-for-writing-up-results.html#cb73-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">covariate.labels =</span> <span class="fu">c</span>(<span class="st">&quot;Race- White&quot;</span>,</span>
+<span id="cb73-8"><a href="tools-for-writing-up-results.html#cb73-8" aria-hidden="true" tabindex="-1"></a>                             <span class="st">&quot;Sex- Male&quot;</span>,</span>
+<span id="cb73-9"><a href="tools-for-writing-up-results.html#cb73-9" aria-hidden="true" tabindex="-1"></a>                             <span class="st">&quot;Intercept&quot;</span>))</span></code></pre></div>
+<p>You can adjust the type of output in <code>stargazer</code> for other formats, similar to <code>texreg</code>. Here is an example of Microsoft Word output.</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="tools-for-writing-up-results.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span>
+<span id="cb74-2"><a href="tools-for-writing-up-results.html#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(<span class="fu">list</span>(fit, fit2), <span class="at">out =</span> <span class="st">&quot;modelstar.doc&quot;</span>, <span class="at">type=</span><span class="st">&quot;html&quot;</span>,</span>
+<span id="cb74-3"><a href="tools-for-writing-up-results.html#cb74-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">star.cutoffs=</span><span class="fu">c</span>(<span class="fl">0.05</span>,<span class="fl">0.01</span>, <span class="fl">0.001</span>),</span>
+<span id="cb74-4"><a href="tools-for-writing-up-results.html#cb74-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">dep.var.labels.include =</span> F,</span>
+<span id="cb74-5"><a href="tools-for-writing-up-results.html#cb74-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span> <span class="st">&quot;Regression of Call Backs on Race and Sex&quot;</span>,</span>
+<span id="cb74-6"><a href="tools-for-writing-up-results.html#cb74-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">column.labels =</span> <span class="fu">c</span>(<span class="st">&quot;Call Back&quot;</span>, <span class="st">&quot;Call Back&quot;</span>),</span>
+<span id="cb74-7"><a href="tools-for-writing-up-results.html#cb74-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">covariate.labels =</span> <span class="fu">c</span>(<span class="st">&quot;Race- White&quot;</span>,</span>
+<span id="cb74-8"><a href="tools-for-writing-up-results.html#cb74-8" aria-hidden="true" tabindex="-1"></a>                             <span class="st">&quot;Sex- Male&quot;</span>,</span>
+<span id="cb74-9"><a href="tools-for-writing-up-results.html#cb74-9" aria-hidden="true" tabindex="-1"></a>                             <span class="st">&quot;Intercept&quot;</span>))</span></code></pre></div>
+</div>
+<div id="additional-table-types" class="section level3" number="2.4.5">
+<h3><span class="header-section-number">2.4.5</span> Additional Table Types</h3>
+<p>Sometimes you might want to create tables that are not from regression models, such as tables for descriptive statistics. R has other packages for tables of this type.</p>
+<p>For example <code>xtable</code> can create simple html and latex tables. You just have to supply the function with a table object or matrix.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="tools-for-writing-up-results.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xtable)</span>
+<span id="cb75-2"><a href="tools-for-writing-up-results.html#cb75-2" aria-hidden="true" tabindex="-1"></a>table1 <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="at">race =</span> mydata<span class="sc">$</span>race, <span class="at">sex =</span> mydata<span class="sc">$</span>sex)</span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="tools-for-writing-up-results.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="do">## LaTeX</span></span>
+<span id="cb76-2"><a href="tools-for-writing-up-results.html#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">xtable</span>(table1)</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="tools-for-writing-up-results.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Word</span></span>
+<span id="cb77-2"><a href="tools-for-writing-up-results.html#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">xtable</span>(table1), <span class="at">type=</span><span class="st">&quot;html&quot;</span>, <span class="at">file =</span> <span class="st">&quot;crosstab.doc&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="tools-for-writing-up-results.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Html</span></span>
+<span id="cb78-2"><a href="tools-for-writing-up-results.html#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">xtable</span>(table1), <span class="at">type=</span><span class="st">&quot;html&quot;</span>)</span></code></pre></div>
+<!-- html table generated in R 4.0.1 by xtable 1.8-4 package -->
+<!-- Thu Apr 22 08:40:26 2021 -->
+<table border="1">
+<tr>
+<th>
+</th>
+<th>
+female
+</th>
+<th>
+male
+</th>
+</tr>
+<tr>
+<td align="right">
+black
+</td>
+<td align="right">
+1886
+</td>
+<td align="right">
+549
+</td>
+</tr>
+<tr>
+<td align="right">
+white
+</td>
+<td align="right">
+1860
+</td>
+<td align="right">
+575
+</td>
+</tr>
 </table>
 
 </div>

@@ -160,6 +160,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.1" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#r-markdown"><i class="fa fa-check"></i><b>2.4.1</b> R Markdown</a></li>
 <li class="chapter" data-level="2.4.2" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#latex"><i class="fa fa-check"></i><b>2.4.2</b> LaTex</a></li>
 <li class="chapter" data-level="2.4.3" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#formatting-and-exporting-r-results"><i class="fa fa-check"></i><b>2.4.3</b> Formatting and Exporting R Results</a></li>
+<li class="chapter" data-level="2.4.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-formatting-examples"><i class="fa fa-check"></i><b>2.4.4</b> Additional formatting examples</a></li>
+<li class="chapter" data-level="2.4.5" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-table-types"><i class="fa fa-check"></i><b>2.4.5</b> Additional Table Types</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
@@ -576,18 +578,18 @@ Pr(Y_i = 1 | x_i) &amp;= \pi_i = g^{-1}(\eta_i) \\
 <h3><span class="header-section-number">5.2.3</span> GLM in R</h3>
 <p>The way generalized linear models work in R is very similar to lm.</p>
 <p>Below is a simple example where we will specify a linear model in <code>lm()</code> and <code>glm()</code> to compare.</p>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="generalized-linear-models.html#cb289-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load Data</span></span>
-<span id="cb289-2"><a href="generalized-linear-models.html#cb289-2" aria-hidden="true" tabindex="-1"></a>florida <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ktmccabe/teachingdata/main/florida.csv&quot;</span>)</span>
-<span id="cb289-3"><a href="generalized-linear-models.html#cb289-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb289-4"><a href="generalized-linear-models.html#cb289-4" aria-hidden="true" tabindex="-1"></a>fit.lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Buchanan00 <span class="sc">~</span> Perot96, <span class="at">data=</span>florida)</span>
-<span id="cb289-5"><a href="generalized-linear-models.html#cb289-5" aria-hidden="true" tabindex="-1"></a>fit.glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(Buchanan00 <span class="sc">~</span> Perot96, <span class="at">data=</span>florida, </span>
-<span id="cb289-6"><a href="generalized-linear-models.html#cb289-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="generalized-linear-models.html#cb298-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load Data</span></span>
+<span id="cb298-2"><a href="generalized-linear-models.html#cb298-2" aria-hidden="true" tabindex="-1"></a>florida <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ktmccabe/teachingdata/main/florida.csv&quot;</span>)</span>
+<span id="cb298-3"><a href="generalized-linear-models.html#cb298-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb298-4"><a href="generalized-linear-models.html#cb298-4" aria-hidden="true" tabindex="-1"></a>fit.lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Buchanan00 <span class="sc">~</span> Perot96, <span class="at">data=</span>florida)</span>
+<span id="cb298-5"><a href="generalized-linear-models.html#cb298-5" aria-hidden="true" tabindex="-1"></a>fit.glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(Buchanan00 <span class="sc">~</span> Perot96, <span class="at">data=</span>florida, </span>
+<span id="cb298-6"><a href="generalized-linear-models.html#cb298-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>))</span></code></pre></div>
 <p>For the glm, we just need to tell R the family of distributions we are using and the appropriate link function. In this example, we are going to use the normal gaussian distribution to describe the data generating process for <code>Buchanan00</code>. This is appropriate for nice numeric continuous data, even if it isn’t perfectly normal. The normal model has a link function, but it is the special case where the link function is just the identity. There is no nonlinear transformation that takes place. Therefore, we can still interpret the <span class="math inline">\(\hat \beta\)</span> results in units of <span class="math inline">\(Y\)</span> (votes in this case).</p>
 <p>In this special case, the <span class="math inline">\(\hat \beta\)</span> estimates from <code>lm()</code> and <code>glm()</code> will be the same.</p>
-<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="generalized-linear-models.html#cb290-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.lm)</span></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="generalized-linear-models.html#cb299-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.lm)</span></code></pre></div>
 <pre><code>(Intercept)     Perot96 
  1.34575212  0.03591504 </code></pre>
-<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="generalized-linear-models.html#cb292-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.glm)</span></code></pre></div>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="generalized-linear-models.html#cb301-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.glm)</span></code></pre></div>
 <pre><code>(Intercept)     Perot96 
  1.34575212  0.03591504 </code></pre>
 <p>There are some differences in the mechanics of how we get to the results in each case, but we will explore those more in the next section. I.e., these coefficients do not come out of thin air. Just like in OLS, we have to work for them.</p>

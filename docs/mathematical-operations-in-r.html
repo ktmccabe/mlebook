@@ -160,6 +160,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.1" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#r-markdown"><i class="fa fa-check"></i><b>2.4.1</b> R Markdown</a></li>
 <li class="chapter" data-level="2.4.2" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#latex"><i class="fa fa-check"></i><b>2.4.2</b> LaTex</a></li>
 <li class="chapter" data-level="2.4.3" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#formatting-and-exporting-r-results"><i class="fa fa-check"></i><b>2.4.3</b> Formatting and Exporting R Results</a></li>
+<li class="chapter" data-level="2.4.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-formatting-examples"><i class="fa fa-check"></i><b>2.4.4</b> Additional formatting examples</a></li>
+<li class="chapter" data-level="2.4.5" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-table-types"><i class="fa fa-check"></i><b>2.4.5</b> Additional Table Types</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
@@ -479,63 +481,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We will use R for this course, and these operations are all available with R code, allowing R to become a calculator for you. Here are some examples applying the tools above.</p>
 <div id="pemdas" class="section level3" number="3.2.1">
 <h3><span class="header-section-number">3.2.1</span> PEMDAS</h3>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="mathematical-operations-in-r.html#cb70-1" aria-hidden="true" tabindex="-1"></a>((<span class="dv">1</span><span class="sc">+</span><span class="dv">2</span>)<span class="sc">^</span><span class="dv">3</span>)<span class="sc">^</span><span class="dv">2</span> </span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="mathematical-operations-in-r.html#cb79-1" aria-hidden="true" tabindex="-1"></a>((<span class="dv">1</span><span class="sc">+</span><span class="dv">2</span>)<span class="sc">^</span><span class="dv">3</span>)<span class="sc">^</span><span class="dv">2</span> </span></code></pre></div>
 <pre><code>[1] 729</code></pre>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="mathematical-operations-in-r.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> (<span class="dv">2</span><span class="sc">^</span><span class="dv">3</span>)<span class="sc">^</span><span class="dv">2</span> </span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="mathematical-operations-in-r.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> (<span class="dv">2</span><span class="sc">^</span><span class="dv">3</span>)<span class="sc">^</span><span class="dv">2</span> </span></code></pre></div>
 <pre><code>[1] 65</code></pre>
 </div>
 <div id="exponents-1" class="section level3" number="3.2.2">
 <h3><span class="header-section-number">3.2.2</span> Exponents</h3>
 <p>You can compare the computation below to match with the rules above. Note how the caret ^ symbol is used for exponents, and the asterisk * is used for multiplication. We also have a function <code>sqrt()</code> for taking the square root.</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="mathematical-operations-in-r.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s say a = 4 for our purposes</span></span>
-<span id="cb74-2"><a href="mathematical-operations-in-r.html#cb74-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb74-3"><a href="mathematical-operations-in-r.html#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="do">## And let&#39;s say k= 3 and l=5, b=2</span></span>
-<span id="cb74-4"><a href="mathematical-operations-in-r.html#cb74-4" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb74-5"><a href="mathematical-operations-in-r.html#cb74-5" aria-hidden="true" tabindex="-1"></a>l <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb74-6"><a href="mathematical-operations-in-r.html#cb74-6" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="mathematical-operations-in-r.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s say a = 4 for our purposes</span></span>
+<span id="cb83-2"><a href="mathematical-operations-in-r.html#cb83-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb83-3"><a href="mathematical-operations-in-r.html#cb83-3" aria-hidden="true" tabindex="-1"></a><span class="do">## And let&#39;s say k= 3 and l=5, b=2</span></span>
+<span id="cb83-4"><a href="mathematical-operations-in-r.html#cb83-4" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb83-5"><a href="mathematical-operations-in-r.html#cb83-5" aria-hidden="true" tabindex="-1"></a>l <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb83-6"><a href="mathematical-operations-in-r.html#cb83-6" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">2</span></span></code></pre></div>
 <ul>
 <li><span class="math inline">\(a^0 = 1\)</span></li>
 <li><span class="math inline">\(a^1 = a\)</span></li>
 </ul>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="mathematical-operations-in-r.html#cb75-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span><span class="dv">0</span></span>
-<span id="cb75-2"><a href="mathematical-operations-in-r.html#cb75-2" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span><span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="mathematical-operations-in-r.html#cb84-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span><span class="dv">0</span></span>
+<span id="cb84-2"><a href="mathematical-operations-in-r.html#cb84-2" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span><span class="dv">1</span></span></code></pre></div>
 <pre><code>[1] 1
 [1] 4</code></pre>
 <p>Note how we use parentheses in R to make it clear that the exponent includes not just <code>k</code> but <code>(k + l)</code></p>
 <ul>
 <li><span class="math inline">\(a^k * a^l = a^{k + l}\)</span></li>
 </ul>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="mathematical-operations-in-r.html#cb77-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span>k <span class="sc">*</span> a<span class="sc">^</span>l </span>
-<span id="cb77-2"><a href="mathematical-operations-in-r.html#cb77-2" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span>(k <span class="sc">+</span> l)</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="mathematical-operations-in-r.html#cb86-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span>k <span class="sc">*</span> a<span class="sc">^</span>l </span>
+<span id="cb86-2"><a href="mathematical-operations-in-r.html#cb86-2" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span>(k <span class="sc">+</span> l)</span></code></pre></div>
 <pre><code>[1] 65536
 [1] 65536</code></pre>
 <p>Note how we use the asterisk to make it clear we want to multiply <code>k*l</code></p>
 <ul>
 <li><span class="math inline">\((a^k)^l = a^{kl}\)</span></li>
 </ul>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="mathematical-operations-in-r.html#cb79-1" aria-hidden="true" tabindex="-1"></a>(a<span class="sc">^</span>k)<span class="sc">^</span>l</span>
-<span id="cb79-2"><a href="mathematical-operations-in-r.html#cb79-2" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span>(k<span class="sc">*</span>l)</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="mathematical-operations-in-r.html#cb88-1" aria-hidden="true" tabindex="-1"></a>(a<span class="sc">^</span>k)<span class="sc">^</span>l</span>
+<span id="cb88-2"><a href="mathematical-operations-in-r.html#cb88-2" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span>(k<span class="sc">*</span>l)</span></code></pre></div>
 <pre><code>[1] 1073741824
 [1] 1073741824</code></pre>
 <ul>
 <li><span class="math inline">\((\frac{a}{b})^k = (\frac{a^k}{b^k})\)</span></li>
 </ul>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="mathematical-operations-in-r.html#cb81-1" aria-hidden="true" tabindex="-1"></a>(a <span class="sc">/</span> b)<span class="sc">^</span>k</span>
-<span id="cb81-2"><a href="mathematical-operations-in-r.html#cb81-2" aria-hidden="true" tabindex="-1"></a>(a <span class="sc">^</span>k)<span class="sc">/</span>(b<span class="sc">^</span>k)</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="mathematical-operations-in-r.html#cb90-1" aria-hidden="true" tabindex="-1"></a>(a <span class="sc">/</span> b)<span class="sc">^</span>k</span>
+<span id="cb90-2"><a href="mathematical-operations-in-r.html#cb90-2" aria-hidden="true" tabindex="-1"></a>(a <span class="sc">^</span>k)<span class="sc">/</span>(b<span class="sc">^</span>k)</span></code></pre></div>
 <pre><code>[1] 8
 [1] 8</code></pre>
 <ul>
 <li><span class="math inline">\(a^{-k} = \frac{1}{a^k}\)</span></li>
 </ul>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="mathematical-operations-in-r.html#cb83-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span>(<span class="sc">-</span>k) </span>
-<span id="cb83-2"><a href="mathematical-operations-in-r.html#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> (a<span class="sc">^</span>k)</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="mathematical-operations-in-r.html#cb92-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span>(<span class="sc">-</span>k) </span>
+<span id="cb92-2"><a href="mathematical-operations-in-r.html#cb92-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">/</span> (a<span class="sc">^</span>k)</span></code></pre></div>
 <pre><code>[1] 0.015625
 [1] 0.015625</code></pre>
 <ul>
 <li><span class="math inline">\(a^{1/2} = \sqrt{a}\)</span></li>
 </ul>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="mathematical-operations-in-r.html#cb85-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>) </span>
-<span id="cb85-2"><a href="mathematical-operations-in-r.html#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(a)</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="mathematical-operations-in-r.html#cb94-1" aria-hidden="true" tabindex="-1"></a>a<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>) </span>
+<span id="cb94-2"><a href="mathematical-operations-in-r.html#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(a)</span></code></pre></div>
 <pre><code>[1] 2
 [1] 2</code></pre>
 </div>
@@ -543,19 +545,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">3.2.3</span> Summations</h3>
 <p>Summations and products are a little more nuanced in R, depending on what you want to accomplish. But here is one example.</p>
 <p>Let’s take a vector (think a list of numbers) that goes from 1 to 4. We will call it <code>ourlist</code>.</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="mathematical-operations-in-r.html#cb87-1" aria-hidden="true" tabindex="-1"></a>ourlist <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)</span>
-<span id="cb87-2"><a href="mathematical-operations-in-r.html#cb87-2" aria-hidden="true" tabindex="-1"></a>ourlist</span>
-<span id="cb87-3"><a href="mathematical-operations-in-r.html#cb87-3" aria-hidden="true" tabindex="-1"></a><span class="do">## An alternative is to write this: ourlist &lt;- 1:4</span></span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="mathematical-operations-in-r.html#cb96-1" aria-hidden="true" tabindex="-1"></a>ourlist <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)</span>
+<span id="cb96-2"><a href="mathematical-operations-in-r.html#cb96-2" aria-hidden="true" tabindex="-1"></a>ourlist</span>
+<span id="cb96-3"><a href="mathematical-operations-in-r.html#cb96-3" aria-hidden="true" tabindex="-1"></a><span class="do">## An alternative is to write this: ourlist &lt;- 1:4</span></span></code></pre></div>
 <pre><code>[1] 1 2 3 4</code></pre>
 <p>Now let’s do <span class="math inline">\(\sum_{i = 1}^4 (i + 1)^2 = (1 +1)^2 + (1+2)^2 + (1 + 3)^2 + (1 + 4)^2 = 54\)</span></p>
 <p>In R, when you add a number to a vector, it will add that number to each entry in the vector. Example</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="mathematical-operations-in-r.html#cb89-1" aria-hidden="true" tabindex="-1"></a>ourlist <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="mathematical-operations-in-r.html#cb98-1" aria-hidden="true" tabindex="-1"></a>ourlist <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div>
 <pre><code>[1] 2 3 4 5</code></pre>
 <p>We can use that now to do the inside part of the summation. Note: the exponent works the same way, squaring each element of the inside expression.</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="mathematical-operations-in-r.html#cb91-1" aria-hidden="true" tabindex="-1"></a>(ourlist <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="mathematical-operations-in-r.html#cb100-1" aria-hidden="true" tabindex="-1"></a>(ourlist <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
 <pre><code>[1]  4  9 16 25</code></pre>
 <p>Now, we will embed this expression inside a function in R called <code>sum</code> standing for summation. It will add together each of the inside components.</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="mathematical-operations-in-r.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>((ourlist <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="mathematical-operations-in-r.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>((ourlist <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
 <pre><code>[1] 54</code></pre>
 <p>If instead we wanted the product, multiplying each element of the inside together, we could use <code>prod()</code>. We won’t use that function very much in this course.</p>
 </div>
@@ -565,39 +567,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><span class="math inline">\(\log x = 8 \rightarrow e^8 = x\)</span></li>
 </ul>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="mathematical-operations-in-r.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="dv">8</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="mathematical-operations-in-r.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="dv">8</span>)</span></code></pre></div>
 <pre><code>[1] 2980.958</code></pre>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="mathematical-operations-in-r.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="fl">2980.958</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="mathematical-operations-in-r.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="fl">2980.958</span>)</span></code></pre></div>
 <pre><code>[1] 8</code></pre>
 <p>Note that R also has a number of built-in constants, like <code>pi</code>.</p>
 <ul>
 <li><span class="math inline">\(e^\pi = y \rightarrow \log y = \pi\)</span></li>
 </ul>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="mathematical-operations-in-r.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(pi)</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="mathematical-operations-in-r.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(pi)</span></code></pre></div>
 <pre><code>[1] 23.14069</code></pre>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="mathematical-operations-in-r.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="fl">23.14069</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="mathematical-operations-in-r.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="fl">23.14069</span>)</span></code></pre></div>
 <pre><code>[1] 3.141593</code></pre>
 <ul>
 <li><span class="math inline">\(\log (a \times b) = \log a + \log b\)</span></li>
 </ul>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="mathematical-operations-in-r.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(a <span class="sc">*</span> b)</span>
-<span id="cb103-2"><a href="mathematical-operations-in-r.html#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(a) <span class="sc">+</span> <span class="fu">log</span>(b)</span></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="mathematical-operations-in-r.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(a <span class="sc">*</span> b)</span>
+<span id="cb112-2"><a href="mathematical-operations-in-r.html#cb112-2" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(a) <span class="sc">+</span> <span class="fu">log</span>(b)</span></code></pre></div>
 <pre><code>[1] 2.079442
 [1] 2.079442</code></pre>
 <p>Let’s treat <span class="math inline">\(n=3\)</span> in this example and enter 3 directly where we see <span class="math inline">\(n\)</span> below. Alternatively you could store 3 as n, as we did with the other letters above.</p>
 <ul>
 <li><span class="math inline">\(\log a^n = n \log a\)</span></li>
 </ul>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="mathematical-operations-in-r.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(a <span class="sc">^</span> <span class="dv">3</span>)</span>
-<span id="cb105-2"><a href="mathematical-operations-in-r.html#cb105-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb105-3"><a href="mathematical-operations-in-r.html#cb105-3" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">*</span> <span class="fu">log</span>(a)</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="mathematical-operations-in-r.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(a <span class="sc">^</span> <span class="dv">3</span>)</span>
+<span id="cb114-2"><a href="mathematical-operations-in-r.html#cb114-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-3"><a href="mathematical-operations-in-r.html#cb114-3" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">*</span> <span class="fu">log</span>(a)</span></code></pre></div>
 <pre><code>[1] 4.158883
 [1] 4.158883</code></pre>
 <ul>
 <li><span class="math inline">\(\log \frac{a}{b} = \log a - \log b\)</span></li>
 </ul>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="mathematical-operations-in-r.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(a<span class="sc">/</span>b)</span>
-<span id="cb107-2"><a href="mathematical-operations-in-r.html#cb107-2" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(a) <span class="sc">-</span> <span class="fu">log</span>(b)</span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="mathematical-operations-in-r.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(a<span class="sc">/</span>b)</span>
+<span id="cb116-2"><a href="mathematical-operations-in-r.html#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(a) <span class="sc">-</span> <span class="fu">log</span>(b)</span></code></pre></div>
 <pre><code>[1] 0.6931472
 [1] 0.6931472</code></pre>
 </div>

@@ -160,6 +160,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.1" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#r-markdown"><i class="fa fa-check"></i><b>2.4.1</b> R Markdown</a></li>
 <li class="chapter" data-level="2.4.2" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#latex"><i class="fa fa-check"></i><b>2.4.2</b> LaTex</a></li>
 <li class="chapter" data-level="2.4.3" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#formatting-and-exporting-r-results"><i class="fa fa-check"></i><b>2.4.3</b> Formatting and Exporting R Results</a></li>
+<li class="chapter" data-level="2.4.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-formatting-examples"><i class="fa fa-check"></i><b>2.4.4</b> Additional formatting examples</a></li>
+<li class="chapter" data-level="2.4.5" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-table-types"><i class="fa fa-check"></i><b>2.4.5</b> Additional Table Types</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
@@ -503,12 +505,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>PDF <span class="math inline">\(f(y) = - \frac{d}{dy} S(y)\)</span></li>
 <li>This is nondecreasing.</li>
 </ul>
-<div class="sourceCode" id="cb866"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb866-1"><a href="survival-overview.html#cb866-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example of S(y) according to the Weibull distribution</span></span>
-<span id="cb866-2"><a href="survival-overview.html#cb866-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Note: It is 1-pweibull()</span></span>
-<span id="cb866-3"><a href="survival-overview.html#cb866-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">1</span>)</span>
-<span id="cb866-4"><a href="survival-overview.html#cb866-4" aria-hidden="true" tabindex="-1"></a>Fy <span class="ot">&lt;-</span> <span class="fu">pweibull</span>(y, <span class="at">shape=</span><span class="dv">2</span>, <span class="at">scale=</span><span class="dv">50</span>)</span>
-<span id="cb866-5"><a href="survival-overview.html#cb866-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>y, <span class="at">y=</span>(<span class="dv">1</span><span class="sc">-</span>Fy), <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-401-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb875"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb875-1"><a href="survival-overview.html#cb875-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example of S(y) according to the Weibull distribution</span></span>
+<span id="cb875-2"><a href="survival-overview.html#cb875-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Note: It is 1-pweibull()</span></span>
+<span id="cb875-3"><a href="survival-overview.html#cb875-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">1</span>)</span>
+<span id="cb875-4"><a href="survival-overview.html#cb875-4" aria-hidden="true" tabindex="-1"></a>Fy <span class="ot">&lt;-</span> <span class="fu">pweibull</span>(y, <span class="at">shape=</span><span class="dv">2</span>, <span class="at">scale=</span><span class="dv">50</span>)</span>
+<span id="cb875-5"><a href="survival-overview.html#cb875-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>y, <span class="at">y=</span>(<span class="dv">1</span><span class="sc">-</span>Fy), <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-410-1.svg" width="672" /></p>
 <p>More on the Weibull distribution <a href="https://www.weibull.com/hotwire/issue14/relbasics14.htm">here</a>.</p>
 <p>And the hazard function <span class="math inline">\(h(y)\)</span>: Given survival up until <span class="math inline">\(y\)</span>, the instantaneous rate at which something fails (that the event occurs).</p>
 <ul>

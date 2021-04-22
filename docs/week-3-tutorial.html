@@ -160,6 +160,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.1" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#r-markdown"><i class="fa fa-check"></i><b>2.4.1</b> R Markdown</a></li>
 <li class="chapter" data-level="2.4.2" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#latex"><i class="fa fa-check"></i><b>2.4.2</b> LaTex</a></li>
 <li class="chapter" data-level="2.4.3" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#formatting-and-exporting-r-results"><i class="fa fa-check"></i><b>2.4.3</b> Formatting and Exporting R Results</a></li>
+<li class="chapter" data-level="2.4.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-formatting-examples"><i class="fa fa-check"></i><b>2.4.4</b> Additional formatting examples</a></li>
+<li class="chapter" data-level="2.4.5" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-table-types"><i class="fa fa-check"></i><b>2.4.5</b> Additional Table Types</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
@@ -484,8 +486,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="loading-data-and-fitting-glm" class="section level3" number="6.7.1">
 <h3><span class="header-section-number">6.7.1</span> Loading data and fitting glm</h3>
 <p>Let’s load the data.</p>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="week-3-tutorial.html#cb346-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
-<span id="cb346-2"><a href="week-3-tutorial.html#cb346-2" aria-hidden="true" tabindex="-1"></a>study <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/ssistudyrecode.dta?raw=true&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="week-3-tutorial.html#cb355-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
+<span id="cb355-2"><a href="week-3-tutorial.html#cb355-2" aria-hidden="true" tabindex="-1"></a>study <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/ssistudyrecode.dta?raw=true&quot;</span>)</span></code></pre></div>
 <p>The data include several key variables</p>
 <ul>
 <li><code>abtrace1</code>: 1= if the respondent thought the ad was about race. 0= otherwise</li>
@@ -506,10 +508,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Try on your own, then expand for the solution.
 </summary>
 <p>We are fitting a probit regression.</p>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="week-3-tutorial.html#cb347-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Column 5</span></span>
-<span id="cb347-2"><a href="week-3-tutorial.html#cb347-2" aria-hidden="true" tabindex="-1"></a>fit.probit5 <span class="ot">&lt;-</span> <span class="fu">glm</span>(abtrace1 <span class="sc">~</span> <span class="fu">factor</span>(condition2)<span class="sc">*</span>racresent <span class="sc">+</span> <span class="fu">factor</span>(condition2)<span class="sc">*</span>oldfash,</span>
-<span id="cb347-3"><a href="week-3-tutorial.html#cb347-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data=</span>study, <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;probit&quot;</span>))</span>
-<span id="cb347-4"><a href="week-3-tutorial.html#cb347-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.probit5)</span></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="week-3-tutorial.html#cb356-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Column 5</span></span>
+<span id="cb356-2"><a href="week-3-tutorial.html#cb356-2" aria-hidden="true" tabindex="-1"></a>fit.probit5 <span class="ot">&lt;-</span> <span class="fu">glm</span>(abtrace1 <span class="sc">~</span> <span class="fu">factor</span>(condition2)<span class="sc">*</span>racresent <span class="sc">+</span> <span class="fu">factor</span>(condition2)<span class="sc">*</span>oldfash,</span>
+<span id="cb356-3"><a href="week-3-tutorial.html#cb356-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data=</span>study, <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;probit&quot;</span>))</span>
+<span id="cb356-4"><a href="week-3-tutorial.html#cb356-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.probit5)</span></code></pre></div>
 <pre><code>
 Call:
 glm(formula = abtrace1 ~ factor(condition2) * racresent + factor(condition2) * 
@@ -544,8 +546,8 @@ Pr(Y_i = 1 | X) &amp;= \\ \Phi(\alpha + \text{Explicit Politician Condition}_i*\
 \text{Old Fashioned Racism}_i*\beta_3 +\\ \text{Explicit Politician Condition}_i*\text{Racial Resentment}_i*\beta_4 +\\
 \text{Explicit Politician Condition}_i* \text{Old Fashioned Racism}_i*\beta_5)
 \end{align*}\]</span></p>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="week-3-tutorial.html#cb349-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(equatiomatic)</span>
-<span id="cb349-2"><a href="week-3-tutorial.html#cb349-2" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_eq</span>(fit.probit5, <span class="at">wrap =</span> <span class="cn">TRUE</span>, <span class="at">terms_per_line =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="week-3-tutorial.html#cb358-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(equatiomatic)</span>
+<span id="cb358-2"><a href="week-3-tutorial.html#cb358-2" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_eq</span>(fit.probit5, <span class="at">wrap =</span> <span class="cn">TRUE</span>, <span class="at">terms_per_line =</span> <span class="dv">3</span>)</span></code></pre></div>
 <p><span class="math display">\[
 \begin{aligned}
 P( \operatorname{abtrace1} = \operatorname{1} ) &amp;= \Phi[\alpha + \beta_{1}(\operatorname{factor(condition2)}_{\operatorname{2}}) + \beta_{2}(\operatorname{racresent})\ + \\
@@ -562,8 +564,8 @@ P( \operatorname{abtrace1} = \operatorname{1} ) &amp;= \Phi[\alpha + \beta_{1}(\
 <div id="numeric-optimization" class="section level3" number="6.7.2">
 <h3><span class="header-section-number">6.7.2</span> Numeric Optimization</h3>
 <p>Let’s repeat our replication of column 5, but this time, let’s use numeric optimization. We first need to make an X and Y matrix from our data. Because we have already run the models, let’s use a trick below:</p>
-<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="week-3-tutorial.html#cb350-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit.probit5)</span>
-<span id="cb350-2"><a href="week-3-tutorial.html#cb350-2" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(fit.probit5<span class="sc">$</span>y)</span></code></pre></div>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="week-3-tutorial.html#cb359-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit.probit5)</span>
+<span id="cb359-2"><a href="week-3-tutorial.html#cb359-2" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(fit.probit5<span class="sc">$</span>y)</span></code></pre></div>
 <p>The next thing we need to do is make a function for the log likelihood. Let’s recall the log likelihood for a Bernoulli random variable from a previous section:</p>
 <p><span class="math display">\[\begin{align*}
 \mathcal L( \pi | Y_i) &amp;= \underbrace{\pi^{y_i}(1 -\pi)^{(1-y_i)}}_\text{Likelihood for single observation}\\
@@ -571,30 +573,30 @@ P( \operatorname{abtrace1} = \operatorname{1} ) &amp;= \Phi[\alpha + \beta_{1}(\
 \ell( \pi | Y) &amp;= \underbrace{\sum_{i=1}^n\log \pi^{y_i}(1 -\pi)^{(1-y_i)}}_\text{Log likelihood}
 \end{align*}\]</span></p>
 <p>Now we just change the definition of <span class="math inline">\(\pi\)</span> to be the transformation for a probit, which is <span class="math inline">\(\Phi(X\beta)\)</span>. We code this up as a function below. Try to make the connection between the log likelihood equation above and the last line of the function. Note: in R, we can use <code>pnorm()</code> to express <span class="math inline">\(\Phi(X\beta)\)</span>, this is the CDF of the normal distribution.</p>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="week-3-tutorial.html#cb351-1" aria-hidden="true" tabindex="-1"></a>llik.probit <span class="ot">&lt;-</span> <span class="cf">function</span>(par, Y, X){</span>
-<span id="cb351-2"><a href="week-3-tutorial.html#cb351-2" aria-hidden="true" tabindex="-1"></a>  beta <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(par)</span>
-<span id="cb351-3"><a href="week-3-tutorial.html#cb351-3" aria-hidden="true" tabindex="-1"></a>  link <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(X <span class="sc">%*%</span> beta)</span>
-<span id="cb351-4"><a href="week-3-tutorial.html#cb351-4" aria-hidden="true" tabindex="-1"></a>  like <span class="ot">&lt;-</span> <span class="fu">sum</span>(Y<span class="sc">*</span><span class="fu">log</span>(link) <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> Y)<span class="sc">*</span><span class="fu">log</span>(<span class="dv">1</span> <span class="sc">-</span> link))</span>
-<span id="cb351-5"><a href="week-3-tutorial.html#cb351-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(like)</span>
-<span id="cb351-6"><a href="week-3-tutorial.html#cb351-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="week-3-tutorial.html#cb360-1" aria-hidden="true" tabindex="-1"></a>llik.probit <span class="ot">&lt;-</span> <span class="cf">function</span>(par, Y, X){</span>
+<span id="cb360-2"><a href="week-3-tutorial.html#cb360-2" aria-hidden="true" tabindex="-1"></a>  beta <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(par)</span>
+<span id="cb360-3"><a href="week-3-tutorial.html#cb360-3" aria-hidden="true" tabindex="-1"></a>  link <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(X <span class="sc">%*%</span> beta)</span>
+<span id="cb360-4"><a href="week-3-tutorial.html#cb360-4" aria-hidden="true" tabindex="-1"></a>  like <span class="ot">&lt;-</span> <span class="fu">sum</span>(Y<span class="sc">*</span><span class="fu">log</span>(link) <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> Y)<span class="sc">*</span><span class="fu">log</span>(<span class="dv">1</span> <span class="sc">-</span> link))</span>
+<span id="cb360-5"><a href="week-3-tutorial.html#cb360-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(like)</span>
+<span id="cb360-6"><a href="week-3-tutorial.html#cb360-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Let’s generate some starting values for the optimization.</p>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="week-3-tutorial.html#cb352-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Starting values</span></span>
-<span id="cb352-2"><a href="week-3-tutorial.html#cb352-2" aria-hidden="true" tabindex="-1"></a>ls.lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X[, <span class="sc">-</span><span class="dv">1</span>]) </span>
-<span id="cb352-3"><a href="week-3-tutorial.html#cb352-3" aria-hidden="true" tabindex="-1"></a>start.par <span class="ot">&lt;-</span> ls.lm<span class="sc">$</span>coef</span></code></pre></div>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="week-3-tutorial.html#cb361-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Starting values</span></span>
+<span id="cb361-2"><a href="week-3-tutorial.html#cb361-2" aria-hidden="true" tabindex="-1"></a>ls.lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X[, <span class="sc">-</span><span class="dv">1</span>]) </span>
+<span id="cb361-3"><a href="week-3-tutorial.html#cb361-3" aria-hidden="true" tabindex="-1"></a>start.par <span class="ot">&lt;-</span> ls.lm<span class="sc">$</span>coef</span></code></pre></div>
 <p>Finally, let’s use <code>optim</code> to find our parameter estimates.</p>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="week-3-tutorial.html#cb353-1" aria-hidden="true" tabindex="-1"></a><span class="do">## optim()</span></span>
-<span id="cb353-2"><a href="week-3-tutorial.html#cb353-2" aria-hidden="true" tabindex="-1"></a>out.opt <span class="ot">&lt;-</span> <span class="fu">optim</span>(start.par, llik.probit, <span class="at">Y=</span>Y,</span>
-<span id="cb353-3"><a href="week-3-tutorial.html#cb353-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">X=</span>X, <span class="at">control=</span><span class="fu">list</span>(<span class="at">fnscale=</span><span class="sc">-</span><span class="dv">1</span>), <span class="at">method=</span><span class="st">&quot;BFGS&quot;</span>,</span>
-<span id="cb353-4"><a href="week-3-tutorial.html#cb353-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">hessian =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="week-3-tutorial.html#cb362-1" aria-hidden="true" tabindex="-1"></a><span class="do">## optim()</span></span>
+<span id="cb362-2"><a href="week-3-tutorial.html#cb362-2" aria-hidden="true" tabindex="-1"></a>out.opt <span class="ot">&lt;-</span> <span class="fu">optim</span>(start.par, llik.probit, <span class="at">Y=</span>Y,</span>
+<span id="cb362-3"><a href="week-3-tutorial.html#cb362-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">X=</span>X, <span class="at">control=</span><span class="fu">list</span>(<span class="at">fnscale=</span><span class="sc">-</span><span class="dv">1</span>), <span class="at">method=</span><span class="st">&quot;BFGS&quot;</span>,</span>
+<span id="cb362-4"><a href="week-3-tutorial.html#cb362-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">hessian =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>We can compare the estimates recovered from <code>glm</code> and <code>optim</code>.</p>
-<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="week-3-tutorial.html#cb354-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Log likelihood</span></span>
-<span id="cb354-2"><a href="week-3-tutorial.html#cb354-2" aria-hidden="true" tabindex="-1"></a><span class="fu">logLik</span>(fit.probit5)</span>
-<span id="cb354-3"><a href="week-3-tutorial.html#cb354-3" aria-hidden="true" tabindex="-1"></a>out.opt<span class="sc">$</span>value</span></code></pre></div>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="week-3-tutorial.html#cb363-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Log likelihood</span></span>
+<span id="cb363-2"><a href="week-3-tutorial.html#cb363-2" aria-hidden="true" tabindex="-1"></a><span class="fu">logLik</span>(fit.probit5)</span>
+<span id="cb363-3"><a href="week-3-tutorial.html#cb363-3" aria-hidden="true" tabindex="-1"></a>out.opt<span class="sc">$</span>value</span></code></pre></div>
 <pre><code>&#39;log Lik.&#39; -574.3267 (df=6)
 [1] -574.3267</code></pre>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="week-3-tutorial.html#cb356-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients</span></span>
-<span id="cb356-2"><a href="week-3-tutorial.html#cb356-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="fu">round</span>(<span class="fu">coef</span>(fit.probit5), <span class="at">digits=</span><span class="dv">4</span>),</span>
-<span id="cb356-3"><a href="week-3-tutorial.html#cb356-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(out.opt<span class="sc">$</span>par, <span class="at">digits =</span> <span class="dv">4</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="week-3-tutorial.html#cb365-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients</span></span>
+<span id="cb365-2"><a href="week-3-tutorial.html#cb365-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="fu">round</span>(<span class="fu">coef</span>(fit.probit5), <span class="at">digits=</span><span class="dv">4</span>),</span>
+<span id="cb365-3"><a href="week-3-tutorial.html#cb365-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(out.opt<span class="sc">$</span>par, <span class="at">digits =</span> <span class="dv">4</span>))</span></code></pre></div>
 <pre><code>                                 [,1]    [,2]
 (Intercept)                    0.6320  0.6321
 factor(condition2)2            0.9685  0.9684
@@ -610,25 +612,25 @@ factor(condition2)2:oldfash   -0.4197 -0.4196</code></pre>
 <p><img src="images/abtracefig.png" style="width:70.0%" /></p>
 <p>We will do one example of this but will talk in more detail about this next week. Let’s generate predicted probabilities for thinking the ad is about race across levels of racial resentment in the sample, for people in the implicit and explicit conditions. For this example, we are going to hold “old-fashioned racism” at its mean value. This is slightly different from what the authors do but should generate similar results. The authors hold old-fashioned racism at its “observed values.”</p>
 <p>We can rely on the <code>predict</code> function like we did with OLS, but here, we need to set <code>type = response</code> to put the results on the response scale instead of the scale of the linear predictor. What this does is apply our function <span class="math inline">\(\Phi(\mathbf{x_i}&#39; \hat \beta)\)</span> for our designated values of <span class="math inline">\(X\)</span> and estimates for <span class="math inline">\(\hat \beta\)</span>.</p>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="week-3-tutorial.html#cb358-1" aria-hidden="true" tabindex="-1"></a>predvals.imp <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit.probit5, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">condition2=</span><span class="dv">1</span>, </span>
-<span id="cb358-2"><a href="week-3-tutorial.html#cb358-2" aria-hidden="true" tabindex="-1"></a>                                                         <span class="at">racresent =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">0625</span>),</span>
-<span id="cb358-3"><a href="week-3-tutorial.html#cb358-3" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">oldfash =</span> <span class="fu">mean</span>(study<span class="sc">$</span>oldfash, <span class="at">na.rm=</span>T)),</span>
-<span id="cb358-4"><a href="week-3-tutorial.html#cb358-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
-<span id="cb358-5"><a href="week-3-tutorial.html#cb358-5" aria-hidden="true" tabindex="-1"></a>predvals.exp <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit.probit5, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">condition2=</span><span class="dv">2</span>,</span>
-<span id="cb358-6"><a href="week-3-tutorial.html#cb358-6" aria-hidden="true" tabindex="-1"></a>                                                         <span class="at">racresent =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>,.<span class="dv">0625</span>),</span>
-<span id="cb358-7"><a href="week-3-tutorial.html#cb358-7" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">oldfash =</span> <span class="fu">mean</span>(study<span class="sc">$</span>oldfash, <span class="at">na.rm=</span>T)),</span>
-<span id="cb358-8"><a href="week-3-tutorial.html#cb358-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
-<span id="cb358-9"><a href="week-3-tutorial.html#cb358-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb358-10"><a href="week-3-tutorial.html#cb358-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot results</span></span>
-<span id="cb358-11"><a href="week-3-tutorial.html#cb358-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">0625</span>), <span class="at">y=</span>predvals.imp, <span class="at">type=</span><span class="st">&quot;l&quot;</span>,</span>
-<span id="cb358-12"><a href="week-3-tutorial.html#cb358-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">lty=</span><span class="dv">2</span>,</span>
-<span id="cb358-13"><a href="week-3-tutorial.html#cb358-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Predicted Probability&quot;</span>,</span>
-<span id="cb358-14"><a href="week-3-tutorial.html#cb358-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Racial Resentment&quot;</span>,</span>
-<span id="cb358-15"><a href="week-3-tutorial.html#cb358-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Predicted Probability of Viewing the Ad as about Race&quot;</span>,</span>
-<span id="cb358-16"><a href="week-3-tutorial.html#cb358-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.main =</span> .<span class="dv">7</span>)</span>
-<span id="cb358-17"><a href="week-3-tutorial.html#cb358-17" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomleft&quot;</span>, <span class="at">lty=</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), <span class="fu">c</span>(<span class="st">&quot;Implicit&quot;</span>, <span class="st">&quot;Explicit&quot;</span>))</span>
-<span id="cb358-18"><a href="week-3-tutorial.html#cb358-18" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">0625</span>), <span class="at">y=</span>predvals.exp, <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-170-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="week-3-tutorial.html#cb367-1" aria-hidden="true" tabindex="-1"></a>predvals.imp <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit.probit5, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">condition2=</span><span class="dv">1</span>, </span>
+<span id="cb367-2"><a href="week-3-tutorial.html#cb367-2" aria-hidden="true" tabindex="-1"></a>                                                         <span class="at">racresent =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">0625</span>),</span>
+<span id="cb367-3"><a href="week-3-tutorial.html#cb367-3" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">oldfash =</span> <span class="fu">mean</span>(study<span class="sc">$</span>oldfash, <span class="at">na.rm=</span>T)),</span>
+<span id="cb367-4"><a href="week-3-tutorial.html#cb367-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb367-5"><a href="week-3-tutorial.html#cb367-5" aria-hidden="true" tabindex="-1"></a>predvals.exp <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit.probit5, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">condition2=</span><span class="dv">2</span>,</span>
+<span id="cb367-6"><a href="week-3-tutorial.html#cb367-6" aria-hidden="true" tabindex="-1"></a>                                                         <span class="at">racresent =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>,.<span class="dv">0625</span>),</span>
+<span id="cb367-7"><a href="week-3-tutorial.html#cb367-7" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">oldfash =</span> <span class="fu">mean</span>(study<span class="sc">$</span>oldfash, <span class="at">na.rm=</span>T)),</span>
+<span id="cb367-8"><a href="week-3-tutorial.html#cb367-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb367-9"><a href="week-3-tutorial.html#cb367-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb367-10"><a href="week-3-tutorial.html#cb367-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot results</span></span>
+<span id="cb367-11"><a href="week-3-tutorial.html#cb367-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">0625</span>), <span class="at">y=</span>predvals.imp, <span class="at">type=</span><span class="st">&quot;l&quot;</span>,</span>
+<span id="cb367-12"><a href="week-3-tutorial.html#cb367-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">lty=</span><span class="dv">2</span>,</span>
+<span id="cb367-13"><a href="week-3-tutorial.html#cb367-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Predicted Probability&quot;</span>,</span>
+<span id="cb367-14"><a href="week-3-tutorial.html#cb367-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Racial Resentment&quot;</span>,</span>
+<span id="cb367-15"><a href="week-3-tutorial.html#cb367-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Predicted Probability of Viewing the Ad as about Race&quot;</span>,</span>
+<span id="cb367-16"><a href="week-3-tutorial.html#cb367-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.main =</span> .<span class="dv">7</span>)</span>
+<span id="cb367-17"><a href="week-3-tutorial.html#cb367-17" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;bottomleft&quot;</span>, <span class="at">lty=</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), <span class="fu">c</span>(<span class="st">&quot;Implicit&quot;</span>, <span class="st">&quot;Explicit&quot;</span>))</span>
+<span id="cb367-18"><a href="week-3-tutorial.html#cb367-18" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">0625</span>), <span class="at">y=</span>predvals.exp, <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-179-1.svg" width="672" /></p>
 <p><em>Additional Questions</em></p>
 <ul>
 <li>For extra practice, you can try replicating column 4 in the model.</li>

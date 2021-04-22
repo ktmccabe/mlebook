@@ -160,6 +160,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.1" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#r-markdown"><i class="fa fa-check"></i><b>2.4.1</b> R Markdown</a></li>
 <li class="chapter" data-level="2.4.2" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#latex"><i class="fa fa-check"></i><b>2.4.2</b> LaTex</a></li>
 <li class="chapter" data-level="2.4.3" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#formatting-and-exporting-r-results"><i class="fa fa-check"></i><b>2.4.3</b> Formatting and Exporting R Results</a></li>
+<li class="chapter" data-level="2.4.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-formatting-examples"><i class="fa fa-check"></i><b>2.4.4</b> Additional formatting examples</a></li>
+<li class="chapter" data-level="2.4.5" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-table-types"><i class="fa fa-check"></i><b>2.4.5</b> Additional Table Types</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
@@ -487,13 +489,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>What to do if assumption is violated? Ignore, Do Binary, Do multinomial (discussed in the next session), use a model that has been developed for relaxing this assumption (e.g., see <code>clm</code> function in R).</p>
 <p>One test for this that has been developed for the ordered logit case is the Brant test.</p>
-<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb516-1"><a href="assumptions.html#cb516-1" aria-hidden="true" tabindex="-1"></a>fit.l <span class="ot">&lt;-</span> <span class="fu">polr</span>(<span class="fu">as.factor</span>(dissent) <span class="sc">~</span> treat, <span class="at">data=</span> pg, </span>
-<span id="cb516-2"><a href="assumptions.html#cb516-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">Hess =</span> T, <span class="at">method =</span> <span class="st">&quot;probit&quot;</span>)</span>
-<span id="cb516-3"><a href="assumptions.html#cb516-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb516-4"><a href="assumptions.html#cb516-4" aria-hidden="true" tabindex="-1"></a><span class="do">## One way to test this</span></span>
-<span id="cb516-5"><a href="assumptions.html#cb516-5" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;brant&quot;)</span></span>
-<span id="cb516-6"><a href="assumptions.html#cb516-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(brant)</span>
-<span id="cb516-7"><a href="assumptions.html#cb516-7" aria-hidden="true" tabindex="-1"></a><span class="fu">brant</span>(fit.l,<span class="at">by.var=</span>F)</span></code></pre></div>
+<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb525-1"><a href="assumptions.html#cb525-1" aria-hidden="true" tabindex="-1"></a>fit.l <span class="ot">&lt;-</span> <span class="fu">polr</span>(<span class="fu">as.factor</span>(dissent) <span class="sc">~</span> treat, <span class="at">data=</span> pg, </span>
+<span id="cb525-2"><a href="assumptions.html#cb525-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">Hess =</span> T, <span class="at">method =</span> <span class="st">&quot;probit&quot;</span>)</span>
+<span id="cb525-3"><a href="assumptions.html#cb525-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb525-4"><a href="assumptions.html#cb525-4" aria-hidden="true" tabindex="-1"></a><span class="do">## One way to test this</span></span>
+<span id="cb525-5"><a href="assumptions.html#cb525-5" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;brant&quot;)</span></span>
+<span id="cb525-6"><a href="assumptions.html#cb525-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(brant)</span>
+<span id="cb525-7"><a href="assumptions.html#cb525-7" aria-hidden="true" tabindex="-1"></a><span class="fu">brant</span>(fit.l,<span class="at">by.var=</span>F)</span></code></pre></div>
 <pre><code>-------------------------------------------- 
 Test for	X2	df	probability 
 -------------------------------------------- 
@@ -502,19 +504,19 @@ treat		3.93	2	0.14
 -------------------------------------------- 
 
 H0: Parallel Regression Assumption holds</code></pre>
-<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb518-1"><a href="assumptions.html#cb518-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Second way- compare fit of ordinal and multinom models</span></span>
-<span id="cb518-2"><a href="assumptions.html#cb518-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;nnet&quot;)</span></span>
-<span id="cb518-3"><a href="assumptions.html#cb518-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nnet)</span>
-<span id="cb518-4"><a href="assumptions.html#cb518-4" aria-hidden="true" tabindex="-1"></a>mlm <span class="ot">&lt;-</span> <span class="fu">multinom</span>(<span class="fu">as.factor</span>(dissent) <span class="sc">~</span> treat, <span class="at">data=</span>pg)</span></code></pre></div>
+<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb527-1"><a href="assumptions.html#cb527-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Second way- compare fit of ordinal and multinom models</span></span>
+<span id="cb527-2"><a href="assumptions.html#cb527-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;nnet&quot;)</span></span>
+<span id="cb527-3"><a href="assumptions.html#cb527-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nnet)</span>
+<span id="cb527-4"><a href="assumptions.html#cb527-4" aria-hidden="true" tabindex="-1"></a>mlm <span class="ot">&lt;-</span> <span class="fu">multinom</span>(<span class="fu">as.factor</span>(dissent) <span class="sc">~</span> treat, <span class="at">data=</span>pg)</span></code></pre></div>
 <pre><code># weights:  12 (6 variable)
 initial  value 686.215709 
 iter  10 value 625.130759
 final  value 625.130585 
 converged</code></pre>
-<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="assumptions.html#cb520-1" aria-hidden="true" tabindex="-1"></a>M1 <span class="ot">&lt;-</span> <span class="fu">logLik</span>(fit.l)</span>
-<span id="cb520-2"><a href="assumptions.html#cb520-2" aria-hidden="true" tabindex="-1"></a>M2 <span class="ot">&lt;-</span> <span class="fu">logLik</span>(mlm)</span>
-<span id="cb520-3"><a href="assumptions.html#cb520-3" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span><span class="sc">*</span>(M1[<span class="dv">1</span>] <span class="sc">-</span> M2[<span class="dv">1</span>])</span>
-<span id="cb520-4"><a href="assumptions.html#cb520-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(G, <span class="dv">6</span> <span class="sc">-</span> <span class="dv">4</span>,<span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="assumptions.html#cb529-1" aria-hidden="true" tabindex="-1"></a>M1 <span class="ot">&lt;-</span> <span class="fu">logLik</span>(fit.l)</span>
+<span id="cb529-2"><a href="assumptions.html#cb529-2" aria-hidden="true" tabindex="-1"></a>M2 <span class="ot">&lt;-</span> <span class="fu">logLik</span>(mlm)</span>
+<span id="cb529-3"><a href="assumptions.html#cb529-3" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span><span class="sc">*</span>(M1[<span class="dv">1</span>] <span class="sc">-</span> M2[<span class="dv">1</span>])</span>
+<span id="cb529-4"><a href="assumptions.html#cb529-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(G, <span class="dv">6</span> <span class="sc">-</span> <span class="dv">4</span>,<span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>[1] 0.1667305</code></pre>
 <p>In both cases, our p-value is large enough that we cannot reject the null hypothesis, meaning that we are “okay” sticking with the assumption in this case.</p>
 </div>

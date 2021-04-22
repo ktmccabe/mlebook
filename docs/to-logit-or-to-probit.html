@@ -160,6 +160,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.1" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#r-markdown"><i class="fa fa-check"></i><b>2.4.1</b> R Markdown</a></li>
 <li class="chapter" data-level="2.4.2" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#latex"><i class="fa fa-check"></i><b>2.4.2</b> LaTex</a></li>
 <li class="chapter" data-level="2.4.3" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#formatting-and-exporting-r-results"><i class="fa fa-check"></i><b>2.4.3</b> Formatting and Exporting R Results</a></li>
+<li class="chapter" data-level="2.4.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-formatting-examples"><i class="fa fa-check"></i><b>2.4.4</b> Additional formatting examples</a></li>
+<li class="chapter" data-level="2.4.5" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-table-types"><i class="fa fa-check"></i><b>2.4.5</b> Additional Table Types</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
@@ -502,12 +504,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Therefore, if we exponentiate our coefficients, this represents an odds ratio: the odds of <span class="math inline">\(Y_i = 1\)</span> increase by a factor of (<span class="math inline">\(\exp(\hat \beta_k)\)</span>) due to 1-unit change in X</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="to-logit-or-to-probit.html#cb341-1" aria-hidden="true" tabindex="-1"></a><span class="do">## odds ratio for the 4th coefficient</span></span>
-<span id="cb341-2"><a href="to-logit-or-to-probit.html#cb341-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(out.logit)[<span class="dv">4</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="to-logit-or-to-probit.html#cb350-1" aria-hidden="true" tabindex="-1"></a><span class="do">## odds ratio for the 4th coefficient</span></span>
+<span id="cb350-2"><a href="to-logit-or-to-probit.html#cb350-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(out.logit)[<span class="dv">4</span>])</span></code></pre></div>
 <pre><code>    age 
 1.00872 </code></pre>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="to-logit-or-to-probit.html#cb343-1" aria-hidden="true" tabindex="-1"></a><span class="do">## CI for odds ratios</span></span>
-<span id="cb343-2"><a href="to-logit-or-to-probit.html#cb343-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">confint</span>(out.logit)[<span class="dv">4</span>, ])</span></code></pre></div>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="to-logit-or-to-probit.html#cb352-1" aria-hidden="true" tabindex="-1"></a><span class="do">## CI for odds ratios</span></span>
+<span id="cb352-2"><a href="to-logit-or-to-probit.html#cb352-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">confint</span>(out.logit)[<span class="dv">4</span>, ])</span></code></pre></div>
 <pre><code>Waiting for profiling to be done...</code></pre>
 <pre><code>   2.5 %   97.5 % 
 1.000790 1.016801 </code></pre>

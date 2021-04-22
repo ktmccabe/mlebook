@@ -160,6 +160,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.1" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#r-markdown"><i class="fa fa-check"></i><b>2.4.1</b> R Markdown</a></li>
 <li class="chapter" data-level="2.4.2" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#latex"><i class="fa fa-check"></i><b>2.4.2</b> LaTex</a></li>
 <li class="chapter" data-level="2.4.3" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#formatting-and-exporting-r-results"><i class="fa fa-check"></i><b>2.4.3</b> Formatting and Exporting R Results</a></li>
+<li class="chapter" data-level="2.4.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-formatting-examples"><i class="fa fa-check"></i><b>2.4.4</b> Additional formatting examples</a></li>
+<li class="chapter" data-level="2.4.5" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-table-types"><i class="fa fa-check"></i><b>2.4.5</b> Additional Table Types</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
@@ -494,10 +496,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Explanatory variables: <code>female, party_cat, leg_exp_dum, exec_exp_dum, leadership</code></li>
 </ul>
 <p>Let’s load the data and take a look at the outcome variable.</p>
-<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb573-1"><a href="motivating-example.html#cb573-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
-<span id="cb573-2"><a href="motivating-example.html#cb573-2" aria-hidden="true" tabindex="-1"></a>ker <span class="ot">&lt;-</span> <span class="fu">read.dta</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/kerevel.dta?raw=true&quot;</span>)</span>
-<span id="cb573-3"><a href="motivating-example.html#cb573-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb573-4"><a href="motivating-example.html#cb573-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ker<span class="sc">$</span>genderimmedambcat3)</span></code></pre></div>
+<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb582-1"><a href="motivating-example.html#cb582-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
+<span id="cb582-2"><a href="motivating-example.html#cb582-2" aria-hidden="true" tabindex="-1"></a>ker <span class="ot">&lt;-</span> <span class="fu">read.dta</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/kerevel.dta?raw=true&quot;</span>)</span>
+<span id="cb582-3"><a href="motivating-example.html#cb582-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb582-4"><a href="motivating-example.html#cb582-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ker<span class="sc">$</span>genderimmedambcat3)</span></code></pre></div>
 <pre><code>
                        other deputy/regidor ballot access 
                          680                          241 
