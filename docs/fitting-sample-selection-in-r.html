@@ -163,6 +163,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-formatting-examples"><i class="fa fa-check"></i><b>2.4.4</b> Additional formatting examples</a></li>
 <li class="chapter" data-level="2.4.5" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-table-types"><i class="fa fa-check"></i><b>2.4.5</b> Additional Table Types</a></li>
 </ul></li>
+<li class="chapter" data-level="2.5" data-path="exploratory-data-analysis-tools.html"><a href="exploratory-data-analysis-tools.html"><i class="fa fa-check"></i><b>2.5</b> Exploratory Data Analysis Tools</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
 <ul>
@@ -459,6 +460,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.3.3" data-path="modeling-approaches.html"><a href="modeling-approaches.html#cox-proportional-hazards-model"><i class="fa fa-check"></i><b>14.3.3</b> Cox proportional Hazards Model</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="15" data-path="predict.html"><a href="predict.html"><i class="fa fa-check"></i><b>15</b> Prediction and Classification</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html"><i class="fa fa-check"></i><b>15.1</b> Overview of Prediction and Classification</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html#how-to-predict-or-classify"><i class="fa fa-check"></i><b>15.1.1</b> How to predict or classify</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="in-sample-vs-out-of-sample.html"><a href="in-sample-vs-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
+<li class="chapter" data-level="15.3" data-path="cross-validation.html"><a href="cross-validation.html"><i class="fa fa-check"></i><b>15.3</b> Cross-Validation</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>15.3.1</b> k-fold cross-validation</a></li>
+<li class="chapter" data-level="15.3.2" data-path="cross-validation.html"><a href="cross-validation.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>15.3.2</b> Leave-one-out cross-validation</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="examples-of-prediction-and-classification.html"><a href="examples-of-prediction-and-classification.html"><i class="fa fa-check"></i><b>15.4</b> Examples of Prediction and Classification</a></li>
+<li class="chapter" data-level="15.5" data-path="extending-machine-learning.html"><a href="extending-machine-learning.html"><i class="fa fa-check"></i><b>15.5</b> Extending Machine Learning</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -483,12 +499,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Mroz, T. A. (1987) “The sensitivity of an empirical model of married women’s hours of work to economic and statistical assumptions.” Econometrica 55, 765–799.</li>
 </ul>
 <p>Review the summary at the link above for information about the setup, where our outcome is married women’s wages, and the selection is labor force participation.</p>
-<div class="sourceCode" id="cb730"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb730-1"><a href="fitting-sample-selection-in-r.html#cb730-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;sampleSelection&quot;)</span></span>
-<span id="cb730-2"><a href="fitting-sample-selection-in-r.html#cb730-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sampleSelection)</span>
-<span id="cb730-3"><a href="fitting-sample-selection-in-r.html#cb730-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb730-4"><a href="fitting-sample-selection-in-r.html#cb730-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;Mroz87&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb751"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb751-1"><a href="fitting-sample-selection-in-r.html#cb751-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;sampleSelection&quot;)</span></span>
+<span id="cb751-2"><a href="fitting-sample-selection-in-r.html#cb751-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sampleSelection)</span>
+<span id="cb751-3"><a href="fitting-sample-selection-in-r.html#cb751-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb751-4"><a href="fitting-sample-selection-in-r.html#cb751-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;Mroz87&quot;</span>)</span></code></pre></div>
 <p>The selection variable is <code>lfp</code>, a 0 or 1 variable indicating labor force participation.</p>
-<div class="sourceCode" id="cb731"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb731-1"><a href="fitting-sample-selection-in-r.html#cb731-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Mroz87<span class="sc">$</span>lfp)</span></code></pre></div>
+<div class="sourceCode" id="cb752"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb752-1"><a href="fitting-sample-selection-in-r.html#cb752-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Mroz87<span class="sc">$</span>lfp)</span></code></pre></div>
 <pre><code>
   0   1 
 325 428 </code></pre>
@@ -496,15 +512,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Note, we need at least one variable in the selection equation that predicts selection but not wages. Here, we use <code>kids</code> for this.</li>
 </ul>
-<div class="sourceCode" id="cb733"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb733-1"><a href="fitting-sample-selection-in-r.html#cb733-1" aria-hidden="true" tabindex="-1"></a>Mroz87<span class="sc">$</span>kids <span class="ot">&lt;-</span> (Mroz87<span class="sc">$</span>kids5 <span class="sc">+</span> Mroz87<span class="sc">$</span>kids618)</span></code></pre></div>
+<div class="sourceCode" id="cb754"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb754-1"><a href="fitting-sample-selection-in-r.html#cb754-1" aria-hidden="true" tabindex="-1"></a>Mroz87<span class="sc">$</span>kids <span class="ot">&lt;-</span> (Mroz87<span class="sc">$</span>kids5 <span class="sc">+</span> Mroz87<span class="sc">$</span>kids618)</span></code></pre></div>
 <p>We fit the model by providing two regression formulas in the <code>selection</code> function.</p>
-<div class="sourceCode" id="cb734"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb734-1"><a href="fitting-sample-selection-in-r.html#cb734-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 2-step estimator</span></span>
-<span id="cb734-2"><a href="fitting-sample-selection-in-r.html#cb734-2" aria-hidden="true" tabindex="-1"></a>selection1 <span class="ot">&lt;-</span> <span class="fu">selection</span>(<span class="at">selection =</span> lfp <span class="sc">~</span> age  <span class="sc">+</span></span>
-<span id="cb734-3"><a href="fitting-sample-selection-in-r.html#cb734-3" aria-hidden="true" tabindex="-1"></a>                          faminc <span class="sc">+</span> kids <span class="sc">+</span> educ,</span>
-<span id="cb734-4"><a href="fitting-sample-selection-in-r.html#cb734-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">outcome =</span> wage <span class="sc">~</span> exper <span class="sc">+</span> age <span class="sc">+</span> educ <span class="sc">+</span> city, </span>
-<span id="cb734-5"><a href="fitting-sample-selection-in-r.html#cb734-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> Mroz87,</span>
-<span id="cb734-6"><a href="fitting-sample-selection-in-r.html#cb734-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">method =</span> <span class="st">&quot;2step&quot;</span>)</span>
-<span id="cb734-7"><a href="fitting-sample-selection-in-r.html#cb734-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(selection1)</span></code></pre></div>
+<div class="sourceCode" id="cb755"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb755-1"><a href="fitting-sample-selection-in-r.html#cb755-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 2-step estimator</span></span>
+<span id="cb755-2"><a href="fitting-sample-selection-in-r.html#cb755-2" aria-hidden="true" tabindex="-1"></a>selection1 <span class="ot">&lt;-</span> <span class="fu">selection</span>(<span class="at">selection =</span> lfp <span class="sc">~</span> age  <span class="sc">+</span></span>
+<span id="cb755-3"><a href="fitting-sample-selection-in-r.html#cb755-3" aria-hidden="true" tabindex="-1"></a>                          faminc <span class="sc">+</span> kids <span class="sc">+</span> educ,</span>
+<span id="cb755-4"><a href="fitting-sample-selection-in-r.html#cb755-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">outcome =</span> wage <span class="sc">~</span> exper <span class="sc">+</span> age <span class="sc">+</span> educ <span class="sc">+</span> city, </span>
+<span id="cb755-5"><a href="fitting-sample-selection-in-r.html#cb755-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> Mroz87,</span>
+<span id="cb755-6"><a href="fitting-sample-selection-in-r.html#cb755-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">method =</span> <span class="st">&quot;2step&quot;</span>)</span>
+<span id="cb755-7"><a href="fitting-sample-selection-in-r.html#cb755-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(selection1)</span></code></pre></div>
 <pre><code>--------------------------------------------
 Tobit 2 model (sample selection model)
 2-step Heckman / heckit estimation
@@ -533,26 +549,26 @@ rho            -0.3629         NA      NA       NA
 --------------------------------------------</code></pre>
 <p>If the coefficient estimate on the inverse mills ratio is non-zero, that suggests that the selection probability does influence wages. We do not necessarily have strong evidence here given the high p-value. This may vary by how to specify the model. Note also that the estimate for this coefficient is the multiplication of sigma*rho, where rho is the correlation of the errors between equations and sigma is the standard error of the residuals from the regression equation.</p>
 <p>Maximum likelihood also allows us to estimate the equations simultaneously. We just specify <code>ml</code> as the method.</p>
-<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb736-1"><a href="fitting-sample-selection-in-r.html#cb736-1" aria-hidden="true" tabindex="-1"></a><span class="do">## alternative using maximum likelihood</span></span>
-<span id="cb736-2"><a href="fitting-sample-selection-in-r.html#cb736-2" aria-hidden="true" tabindex="-1"></a>selection2 <span class="ot">&lt;-</span> <span class="fu">selection</span>(<span class="at">selection =</span> lfp <span class="sc">~</span> age <span class="sc">+</span></span>
-<span id="cb736-3"><a href="fitting-sample-selection-in-r.html#cb736-3" aria-hidden="true" tabindex="-1"></a>                          faminc <span class="sc">+</span> kids <span class="sc">+</span> educ,</span>
-<span id="cb736-4"><a href="fitting-sample-selection-in-r.html#cb736-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">outcome =</span> wage <span class="sc">~</span> exper <span class="sc">+</span> age <span class="sc">+</span> educ <span class="sc">+</span> city, </span>
-<span id="cb736-5"><a href="fitting-sample-selection-in-r.html#cb736-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> Mroz87,</span>
-<span id="cb736-6"><a href="fitting-sample-selection-in-r.html#cb736-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">method =</span> <span class="st">&quot;ml&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb757"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb757-1"><a href="fitting-sample-selection-in-r.html#cb757-1" aria-hidden="true" tabindex="-1"></a><span class="do">## alternative using maximum likelihood</span></span>
+<span id="cb757-2"><a href="fitting-sample-selection-in-r.html#cb757-2" aria-hidden="true" tabindex="-1"></a>selection2 <span class="ot">&lt;-</span> <span class="fu">selection</span>(<span class="at">selection =</span> lfp <span class="sc">~</span> age <span class="sc">+</span></span>
+<span id="cb757-3"><a href="fitting-sample-selection-in-r.html#cb757-3" aria-hidden="true" tabindex="-1"></a>                          faminc <span class="sc">+</span> kids <span class="sc">+</span> educ,</span>
+<span id="cb757-4"><a href="fitting-sample-selection-in-r.html#cb757-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">outcome =</span> wage <span class="sc">~</span> exper <span class="sc">+</span> age <span class="sc">+</span> educ <span class="sc">+</span> city, </span>
+<span id="cb757-5"><a href="fitting-sample-selection-in-r.html#cb757-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> Mroz87,</span>
+<span id="cb757-6"><a href="fitting-sample-selection-in-r.html#cb757-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">method =</span> <span class="st">&quot;ml&quot;</span>)</span></code></pre></div>
 <p>We can see what is going on under the hood by fitting the 2-step process manually. The only difference is our manual standard errors would be wrong.</p>
-<div class="sourceCode" id="cb737"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb737-1"><a href="fitting-sample-selection-in-r.html#cb737-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Selection equation</span></span>
-<span id="cb737-2"><a href="fitting-sample-selection-in-r.html#cb737-2" aria-hidden="true" tabindex="-1"></a>seleqn1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(lfp <span class="sc">~</span> age  <span class="sc">+</span> faminc <span class="sc">+</span> kids <span class="sc">+</span> educ,</span>
-<span id="cb737-3"><a href="fitting-sample-selection-in-r.html#cb737-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span><span class="st">&quot;probit&quot;</span>), <span class="at">data=</span>Mroz87)</span>
-<span id="cb737-4"><a href="fitting-sample-selection-in-r.html#cb737-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb737-5"><a href="fitting-sample-selection-in-r.html#cb737-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Calculate inverse Mills ratio by hand ##</span></span>
-<span id="cb737-6"><a href="fitting-sample-selection-in-r.html#cb737-6" aria-hidden="true" tabindex="-1"></a>Mroz87<span class="sc">$</span>IMR <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(seleqn1<span class="sc">$</span>linear.predictors)<span class="sc">/</span><span class="fu">pnorm</span>(seleqn1<span class="sc">$</span>linear.predictors)</span>
-<span id="cb737-7"><a href="fitting-sample-selection-in-r.html#cb737-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb737-8"><a href="fitting-sample-selection-in-r.html#cb737-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Outcome equation correcting for selection </span></span>
-<span id="cb737-9"><a href="fitting-sample-selection-in-r.html#cb737-9" aria-hidden="true" tabindex="-1"></a>outeqn1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wage <span class="sc">~</span> exper <span class="sc">+</span> exper <span class="sc">+</span> age <span class="sc">+</span> educ <span class="sc">+</span> city<span class="sc">+</span>IMR , <span class="at">data=</span>Mroz87,</span>
-<span id="cb737-10"><a href="fitting-sample-selection-in-r.html#cb737-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">subset=</span>(lfp<span class="sc">==</span><span class="dv">1</span>))</span>
-<span id="cb737-11"><a href="fitting-sample-selection-in-r.html#cb737-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb737-12"><a href="fitting-sample-selection-in-r.html#cb737-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Compare with the selection package results</span></span>
-<span id="cb737-13"><a href="fitting-sample-selection-in-r.html#cb737-13" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(outeqn1)</span></code></pre></div>
+<div class="sourceCode" id="cb758"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb758-1"><a href="fitting-sample-selection-in-r.html#cb758-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Selection equation</span></span>
+<span id="cb758-2"><a href="fitting-sample-selection-in-r.html#cb758-2" aria-hidden="true" tabindex="-1"></a>seleqn1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(lfp <span class="sc">~</span> age  <span class="sc">+</span> faminc <span class="sc">+</span> kids <span class="sc">+</span> educ,</span>
+<span id="cb758-3"><a href="fitting-sample-selection-in-r.html#cb758-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link=</span><span class="st">&quot;probit&quot;</span>), <span class="at">data=</span>Mroz87)</span>
+<span id="cb758-4"><a href="fitting-sample-selection-in-r.html#cb758-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb758-5"><a href="fitting-sample-selection-in-r.html#cb758-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Calculate inverse Mills ratio by hand ##</span></span>
+<span id="cb758-6"><a href="fitting-sample-selection-in-r.html#cb758-6" aria-hidden="true" tabindex="-1"></a>Mroz87<span class="sc">$</span>IMR <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(seleqn1<span class="sc">$</span>linear.predictors)<span class="sc">/</span><span class="fu">pnorm</span>(seleqn1<span class="sc">$</span>linear.predictors)</span>
+<span id="cb758-7"><a href="fitting-sample-selection-in-r.html#cb758-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb758-8"><a href="fitting-sample-selection-in-r.html#cb758-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Outcome equation correcting for selection </span></span>
+<span id="cb758-9"><a href="fitting-sample-selection-in-r.html#cb758-9" aria-hidden="true" tabindex="-1"></a>outeqn1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wage <span class="sc">~</span> exper <span class="sc">+</span> exper <span class="sc">+</span> age <span class="sc">+</span> educ <span class="sc">+</span> city<span class="sc">+</span>IMR , <span class="at">data=</span>Mroz87,</span>
+<span id="cb758-10"><a href="fitting-sample-selection-in-r.html#cb758-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">subset=</span>(lfp<span class="sc">==</span><span class="dv">1</span>))</span>
+<span id="cb758-11"><a href="fitting-sample-selection-in-r.html#cb758-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb758-12"><a href="fitting-sample-selection-in-r.html#cb758-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Compare with the selection package results</span></span>
+<span id="cb758-13"><a href="fitting-sample-selection-in-r.html#cb758-13" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(outeqn1)</span></code></pre></div>
 <pre><code>(Intercept)       exper         age        educ        city         IMR 
 -1.45197781  0.01747395  0.01569873  0.41456568  0.41415262 -1.16657579 </code></pre>
 <p>How should we interpret these results?</p>
@@ -560,21 +576,21 @@ rho            -0.3629         NA      NA       NA
 <li>If variables are only in the outcome equation, like city and experience, we can interpret them like OLS coefficients.</li>
 <li>If variables appear in both equations, then we can also make an adjustment to have an estimate for the full average marginal effect, that also accounts for selection instead of just specifying the effect of the variable for those “that are selected”.</li>
 </ul>
-<div class="sourceCode" id="cb739"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb739-1"><a href="fitting-sample-selection-in-r.html#cb739-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example</span></span>
-<span id="cb739-2"><a href="fitting-sample-selection-in-r.html#cb739-2" aria-hidden="true" tabindex="-1"></a>selection3 <span class="ot">&lt;-</span> <span class="fu">selection</span>(<span class="at">selection =</span> lfp <span class="sc">~</span> age <span class="sc">+</span></span>
-<span id="cb739-3"><a href="fitting-sample-selection-in-r.html#cb739-3" aria-hidden="true" tabindex="-1"></a>                          faminc <span class="sc">+</span> kids <span class="sc">+</span> educ,</span>
-<span id="cb739-4"><a href="fitting-sample-selection-in-r.html#cb739-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">outcome =</span> wage <span class="sc">~</span> </span>
-<span id="cb739-5"><a href="fitting-sample-selection-in-r.html#cb739-5" aria-hidden="true" tabindex="-1"></a>                          exper <span class="sc">+</span> age <span class="sc">+</span> educ <span class="sc">+</span> city, <span class="at">data =</span> Mroz87,</span>
-<span id="cb739-6"><a href="fitting-sample-selection-in-r.html#cb739-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">method =</span> <span class="st">&quot;2step&quot;</span>)</span>
-<span id="cb739-7"><a href="fitting-sample-selection-in-r.html#cb739-7" aria-hidden="true" tabindex="-1"></a><span class="do">## average marginal effect:</span></span>
-<span id="cb739-8"><a href="fitting-sample-selection-in-r.html#cb739-8" aria-hidden="true" tabindex="-1"></a>beta.educ.sel <span class="ot">&lt;-</span> selection3<span class="sc">$</span>coefficients[<span class="dv">5</span>]</span>
-<span id="cb739-9"><a href="fitting-sample-selection-in-r.html#cb739-9" aria-hidden="true" tabindex="-1"></a>beta.educ.out <span class="ot">&lt;-</span> selection3<span class="sc">$</span>coefficients[<span class="dv">9</span>]</span>
-<span id="cb739-10"><a href="fitting-sample-selection-in-r.html#cb739-10" aria-hidden="true" tabindex="-1"></a>beta.IMR <span class="ot">&lt;-</span> selection3<span class="sc">$</span>coefficients[<span class="dv">11</span>]</span>
-<span id="cb739-11"><a href="fitting-sample-selection-in-r.html#cb739-11" aria-hidden="true" tabindex="-1"></a>delta <span class="ot">&lt;-</span> selection3<span class="sc">$</span>imrDelta</span>
-<span id="cb739-12"><a href="fitting-sample-selection-in-r.html#cb739-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb739-13"><a href="fitting-sample-selection-in-r.html#cb739-13" aria-hidden="true" tabindex="-1"></a>marginal.effect <span class="ot">&lt;-</span> beta.educ.out <span class="sc">-</span> (beta.educ.sel <span class="sc">*</span> beta.IMR <span class="sc">*</span> delta)</span>
-<span id="cb739-14"><a href="fitting-sample-selection-in-r.html#cb739-14" aria-hidden="true" tabindex="-1"></a><span class="do">## average marginal effect</span></span>
-<span id="cb739-15"><a href="fitting-sample-selection-in-r.html#cb739-15" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(marginal.effect)</span></code></pre></div>
+<div class="sourceCode" id="cb760"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb760-1"><a href="fitting-sample-selection-in-r.html#cb760-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example</span></span>
+<span id="cb760-2"><a href="fitting-sample-selection-in-r.html#cb760-2" aria-hidden="true" tabindex="-1"></a>selection3 <span class="ot">&lt;-</span> <span class="fu">selection</span>(<span class="at">selection =</span> lfp <span class="sc">~</span> age <span class="sc">+</span></span>
+<span id="cb760-3"><a href="fitting-sample-selection-in-r.html#cb760-3" aria-hidden="true" tabindex="-1"></a>                          faminc <span class="sc">+</span> kids <span class="sc">+</span> educ,</span>
+<span id="cb760-4"><a href="fitting-sample-selection-in-r.html#cb760-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">outcome =</span> wage <span class="sc">~</span> </span>
+<span id="cb760-5"><a href="fitting-sample-selection-in-r.html#cb760-5" aria-hidden="true" tabindex="-1"></a>                          exper <span class="sc">+</span> age <span class="sc">+</span> educ <span class="sc">+</span> city, <span class="at">data =</span> Mroz87,</span>
+<span id="cb760-6"><a href="fitting-sample-selection-in-r.html#cb760-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">method =</span> <span class="st">&quot;2step&quot;</span>)</span>
+<span id="cb760-7"><a href="fitting-sample-selection-in-r.html#cb760-7" aria-hidden="true" tabindex="-1"></a><span class="do">## average marginal effect:</span></span>
+<span id="cb760-8"><a href="fitting-sample-selection-in-r.html#cb760-8" aria-hidden="true" tabindex="-1"></a>beta.educ.sel <span class="ot">&lt;-</span> selection3<span class="sc">$</span>coefficients[<span class="dv">5</span>]</span>
+<span id="cb760-9"><a href="fitting-sample-selection-in-r.html#cb760-9" aria-hidden="true" tabindex="-1"></a>beta.educ.out <span class="ot">&lt;-</span> selection3<span class="sc">$</span>coefficients[<span class="dv">9</span>]</span>
+<span id="cb760-10"><a href="fitting-sample-selection-in-r.html#cb760-10" aria-hidden="true" tabindex="-1"></a>beta.IMR <span class="ot">&lt;-</span> selection3<span class="sc">$</span>coefficients[<span class="dv">11</span>]</span>
+<span id="cb760-11"><a href="fitting-sample-selection-in-r.html#cb760-11" aria-hidden="true" tabindex="-1"></a>delta <span class="ot">&lt;-</span> selection3<span class="sc">$</span>imrDelta</span>
+<span id="cb760-12"><a href="fitting-sample-selection-in-r.html#cb760-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb760-13"><a href="fitting-sample-selection-in-r.html#cb760-13" aria-hidden="true" tabindex="-1"></a>marginal.effect <span class="ot">&lt;-</span> beta.educ.out <span class="sc">-</span> (beta.educ.sel <span class="sc">*</span> beta.IMR <span class="sc">*</span> delta)</span>
+<span id="cb760-14"><a href="fitting-sample-selection-in-r.html#cb760-14" aria-hidden="true" tabindex="-1"></a><span class="do">## average marginal effect</span></span>
+<span id="cb760-15"><a href="fitting-sample-selection-in-r.html#cb760-15" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(marginal.effect)</span></code></pre></div>
 <pre><code>[1] 0.4757589</code></pre>
 </div>
             </section>

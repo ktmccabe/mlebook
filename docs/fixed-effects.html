@@ -163,6 +163,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-formatting-examples"><i class="fa fa-check"></i><b>2.4.4</b> Additional formatting examples</a></li>
 <li class="chapter" data-level="2.4.5" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-table-types"><i class="fa fa-check"></i><b>2.4.5</b> Additional Table Types</a></li>
 </ul></li>
+<li class="chapter" data-level="2.5" data-path="exploratory-data-analysis-tools.html"><a href="exploratory-data-analysis-tools.html"><i class="fa fa-check"></i><b>2.5</b> Exploratory Data Analysis Tools</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
 <ul>
@@ -459,6 +460,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.3.3" data-path="modeling-approaches.html"><a href="modeling-approaches.html#cox-proportional-hazards-model"><i class="fa fa-check"></i><b>14.3.3</b> Cox proportional Hazards Model</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="15" data-path="predict.html"><a href="predict.html"><i class="fa fa-check"></i><b>15</b> Prediction and Classification</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html"><i class="fa fa-check"></i><b>15.1</b> Overview of Prediction and Classification</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html#how-to-predict-or-classify"><i class="fa fa-check"></i><b>15.1.1</b> How to predict or classify</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="in-sample-vs-out-of-sample.html"><a href="in-sample-vs-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
+<li class="chapter" data-level="15.3" data-path="cross-validation.html"><a href="cross-validation.html"><i class="fa fa-check"></i><b>15.3</b> Cross-Validation</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>15.3.1</b> k-fold cross-validation</a></li>
+<li class="chapter" data-level="15.3.2" data-path="cross-validation.html"><a href="cross-validation.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>15.3.2</b> Leave-one-out cross-validation</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="examples-of-prediction-and-classification.html"><a href="examples-of-prediction-and-classification.html"><i class="fa fa-check"></i><b>15.4</b> Examples of Prediction and Classification</a></li>
+<li class="chapter" data-level="15.5" data-path="extending-machine-learning.html"><a href="extending-machine-learning.html"><i class="fa fa-check"></i><b>15.5</b> Extending Machine Learning</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -529,9 +545,9 @@ Y_{it} - \bar y_i &amp;= (\alpha_i -\alpha_i) +  \beta(x_{it}- \bar x_i) + (\eps
 <h3><span class="header-section-number">12.3.3</span> Fixed Effects Implementation in R</h3>
 <p>The <code>plm</code> package allows us to indicate that our data are panel in nature and fit the within-estimator.</p>
 <p>Run <code>install.packages("plm")</code> and load Grunfeld. 200 observations at the firm-year level. Here, we can think of firms as indexed by <span class="math inline">\(i\)</span> and years indexed by <span class="math inline">\(t\)</span>.</p>
-<div class="sourceCode" id="cb764"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb764-1"><a href="fixed-effects.html#cb764-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plm)</span>
-<span id="cb764-2"><a href="fixed-effects.html#cb764-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Grunfeld)</span>
-<span id="cb764-3"><a href="fixed-effects.html#cb764-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Grunfeld)</span></code></pre></div>
+<div class="sourceCode" id="cb785"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb785-1"><a href="fixed-effects.html#cb785-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plm)</span>
+<span id="cb785-2"><a href="fixed-effects.html#cb785-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Grunfeld)</span>
+<span id="cb785-3"><a href="fixed-effects.html#cb785-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Grunfeld)</span></code></pre></div>
 <pre><code>  firm year   inv  value capital
 1    1 1935 317.6 3078.5     2.8
 2    1 1936 391.8 4661.7    52.6
@@ -539,57 +555,57 @@ Y_{it} - \bar y_i &amp;= (\alpha_i -\alpha_i) +  \beta(x_{it}- \bar x_i) + (\eps
 4    1 1938 257.7 2792.2   209.2
 5    1 1939 330.8 4313.2   203.4
 6    1 1940 461.2 4643.9   207.2</code></pre>
-<div class="sourceCode" id="cb766"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb766-1"><a href="fixed-effects.html#cb766-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Unique N- firms</span></span>
-<span id="cb766-2"><a href="fixed-effects.html#cb766-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(Grunfeld<span class="sc">$</span>firm))</span></code></pre></div>
+<div class="sourceCode" id="cb787"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb787-1"><a href="fixed-effects.html#cb787-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Unique N- firms</span></span>
+<span id="cb787-2"><a href="fixed-effects.html#cb787-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(Grunfeld<span class="sc">$</span>firm))</span></code></pre></div>
 <pre><code>[1] 10</code></pre>
-<div class="sourceCode" id="cb768"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb768-1"><a href="fixed-effects.html#cb768-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Unique T- years</span></span>
-<span id="cb768-2"><a href="fixed-effects.html#cb768-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(Grunfeld<span class="sc">$</span>year))</span></code></pre></div>
+<div class="sourceCode" id="cb789"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb789-1"><a href="fixed-effects.html#cb789-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Unique T- years</span></span>
+<span id="cb789-2"><a href="fixed-effects.html#cb789-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(Grunfeld<span class="sc">$</span>year))</span></code></pre></div>
 <pre><code>[1] 20</code></pre>
 <p>For more detail on<code>plm</code>, see <a href="https://cran.r-project.org/web/packages/plm/vignettes/plm.pdf">documentation</a></p>
 <p>These data are used to study the effects of <code>capital</code> (stock of plant and equipment) on gross investment <code>inv</code>.</p>
 <p>Let’s first run a standard OLS model, which we will call the “pooled” model because it pools observations across firms and years without explicitly accounting for them in the model. We can use the standard <code>lm</code> model to do this or the <code>plm</code> function from the <code>plm</code> package by indicating <code>model="pooling"</code>. Both give equivalent results.</p>
-<div class="sourceCode" id="cb770"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb770-1"><a href="fixed-effects.html#cb770-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Pooled model</span></span>
-<span id="cb770-2"><a href="fixed-effects.html#cb770-2" aria-hidden="true" tabindex="-1"></a>fit.pool <span class="ot">&lt;-</span> <span class="fu">plm</span>(inv<span class="sc">~</span> capital, <span class="at">data =</span> Grunfeld, <span class="at">model =</span> <span class="st">&quot;pooling&quot;</span>)</span>
-<span id="cb770-3"><a href="fixed-effects.html#cb770-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.pool)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb791"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb791-1"><a href="fixed-effects.html#cb791-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Pooled model</span></span>
+<span id="cb791-2"><a href="fixed-effects.html#cb791-2" aria-hidden="true" tabindex="-1"></a>fit.pool <span class="ot">&lt;-</span> <span class="fu">plm</span>(inv<span class="sc">~</span> capital, <span class="at">data =</span> Grunfeld, <span class="at">model =</span> <span class="st">&quot;pooling&quot;</span>)</span>
+<span id="cb791-3"><a href="fixed-effects.html#cb791-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.pool)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
 <pre><code>  capital 
 0.4772241 </code></pre>
-<div class="sourceCode" id="cb772"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb772-1"><a href="fixed-effects.html#cb772-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Equivalent</span></span>
-<span id="cb772-2"><a href="fixed-effects.html#cb772-2" aria-hidden="true" tabindex="-1"></a>fit.ols  <span class="ot">&lt;-</span> <span class="fu">lm</span>(inv<span class="sc">~</span> capital, <span class="at">data =</span> Grunfeld)</span>
-<span id="cb772-3"><a href="fixed-effects.html#cb772-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.ols)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb793"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb793-1"><a href="fixed-effects.html#cb793-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Equivalent</span></span>
+<span id="cb793-2"><a href="fixed-effects.html#cb793-2" aria-hidden="true" tabindex="-1"></a>fit.ols  <span class="ot">&lt;-</span> <span class="fu">lm</span>(inv<span class="sc">~</span> capital, <span class="at">data =</span> Grunfeld)</span>
+<span id="cb793-3"><a href="fixed-effects.html#cb793-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.ols)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
 <pre><code>  capital 
 0.4772241 </code></pre>
 <p>We could visualize this model as follows by plotting the regression line. This provides a good benchmark against which we can see how fixed effects change the results. Note that the line ignores which firm that the data are coming from, using between-firm variation to help fit the regression slope.</p>
-<div class="sourceCode" id="cb774"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb774-1"><a href="fixed-effects.html#cb774-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb774-2"><a href="fixed-effects.html#cb774-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Grunfeld, <span class="fu">aes</span>(<span class="at">x=</span>capital, <span class="at">y=</span>inv, <span class="at">color=</span><span class="fu">as.factor</span>(firm)))<span class="sc">+</span></span>
-<span id="cb774-3"><a href="fixed-effects.html#cb774-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb774-4"><a href="fixed-effects.html#cb774-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">y=</span>inv), <span class="at">se=</span>F, <span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">color=</span><span class="st">&quot;black&quot;</span>)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-361-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb795"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb795-1"><a href="fixed-effects.html#cb795-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb795-2"><a href="fixed-effects.html#cb795-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Grunfeld, <span class="fu">aes</span>(<span class="at">x=</span>capital, <span class="at">y=</span>inv, <span class="at">color=</span><span class="fu">as.factor</span>(firm)))<span class="sc">+</span></span>
+<span id="cb795-3"><a href="fixed-effects.html#cb795-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb795-4"><a href="fixed-effects.html#cb795-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">y=</span>inv), <span class="at">se=</span>F, <span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">color=</span><span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-367-1.svg" width="672" /></p>
 <p>Let’s now fit our fixed effects model. Here, we have to add an argument that specifies which variables are indexed by <span class="math inline">\(i\)</span> and <span class="math inline">\(t\)</span> so that <code>plm</code> knows how to incorporate the individual firm units. We will first fit the <code>within</code> model using the <code>plm</code> package. We can then use <code>lm</code> by explicitly adding dummy variables. You will note that the individual dummy variable coefficients are only included in the output of <code>lm</code> and not <code>plm</code>. When you have a large number of units, it might be more computationally efficient and cleaner to use <code>plm.</code> However, both give us equivalent results for our coefficients of interest.</p>
-<div class="sourceCode" id="cb775"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb775-1"><a href="fixed-effects.html#cb775-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Within model with firm fixed effects</span></span>
-<span id="cb775-2"><a href="fixed-effects.html#cb775-2" aria-hidden="true" tabindex="-1"></a>fit.within <span class="ot">&lt;-</span> <span class="fu">plm</span>(inv<span class="sc">~</span>capital, </span>
-<span id="cb775-3"><a href="fixed-effects.html#cb775-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data =</span> Grunfeld, </span>
-<span id="cb775-4"><a href="fixed-effects.html#cb775-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">model =</span> <span class="st">&quot;within&quot;</span>, </span>
-<span id="cb775-5"><a href="fixed-effects.html#cb775-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">index =</span> <span class="fu">c</span>(<span class="st">&quot;firm&quot;</span>, <span class="st">&quot;year&quot;</span>))</span>
-<span id="cb775-6"><a href="fixed-effects.html#cb775-6" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.within)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb796"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb796-1"><a href="fixed-effects.html#cb796-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Within model with firm fixed effects</span></span>
+<span id="cb796-2"><a href="fixed-effects.html#cb796-2" aria-hidden="true" tabindex="-1"></a>fit.within <span class="ot">&lt;-</span> <span class="fu">plm</span>(inv<span class="sc">~</span>capital, </span>
+<span id="cb796-3"><a href="fixed-effects.html#cb796-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data =</span> Grunfeld, </span>
+<span id="cb796-4"><a href="fixed-effects.html#cb796-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">model =</span> <span class="st">&quot;within&quot;</span>, </span>
+<span id="cb796-5"><a href="fixed-effects.html#cb796-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">index =</span> <span class="fu">c</span>(<span class="st">&quot;firm&quot;</span>, <span class="st">&quot;year&quot;</span>))</span>
+<span id="cb796-6"><a href="fixed-effects.html#cb796-6" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.within)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
 <pre><code>  capital 
 0.3707496 </code></pre>
-<div class="sourceCode" id="cb777"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb777-1"><a href="fixed-effects.html#cb777-1" aria-hidden="true" tabindex="-1"></a><span class="do">## numerical equivalent</span></span>
-<span id="cb777-2"><a href="fixed-effects.html#cb777-2" aria-hidden="true" tabindex="-1"></a>fit.lsdv  <span class="ot">&lt;-</span> <span class="fu">lm</span>(inv<span class="sc">~</span>  capital <span class="sc">+</span> <span class="fu">as.factor</span>(firm), </span>
-<span id="cb777-3"><a href="fixed-effects.html#cb777-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> Grunfeld)</span>
-<span id="cb777-4"><a href="fixed-effects.html#cb777-4" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.lsdv)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb798"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb798-1"><a href="fixed-effects.html#cb798-1" aria-hidden="true" tabindex="-1"></a><span class="do">## numerical equivalent</span></span>
+<span id="cb798-2"><a href="fixed-effects.html#cb798-2" aria-hidden="true" tabindex="-1"></a>fit.lsdv  <span class="ot">&lt;-</span> <span class="fu">lm</span>(inv<span class="sc">~</span>  capital <span class="sc">+</span> <span class="fu">as.factor</span>(firm), </span>
+<span id="cb798-3"><a href="fixed-effects.html#cb798-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> Grunfeld)</span>
+<span id="cb798-4"><a href="fixed-effects.html#cb798-4" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.lsdv)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
 <pre><code>  capital 
 0.3707496 </code></pre>
 <p>Recall, what fixed effects does is create a different intercept by firm. We can visualize this by generating predicted gross investments for each observation in our data.</p>
 <p>Fixed effects leverages within-firm variation to fit the regression model. That is, holding constant the firm, how does capital influence investment, on average?</p>
 <p>Here, we see that when the variation is coming from within-firm, the estimated slope for the <code>capital</code> variable is slightly more shallow than when the pooled model used data across different firms to estimate the slope. Sometimes, the difference between the pooled OLS and fixed effects estimation can be so severe as to reverse the sign of the slopes. This is the idea of Simpson’s paradox discussed <a href="https://medium.com/pew-research-center-decoded/how-to-break-regression-f48230f0ca68">here</a>.</p>
-<div class="sourceCode" id="cb779"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb779-1"><a href="fixed-effects.html#cb779-1" aria-hidden="true" tabindex="-1"></a>fit.lsdvpred <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit.lsdv)</span>
-<span id="cb779-2"><a href="fixed-effects.html#cb779-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb779-3"><a href="fixed-effects.html#cb779-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Grunfeld, <span class="fu">aes</span>(<span class="at">x=</span>capital, <span class="at">y=</span>inv, <span class="at">color=</span><span class="fu">factor</span>(firm)))<span class="sc">+</span></span>
-<span id="cb779-4"><a href="fixed-effects.html#cb779-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb779-5"><a href="fixed-effects.html#cb779-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">y=</span>inv), <span class="at">se=</span>F, <span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">color=</span><span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
-<span id="cb779-6"><a href="fixed-effects.html#cb779-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>fit.lsdvpred))</span></code></pre></div>
+<div class="sourceCode" id="cb800"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb800-1"><a href="fixed-effects.html#cb800-1" aria-hidden="true" tabindex="-1"></a>fit.lsdvpred <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit.lsdv)</span>
+<span id="cb800-2"><a href="fixed-effects.html#cb800-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb800-3"><a href="fixed-effects.html#cb800-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Grunfeld, <span class="fu">aes</span>(<span class="at">x=</span>capital, <span class="at">y=</span>inv, <span class="at">color=</span><span class="fu">factor</span>(firm)))<span class="sc">+</span></span>
+<span id="cb800-4"><a href="fixed-effects.html#cb800-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb800-5"><a href="fixed-effects.html#cb800-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">y=</span>inv), <span class="at">se=</span>F, <span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">color=</span><span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
+<span id="cb800-6"><a href="fixed-effects.html#cb800-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>fit.lsdvpred))</span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-363-1.svg" width="672" /></p>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-369-1.svg" width="672" /></p>
 <p><a href="https://www.cambridge.org/core/journals/international-organization/article/abs/dirty-pool/F58CBC01FE96E2BADFDB9EFE2A943C73">Green et al. (2003)</a> also discuss the dangers of pooling data in certain cases in the article ``Dirty Pool." Below are three examples. In the first two, pooling vs. fixed effects will not make much of a difference, but it will in the third.</p>
 <p>As the authors describe, “The plot in Figure 1 depicts a positive relationship between X and Y where N = 2 and T = 50. Because both dyads share a common intercept, pooling creates no estimation problems. One obtains similar regression estimates regardless of whether one controls for fixed effects by introducing a dummy variable for each dyad. A pooled regression is preferable in this instance because it saves a degree of freedom. In Figure 2 we encounter another instance in which dyads have different intercepts, but there is no correlation between the intercepts and
 X. The average value of the independent variable is the same in each dyad. Again,
@@ -603,20 +619,20 @@ values of X coincide with lower values of Y. Yet when the dyads are pooled toget
 <p>Even if we use fixed effects, we may want to adjust standard errors. Fixed effects assumes homoskedasticity (constant error variance). We might instead think that the random error disturbances are correlated in some way or vary across time or units. For example, we might fear we have serial correlation (autocorrelation), where errors are correlated over time. Below are a few options.</p>
 <p><em>Clustered standard errors</em>. We came across this before in our section on ordinal probit models and the Paluck and Green paper. This blog post discusses why you may still want to cluster standard errors even if you have added <a href="https://stats.stackexchange.com/questions/185378/when-to-use-fixed-effects-vs-using-cluster-ses">fixed effects</a>.</p>
 <p><em>Note: the functions below are designed to work with the <code>plm</code> package and models. For models fit through other functions, you may need to use different functions to make adjustments. See section 8.5.1. For linear models <code>lm_robust</code> from the <code>estimatr</code> package works well. For other models, see the alternative applications in that section.</em></p>
-<div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb781-1"><a href="fixed-effects.html#cb781-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Cluster robust standard errors to match stata (c only matters if G is small). Can omit if do not want to adjust for degrees of freedom.</span></span>
-<span id="cb781-2"><a href="fixed-effects.html#cb781-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Generally want G to be 30 or 40</span></span>
-<span id="cb781-3"><a href="fixed-effects.html#cb781-3" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">unique</span>(Grunfeld<span class="sc">$</span>firm))</span>
-<span id="cb781-4"><a href="fixed-effects.html#cb781-4" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> G<span class="sc">/</span>(G <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb781-5"><a href="fixed-effects.html#cb781-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(c<span class="sc">*</span><span class="fu">vcovHC</span>(fit.within,<span class="at">type =</span> <span class="st">&quot;HC1&quot;</span>, <span class="at">cluster =</span> <span class="st">&quot;group&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb802"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb802-1"><a href="fixed-effects.html#cb802-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Cluster robust standard errors to match stata (c only matters if G is small). Can omit if do not want to adjust for degrees of freedom.</span></span>
+<span id="cb802-2"><a href="fixed-effects.html#cb802-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Generally want G to be 30 or 40</span></span>
+<span id="cb802-3"><a href="fixed-effects.html#cb802-3" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">unique</span>(Grunfeld<span class="sc">$</span>firm))</span>
+<span id="cb802-4"><a href="fixed-effects.html#cb802-4" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> G<span class="sc">/</span>(G <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb802-5"><a href="fixed-effects.html#cb802-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(c<span class="sc">*</span><span class="fu">vcovHC</span>(fit.within,<span class="at">type =</span> <span class="st">&quot;HC1&quot;</span>, <span class="at">cluster =</span> <span class="st">&quot;group&quot;</span>)))</span></code></pre></div>
 <pre><code>   capital 
 0.06510863 </code></pre>
 <p><em>Panel corrected SE</em>: Beck and Katz have also developed standard errors for panel data. Explained in the documentation, observations may be clustered either by “group” to account for timewise heteroskedasticity and serial correlation or by “time” to account for cross-sectional heteroskedasticity and correlation. This is sensitive to <span class="math inline">\(N\)</span> and <span class="math inline">\(T\)</span>.</p>
-<div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb783-1"><a href="fixed-effects.html#cb783-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Alternative: Beck and Katz panel corrected standard errors</span></span>
-<span id="cb783-2"><a href="fixed-effects.html#cb783-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcovBK</span>(fit.within, <span class="at">cluster =</span> <span class="st">&quot;group&quot;</span>))) <span class="co"># also can change type</span></span></code></pre></div>
+<div class="sourceCode" id="cb804"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb804-1"><a href="fixed-effects.html#cb804-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Alternative: Beck and Katz panel corrected standard errors</span></span>
+<span id="cb804-2"><a href="fixed-effects.html#cb804-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcovBK</span>(fit.within, <span class="at">cluster =</span> <span class="st">&quot;group&quot;</span>))) <span class="co"># also can change type</span></span></code></pre></div>
 <pre><code>   capital 
 0.04260805 </code></pre>
 <p>Alternative: Adjusted for heteroskedasticity and/or serial correlation.</p>
-<div class="sourceCode" id="cb785"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb785-1"><a href="fixed-effects.html#cb785-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcovHC</span>(fit.within, <span class="at">type =</span> <span class="st">&quot;HC1&quot;</span>, <span class="at">method =</span> <span class="st">&quot;arellano&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb806"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb806-1"><a href="fixed-effects.html#cb806-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcovHC</span>(fit.within, <span class="at">type =</span> <span class="st">&quot;HC1&quot;</span>, <span class="at">method =</span> <span class="st">&quot;arellano&quot;</span>)))</span></code></pre></div>
 <pre><code>   capital 
 0.06176747 </code></pre>
 <p>For more information, see pg. 24 of this <a href="https://www.princeton.edu/~otorres/Panel101R.pdf">resource</a></p>

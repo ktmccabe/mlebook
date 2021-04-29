@@ -163,6 +163,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-formatting-examples"><i class="fa fa-check"></i><b>2.4.4</b> Additional formatting examples</a></li>
 <li class="chapter" data-level="2.4.5" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-table-types"><i class="fa fa-check"></i><b>2.4.5</b> Additional Table Types</a></li>
 </ul></li>
+<li class="chapter" data-level="2.5" data-path="exploratory-data-analysis-tools.html"><a href="exploratory-data-analysis-tools.html"><i class="fa fa-check"></i><b>2.5</b> Exploratory Data Analysis Tools</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
 <ul>
@@ -459,6 +460,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.3.3" data-path="modeling-approaches.html"><a href="modeling-approaches.html#cox-proportional-hazards-model"><i class="fa fa-check"></i><b>14.3.3</b> Cox proportional Hazards Model</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="15" data-path="predict.html"><a href="predict.html"><i class="fa fa-check"></i><b>15</b> Prediction and Classification</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html"><i class="fa fa-check"></i><b>15.1</b> Overview of Prediction and Classification</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html#how-to-predict-or-classify"><i class="fa fa-check"></i><b>15.1.1</b> How to predict or classify</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="in-sample-vs-out-of-sample.html"><a href="in-sample-vs-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
+<li class="chapter" data-level="15.3" data-path="cross-validation.html"><a href="cross-validation.html"><i class="fa fa-check"></i><b>15.3</b> Cross-Validation</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>15.3.1</b> k-fold cross-validation</a></li>
+<li class="chapter" data-level="15.3.2" data-path="cross-validation.html"><a href="cross-validation.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>15.3.2</b> Leave-one-out cross-validation</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="examples-of-prediction-and-classification.html"><a href="examples-of-prediction-and-classification.html"><i class="fa fa-check"></i><b>15.4</b> Examples of Prediction and Classification</a></li>
+<li class="chapter" data-level="15.5" data-path="extending-machine-learning.html"><a href="extending-machine-learning.html"><i class="fa fa-check"></i><b>15.5</b> Extending Machine Learning</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -483,10 +499,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>In the last section, we visited an example related to the 2000 election in Florida. We regressed county returns for Buchanan in 2000 (Y) on county returns for Perot in 1996 (X).</li>
 </ul>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="uncertainty-and-regression.html#cb231-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load Data</span></span>
-<span id="cb231-2"><a href="uncertainty-and-regression.html#cb231-2" aria-hidden="true" tabindex="-1"></a>florida <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ktmccabe/teachingdata/main/florida.csv&quot;</span>)</span>
-<span id="cb231-3"><a href="uncertainty-and-regression.html#cb231-3" aria-hidden="true" tabindex="-1"></a>fit<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(Buchanan00 <span class="sc">~</span> Perot96, <span class="at">data =</span> florida)</span>
-<span id="cb231-4"><a href="uncertainty-and-regression.html#cb231-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit<span class="fl">.1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="uncertainty-and-regression.html#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load Data</span></span>
+<span id="cb252-2"><a href="uncertainty-and-regression.html#cb252-2" aria-hidden="true" tabindex="-1"></a>florida <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ktmccabe/teachingdata/main/florida.csv&quot;</span>)</span>
+<span id="cb252-3"><a href="uncertainty-and-regression.html#cb252-3" aria-hidden="true" tabindex="-1"></a>fit<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(Buchanan00 <span class="sc">~</span> Perot96, <span class="at">data =</span> florida)</span>
+<span id="cb252-4"><a href="uncertainty-and-regression.html#cb252-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit<span class="fl">.1</span>)</span></code></pre></div>
 <pre><code>
 Call:
 lm(formula = Buchanan00 ~ Perot96, data = florida)
@@ -559,27 +575,27 @@ F-statistic: 68.48 on 1 and 65 DF,  p-value: 9.474e-12</code></pre>
 </ul>
 <p>That means our <strong>estimate</strong> of the variance of the coefficients is found within: <span class="math inline">\(\hat \sigma^2(X^T X)^{-1}\)</span></p>
 <p>Again, this is a <span class="math inline">\(k \times k\)</span> matrix and is often called the variance covariance matrix. We can extract this quantity from our linear models in R using <code>vcov()</code>.</p>
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="uncertainty-and-regression.html#cb233-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vcov</span>(fit<span class="fl">.1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="uncertainty-and-regression.html#cb254-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vcov</span>(fit<span class="fl">.1</span>)</span></code></pre></div>
 <pre><code>             (Intercept)       Perot96
 (Intercept) 2475.9885768 -1.360074e-01
 Perot96       -0.1360074  1.883619e-05</code></pre>
 <p>This is the same that we would get if manually we took the residuals and multiplied it by our <span class="math inline">\(X\)</span> matrix according to the formula above:</p>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="uncertainty-and-regression.html#cb235-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, florida<span class="sc">$</span>Perot96)</span>
-<span id="cb235-2"><a href="uncertainty-and-regression.html#cb235-2" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">residuals</span>(fit<span class="fl">.1</span>))</span>
-<span id="cb235-3"><a href="uncertainty-and-regression.html#cb235-3" aria-hidden="true" tabindex="-1"></a>sigmahat <span class="ot">&lt;-</span> ((<span class="fu">t</span>(e) <span class="sc">%*%</span> e) <span class="sc">/</span> (<span class="fu">nrow</span>(florida) <span class="sc">-</span><span class="dv">2</span>)) </span>
-<span id="cb235-4"><a href="uncertainty-and-regression.html#cb235-4" aria-hidden="true" tabindex="-1"></a><span class="do">## tell r to stop treating sigmahat as a matrix</span></span>
-<span id="cb235-5"><a href="uncertainty-and-regression.html#cb235-5" aria-hidden="true" tabindex="-1"></a>sigmahat <span class="ot">&lt;-</span><span class="fu">as.numeric</span>(sigmahat)</span>
-<span id="cb235-6"><a href="uncertainty-and-regression.html#cb235-6" aria-hidden="true" tabindex="-1"></a>XtX <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span>X)</span>
-<span id="cb235-7"><a href="uncertainty-and-regression.html#cb235-7" aria-hidden="true" tabindex="-1"></a>sigmahat <span class="sc">*</span> XtX</span></code></pre></div>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="uncertainty-and-regression.html#cb256-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, florida<span class="sc">$</span>Perot96)</span>
+<span id="cb256-2"><a href="uncertainty-and-regression.html#cb256-2" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">residuals</span>(fit<span class="fl">.1</span>))</span>
+<span id="cb256-3"><a href="uncertainty-and-regression.html#cb256-3" aria-hidden="true" tabindex="-1"></a>sigmahat <span class="ot">&lt;-</span> ((<span class="fu">t</span>(e) <span class="sc">%*%</span> e) <span class="sc">/</span> (<span class="fu">nrow</span>(florida) <span class="sc">-</span><span class="dv">2</span>)) </span>
+<span id="cb256-4"><a href="uncertainty-and-regression.html#cb256-4" aria-hidden="true" tabindex="-1"></a><span class="do">## tell r to stop treating sigmahat as a matrix</span></span>
+<span id="cb256-5"><a href="uncertainty-and-regression.html#cb256-5" aria-hidden="true" tabindex="-1"></a>sigmahat <span class="ot">&lt;-</span><span class="fu">as.numeric</span>(sigmahat)</span>
+<span id="cb256-6"><a href="uncertainty-and-regression.html#cb256-6" aria-hidden="true" tabindex="-1"></a>XtX <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span>X)</span>
+<span id="cb256-7"><a href="uncertainty-and-regression.html#cb256-7" aria-hidden="true" tabindex="-1"></a>sigmahat <span class="sc">*</span> XtX</span></code></pre></div>
 <pre><code>             [,1]          [,2]
 [1,] 2475.9885768 -1.360074e-01
 [2,]   -0.1360074  1.883619e-05</code></pre>
 <p>The terms on the diagonal represent the variance of a particular coefficient in the model.The standard error of a particular coefficient <span class="math inline">\(k\)</span> is: s.e.(<span class="math inline">\(\hat{\beta_k}) = \sqrt{\widehat{\sigma}^2 (X&#39;X)^{-1}}_{kk}\)</span>. The off-diagonal components represent the covariances between the coefficients.</p>
 <p>Recall that the standard error is just the square root of the variance. So, to get the nice standard errors we saw in the summary output, we can take the square root of the quantities on the diagonal of this matrix.</p>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="uncertainty-and-regression.html#cb237-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(fit<span class="fl">.1</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="uncertainty-and-regression.html#cb258-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(fit<span class="fl">.1</span>)))</span></code></pre></div>
 <pre><code> (Intercept)      Perot96 
 49.759306434  0.004340068 </code></pre>
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="uncertainty-and-regression.html#cb239-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit<span class="fl">.1</span>)<span class="sc">$</span>coefficients[,<span class="dv">2</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="uncertainty-and-regression.html#cb260-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit<span class="fl">.1</span>)<span class="sc">$</span>coefficients[,<span class="dv">2</span>]</span></code></pre></div>
 <pre><code> (Intercept)      Perot96 
 49.759306434  0.004340068 </code></pre>
 <p>Why should I care?</p>
@@ -626,30 +642,30 @@ t_{\hat \beta_k} &amp;= \frac{\hat \beta_k}{s.e.(\hat \beta_k)}
 <p>Generally speaking, when <span class="math inline">\(t\)</span> is about +/-2 or greater in magnitude, the coefficient will be “significant” at conventional levels (i.e., <span class="math inline">\(p &lt;0.05\)</span>), meaning that we are saying that it is really unlikely we would have observed a value as big as <span class="math inline">\(\hat \beta_k\)</span> if the null hypothesis were true. Therefore, we can reject the null hypothesis.</p>
 <p>However, to get a specific quantity, we need to calculate the p-value, which depends on the t-statistic and the degrees of freedom in the model. The degrees of freedom in a regression model are <span class="math inline">\(N-k\)</span>, the number of observations in the model minus the number of independent variables plus the intercept.</p>
 <p>In R, we can calculate p-values using the <code>pt()</code> function. By default, most people use two-sided hypothesis tests for regression. So to do that, we are going to find the area on each side of the t values, or alternatively, multiply the area to the right of our positive t-value by 2.</p>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="uncertainty-and-regression.html#cb241-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s say t was 2.05 and </span></span>
-<span id="cb241-2"><a href="uncertainty-and-regression.html#cb241-2" aria-hidden="true" tabindex="-1"></a><span class="do">## And there were 32 observations and 3 variables in the regression plus an intercept</span></span>
-<span id="cb241-3"><a href="uncertainty-and-regression.html#cb241-3" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fl">2.05</span></span>
-<span id="cb241-4"><a href="uncertainty-and-regression.html#cb241-4" aria-hidden="true" tabindex="-1"></a>df.t <span class="ot">&lt;-</span> <span class="dv">32</span> <span class="sc">-</span><span class="dv">4</span></span>
-<span id="cb241-5"><a href="uncertainty-and-regression.html#cb241-5" aria-hidden="true" tabindex="-1"></a>p.value <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (<span class="fu">pt</span>(<span class="fu">abs</span>(t), <span class="at">df=</span>df.t, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>))</span>
-<span id="cb241-6"><a href="uncertainty-and-regression.html#cb241-6" aria-hidden="true" tabindex="-1"></a>p.value</span></code></pre></div>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="uncertainty-and-regression.html#cb262-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s say t was 2.05 and </span></span>
+<span id="cb262-2"><a href="uncertainty-and-regression.html#cb262-2" aria-hidden="true" tabindex="-1"></a><span class="do">## And there were 32 observations and 3 variables in the regression plus an intercept</span></span>
+<span id="cb262-3"><a href="uncertainty-and-regression.html#cb262-3" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fl">2.05</span></span>
+<span id="cb262-4"><a href="uncertainty-and-regression.html#cb262-4" aria-hidden="true" tabindex="-1"></a>df.t <span class="ot">&lt;-</span> <span class="dv">32</span> <span class="sc">-</span><span class="dv">4</span></span>
+<span id="cb262-5"><a href="uncertainty-and-regression.html#cb262-5" aria-hidden="true" tabindex="-1"></a>p.value <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (<span class="fu">pt</span>(<span class="fu">abs</span>(t), <span class="at">df=</span>df.t, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb262-6"><a href="uncertainty-and-regression.html#cb262-6" aria-hidden="true" tabindex="-1"></a>p.value</span></code></pre></div>
 <pre><code>[1] 0.04983394</code></pre>
 <p>Let’s do this for the florida example. First, we can find t by dividing our coefficients by the standard errors.</p>
-<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="uncertainty-and-regression.html#cb243-1" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit<span class="fl">.1</span>) <span class="sc">/</span> (<span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(fit<span class="fl">.1</span>))))</span>
-<span id="cb243-2"><a href="uncertainty-and-regression.html#cb243-2" aria-hidden="true" tabindex="-1"></a>t </span></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="uncertainty-and-regression.html#cb264-1" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit<span class="fl">.1</span>) <span class="sc">/</span> (<span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(fit<span class="fl">.1</span>))))</span>
+<span id="cb264-2"><a href="uncertainty-and-regression.html#cb264-2" aria-hidden="true" tabindex="-1"></a>t </span></code></pre></div>
 <pre><code>(Intercept)     Perot96 
  0.02704523  8.27522567 </code></pre>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="uncertainty-and-regression.html#cb245-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Compare with output</span></span>
-<span id="cb245-2"><a href="uncertainty-and-regression.html#cb245-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit<span class="fl">.1</span>)<span class="sc">$</span>coefficients[, <span class="dv">3</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="uncertainty-and-regression.html#cb266-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Compare with output</span></span>
+<span id="cb266-2"><a href="uncertainty-and-regression.html#cb266-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit<span class="fl">.1</span>)<span class="sc">$</span>coefficients[, <span class="dv">3</span>]</span></code></pre></div>
 <pre><code>(Intercept)     Perot96 
  0.02704523  8.27522567 </code></pre>
 <p>We can then find the p-values.</p>
-<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="uncertainty-and-regression.html#cb247-1" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit<span class="fl">.1</span>) <span class="sc">/</span> (<span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(fit<span class="fl">.1</span>))))</span>
-<span id="cb247-2"><a href="uncertainty-and-regression.html#cb247-2" aria-hidden="true" tabindex="-1"></a>df.t <span class="ot">&lt;-</span> fit<span class="fl">.1</span><span class="sc">$</span>df.residual</span>
-<span id="cb247-3"><a href="uncertainty-and-regression.html#cb247-3" aria-hidden="true" tabindex="-1"></a>p.value <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (<span class="fu">pt</span>(<span class="fu">abs</span>(t), <span class="at">df=</span>df.t, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>))</span>
-<span id="cb247-4"><a href="uncertainty-and-regression.html#cb247-4" aria-hidden="true" tabindex="-1"></a>p.value</span></code></pre></div>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="uncertainty-and-regression.html#cb268-1" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit<span class="fl">.1</span>) <span class="sc">/</span> (<span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(fit<span class="fl">.1</span>))))</span>
+<span id="cb268-2"><a href="uncertainty-and-regression.html#cb268-2" aria-hidden="true" tabindex="-1"></a>df.t <span class="ot">&lt;-</span> fit<span class="fl">.1</span><span class="sc">$</span>df.residual</span>
+<span id="cb268-3"><a href="uncertainty-and-regression.html#cb268-3" aria-hidden="true" tabindex="-1"></a>p.value <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (<span class="fu">pt</span>(<span class="fu">abs</span>(t), <span class="at">df=</span>df.t, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb268-4"><a href="uncertainty-and-regression.html#cb268-4" aria-hidden="true" tabindex="-1"></a>p.value</span></code></pre></div>
 <pre><code> (Intercept)      Perot96 
 9.785065e-01 9.473505e-12 </code></pre>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="uncertainty-and-regression.html#cb249-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit<span class="fl">.1</span>)<span class="sc">$</span>coefficients[, <span class="dv">4</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="uncertainty-and-regression.html#cb270-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit<span class="fl">.1</span>)<span class="sc">$</span>coefficients[, <span class="dv">4</span>]</span></code></pre></div>
 <pre><code> (Intercept)      Perot96 
 9.785065e-01 9.473505e-12 </code></pre>
 <p>We see that the coefficient for <code>Perot96</code> is significant. The p-value is tiny. In R, for small numbers, R automatically shifts to scientific notation. The 9.47e-12 means the p-value is essentially zero, with the stars in the summary output indicating the p-value is <span class="math inline">\(p &lt; 0.001\)</span>. R will also output a test of the significance of the intercept using the same formula as all other coefficients. This generally does not have much interpretive value, so you are usually safe to ignore it.</p>
@@ -658,18 +674,18 @@ t_{\hat \beta_k} &amp;= \frac{\hat \beta_k}{s.e.(\hat \beta_k)}
 <p>The precise formula is</p>
 <p><span class="math inline">\(\widehat{\beta}_k\)</span> Confidence intervals: <span class="math inline">\(\widehat{\beta}_k - t_{crit.value} \times s.e._{\widehat{\beta}_k}, \widehat{\beta}_k + t_{crit.value} \times s.e_{\widehat{\beta}_k}\)</span></p>
 <p>In R, we can use <code>qt()</code> to get the specific critical value associated with a 95% confidence interval. This will be around 2, but fluctuates depending on the degrees of freedom in your model (which are function of your sample size and how many variables you have in the model.) R also has a shortcut <code>confint()</code> function to extract the coefficients from the model. Below we do this for the <code>Perot96</code> coefficient.</p>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="uncertainty-and-regression.html#cb251-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Critical values from t distribution at .95 level</span></span>
-<span id="cb251-2"><a href="uncertainty-and-regression.html#cb251-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(.<span class="dv">975</span>, <span class="at">df =</span> fit<span class="fl">.1</span><span class="sc">$</span>df.residual) <span class="co"># n- k degrees of freedom</span></span></code></pre></div>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="uncertainty-and-regression.html#cb272-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Critical values from t distribution at .95 level</span></span>
+<span id="cb272-2"><a href="uncertainty-and-regression.html#cb272-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(.<span class="dv">975</span>, <span class="at">df =</span> fit<span class="fl">.1</span><span class="sc">$</span>df.residual) <span class="co"># n- k degrees of freedom</span></span></code></pre></div>
 <pre><code>[1] 1.997138</code></pre>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="uncertainty-and-regression.html#cb253-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Shortcut</span></span>
-<span id="cb253-2"><a href="uncertainty-and-regression.html#cb253-2" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(fit<span class="fl">.1</span>)[<span class="dv">2</span>,]</span></code></pre></div>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="uncertainty-and-regression.html#cb274-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Shortcut</span></span>
+<span id="cb274-2"><a href="uncertainty-and-regression.html#cb274-2" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(fit<span class="fl">.1</span>)[<span class="dv">2</span>,]</span></code></pre></div>
 <pre><code>     2.5 %     97.5 % 
 0.02724733 0.04458275 </code></pre>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="uncertainty-and-regression.html#cb255-1" aria-hidden="true" tabindex="-1"></a><span class="do">## By hand</span></span>
-<span id="cb255-2"><a href="uncertainty-and-regression.html#cb255-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit<span class="fl">.1</span>)[<span class="dv">2</span>] <span class="sc">-</span> <span class="fu">qt</span>(.<span class="dv">975</span>, <span class="at">df =</span> fit<span class="fl">.1</span><span class="sc">$</span>df.residual)<span class="sc">*</span><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(fit<span class="fl">.1</span>)))[<span class="dv">2</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="uncertainty-and-regression.html#cb276-1" aria-hidden="true" tabindex="-1"></a><span class="do">## By hand</span></span>
+<span id="cb276-2"><a href="uncertainty-and-regression.html#cb276-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit<span class="fl">.1</span>)[<span class="dv">2</span>] <span class="sc">-</span> <span class="fu">qt</span>(.<span class="dv">975</span>, <span class="at">df =</span> fit<span class="fl">.1</span><span class="sc">$</span>df.residual)<span class="sc">*</span><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(fit<span class="fl">.1</span>)))[<span class="dv">2</span>]</span></code></pre></div>
 <pre><code>   Perot96 
 0.02724733 </code></pre>
-<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="uncertainty-and-regression.html#cb257-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit<span class="fl">.1</span>)[<span class="dv">2</span>] <span class="sc">+</span> <span class="fu">qt</span>(.<span class="dv">975</span>, <span class="at">df =</span> fit<span class="fl">.1</span><span class="sc">$</span>df.residual)<span class="sc">*</span><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(fit<span class="fl">.1</span>)))[<span class="dv">2</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="uncertainty-and-regression.html#cb278-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit<span class="fl">.1</span>)[<span class="dv">2</span>] <span class="sc">+</span> <span class="fu">qt</span>(.<span class="dv">975</span>, <span class="at">df =</span> fit<span class="fl">.1</span><span class="sc">$</span>df.residual)<span class="sc">*</span><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(fit<span class="fl">.1</span>)))[<span class="dv">2</span>]</span></code></pre></div>
 <pre><code>   Perot96 
 0.04458275 </code></pre>
 </div>

@@ -163,6 +163,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-formatting-examples"><i class="fa fa-check"></i><b>2.4.4</b> Additional formatting examples</a></li>
 <li class="chapter" data-level="2.4.5" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-table-types"><i class="fa fa-check"></i><b>2.4.5</b> Additional Table Types</a></li>
 </ul></li>
+<li class="chapter" data-level="2.5" data-path="exploratory-data-analysis-tools.html"><a href="exploratory-data-analysis-tools.html"><i class="fa fa-check"></i><b>2.5</b> Exploratory Data Analysis Tools</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
 <ul>
@@ -459,6 +460,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.3.3" data-path="modeling-approaches.html"><a href="modeling-approaches.html#cox-proportional-hazards-model"><i class="fa fa-check"></i><b>14.3.3</b> Cox proportional Hazards Model</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="15" data-path="predict.html"><a href="predict.html"><i class="fa fa-check"></i><b>15</b> Prediction and Classification</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html"><i class="fa fa-check"></i><b>15.1</b> Overview of Prediction and Classification</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html#how-to-predict-or-classify"><i class="fa fa-check"></i><b>15.1.1</b> How to predict or classify</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="in-sample-vs-out-of-sample.html"><a href="in-sample-vs-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
+<li class="chapter" data-level="15.3" data-path="cross-validation.html"><a href="cross-validation.html"><i class="fa fa-check"></i><b>15.3</b> Cross-Validation</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>15.3.1</b> k-fold cross-validation</a></li>
+<li class="chapter" data-level="15.3.2" data-path="cross-validation.html"><a href="cross-validation.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>15.3.2</b> Leave-one-out cross-validation</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="examples-of-prediction-and-classification.html"><a href="examples-of-prediction-and-classification.html"><i class="fa fa-check"></i><b>15.4</b> Examples of Prediction and Classification</a></li>
+<li class="chapter" data-level="15.5" data-path="extending-machine-learning.html"><a href="extending-machine-learning.html"><i class="fa fa-check"></i><b>15.5</b> Extending Machine Learning</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -499,23 +515,23 @@ importance.</li>
 </ul></li>
 </ul>
 <p>Let’s load the data and explore the variables.</p>
-<div class="sourceCode" id="cb741"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb741-1"><a href="heckman-example-using-survey-data.html#cb741-1" aria-hidden="true" tabindex="-1"></a>exp2 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/raw/main/exp2.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb762"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb762-1"><a href="heckman-example-using-survey-data.html#cb762-1" aria-hidden="true" tabindex="-1"></a>exp2 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/raw/main/exp2.csv&quot;</span>)</span></code></pre></div>
 <p>The authors are looking to verify that pleasing Allah had something to do with Ennahda vote choice, particularly among poor voters. Let’s look at the variable <code>votenahda</code>, which is a 0 or 1 outcome.</p>
 <ul>
 <li>1 if plan to vote for Ennahda if elections held tomorrow, 0 if not</li>
 </ul>
-<div class="sourceCode" id="cb742"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb742-1"><a href="heckman-example-using-survey-data.html#cb742-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(exp2<span class="sc">$</span>votenahda)</span></code></pre></div>
+<div class="sourceCode" id="cb763"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb763-1"><a href="heckman-example-using-survey-data.html#cb763-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(exp2<span class="sc">$</span>votenahda)</span></code></pre></div>
 <pre><code>
   0   1 
 335  66 </code></pre>
 <p>Whether a voter is poor is determined by if they fall below 7 on the variable <code>inc</code>. Let’s subset our data to only examine poor voters.</p>
-<div class="sourceCode" id="cb744"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb744-1"><a href="heckman-example-using-survey-data.html#cb744-1" aria-hidden="true" tabindex="-1"></a>subdata <span class="ot">&lt;-</span> <span class="fu">subset</span>(exp2, inc <span class="sc">&lt;</span> <span class="dv">7</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb765"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb765-1"><a href="heckman-example-using-survey-data.html#cb765-1" aria-hidden="true" tabindex="-1"></a>subdata <span class="ot">&lt;-</span> <span class="fu">subset</span>(exp2, inc <span class="sc">&lt;</span> <span class="dv">7</span>)</span></code></pre></div>
 <p>They want to understand if pleasing Allah was a top reason for voting for the party. This information is only available for those that agreed or strongly agreed with the statement, “Allah will be more pleased if I vote for this party than other parties.”</p>
 <p>This information is in the variable <code>voteAllah2</code></p>
 <ul>
 <li><code>voteAllah2</code>: 1=strongly agree or agree, 0=otherwise</li>
 </ul>
-<div class="sourceCode" id="cb745"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb745-1"><a href="heckman-example-using-survey-data.html#cb745-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(exp2<span class="sc">$</span>voteAllah2)</span></code></pre></div>
+<div class="sourceCode" id="cb766"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb766-1"><a href="heckman-example-using-survey-data.html#cb766-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(exp2<span class="sc">$</span>voteAllah2)</span></code></pre></div>
 <pre><code>
   0   1 
 118 169 </code></pre>
@@ -523,7 +539,7 @@ importance.</li>
 <ul>
 <li><code>voteAllahrank3</code>: 1 if voteAllahrank <span class="math inline">\(&gt;\)</span> 4 (top two reasons); NA if voteAllahrank = 0; 0 otherwise.</li>
 </ul>
-<div class="sourceCode" id="cb747"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb747-1"><a href="heckman-example-using-survey-data.html#cb747-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(exp2<span class="sc">$</span>voteAllahrank3)</span></code></pre></div>
+<div class="sourceCode" id="cb768"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb768-1"><a href="heckman-example-using-survey-data.html#cb768-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(exp2<span class="sc">$</span>voteAllahrank3)</span></code></pre></div>
 <pre><code>
   0   1 
 104  64 </code></pre>
@@ -531,7 +547,7 @@ importance.</li>
 <ul>
 <li><code>voteAllahrank3</code> is only observed for those who strongly agreed or agreed with the statement</li>
 </ul>
-<div class="sourceCode" id="cb749"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb749-1"><a href="heckman-example-using-survey-data.html#cb749-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="at">RankedTopTwo=</span>exp2<span class="sc">$</span>voteAllahrank3, <span class="at">Agreed=</span>exp2<span class="sc">$</span>voteAllah2)</span></code></pre></div>
+<div class="sourceCode" id="cb770"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb770-1"><a href="heckman-example-using-survey-data.html#cb770-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="at">RankedTopTwo=</span>exp2<span class="sc">$</span>voteAllahrank3, <span class="at">Agreed=</span>exp2<span class="sc">$</span>voteAllah2)</span></code></pre></div>
 <pre><code>            Agreed
 RankedTopTwo   0   1
            0   0 104
@@ -563,15 +579,15 @@ Try on your own, then expand.
 Try on your own, then expand for the solution.
 </summary>
 <p>As the authors note, “The ranking is a two-step process, as respondents only get to rank factors that they agree with. To model their rankings, we therefore employ a Heckman selection model, analyzing first who agreed that pleasing Allah is important in their vote choice, and then analyzing second who ranked pleasing Allah as one of their top two factors.”</p>
-<div class="sourceCode" id="cb751"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb751-1"><a href="heckman-example-using-survey-data.html#cb751-1" aria-hidden="true" tabindex="-1"></a>subdata2 <span class="ot">&lt;-</span> <span class="fu">subset</span>(subdata, votenahda<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span></span>
-<span id="cb751-2"><a href="heckman-example-using-survey-data.html#cb751-2" aria-hidden="true" tabindex="-1"></a>                     votenidaa<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span> votejabha<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span></span>
-<span id="cb751-3"><a href="heckman-example-using-survey-data.html#cb751-3" aria-hidden="true" tabindex="-1"></a>                     voteirada<span class="sc">==</span><span class="dv">1</span>)</span>
-<span id="cb751-4"><a href="heckman-example-using-survey-data.html#cb751-4" aria-hidden="true" tabindex="-1"></a>two <span class="ot">&lt;-</span> <span class="fu">selection</span>(<span class="at">selection =</span> voteAllah2<span class="sc">~</span>votenahda<span class="sc">+</span>votejabha<span class="sc">+</span>treat<span class="sc">+</span>quran, </span>
-<span id="cb751-5"><a href="heckman-example-using-survey-data.html#cb751-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">outcome =</span> voteAllahrank3<span class="sc">~</span>votenahda<span class="sc">+</span>votenidaa, </span>
-<span id="cb751-6"><a href="heckman-example-using-survey-data.html#cb751-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data=</span>subdata2, </span>
-<span id="cb751-7"><a href="heckman-example-using-survey-data.html#cb751-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">method=</span><span class="st">&quot;2step&quot;</span>)</span>
-<span id="cb751-8"><a href="heckman-example-using-survey-data.html#cb751-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb751-9"><a href="heckman-example-using-survey-data.html#cb751-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(two)</span></code></pre></div>
+<div class="sourceCode" id="cb772"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb772-1"><a href="heckman-example-using-survey-data.html#cb772-1" aria-hidden="true" tabindex="-1"></a>subdata2 <span class="ot">&lt;-</span> <span class="fu">subset</span>(subdata, votenahda<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span></span>
+<span id="cb772-2"><a href="heckman-example-using-survey-data.html#cb772-2" aria-hidden="true" tabindex="-1"></a>                     votenidaa<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span> votejabha<span class="sc">==</span><span class="dv">1</span> <span class="sc">|</span></span>
+<span id="cb772-3"><a href="heckman-example-using-survey-data.html#cb772-3" aria-hidden="true" tabindex="-1"></a>                     voteirada<span class="sc">==</span><span class="dv">1</span>)</span>
+<span id="cb772-4"><a href="heckman-example-using-survey-data.html#cb772-4" aria-hidden="true" tabindex="-1"></a>two <span class="ot">&lt;-</span> <span class="fu">selection</span>(<span class="at">selection =</span> voteAllah2<span class="sc">~</span>votenahda<span class="sc">+</span>votejabha<span class="sc">+</span>treat<span class="sc">+</span>quran, </span>
+<span id="cb772-5"><a href="heckman-example-using-survey-data.html#cb772-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">outcome =</span> voteAllahrank3<span class="sc">~</span>votenahda<span class="sc">+</span>votenidaa, </span>
+<span id="cb772-6"><a href="heckman-example-using-survey-data.html#cb772-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data=</span>subdata2, </span>
+<span id="cb772-7"><a href="heckman-example-using-survey-data.html#cb772-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">method=</span><span class="st">&quot;2step&quot;</span>)</span>
+<span id="cb772-8"><a href="heckman-example-using-survey-data.html#cb772-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb772-9"><a href="heckman-example-using-survey-data.html#cb772-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(two)</span></code></pre></div>
 <pre><code>--------------------------------------------
 Tobit 2 model (sample selection model)
 2-step Heckman / heckit estimation

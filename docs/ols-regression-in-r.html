@@ -163,6 +163,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-formatting-examples"><i class="fa fa-check"></i><b>2.4.4</b> Additional formatting examples</a></li>
 <li class="chapter" data-level="2.4.5" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-table-types"><i class="fa fa-check"></i><b>2.4.5</b> Additional Table Types</a></li>
 </ul></li>
+<li class="chapter" data-level="2.5" data-path="exploratory-data-analysis-tools.html"><a href="exploratory-data-analysis-tools.html"><i class="fa fa-check"></i><b>2.5</b> Exploratory Data Analysis Tools</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
 <ul>
@@ -459,6 +460,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.3.3" data-path="modeling-approaches.html"><a href="modeling-approaches.html#cox-proportional-hazards-model"><i class="fa fa-check"></i><b>14.3.3</b> Cox proportional Hazards Model</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="15" data-path="predict.html"><a href="predict.html"><i class="fa fa-check"></i><b>15</b> Prediction and Classification</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html"><i class="fa fa-check"></i><b>15.1</b> Overview of Prediction and Classification</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html#how-to-predict-or-classify"><i class="fa fa-check"></i><b>15.1.1</b> How to predict or classify</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="in-sample-vs-out-of-sample.html"><a href="in-sample-vs-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
+<li class="chapter" data-level="15.3" data-path="cross-validation.html"><a href="cross-validation.html"><i class="fa fa-check"></i><b>15.3</b> Cross-Validation</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>15.3.1</b> k-fold cross-validation</a></li>
+<li class="chapter" data-level="15.3.2" data-path="cross-validation.html"><a href="cross-validation.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>15.3.2</b> Leave-one-out cross-validation</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="examples-of-prediction-and-classification.html"><a href="examples-of-prediction-and-classification.html"><i class="fa fa-check"></i><b>15.4</b> Examples of Prediction and Classification</a></li>
+<li class="chapter" data-level="15.5" data-path="extending-machine-learning.html"><a href="extending-machine-learning.html"><i class="fa fa-check"></i><b>15.5</b> Extending Machine Learning</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -485,8 +501,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">4.3.1</span> Example: Predicting Current Election Votes from Past Election Votes</h3>
 <p>In the American presidential election in 2000, there was an actual controversy in how ballots were cast in the state of Florida. Social scientists used data comparing the election results from 1996 in the state with 2000 as one way to help detect irregularities in the 2000 vote count. For more information on the background of this example, you can watch this <a href="https://www.youtube.com/watch?v=D-nR_hmS6V0">video</a>.</p>
 <p>We will use the data <code>florida.csv</code> available <a href="https://github.com/ktmccabe/teachingdata/blob/main/florida.csv">here</a>:</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="ols-regression-in-r.html#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load Data</span></span>
-<span id="cb191-2"><a href="ols-regression-in-r.html#cb191-2" aria-hidden="true" tabindex="-1"></a>florida <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ktmccabe/teachingdata/main/florida.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="ols-regression-in-r.html#cb212-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load Data</span></span>
+<span id="cb212-2"><a href="ols-regression-in-r.html#cb212-2" aria-hidden="true" tabindex="-1"></a>florida <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/ktmccabe/teachingdata/main/florida.csv&quot;</span>)</span></code></pre></div>
 <p>This data set includes several variables described below, where each row represents the voting information for a particular county in Florida.</p>
 <table>
 <thead>
@@ -532,7 +548,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><span class="math inline">\(Buchanan2000 = \alpha + Perot1996 * \beta + \epsilon\)</span></li>
 </ul>
 <p>In R, we run this regression the following way. We will save it as an object <code>fit.1</code>. You can name your regression objects anything you want.</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="ols-regression-in-r.html#cb192-1" aria-hidden="true" tabindex="-1"></a>fit<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(Buchanan00 <span class="sc">~</span> Perot96, <span class="at">data =</span> florida)</span></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="ols-regression-in-r.html#cb213-1" aria-hidden="true" tabindex="-1"></a>fit<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(Buchanan00 <span class="sc">~</span> Perot96, <span class="at">data =</span> florida)</span></code></pre></div>
 <ul>
 <li><p><code>summary(model)</code> provides the summary statistics
 of the model. In particular, the following statistics are
@@ -552,7 +568,7 @@ determination adjusting for the degrees of freedom</li>
 </ul></li>
 </ul>
 <p>We will say more to define these quantities in future sections.</p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="ols-regression-in-r.html#cb193-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit<span class="fl">.1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="ols-regression-in-r.html#cb214-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit<span class="fl">.1</span>)</span></code></pre></div>
 <pre><code>
 Call:
 lm(formula = Buchanan00 ~ Perot96, data = florida)
@@ -572,35 +588,35 @@ Residual standard error: 316.4 on 65 degrees of freedom
 Multiple R-squared:  0.513,	Adjusted R-squared:  0.5055 
 F-statistic: 68.48 on 1 and 65 DF,  p-value: 9.474e-12</code></pre>
 <p>R also allows several shortcuts for accessing particular elements of your regression results. Examples:</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="ols-regression-in-r.html#cb195-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Vector of the coefficient estimates only</span></span>
-<span id="cb195-2"><a href="ols-regression-in-r.html#cb195-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit<span class="fl">.1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="ols-regression-in-r.html#cb216-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Vector of the coefficient estimates only</span></span>
+<span id="cb216-2"><a href="ols-regression-in-r.html#cb216-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit<span class="fl">.1</span>)</span></code></pre></div>
 <pre><code>(Intercept)     Perot96 
  1.34575212  0.03591504 </code></pre>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="ols-regression-in-r.html#cb197-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Compute confidence intervals for these coefficients</span></span>
-<span id="cb197-2"><a href="ols-regression-in-r.html#cb197-2" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(fit<span class="fl">.1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="ols-regression-in-r.html#cb218-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Compute confidence intervals for these coefficients</span></span>
+<span id="cb218-2"><a href="ols-regression-in-r.html#cb218-2" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(fit<span class="fl">.1</span>)</span></code></pre></div>
 <pre><code>                   2.5 %       97.5 %
 (Intercept) -98.03044506 100.72194929
 Perot96       0.02724733   0.04458275</code></pre>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="ols-regression-in-r.html#cb199-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Table of coefficient results only</span></span>
-<span id="cb199-2"><a href="ols-regression-in-r.html#cb199-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit<span class="fl">.1</span>)<span class="sc">$</span>coefficients</span></code></pre></div>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="ols-regression-in-r.html#cb220-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Table of coefficient results only</span></span>
+<span id="cb220-2"><a href="ols-regression-in-r.html#cb220-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit<span class="fl">.1</span>)<span class="sc">$</span>coefficients</span></code></pre></div>
 <pre><code>              Estimate   Std. Error    t value     Pr(&gt;|t|)
 (Intercept) 1.34575212 49.759306434 0.02704523 9.785065e-01
 Perot96     0.03591504  0.004340068 8.27522567 9.473505e-12</code></pre>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="ols-regression-in-r.html#cb201-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Extract standard errors only</span></span>
-<span id="cb201-2"><a href="ols-regression-in-r.html#cb201-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit<span class="fl">.1</span>)<span class="sc">$</span>coefficients[,<span class="dv">2</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="ols-regression-in-r.html#cb222-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Extract standard errors only</span></span>
+<span id="cb222-2"><a href="ols-regression-in-r.html#cb222-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit<span class="fl">.1</span>)<span class="sc">$</span>coefficients[,<span class="dv">2</span>]</span></code></pre></div>
 <pre><code> (Intercept)      Perot96 
 49.759306434  0.004340068 </code></pre>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="ols-regression-in-r.html#cb203-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Variance-Covariance matrix</span></span>
-<span id="cb203-2"><a href="ols-regression-in-r.html#cb203-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vcov</span>(fit<span class="fl">.1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="ols-regression-in-r.html#cb224-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Variance-Covariance matrix</span></span>
+<span id="cb224-2"><a href="ols-regression-in-r.html#cb224-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vcov</span>(fit<span class="fl">.1</span>)</span></code></pre></div>
 <pre><code>             (Intercept)       Perot96
 (Intercept) 2475.9885768 -1.360074e-01
 Perot96       -0.1360074  1.883619e-05</code></pre>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="ols-regression-in-r.html#cb205-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Note that the square root of the diagonal of this matrix provides the standard errors</span></span>
-<span id="cb205-2"><a href="ols-regression-in-r.html#cb205-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(fit<span class="fl">.1</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="ols-regression-in-r.html#cb226-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Note that the square root of the diagonal of this matrix provides the standard errors</span></span>
+<span id="cb226-2"><a href="ols-regression-in-r.html#cb226-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(fit<span class="fl">.1</span>)))</span></code></pre></div>
 <pre><code> (Intercept)      Perot96 
 49.759306434  0.004340068 </code></pre>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="ols-regression-in-r.html#cb207-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Degrees of freedom</span></span>
-<span id="cb207-2"><a href="ols-regression-in-r.html#cb207-2" aria-hidden="true" tabindex="-1"></a>fit<span class="fl">.1</span><span class="sc">$</span>df.residual</span></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="ols-regression-in-r.html#cb228-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Degrees of freedom</span></span>
+<span id="cb228-2"><a href="ols-regression-in-r.html#cb228-2" aria-hidden="true" tabindex="-1"></a>fit<span class="fl">.1</span><span class="sc">$</span>df.residual</span></code></pre></div>
 <pre><code>[1] 65</code></pre>
 </div>
 <div id="plotting-regression-results" class="section level3" number="4.3.2">
@@ -608,73 +624,73 @@ Perot96       -0.1360074  1.883619e-05</code></pre>
 <p>We often don’t want to hide our data under a bushel basket or in complicated regression models. Instead, we might also want to visualize data in R. The function <code>plot()</code> and the function <code>ggplot()</code> from the package <code>ggplot2</code> are two terrific and flexible functions for visualizing data. We will use the <code>plot()</code> function to visualize the relationship between Perot and Buchanan votes. The example below provides a few arguments you can use within each of these functions, but they are capable of much more.</p>
 <p>At the core, plotting functions generally work as coordinate systems. You tell R specifically at which x and y coordinates you want your points to be located (e.g., by providing R with a vector of x values and a vector of y values). Then, each function has its own way of allowing you to add bells and whistles to your figure, such as labels (e.g., <code>main, xlab, ylab</code>), point styles ({}), additional lines and points and text (e.g., <code>abline(), lines(), points(), text()</code>), or x and y scales for the dimensions of your axes (e.g., <code>xlim, ylim</code>). You can create a plot without these additional features, but most of the time, you will add them to make your plots look good! and be informative! We will do a lot of plotting this semester.</p>
 <p>Note: feel free to use <code>plot()</code> or <code>ggplot()</code> or both. <code>ggplot</code> has similar capabilities as <code>plot</code> but relies on a different “grammar” of graphics. For example, see the subtle differences in the two plots below.</p>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="ols-regression-in-r.html#cb209-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot</span></span>
-<span id="cb209-2"><a href="ols-regression-in-r.html#cb209-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> florida<span class="sc">$</span>Perot96, <span class="co"># x-values</span></span>
-<span id="cb209-3"><a href="ols-regression-in-r.html#cb209-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">y =</span> florida<span class="sc">$</span>Buchanan00, <span class="co"># y-values</span></span>
-<span id="cb209-4"><a href="ols-regression-in-r.html#cb209-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Perot and Buchanan Votes&quot;</span>, <span class="co"># label for main title</span></span>
-<span id="cb209-5"><a href="ols-regression-in-r.html#cb209-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Buchanan Votes&quot;</span>, <span class="co"># y-axis label</span></span>
-<span id="cb209-6"><a href="ols-regression-in-r.html#cb209-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Perot Votes&quot;</span>, <span class="co"># x-axis label</span></span>
-<span id="cb209-7"><a href="ols-regression-in-r.html#cb209-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">20</span>) <span class="co"># point type</span></span>
-<span id="cb209-8"><a href="ols-regression-in-r.html#cb209-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(fit<span class="fl">.1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>) <span class="co"># adds a red regression line</span></span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-106-1.svg" width="672" /></p>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="ols-regression-in-r.html#cb210-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ggplot version</span></span>
-<span id="cb210-2"><a href="ols-regression-in-r.html#cb210-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb210-3"><a href="ols-regression-in-r.html#cb210-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> florida, <span class="co"># which data frame</span></span>
-<span id="cb210-4"><a href="ols-regression-in-r.html#cb210-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Perot96, <span class="at">y =</span> Buchanan00)) <span class="sc">+</span> <span class="co"># x and y coordinates</span></span>
-<span id="cb210-5"><a href="ols-regression-in-r.html#cb210-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span>  <span class="co"># tells R we want a scatterplot</span></span>
-<span id="cb210-6"><a href="ols-regression-in-r.html#cb210-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,</span>
-<span id="cb210-7"><a href="ols-regression-in-r.html#cb210-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>,</span>
-<span id="cb210-8"><a href="ols-regression-in-r.html#cb210-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> florida, <span class="fu">aes</span>(<span class="at">x=</span>Perot96, <span class="at">y=</span>Buchanan00)) <span class="sc">+</span> <span class="co"># adds lm regression line</span></span>
-<span id="cb210-9"><a href="ols-regression-in-r.html#cb210-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Perot and Buchanan Votes&quot;</span>) <span class="sc">+</span> <span class="co"># main title</span></span>
-<span id="cb210-10"><a href="ols-regression-in-r.html#cb210-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Perot Votes&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Buchanan Votes&quot;</span>) <span class="sc">+</span> <span class="co"># x and y labels</span></span>
-<span id="cb210-11"><a href="ols-regression-in-r.html#cb210-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="co"># changes theme (e.g., color of background)</span></span></code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="ols-regression-in-r.html#cb230-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot</span></span>
+<span id="cb230-2"><a href="ols-regression-in-r.html#cb230-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> florida<span class="sc">$</span>Perot96, <span class="co"># x-values</span></span>
+<span id="cb230-3"><a href="ols-regression-in-r.html#cb230-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">y =</span> florida<span class="sc">$</span>Buchanan00, <span class="co"># y-values</span></span>
+<span id="cb230-4"><a href="ols-regression-in-r.html#cb230-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Perot and Buchanan Votes&quot;</span>, <span class="co"># label for main title</span></span>
+<span id="cb230-5"><a href="ols-regression-in-r.html#cb230-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Buchanan Votes&quot;</span>, <span class="co"># y-axis label</span></span>
+<span id="cb230-6"><a href="ols-regression-in-r.html#cb230-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Perot Votes&quot;</span>, <span class="co"># x-axis label</span></span>
+<span id="cb230-7"><a href="ols-regression-in-r.html#cb230-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">20</span>) <span class="co"># point type</span></span>
+<span id="cb230-8"><a href="ols-regression-in-r.html#cb230-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(fit<span class="fl">.1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>) <span class="co"># adds a red regression line</span></span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-112-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="ols-regression-in-r.html#cb231-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ggplot version</span></span>
+<span id="cb231-2"><a href="ols-regression-in-r.html#cb231-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb231-3"><a href="ols-regression-in-r.html#cb231-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> florida, <span class="co"># which data frame</span></span>
+<span id="cb231-4"><a href="ols-regression-in-r.html#cb231-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Perot96, <span class="at">y =</span> Buchanan00)) <span class="sc">+</span> <span class="co"># x and y coordinates</span></span>
+<span id="cb231-5"><a href="ols-regression-in-r.html#cb231-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span>  <span class="co"># tells R we want a scatterplot</span></span>
+<span id="cb231-6"><a href="ols-regression-in-r.html#cb231-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,</span>
+<span id="cb231-7"><a href="ols-regression-in-r.html#cb231-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb231-8"><a href="ols-regression-in-r.html#cb231-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> florida, <span class="fu">aes</span>(<span class="at">x=</span>Perot96, <span class="at">y=</span>Buchanan00)) <span class="sc">+</span> <span class="co"># adds lm regression line</span></span>
+<span id="cb231-9"><a href="ols-regression-in-r.html#cb231-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Perot and Buchanan Votes&quot;</span>) <span class="sc">+</span> <span class="co"># main title</span></span>
+<span id="cb231-10"><a href="ols-regression-in-r.html#cb231-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Perot Votes&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Buchanan Votes&quot;</span>) <span class="sc">+</span> <span class="co"># x and y labels</span></span>
+<span id="cb231-11"><a href="ols-regression-in-r.html#cb231-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="co"># changes theme (e.g., color of background)</span></span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-107-1.svg" width="672" /></p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="ols-regression-in-r.html#cb212-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Note: data = florida, aes(x=Perot96, y=Buchanan00) in the geom_smooth line is not necessary if it is the same mapping at the first line. Required if data are different</span></span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-113-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="ols-regression-in-r.html#cb233-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Note: data = florida, aes(x=Perot96, y=Buchanan00) in the geom_smooth line is not necessary if it is the same mapping at the first line. Required if data are different</span></span></code></pre></div>
 <p>Tip: you might want to save your plots as .pdf or .png after you create it. You can do this straight from your R code. How you do it varies by function. The files will save to your working directory unless you specify a different file path. The code below is the same as above except it has additional lines for saving the plots:</p>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="ols-regression-in-r.html#cb213-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot</span></span>
-<span id="cb213-2"><a href="ols-regression-in-r.html#cb213-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file =</span> <span class="st">&quot;myfirstmleplot.pdf&quot;</span>, <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="dv">5</span>) <span class="co"># play around with the dimensions</span></span>
-<span id="cb213-3"><a href="ols-regression-in-r.html#cb213-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> florida<span class="sc">$</span>Perot96, <span class="co"># x-values</span></span>
-<span id="cb213-4"><a href="ols-regression-in-r.html#cb213-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">y =</span> florida<span class="sc">$</span>Buchanan00, <span class="co"># y-values</span></span>
-<span id="cb213-5"><a href="ols-regression-in-r.html#cb213-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Perot and Buchanan Votes&quot;</span>, <span class="co"># label for main title</span></span>
-<span id="cb213-6"><a href="ols-regression-in-r.html#cb213-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Buchanan Votes&quot;</span>, <span class="co"># y-axis label</span></span>
-<span id="cb213-7"><a href="ols-regression-in-r.html#cb213-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Perot Votes&quot;</span>, <span class="co"># x-axis label</span></span>
-<span id="cb213-8"><a href="ols-regression-in-r.html#cb213-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">20</span>) <span class="co"># point type</span></span>
-<span id="cb213-9"><a href="ols-regression-in-r.html#cb213-9" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(fit<span class="fl">.1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>) <span class="co"># adds a red regression line</span></span>
-<span id="cb213-10"><a href="ols-regression-in-r.html#cb213-10" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>() <span class="co"># this closes your pdf file</span></span>
-<span id="cb213-11"><a href="ols-regression-in-r.html#cb213-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb213-12"><a href="ols-regression-in-r.html#cb213-12" aria-hidden="true" tabindex="-1"></a><span class="do">## ggplot version</span></span>
-<span id="cb213-13"><a href="ols-regression-in-r.html#cb213-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> florida, <span class="co"># which data frame</span></span>
-<span id="cb213-14"><a href="ols-regression-in-r.html#cb213-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Perot96, <span class="at">y =</span> Buchanan00)) <span class="sc">+</span> <span class="co"># x and y coordinates</span></span>
-<span id="cb213-15"><a href="ols-regression-in-r.html#cb213-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span>  <span class="co"># tells R we want a scatterplot</span></span>
-<span id="cb213-16"><a href="ols-regression-in-r.html#cb213-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,  </span>
-<span id="cb213-17"><a href="ols-regression-in-r.html#cb213-17" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>,</span>
-<span id="cb213-18"><a href="ols-regression-in-r.html#cb213-18" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> florida, <span class="fu">aes</span>(<span class="at">x=</span>Perot96, <span class="at">y=</span>Buchanan00)) <span class="sc">+</span> <span class="co"># adds lm regression line</span></span>
-<span id="cb213-19"><a href="ols-regression-in-r.html#cb213-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Perot and Buchanan Votes&quot;</span>) <span class="sc">+</span> <span class="co"># main title</span></span>
-<span id="cb213-20"><a href="ols-regression-in-r.html#cb213-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Perot Votes&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Buchanan Votes&quot;</span>) <span class="sc">+</span> <span class="co"># x and y labels</span></span>
-<span id="cb213-21"><a href="ols-regression-in-r.html#cb213-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span><span class="co"># centers the title</span></span>
-<span id="cb213-22"><a href="ols-regression-in-r.html#cb213-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="co"># changes theme (e.g., color of background)</span></span>
-<span id="cb213-23"><a href="ols-regression-in-r.html#cb213-23" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;myfirstmleggplot.png&quot;</span>, <span class="at">device=</span><span class="st">&quot;png&quot;</span>, <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="dv">5</span>) <span class="co"># saves the last ggplot</span></span></code></pre></div>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="ols-regression-in-r.html#cb234-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot</span></span>
+<span id="cb234-2"><a href="ols-regression-in-r.html#cb234-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file =</span> <span class="st">&quot;myfirstmleplot.pdf&quot;</span>, <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="dv">5</span>) <span class="co"># play around with the dimensions</span></span>
+<span id="cb234-3"><a href="ols-regression-in-r.html#cb234-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> florida<span class="sc">$</span>Perot96, <span class="co"># x-values</span></span>
+<span id="cb234-4"><a href="ols-regression-in-r.html#cb234-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">y =</span> florida<span class="sc">$</span>Buchanan00, <span class="co"># y-values</span></span>
+<span id="cb234-5"><a href="ols-regression-in-r.html#cb234-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Perot and Buchanan Votes&quot;</span>, <span class="co"># label for main title</span></span>
+<span id="cb234-6"><a href="ols-regression-in-r.html#cb234-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Buchanan Votes&quot;</span>, <span class="co"># y-axis label</span></span>
+<span id="cb234-7"><a href="ols-regression-in-r.html#cb234-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Perot Votes&quot;</span>, <span class="co"># x-axis label</span></span>
+<span id="cb234-8"><a href="ols-regression-in-r.html#cb234-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">20</span>) <span class="co"># point type</span></span>
+<span id="cb234-9"><a href="ols-regression-in-r.html#cb234-9" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(fit<span class="fl">.1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>) <span class="co"># adds a red regression line</span></span>
+<span id="cb234-10"><a href="ols-regression-in-r.html#cb234-10" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>() <span class="co"># this closes your pdf file</span></span>
+<span id="cb234-11"><a href="ols-regression-in-r.html#cb234-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb234-12"><a href="ols-regression-in-r.html#cb234-12" aria-hidden="true" tabindex="-1"></a><span class="do">## ggplot version</span></span>
+<span id="cb234-13"><a href="ols-regression-in-r.html#cb234-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> florida, <span class="co"># which data frame</span></span>
+<span id="cb234-14"><a href="ols-regression-in-r.html#cb234-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Perot96, <span class="at">y =</span> Buchanan00)) <span class="sc">+</span> <span class="co"># x and y coordinates</span></span>
+<span id="cb234-15"><a href="ols-regression-in-r.html#cb234-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span>  <span class="co"># tells R we want a scatterplot</span></span>
+<span id="cb234-16"><a href="ols-regression-in-r.html#cb234-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,  </span>
+<span id="cb234-17"><a href="ols-regression-in-r.html#cb234-17" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb234-18"><a href="ols-regression-in-r.html#cb234-18" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> florida, <span class="fu">aes</span>(<span class="at">x=</span>Perot96, <span class="at">y=</span>Buchanan00)) <span class="sc">+</span> <span class="co"># adds lm regression line</span></span>
+<span id="cb234-19"><a href="ols-regression-in-r.html#cb234-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Perot and Buchanan Votes&quot;</span>) <span class="sc">+</span> <span class="co"># main title</span></span>
+<span id="cb234-20"><a href="ols-regression-in-r.html#cb234-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Perot Votes&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Buchanan Votes&quot;</span>) <span class="sc">+</span> <span class="co"># x and y labels</span></span>
+<span id="cb234-21"><a href="ols-regression-in-r.html#cb234-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span><span class="co"># centers the title</span></span>
+<span id="cb234-22"><a href="ols-regression-in-r.html#cb234-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="co"># changes theme (e.g., color of background)</span></span>
+<span id="cb234-23"><a href="ols-regression-in-r.html#cb234-23" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;myfirstmleggplot.png&quot;</span>, <span class="at">device=</span><span class="st">&quot;png&quot;</span>, <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="dv">5</span>) <span class="co"># saves the last ggplot</span></span></code></pre></div>
 </div>
 <div id="finding-coefficients-without-lm" class="section level3" number="4.3.3">
 <h3><span class="header-section-number">4.3.3</span> Finding Coefficients without <code>lm</code></h3>
 <p>Let’s put our matrix algebra and R knowledge together. In the previous section, we found that <span class="math inline">\(\hat \beta = (X&#39;X)^{-1}X&#39;Y\)</span>. If we do that math directly in R, there is no need to use <code>lm()</code> to find those coefficients.</p>
 <p>To do so, we need <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
 <p>Recall <span class="math inline">\(Y\)</span> is an <span class="math inline">\(n \times 1\)</span> vector representing the outcome of our model. In this case, <span class="math inline">\(Y\)</span> is <code>Buchanan00</code>.</p>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="ols-regression-in-r.html#cb214-1" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> florida<span class="sc">$</span>Buchanan00</span></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="ols-regression-in-r.html#cb235-1" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> florida<span class="sc">$</span>Buchanan00</span></code></pre></div>
 <p>Recall, <span class="math inline">\(X\)</span> is a <span class="math inline">\(n \times k\)</span> matrix representing our independent variables and a column of 1’s for the intercept. Let’s build this matrix using <code>cbind</code> which was introduced in section 2.</p>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="ols-regression-in-r.html#cb215-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, florida<span class="sc">$</span>Perot96)</span>
-<span id="cb215-2"><a href="ols-regression-in-r.html#cb215-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(X)</span></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="ols-regression-in-r.html#cb236-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, florida<span class="sc">$</span>Perot96)</span>
+<span id="cb236-2"><a href="ols-regression-in-r.html#cb236-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(X)</span></code></pre></div>
 <pre><code>[1] 67  2</code></pre>
 <p>Great, now we have <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, so it’s just about a little math. Because <span class="math inline">\(Y\)</span> is a vector, let’s make sure R knows to treat it like an <span class="math inline">\(n \times 1\)</span> matrix.</p>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="ols-regression-in-r.html#cb217-1" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">cbind</span>(Y)</span>
-<span id="cb217-2"><a href="ols-regression-in-r.html#cb217-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(Y)</span></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="ols-regression-in-r.html#cb238-1" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">cbind</span>(Y)</span>
+<span id="cb238-2"><a href="ols-regression-in-r.html#cb238-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(Y)</span></code></pre></div>
 <pre><code>[1] 67  1</code></pre>
 <p>Recall the <code>solve()</code> and <code>t()</code> functions take the inverse and transpose of matrices.</p>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="ols-regression-in-r.html#cb219-1" aria-hidden="true" tabindex="-1"></a>betahat <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> Y</span></code></pre></div>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="ols-regression-in-r.html#cb240-1" aria-hidden="true" tabindex="-1"></a>betahat <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> Y</span></code></pre></div>
 <p>Finally, let’s compare the results from our model using <code>lm()</code> with these results.</p>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="ols-regression-in-r.html#cb220-1" aria-hidden="true" tabindex="-1"></a>betahat</span>
-<span id="cb220-2"><a href="ols-regression-in-r.html#cb220-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit<span class="fl">.1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="ols-regression-in-r.html#cb241-1" aria-hidden="true" tabindex="-1"></a>betahat</span>
+<span id="cb241-2"><a href="ols-regression-in-r.html#cb241-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit<span class="fl">.1</span>)</span></code></pre></div>
 <pre><code>              Y
 [1,] 1.34575212
 [2,] 0.03591504
@@ -707,8 +723,8 @@ Perot96       -0.1360074  1.883619e-05</code></pre>
 </div>
 <div id="code-for-solutions" class="section level3" number="4.3.5">
 <h3><span class="header-section-number">4.3.5</span> Code for solutions</h3>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="ols-regression-in-r.html#cb222-1" aria-hidden="true" tabindex="-1"></a>fit.multiple <span class="ot">&lt;-</span> <span class="fu">lm</span>(Buchanan00 <span class="sc">~</span> Perot96 <span class="sc">+</span> Clinton96, <span class="at">data =</span> florida)</span>
-<span id="cb222-2"><a href="ols-regression-in-r.html#cb222-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.multiple)</span></code></pre></div>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="ols-regression-in-r.html#cb243-1" aria-hidden="true" tabindex="-1"></a>fit.multiple <span class="ot">&lt;-</span> <span class="fu">lm</span>(Buchanan00 <span class="sc">~</span> Perot96 <span class="sc">+</span> Clinton96, <span class="at">data =</span> florida)</span>
+<span id="cb243-2"><a href="ols-regression-in-r.html#cb243-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.multiple)</span></code></pre></div>
 <pre><code>
 Call:
 lm(formula = Buchanan00 ~ Perot96 + Clinton96, data = florida)
@@ -728,31 +744,31 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 Residual standard error: 316.7 on 64 degrees of freedom
 Multiple R-squared:  0.5196,	Adjusted R-squared:  0.5046 
 F-statistic: 34.61 on 2 and 64 DF,  p-value: 6.477e-11</code></pre>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="ols-regression-in-r.html#cb224-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(fit.multiple)[<span class="dv">2</span>,]</span></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="ols-regression-in-r.html#cb245-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(fit.multiple)[<span class="dv">2</span>,]</span></code></pre></div>
 <pre><code>      2.5 %      97.5 % 
 0.007228254 0.047560638 </code></pre>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="ols-regression-in-r.html#cb226-1" aria-hidden="true" tabindex="-1"></a>florida<span class="sc">$</span>res <span class="ot">&lt;-</span> <span class="fu">residuals</span>(fit.multiple)</span>
-<span id="cb226-2"><a href="ols-regression-in-r.html#cb226-2" aria-hidden="true" tabindex="-1"></a>florida<span class="sc">$</span>res[florida<span class="sc">$</span>county <span class="sc">==</span> <span class="st">&quot;PalmBeach&quot;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="ols-regression-in-r.html#cb247-1" aria-hidden="true" tabindex="-1"></a>florida<span class="sc">$</span>res <span class="ot">&lt;-</span> <span class="fu">residuals</span>(fit.multiple)</span>
+<span id="cb247-2"><a href="ols-regression-in-r.html#cb247-2" aria-hidden="true" tabindex="-1"></a>florida<span class="sc">$</span>res[florida<span class="sc">$</span>county <span class="sc">==</span> <span class="st">&quot;PalmBeach&quot;</span>]</span></code></pre></div>
 <pre><code>[1] 2254.893</code></pre>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="ols-regression-in-r.html#cb228-1" aria-hidden="true" tabindex="-1"></a>florida.pb <span class="ot">&lt;-</span> <span class="fu">subset</span>(florida, <span class="at">subset =</span> (county <span class="sc">!=</span> <span class="st">&quot;PalmBeach&quot;</span>))</span>
-<span id="cb228-2"><a href="ols-regression-in-r.html#cb228-2" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Buchanan00 <span class="sc">~</span> Perot96, <span class="at">data =</span> florida.pb)</span>
-<span id="cb228-3"><a href="ols-regression-in-r.html#cb228-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb228-4"><a href="ols-regression-in-r.html#cb228-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> florida.pb, <span class="co"># which data frame</span></span>
-<span id="cb228-5"><a href="ols-regression-in-r.html#cb228-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Perot96, <span class="at">y =</span> Buchanan00)) <span class="sc">+</span> <span class="co"># x and y coordinates</span></span>
-<span id="cb228-6"><a href="ols-regression-in-r.html#cb228-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;blue&quot;</span>) <span class="sc">+</span>  <span class="co"># tells R we want a scatterplot</span></span>
-<span id="cb228-7"><a href="ols-regression-in-r.html#cb228-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, </span>
-<span id="cb228-8"><a href="ols-regression-in-r.html#cb228-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">colour =</span> <span class="st">&quot;green&quot;</span>,</span>
-<span id="cb228-9"><a href="ols-regression-in-r.html#cb228-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> florida.pb, <span class="fu">aes</span>(<span class="at">x=</span>Perot96, <span class="at">y=</span>Buchanan00)) <span class="sc">+</span> <span class="co"># adds lm regression line</span></span>
-<span id="cb228-10"><a href="ols-regression-in-r.html#cb228-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, </span>
-<span id="cb228-11"><a href="ols-regression-in-r.html#cb228-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>,</span>
-<span id="cb228-12"><a href="ols-regression-in-r.html#cb228-12" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> florida, <span class="fu">aes</span>(<span class="at">x=</span>Perot96, <span class="at">y=</span>Buchanan00)) <span class="sc">+</span> <span class="co"># adds lm regression line</span></span>
-<span id="cb228-13"><a href="ols-regression-in-r.html#cb228-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Perot and Buchanan Votes&quot;</span>) <span class="sc">+</span> <span class="co"># main title</span></span>
-<span id="cb228-14"><a href="ols-regression-in-r.html#cb228-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Perot Votes&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Buchanan Votes&quot;</span>) <span class="sc">+</span> <span class="co"># x and y labels</span></span>
-<span id="cb228-15"><a href="ols-regression-in-r.html#cb228-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span><span class="co"># centers the title</span></span>
-<span id="cb228-16"><a href="ols-regression-in-r.html#cb228-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="co"># changes theme (e.g., color of background)</span></span></code></pre></div>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="ols-regression-in-r.html#cb249-1" aria-hidden="true" tabindex="-1"></a>florida.pb <span class="ot">&lt;-</span> <span class="fu">subset</span>(florida, <span class="at">subset =</span> (county <span class="sc">!=</span> <span class="st">&quot;PalmBeach&quot;</span>))</span>
+<span id="cb249-2"><a href="ols-regression-in-r.html#cb249-2" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Buchanan00 <span class="sc">~</span> Perot96, <span class="at">data =</span> florida.pb)</span>
+<span id="cb249-3"><a href="ols-regression-in-r.html#cb249-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb249-4"><a href="ols-regression-in-r.html#cb249-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> florida.pb, <span class="co"># which data frame</span></span>
+<span id="cb249-5"><a href="ols-regression-in-r.html#cb249-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> Perot96, <span class="at">y =</span> Buchanan00)) <span class="sc">+</span> <span class="co"># x and y coordinates</span></span>
+<span id="cb249-6"><a href="ols-regression-in-r.html#cb249-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;blue&quot;</span>) <span class="sc">+</span>  <span class="co"># tells R we want a scatterplot</span></span>
+<span id="cb249-7"><a href="ols-regression-in-r.html#cb249-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, </span>
+<span id="cb249-8"><a href="ols-regression-in-r.html#cb249-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">colour =</span> <span class="st">&quot;green&quot;</span>,</span>
+<span id="cb249-9"><a href="ols-regression-in-r.html#cb249-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> florida.pb, <span class="fu">aes</span>(<span class="at">x=</span>Perot96, <span class="at">y=</span>Buchanan00)) <span class="sc">+</span> <span class="co"># adds lm regression line</span></span>
+<span id="cb249-10"><a href="ols-regression-in-r.html#cb249-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, </span>
+<span id="cb249-11"><a href="ols-regression-in-r.html#cb249-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb249-12"><a href="ols-regression-in-r.html#cb249-12" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> florida, <span class="fu">aes</span>(<span class="at">x=</span>Perot96, <span class="at">y=</span>Buchanan00)) <span class="sc">+</span> <span class="co"># adds lm regression line</span></span>
+<span id="cb249-13"><a href="ols-regression-in-r.html#cb249-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Perot and Buchanan Votes&quot;</span>) <span class="sc">+</span> <span class="co"># main title</span></span>
+<span id="cb249-14"><a href="ols-regression-in-r.html#cb249-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Perot Votes&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Buchanan Votes&quot;</span>) <span class="sc">+</span> <span class="co"># x and y labels</span></span>
+<span id="cb249-15"><a href="ols-regression-in-r.html#cb249-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span><span class="co"># centers the title</span></span>
+<span id="cb249-16"><a href="ols-regression-in-r.html#cb249-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="co"># changes theme (e.g., color of background)</span></span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;
 `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-114-1.svg" width="672" /></p>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-120-1.svg" width="672" /></p>
 </div>
 </div>
             </section>

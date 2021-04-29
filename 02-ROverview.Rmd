@@ -783,4 +783,80 @@ print(xtable(table1), type="html", file = "crosstab.doc")
 print(xtable(table1), type="html")
 ```
 
+## Exploratory Data Analysis Tools
+
+One of the first things you may want to do when you have a new dataset is to explore! Get a sense of the variables you have, their class, and how they are coded. There are many functions in base R that help with this, such as `summary()`, `table()`, and descriptive statistics like `mean` or `quantile`.
+
+Let's try this with the built-in `mtcars` data.
+
+```{r}
+data("mtcars")
+
+summary(mtcars$cyl)
+quantile(mtcars$wt)
+mean(mtcars$mpg, na.rm=T)
+sd(mtcars$mpg, na.rm=T)
+table(gear=mtcars$gear, carb=mtcars$carb)
+```
+
+As discussed in the visualization, you can also quickly describe univariate data with histograms, barplots, or density plots using base R or `ggplot`.
+
+```{r}
+hist(mtcars$mpg, breaks=20, main="Histogram of MPG")
+
+plot(density(mtcars$mpg, na.rm=T),  
+     main="Distribution of MPG")
+
+barplot(table(mtcars$gear), main="Barplot of Gears")
+```
+
+```{r, warning=F, message=F}
+library(ggplot2)
+ggplot(mtcars, aes(mpg))+
+  geom_histogram(bins=20)+
+  ggtitle("Histogram of MPG")
+
+ggplot(mtcars, aes(mpg))+
+  geom_density()+
+  ggtitle("Distribution of MPG")
+
+ggplot(mtcars, aes(gear))+
+  geom_bar(stat="count")+
+  ggtitle("Barplot of Gears")
+```
+
+There is a package in R that helps make this process easier when you want to summarize several variables at a time. It is called `dataReporter`. Documentation is available [here](https://github.com/ekstroem/dataReporter).
+
+Let's try this with our `resume` dataset.
+
+```{r}
+resume <- read.csv("https://raw.githubusercontent.com/ktmccabe/teachingdata/main/resume.csv")
+```
+
+You can either keep all the variables or subset the dataframe to include only certain variables (recommended if you have a large number of columns) before generating a report, or indicate which variables to summarize through the `useVar` argument. If you have a LaTex distribution installed on your computer, the function will automatically generate a pdf report. You can set the `output` to a different format, such as in the below. Each time you develop a new report, you can save a particular `file =` name or add a `vol =` number.
+
+```{r, message=F, warning=F, eval=F, echo=F}
+library(dataReporter)
+
+## pdf default when you have LaTex
+#makeDataReport(resume)
+
+## specify word, volume 2
+#makeDataReport(resume, output="word", vol=2)
+
+## specify variables to summarize
+#makeDataReport(resume, output="word", vol=3, useVar = c("call", "firstname"))
+```
+
+One judgment call you may want to make is whether you want most of your categorical variables to be loaded as `character` or `factor` variables. When you use `read.csv`, R in its most recent versions will default to reading in these type of "string" variables as character variables. You can override this by adding an argument if you desire.
+
+```{r}
+resume2 <- read.csv("https://raw.githubusercontent.com/ktmccabe/teachingdata/main/resume.csv", stringsAsFactors = T)
+
+## compare
+class(resume$firstname)
+class(resume2$firstname)
+```
+
+
 

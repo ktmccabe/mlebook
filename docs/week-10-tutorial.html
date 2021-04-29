@@ -163,6 +163,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-formatting-examples"><i class="fa fa-check"></i><b>2.4.4</b> Additional formatting examples</a></li>
 <li class="chapter" data-level="2.4.5" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-table-types"><i class="fa fa-check"></i><b>2.4.5</b> Additional Table Types</a></li>
 </ul></li>
+<li class="chapter" data-level="2.5" data-path="exploratory-data-analysis-tools.html"><a href="exploratory-data-analysis-tools.html"><i class="fa fa-check"></i><b>2.5</b> Exploratory Data Analysis Tools</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
 <ul>
@@ -459,6 +460,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.3.3" data-path="modeling-approaches.html"><a href="modeling-approaches.html#cox-proportional-hazards-model"><i class="fa fa-check"></i><b>14.3.3</b> Cox proportional Hazards Model</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="15" data-path="predict.html"><a href="predict.html"><i class="fa fa-check"></i><b>15</b> Prediction and Classification</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html"><i class="fa fa-check"></i><b>15.1</b> Overview of Prediction and Classification</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html#how-to-predict-or-classify"><i class="fa fa-check"></i><b>15.1.1</b> How to predict or classify</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="in-sample-vs-out-of-sample.html"><a href="in-sample-vs-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
+<li class="chapter" data-level="15.3" data-path="cross-validation.html"><a href="cross-validation.html"><i class="fa fa-check"></i><b>15.3</b> Cross-Validation</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>15.3.1</b> k-fold cross-validation</a></li>
+<li class="chapter" data-level="15.3.2" data-path="cross-validation.html"><a href="cross-validation.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>15.3.2</b> Leave-one-out cross-validation</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="examples-of-prediction-and-classification.html"><a href="examples-of-prediction-and-classification.html"><i class="fa fa-check"></i><b>15.4</b> Examples of Prediction and Classification</a></li>
+<li class="chapter" data-level="15.5" data-path="extending-machine-learning.html"><a href="extending-machine-learning.html"><i class="fa fa-check"></i><b>15.5</b> Extending Machine Learning</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -480,11 +496,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">12.1</span> Week 10 Tutorial</h2>
 <p>In this section, we are going to use data from the CDC on national and state-level COVID hospitalizations and positive case increases between July 2020- end September 2020.</p>
 <p>Let’s load the national and state data.</p>
-<div class="sourceCode" id="cb753"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb753-1"><a href="week-10-tutorial.html#cb753-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
-<span id="cb753-2"><a href="week-10-tutorial.html#cb753-2" aria-hidden="true" tabindex="-1"></a>national <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/national.RData?raw=true&quot;</span>)</span>
-<span id="cb753-3"><a href="week-10-tutorial.html#cb753-3" aria-hidden="true" tabindex="-1"></a>states <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/states.RData?raw=true&quot;</span>)</span>
-<span id="cb753-4"><a href="week-10-tutorial.html#cb753-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb753-5"><a href="week-10-tutorial.html#cb753-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(national)</span></code></pre></div>
+<div class="sourceCode" id="cb774"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb774-1"><a href="week-10-tutorial.html#cb774-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
+<span id="cb774-2"><a href="week-10-tutorial.html#cb774-2" aria-hidden="true" tabindex="-1"></a>national <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/national.RData?raw=true&quot;</span>)</span>
+<span id="cb774-3"><a href="week-10-tutorial.html#cb774-3" aria-hidden="true" tabindex="-1"></a>states <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/states.RData?raw=true&quot;</span>)</span>
+<span id="cb774-4"><a href="week-10-tutorial.html#cb774-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb774-5"><a href="week-10-tutorial.html#cb774-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(national)</span></code></pre></div>
 <pre><code>          date hospitalizedCurrently positiveIncrease
 159 2020-09-30                 31021            44909
 160 2020-09-29                 30601            36766
@@ -492,7 +508,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 162 2020-09-27                 29579            34990
 163 2020-09-26                 29670            47268
 164 2020-09-25                 29888            55237</code></pre>
-<div class="sourceCode" id="cb755"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb755-1"><a href="week-10-tutorial.html#cb755-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(states)</span></code></pre></div>
+<div class="sourceCode" id="cb776"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb776-1"><a href="week-10-tutorial.html#cb776-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(states)</span></code></pre></div>
 <pre><code>           date hospitalizedCurrently positiveIncrease state
 8849 2020-09-30                    53              104    AK
 8850 2020-09-30                   776             1147    AL
@@ -501,58 +517,58 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 8854 2020-09-30                  3267             3200    CA
 8855 2020-09-30                   264              511    CO</code></pre>
 <p>During this time period, the national level of hospitalizations was declining.</p>
-<div class="sourceCode" id="cb757"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb757-1"><a href="week-10-tutorial.html#cb757-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb757-2"><a href="week-10-tutorial.html#cb757-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(national, <span class="fu">aes</span>(<span class="at">x=</span>date, <span class="at">y=</span>hospitalizedCurrently))<span class="sc">+</span></span>
-<span id="cb757-3"><a href="week-10-tutorial.html#cb757-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-353-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb778"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb778-1"><a href="week-10-tutorial.html#cb778-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb778-2"><a href="week-10-tutorial.html#cb778-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(national, <span class="fu">aes</span>(<span class="at">x=</span>date, <span class="at">y=</span>hospitalizedCurrently))<span class="sc">+</span></span>
+<span id="cb778-3"><a href="week-10-tutorial.html#cb778-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-359-1.svg" width="672" /></p>
 <p>However, the national data represents aggregated state-level data. It is possible that these trends might look different if we looked within each state.</p>
-<div class="sourceCode" id="cb758"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb758-1"><a href="week-10-tutorial.html#cb758-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(states, <span class="fu">aes</span>(<span class="at">x=</span>date, <span class="at">y=</span>hospitalizedCurrently))<span class="sc">+</span></span>
-<span id="cb758-2"><a href="week-10-tutorial.html#cb758-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
-<span id="cb758-3"><a href="week-10-tutorial.html#cb758-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>state, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-354-1.svg" width="1440" /></p>
+<div class="sourceCode" id="cb779"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb779-1"><a href="week-10-tutorial.html#cb779-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(states, <span class="fu">aes</span>(<span class="at">x=</span>date, <span class="at">y=</span>hospitalizedCurrently))<span class="sc">+</span></span>
+<span id="cb779-2"><a href="week-10-tutorial.html#cb779-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb779-3"><a href="week-10-tutorial.html#cb779-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>state, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-360-1.svg" width="1440" /></p>
 <p>When we have data that are grouped in some way, it is important to consider how group-specific factors may influence the results.</p>
 <p>Let’s look at the relationship between positive increases in cases and hospitalizations using the state-level data. Note, we are not epidemiologists here, so this is in no way exactly how you would want to model this in practice. We will leave that to the experts. Nonetheless, it will give us some visualizations. The regression line below is from the following regression, which pools across states and dates:</p>
 <p><span class="math inline">\(hospitalizedCurrently_{it} = \alpha + positiveIncrease_{it} + \epsilon_{it}\)</span></p>
-<div class="sourceCode" id="cb759"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb759-1"><a href="week-10-tutorial.html#cb759-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(states, <span class="fu">aes</span>(<span class="at">x=</span>positiveIncrease, <span class="at">y=</span>hospitalizedCurrently, <span class="at">color=</span>state))<span class="sc">+</span></span>
-<span id="cb759-2"><a href="week-10-tutorial.html#cb759-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb759-3"><a href="week-10-tutorial.html#cb759-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">y=</span>hospitalizedCurrently),<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span>F, <span class="at">color=</span><span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
-<span id="cb759-4"><a href="week-10-tutorial.html#cb759-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">15000</span>)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-355-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb780"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb780-1"><a href="week-10-tutorial.html#cb780-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(states, <span class="fu">aes</span>(<span class="at">x=</span>positiveIncrease, <span class="at">y=</span>hospitalizedCurrently, <span class="at">color=</span>state))<span class="sc">+</span></span>
+<span id="cb780-2"><a href="week-10-tutorial.html#cb780-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb780-3"><a href="week-10-tutorial.html#cb780-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">y=</span>hospitalizedCurrently),<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span>F, <span class="at">color=</span><span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
+<span id="cb780-4"><a href="week-10-tutorial.html#cb780-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">15000</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-361-1.svg" width="672" /></p>
 <p>What issues do you have with that type of analysis?</p>
 <ul>
 <li>How could we improve it?</li>
 </ul>
 <p>Let’s look at the variation by state.</p>
-<div class="sourceCode" id="cb760"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb760-1"><a href="week-10-tutorial.html#cb760-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(states, <span class="fu">aes</span>(<span class="at">x=</span>positiveIncrease, <span class="at">y=</span>hospitalizedCurrently, <span class="at">color=</span>state))<span class="sc">+</span></span>
-<span id="cb760-2"><a href="week-10-tutorial.html#cb760-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb760-3"><a href="week-10-tutorial.html#cb760-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span>F)<span class="sc">+</span></span>
-<span id="cb760-4"><a href="week-10-tutorial.html#cb760-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>state, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-356-1.svg" width="1440" />
+<div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb781-1"><a href="week-10-tutorial.html#cb781-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(states, <span class="fu">aes</span>(<span class="at">x=</span>positiveIncrease, <span class="at">y=</span>hospitalizedCurrently, <span class="at">color=</span>state))<span class="sc">+</span></span>
+<span id="cb781-2"><a href="week-10-tutorial.html#cb781-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb781-3"><a href="week-10-tutorial.html#cb781-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span>F)<span class="sc">+</span></span>
+<span id="cb781-4"><a href="week-10-tutorial.html#cb781-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>state, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-362-1.svg" width="1440" />
 One thing we could do to account for the variation in cases, is to add controls for state. This is called adding “fixed effects.” It allows the intercept for each state to be different in regression, but the slopes are considered the same.</p>
-<div class="sourceCode" id="cb761"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb761-1"><a href="week-10-tutorial.html#cb761-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(hospitalizedCurrently <span class="sc">~</span> positiveIncrease <span class="sc">+</span> <span class="fu">as.factor</span>(state), <span class="at">data=</span>states)</span>
-<span id="cb761-2"><a href="week-10-tutorial.html#cb761-2" aria-hidden="true" tabindex="-1"></a>fit.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit)</span>
-<span id="cb761-3"><a href="week-10-tutorial.html#cb761-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb761-4"><a href="week-10-tutorial.html#cb761-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(states, <span class="fu">aes</span>(<span class="at">x=</span>positiveIncrease, <span class="at">y=</span>hospitalizedCurrently, <span class="at">color=</span>state))<span class="sc">+</span></span>
-<span id="cb761-5"><a href="week-10-tutorial.html#cb761-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb761-6"><a href="week-10-tutorial.html#cb761-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">y=</span>hospitalizedCurrently),<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span>F, <span class="at">color=</span><span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
-<span id="cb761-7"><a href="week-10-tutorial.html#cb761-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>fit.pred))<span class="sc">+</span></span>
-<span id="cb761-8"><a href="week-10-tutorial.html#cb761-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">15000</span>)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-357-1.svg" width="1440" /></p>
-<div class="sourceCode" id="cb762"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb762-1"><a href="week-10-tutorial.html#cb762-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(states, <span class="fu">aes</span>(<span class="at">x=</span>positiveIncrease, <span class="at">y=</span>hospitalizedCurrently, <span class="at">color=</span>state))<span class="sc">+</span></span>
-<span id="cb762-2"><a href="week-10-tutorial.html#cb762-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb762-3"><a href="week-10-tutorial.html#cb762-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>fit.pred))<span class="sc">+</span></span>
-<span id="cb762-4"><a href="week-10-tutorial.html#cb762-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>state, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-357-2.svg" width="1440" /></p>
+<div class="sourceCode" id="cb782"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb782-1"><a href="week-10-tutorial.html#cb782-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(hospitalizedCurrently <span class="sc">~</span> positiveIncrease <span class="sc">+</span> <span class="fu">as.factor</span>(state), <span class="at">data=</span>states)</span>
+<span id="cb782-2"><a href="week-10-tutorial.html#cb782-2" aria-hidden="true" tabindex="-1"></a>fit.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit)</span>
+<span id="cb782-3"><a href="week-10-tutorial.html#cb782-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb782-4"><a href="week-10-tutorial.html#cb782-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(states, <span class="fu">aes</span>(<span class="at">x=</span>positiveIncrease, <span class="at">y=</span>hospitalizedCurrently, <span class="at">color=</span>state))<span class="sc">+</span></span>
+<span id="cb782-5"><a href="week-10-tutorial.html#cb782-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb782-6"><a href="week-10-tutorial.html#cb782-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">y=</span>hospitalizedCurrently),<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span>F, <span class="at">color=</span><span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
+<span id="cb782-7"><a href="week-10-tutorial.html#cb782-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>fit.pred))<span class="sc">+</span></span>
+<span id="cb782-8"><a href="week-10-tutorial.html#cb782-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">15000</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-363-1.svg" width="1440" /></p>
+<div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb783-1"><a href="week-10-tutorial.html#cb783-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(states, <span class="fu">aes</span>(<span class="at">x=</span>positiveIncrease, <span class="at">y=</span>hospitalizedCurrently, <span class="at">color=</span>state))<span class="sc">+</span></span>
+<span id="cb783-2"><a href="week-10-tutorial.html#cb783-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb783-3"><a href="week-10-tutorial.html#cb783-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>fit.pred))<span class="sc">+</span></span>
+<span id="cb783-4"><a href="week-10-tutorial.html#cb783-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>state, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-363-2.svg" width="1440" /></p>
 <p>We could also add interactions with state, which will allow the slopes to vary.</p>
-<div class="sourceCode" id="cb763"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb763-1"><a href="week-10-tutorial.html#cb763-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(hospitalizedCurrently <span class="sc">~</span> positiveIncrease<span class="sc">*</span><span class="fu">as.factor</span>(state), <span class="at">data=</span>states)</span>
-<span id="cb763-2"><a href="week-10-tutorial.html#cb763-2" aria-hidden="true" tabindex="-1"></a>fit.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit)</span>
-<span id="cb763-3"><a href="week-10-tutorial.html#cb763-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb763-4"><a href="week-10-tutorial.html#cb763-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb763-5"><a href="week-10-tutorial.html#cb763-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(states, <span class="fu">aes</span>(<span class="at">x=</span>positiveIncrease, <span class="at">y=</span>hospitalizedCurrently, <span class="at">color=</span>state))<span class="sc">+</span></span>
-<span id="cb763-6"><a href="week-10-tutorial.html#cb763-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb763-7"><a href="week-10-tutorial.html#cb763-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>fit.pred))<span class="sc">+</span></span>
-<span id="cb763-8"><a href="week-10-tutorial.html#cb763-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>state, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-358-1.svg" width="1440" /></p>
+<div class="sourceCode" id="cb784"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb784-1"><a href="week-10-tutorial.html#cb784-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(hospitalizedCurrently <span class="sc">~</span> positiveIncrease<span class="sc">*</span><span class="fu">as.factor</span>(state), <span class="at">data=</span>states)</span>
+<span id="cb784-2"><a href="week-10-tutorial.html#cb784-2" aria-hidden="true" tabindex="-1"></a>fit.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit)</span>
+<span id="cb784-3"><a href="week-10-tutorial.html#cb784-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb784-4"><a href="week-10-tutorial.html#cb784-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb784-5"><a href="week-10-tutorial.html#cb784-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(states, <span class="fu">aes</span>(<span class="at">x=</span>positiveIncrease, <span class="at">y=</span>hospitalizedCurrently, <span class="at">color=</span>state))<span class="sc">+</span></span>
+<span id="cb784-6"><a href="week-10-tutorial.html#cb784-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb784-7"><a href="week-10-tutorial.html#cb784-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>fit.pred))<span class="sc">+</span></span>
+<span id="cb784-8"><a href="week-10-tutorial.html#cb784-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>state, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-364-1.svg" width="1440" /></p>
 <p>Any downsides to adding interactions?</p>
 </div>
             </section>

@@ -163,6 +163,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-formatting-examples"><i class="fa fa-check"></i><b>2.4.4</b> Additional formatting examples</a></li>
 <li class="chapter" data-level="2.4.5" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-table-types"><i class="fa fa-check"></i><b>2.4.5</b> Additional Table Types</a></li>
 </ul></li>
+<li class="chapter" data-level="2.5" data-path="exploratory-data-analysis-tools.html"><a href="exploratory-data-analysis-tools.html"><i class="fa fa-check"></i><b>2.5</b> Exploratory Data Analysis Tools</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
 <ul>
@@ -459,6 +460,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.3.3" data-path="modeling-approaches.html"><a href="modeling-approaches.html#cox-proportional-hazards-model"><i class="fa fa-check"></i><b>14.3.3</b> Cox proportional Hazards Model</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="15" data-path="predict.html"><a href="predict.html"><i class="fa fa-check"></i><b>15</b> Prediction and Classification</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html"><i class="fa fa-check"></i><b>15.1</b> Overview of Prediction and Classification</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html#how-to-predict-or-classify"><i class="fa fa-check"></i><b>15.1.1</b> How to predict or classify</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="in-sample-vs-out-of-sample.html"><a href="in-sample-vs-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
+<li class="chapter" data-level="15.3" data-path="cross-validation.html"><a href="cross-validation.html"><i class="fa fa-check"></i><b>15.3</b> Cross-Validation</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>15.3.1</b> k-fold cross-validation</a></li>
+<li class="chapter" data-level="15.3.2" data-path="cross-validation.html"><a href="cross-validation.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>15.3.2</b> Leave-one-out cross-validation</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="examples-of-prediction-and-classification.html"><a href="examples-of-prediction-and-classification.html"><i class="fa fa-check"></i><b>15.4</b> Examples of Prediction and Classification</a></li>
+<li class="chapter" data-level="15.5" data-path="extending-machine-learning.html"><a href="extending-machine-learning.html"><i class="fa fa-check"></i><b>15.5</b> Extending Machine Learning</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -486,25 +502,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Outcome (<code>dissent</code>): Willingness to Display Dissent: An ordered scale with four categories from 1 (“I should stay quiet”) to 4 (“I should dissent”)</li>
 </ul>
 <p>Let’s load the data and look at the treatment and outcome.</p>
-<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb499-1"><a href="ordinal-outcome-data.html#cb499-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
-<span id="cb499-2"><a href="ordinal-outcome-data.html#cb499-2" aria-hidden="true" tabindex="-1"></a>pg <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/paluckgreen.dta?raw=true&quot;</span>)</span>
-<span id="cb499-3"><a href="ordinal-outcome-data.html#cb499-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb499-4"><a href="ordinal-outcome-data.html#cb499-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s treat the outcome as a factor</span></span>
-<span id="cb499-5"><a href="ordinal-outcome-data.html#cb499-5" aria-hidden="true" tabindex="-1"></a>pg<span class="sc">$</span>dissent <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(pg<span class="sc">$</span>dissent)</span>
-<span id="cb499-6"><a href="ordinal-outcome-data.html#cb499-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb499-7"><a href="ordinal-outcome-data.html#cb499-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s visualize the outcome by group</span></span>
-<span id="cb499-8"><a href="ordinal-outcome-data.html#cb499-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb499-9"><a href="ordinal-outcome-data.html#cb499-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb499-10"><a href="ordinal-outcome-data.html#cb499-10" aria-hidden="true" tabindex="-1"></a>pg <span class="sc">%&gt;%</span></span>
-<span id="cb499-11"><a href="ordinal-outcome-data.html#cb499-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(dissent)<span class="sc">==</span>F) <span class="sc">%&gt;%</span></span>
-<span id="cb499-12"><a href="ordinal-outcome-data.html#cb499-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>dissent, <span class="at">group=</span><span class="fu">factor</span>(treat), </span>
-<span id="cb499-13"><a href="ordinal-outcome-data.html#cb499-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">fill=</span><span class="fu">factor</span>(treat)))<span class="sc">+</span></span>
-<span id="cb499-14"><a href="ordinal-outcome-data.html#cb499-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y=</span>..prop..),<span class="at">stat=</span> <span class="st">&quot;count&quot;</span>, <span class="at">position=</span><span class="st">&quot;dodge&quot;</span>, <span class="at">color=</span><span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
-<span id="cb499-15"><a href="ordinal-outcome-data.html#cb499-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
-<span id="cb499-16"><a href="ordinal-outcome-data.html#cb499-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)<span class="sc">+</span></span>
-<span id="cb499-17"><a href="ordinal-outcome-data.html#cb499-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="st">&quot;Condition&quot;</span>, <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Control&quot;</span>, <span class="st">&quot;Treatment&quot;</span>),<span class="at">palette=</span><span class="st">&quot;Paired&quot;</span>)<span class="sc">+</span></span>
-<span id="cb499-18"><a href="ordinal-outcome-data.html#cb499-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span> <span class="fu">c</span>(<span class="st">&quot;Should Stay Quiet&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;Should Dissent&quot;</span>))</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-239-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="ordinal-outcome-data.html#cb520-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
+<span id="cb520-2"><a href="ordinal-outcome-data.html#cb520-2" aria-hidden="true" tabindex="-1"></a>pg <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/paluckgreen.dta?raw=true&quot;</span>)</span>
+<span id="cb520-3"><a href="ordinal-outcome-data.html#cb520-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb520-4"><a href="ordinal-outcome-data.html#cb520-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s treat the outcome as a factor</span></span>
+<span id="cb520-5"><a href="ordinal-outcome-data.html#cb520-5" aria-hidden="true" tabindex="-1"></a>pg<span class="sc">$</span>dissent <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(pg<span class="sc">$</span>dissent)</span>
+<span id="cb520-6"><a href="ordinal-outcome-data.html#cb520-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb520-7"><a href="ordinal-outcome-data.html#cb520-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s visualize the outcome by group</span></span>
+<span id="cb520-8"><a href="ordinal-outcome-data.html#cb520-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb520-9"><a href="ordinal-outcome-data.html#cb520-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb520-10"><a href="ordinal-outcome-data.html#cb520-10" aria-hidden="true" tabindex="-1"></a>pg <span class="sc">%&gt;%</span></span>
+<span id="cb520-11"><a href="ordinal-outcome-data.html#cb520-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(dissent)<span class="sc">==</span>F) <span class="sc">%&gt;%</span></span>
+<span id="cb520-12"><a href="ordinal-outcome-data.html#cb520-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>dissent, <span class="at">group=</span><span class="fu">factor</span>(treat), </span>
+<span id="cb520-13"><a href="ordinal-outcome-data.html#cb520-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">fill=</span><span class="fu">factor</span>(treat)))<span class="sc">+</span></span>
+<span id="cb520-14"><a href="ordinal-outcome-data.html#cb520-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y=</span>..prop..),<span class="at">stat=</span> <span class="st">&quot;count&quot;</span>, <span class="at">position=</span><span class="st">&quot;dodge&quot;</span>, <span class="at">color=</span><span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
+<span id="cb520-15"><a href="ordinal-outcome-data.html#cb520-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb520-16"><a href="ordinal-outcome-data.html#cb520-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)<span class="sc">+</span></span>
+<span id="cb520-17"><a href="ordinal-outcome-data.html#cb520-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="st">&quot;Condition&quot;</span>, <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Control&quot;</span>, <span class="st">&quot;Treatment&quot;</span>),<span class="at">palette=</span><span class="st">&quot;Paired&quot;</span>)<span class="sc">+</span></span>
+<span id="cb520-18"><a href="ordinal-outcome-data.html#cb520-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span> <span class="fu">c</span>(<span class="st">&quot;Should Stay Quiet&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;Should Dissent&quot;</span>))</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-245-1.svg" width="672" /></p>
 <p>We can see variation in the outcome, where some people are at the “stay quiet” end of the scale, while others are at the opposite end. We might have a few questions about the outcome:</p>
 <ul>
 <li>What is the probability of being in a particular category given a set of <span class="math inline">\(\mathbf{x_i&#39;}\)</span> values?</li>
@@ -545,7 +561,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="ordinal-model" class="section level3" number="8.1.1">
 <h3><span class="header-section-number">8.1.1</span> Ordinal Model</h3>
 <p>With ordered data, we have an outcome variable <span class="math inline">\(Y_i\)</span> that can fall into different, ordered categories: <span class="math inline">\(Y_i \in \{C_1, C_2, \ldots, C_J \}\)</span> with some probability.</p>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-240-1.svg" width="672" /></p>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-246-1.svg" width="672" /></p>
 <p><em>The image above shows a distribution where the area under the curve sums to 1, with the area divided into 4 categories, separated by three cutpoints. The area represents probability mass. For example, the area to the left of z1 represents the <span class="math inline">\(Pr(Y_i^\ast \leq z1)\)</span>.</em></p>
 <p>In our ordered model, we assume that there is a latent (unobserved) <span class="math inline">\(Y^\ast_i = X_i\beta + \epsilon\)</span></p>
 <ul>

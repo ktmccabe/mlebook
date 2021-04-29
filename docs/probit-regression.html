@@ -163,6 +163,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.4" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-formatting-examples"><i class="fa fa-check"></i><b>2.4.4</b> Additional formatting examples</a></li>
 <li class="chapter" data-level="2.4.5" data-path="tools-for-writing-up-results.html"><a href="tools-for-writing-up-results.html#additional-table-types"><i class="fa fa-check"></i><b>2.4.5</b> Additional Table Types</a></li>
 </ul></li>
+<li class="chapter" data-level="2.5" data-path="exploratory-data-analysis-tools.html"><a href="exploratory-data-analysis-tools.html"><i class="fa fa-check"></i><b>2.5</b> Exploratory Data Analysis Tools</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="math.html"><a href="math.html"><i class="fa fa-check"></i><b>3</b> The MATH</a>
 <ul>
@@ -459,6 +460,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.3.3" data-path="modeling-approaches.html"><a href="modeling-approaches.html#cox-proportional-hazards-model"><i class="fa fa-check"></i><b>14.3.3</b> Cox proportional Hazards Model</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="15" data-path="predict.html"><a href="predict.html"><i class="fa fa-check"></i><b>15</b> Prediction and Classification</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html"><i class="fa fa-check"></i><b>15.1</b> Overview of Prediction and Classification</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html#how-to-predict-or-classify"><i class="fa fa-check"></i><b>15.1.1</b> How to predict or classify</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="in-sample-vs-out-of-sample.html"><a href="in-sample-vs-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
+<li class="chapter" data-level="15.3" data-path="cross-validation.html"><a href="cross-validation.html"><i class="fa fa-check"></i><b>15.3</b> Cross-Validation</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>15.3.1</b> k-fold cross-validation</a></li>
+<li class="chapter" data-level="15.3.2" data-path="cross-validation.html"><a href="cross-validation.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>15.3.2</b> Leave-one-out cross-validation</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="examples-of-prediction-and-classification.html"><a href="examples-of-prediction-and-classification.html"><i class="fa fa-check"></i><b>15.4</b> Examples of Prediction and Classification</a></li>
+<li class="chapter" data-level="15.5" data-path="extending-machine-learning.html"><a href="extending-machine-learning.html"><i class="fa fa-check"></i><b>15.5</b> Extending Machine Learning</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -486,14 +502,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Here, our coefficients <span class="math inline">\(\hat \beta\)</span> represent changes in “probits” or changes “z-score” units. We use the Normal CDF (<span class="math inline">\(\Phi()\)</span>) aka <code>pnorm()</code> in R to transform them back into probabilities, specifically, the probability that <span class="math inline">\(Y_i\)</span> is 1.</p>
 <p>Let’s fit our binary model with probit. We just need to change the link function.</p>
 <p>We can then fit using <code>glm</code> where <code>family = binomial(link="probit")</code></p>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="probit-regression.html#cb346-1" aria-hidden="true" tabindex="-1"></a>out.probit <span class="ot">&lt;-</span> <span class="fu">glm</span>(partbinary <span class="sc">~</span> female <span class="sc">+</span> edu <span class="sc">+</span> age <span class="sc">+</span> sexism, <span class="at">data=</span>anes,</span>
-<span id="cb346-2"><a href="probit-regression.html#cb346-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link=</span><span class="st">&quot;probit&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="probit-regression.html#cb367-1" aria-hidden="true" tabindex="-1"></a>out.probit <span class="ot">&lt;-</span> <span class="fu">glm</span>(partbinary <span class="sc">~</span> female <span class="sc">+</span> edu <span class="sc">+</span> age <span class="sc">+</span> sexism, <span class="at">data=</span>anes,</span>
+<span id="cb367-2"><a href="probit-regression.html#cb367-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link=</span><span class="st">&quot;probit&quot;</span>))</span></code></pre></div>
 <p>Let’s apply the equation tool to this:</p>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="probit-regression.html#cb347-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Each time after, run library</span></span>
-<span id="cb347-2"><a href="probit-regression.html#cb347-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(equatiomatic)</span>
-<span id="cb347-3"><a href="probit-regression.html#cb347-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb347-4"><a href="probit-regression.html#cb347-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Will output in latex code, though see package for details on options</span></span>
-<span id="cb347-5"><a href="probit-regression.html#cb347-5" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_eq</span>(out.probit, <span class="at">wrap =</span> <span class="cn">TRUE</span>, <span class="at">terms_per_line =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="probit-regression.html#cb368-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Each time after, run library</span></span>
+<span id="cb368-2"><a href="probit-regression.html#cb368-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(equatiomatic)</span>
+<span id="cb368-3"><a href="probit-regression.html#cb368-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb368-4"><a href="probit-regression.html#cb368-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Will output in latex code, though see package for details on options</span></span>
+<span id="cb368-5"><a href="probit-regression.html#cb368-5" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_eq</span>(out.probit, <span class="at">wrap =</span> <span class="cn">TRUE</span>, <span class="at">terms_per_line =</span> <span class="dv">3</span>)</span></code></pre></div>
 <p><span class="math display">\[
 \begin{aligned}
 P( \operatorname{partbinary} = \operatorname{1} ) &amp;= \Phi[\alpha + \beta_{1}(\operatorname{female}) + \beta_{2}(\operatorname{edu})\ + \\
@@ -501,7 +517,7 @@ P( \operatorname{partbinary} = \operatorname{1} ) &amp;= \Phi[\alpha + \beta_{1}
 \end{aligned}
 \]</span></p>
 <p>The summary output includes the probit coefficients, standard errors, z-scores, and p-values.</p>
-<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="probit-regression.html#cb348-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(out.probit)</span></code></pre></div>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="probit-regression.html#cb369-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(out.probit)</span></code></pre></div>
 <pre><code>
 Call:
 glm(formula = partbinary ~ female + edu + age + sexism, family = binomial(link = &quot;probit&quot;), 
