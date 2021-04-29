@@ -496,14 +496,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">8.3</span> Fitting Ordinal Models in R</h2>
 <p>To fit an ordinal logit or probit model in R, we can use the <code>MASS</code> package and <code>polr</code> function.</p>
 <p>You may need to install this in your RStudio the first time you use it.</p>
-<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb521-1"><a href="fitting-ordinal-models-in-r.html#cb521-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;MASS&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb522-1"><a href="fitting-ordinal-models-in-r.html#cb522-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;MASS&quot;</span>)</span></code></pre></div>
 <p>When we are ready to run the model, we then open the package and use the function <code>polr</code>. The first inputs are very similar to <code>lm</code> and <code>glm</code>. However, we add an argument specifying the <code>method =</code> which can be “logistic” (the default) or “probit.” We also specify <code>Hess=T</code> to make sure we get the uncertainty estimates with the results.</p>
 <ul>
 <li>By the way, why would that argument be called <code>Hess</code>?</li>
 </ul>
-<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb522-1"><a href="fitting-ordinal-models-in-r.html#cb522-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb522-2"><a href="fitting-ordinal-models-in-r.html#cb522-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">polr</span>(<span class="fu">as.factor</span>(dissent) <span class="sc">~</span> treat, <span class="at">data=</span> pg, <span class="at">Hess =</span> T, <span class="at">method =</span> <span class="st">&quot;probit&quot;</span>)</span>
-<span id="cb522-3"><a href="fitting-ordinal-models-in-r.html#cb522-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code></pre></div>
+<div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb523-1"><a href="fitting-ordinal-models-in-r.html#cb523-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb523-2"><a href="fitting-ordinal-models-in-r.html#cb523-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">polr</span>(<span class="fu">as.factor</span>(dissent) <span class="sc">~</span> treat, <span class="at">data=</span> pg, <span class="at">Hess =</span> T, <span class="at">method =</span> <span class="st">&quot;probit&quot;</span>)</span>
+<span id="cb523-3"><a href="fitting-ordinal-models-in-r.html#cb523-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code></pre></div>
 <pre><code>Call:
 polr(formula = as.factor(dissent) ~ treat, data = pg, Hess = T, 
     method = &quot;probit&quot;)
@@ -522,8 +522,8 @@ Residual Deviance: 1253.844
 AIC: 1261.844 
 (116 observations deleted due to missingness)</code></pre>
 <p>To get p-values, we can use the <code>AER</code> package.</p>
-<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb524-1"><a href="fitting-ordinal-models-in-r.html#cb524-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER)</span>
-<span id="cb524-2"><a href="fitting-ordinal-models-in-r.html#cb524-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(fit)</span></code></pre></div>
+<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb525-1"><a href="fitting-ordinal-models-in-r.html#cb525-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER)</span>
+<span id="cb525-2"><a href="fitting-ordinal-models-in-r.html#cb525-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(fit)</span></code></pre></div>
 <pre><code>
 z test of coefficients:
 
@@ -535,64 +535,64 @@ treat  0.264455   0.102143  2.5891 0.0096238 **
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Or calculate manually</p>
-<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="fitting-ordinal-models-in-r.html#cb526-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="dv">2</span><span class="sc">*</span><span class="fu">pnorm</span>(<span class="fu">abs</span>(<span class="fu">summary</span>(fit)<span class="sc">$</span>coefficients[,<span class="dv">3</span>]), </span>
-<span id="cb526-2"><a href="fitting-ordinal-models-in-r.html#cb526-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">lower.tail =</span> F), <span class="at">digits=</span><span class="dv">6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb527-1"><a href="fitting-ordinal-models-in-r.html#cb527-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="dv">2</span><span class="sc">*</span><span class="fu">pnorm</span>(<span class="fu">abs</span>(<span class="fu">summary</span>(fit)<span class="sc">$</span>coefficients[,<span class="dv">3</span>]), </span>
+<span id="cb527-2"><a href="fitting-ordinal-models-in-r.html#cb527-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">lower.tail =</span> F), <span class="at">digits=</span><span class="dv">6</span>)</span></code></pre></div>
 <pre><code>   treat      1|2      2|3      3|4 
 0.009624 0.000000 0.436323 0.000279 </code></pre>
 <details>
 <summary>
 For details on how to fit this manually in R using <code>optim</code>, expand.
 </summary>
-<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="fitting-ordinal-models-in-r.html#cb528-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Grab X and Y, listwise deletion</span></span>
-<span id="cb528-2"><a href="fitting-ordinal-models-in-r.html#cb528-2" aria-hidden="true" tabindex="-1"></a>pgsub <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(<span class="fu">cbind</span>(pg<span class="sc">$</span>dissent, pg<span class="sc">$</span>treat))</span>
-<span id="cb528-3"><a href="fitting-ordinal-models-in-r.html#cb528-3" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> pgsub[,<span class="dv">1</span>]</span>
-<span id="cb528-4"><a href="fitting-ordinal-models-in-r.html#cb528-4" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> pgsub[, <span class="dv">2</span>]</span>
-<span id="cb528-5"><a href="fitting-ordinal-models-in-r.html#cb528-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb528-6"><a href="fitting-ordinal-models-in-r.html#cb528-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Log likelihood in R for this example</span></span>
-<span id="cb528-7"><a href="fitting-ordinal-models-in-r.html#cb528-7" aria-hidden="true" tabindex="-1"></a>llikor <span class="ot">&lt;-</span> <span class="cf">function</span>(par, Y, X){</span>
-<span id="cb528-8"><a href="fitting-ordinal-models-in-r.html#cb528-8" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># X columns</span></span>
-<span id="cb528-9"><a href="fitting-ordinal-models-in-r.html#cb528-9" aria-hidden="true" tabindex="-1"></a>  j <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="co"># categories</span></span>
-<span id="cb528-10"><a href="fitting-ordinal-models-in-r.html#cb528-10" aria-hidden="true" tabindex="-1"></a>  beta <span class="ot">&lt;-</span> par[<span class="dv">1</span><span class="sc">:</span>k]</span>
-<span id="cb528-11"><a href="fitting-ordinal-models-in-r.html#cb528-11" aria-hidden="true" tabindex="-1"></a>  zeta <span class="ot">&lt;-</span> par[(k<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span><span class="fu">length</span>(par)]</span>
-<span id="cb528-12"><a href="fitting-ordinal-models-in-r.html#cb528-12" aria-hidden="true" tabindex="-1"></a>  X <span class="ot">&lt;-</span><span class="fu">cbind</span>(X)</span>
-<span id="cb528-13"><a href="fitting-ordinal-models-in-r.html#cb528-13" aria-hidden="true" tabindex="-1"></a>  beta <span class="ot">&lt;-</span> <span class="fu">cbind</span>(beta)</span>
-<span id="cb528-14"><a href="fitting-ordinal-models-in-r.html#cb528-14" aria-hidden="true" tabindex="-1"></a>  <span class="do">## linear predictor</span></span>
-<span id="cb528-15"><a href="fitting-ordinal-models-in-r.html#cb528-15" aria-hidden="true" tabindex="-1"></a>  eta <span class="ot">&lt;-</span> X <span class="sc">%*%</span> beta</span>
-<span id="cb528-16"><a href="fitting-ordinal-models-in-r.html#cb528-16" aria-hidden="true" tabindex="-1"></a>  <span class="do">## indicator variables</span></span>
-<span id="cb528-17"><a href="fitting-ordinal-models-in-r.html#cb528-17" aria-hidden="true" tabindex="-1"></a>  y1 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Y<span class="sc">==</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb528-18"><a href="fitting-ordinal-models-in-r.html#cb528-18" aria-hidden="true" tabindex="-1"></a>  y2 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Y<span class="sc">==</span><span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb528-19"><a href="fitting-ordinal-models-in-r.html#cb528-19" aria-hidden="true" tabindex="-1"></a>  y3 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Y<span class="sc">==</span><span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb528-20"><a href="fitting-ordinal-models-in-r.html#cb528-20" aria-hidden="true" tabindex="-1"></a>  y4 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Y<span class="sc">==</span><span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb528-21"><a href="fitting-ordinal-models-in-r.html#cb528-21" aria-hidden="true" tabindex="-1"></a>  <span class="do">## likelihood for each category</span></span>
-<span id="cb528-22"><a href="fitting-ordinal-models-in-r.html#cb528-22" aria-hidden="true" tabindex="-1"></a>  l1 <span class="ot">&lt;-</span> y1<span class="sc">*</span><span class="fu">log</span>(<span class="fu">pnorm</span>(zeta[<span class="dv">1</span>] <span class="sc">-</span> eta))</span>
-<span id="cb528-23"><a href="fitting-ordinal-models-in-r.html#cb528-23" aria-hidden="true" tabindex="-1"></a>  l2 <span class="ot">&lt;-</span> y2<span class="sc">*</span><span class="fu">log</span>(<span class="fu">pnorm</span>(zeta[<span class="dv">2</span>] <span class="sc">-</span> eta) <span class="sc">-</span> <span class="fu">pnorm</span>(zeta[<span class="dv">1</span>] <span class="sc">-</span> eta)) </span>
-<span id="cb528-24"><a href="fitting-ordinal-models-in-r.html#cb528-24" aria-hidden="true" tabindex="-1"></a>  l3 <span class="ot">&lt;-</span> y3<span class="sc">*</span><span class="fu">log</span>(<span class="fu">pnorm</span>(zeta[<span class="dv">3</span>] <span class="sc">-</span> eta) <span class="sc">-</span> <span class="fu">pnorm</span>(zeta[<span class="dv">2</span>] <span class="sc">-</span> eta)) </span>
-<span id="cb528-25"><a href="fitting-ordinal-models-in-r.html#cb528-25" aria-hidden="true" tabindex="-1"></a>  l4 <span class="ot">&lt;-</span> y4<span class="sc">*</span><span class="fu">log</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(zeta[<span class="dv">3</span>] <span class="sc">-</span> eta))</span>
-<span id="cb528-26"><a href="fitting-ordinal-models-in-r.html#cb528-26" aria-hidden="true" tabindex="-1"></a>  <span class="do">## sum together</span></span>
-<span id="cb528-27"><a href="fitting-ordinal-models-in-r.html#cb528-27" aria-hidden="true" tabindex="-1"></a>  llik <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">c</span>(l1, l2, l3, l4))</span>
-<span id="cb528-28"><a href="fitting-ordinal-models-in-r.html#cb528-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(llik)</span>
-<span id="cb528-29"><a href="fitting-ordinal-models-in-r.html#cb528-29" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb528-30"><a href="fitting-ordinal-models-in-r.html#cb528-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb528-31"><a href="fitting-ordinal-models-in-r.html#cb528-31" aria-hidden="true" tabindex="-1"></a><span class="do">## Optimize</span></span>
-<span id="cb528-32"><a href="fitting-ordinal-models-in-r.html#cb528-32" aria-hidden="true" tabindex="-1"></a>opt.out <span class="ot">&lt;-</span> <span class="fu">optim</span>(<span class="at">par=</span><span class="fu">c</span>(.<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">fn=</span>llikor, <span class="at">X=</span>X, <span class="at">Y=</span>Y, <span class="at">method=</span><span class="st">&quot;BFGS&quot;</span>,</span>
-<span id="cb528-33"><a href="fitting-ordinal-models-in-r.html#cb528-33" aria-hidden="true" tabindex="-1"></a>      <span class="at">control=</span><span class="fu">list</span>(<span class="at">fnscale=</span><span class="sc">-</span><span class="dv">1</span>), <span class="at">hessian =</span> T)</span>
-<span id="cb528-34"><a href="fitting-ordinal-models-in-r.html#cb528-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb528-35"><a href="fitting-ordinal-models-in-r.html#cb528-35" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients</span></span>
-<span id="cb528-36"><a href="fitting-ordinal-models-in-r.html#cb528-36" aria-hidden="true" tabindex="-1"></a>opt.out<span class="sc">$</span>par[<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="fitting-ordinal-models-in-r.html#cb529-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Grab X and Y, listwise deletion</span></span>
+<span id="cb529-2"><a href="fitting-ordinal-models-in-r.html#cb529-2" aria-hidden="true" tabindex="-1"></a>pgsub <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(<span class="fu">cbind</span>(pg<span class="sc">$</span>dissent, pg<span class="sc">$</span>treat))</span>
+<span id="cb529-3"><a href="fitting-ordinal-models-in-r.html#cb529-3" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> pgsub[,<span class="dv">1</span>]</span>
+<span id="cb529-4"><a href="fitting-ordinal-models-in-r.html#cb529-4" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> pgsub[, <span class="dv">2</span>]</span>
+<span id="cb529-5"><a href="fitting-ordinal-models-in-r.html#cb529-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb529-6"><a href="fitting-ordinal-models-in-r.html#cb529-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Log likelihood in R for this example</span></span>
+<span id="cb529-7"><a href="fitting-ordinal-models-in-r.html#cb529-7" aria-hidden="true" tabindex="-1"></a>llikor <span class="ot">&lt;-</span> <span class="cf">function</span>(par, Y, X){</span>
+<span id="cb529-8"><a href="fitting-ordinal-models-in-r.html#cb529-8" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># X columns</span></span>
+<span id="cb529-9"><a href="fitting-ordinal-models-in-r.html#cb529-9" aria-hidden="true" tabindex="-1"></a>  j <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="co"># categories</span></span>
+<span id="cb529-10"><a href="fitting-ordinal-models-in-r.html#cb529-10" aria-hidden="true" tabindex="-1"></a>  beta <span class="ot">&lt;-</span> par[<span class="dv">1</span><span class="sc">:</span>k]</span>
+<span id="cb529-11"><a href="fitting-ordinal-models-in-r.html#cb529-11" aria-hidden="true" tabindex="-1"></a>  zeta <span class="ot">&lt;-</span> par[(k<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span><span class="fu">length</span>(par)]</span>
+<span id="cb529-12"><a href="fitting-ordinal-models-in-r.html#cb529-12" aria-hidden="true" tabindex="-1"></a>  X <span class="ot">&lt;-</span><span class="fu">cbind</span>(X)</span>
+<span id="cb529-13"><a href="fitting-ordinal-models-in-r.html#cb529-13" aria-hidden="true" tabindex="-1"></a>  beta <span class="ot">&lt;-</span> <span class="fu">cbind</span>(beta)</span>
+<span id="cb529-14"><a href="fitting-ordinal-models-in-r.html#cb529-14" aria-hidden="true" tabindex="-1"></a>  <span class="do">## linear predictor</span></span>
+<span id="cb529-15"><a href="fitting-ordinal-models-in-r.html#cb529-15" aria-hidden="true" tabindex="-1"></a>  eta <span class="ot">&lt;-</span> X <span class="sc">%*%</span> beta</span>
+<span id="cb529-16"><a href="fitting-ordinal-models-in-r.html#cb529-16" aria-hidden="true" tabindex="-1"></a>  <span class="do">## indicator variables</span></span>
+<span id="cb529-17"><a href="fitting-ordinal-models-in-r.html#cb529-17" aria-hidden="true" tabindex="-1"></a>  y1 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Y<span class="sc">==</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb529-18"><a href="fitting-ordinal-models-in-r.html#cb529-18" aria-hidden="true" tabindex="-1"></a>  y2 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Y<span class="sc">==</span><span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb529-19"><a href="fitting-ordinal-models-in-r.html#cb529-19" aria-hidden="true" tabindex="-1"></a>  y3 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Y<span class="sc">==</span><span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb529-20"><a href="fitting-ordinal-models-in-r.html#cb529-20" aria-hidden="true" tabindex="-1"></a>  y4 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Y<span class="sc">==</span><span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb529-21"><a href="fitting-ordinal-models-in-r.html#cb529-21" aria-hidden="true" tabindex="-1"></a>  <span class="do">## likelihood for each category</span></span>
+<span id="cb529-22"><a href="fitting-ordinal-models-in-r.html#cb529-22" aria-hidden="true" tabindex="-1"></a>  l1 <span class="ot">&lt;-</span> y1<span class="sc">*</span><span class="fu">log</span>(<span class="fu">pnorm</span>(zeta[<span class="dv">1</span>] <span class="sc">-</span> eta))</span>
+<span id="cb529-23"><a href="fitting-ordinal-models-in-r.html#cb529-23" aria-hidden="true" tabindex="-1"></a>  l2 <span class="ot">&lt;-</span> y2<span class="sc">*</span><span class="fu">log</span>(<span class="fu">pnorm</span>(zeta[<span class="dv">2</span>] <span class="sc">-</span> eta) <span class="sc">-</span> <span class="fu">pnorm</span>(zeta[<span class="dv">1</span>] <span class="sc">-</span> eta)) </span>
+<span id="cb529-24"><a href="fitting-ordinal-models-in-r.html#cb529-24" aria-hidden="true" tabindex="-1"></a>  l3 <span class="ot">&lt;-</span> y3<span class="sc">*</span><span class="fu">log</span>(<span class="fu">pnorm</span>(zeta[<span class="dv">3</span>] <span class="sc">-</span> eta) <span class="sc">-</span> <span class="fu">pnorm</span>(zeta[<span class="dv">2</span>] <span class="sc">-</span> eta)) </span>
+<span id="cb529-25"><a href="fitting-ordinal-models-in-r.html#cb529-25" aria-hidden="true" tabindex="-1"></a>  l4 <span class="ot">&lt;-</span> y4<span class="sc">*</span><span class="fu">log</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(zeta[<span class="dv">3</span>] <span class="sc">-</span> eta))</span>
+<span id="cb529-26"><a href="fitting-ordinal-models-in-r.html#cb529-26" aria-hidden="true" tabindex="-1"></a>  <span class="do">## sum together</span></span>
+<span id="cb529-27"><a href="fitting-ordinal-models-in-r.html#cb529-27" aria-hidden="true" tabindex="-1"></a>  llik <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">c</span>(l1, l2, l3, l4))</span>
+<span id="cb529-28"><a href="fitting-ordinal-models-in-r.html#cb529-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(llik)</span>
+<span id="cb529-29"><a href="fitting-ordinal-models-in-r.html#cb529-29" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb529-30"><a href="fitting-ordinal-models-in-r.html#cb529-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb529-31"><a href="fitting-ordinal-models-in-r.html#cb529-31" aria-hidden="true" tabindex="-1"></a><span class="do">## Optimize</span></span>
+<span id="cb529-32"><a href="fitting-ordinal-models-in-r.html#cb529-32" aria-hidden="true" tabindex="-1"></a>opt.out <span class="ot">&lt;-</span> <span class="fu">optim</span>(<span class="at">par=</span><span class="fu">c</span>(.<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">fn=</span>llikor, <span class="at">X=</span>X, <span class="at">Y=</span>Y, <span class="at">method=</span><span class="st">&quot;BFGS&quot;</span>,</span>
+<span id="cb529-33"><a href="fitting-ordinal-models-in-r.html#cb529-33" aria-hidden="true" tabindex="-1"></a>      <span class="at">control=</span><span class="fu">list</span>(<span class="at">fnscale=</span><span class="sc">-</span><span class="dv">1</span>), <span class="at">hessian =</span> T)</span>
+<span id="cb529-34"><a href="fitting-ordinal-models-in-r.html#cb529-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb529-35"><a href="fitting-ordinal-models-in-r.html#cb529-35" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients</span></span>
+<span id="cb529-36"><a href="fitting-ordinal-models-in-r.html#cb529-36" aria-hidden="true" tabindex="-1"></a>opt.out<span class="sc">$</span>par[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>[1] 0.2644911</code></pre>
-<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb530-1"><a href="fitting-ordinal-models-in-r.html#cb530-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit)</span></code></pre></div>
+<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb531-1"><a href="fitting-ordinal-models-in-r.html#cb531-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit)</span></code></pre></div>
 <pre><code>    treat 
 0.2644546 </code></pre>
-<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb532-1"><a href="fitting-ordinal-models-in-r.html#cb532-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Cutpoints</span></span>
-<span id="cb532-2"><a href="fitting-ordinal-models-in-r.html#cb532-2" aria-hidden="true" tabindex="-1"></a>opt.out<span class="sc">$</span>par[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb533-1"><a href="fitting-ordinal-models-in-r.html#cb533-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Cutpoints</span></span>
+<span id="cb533-2"><a href="fitting-ordinal-models-in-r.html#cb533-2" aria-hidden="true" tabindex="-1"></a>opt.out<span class="sc">$</span>par[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>]</span></code></pre></div>
 <pre><code>[1] -0.51019872 -0.05757855  0.26969063</code></pre>
-<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb534-1"><a href="fitting-ordinal-models-in-r.html#cb534-1" aria-hidden="true" tabindex="-1"></a>fit<span class="sc">$</span>zeta</span></code></pre></div>
+<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb535-1"><a href="fitting-ordinal-models-in-r.html#cb535-1" aria-hidden="true" tabindex="-1"></a>fit<span class="sc">$</span>zeta</span></code></pre></div>
 <pre><code>       1|2        2|3        3|4 
 -0.5102370 -0.0575699  0.2696646 </code></pre>
-<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb536-1"><a href="fitting-ordinal-models-in-r.html#cb536-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Standard errors</span></span>
-<span id="cb536-2"><a href="fitting-ordinal-models-in-r.html#cb536-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">solve</span>(<span class="sc">-</span> opt.out<span class="sc">$</span>hessian)))</span></code></pre></div>
+<div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb537-1"><a href="fitting-ordinal-models-in-r.html#cb537-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Standard errors</span></span>
+<span id="cb537-2"><a href="fitting-ordinal-models-in-r.html#cb537-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">solve</span>(<span class="sc">-</span> opt.out<span class="sc">$</span>hessian)))</span></code></pre></div>
 <pre><code>[1] 0.10214310 0.07613473 0.07395763 0.07419776</code></pre>
-<div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb538-1"><a href="fitting-ordinal-models-in-r.html#cb538-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(fit)))</span></code></pre></div>
+<div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb539-1"><a href="fitting-ordinal-models-in-r.html#cb539-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(fit)))</span></code></pre></div>
 <pre><code>     treat        1|2        2|3        3|4 
 0.10214309 0.07613503 0.07395770 0.07419775 </code></pre>
 </details>
@@ -600,40 +600,40 @@ For details on how to fit this manually in R using <code>optim</code>, expand.
 <h3><span class="header-section-number">8.3.1</span> Quantities of Interest</h3>
 <p>In discussing the results of Table 3 from the ordered probit analysis in the paper, the authors note, “A shift of .26 probits implies, for example, that a health group respondent with a 30% chance of strongly agreeing to dissent would move to a 40% chance if assigned to the reconciliation program group. This is a large, but not implausibly large, shift in opinion.”</p>
 <p>Similar to the binary case, we can convert our estimates to probability, but here we will do it for specific categories. Let’s first conduct an estimate of the difference in probability of being in the top category of dissent for those in the treatment - control conditions.</p>
-<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb540-1"><a href="fitting-ordinal-models-in-r.html#cb540-1" aria-hidden="true" tabindex="-1"></a><span class="do">## probability of being in top category</span></span>
-<span id="cb540-2"><a href="fitting-ordinal-models-in-r.html#cb540-2" aria-hidden="true" tabindex="-1"></a>cutpoint3 <span class="ot">&lt;-</span> fit<span class="sc">$</span>zeta[<span class="dv">3</span>]</span>
-<span id="cb540-3"><a href="fitting-ordinal-models-in-r.html#cb540-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># in treatment</span></span>
-<span id="cb540-4"><a href="fitting-ordinal-models-in-r.html#cb540-4" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit) <span class="co"># coefficient</span></span>
-<span id="cb540-5"><a href="fitting-ordinal-models-in-r.html#cb540-5" aria-hidden="true" tabindex="-1"></a>pp1 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(cutpoint3 <span class="sc">-</span> X<span class="sc">*</span>b)</span>
-<span id="cb540-6"><a href="fitting-ordinal-models-in-r.html#cb540-6" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># in control</span></span>
-<span id="cb540-7"><a href="fitting-ordinal-models-in-r.html#cb540-7" aria-hidden="true" tabindex="-1"></a>pp0 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(cutpoint3 <span class="sc">-</span> X<span class="sc">*</span>b)</span>
-<span id="cb540-8"><a href="fitting-ordinal-models-in-r.html#cb540-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb540-9"><a href="fitting-ordinal-models-in-r.html#cb540-9" aria-hidden="true" tabindex="-1"></a><span class="do">## difference</span></span>
-<span id="cb540-10"><a href="fitting-ordinal-models-in-r.html#cb540-10" aria-hidden="true" tabindex="-1"></a>pp1 <span class="sc">-</span> pp0</span></code></pre></div>
+<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb541-1"><a href="fitting-ordinal-models-in-r.html#cb541-1" aria-hidden="true" tabindex="-1"></a><span class="do">## probability of being in top category</span></span>
+<span id="cb541-2"><a href="fitting-ordinal-models-in-r.html#cb541-2" aria-hidden="true" tabindex="-1"></a>cutpoint3 <span class="ot">&lt;-</span> fit<span class="sc">$</span>zeta[<span class="dv">3</span>]</span>
+<span id="cb541-3"><a href="fitting-ordinal-models-in-r.html#cb541-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># in treatment</span></span>
+<span id="cb541-4"><a href="fitting-ordinal-models-in-r.html#cb541-4" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit) <span class="co"># coefficient</span></span>
+<span id="cb541-5"><a href="fitting-ordinal-models-in-r.html#cb541-5" aria-hidden="true" tabindex="-1"></a>pp1 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(cutpoint3 <span class="sc">-</span> X<span class="sc">*</span>b)</span>
+<span id="cb541-6"><a href="fitting-ordinal-models-in-r.html#cb541-6" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># in control</span></span>
+<span id="cb541-7"><a href="fitting-ordinal-models-in-r.html#cb541-7" aria-hidden="true" tabindex="-1"></a>pp0 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(cutpoint3 <span class="sc">-</span> X<span class="sc">*</span>b)</span>
+<span id="cb541-8"><a href="fitting-ordinal-models-in-r.html#cb541-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb541-9"><a href="fitting-ordinal-models-in-r.html#cb541-9" aria-hidden="true" tabindex="-1"></a><span class="do">## difference</span></span>
+<span id="cb541-10"><a href="fitting-ordinal-models-in-r.html#cb541-10" aria-hidden="true" tabindex="-1"></a>pp1 <span class="sc">-</span> pp0</span></code></pre></div>
 <pre><code>      3|4 
 0.1042124 </code></pre>
 <p>We recover that there is an 10 percentage point difference in probability predicted for those in the treatment vs. control.</p>
 <p>If we were interested in other categories, we could similarly compare probabilities within those. For example, what about category 3?</p>
-<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb542-1"><a href="fitting-ordinal-models-in-r.html#cb542-1" aria-hidden="true" tabindex="-1"></a>cutpoint3 <span class="ot">&lt;-</span> fit<span class="sc">$</span>zeta[<span class="dv">3</span>]</span>
-<span id="cb542-2"><a href="fitting-ordinal-models-in-r.html#cb542-2" aria-hidden="true" tabindex="-1"></a>cutpoint2 <span class="ot">&lt;-</span> fit<span class="sc">$</span>zeta[<span class="dv">2</span>]</span>
-<span id="cb542-3"><a href="fitting-ordinal-models-in-r.html#cb542-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># in treatment</span></span>
-<span id="cb542-4"><a href="fitting-ordinal-models-in-r.html#cb542-4" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit) <span class="co"># coefficient</span></span>
-<span id="cb542-5"><a href="fitting-ordinal-models-in-r.html#cb542-5" aria-hidden="true" tabindex="-1"></a>pp1 <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(cutpoint3 <span class="sc">-</span> X<span class="sc">*</span>b) <span class="sc">-</span> <span class="fu">pnorm</span>(cutpoint2 <span class="sc">-</span> X<span class="sc">*</span>b)</span>
-<span id="cb542-6"><a href="fitting-ordinal-models-in-r.html#cb542-6" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># in control</span></span>
-<span id="cb542-7"><a href="fitting-ordinal-models-in-r.html#cb542-7" aria-hidden="true" tabindex="-1"></a>pp0 <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(cutpoint3 <span class="sc">-</span> X<span class="sc">*</span>b) <span class="sc">-</span> <span class="fu">pnorm</span>(cutpoint2 <span class="sc">-</span> X<span class="sc">*</span>b)</span>
-<span id="cb542-8"><a href="fitting-ordinal-models-in-r.html#cb542-8" aria-hidden="true" tabindex="-1"></a>pp1 <span class="sc">-</span> pp0</span></code></pre></div>
+<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb543-1"><a href="fitting-ordinal-models-in-r.html#cb543-1" aria-hidden="true" tabindex="-1"></a>cutpoint3 <span class="ot">&lt;-</span> fit<span class="sc">$</span>zeta[<span class="dv">3</span>]</span>
+<span id="cb543-2"><a href="fitting-ordinal-models-in-r.html#cb543-2" aria-hidden="true" tabindex="-1"></a>cutpoint2 <span class="ot">&lt;-</span> fit<span class="sc">$</span>zeta[<span class="dv">2</span>]</span>
+<span id="cb543-3"><a href="fitting-ordinal-models-in-r.html#cb543-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># in treatment</span></span>
+<span id="cb543-4"><a href="fitting-ordinal-models-in-r.html#cb543-4" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit) <span class="co"># coefficient</span></span>
+<span id="cb543-5"><a href="fitting-ordinal-models-in-r.html#cb543-5" aria-hidden="true" tabindex="-1"></a>pp1 <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(cutpoint3 <span class="sc">-</span> X<span class="sc">*</span>b) <span class="sc">-</span> <span class="fu">pnorm</span>(cutpoint2 <span class="sc">-</span> X<span class="sc">*</span>b)</span>
+<span id="cb543-6"><a href="fitting-ordinal-models-in-r.html#cb543-6" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># in control</span></span>
+<span id="cb543-7"><a href="fitting-ordinal-models-in-r.html#cb543-7" aria-hidden="true" tabindex="-1"></a>pp0 <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(cutpoint3 <span class="sc">-</span> X<span class="sc">*</span>b) <span class="sc">-</span> <span class="fu">pnorm</span>(cutpoint2 <span class="sc">-</span> X<span class="sc">*</span>b)</span>
+<span id="cb543-8"><a href="fitting-ordinal-models-in-r.html#cb543-8" aria-hidden="true" tabindex="-1"></a>pp1 <span class="sc">-</span> pp0</span></code></pre></div>
 <pre><code>         3|4 
 -0.000883825 </code></pre>
 <p>We can use our R shortcuts for all categories. Here, to make sure we are in probabilities, we can use <code>type="probs"</code>.</p>
-<div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb544-1"><a href="fitting-ordinal-models-in-r.html#cb544-1" aria-hidden="true" tabindex="-1"></a><span class="do">## predict</span></span>
-<span id="cb544-2"><a href="fitting-ordinal-models-in-r.html#cb544-2" aria-hidden="true" tabindex="-1"></a>prs <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">treat =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)), <span class="at">type =</span> <span class="st">&quot;probs&quot;</span>)</span>
-<span id="cb544-3"><a href="fitting-ordinal-models-in-r.html#cb544-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb544-4"><a href="fitting-ordinal-models-in-r.html#cb544-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Prediction</span></span>
-<span id="cb544-5"><a href="fitting-ordinal-models-in-r.html#cb544-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prediction)</span>
-<span id="cb544-6"><a href="fitting-ordinal-models-in-r.html#cb544-6" aria-hidden="true" tabindex="-1"></a><span class="do">## specify which category</span></span>
-<span id="cb544-7"><a href="fitting-ordinal-models-in-r.html#cb544-7" aria-hidden="true" tabindex="-1"></a>outp <span class="ot">&lt;-</span> <span class="fu">prediction</span>(fit, <span class="at">at =</span> <span class="fu">list</span>(<span class="at">treat =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)), </span>
-<span id="cb544-8"><a href="fitting-ordinal-models-in-r.html#cb544-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">category =</span> <span class="dv">1</span>)</span>
-<span id="cb544-9"><a href="fitting-ordinal-models-in-r.html#cb544-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(outp)<span class="sc">$</span>Prediction</span></code></pre></div>
+<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb545-1"><a href="fitting-ordinal-models-in-r.html#cb545-1" aria-hidden="true" tabindex="-1"></a><span class="do">## predict</span></span>
+<span id="cb545-2"><a href="fitting-ordinal-models-in-r.html#cb545-2" aria-hidden="true" tabindex="-1"></a>prs <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">treat =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)), <span class="at">type =</span> <span class="st">&quot;probs&quot;</span>)</span>
+<span id="cb545-3"><a href="fitting-ordinal-models-in-r.html#cb545-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb545-4"><a href="fitting-ordinal-models-in-r.html#cb545-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Prediction</span></span>
+<span id="cb545-5"><a href="fitting-ordinal-models-in-r.html#cb545-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prediction)</span>
+<span id="cb545-6"><a href="fitting-ordinal-models-in-r.html#cb545-6" aria-hidden="true" tabindex="-1"></a><span class="do">## specify which category</span></span>
+<span id="cb545-7"><a href="fitting-ordinal-models-in-r.html#cb545-7" aria-hidden="true" tabindex="-1"></a>outp <span class="ot">&lt;-</span> <span class="fu">prediction</span>(fit, <span class="at">at =</span> <span class="fu">list</span>(<span class="at">treat =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)), </span>
+<span id="cb545-8"><a href="fitting-ordinal-models-in-r.html#cb545-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">category =</span> <span class="dv">1</span>)</span>
+<span id="cb545-9"><a href="fitting-ordinal-models-in-r.html#cb545-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(outp)<span class="sc">$</span>Prediction</span></code></pre></div>
 <pre><code>[1] 0.3049427 0.2192609</code></pre>
 <p>How can we visualize the results?</p>
 <ul>

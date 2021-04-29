@@ -506,33 +506,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <summary>
 Try on your own, and then expand for the solution.
 </summary>
-<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb552-1"><a href="ordinal-practice-problems.html#cb552-1" aria-hidden="true" tabindex="-1"></a>fit.c2 <span class="ot">&lt;-</span> <span class="fu">polr</span>(<span class="fu">as.factor</span>(dissent) <span class="sc">~</span> treat <span class="sc">+</span> <span class="fu">factor</span>(site_pr), </span>
-<span id="cb552-2"><a href="ordinal-practice-problems.html#cb552-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>pg, <span class="at">method=</span><span class="st">&quot;probit&quot;</span>, <span class="at">Hess =</span>T)</span>
-<span id="cb552-3"><a href="ordinal-practice-problems.html#cb552-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.c2)</span></code></pre></div>
+<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb553-1"><a href="ordinal-practice-problems.html#cb553-1" aria-hidden="true" tabindex="-1"></a>fit.c2 <span class="ot">&lt;-</span> <span class="fu">polr</span>(<span class="fu">as.factor</span>(dissent) <span class="sc">~</span> treat <span class="sc">+</span> <span class="fu">factor</span>(site_pr), </span>
+<span id="cb553-2"><a href="ordinal-practice-problems.html#cb553-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>pg, <span class="at">method=</span><span class="st">&quot;probit&quot;</span>, <span class="at">Hess =</span>T)</span>
+<span id="cb553-3"><a href="ordinal-practice-problems.html#cb553-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.c2)</span></code></pre></div>
 <pre><code>           treat factor(site_pr)2 factor(site_pr)3 factor(site_pr)4 
       0.28484306      -0.17480464      -0.25513562      -0.17731799 
 factor(site_pr)5 factor(site_pr)6 factor(site_pr)7 
      -0.30547159      -0.11384681       0.04659582 </code></pre>
-<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb554-1"><a href="ordinal-practice-problems.html#cb554-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Option 1</span></span>
-<span id="cb554-2"><a href="ordinal-practice-problems.html#cb554-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prediction)</span>
-<span id="cb554-3"><a href="ordinal-practice-problems.html#cb554-3" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">prediction</span>(fit.c2, <span class="at">at=</span><span class="fu">list</span>(<span class="at">treat=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)), <span class="at">category=</span><span class="dv">2</span>)</span>
-<span id="cb554-4"><a href="ordinal-practice-problems.html#cb554-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(p1)<span class="sc">$</span>Prediction</span></code></pre></div>
+<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb555-1"><a href="ordinal-practice-problems.html#cb555-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Option 1</span></span>
+<span id="cb555-2"><a href="ordinal-practice-problems.html#cb555-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prediction)</span>
+<span id="cb555-3"><a href="ordinal-practice-problems.html#cb555-3" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">prediction</span>(fit.c2, <span class="at">at=</span><span class="fu">list</span>(<span class="at">treat=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)), <span class="at">category=</span><span class="dv">2</span>)</span>
+<span id="cb555-4"><a href="ordinal-practice-problems.html#cb555-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(p1)<span class="sc">$</span>Prediction</span></code></pre></div>
 <pre><code>[1] 0.1726136 0.1537839</code></pre>
-<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb556-1"><a href="ordinal-practice-problems.html#cb556-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Option 2</span></span>
-<span id="cb556-2"><a href="ordinal-practice-problems.html#cb556-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit.c2)[,<span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb556-3"><a href="ordinal-practice-problems.html#cb556-3" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;treat&quot;</span>]<span class="ot">&lt;-</span><span class="dv">1</span></span>
-<span id="cb556-4"><a href="ordinal-practice-problems.html#cb556-4" aria-hidden="true" tabindex="-1"></a>bh <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit.c2)</span>
-<span id="cb556-5"><a href="ordinal-practice-problems.html#cb556-5" aria-hidden="true" tabindex="-1"></a>eta <span class="ot">&lt;-</span> X <span class="sc">%*%</span> bh</span>
-<span id="cb556-6"><a href="ordinal-practice-problems.html#cb556-6" aria-hidden="true" tabindex="-1"></a>cutpoint2 <span class="ot">&lt;-</span> fit.c2<span class="sc">$</span>zeta[<span class="dv">2</span>]</span>
-<span id="cb556-7"><a href="ordinal-practice-problems.html#cb556-7" aria-hidden="true" tabindex="-1"></a>cutpoint1 <span class="ot">&lt;-</span> fit.c2<span class="sc">$</span>zeta[<span class="dv">1</span>]</span>
-<span id="cb556-8"><a href="ordinal-practice-problems.html#cb556-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">pnorm</span>(cutpoint2 <span class="sc">-</span> eta) <span class="sc">-</span> <span class="fu">pnorm</span>(cutpoint1 <span class="sc">-</span> eta))</span></code></pre></div>
+<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb557-1"><a href="ordinal-practice-problems.html#cb557-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Option 2</span></span>
+<span id="cb557-2"><a href="ordinal-practice-problems.html#cb557-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit.c2)[,<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb557-3"><a href="ordinal-practice-problems.html#cb557-3" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;treat&quot;</span>]<span class="ot">&lt;-</span><span class="dv">1</span></span>
+<span id="cb557-4"><a href="ordinal-practice-problems.html#cb557-4" aria-hidden="true" tabindex="-1"></a>bh <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit.c2)</span>
+<span id="cb557-5"><a href="ordinal-practice-problems.html#cb557-5" aria-hidden="true" tabindex="-1"></a>eta <span class="ot">&lt;-</span> X <span class="sc">%*%</span> bh</span>
+<span id="cb557-6"><a href="ordinal-practice-problems.html#cb557-6" aria-hidden="true" tabindex="-1"></a>cutpoint2 <span class="ot">&lt;-</span> fit.c2<span class="sc">$</span>zeta[<span class="dv">2</span>]</span>
+<span id="cb557-7"><a href="ordinal-practice-problems.html#cb557-7" aria-hidden="true" tabindex="-1"></a>cutpoint1 <span class="ot">&lt;-</span> fit.c2<span class="sc">$</span>zeta[<span class="dv">1</span>]</span>
+<span id="cb557-8"><a href="ordinal-practice-problems.html#cb557-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">pnorm</span>(cutpoint2 <span class="sc">-</span> eta) <span class="sc">-</span> <span class="fu">pnorm</span>(cutpoint1 <span class="sc">-</span> eta))</span></code></pre></div>
 <pre><code>[1] 0.1537839</code></pre>
-<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb558-1"><a href="ordinal-practice-problems.html#cb558-1" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;treat&quot;</span>] <span class="ot">&lt;-</span><span class="dv">0</span></span>
-<span id="cb558-2"><a href="ordinal-practice-problems.html#cb558-2" aria-hidden="true" tabindex="-1"></a>bh <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit.c2)</span>
-<span id="cb558-3"><a href="ordinal-practice-problems.html#cb558-3" aria-hidden="true" tabindex="-1"></a>eta <span class="ot">&lt;-</span> X <span class="sc">%*%</span> bh</span>
-<span id="cb558-4"><a href="ordinal-practice-problems.html#cb558-4" aria-hidden="true" tabindex="-1"></a>cutpoint2 <span class="ot">&lt;-</span> fit.c2<span class="sc">$</span>zeta[<span class="dv">2</span>]</span>
-<span id="cb558-5"><a href="ordinal-practice-problems.html#cb558-5" aria-hidden="true" tabindex="-1"></a>cutpoint1 <span class="ot">&lt;-</span> fit.c2<span class="sc">$</span>zeta[<span class="dv">1</span>]</span>
-<span id="cb558-6"><a href="ordinal-practice-problems.html#cb558-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">pnorm</span>(cutpoint2 <span class="sc">-</span> eta) <span class="sc">-</span> <span class="fu">pnorm</span>(cutpoint1 <span class="sc">-</span> eta))</span></code></pre></div>
+<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb559-1"><a href="ordinal-practice-problems.html#cb559-1" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;treat&quot;</span>] <span class="ot">&lt;-</span><span class="dv">0</span></span>
+<span id="cb559-2"><a href="ordinal-practice-problems.html#cb559-2" aria-hidden="true" tabindex="-1"></a>bh <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit.c2)</span>
+<span id="cb559-3"><a href="ordinal-practice-problems.html#cb559-3" aria-hidden="true" tabindex="-1"></a>eta <span class="ot">&lt;-</span> X <span class="sc">%*%</span> bh</span>
+<span id="cb559-4"><a href="ordinal-practice-problems.html#cb559-4" aria-hidden="true" tabindex="-1"></a>cutpoint2 <span class="ot">&lt;-</span> fit.c2<span class="sc">$</span>zeta[<span class="dv">2</span>]</span>
+<span id="cb559-5"><a href="ordinal-practice-problems.html#cb559-5" aria-hidden="true" tabindex="-1"></a>cutpoint1 <span class="ot">&lt;-</span> fit.c2<span class="sc">$</span>zeta[<span class="dv">1</span>]</span>
+<span id="cb559-6"><a href="ordinal-practice-problems.html#cb559-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">pnorm</span>(cutpoint2 <span class="sc">-</span> eta) <span class="sc">-</span> <span class="fu">pnorm</span>(cutpoint1 <span class="sc">-</span> eta))</span></code></pre></div>
 <pre><code>[1] 0.1726136</code></pre>
 </details>
 <div id="a-note-on-robust-standard-errors" class="section level3" number="8.5.1">
@@ -556,40 +556,40 @@ factor(site_pr)5 factor(site_pr)6 factor(site_pr)7
 <p>For example, let’s fit the authors’ model as a linear model using MacKinnon and White HC1 robust standard errors. Those specify the following inside portion for an estimate of <span class="math inline">\(\mathbf{V}( \epsilon)\)</span>.This is what Stata uses as a default “robust” standard error:</p>
 <p><span class="math inline">\(\Sigma = \frac{n}{n-k} \text{diag}(\hat \epsilon_i^2)\)</span></p>
 <p>This means we have a slightly different term for each observation instead of a constant estimate <span class="math inline">\(\hat \sigma^2\)</span> for all observations.</p>
-<div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb560-1"><a href="ordinal-practice-problems.html#cb560-1" aria-hidden="true" tabindex="-1"></a>fit.lin <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">as.numeric</span>(dissent) <span class="sc">~</span> treat <span class="sc">+</span> <span class="fu">factor</span>(site_pr), </span>
-<span id="cb560-2"><a href="ordinal-practice-problems.html#cb560-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>pg)</span>
-<span id="cb560-3"><a href="ordinal-practice-problems.html#cb560-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb560-4"><a href="ordinal-practice-problems.html#cb560-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Option 1: Adjusting for heteroskedasticity</span></span>
-<span id="cb560-5"><a href="ordinal-practice-problems.html#cb560-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
-<span id="cb560-6"><a href="ordinal-practice-problems.html#cb560-6" aria-hidden="true" tabindex="-1"></a>newvcov <span class="ot">&lt;-</span> <span class="fu">vcovHC</span>(fit.lin, <span class="at">type=</span><span class="st">&quot;HC1&quot;</span>)</span>
-<span id="cb560-7"><a href="ordinal-practice-problems.html#cb560-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(newvcov))</span></code></pre></div>
+<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb561-1"><a href="ordinal-practice-problems.html#cb561-1" aria-hidden="true" tabindex="-1"></a>fit.lin <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">as.numeric</span>(dissent) <span class="sc">~</span> treat <span class="sc">+</span> <span class="fu">factor</span>(site_pr), </span>
+<span id="cb561-2"><a href="ordinal-practice-problems.html#cb561-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>pg)</span>
+<span id="cb561-3"><a href="ordinal-practice-problems.html#cb561-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb561-4"><a href="ordinal-practice-problems.html#cb561-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Option 1: Adjusting for heteroskedasticity</span></span>
+<span id="cb561-5"><a href="ordinal-practice-problems.html#cb561-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
+<span id="cb561-6"><a href="ordinal-practice-problems.html#cb561-6" aria-hidden="true" tabindex="-1"></a>newvcov <span class="ot">&lt;-</span> <span class="fu">vcovHC</span>(fit.lin, <span class="at">type=</span><span class="st">&quot;HC1&quot;</span>)</span>
+<span id="cb561-7"><a href="ordinal-practice-problems.html#cb561-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(newvcov))</span></code></pre></div>
 <pre><code>     (Intercept)            treat factor(site_pr)2 factor(site_pr)3 
        0.1661596        0.1145570        0.2128812        0.2158906 
 factor(site_pr)4 factor(site_pr)5 factor(site_pr)6 factor(site_pr)7 
        0.2164289        0.2176110        0.2175578        0.2085747 </code></pre>
-<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb562-1"><a href="ordinal-practice-problems.html#cb562-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Option 2: Adjusting for heteroskedasticity</span></span>
-<span id="cb562-2"><a href="ordinal-practice-problems.html#cb562-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(estimatr)</span>
-<span id="cb562-3"><a href="ordinal-practice-problems.html#cb562-3" aria-hidden="true" tabindex="-1"></a>fit.lin2 <span class="ot">&lt;-</span> <span class="fu">lm_robust</span>(<span class="fu">as.numeric</span>(dissent) <span class="sc">~</span> treat <span class="sc">+</span> <span class="fu">factor</span>(site_pr), </span>
-<span id="cb562-4"><a href="ordinal-practice-problems.html#cb562-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>pg, <span class="at">se_type =</span> <span class="st">&quot;stata&quot;</span>)</span>
-<span id="cb562-5"><a href="ordinal-practice-problems.html#cb562-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(fit.lin2)))</span></code></pre></div>
+<div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb563-1"><a href="ordinal-practice-problems.html#cb563-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Option 2: Adjusting for heteroskedasticity</span></span>
+<span id="cb563-2"><a href="ordinal-practice-problems.html#cb563-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(estimatr)</span>
+<span id="cb563-3"><a href="ordinal-practice-problems.html#cb563-3" aria-hidden="true" tabindex="-1"></a>fit.lin2 <span class="ot">&lt;-</span> <span class="fu">lm_robust</span>(<span class="fu">as.numeric</span>(dissent) <span class="sc">~</span> treat <span class="sc">+</span> <span class="fu">factor</span>(site_pr), </span>
+<span id="cb563-4"><a href="ordinal-practice-problems.html#cb563-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>pg, <span class="at">se_type =</span> <span class="st">&quot;stata&quot;</span>)</span>
+<span id="cb563-5"><a href="ordinal-practice-problems.html#cb563-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(fit.lin2)))</span></code></pre></div>
 <pre><code>     (Intercept)            treat factor(site_pr)2 factor(site_pr)3 
        0.1661596        0.1145570        0.2128812        0.2158906 
 factor(site_pr)4 factor(site_pr)5 factor(site_pr)6 factor(site_pr)7 
        0.2164289        0.2176110        0.2175578        0.2085747 </code></pre>
 <p>Another adjustment takes into account the grouped or “clustered” nature of the data. Here, we have a separate estimate for each group in the data. This can be implemented in R by using <code>vcovCL</code> or the <code>clusters</code> argument in <code>lm_robust</code>.</p>
-<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb564-1"><a href="ordinal-practice-problems.html#cb564-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Option 1: Adjusting for clustering</span></span>
-<span id="cb564-2"><a href="ordinal-practice-problems.html#cb564-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
-<span id="cb564-3"><a href="ordinal-practice-problems.html#cb564-3" aria-hidden="true" tabindex="-1"></a>newvcov <span class="ot">&lt;-</span> <span class="fu">vcovCL</span>(fit.lin, <span class="at">type=</span><span class="st">&quot;HC1&quot;</span>, <span class="at">cadjust=</span>T, <span class="at">cluster =</span> pg<span class="sc">$</span>sitcode)</span>
-<span id="cb564-4"><a href="ordinal-practice-problems.html#cb564-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(newvcov))</span></code></pre></div>
+<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb565-1"><a href="ordinal-practice-problems.html#cb565-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Option 1: Adjusting for clustering</span></span>
+<span id="cb565-2"><a href="ordinal-practice-problems.html#cb565-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
+<span id="cb565-3"><a href="ordinal-practice-problems.html#cb565-3" aria-hidden="true" tabindex="-1"></a>newvcov <span class="ot">&lt;-</span> <span class="fu">vcovCL</span>(fit.lin, <span class="at">type=</span><span class="st">&quot;HC1&quot;</span>, <span class="at">cadjust=</span>T, <span class="at">cluster =</span> pg<span class="sc">$</span>sitcode)</span>
+<span id="cb565-4"><a href="ordinal-practice-problems.html#cb565-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(newvcov))</span></code></pre></div>
 <pre><code>     (Intercept)            treat factor(site_pr)2 factor(site_pr)3 
       0.07685775       0.07066623       0.12388030       0.09271341 
 factor(site_pr)4 factor(site_pr)5 factor(site_pr)6 factor(site_pr)7 
       0.07174477       0.12894245       0.20605985       0.06962861 </code></pre>
-<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb566-1"><a href="ordinal-practice-problems.html#cb566-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Option 2: Adjusting for clustering</span></span>
-<span id="cb566-2"><a href="ordinal-practice-problems.html#cb566-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(estimatr)</span>
-<span id="cb566-3"><a href="ordinal-practice-problems.html#cb566-3" aria-hidden="true" tabindex="-1"></a>fit.lin2 <span class="ot">&lt;-</span> <span class="fu">lm_robust</span>(<span class="fu">as.numeric</span>(dissent) <span class="sc">~</span> treat <span class="sc">+</span> <span class="fu">factor</span>(site_pr), </span>
-<span id="cb566-4"><a href="ordinal-practice-problems.html#cb566-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>pg, <span class="at">se_type =</span> <span class="st">&quot;stata&quot;</span>, <span class="at">clusters =</span> sitcode)</span>
-<span id="cb566-5"><a href="ordinal-practice-problems.html#cb566-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(fit.lin2)))</span></code></pre></div>
+<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="ordinal-practice-problems.html#cb567-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Option 2: Adjusting for clustering</span></span>
+<span id="cb567-2"><a href="ordinal-practice-problems.html#cb567-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(estimatr)</span>
+<span id="cb567-3"><a href="ordinal-practice-problems.html#cb567-3" aria-hidden="true" tabindex="-1"></a>fit.lin2 <span class="ot">&lt;-</span> <span class="fu">lm_robust</span>(<span class="fu">as.numeric</span>(dissent) <span class="sc">~</span> treat <span class="sc">+</span> <span class="fu">factor</span>(site_pr), </span>
+<span id="cb567-4"><a href="ordinal-practice-problems.html#cb567-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>pg, <span class="at">se_type =</span> <span class="st">&quot;stata&quot;</span>, <span class="at">clusters =</span> sitcode)</span>
+<span id="cb567-5"><a href="ordinal-practice-problems.html#cb567-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(fit.lin2)))</span></code></pre></div>
 <pre><code>     (Intercept)            treat factor(site_pr)2 factor(site_pr)3 
       0.07685775       0.07066623       0.12388030       0.09271341 
 factor(site_pr)4 factor(site_pr)5 factor(site_pr)6 factor(site_pr)7 
@@ -597,12 +597,12 @@ factor(site_pr)4 factor(site_pr)5 factor(site_pr)6 factor(site_pr)7
 <p>This is all great, but the authors don’t have a linear model, they have an ordered probit model. It turns out that people have developed similar robust standard error estimators to adjust the standard errors from these non-linear models. For more details, see slides from <a href="https://projects.iq.harvard.edu/files/gov2001/files/sesection_5.pdf">Molly Roberts</a> on this point.</p>
 <p>These take a slightly different form, but the intuition is the same. What we are altering is the structure of the variance-covariance matrix (which is a function of the Hessian in the likelihood case), making adjustments across all observations or clusters of observations.</p>
 <p>We can also implement these in R using HC0 standard errors.</p>
-<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb568-1"><a href="ordinal-practice-problems.html#cb568-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Adjusting for clustered standard errors</span></span>
-<span id="cb568-2"><a href="ordinal-practice-problems.html#cb568-2" aria-hidden="true" tabindex="-1"></a>fit.c2 <span class="ot">&lt;-</span> <span class="fu">polr</span>(<span class="fu">as.factor</span>(dissent) <span class="sc">~</span> treat <span class="sc">+</span> <span class="fu">factor</span>(site_pr), </span>
-<span id="cb568-3"><a href="ordinal-practice-problems.html#cb568-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>pg, <span class="at">method=</span><span class="st">&quot;probit&quot;</span>, <span class="at">Hess =</span>T)</span>
-<span id="cb568-4"><a href="ordinal-practice-problems.html#cb568-4" aria-hidden="true" tabindex="-1"></a>clval <span class="ot">&lt;-</span> <span class="fu">vcovCL</span>(fit.c2, <span class="at">type=</span><span class="st">&quot;HC0&quot;</span>, <span class="at">cluster =</span> pg<span class="sc">$</span>sitcode)</span></code></pre></div>
+<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="ordinal-practice-problems.html#cb569-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Adjusting for clustered standard errors</span></span>
+<span id="cb569-2"><a href="ordinal-practice-problems.html#cb569-2" aria-hidden="true" tabindex="-1"></a>fit.c2 <span class="ot">&lt;-</span> <span class="fu">polr</span>(<span class="fu">as.factor</span>(dissent) <span class="sc">~</span> treat <span class="sc">+</span> <span class="fu">factor</span>(site_pr), </span>
+<span id="cb569-3"><a href="ordinal-practice-problems.html#cb569-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>pg, <span class="at">method=</span><span class="st">&quot;probit&quot;</span>, <span class="at">Hess =</span>T)</span>
+<span id="cb569-4"><a href="ordinal-practice-problems.html#cb569-4" aria-hidden="true" tabindex="-1"></a>clval <span class="ot">&lt;-</span> <span class="fu">vcovCL</span>(fit.c2, <span class="at">type=</span><span class="st">&quot;HC0&quot;</span>, <span class="at">cluster =</span> pg<span class="sc">$</span>sitcode)</span></code></pre></div>
 <p>You can compare these standard errors to column 2 from Table 3 in the paper.</p>
-<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="ordinal-practice-problems.html#cb569-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(clval))</span></code></pre></div>
+<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="ordinal-practice-problems.html#cb570-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(clval))</span></code></pre></div>
 <pre><code>           treat factor(site_pr)2 factor(site_pr)3 factor(site_pr)4 
       0.06212521       0.11636326       0.07559847       0.06387804 
 factor(site_pr)5 factor(site_pr)6 factor(site_pr)7              1|2 
@@ -610,8 +610,8 @@ factor(site_pr)5 factor(site_pr)6 factor(site_pr)7              1|2
              2|3              3|4 
       0.07494704       0.08409084 </code></pre>
 <p>The <code>coeftest</code> function in R, when applied to a new <code>vcov</code> will reproduce the full regression output.</p>
-<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb571-1"><a href="ordinal-practice-problems.html#cb571-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb571-2"><a href="ordinal-practice-problems.html#cb571-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(fit.c2, <span class="at">vcov=</span>clval)</span></code></pre></div>
+<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb572-1"><a href="ordinal-practice-problems.html#cb572-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb572-2"><a href="ordinal-practice-problems.html#cb572-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(fit.c2, <span class="at">vcov=</span>clval)</span></code></pre></div>
 <pre><code>
 z test of coefficients:
 

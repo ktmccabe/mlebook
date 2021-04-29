@@ -64,6 +64,7 @@ Problem: Models that fit our existing ("in-sample") data might not be the best f
 For example, many AI tools suffer from gender and/or racial biases due to unrepresentative training data. If most of the data used to train a speech detection or facial recognition tool was trained on white faces/ white voices, it may have poor accuracy for other groups.
 
 ![](images/speecherrors.png)
+
 Solutions:
 
   - Choose your training data wisely!
@@ -196,7 +197,6 @@ library(pROC)
 ROC <- roc(response = donsub$donation,
                   predictor = donsub$pred)
 plot(ROC, print.thres = "best")
-plot(ROC, col = "blue")
 auc(ROC)
 ```
 For more information, see [here](http://fouryears.eu/2011/10/12/roc-area-under-the-curve-explained/).

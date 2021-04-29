@@ -504,8 +504,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Each of these variables shares the features that they are discrete and range from 0 to some positive number.</p>
 <p>Example: Your outcome data might look like this, where each <span class="math inline">\(i\)</span> observation represents a count of some kind:</p>
-<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="overview-of-count-data.html#cb641-1" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n=</span><span class="dv">30</span>, <span class="at">lambda =</span> <span class="dv">2</span>)</span>
-<span id="cb641-2"><a href="overview-of-count-data.html#cb641-2" aria-hidden="true" tabindex="-1"></a>Y</span></code></pre></div>
+<div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb642-1"><a href="overview-of-count-data.html#cb642-1" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n=</span><span class="dv">30</span>, <span class="at">lambda =</span> <span class="dv">2</span>)</span>
+<span id="cb642-2"><a href="overview-of-count-data.html#cb642-2" aria-hidden="true" tabindex="-1"></a>Y</span></code></pre></div>
 <pre><code> [1] 2 2 1 4 3 2 0 4 5 0 2 2 2 2 2 2 0 1 3 0 2 5 1 3 2 0 0 3 4 1</code></pre>
 <p>A common way one might approach modeling data of this type is to use OLS to estimate a linear model. After all, the data seem quasi-continuous! Sometimes, this might be just fine, but let’s think about some situations where this could go awry.</p>
 <ul>
