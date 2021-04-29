@@ -835,7 +835,7 @@ resume <- read.csv("https://raw.githubusercontent.com/ktmccabe/teachingdata/main
 
 You can either keep all the variables or subset the dataframe to include only certain variables (recommended if you have a large number of columns) before generating a report, or indicate which variables to summarize through the `useVar` argument. If you have a LaTex distribution installed on your computer, the function will automatically generate a pdf report. You can set the `output` to a different format, such as in the below. Each time you develop a new report, you can save a particular `file =` name or add a `vol =` number.
 
-```{r, message=F, warning=F, eval=F, echo=F}
+```{r, message=F, warning=F, eval=F}
 library(dataReporter)
 
 ## pdf default when you have LaTex
