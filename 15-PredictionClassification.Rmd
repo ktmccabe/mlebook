@@ -14,6 +14,7 @@ Here, we are going to turn to the third goal above.
 
 Some supplemental resources for this section include the following R packages:
 
+  - I highly recommend this [online interactive course](https://supervised-ml-course.netlify.app/) (free- amazing!) from Jilia Silge which walks through a newer package, `tidymodels` similar to caret, that can apply several different types of machine learning models. It draws on the fundamentals covered in this section but adds more advanced techniques. Here is an additional detailed tutorial on this package [here](https://hansjoerg.me/2020/02/09/tidymodels-for-machine-learning/) and [here](https://www.r-bloggers.com/2020/03/machine-learning-with-tidymodels-2/).
   - `caret` [package](http://topepo.github.io/caret/index.html) and [presentation](https://www.r-project.org/conferences/useR-2013/Tutorials/kuhn/user_caret_2up.pdf}{presentation)
   - `RTextTools` (may or may not be updated) [here](https://cran.r-project.org/web/packages/RTextTools/index.html) and [here](https://journal.r-project.org/archive/2013-1/collingwood-jurka-boydstun-etal.pdf}{summary)
 
@@ -260,6 +261,8 @@ mean(accs)
 
 We've done it! If we are satisfied with this level of accuracy, we could stop here and apply our model with any new data. If we are not satisfied, we would start by building a new model and repeat the process.
 
+  - Note: this is actually probably a bad measure of accuracy for our case given the skew in our data. We are only accurate because the model is predicting no one will donate! Bad news for campaigns. How do we know this? By inspecting the confusion matrix. Our threshold of .5 was probably too high.
+
 
 ***Continuous Outcome***
 
@@ -286,7 +289,7 @@ How do I know which variables matter? Examples of more complex machine learning 
 Tradeoffs: Machine Learning as "black box"- see [here](https://towardsdatascience.com/the-black-box-metaphor-in-machine-learning-4e57a3a1d2b0)
 
 
-Here is a rough example using `caret` with one of these methods along with cross-validation. Be sure to look at the [documentation](https://cran.r-project.org/web/packages/caret/vignettes/caret.html) before using this in your own work.
+Here is a rough example using `caret` with one of these methods along with cross-validation. Be sure to look at the [documentation](https://cran.r-project.org/web/packages/caret/vignettes/caret.html) before using this in your own work. The performance metrics are described [here](https://topepo.github.io/caret/measuring-performance.html).
 ```{r, message=F, warning = F}
 library(caret)
 

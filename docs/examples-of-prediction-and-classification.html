@@ -629,6 +629,9 @@ actual     0     1
 <div class="sourceCode" id="cb929"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb929-1"><a href="examples-of-prediction-and-classification.html#cb929-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(accs)</span></code></pre></div>
 <pre><code>[1] 0.9640088</code></pre>
 <p>We’ve done it! If we are satisfied with this level of accuracy, we could stop here and apply our model with any new data. If we are not satisfied, we would start by building a new model and repeat the process.</p>
+<ul>
+<li>Note: this is actually probably a bad measure of accuracy for our case given the skew in our data. We are only accurate because the model is predicting no one will donate! Bad news for campaigns. How do we know this? By inspecting the confusion matrix. Our threshold of .5 was probably too high.</li>
+</ul>
 <p><strong><em>Continuous Outcome</em></strong></p>
 <p>Let’s now try an example with a continuous outcome: How much will someone donate to a Senator? One way to judge accuracy of a linear model is the root mean squared error</p>
 <p>One basic approach would be to use a linear regression model. Other than that, it’s the same process as before, but we will use a different assessment for accuracy.</p>
