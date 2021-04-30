@@ -285,7 +285,7 @@ Similar to the binary case, we can convert our estimates to probability, but her
 
 We will follow the formulas outlined above. For the top category (category 4 here) we have:
 
-  - $Pr(Y_i = C_4) = 1 - Pr(Y* \leq \zeta_{4-1} | X_i)$ where our estimate of $Y* = X\hat \beta$.
+  - $Pr(Y_i = C_4) = 1 - Pr(Y^* \leq \zeta_{4-1} | X_i)$ where our estimate of $Y* = X\hat \beta$.
 
 To calculate this we take $1 -$ `pnorm`$(\zeta_{4-1} - X\hat \beta)$
 
@@ -346,7 +346,7 @@ We recover that there is an 10 percentage point difference in probability of bei
 
 If we were interested in other categories, we could similarly compare probabilities within those. For example, what about category 3?
 
-  - Here we just apply a different formula from 8.2:  $Pr(Y_i = C_3) = Pr(Y* \leq \zeta_{3} | X_i) - Pr(Y* \leq \zeta_{2} | X_i) $ where our estimate of $Y* = X\hat \beta$.
+  - Here we just apply a different formula from 8.2:  $Pr(Y_i = C_3) = Pr(Y^* \leq \zeta_{3} | X_i) - Pr(Y^* \leq \zeta_{2} | X_i)$ where our estimate of $Y^* = X\hat \beta$.
 
 To calculate this we take `pnorm`$(\zeta_{3} - X\hat \beta)$ - `pnorm`$(\zeta_{2} - X\hat \beta)$
 
@@ -360,9 +360,42 @@ pp1.3
 pp0.3 <- pnorm(cutpoint3 - Xc%*%b) - pnorm(cutpoint2 - Xc%*%b)
 pp0.3
 
-pp1.3 - pp0.4
+pp1.3 - pp0.3
 ```
 These represent the estimated probabilities of being in category 3, or the estimated difference in probability of being in category 3 for the treatment vs. control condition.
+
+What about category 2 or category 1?
+
+<details> <summary>Try on your own, and then expand for the solution.</summary>
+
+  - Category 2: Here we just apply a different formula from 8.2:  $Pr(Y_i = C_2) = Pr(Y^* \leq \zeta_{2} | X_i) - Pr(Y^* \leq \zeta_{1} | X_i)$.
+  - Category 1: Here we just apply a different formula from 8.2:  $Pr(Y_i = C_1) = Pr(Y^* \leq \zeta_{1} | X_i)$.
+
+```{r}
+cutpoint1 <- fit$zeta[1]
+cutpoint2 <- fit$zeta[2]
+
+## category 2
+pp1.2 <- pnorm(cutpoint2 - Xt%*%b) - pnorm(cutpoint1 - Xt%*%b)
+pp1.2
+
+pp0.2 <- pnorm(cutpoint2 - Xc%*%b) - pnorm(cutpoint1 - Xc%*%b)
+pp0.2
+
+pp1.2 - pp0.2
+
+## category 1 (bottom category)
+pp1.1 <- pnorm(cutpoint1 - Xt%*%b)
+pp1.1
+
+pp0.1 <- pnorm(cutpoint1 - Xc%*%b) 
+pp0.1
+
+pp1.1 - pp0.1
+```
+
+
+</details>
 
 
 We can use our R shortcuts for all categories. Here, to make sure we are in probabilities, we can use `type="probs"`.
