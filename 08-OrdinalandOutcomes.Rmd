@@ -282,48 +282,120 @@ sqrt(diag(vcov(fit)))
 In discussing the results of Table 3 from the ordered probit analysis in the paper, the authors note, "A shift of .26 probits implies, for example, that a health group respondent with a 30\% chance of strongly agreeing to dissent would move to a 40\% chance if assigned to the reconciliation program group. This is a large, but not implausibly large, shift in opinion."
 
 Similar to the binary case, we can convert our estimates to probability, but here we will do it for specific categories. Let's first conduct an estimate of the difference in probability of being in the top category of dissent for those in the treatment - control conditions.
-```{r}
-## probability of being in top category
-cutpoint3 <- fit$zeta[3]
-X <- 1 # in treatment
-b <- coef(fit) # coefficient
-pp1 <- 1 - pnorm(cutpoint3 - X*b)
-X <- 0 # in control
-pp0 <- 1 - pnorm(cutpoint3 - X*b)
 
-## difference
-pp1 - pp0
+We will follow the formulas outlined above. For the top category (category 4 here) we have:
+
+  - $Pr(Y_i = C_4) = 1 - Pr(Y* \leq \zeta_{4-1} | X_i)$ where our estimate of $Y* = X\hat \beta$.
+
+To calculate this we take $1 -$ `pnorm`$(\zeta_{4-1} - X\hat \beta)$
+
+  - Note that we use `pnorm` because this is a probit model. If it were a logistic model, we would use `plogis` instead.
+  - We are estimating the probability that our observation is in category 4, when setting $X$ to particular values. In this case, we will estimate the probability when an observation is in the treatment or control group.
+
+Let's find $X$
+
+```{r}
+X <- model.matrix(fit)
+head(X)
+```
+Let's estimate the probability when someone is in the treatment group vs. control group. For this, we will set X to be 1 or 0. Because we only have one coefficient in our model, we actually don't need the entire matrix. For example, once we set `treat` to be 1, all observations (rows) are identical to each other:
+
+```{r}
+X[, "treat"] <- 1 # in treatment
+head(X)
+```
+So instead of estimating the outcome for every single row and then take the mean, we could just estimate the outcome for one row given that all rows are identical. In regressions where you have other covariates, those covariates will likely have different values, making the rows distinct. This is a special case where the below code would give identical results.
+
+```{r}
+Xt <- cbind(1,1) # A 1 for the intercept and 1 for the treatment
+Xc <- cbind(1,0) # A 1 for the intercept and 0 for the treatment (being in the control)
 ```
 
-We recover that there is an 10 percentage point difference in probability predicted for those in the treatment vs. control.
+By default, R will include an Intercept in the `model.matrix`. We actually do not want this when calculating ordinal regression quantities of interest because the cutpoints will be serving the purpose of the intercept. So we will remove this from $X$, but we will use `as.matrix()` to make sure R will still treat the object like a matrix.
+
+  - If you instead used the full $X$ matrix, the only extra step you would need to do is to take the `mean()` of the probability estimates below (e.g., the mean of `pp1.4`). See the practice problem solution in 8.5 for an example.
+
+```{r}
+X <- as.matrix(X[, -1])
+head(X)
+
+Xt <- as.matrix(Xt[, -1])
+Xt
+
+Xc <- as.matrix(Xc[, -1])
+Xc
+```
+  
+
+  
+```{r}
+## probability of being in top category
+cutpoint3 <- fit$zeta[3] # grab the top cutpoint J - 1, 4-1=3
+b <- coef(fit) # coefficients
+
+pp1.4 <- 1 - pnorm(cutpoint3 - Xt%*%b) # prob of top category for treatment
+pp1.4
+pp0.4 <- 1 - pnorm(cutpoint3 - Xc%*%b) # prob of top category for control
+pp0.4
+## difference
+pp1.4 - pp0.4
+```
+
+We recover that there is an 10 percentage point difference in probability of being in the top category of dissent, predicted for those in the treatment vs. control.
 
 
 If we were interested in other categories, we could similarly compare probabilities within those. For example, what about category 3?
 
+  - Here we just apply a different formula from 8.2:  $Pr(Y_i = C_3) = Pr(Y* \leq \zeta_{3} | X_i) - Pr(Y* \leq \zeta_{2} | X_i) $ where our estimate of $Y* = X\hat \beta$.
+
+To calculate this we take `pnorm`$(\zeta_{3} - X\hat \beta)$ - `pnorm`$(\zeta_{2} - X\hat \beta)$
+
 ```{r}
 cutpoint3 <- fit$zeta[3]
 cutpoint2 <- fit$zeta[2]
-X <- 1 # in treatment
-b <- coef(fit) # coefficient
-pp1 <- pnorm(cutpoint3 - X*b) - pnorm(cutpoint2 - X*b)
-X <- 0 # in control
-pp0 <- pnorm(cutpoint3 - X*b) - pnorm(cutpoint2 - X*b)
-pp1 - pp0
+
+pp1.3 <- pnorm(cutpoint3 - Xt%*%b) - pnorm(cutpoint2 - Xt%*%b)
+pp1.3
+
+pp0.3 <- pnorm(cutpoint3 - Xc%*%b) - pnorm(cutpoint2 - Xc%*%b)
+pp0.3
+
+pp1.3 - pp0.4
 ```
+These represent the estimated probabilities of being in category 3, or the estimated difference in probability of being in category 3 for the treatment vs. control condition.
+
 
 We can use our R shortcuts for all categories. Here, to make sure we are in probabilities, we can use `type="probs"`.
 
 ```{r}
 ## predict
 prs <- predict(fit, newdata = data.frame(treat = c(0,1)), type = "probs")
+prs
+```
+The first row shows the probability of being in each category (1 through 4) for the first entry for the treat variable (0), implying that the observation was in the control group. The second row does the same thing for when the treat variable is 1, implying that the observation was in the treatment group. These should match up with our manual calculations.
 
+
+The `prediction` package will also work to some extent, which is nice when you have covariates you want to hold at observed values. Note that we put whatever the names of the levels of our variables are. 
+
+  - It just so happens that in this case, both `treat` and our `dissent` outcomes have numbers for the categories. In other cases, you might have text as the category names, in which case you would enter those text values (e.g., "Somewhat Agree" or "Treatment condition") as the variable or category labels.
+```{r}
 ## Prediction
 library(prediction)
 ## specify which category
 outp <- prediction(fit, at = list(treat = c(0,1)), 
-                   category = 1)
+                   category = "4")
 summary(outp)$Prediction
 ```
+
+Finally, the `margins` package should also work in many cases. You can compare this output with the `pp1.4 - pp0.4` calculation from above.
+
+```{r}
+library(margins)
+marg.obj <- summary(margins(fit, variables = "treat", change = c(0, 1), 
+                            vce="bootstrap", category = "4"))
+marg.obj
+```
+
 
 How can we visualize the results?
 
@@ -643,51 +715,49 @@ What do they do? (focus on the right side for the out-party measure)
 
 ![](images/simas2.png)
 
-Let's estimate the probability of being in the lowest category for empathy values from 0 to 1 by .2 intervals. Let's set all covariates at their means.
+Let's estimate the probability of being in the lowest category for empathy values from 0 to 1 by .2 intervals. ***Let's set all covariates at their observed values.***
 
   - We could do this in `predict` or manually. We will do it manually for now.
 
 ```{r}
-## Set covariates to particular values
+## Set covariates to particular values (here, we hold at observed)
 X <- model.matrix(fit.empw2)
 X <- X[, -1] #remove intercept
-
-## Crude way to take means 
-## why might this be bad to do in practice?
-X.means <- colMeans(X)
-X.means["empconc"] <- 0
+X[,"empconc" ] <- 0
 
 # Find Xb and zeta
-# this piece [1:length(X.means)] makes sure we omit the zetas
-eta <- X.means %*% coef(fit.empw2)[1:length(X.means)]
+coef(fit.empw2)
+# this piece [1:ncol(X)] makes sure we omit the zetas
+# this is only necessary for svyolr. The polr function already omits zetas from coef()
+b <- coef(fit.empw2)[1:ncol(X)]
+eta <- X %*% b
 zeta <- fit.empw2$zeta
 
 ## Find Pr(lowest category)
-emp0 <- plogis(zeta[1] - eta)
+emp0 <- mean(plogis(zeta[1] - eta))
 emp0
 ```
 
 ```{r}
 ## Repeat for each value of empconc of interest
-X.means["empconc"] <- .2
+X[,"empconc"] <- .2
 # Find Xb and zeta
-eta <- X.means %*% coef(fit.empw2)[1:length(X.means)]
+eta <- X %*% coef(fit.empw2)[1:ncol(X)]
 zeta <- fit.empw2$zeta
 ## Find Pr(lowest category)
-plogis(zeta[1] - eta)
-emp2 <- plogis(zeta[1] - eta)
+emp2 <- mean(plogis(zeta[1] - eta))
 emp2
 ```
 
 ```{r}
 ## Or put it in a function to be faster
 findpr <- function(val){
-  X.means["empconc"] <- val
+  X[,"empconc"] <- val
   # Find Xb and zeta
-  eta <- X.means %*% coef(fit.empw2)[1:length(X.means)]
+  eta <- X %*% coef(fit.empw2)[1:ncol(X)]
   zeta <- fit.empw2$zeta
   ## Find Pr(lowest category)
-  pr <- plogis(zeta[1] - eta)
+  pr <- mean(plogis(zeta[1] - eta))
   return(pr)
 }
 ## Does it work? Test
@@ -715,29 +785,33 @@ We could add lines for all categories. We'll just add it to the function for now
 
 ```{r}
 findprall <- function(val){
-  X.means["empconc"] <- val
+  X[,"empconc"] <- val
   # Find Xb and zeta
-  eta <- X.means %*% coef(fit.empw2)[1:length(X.means)]
+  eta <- X %*% coef(fit.empw2)[1:ncol(X)]
   zeta <- fit.empw2$zeta
   ## Find Pr(7th lowest category)
-  pr7 <- 1 - plogis(zeta[6] - eta)
+  pr7 <- mean(1 - plogis(zeta[6] - eta))
   ## Find Pr(6th lowest category)
-  pr6 <- plogis(zeta[6] - eta) - plogis(zeta[5] - eta)
+  pr6 <- mean(plogis(zeta[6] - eta) - plogis(zeta[5] - eta))
   ## Find Pr(5th lowest category)
-  pr5 <- plogis(zeta[5] - eta) - plogis(zeta[4] - eta)
+  pr5 <- mean(plogis(zeta[5] - eta) - plogis(zeta[4] - eta))
   ## Find Pr(4th lowest category)
-  pr4 <- plogis(zeta[4] - eta) - plogis(zeta[3] - eta)
+  pr4 <- mean(plogis(zeta[4] - eta) - plogis(zeta[3] - eta))
   ## Find Pr(3rd lowest category)
-  pr3 <- plogis(zeta[3] - eta) - plogis(zeta[2] - eta)
+  pr3 <- mean(plogis(zeta[3] - eta) - plogis(zeta[2] - eta))
   ## Find Pr(2nd lowest category)
-  pr2 <- plogis(zeta[2] - eta) - plogis(zeta[1] - eta)
+  pr2 <- mean(plogis(zeta[2] - eta) - plogis(zeta[1] - eta))
   ## Find Pr(lowest category)
-  pr1 <- plogis(zeta[1] - eta)
+  pr1 <- mean(plogis(zeta[1] - eta))
   return(c(pr1, pr2, pr3, pr4, pr5, pr6, pr7))
 }
 ## Repeat for all values of empathy
 emp.prsall <- sapply(seq(0, 1, .2), findprall)
 ```
+A note on the survey weights:
+
+  - When we take the `mean()` of our estimates for each observation, we are treating each row of our $X$ matrix as if it should have equal weight in this mean. This is normally fine, but with weighted data, we might instead want to weight the mean, according to the survey weights we used in our regression. The function `weighted.mean` can facilitate this. Either approach is valid, but you may want to remember this distinction and the possibility that you could even incorporate the survey weights at this final stage.
+
 
 
 We can add these lines to the plot. Yikes! A bit messy. You can see why they focus on the first category only.
@@ -761,5 +835,23 @@ legend("topleft",  lty=1:7, c("Very Unfav", "2", "3", "4", "5", "6", "Very Fav")
 ```
 
 
-A last step would be to calculate uncertainty. Just like before, we could use simulation or the bootstrap method.
+A last step would be to calculate uncertainty. Just like before, we could use simulation or the bootstrap method. In the bootstrap method, the manual calculations would be the "meat" of the bootstrap function that you used in the previous course notes section.
+
+A special note: The `svyolr` function does not appear compatible with the `prediction` function. As an alternative, we could fit the `polr` model with an extra argument for weights. These should produce the same coefficient estimates, though the standard errors might be incorrect. You could potentially use this to generate the raw probability estimates. See for example, estimates for being in category 1 below:
+
+```{r}
+fit.emp2 <- polr(outfav ~ empconc + empdist + emppers + empfant +
+                  + pidext + ideoext + news + dem +
+                  as.numeric(educ) + age + male + white + factor(inc3miss),
+                data=emp, Hess=T, method="logistic", weights = emp$weight_group)
+summary(fit.emp2)
+
+preds <- prediction(fit.emp2, at=list(empconc = seq(0,1,.2)), category=1)
+round(summary(preds), digits=3)
+
+## Compare with the manual approach
+round(emp.prsall[1,], digits=3) # category 1
+```
+
+
 
