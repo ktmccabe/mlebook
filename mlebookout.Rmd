@@ -1,3 +1,361 @@
+---
+title: "MLE for Political Science"
+author: "Instructor: Katie McCabe"
+site: bookdown::bookdown_site
+documentclass: book
+output:
+  bookdown::gitbook:
+    dev: svglite
+    css: css/style.css
+    split_by: section
+    split_bib: true
+    number_sections: true
+---
+---
+title: "MLE for Political Science"
+author: "Instructor: Katie McCabe"
+site: bookdown::bookdown_site
+documentclass: book
+output:
+  bookdown::gitbook:
+    dev: svglite
+    css: css/style.css
+    split_by: section
+    split_bib: true
+    number_sections: true
+---
+
+# Course Overview
+
+This document will include important links and course notes for 16:790:677:01: Maximum Likelihood Estimation.
+
+  - This webpage will be updated throughout the semester with new content. This initial content in Sections 2 and 3 is optional, but encouraged, and includes tutorials and resources for basics in R and mathematical concepts used in the course. Material introduced in the course will assume some familiarity with these concepts. I recommend you go through on your own leading up to and during the first week of the course. You can then always return to it throughout the course and beyond. I always have to return to it because I don't often keep the special rules of logarithms and derivatives in my working memory.
+  - Sprinkled throughout this document are links to additional resources that might provide more in-depth explanations of a given topic. In particular, several of the sections have benefited from previous materials developed by Kosuke Imai and the book [Quantitative Social Science](https://qss.princeton.press/), Chris Bail and [SICSS](https://sicss.io/), Marc Ratkovic, In Song Kim, Will Lowe, and others.
+  - This is a new and living document. If you spot errors or have questions or suggestions, please email me at k.mccabe@rutgers.edu.
+
+<!-- If you need PDF output, uncomment bookdown::pdf_book above in YAML. You will need a LaTeX installation, e.g., https://yihui.name/tinytex/ -->
+
+<!-- Instructions: https://ontheline.trincoll.edu/bookdown.html -->
+
+<!--chapter:end:index.Rmd-->
+
+
+# R Overview {#rover}
+
+Placeholder
+
+
+## First Time with R and RStudio
+### **Open RStudio**
+### **Using R as a Calculator**
+### **Working in an R Script**
+### **Preparing your R script**
+### **Executing Commands in your R script**
+### **Objects**
+### **Practice** 
+## Tutorials
+## Data Wrangling
+### Dealing with Uninformative Variable Names
+### Dealing with Missing Data
+### Dealing with Variable Codings that Aren't Quite Right
+### Dealing with Incomplete Data (Merging!)
+### Dealing with Poorly Shaped Data
+### Subsetting data by rows and columns
+### Visualizing Data
+### Reproducing your steps
+## Tools for writing up results
+### R Markdown
+### LaTex
+### Formatting and Exporting R Results
+### Additional formatting examples
+### Additional Table Types
+## Exploratory Data Analysis Tools
+
+<!--chapter:end:02-ROverview.Rmd-->
+
+
+# The MATH {#math}
+
+Placeholder
+
+
+## Mathematical Operations
+### **Order of Operations**
+### **Exponents**
+### **Summations and Products**
+### **Logarithms**
+## Mathematical Operations in R
+### PEMDAS
+### Exponents
+### Summations
+### Logarithms
+## Derivatives
+### **Derivatives** 
+### **Critical Points for Minima or Maxima** 
+### **Common Derivative Rules** 
+## Vectors and Matrices
+### **Matrix Basics**
+### Matrix Operations
+## Additional Matrix Tidbits that Will Come Up
+### **Transpose**
+### **Additional Matrix Properties and Rules**
+### **Matrix Rules**
+### **Derivatives with Matrices and Vectors**
+## Practice Problems
+### Practice Problem Solutions
+
+<!--chapter:end:03-TheMATH.Rmd-->
+
+
+# Review of OLS {#ols}
+
+Placeholder
+
+
+## Introducing OLS Regression 
+## Diving Deeper into OLS Matrix Representation
+### Estimating the Coefficients
+## OLS Regression in R
+### Example: Predicting Current Election Votes from Past Election Votes
+### Plotting Regression Results
+### Finding Coefficients without `lm`
+### OLS Practice Problems
+### Code for solutions
+## Week 1 Thursday Tutorial
+## Uncertainty and Regression
+### Variance of the Coefficients
+### Hypothesis Testing
+### Goodness of Fit
+## Generating predictions from regression models
+## Wrapping up OLS
+### Practice Problems
+### Practice Problem Code for Solutions
+## Week 2 Thursday Example
+
+<!--chapter:end:04-ReviewofOLS.Rmd-->
+
+
+# Introduction to MLE {#mle}
+
+Placeholder
+
+
+## What is likelihood?
+### Summarizing Steps for Maximum Likelihood
+## Generalized Linear Models
+### GLM Model.
+### Linking likelihood and the GLM
+### GLM in R
+## MLE Estimation 
+### Deriving Estimators 
+### Score function
+### Hessian and Information Matrix
+### MLE Estimation Algorithm
+## MLE Properties
+### Hypothesis Tests
+### Model Output in R
+
+<!--chapter:end:05-IntrotoMaximumLikelihood.Rmd-->
+
+
+# Binary Dependent Variables {#binary}
+
+Placeholder
+
+
+## Data Generating Process
+### MLE Estimation
+## R code for fitting logistic regression
+### Writing down the regression model
+## Probit Regression
+## To logit or to probit?
+## Latent propensity representation
+## Linear Probability Models
+## Week 3 Tutorial
+### Loading data and fitting glm
+### Numeric Optimization
+### Predicted Probabilities
+
+<!--chapter:end:06-BinaryOutcomes.Rmd-->
+
+
+# Quantities of Interest {#qoi}
+
+Placeholder
+
+
+## Using the response functions to generate quantities of interest
+## QOI at Designated Values
+### Marginal Effects
+### Marginal effects at the mean
+### Marginal effects at representative values
+### Average marginal effects 
+### `prediction` and `margins` packages.
+### QOI Practice Problems
+## Uncertainty
+### Bootstrapping
+### Simulated Confidence Intervals
+## Visualizing Results
+## Additional R shortcuts
+### Prediction
+### Margins
+### Zelig
+### Using `expand.grid`
+## Week 4 Tutorial 
+## Putting everything together
+
+<!--chapter:end:07-QuantitiesofInterest.Rmd-->
+
+
+# Ordinal Outcomes {#ordinal}
+
+Placeholder
+
+
+## Ordinal Outcome Data
+### Ordinal Model
+### Interpretation
+## Likelihood Framework 
+### Likelihood
+## Fitting Ordinal Models in R
+### Quantities of Interest
+## Assumptions
+## Ordinal Practice Problems
+### A note on robust standard errors
+## Week 6 Tutorial
+
+<!--chapter:end:08-OrdinalandOutcomes.Rmd-->
+
+
+# Multinomial Outcomes {#ml}
+
+Placeholder
+
+
+## Overview of Nominal Data
+### Multinomial Likelihood
+## Motivating Example
+### Assumption and Considerations
+### Key Assumption: Independence of Irrelevant Alternatives
+## Running multinomial logit in R
+### Multinomial Quantities of Interest
+## Practice Problems for Multinomial
+## Week 7 Tutorial
+
+<!--chapter:end:09-NominalOutcomes.Rmd-->
+
+
+# Count data {#count}
+
+Placeholder
+
+
+## Overview of Count Data
+## Poisson Model
+## Motivating Example for Count Data
+### Fitting Poisson in R
+### Interpreting regression output
+## Poisson Quantities of Interest
+### Expected Counts
+### Sidenote: Multiplicative coefficient interpretation
+### Incidence Rate Ratios
+### Where Poisson is poisonous:
+## Quasipoisson and Negative Binomial Models
+### Negative Binomial Models
+## Count data practice problems
+## Week 8 Tutorial
+## Additional Considerations
+### Offset
+## How to think about Zero Counts
+### Hurdle Models
+### Zero Inflated Poisson/Negative binomial
+
+<!--chapter:end:10-CountData.Rmd-->
+
+
+# Sample Selection Models {#selection}
+
+Placeholder
+
+
+## Sample Selection
+### How do we go about estimating this? 
+### Sample Selection Model Assumptions
+## Fitting Sample Selection in R
+## Heckman Example Using Survey Data
+## Tobit Model aka Censored regression model
+### Tobit Model Assumptions
+## Truncated Models
+
+<!--chapter:end:11-SampleSelection.Rmd-->
+
+
+# Panel and Hierarchical Data {#hier}
+
+Placeholder
+
+
+## Week 10 Tutorial
+## Panel and Hierarchical Data
+## Fixed Effects
+### Within-Estimator 
+### Least Squares Dummy Variable Regression
+### Fixed Effects Implementation in R
+### Standard errors with fixed effects
+## Additional considerations for fixed effects
+### Binary dependent variables
+### Two-way fixed effects
+### First Differences
+### Additional Models in R
+## Random Effects
+### Random effects models
+### Random Effects Implementation in R
+### Using lme4 for random effects
+### Random Effects Extensions
+### Extracting lmer output
+### Generating predicted values for each unit
+### Week 11 Tutorial
+### Generalized LMER
+## Summing Up
+## Week 12 Exercise
+
+<!--chapter:end:12-PanelData.Rmd-->
+
+
+# Survey Data {#survey}
+
+Placeholder
+
+
+## What's the fuss?
+### Weighting Surveys
+### Broad Types of Survey Sampling Techniques
+## Survey R package
+### Examples of specifying svydesigns
+### Working with survey designs
+### Why do we need the `survey` package? 
+## Constructing your own weights
+
+<!--chapter:end:13-SurveyData.Rmd-->
+
+
+# Survival Data {#survival}
+
+Placeholder
+
+
+## Survival Overview
+### Survival and hazard functions
+### Censoring
+## Kaplan-Meier Survival Function
+### Kaplan-Meier in R
+## Modeling Approaches
+### Survival Models in R
+### Weibull Model
+### Cox proportional Hazards Model
+
+<!--chapter:end:14-SurvivalData.Rmd-->
+
 # Prediction and Classification {#predict}
 
 This section will provide a brief introduction to tools related to the goals of prediction and classification. 
@@ -313,4 +671,7 @@ mod_fit
 
 There are nearly countless ways to use machine learning. See [here](http://topepo.github.io/caret/train-models-by-tag.html).
 
+
+
+<!--chapter:end:15-PredictionClassification.Rmd-->
 
