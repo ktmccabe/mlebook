@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>10.7 Week 8 Tutorial | MLE for Political Science</title>
   <meta name="description" content="10.7 Week 8 Tutorial | MLE for Political Science" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="10.7 Week 8 Tutorial | MLE for Political Science" />
   <meta property="og:type" content="book" />
@@ -32,8 +32,9 @@
   
 <link rel="prev" href="count-data-practice-problems.html"/>
 <link rel="next" href="additional-considerations.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,7 +50,8 @@
 
 
 
-
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <link href="libs/vembedr-0.1.4/css/vembedr.css" rel="stylesheet" />
 
 
@@ -57,6 +59,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -116,6 +119,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
@@ -229,7 +233,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.6" data-path="generating-predictions-from-regression-models.html"><a href="generating-predictions-from-regression-models.html"><i class="fa fa-check"></i><b>4.6</b> Generating predictions from regression models</a></li>
 <li class="chapter" data-level="4.7" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html"><i class="fa fa-check"></i><b>4.7</b> Wrapping up OLS</a>
 <ul>
-<li class="chapter" data-level="4.7.1" data-path="practice-problems.html"><a href="practice-problems.html#practice-problems"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
+<li class="chapter" data-level="4.7.1" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problems-1"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
 <li class="chapter" data-level="4.7.2" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problem-code-for-solutions"><i class="fa fa-check"></i><b>4.7.2</b> Practice Problem Code for Solutions</a></li>
 </ul></li>
 <li class="chapter" data-level="4.8" data-path="week-2-thursday-example.html"><a href="week-2-thursday-example.html"><i class="fa fa-check"></i><b>4.8</b> Week 2 Thursday Example</a></li>
@@ -263,7 +267,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="6.1" data-path="data-generating-process.html"><a href="data-generating-process.html"><i class="fa fa-check"></i><b>6.1</b> Data Generating Process</a>
 <ul>
-<li class="chapter" data-level="6.1.1" data-path="mle-estimation.html"><a href="mle-estimation.html#mle-estimation"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
+<li class="chapter" data-level="6.1.1" data-path="data-generating-process.html"><a href="data-generating-process.html#mle-estimation-1"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="r-code-for-fitting-logistic-regression.html"><a href="r-code-for-fitting-logistic-regression.html"><i class="fa fa-check"></i><b>6.2</b> R code for fitting logistic regression</a>
 <ul>
@@ -466,7 +470,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="15.1.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html#how-to-predict-or-classify"><i class="fa fa-check"></i><b>15.1.1</b> How to predict or classify</a></li>
 </ul></li>
-<li class="chapter" data-level="15.2" data-path="in-sample-vs-out-of-sample.html"><a href="in-sample-vs-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
+<li class="chapter" data-level="15.2" data-path="in-sample-vs.-out-of-sample.html"><a href="in-sample-vs.-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
 <li class="chapter" data-level="15.3" data-path="cross-validation.html"><a href="cross-validation.html"><i class="fa fa-check"></i><b>15.3</b> Cross-Validation</a>
 <ul>
 <li class="chapter" data-level="15.3.1" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>15.3.1</b> k-fold cross-validation</a></li>
@@ -502,64 +506,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Key independent variables include <code>party</code>,<code>ideology</code> (factor), <code>age</code> (factor), <code>female</code>, <code>black</code>, <code>educ</code>, <code>faminc</code>, <code>num_posts</code></li>
 </ul>
 <p>Let’s load the data and look at the outcome.</p>
-<div class="sourceCode" id="cb724"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb724-1"><a href="week-8-tutorial.html#cb724-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
-<span id="cb724-2"><a href="week-8-tutorial.html#cb724-2" aria-hidden="true" tabindex="-1"></a>fake <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/sciencerep.RData?raw=true&quot;</span>)</span>
-<span id="cb724-3"><a href="week-8-tutorial.html#cb724-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb724-4"><a href="week-8-tutorial.html#cb724-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(fake<span class="sc">$</span>num_fake_shares)</span></code></pre></div>
+<div class="sourceCode" id="cb774"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb774-1"><a href="week-8-tutorial.html#cb774-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
+<span id="cb774-2"><a href="week-8-tutorial.html#cb774-2" aria-hidden="true" tabindex="-1"></a>fake <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/sciencerep.RData?raw=true&quot;</span>)</span>
+<span id="cb774-3"><a href="week-8-tutorial.html#cb774-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb774-4"><a href="week-8-tutorial.html#cb774-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(fake<span class="sc">$</span>num_fake_shares)</span></code></pre></div>
 <pre><code>
    0    1    2    3    4    5    6    7    8    9   10   12   13   25   50 
 1090   63   12    8    5    1    1    2    1    2    2    1    1    1    1 </code></pre>
 <p>It looks like our data are a count. Let’s try to visualize this distribution in a histogram. How would you describe this distribution?</p>
-<div class="sourceCode" id="cb726"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb726-1"><a href="week-8-tutorial.html#cb726-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb726-2"><a href="week-8-tutorial.html#cb726-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fake, <span class="fu">aes</span>(num_fake_shares))<span class="sc">+</span></span>
-<span id="cb726-3"><a href="week-8-tutorial.html#cb726-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">50</span>)<span class="sc">+</span></span>
-<span id="cb726-4"><a href="week-8-tutorial.html#cb726-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span> </span>
-<span id="cb726-5"><a href="week-8-tutorial.html#cb726-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Distribution of Fake News Shares&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb726-6"><a href="week-8-tutorial.html#cb726-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Number of respondents&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb726-7"><a href="week-8-tutorial.html#cb726-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Number of fake news stories shared&quot;</span>)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-325-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb776"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb776-1"><a href="week-8-tutorial.html#cb776-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb776-2"><a href="week-8-tutorial.html#cb776-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fake, <span class="fu">aes</span>(num_fake_shares))<span class="sc">+</span></span>
+<span id="cb776-3"><a href="week-8-tutorial.html#cb776-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">50</span>)<span class="sc">+</span></span>
+<span id="cb776-4"><a href="week-8-tutorial.html#cb776-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span> </span>
+<span id="cb776-5"><a href="week-8-tutorial.html#cb776-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Distribution of Fake News Shares&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb776-6"><a href="week-8-tutorial.html#cb776-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Number of respondents&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb776-7"><a href="week-8-tutorial.html#cb776-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Number of fake news stories shared&quot;</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-333-1.svg" width="672" /></p>
 <details>
 <summary>
 To filter the histogram by party like Fig. 1 in the paper, expand.
 </summary>
-<div class="sourceCode" id="cb727"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb727-1"><a href="week-8-tutorial.html#cb727-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb727-2"><a href="week-8-tutorial.html#cb727-2" aria-hidden="true" tabindex="-1"></a>fakesub <span class="ot">&lt;-</span> <span class="fu">subset</span>(fake, party <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Democrat&quot;</span>, <span class="st">&quot;Republican&quot;</span>, <span class="st">&quot;Independent&quot;</span>))</span>
-<span id="cb727-3"><a href="week-8-tutorial.html#cb727-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fakesub, <span class="fu">aes</span>(num_fake_shares, <span class="at">fill=</span>party))<span class="sc">+</span></span>
-<span id="cb727-4"><a href="week-8-tutorial.html#cb727-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">50</span>)<span class="sc">+</span></span>
-<span id="cb727-5"><a href="week-8-tutorial.html#cb727-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span> </span>
-<span id="cb727-6"><a href="week-8-tutorial.html#cb727-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Distribution of Fake News Shares&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb727-7"><a href="week-8-tutorial.html#cb727-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Number of respondents&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb727-8"><a href="week-8-tutorial.html#cb727-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="st">&quot;&quot;</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;darkgray&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb727-9"><a href="week-8-tutorial.html#cb727-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Number of fake news stories shared&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb727-10"><a href="week-8-tutorial.html#cb727-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="at">legend.title =</span> <span class="fu">element_blank</span>()) </span></code></pre></div>
+<div class="sourceCode" id="cb777"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb777-1"><a href="week-8-tutorial.html#cb777-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb777-2"><a href="week-8-tutorial.html#cb777-2" aria-hidden="true" tabindex="-1"></a>fakesub <span class="ot">&lt;-</span> <span class="fu">subset</span>(fake, party <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Democrat&quot;</span>, <span class="st">&quot;Republican&quot;</span>, <span class="st">&quot;Independent&quot;</span>))</span>
+<span id="cb777-3"><a href="week-8-tutorial.html#cb777-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fakesub, <span class="fu">aes</span>(num_fake_shares, <span class="at">fill=</span>party))<span class="sc">+</span></span>
+<span id="cb777-4"><a href="week-8-tutorial.html#cb777-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">50</span>)<span class="sc">+</span></span>
+<span id="cb777-5"><a href="week-8-tutorial.html#cb777-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span> </span>
+<span id="cb777-6"><a href="week-8-tutorial.html#cb777-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Distribution of Fake News Shares&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb777-7"><a href="week-8-tutorial.html#cb777-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Number of respondents&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb777-8"><a href="week-8-tutorial.html#cb777-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="st">&quot;&quot;</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;darkgray&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb777-9"><a href="week-8-tutorial.html#cb777-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Number of fake news stories shared&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb777-10"><a href="week-8-tutorial.html#cb777-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="at">legend.title =</span> <span class="fu">element_blank</span>()) </span></code></pre></div>
 <pre><code>Warning: Removed 1499 rows containing non-finite values (stat_bin).</code></pre>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-326-1.svg" width="672" /></p>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-334-1.svg" width="672" /></p>
 </details>
 <p>Let’s say we were interested in exploring the relationship between age and the number of fake news posts. It can always be useful to conduct more descriptive or exploratory analysis before hitting the heavy machinery. For example, the authors look at the average number of fake news posts shared by age group in Figure 2. We can do the same. Ours will look a little different because it’s unweighted:</p>
-<div class="sourceCode" id="cb729"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb729-1"><a href="week-8-tutorial.html#cb729-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Base r version</span></span>
-<span id="cb729-2"><a href="week-8-tutorial.html#cb729-2" aria-hidden="true" tabindex="-1"></a>meansbyage <span class="ot">&lt;-</span> <span class="fu">tapply</span>(fake<span class="sc">$</span>num_fake_shares, fake<span class="sc">$</span>age, mean, <span class="at">na.rm=</span>T)</span>
-<span id="cb729-3"><a href="week-8-tutorial.html#cb729-3" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(meansbyage, </span>
-<span id="cb729-4"><a href="week-8-tutorial.html#cb729-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Age and Fake News Shares&quot;</span>,</span>
-<span id="cb729-5"><a href="week-8-tutorial.html#cb729-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab=</span> <span class="st">&quot;Mean number of fake news stories shared&quot;</span>,</span>
-<span id="cb729-6"><a href="week-8-tutorial.html#cb729-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab=</span><span class="st">&quot;Age group&quot;</span>,</span>
-<span id="cb729-7"><a href="week-8-tutorial.html#cb729-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,.<span class="dv">6</span>),</span>
-<span id="cb729-8"><a href="week-8-tutorial.html#cb729-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">col=</span><span class="st">&quot;black&quot;</span>)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-327-1.svg" width="672" /></p>
-<div class="sourceCode" id="cb730"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb730-1"><a href="week-8-tutorial.html#cb730-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ggplot version</span></span>
-<span id="cb730-2"><a href="week-8-tutorial.html#cb730-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb730-3"><a href="week-8-tutorial.html#cb730-3" aria-hidden="true" tabindex="-1"></a>fake <span class="sc">%&gt;%</span> </span>
-<span id="cb730-4"><a href="week-8-tutorial.html#cb730-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(age)) <span class="sc">%&gt;%</span> </span>
-<span id="cb730-5"><a href="week-8-tutorial.html#cb730-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(age) <span class="sc">%&gt;%</span> </span>
-<span id="cb730-6"><a href="week-8-tutorial.html#cb730-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_fakes =</span> <span class="fu">mean</span>(num_fake_shares, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb730-7"><a href="week-8-tutorial.html#cb730-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>mean_fakes)) <span class="sc">+</span> </span>
-<span id="cb730-8"><a href="week-8-tutorial.html#cb730-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
-<span id="cb730-9"><a href="week-8-tutorial.html#cb730-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Age and Fake News Shares&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb730-10"><a href="week-8-tutorial.html#cb730-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Mean number of fake news stories shared&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb730-11"><a href="week-8-tutorial.html#cb730-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Age group&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb730-12"><a href="week-8-tutorial.html#cb730-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, .<span class="dv">6</span>)<span class="sc">+</span></span>
-<span id="cb730-13"><a href="week-8-tutorial.html#cb730-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
-<pre><code>`summarise()` ungrouping output (override with `.groups` argument)</code></pre>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-327-2.svg" width="672" /></p>
+<div class="sourceCode" id="cb779"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb779-1"><a href="week-8-tutorial.html#cb779-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Base r version</span></span>
+<span id="cb779-2"><a href="week-8-tutorial.html#cb779-2" aria-hidden="true" tabindex="-1"></a>meansbyage <span class="ot">&lt;-</span> <span class="fu">tapply</span>(fake<span class="sc">$</span>num_fake_shares, fake<span class="sc">$</span>age, mean, <span class="at">na.rm=</span>T)</span>
+<span id="cb779-3"><a href="week-8-tutorial.html#cb779-3" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(meansbyage, </span>
+<span id="cb779-4"><a href="week-8-tutorial.html#cb779-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Age and Fake News Shares&quot;</span>,</span>
+<span id="cb779-5"><a href="week-8-tutorial.html#cb779-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab=</span> <span class="st">&quot;Mean number of fake news stories shared&quot;</span>,</span>
+<span id="cb779-6"><a href="week-8-tutorial.html#cb779-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab=</span><span class="st">&quot;Age group&quot;</span>,</span>
+<span id="cb779-7"><a href="week-8-tutorial.html#cb779-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,.<span class="dv">6</span>),</span>
+<span id="cb779-8"><a href="week-8-tutorial.html#cb779-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">col=</span><span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-335-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb780"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb780-1"><a href="week-8-tutorial.html#cb780-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ggplot version</span></span>
+<span id="cb780-2"><a href="week-8-tutorial.html#cb780-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb780-3"><a href="week-8-tutorial.html#cb780-3" aria-hidden="true" tabindex="-1"></a>fake <span class="sc">%&gt;%</span> </span>
+<span id="cb780-4"><a href="week-8-tutorial.html#cb780-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(age)) <span class="sc">%&gt;%</span> </span>
+<span id="cb780-5"><a href="week-8-tutorial.html#cb780-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(age) <span class="sc">%&gt;%</span> </span>
+<span id="cb780-6"><a href="week-8-tutorial.html#cb780-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_fakes =</span> <span class="fu">mean</span>(num_fake_shares, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb780-7"><a href="week-8-tutorial.html#cb780-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>mean_fakes)) <span class="sc">+</span> </span>
+<span id="cb780-8"><a href="week-8-tutorial.html#cb780-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb780-9"><a href="week-8-tutorial.html#cb780-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Age and Fake News Shares&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb780-10"><a href="week-8-tutorial.html#cb780-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Mean number of fake news stories shared&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb780-11"><a href="week-8-tutorial.html#cb780-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Age group&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb780-12"><a href="week-8-tutorial.html#cb780-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, .<span class="dv">6</span>)<span class="sc">+</span></span>
+<span id="cb780-13"><a href="week-8-tutorial.html#cb780-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-335-2.svg" width="672" /></p>
 <ol style="list-style-type: decimal">
 <li>Let’s move to a regression approach to study this relationship. How could we model this relationship? What are the pros and cons of each approach?
 <ul>
@@ -592,12 +595,12 @@ Recall that for our primary count models, the regression equation is of the form
 Expand for details.
 </summary>
 <p>We will fit a quasipoisson following the authors. Note: they apply survey weights through the weights function. You could also use the <code>survey</code> package for this. For now, we will follow the approach of the authors.</p>
-<div class="sourceCode" id="cb732"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb732-1"><a href="week-8-tutorial.html#cb732-1" aria-hidden="true" tabindex="-1"></a>model1.qp <span class="ot">&lt;-</span> <span class="fu">glm</span>(num_fake_shares <span class="sc">~</span> ideology <span class="sc">+</span> age <span class="sc">+</span> female <span class="sc">+</span> black <span class="sc">+</span> educ <span class="sc">+</span> faminc, </span>
-<span id="cb732-2"><a href="week-8-tutorial.html#cb732-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">weights =</span> weight_svypop_w3, </span>
-<span id="cb732-3"><a href="week-8-tutorial.html#cb732-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> fake, </span>
-<span id="cb732-4"><a href="week-8-tutorial.html#cb732-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="st">&quot;quasipoisson&quot;</span>)</span>
-<span id="cb732-5"><a href="week-8-tutorial.html#cb732-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb732-6"><a href="week-8-tutorial.html#cb732-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1.qp)</span></code></pre></div>
+<div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb781-1"><a href="week-8-tutorial.html#cb781-1" aria-hidden="true" tabindex="-1"></a>model1.qp <span class="ot">&lt;-</span> <span class="fu">glm</span>(num_fake_shares <span class="sc">~</span> ideology <span class="sc">+</span> age <span class="sc">+</span> female <span class="sc">+</span> black <span class="sc">+</span> educ <span class="sc">+</span> faminc, </span>
+<span id="cb781-2"><a href="week-8-tutorial.html#cb781-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">weights =</span> weight_svypop_w3, </span>
+<span id="cb781-3"><a href="week-8-tutorial.html#cb781-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> fake, </span>
+<span id="cb781-4"><a href="week-8-tutorial.html#cb781-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="st">&quot;quasipoisson&quot;</span>)</span>
+<span id="cb781-5"><a href="week-8-tutorial.html#cb781-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb781-6"><a href="week-8-tutorial.html#cb781-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1.qp)</span></code></pre></div>
 <pre><code>
 Call:
 glm(formula = num_fake_shares ~ ideology + age + female + black + 
@@ -634,8 +637,8 @@ AIC: NA
 
 Number of Fisher Scoring iterations: 7</code></pre>
 <p>What was the form of the regression model?</p>
-<div class="sourceCode" id="cb734"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb734-1"><a href="week-8-tutorial.html#cb734-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(equatiomatic)</span>
-<span id="cb734-2"><a href="week-8-tutorial.html#cb734-2" aria-hidden="true" tabindex="-1"></a>equatiomatic<span class="sc">::</span><span class="fu">extract_eq</span>(model1.qp, <span class="at">wrap=</span>T, <span class="at">terms_per_line =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb783-1"><a href="week-8-tutorial.html#cb783-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(equatiomatic)</span>
+<span id="cb783-2"><a href="week-8-tutorial.html#cb783-2" aria-hidden="true" tabindex="-1"></a>equatiomatic<span class="sc">::</span><span class="fu">extract_eq</span>(model1.qp, <span class="at">wrap=</span>T, <span class="at">terms_per_line =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><span class="math display">\[
 \begin{aligned}
 \log ({ E( \operatorname{num_fake_shares} ) })  &amp;= \alpha + \beta_{1}(\operatorname{ideology}_{\operatorname{Very\ liberal}})\ + \\
@@ -649,15 +652,15 @@ Number of Fisher Scoring iterations: 7</code></pre>
 \]</span></p>
 <p>We could have fit a regular poisson model. In that model, the dispersion paramter is taken to be 1, such that the conditional mean and variance are equivalent. In contrast, the quasipoisson accounts for the possibility that the variance is greater.</p>
 <p>Let’s see how much of an issue this is.</p>
-<div class="sourceCode" id="cb735"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb735-1"><a href="week-8-tutorial.html#cb735-1" aria-hidden="true" tabindex="-1"></a>model1.p <span class="ot">&lt;-</span> <span class="fu">glm</span>(num_fake_shares <span class="sc">~</span> ideology <span class="sc">+</span> age <span class="sc">+</span> female <span class="sc">+</span> black <span class="sc">+</span> educ <span class="sc">+</span> faminc, </span>
-<span id="cb735-2"><a href="week-8-tutorial.html#cb735-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">weights =</span> weight_svypop_w3, </span>
-<span id="cb735-3"><a href="week-8-tutorial.html#cb735-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> fake, </span>
-<span id="cb735-4"><a href="week-8-tutorial.html#cb735-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="st">&quot;poisson&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb784"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb784-1"><a href="week-8-tutorial.html#cb784-1" aria-hidden="true" tabindex="-1"></a>model1.p <span class="ot">&lt;-</span> <span class="fu">glm</span>(num_fake_shares <span class="sc">~</span> ideology <span class="sc">+</span> age <span class="sc">+</span> female <span class="sc">+</span> black <span class="sc">+</span> educ <span class="sc">+</span> faminc, </span>
+<span id="cb784-2"><a href="week-8-tutorial.html#cb784-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">weights =</span> weight_svypop_w3, </span>
+<span id="cb784-3"><a href="week-8-tutorial.html#cb784-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> fake, </span>
+<span id="cb784-4"><a href="week-8-tutorial.html#cb784-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="st">&quot;poisson&quot;</span>)</span></code></pre></div>
 <p>We can conduct a test of overdispersion in our model using <code>dispersiontest</code>. If we have a significant result and a dispersion constant <span class="math inline">\(&gt;\)</span> 0, this would suggest overdispersion. What should we conclude? What are the implications?</p>
-<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb736-1"><a href="week-8-tutorial.html#cb736-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER)</span>
-<span id="cb736-2"><a href="week-8-tutorial.html#cb736-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dispersiontest</span>(model1.p)</span></code></pre></div>
+<div class="sourceCode" id="cb785"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb785-1"><a href="week-8-tutorial.html#cb785-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER)</span>
+<span id="cb785-2"><a href="week-8-tutorial.html#cb785-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dispersiontest</span>(model1.p)</span></code></pre></div>
 <pre><code>
-	Overdispersion test
+    Overdispersion test
 
 data:  model1.p
 z = 2.9334, p-value = 0.001676
@@ -679,59 +682,59 @@ dispersion
 Expand for details.
 </summary>
 <p>Incidence rate ratios</p>
-<div class="sourceCode" id="cb738"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb738-1"><a href="week-8-tutorial.html#cb738-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Incidence rate ratios are exp(Bj)</span></span>
-<span id="cb738-2"><a href="week-8-tutorial.html#cb738-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(model1.qp)[<span class="st">&quot;ageOver 65&quot;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb787"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb787-1"><a href="week-8-tutorial.html#cb787-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Incidence rate ratios are exp(Bj)</span></span>
+<span id="cb787-2"><a href="week-8-tutorial.html#cb787-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(model1.qp)[<span class="st">&quot;ageOver 65&quot;</span>])</span></code></pre></div>
 <pre><code>ageOver 65 
   7.786494 </code></pre>
 <p>How should we interpret this?</p>
 <p>Average Fake News Posts Shared by Age Group</p>
-<div class="sourceCode" id="cb740"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb740-1"><a href="week-8-tutorial.html#cb740-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prediction)</span>
-<span id="cb740-2"><a href="week-8-tutorial.html#cb740-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Note: levels(fake$age) is a shortcut for putting in the vector of all possible age levels. Only works for factor variables.</span></span>
-<span id="cb740-3"><a href="week-8-tutorial.html#cb740-3" aria-hidden="true" tabindex="-1"></a>count.byage <span class="ot">&lt;-</span> <span class="fu">prediction</span>(model1.qp, <span class="at">at=</span><span class="fu">list</span>(<span class="at">age =</span> <span class="fu">levels</span>(fake<span class="sc">$</span>age)), <span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
-<span id="cb740-4"><a href="week-8-tutorial.html#cb740-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(count.byage)</span></code></pre></div>
+<div class="sourceCode" id="cb789"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb789-1"><a href="week-8-tutorial.html#cb789-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prediction)</span>
+<span id="cb789-2"><a href="week-8-tutorial.html#cb789-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Note: levels(fake$age) is a shortcut for putting in the vector of all possible age levels. Only works for factor variables.</span></span>
+<span id="cb789-3"><a href="week-8-tutorial.html#cb789-3" aria-hidden="true" tabindex="-1"></a>count.byage <span class="ot">&lt;-</span> <span class="fu">prediction</span>(model1.qp, <span class="at">at=</span><span class="fu">list</span>(<span class="at">age =</span> <span class="fu">levels</span>(fake<span class="sc">$</span>age)), <span class="at">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb789-4"><a href="week-8-tutorial.html#cb789-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(count.byage)</span></code></pre></div>
 <pre><code> at(age) Prediction      SE     z         p    lower  upper
    18-29    0.06575 0.04894 1.344 1.791e-01 -0.03017 0.1617
    30-44    0.14225 0.04644 3.063 2.193e-03  0.05122 0.2333
    45-65    0.20484 0.03468 5.907 3.493e-09  0.13687 0.2728
  Over 65    0.51196 0.08653 5.917 3.285e-09  0.34237 0.6816</code></pre>
-<div class="sourceCode" id="cb742"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb742-1"><a href="week-8-tutorial.html#cb742-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 65+</span></span>
-<span id="cb742-2"><a href="week-8-tutorial.html#cb742-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(model1.qp)</span>
-<span id="cb742-3"><a href="week-8-tutorial.html#cb742-3" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;age30-44&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb742-4"><a href="week-8-tutorial.html#cb742-4" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;age45-65&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb742-5"><a href="week-8-tutorial.html#cb742-5" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;ageOver 65&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb742-6"><a href="week-8-tutorial.html#cb742-6" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">coef</span>(model1.qp)</span>
-<span id="cb742-7"><a href="week-8-tutorial.html#cb742-7" aria-hidden="true" tabindex="-1"></a>eta <span class="ot">&lt;-</span> X <span class="sc">%*%</span> B</span>
-<span id="cb742-8"><a href="week-8-tutorial.html#cb742-8" aria-hidden="true" tabindex="-1"></a>avg.fake<span class="fl">.65</span> <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">exp</span>(eta))</span>
-<span id="cb742-9"><a href="week-8-tutorial.html#cb742-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb742-10"><a href="week-8-tutorial.html#cb742-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 45-65</span></span>
-<span id="cb742-11"><a href="week-8-tutorial.html#cb742-11" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(model1.qp)</span>
-<span id="cb742-12"><a href="week-8-tutorial.html#cb742-12" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;age30-44&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb742-13"><a href="week-8-tutorial.html#cb742-13" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;age45-65&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb742-14"><a href="week-8-tutorial.html#cb742-14" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;ageOver 65&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb742-15"><a href="week-8-tutorial.html#cb742-15" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">coef</span>(model1.qp)</span>
-<span id="cb742-16"><a href="week-8-tutorial.html#cb742-16" aria-hidden="true" tabindex="-1"></a>eta <span class="ot">&lt;-</span> X <span class="sc">%*%</span> B</span>
-<span id="cb742-17"><a href="week-8-tutorial.html#cb742-17" aria-hidden="true" tabindex="-1"></a>avg.fake<span class="fl">.45</span> <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">exp</span>(eta))</span>
-<span id="cb742-18"><a href="week-8-tutorial.html#cb742-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb742-19"><a href="week-8-tutorial.html#cb742-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 30-44</span></span>
-<span id="cb742-20"><a href="week-8-tutorial.html#cb742-20" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(model1.qp)</span>
-<span id="cb742-21"><a href="week-8-tutorial.html#cb742-21" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;age30-44&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb742-22"><a href="week-8-tutorial.html#cb742-22" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;age45-65&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb742-23"><a href="week-8-tutorial.html#cb742-23" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;ageOver 65&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb742-24"><a href="week-8-tutorial.html#cb742-24" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">coef</span>(model1.qp)</span>
-<span id="cb742-25"><a href="week-8-tutorial.html#cb742-25" aria-hidden="true" tabindex="-1"></a>eta <span class="ot">&lt;-</span> X <span class="sc">%*%</span> B</span>
-<span id="cb742-26"><a href="week-8-tutorial.html#cb742-26" aria-hidden="true" tabindex="-1"></a>avg.fake<span class="fl">.30</span> <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">exp</span>(eta))</span>
-<span id="cb742-27"><a href="week-8-tutorial.html#cb742-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb742-28"><a href="week-8-tutorial.html#cb742-28" aria-hidden="true" tabindex="-1"></a><span class="do">## 18-29</span></span>
-<span id="cb742-29"><a href="week-8-tutorial.html#cb742-29" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(model1.qp)</span>
-<span id="cb742-30"><a href="week-8-tutorial.html#cb742-30" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;age30-44&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb742-31"><a href="week-8-tutorial.html#cb742-31" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;age45-65&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb742-32"><a href="week-8-tutorial.html#cb742-32" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;ageOver 65&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb742-33"><a href="week-8-tutorial.html#cb742-33" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">coef</span>(model1.qp)</span>
-<span id="cb742-34"><a href="week-8-tutorial.html#cb742-34" aria-hidden="true" tabindex="-1"></a>eta <span class="ot">&lt;-</span> X <span class="sc">%*%</span> B</span>
-<span id="cb742-35"><a href="week-8-tutorial.html#cb742-35" aria-hidden="true" tabindex="-1"></a>avg.fake<span class="fl">.18</span> <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">exp</span>(eta))</span>
-<span id="cb742-36"><a href="week-8-tutorial.html#cb742-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb742-37"><a href="week-8-tutorial.html#cb742-37" aria-hidden="true" tabindex="-1"></a><span class="do">## Gather results</span></span>
-<span id="cb742-38"><a href="week-8-tutorial.html#cb742-38" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(avg.fake<span class="fl">.18</span>, avg.fake<span class="fl">.30</span>, avg.fake<span class="fl">.45</span>, avg.fake<span class="fl">.65</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb791"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb791-1"><a href="week-8-tutorial.html#cb791-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 65+</span></span>
+<span id="cb791-2"><a href="week-8-tutorial.html#cb791-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(model1.qp)</span>
+<span id="cb791-3"><a href="week-8-tutorial.html#cb791-3" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;age30-44&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb791-4"><a href="week-8-tutorial.html#cb791-4" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;age45-65&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb791-5"><a href="week-8-tutorial.html#cb791-5" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;ageOver 65&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb791-6"><a href="week-8-tutorial.html#cb791-6" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">coef</span>(model1.qp)</span>
+<span id="cb791-7"><a href="week-8-tutorial.html#cb791-7" aria-hidden="true" tabindex="-1"></a>eta <span class="ot">&lt;-</span> X <span class="sc">%*%</span> B</span>
+<span id="cb791-8"><a href="week-8-tutorial.html#cb791-8" aria-hidden="true" tabindex="-1"></a>avg.fake<span class="fl">.65</span> <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">exp</span>(eta))</span>
+<span id="cb791-9"><a href="week-8-tutorial.html#cb791-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb791-10"><a href="week-8-tutorial.html#cb791-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 45-65</span></span>
+<span id="cb791-11"><a href="week-8-tutorial.html#cb791-11" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(model1.qp)</span>
+<span id="cb791-12"><a href="week-8-tutorial.html#cb791-12" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;age30-44&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb791-13"><a href="week-8-tutorial.html#cb791-13" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;age45-65&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb791-14"><a href="week-8-tutorial.html#cb791-14" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;ageOver 65&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb791-15"><a href="week-8-tutorial.html#cb791-15" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">coef</span>(model1.qp)</span>
+<span id="cb791-16"><a href="week-8-tutorial.html#cb791-16" aria-hidden="true" tabindex="-1"></a>eta <span class="ot">&lt;-</span> X <span class="sc">%*%</span> B</span>
+<span id="cb791-17"><a href="week-8-tutorial.html#cb791-17" aria-hidden="true" tabindex="-1"></a>avg.fake<span class="fl">.45</span> <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">exp</span>(eta))</span>
+<span id="cb791-18"><a href="week-8-tutorial.html#cb791-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb791-19"><a href="week-8-tutorial.html#cb791-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 30-44</span></span>
+<span id="cb791-20"><a href="week-8-tutorial.html#cb791-20" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(model1.qp)</span>
+<span id="cb791-21"><a href="week-8-tutorial.html#cb791-21" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;age30-44&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb791-22"><a href="week-8-tutorial.html#cb791-22" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;age45-65&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb791-23"><a href="week-8-tutorial.html#cb791-23" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;ageOver 65&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb791-24"><a href="week-8-tutorial.html#cb791-24" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">coef</span>(model1.qp)</span>
+<span id="cb791-25"><a href="week-8-tutorial.html#cb791-25" aria-hidden="true" tabindex="-1"></a>eta <span class="ot">&lt;-</span> X <span class="sc">%*%</span> B</span>
+<span id="cb791-26"><a href="week-8-tutorial.html#cb791-26" aria-hidden="true" tabindex="-1"></a>avg.fake<span class="fl">.30</span> <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">exp</span>(eta))</span>
+<span id="cb791-27"><a href="week-8-tutorial.html#cb791-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb791-28"><a href="week-8-tutorial.html#cb791-28" aria-hidden="true" tabindex="-1"></a><span class="do">## 18-29</span></span>
+<span id="cb791-29"><a href="week-8-tutorial.html#cb791-29" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(model1.qp)</span>
+<span id="cb791-30"><a href="week-8-tutorial.html#cb791-30" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;age30-44&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb791-31"><a href="week-8-tutorial.html#cb791-31" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;age45-65&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb791-32"><a href="week-8-tutorial.html#cb791-32" aria-hidden="true" tabindex="-1"></a>X[, <span class="st">&quot;ageOver 65&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb791-33"><a href="week-8-tutorial.html#cb791-33" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">coef</span>(model1.qp)</span>
+<span id="cb791-34"><a href="week-8-tutorial.html#cb791-34" aria-hidden="true" tabindex="-1"></a>eta <span class="ot">&lt;-</span> X <span class="sc">%*%</span> B</span>
+<span id="cb791-35"><a href="week-8-tutorial.html#cb791-35" aria-hidden="true" tabindex="-1"></a>avg.fake<span class="fl">.18</span> <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">exp</span>(eta))</span>
+<span id="cb791-36"><a href="week-8-tutorial.html#cb791-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb791-37"><a href="week-8-tutorial.html#cb791-37" aria-hidden="true" tabindex="-1"></a><span class="do">## Gather results</span></span>
+<span id="cb791-38"><a href="week-8-tutorial.html#cb791-38" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(avg.fake<span class="fl">.18</span>, avg.fake<span class="fl">.30</span>, avg.fake<span class="fl">.45</span>, avg.fake<span class="fl">.65</span>)</span></code></pre></div>
 <pre><code>[1] 0.06574956 0.14224696 0.20484149 0.51195856</code></pre>
 <p>How could we calculate uncertainty?</p>
 </details>
@@ -746,7 +749,6 @@ Expand for details.
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -765,6 +767,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -785,6 +788,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

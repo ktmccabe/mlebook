@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>8.1 Ordinal Outcome Data | MLE for Political Science</title>
   <meta name="description" content="8.1 Ordinal Outcome Data | MLE for Political Science" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="8.1 Ordinal Outcome Data | MLE for Political Science" />
   <meta property="og:type" content="book" />
@@ -32,8 +32,9 @@
   
 <link rel="prev" href="ordinal.html"/>
 <link rel="next" href="likelihood-framework.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,13 +50,16 @@
 
 
 
-
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/vembedr-0.1.4/css/vembedr.css" rel="stylesheet" />
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -115,6 +119,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
@@ -228,7 +233,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.6" data-path="generating-predictions-from-regression-models.html"><a href="generating-predictions-from-regression-models.html"><i class="fa fa-check"></i><b>4.6</b> Generating predictions from regression models</a></li>
 <li class="chapter" data-level="4.7" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html"><i class="fa fa-check"></i><b>4.7</b> Wrapping up OLS</a>
 <ul>
-<li class="chapter" data-level="4.7.1" data-path="practice-problems.html"><a href="practice-problems.html#practice-problems"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
+<li class="chapter" data-level="4.7.1" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problems-1"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
 <li class="chapter" data-level="4.7.2" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problem-code-for-solutions"><i class="fa fa-check"></i><b>4.7.2</b> Practice Problem Code for Solutions</a></li>
 </ul></li>
 <li class="chapter" data-level="4.8" data-path="week-2-thursday-example.html"><a href="week-2-thursday-example.html"><i class="fa fa-check"></i><b>4.8</b> Week 2 Thursday Example</a></li>
@@ -262,7 +267,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="6.1" data-path="data-generating-process.html"><a href="data-generating-process.html"><i class="fa fa-check"></i><b>6.1</b> Data Generating Process</a>
 <ul>
-<li class="chapter" data-level="6.1.1" data-path="mle-estimation.html"><a href="mle-estimation.html#mle-estimation"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
+<li class="chapter" data-level="6.1.1" data-path="data-generating-process.html"><a href="data-generating-process.html#mle-estimation-1"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="r-code-for-fitting-logistic-regression.html"><a href="r-code-for-fitting-logistic-regression.html"><i class="fa fa-check"></i><b>6.2</b> R code for fitting logistic regression</a>
 <ul>
@@ -465,7 +470,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="15.1.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html#how-to-predict-or-classify"><i class="fa fa-check"></i><b>15.1.1</b> How to predict or classify</a></li>
 </ul></li>
-<li class="chapter" data-level="15.2" data-path="in-sample-vs-out-of-sample.html"><a href="in-sample-vs-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
+<li class="chapter" data-level="15.2" data-path="in-sample-vs.-out-of-sample.html"><a href="in-sample-vs.-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
 <li class="chapter" data-level="15.3" data-path="cross-validation.html"><a href="cross-validation.html"><i class="fa fa-check"></i><b>15.3</b> Cross-Validation</a>
 <ul>
 <li class="chapter" data-level="15.3.1" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>15.3.1</b> k-fold cross-validation</a></li>
@@ -501,25 +506,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Outcome (<code>dissent</code>): Willingness to Display Dissent: An ordered scale with four categories from 1 (“I should stay quiet”) to 4 (“I should dissent”)</li>
 </ul>
 <p>Let’s load the data and look at the treatment and outcome.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="ordinal-outcome-data.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
-<span id="cb1-2"><a href="ordinal-outcome-data.html#cb1-2" aria-hidden="true" tabindex="-1"></a>pg <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/paluckgreen.dta?raw=true&quot;</span>)</span>
-<span id="cb1-3"><a href="ordinal-outcome-data.html#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="ordinal-outcome-data.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s treat the outcome as a factor</span></span>
-<span id="cb1-5"><a href="ordinal-outcome-data.html#cb1-5" aria-hidden="true" tabindex="-1"></a>pg<span class="sc">$</span>dissent <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(pg<span class="sc">$</span>dissent)</span>
-<span id="cb1-6"><a href="ordinal-outcome-data.html#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="ordinal-outcome-data.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s visualize the outcome by group</span></span>
-<span id="cb1-8"><a href="ordinal-outcome-data.html#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-9"><a href="ordinal-outcome-data.html#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-10"><a href="ordinal-outcome-data.html#cb1-10" aria-hidden="true" tabindex="-1"></a>pg <span class="sc">%&gt;%</span></span>
-<span id="cb1-11"><a href="ordinal-outcome-data.html#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(dissent)<span class="sc">==</span>F) <span class="sc">%&gt;%</span></span>
-<span id="cb1-12"><a href="ordinal-outcome-data.html#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>dissent, <span class="at">group=</span><span class="fu">factor</span>(treat), </span>
-<span id="cb1-13"><a href="ordinal-outcome-data.html#cb1-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">fill=</span><span class="fu">factor</span>(treat)))<span class="sc">+</span></span>
-<span id="cb1-14"><a href="ordinal-outcome-data.html#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y=</span>..prop..),<span class="at">stat=</span> <span class="st">&quot;count&quot;</span>, <span class="at">position=</span><span class="st">&quot;dodge&quot;</span>, <span class="at">color=</span><span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
-<span id="cb1-15"><a href="ordinal-outcome-data.html#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
-<span id="cb1-16"><a href="ordinal-outcome-data.html#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)<span class="sc">+</span></span>
-<span id="cb1-17"><a href="ordinal-outcome-data.html#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="st">&quot;Condition&quot;</span>, <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Control&quot;</span>, <span class="st">&quot;Treatment&quot;</span>),<span class="at">palette=</span><span class="st">&quot;Paired&quot;</span>)<span class="sc">+</span></span>
-<span id="cb1-18"><a href="ordinal-outcome-data.html#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span> <span class="fu">c</span>(<span class="st">&quot;Should Stay Quiet&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;Should Dissent&quot;</span>))</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-1-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb523-1"><a href="ordinal-outcome-data.html#cb523-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
+<span id="cb523-2"><a href="ordinal-outcome-data.html#cb523-2" aria-hidden="true" tabindex="-1"></a>pg <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/paluckgreen.dta?raw=true&quot;</span>)</span>
+<span id="cb523-3"><a href="ordinal-outcome-data.html#cb523-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb523-4"><a href="ordinal-outcome-data.html#cb523-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s treat the outcome as a factor</span></span>
+<span id="cb523-5"><a href="ordinal-outcome-data.html#cb523-5" aria-hidden="true" tabindex="-1"></a>pg<span class="sc">$</span>dissent <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(pg<span class="sc">$</span>dissent)</span>
+<span id="cb523-6"><a href="ordinal-outcome-data.html#cb523-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb523-7"><a href="ordinal-outcome-data.html#cb523-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s visualize the outcome by group</span></span>
+<span id="cb523-8"><a href="ordinal-outcome-data.html#cb523-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb523-9"><a href="ordinal-outcome-data.html#cb523-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb523-10"><a href="ordinal-outcome-data.html#cb523-10" aria-hidden="true" tabindex="-1"></a>pg <span class="sc">%&gt;%</span></span>
+<span id="cb523-11"><a href="ordinal-outcome-data.html#cb523-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(dissent)<span class="sc">==</span>F) <span class="sc">%&gt;%</span></span>
+<span id="cb523-12"><a href="ordinal-outcome-data.html#cb523-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>dissent, <span class="at">group=</span><span class="fu">factor</span>(treat), </span>
+<span id="cb523-13"><a href="ordinal-outcome-data.html#cb523-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">fill=</span><span class="fu">factor</span>(treat)))<span class="sc">+</span></span>
+<span id="cb523-14"><a href="ordinal-outcome-data.html#cb523-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y=</span>..prop..),<span class="at">stat=</span> <span class="st">&quot;count&quot;</span>, <span class="at">position=</span><span class="st">&quot;dodge&quot;</span>, <span class="at">color=</span><span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
+<span id="cb523-15"><a href="ordinal-outcome-data.html#cb523-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb523-16"><a href="ordinal-outcome-data.html#cb523-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)<span class="sc">+</span></span>
+<span id="cb523-17"><a href="ordinal-outcome-data.html#cb523-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="st">&quot;Condition&quot;</span>, <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Control&quot;</span>, <span class="st">&quot;Treatment&quot;</span>),<span class="at">palette=</span><span class="st">&quot;Paired&quot;</span>)<span class="sc">+</span></span>
+<span id="cb523-18"><a href="ordinal-outcome-data.html#cb523-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span> <span class="fu">c</span>(<span class="st">&quot;Should Stay Quiet&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;Should Dissent&quot;</span>))</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-245-1.svg" width="672" /></p>
 <p>We can see variation in the outcome, where some people are at the “stay quiet” end of the scale, while others are at the opposite end. We might have a few questions about the outcome:</p>
 <ul>
 <li>What is the probability of being in a particular category given a set of <span class="math inline">\(\mathbf{x_i&#39;}\)</span> values?</li>
@@ -560,7 +565,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="ordinal-model" class="section level3" number="8.1.1">
 <h3><span class="header-section-number">8.1.1</span> Ordinal Model</h3>
 <p>With ordered data, we have an outcome variable <span class="math inline">\(Y_i\)</span> that can fall into different, ordered categories: <span class="math inline">\(Y_i \in \{C_1, C_2, \ldots, C_J \}\)</span> with some probability.</p>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-2-1.svg" width="672" /></p>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-246-1.svg" width="672" /></p>
 <p><em>The image above shows a distribution where the area under the curve sums to 1, with the area divided into 4 categories, separated by three cutpoints. The area represents probability mass. For example, the area to the left of z1 represents the <span class="math inline">\(Pr(Y_i^\ast \leq z1)\)</span>.</em></p>
 <p>In our ordered model, we assume that there is a latent (unobserved) <span class="math inline">\(Y^\ast_i = X_i\beta + \epsilon\)</span></p>
 <ul>
@@ -605,7 +610,7 @@ C_J\textrm{ if } \zeta_{J-1} &lt; Y^\ast_i \\
 <li>Therefore, we will generally want to convert our estimates into probabilities (our quantities of interest)
 <ul>
 <li>One wrinkle here is we now have <span class="math inline">\(J\)</span> predicted probabilities to estimate, one for each category.</li>
-<li>A second wrinkle here is any change in the probability of being in the <span class="math inline">\(jth\)</span> category of <span class="math inline">\(Y\)</span> also affects the probabilities of being in the <span class="math inline">\(\neq jth\)</span> categories because the probabilities of being in each category have to sum together to 1. (E.g., Increasing the probability that someone said “should dissent” affects the probability they said "should stay quiet.)</li>
+<li>A second wrinkle here is any change in the probability of being in the <span class="math inline">\(jth\)</span> category of <span class="math inline">\(Y\)</span> also affects the probabilities of being in the <span class="math inline">\(\neq jth\)</span> categories because the probabilities of being in each category have to sum together to 1. (E.g., Increasing the probability that someone said “should dissent” affects the probability they said “should stay quiet.)</li>
 </ul></li>
 </ul>
 </div>
@@ -620,7 +625,6 @@ C_J\textrm{ if } \zeta_{J-1} &lt; Y^\ast_i \\
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -639,6 +643,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -659,6 +664,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>9.4 Practice Problems for Multinomial | MLE for Political Science</title>
   <meta name="description" content="9.4 Practice Problems for Multinomial | MLE for Political Science" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="9.4 Practice Problems for Multinomial | MLE for Political Science" />
   <meta property="og:type" content="book" />
@@ -32,8 +32,9 @@
   
 <link rel="prev" href="running-multinomial-logit-in-r.html"/>
 <link rel="next" href="week-7-tutorial.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,7 +50,8 @@
 
 
 
-
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <link href="libs/vembedr-0.1.4/css/vembedr.css" rel="stylesheet" />
 
 
@@ -57,6 +59,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -116,6 +119,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
@@ -229,7 +233,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.6" data-path="generating-predictions-from-regression-models.html"><a href="generating-predictions-from-regression-models.html"><i class="fa fa-check"></i><b>4.6</b> Generating predictions from regression models</a></li>
 <li class="chapter" data-level="4.7" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html"><i class="fa fa-check"></i><b>4.7</b> Wrapping up OLS</a>
 <ul>
-<li class="chapter" data-level="4.7.1" data-path="practice-problems.html"><a href="practice-problems.html#practice-problems"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
+<li class="chapter" data-level="4.7.1" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problems-1"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
 <li class="chapter" data-level="4.7.2" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problem-code-for-solutions"><i class="fa fa-check"></i><b>4.7.2</b> Practice Problem Code for Solutions</a></li>
 </ul></li>
 <li class="chapter" data-level="4.8" data-path="week-2-thursday-example.html"><a href="week-2-thursday-example.html"><i class="fa fa-check"></i><b>4.8</b> Week 2 Thursday Example</a></li>
@@ -263,7 +267,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="6.1" data-path="data-generating-process.html"><a href="data-generating-process.html"><i class="fa fa-check"></i><b>6.1</b> Data Generating Process</a>
 <ul>
-<li class="chapter" data-level="6.1.1" data-path="mle-estimation.html"><a href="mle-estimation.html#mle-estimation"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
+<li class="chapter" data-level="6.1.1" data-path="data-generating-process.html"><a href="data-generating-process.html#mle-estimation-1"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="r-code-for-fitting-logistic-regression.html"><a href="r-code-for-fitting-logistic-regression.html"><i class="fa fa-check"></i><b>6.2</b> R code for fitting logistic regression</a>
 <ul>
@@ -466,7 +470,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="15.1.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html#how-to-predict-or-classify"><i class="fa fa-check"></i><b>15.1.1</b> How to predict or classify</a></li>
 </ul></li>
-<li class="chapter" data-level="15.2" data-path="in-sample-vs-out-of-sample.html"><a href="in-sample-vs-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
+<li class="chapter" data-level="15.2" data-path="in-sample-vs.-out-of-sample.html"><a href="in-sample-vs.-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
 <li class="chapter" data-level="15.3" data-path="cross-validation.html"><a href="cross-validation.html"><i class="fa fa-check"></i><b>15.3</b> Cross-Validation</a>
 <ul>
 <li class="chapter" data-level="15.3.1" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>15.3.1</b> k-fold cross-validation</a></li>
@@ -502,7 +506,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>We should set <code>party_cat</code> to have the baseline of <code>PRI</code> to match the author.</li>
 </ul></li>
 </ol>
-<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb624-1"><a href="practice-problems-for-multinomial.html#cb624-1" aria-hidden="true" tabindex="-1"></a>ker<span class="sc">$</span>party_cat <span class="ot">&lt;-</span> <span class="fu">relevel</span>(<span class="fu">as.factor</span>(ker<span class="sc">$</span>party_cat), <span class="at">ref=</span><span class="st">&quot;PRI&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb674"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb674-1"><a href="practice-problems-for-multinomial.html#cb674-1" aria-hidden="true" tabindex="-1"></a>ker<span class="sc">$</span>party_cat <span class="ot">&lt;-</span> <span class="fu">relevel</span>(<span class="fu">as.factor</span>(ker<span class="sc">$</span>party_cat), <span class="at">ref=</span><span class="st">&quot;PRI&quot;</span>)</span></code></pre></div>
 <p><img src="images/ker1.png" /> <img src="images/ker2.png" /></p>
 <p>The author sets covariates to observed levels when estimating the marginal effects.</p>
 <ol start="2" style="list-style-type: decimal">
@@ -512,35 +516,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <summary>
 Try on your own and then expand for the solution.
 </summary>
-<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="practice-problems-for-multinomial.html#cb625-1" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">multinom</span>(genderimmedambcat3 <span class="sc">~</span> <span class="fu">factor</span>(female) <span class="sc">+</span> party_cat <span class="sc">+</span> <span class="fu">factor</span>(leg_exp_dum) <span class="sc">+</span> </span>
-<span id="cb625-2"><a href="practice-problems-for-multinomial.html#cb625-2" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">factor</span>(exec_exp_dum) <span class="sc">+</span> <span class="fu">factor</span>(leadership), <span class="at">data=</span>ker)</span>
-<span id="cb625-3"><a href="practice-problems-for-multinomial.html#cb625-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(margins)</span>
-<span id="cb625-4"><a href="practice-problems-for-multinomial.html#cb625-4" aria-hidden="true" tabindex="-1"></a>marg.effect.execnom <span class="ot">&lt;-</span> <span class="fu">margins</span>(fit2, <span class="at">variables=</span><span class="st">&quot;female&quot;</span>, <span class="at">change=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">vce=</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">category=</span><span class="st">&quot;mayor/gov ballot access&quot;</span>)</span>
-<span id="cb625-5"><a href="practice-problems-for-multinomial.html#cb625-5" aria-hidden="true" tabindex="-1"></a>marg.effect.deputy <span class="ot">&lt;-</span> <span class="fu">margins</span>(fit2, <span class="at">variables=</span><span class="st">&quot;female&quot;</span>, <span class="at">change=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">vce=</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">category=</span><span class="st">&quot;deputy/regidor ballot access&quot;</span>)</span>
-<span id="cb625-6"><a href="practice-problems-for-multinomial.html#cb625-6" aria-hidden="true" tabindex="-1"></a>marg.effect.senator <span class="ot">&lt;-</span> <span class="fu">margins</span>(fit2, <span class="at">variables=</span><span class="st">&quot;female&quot;</span>, <span class="at">change=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">vce=</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">category=</span><span class="st">&quot;senate ballot access&quot;</span>)</span>
-<span id="cb625-7"><a href="practice-problems-for-multinomial.html#cb625-7" aria-hidden="true" tabindex="-1"></a>marg.effect.execappt <span class="ot">&lt;-</span> <span class="fu">margins</span>(fit2, <span class="at">variables=</span><span class="st">&quot;female&quot;</span>, <span class="at">change=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">vce=</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">category=</span><span class="st">&quot;cabinet/party leader&quot;</span>)</span>
-<span id="cb625-8"><a href="practice-problems-for-multinomial.html#cb625-8" aria-hidden="true" tabindex="-1"></a>marg.effect.bureau <span class="ot">&lt;-</span> <span class="fu">margins</span>(fit2, <span class="at">variables=</span><span class="st">&quot;female&quot;</span>, <span class="at">change=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">vce=</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">category=</span><span class="st">&quot;bur appt&quot;</span>)</span>
-<span id="cb625-9"><a href="practice-problems-for-multinomial.html#cb625-9" aria-hidden="true" tabindex="-1"></a>marg.effect.other <span class="ot">&lt;-</span> <span class="fu">margins</span>(fit2, <span class="at">variables=</span><span class="st">&quot;female&quot;</span>, <span class="at">change=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">vce=</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">category=</span><span class="st">&quot;other&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb675"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb675-1"><a href="practice-problems-for-multinomial.html#cb675-1" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">multinom</span>(genderimmedambcat3 <span class="sc">~</span> <span class="fu">factor</span>(female) <span class="sc">+</span> party_cat <span class="sc">+</span> <span class="fu">factor</span>(leg_exp_dum) <span class="sc">+</span> </span>
+<span id="cb675-2"><a href="practice-problems-for-multinomial.html#cb675-2" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">factor</span>(exec_exp_dum) <span class="sc">+</span> <span class="fu">factor</span>(leadership), <span class="at">data=</span>ker)</span>
+<span id="cb675-3"><a href="practice-problems-for-multinomial.html#cb675-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(margins)</span>
+<span id="cb675-4"><a href="practice-problems-for-multinomial.html#cb675-4" aria-hidden="true" tabindex="-1"></a>marg.effect.execnom <span class="ot">&lt;-</span> <span class="fu">margins</span>(fit2, <span class="at">variables=</span><span class="st">&quot;female&quot;</span>, <span class="at">change=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">vce=</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">category=</span><span class="st">&quot;mayor/gov ballot access&quot;</span>)</span>
+<span id="cb675-5"><a href="practice-problems-for-multinomial.html#cb675-5" aria-hidden="true" tabindex="-1"></a>marg.effect.deputy <span class="ot">&lt;-</span> <span class="fu">margins</span>(fit2, <span class="at">variables=</span><span class="st">&quot;female&quot;</span>, <span class="at">change=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">vce=</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">category=</span><span class="st">&quot;deputy/regidor ballot access&quot;</span>)</span>
+<span id="cb675-6"><a href="practice-problems-for-multinomial.html#cb675-6" aria-hidden="true" tabindex="-1"></a>marg.effect.senator <span class="ot">&lt;-</span> <span class="fu">margins</span>(fit2, <span class="at">variables=</span><span class="st">&quot;female&quot;</span>, <span class="at">change=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">vce=</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">category=</span><span class="st">&quot;senate ballot access&quot;</span>)</span>
+<span id="cb675-7"><a href="practice-problems-for-multinomial.html#cb675-7" aria-hidden="true" tabindex="-1"></a>marg.effect.execappt <span class="ot">&lt;-</span> <span class="fu">margins</span>(fit2, <span class="at">variables=</span><span class="st">&quot;female&quot;</span>, <span class="at">change=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">vce=</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">category=</span><span class="st">&quot;cabinet/party leader&quot;</span>)</span>
+<span id="cb675-8"><a href="practice-problems-for-multinomial.html#cb675-8" aria-hidden="true" tabindex="-1"></a>marg.effect.bureau <span class="ot">&lt;-</span> <span class="fu">margins</span>(fit2, <span class="at">variables=</span><span class="st">&quot;female&quot;</span>, <span class="at">change=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">vce=</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">category=</span><span class="st">&quot;bur appt&quot;</span>)</span>
+<span id="cb675-9"><a href="practice-problems-for-multinomial.html#cb675-9" aria-hidden="true" tabindex="-1"></a>marg.effect.other <span class="ot">&lt;-</span> <span class="fu">margins</span>(fit2, <span class="at">variables=</span><span class="st">&quot;female&quot;</span>, <span class="at">change=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">vce=</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">category=</span><span class="st">&quot;other&quot;</span>)</span></code></pre></div>
 <p>Let’s make a visual close to the authors using <code>ggplot</code>. Recall, <code>ggplot</code> is easiest to work with when the data you want to plot are in a data.frame. So we are going to bind together the summary output and specify which row corresponds to which outcome.</p>
-<div class="sourceCode" id="cb626"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb626-1"><a href="practice-problems-for-multinomial.html#cb626-1" aria-hidden="true" tabindex="-1"></a>mcomb <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">rbind</span>(<span class="fu">summary</span>(marg.effect.execnom), </span>
-<span id="cb626-2"><a href="practice-problems-for-multinomial.html#cb626-2" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">summary</span>(marg.effect.deputy), </span>
-<span id="cb626-3"><a href="practice-problems-for-multinomial.html#cb626-3" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">summary</span>(marg.effect.senator), </span>
-<span id="cb626-4"><a href="practice-problems-for-multinomial.html#cb626-4" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">summary</span>(marg.effect.execappt),</span>
-<span id="cb626-5"><a href="practice-problems-for-multinomial.html#cb626-5" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">summary</span>(marg.effect.bureau), </span>
-<span id="cb626-6"><a href="practice-problems-for-multinomial.html#cb626-6" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">summary</span>(marg.effect.other)))</span>
-<span id="cb626-7"><a href="practice-problems-for-multinomial.html#cb626-7" aria-hidden="true" tabindex="-1"></a>mcomb<span class="sc">$</span>outcome <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;executive nom&quot;</span>, <span class="st">&quot;deputy&quot;</span>, <span class="st">&quot;senator&quot;</span>, <span class="st">&quot;executive appt&quot;</span>, <span class="st">&quot;bureaucracy&quot;</span>, <span class="st">&quot;other&quot;</span>)</span>
-<span id="cb626-8"><a href="practice-problems-for-multinomial.html#cb626-8" aria-hidden="true" tabindex="-1"></a>mcomb<span class="sc">$</span>outcome <span class="ot">&lt;-</span> <span class="fu">factor</span>(mcomb<span class="sc">$</span>outcome, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;deputy&quot;</span>, <span class="st">&quot;senator&quot;</span>, <span class="st">&quot;executive nom&quot;</span>, <span class="st">&quot;executive appt&quot;</span>, <span class="st">&quot;bureaucracy&quot;</span>, <span class="st">&quot;other&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb676-1"><a href="practice-problems-for-multinomial.html#cb676-1" aria-hidden="true" tabindex="-1"></a>mcomb <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">rbind</span>(<span class="fu">summary</span>(marg.effect.execnom), </span>
+<span id="cb676-2"><a href="practice-problems-for-multinomial.html#cb676-2" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">summary</span>(marg.effect.deputy), </span>
+<span id="cb676-3"><a href="practice-problems-for-multinomial.html#cb676-3" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">summary</span>(marg.effect.senator), </span>
+<span id="cb676-4"><a href="practice-problems-for-multinomial.html#cb676-4" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">summary</span>(marg.effect.execappt),</span>
+<span id="cb676-5"><a href="practice-problems-for-multinomial.html#cb676-5" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">summary</span>(marg.effect.bureau), </span>
+<span id="cb676-6"><a href="practice-problems-for-multinomial.html#cb676-6" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">summary</span>(marg.effect.other)))</span>
+<span id="cb676-7"><a href="practice-problems-for-multinomial.html#cb676-7" aria-hidden="true" tabindex="-1"></a>mcomb<span class="sc">$</span>outcome <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;executive nom&quot;</span>, <span class="st">&quot;deputy&quot;</span>, <span class="st">&quot;senator&quot;</span>, <span class="st">&quot;executive appt&quot;</span>, <span class="st">&quot;bureaucracy&quot;</span>, <span class="st">&quot;other&quot;</span>)</span>
+<span id="cb676-8"><a href="practice-problems-for-multinomial.html#cb676-8" aria-hidden="true" tabindex="-1"></a>mcomb<span class="sc">$</span>outcome <span class="ot">&lt;-</span> <span class="fu">factor</span>(mcomb<span class="sc">$</span>outcome, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;deputy&quot;</span>, <span class="st">&quot;senator&quot;</span>, <span class="st">&quot;executive nom&quot;</span>, <span class="st">&quot;executive appt&quot;</span>, <span class="st">&quot;bureaucracy&quot;</span>, <span class="st">&quot;other&quot;</span>))</span></code></pre></div>
 <p>We can now use <code>geom_point</code> and <code>geom_errorbar</code> to plot the AME point estimates and bootstrap confidence intervals.</p>
-<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="practice-problems-for-multinomial.html#cb627-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb627-2"><a href="practice-problems-for-multinomial.html#cb627-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mcomb, <span class="fu">aes</span>(<span class="at">x=</span>outcome, <span class="at">y=</span>AME))<span class="sc">+</span></span>
-<span id="cb627-3"><a href="practice-problems-for-multinomial.html#cb627-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb627-4"><a href="practice-problems-for-multinomial.html#cb627-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>lower, <span class="at">ymax=</span>upper), <span class="at">width=</span>.<span class="dv">05</span>)<span class="sc">+</span></span>
-<span id="cb627-5"><a href="practice-problems-for-multinomial.html#cb627-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
-<span id="cb627-6"><a href="practice-problems-for-multinomial.html#cb627-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="sc">-</span>.<span class="dv">4</span>, .<span class="dv">4</span>)<span class="sc">+</span></span>
-<span id="cb627-7"><a href="practice-problems-for-multinomial.html#cb627-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept=</span><span class="dv">0</span>)<span class="sc">+</span></span>
-<span id="cb627-8"><a href="practice-problems-for-multinomial.html#cb627-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Change in probability&quot;</span>)<span class="sc">+</span></span>
-<span id="cb627-9"><a href="practice-problems-for-multinomial.html#cb627-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>)</span>
-<span id="cb627-10"><a href="practice-problems-for-multinomial.html#cb627-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;images/kerplot.png&quot;</span>, <span class="at">device=</span><span class="st">&quot;png&quot;</span>, <span class="at">width=</span><span class="dv">6</span>, <span class="at">height=</span><span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb677-1"><a href="practice-problems-for-multinomial.html#cb677-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb677-2"><a href="practice-problems-for-multinomial.html#cb677-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mcomb, <span class="fu">aes</span>(<span class="at">x=</span>outcome, <span class="at">y=</span>AME))<span class="sc">+</span></span>
+<span id="cb677-3"><a href="practice-problems-for-multinomial.html#cb677-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb677-4"><a href="practice-problems-for-multinomial.html#cb677-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>lower, <span class="at">ymax=</span>upper), <span class="at">width=</span>.<span class="dv">05</span>)<span class="sc">+</span></span>
+<span id="cb677-5"><a href="practice-problems-for-multinomial.html#cb677-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb677-6"><a href="practice-problems-for-multinomial.html#cb677-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="sc">-</span>.<span class="dv">4</span>, .<span class="dv">4</span>)<span class="sc">+</span></span>
+<span id="cb677-7"><a href="practice-problems-for-multinomial.html#cb677-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept=</span><span class="dv">0</span>)<span class="sc">+</span></span>
+<span id="cb677-8"><a href="practice-problems-for-multinomial.html#cb677-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Change in probability&quot;</span>)<span class="sc">+</span></span>
+<span id="cb677-9"><a href="practice-problems-for-multinomial.html#cb677-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>)</span>
+<span id="cb677-10"><a href="practice-problems-for-multinomial.html#cb677-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;images/kerplot.png&quot;</span>, <span class="at">device=</span><span class="st">&quot;png&quot;</span>, <span class="at">width=</span><span class="dv">6</span>, <span class="at">height=</span><span class="dv">4</span>)</span></code></pre></div>
 <p><img src="images/kerplot.png" /></p>
 <p>Based on this analysis, women have a significantly lower probability of being nominated for a future mayoral or gubernatorial position, which aligns with the author’s hypothesis.</p>
 </details>
@@ -555,7 +559,6 @@ Try on your own and then expand for the solution.
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -574,6 +577,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -594,6 +598,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

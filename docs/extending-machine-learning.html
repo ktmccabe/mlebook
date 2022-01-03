@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>15.5 Extending Machine Learning | MLE for Political Science</title>
   <meta name="description" content="15.5 Extending Machine Learning | MLE for Political Science" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="15.5 Extending Machine Learning | MLE for Political Science" />
   <meta property="og:type" content="book" />
@@ -32,8 +32,9 @@
   
 <link rel="prev" href="examples-of-prediction-and-classification.html"/>
 
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,7 +50,8 @@
 
 
 
-
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <link href="libs/vembedr-0.1.4/css/vembedr.css" rel="stylesheet" />
 
 
@@ -57,6 +59,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -116,6 +119,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
@@ -229,7 +233,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.6" data-path="generating-predictions-from-regression-models.html"><a href="generating-predictions-from-regression-models.html"><i class="fa fa-check"></i><b>4.6</b> Generating predictions from regression models</a></li>
 <li class="chapter" data-level="4.7" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html"><i class="fa fa-check"></i><b>4.7</b> Wrapping up OLS</a>
 <ul>
-<li class="chapter" data-level="4.7.1" data-path="practice-problems.html"><a href="practice-problems.html#practice-problems"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
+<li class="chapter" data-level="4.7.1" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problems-1"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
 <li class="chapter" data-level="4.7.2" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problem-code-for-solutions"><i class="fa fa-check"></i><b>4.7.2</b> Practice Problem Code for Solutions</a></li>
 </ul></li>
 <li class="chapter" data-level="4.8" data-path="week-2-thursday-example.html"><a href="week-2-thursday-example.html"><i class="fa fa-check"></i><b>4.8</b> Week 2 Thursday Example</a></li>
@@ -263,7 +267,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="6.1" data-path="data-generating-process.html"><a href="data-generating-process.html"><i class="fa fa-check"></i><b>6.1</b> Data Generating Process</a>
 <ul>
-<li class="chapter" data-level="6.1.1" data-path="mle-estimation.html"><a href="mle-estimation.html#mle-estimation"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
+<li class="chapter" data-level="6.1.1" data-path="data-generating-process.html"><a href="data-generating-process.html#mle-estimation-1"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="r-code-for-fitting-logistic-regression.html"><a href="r-code-for-fitting-logistic-regression.html"><i class="fa fa-check"></i><b>6.2</b> R code for fitting logistic regression</a>
 <ul>
@@ -466,7 +470,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="15.1.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html#how-to-predict-or-classify"><i class="fa fa-check"></i><b>15.1.1</b> How to predict or classify</a></li>
 </ul></li>
-<li class="chapter" data-level="15.2" data-path="in-sample-vs-out-of-sample.html"><a href="in-sample-vs-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
+<li class="chapter" data-level="15.2" data-path="in-sample-vs.-out-of-sample.html"><a href="in-sample-vs.-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
 <li class="chapter" data-level="15.3" data-path="cross-validation.html"><a href="cross-validation.html"><i class="fa fa-check"></i><b>15.3</b> Cross-Validation</a>
 <ul>
 <li class="chapter" data-level="15.3.1" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>15.3.1</b> k-fold cross-validation</a></li>
@@ -503,23 +507,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Tradeoffs: Machine Learning as “black box”- see <a href="https://towardsdatascience.com/the-black-box-metaphor-in-machine-learning-4e57a3a1d2b0">here</a></p>
 <p>Here is a rough example using <code>caret</code> with one of these methods along with cross-validation. Be sure to look at the <a href="https://cran.r-project.org/web/packages/caret/vignettes/caret.html">documentation</a> before using this in your own work. The performance metrics are described <a href="https://topepo.github.io/caret/measuring-performance.html">here</a>.</p>
-<div class="sourceCode" id="cb933"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb933-1"><a href="extending-machine-learning.html#cb933-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
-<span id="cb933-2"><a href="extending-machine-learning.html#cb933-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb933-3"><a href="extending-machine-learning.html#cb933-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Establish type of training</span></span>
-<span id="cb933-4"><a href="extending-machine-learning.html#cb933-4" aria-hidden="true" tabindex="-1"></a>fitControl <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="do">## 5-fold CV</span></span>
-<span id="cb933-5"><a href="extending-machine-learning.html#cb933-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">method =</span> <span class="st">&quot;cv&quot;</span>,</span>
-<span id="cb933-6"><a href="extending-machine-learning.html#cb933-6" aria-hidden="true" tabindex="-1"></a>                           <span class="at">number =</span> <span class="dv">5</span>)</span>
-<span id="cb933-7"><a href="extending-machine-learning.html#cb933-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb933-8"><a href="extending-machine-learning.html#cb933-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Train model. Note the . means include all variables. Let&#39;s subset first</span></span>
-<span id="cb933-9"><a href="extending-machine-learning.html#cb933-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb933-10"><a href="extending-machine-learning.html#cb933-10" aria-hidden="true" tabindex="-1"></a>don2 <span class="ot">&lt;-</span> don <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(donation, Edsum, same_state, sameparty, NetWorth, peragsen)</span>
-<span id="cb933-11"><a href="extending-machine-learning.html#cb933-11" aria-hidden="true" tabindex="-1"></a>don2<span class="sc">$</span>donation <span class="ot">&lt;-</span><span class="fu">as.factor</span>(<span class="fu">ifelse</span>(don2<span class="sc">$</span>donation <span class="sc">==</span> <span class="dv">1</span>, <span class="st">&quot;Donated&quot;</span>, <span class="st">&quot;Not Donated&quot;</span>))</span>
-<span id="cb933-12"><a href="extending-machine-learning.html#cb933-12" aria-hidden="true" tabindex="-1"></a>don2 <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(don2)</span>
-<span id="cb933-13"><a href="extending-machine-learning.html#cb933-13" aria-hidden="true" tabindex="-1"></a>mod_fit <span class="ot">&lt;-</span> <span class="fu">train</span>(donation <span class="sc">~</span> ., <span class="at">data =</span> don2, </span>
-<span id="cb933-14"><a href="extending-machine-learning.html#cb933-14" aria-hidden="true" tabindex="-1"></a>                 <span class="at">method =</span> <span class="st">&#39;gbm&#39;</span>,</span>
-<span id="cb933-15"><a href="extending-machine-learning.html#cb933-15" aria-hidden="true" tabindex="-1"></a>                 <span class="at">verbose=</span>F,</span>
-<span id="cb933-16"><a href="extending-machine-learning.html#cb933-16" aria-hidden="true" tabindex="-1"></a>                 <span class="at">trControl =</span> fitControl)</span>
-<span id="cb933-17"><a href="extending-machine-learning.html#cb933-17" aria-hidden="true" tabindex="-1"></a>mod_fit</span></code></pre></div>
+<div class="sourceCode" id="cb982"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb982-1"><a href="extending-machine-learning.html#cb982-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb982-2"><a href="extending-machine-learning.html#cb982-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb982-3"><a href="extending-machine-learning.html#cb982-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Establish type of training</span></span>
+<span id="cb982-4"><a href="extending-machine-learning.html#cb982-4" aria-hidden="true" tabindex="-1"></a>fitControl <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="do">## 5-fold CV</span></span>
+<span id="cb982-5"><a href="extending-machine-learning.html#cb982-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">method =</span> <span class="st">&quot;cv&quot;</span>,</span>
+<span id="cb982-6"><a href="extending-machine-learning.html#cb982-6" aria-hidden="true" tabindex="-1"></a>                           <span class="at">number =</span> <span class="dv">5</span>)</span>
+<span id="cb982-7"><a href="extending-machine-learning.html#cb982-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb982-8"><a href="extending-machine-learning.html#cb982-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Train model. Note the . means include all variables. Let&#39;s subset first</span></span>
+<span id="cb982-9"><a href="extending-machine-learning.html#cb982-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb982-10"><a href="extending-machine-learning.html#cb982-10" aria-hidden="true" tabindex="-1"></a>don2 <span class="ot">&lt;-</span> don <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(donation, Edsum, same_state, sameparty, NetWorth, peragsen)</span>
+<span id="cb982-11"><a href="extending-machine-learning.html#cb982-11" aria-hidden="true" tabindex="-1"></a>don2<span class="sc">$</span>donation <span class="ot">&lt;-</span><span class="fu">as.factor</span>(<span class="fu">ifelse</span>(don2<span class="sc">$</span>donation <span class="sc">==</span> <span class="dv">1</span>, <span class="st">&quot;Donated&quot;</span>, <span class="st">&quot;Not Donated&quot;</span>))</span>
+<span id="cb982-12"><a href="extending-machine-learning.html#cb982-12" aria-hidden="true" tabindex="-1"></a>don2 <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(don2)</span>
+<span id="cb982-13"><a href="extending-machine-learning.html#cb982-13" aria-hidden="true" tabindex="-1"></a>mod_fit <span class="ot">&lt;-</span> <span class="fu">train</span>(donation <span class="sc">~</span> ., <span class="at">data =</span> don2, </span>
+<span id="cb982-14"><a href="extending-machine-learning.html#cb982-14" aria-hidden="true" tabindex="-1"></a>                 <span class="at">method =</span> <span class="st">&#39;gbm&#39;</span>,</span>
+<span id="cb982-15"><a href="extending-machine-learning.html#cb982-15" aria-hidden="true" tabindex="-1"></a>                 <span class="at">verbose=</span>F,</span>
+<span id="cb982-16"><a href="extending-machine-learning.html#cb982-16" aria-hidden="true" tabindex="-1"></a>                 <span class="at">trControl =</span> fitControl)</span>
+<span id="cb982-17"><a href="extending-machine-learning.html#cb982-17" aria-hidden="true" tabindex="-1"></a>mod_fit</span></code></pre></div>
 <pre><code>Stochastic Gradient Boosting 
 
 52888 samples
@@ -573,7 +577,6 @@ The final values used for the model were n.trees = 50, interaction.depth =
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -592,6 +595,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -612,6 +616,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

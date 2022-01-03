@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>9.3 Running multinomial logit in R | MLE for Political Science</title>
   <meta name="description" content="9.3 Running multinomial logit in R | MLE for Political Science" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="9.3 Running multinomial logit in R | MLE for Political Science" />
   <meta property="og:type" content="book" />
@@ -32,8 +32,9 @@
   
 <link rel="prev" href="motivating-example.html"/>
 <link rel="next" href="practice-problems-for-multinomial.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,7 +50,8 @@
 
 
 
-
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <link href="libs/vembedr-0.1.4/css/vembedr.css" rel="stylesheet" />
 
 
@@ -57,6 +59,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -116,6 +119,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
@@ -229,7 +233,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.6" data-path="generating-predictions-from-regression-models.html"><a href="generating-predictions-from-regression-models.html"><i class="fa fa-check"></i><b>4.6</b> Generating predictions from regression models</a></li>
 <li class="chapter" data-level="4.7" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html"><i class="fa fa-check"></i><b>4.7</b> Wrapping up OLS</a>
 <ul>
-<li class="chapter" data-level="4.7.1" data-path="practice-problems.html"><a href="practice-problems.html#practice-problems"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
+<li class="chapter" data-level="4.7.1" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problems-1"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
 <li class="chapter" data-level="4.7.2" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problem-code-for-solutions"><i class="fa fa-check"></i><b>4.7.2</b> Practice Problem Code for Solutions</a></li>
 </ul></li>
 <li class="chapter" data-level="4.8" data-path="week-2-thursday-example.html"><a href="week-2-thursday-example.html"><i class="fa fa-check"></i><b>4.8</b> Week 2 Thursday Example</a></li>
@@ -263,7 +267,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="6.1" data-path="data-generating-process.html"><a href="data-generating-process.html"><i class="fa fa-check"></i><b>6.1</b> Data Generating Process</a>
 <ul>
-<li class="chapter" data-level="6.1.1" data-path="mle-estimation.html"><a href="mle-estimation.html#mle-estimation"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
+<li class="chapter" data-level="6.1.1" data-path="data-generating-process.html"><a href="data-generating-process.html#mle-estimation-1"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="r-code-for-fitting-logistic-regression.html"><a href="r-code-for-fitting-logistic-regression.html"><i class="fa fa-check"></i><b>6.2</b> R code for fitting logistic regression</a>
 <ul>
@@ -466,7 +470,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="15.1.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html#how-to-predict-or-classify"><i class="fa fa-check"></i><b>15.1.1</b> How to predict or classify</a></li>
 </ul></li>
-<li class="chapter" data-level="15.2" data-path="in-sample-vs-out-of-sample.html"><a href="in-sample-vs-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
+<li class="chapter" data-level="15.2" data-path="in-sample-vs.-out-of-sample.html"><a href="in-sample-vs.-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
 <li class="chapter" data-level="15.3" data-path="cross-validation.html"><a href="cross-validation.html"><i class="fa fa-check"></i><b>15.3</b> Cross-Validation</a>
 <ul>
 <li class="chapter" data-level="15.3.1" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>15.3.1</b> k-fold cross-validation</a></li>
@@ -496,15 +500,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">9.3</span> Running multinomial logit in R</h2>
 <p>The multinomial specification will estimate coefficients that are relative to a baseline level of the outcomes. We should be thoughtful about what we choose as the baseline so that the coefficients are useful to us. Here, the author chooses to use “other” as the baseline.</p>
 <p>In R, we can easily change the baseline level of a factor variable. So first, we should check the class of the outcome variable and convert it into a factor variable if needed.</p>
-<div class="sourceCode" id="cb606"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb606-1"><a href="running-multinomial-logit-in-r.html#cb606-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(ker<span class="sc">$</span>genderimmedambcat3)</span></code></pre></div>
+<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb656-1"><a href="running-multinomial-logit-in-r.html#cb656-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(ker<span class="sc">$</span>genderimmedambcat3)</span></code></pre></div>
 <pre><code>[1] &quot;factor&quot;</code></pre>
 <p>We can then adjust the baseline level using the <code>relevel</code> command as has the <code>ref</code> argument for specifying a reference category.</p>
-<div class="sourceCode" id="cb608"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb608-1"><a href="running-multinomial-logit-in-r.html#cb608-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Sets a level as the base category for the factor</span></span>
-<span id="cb608-2"><a href="running-multinomial-logit-in-r.html#cb608-2" aria-hidden="true" tabindex="-1"></a>ker<span class="sc">$</span>genderimmedambcat3 <span class="ot">&lt;-</span> <span class="fu">relevel</span>(ker<span class="sc">$</span>genderimmedambcat3, <span class="at">ref =</span> <span class="st">&quot;other&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="running-multinomial-logit-in-r.html#cb658-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Sets a level as the base category for the factor</span></span>
+<span id="cb658-2"><a href="running-multinomial-logit-in-r.html#cb658-2" aria-hidden="true" tabindex="-1"></a>ker<span class="sc">$</span>genderimmedambcat3 <span class="ot">&lt;-</span> <span class="fu">relevel</span>(ker<span class="sc">$</span>genderimmedambcat3, <span class="at">ref =</span> <span class="st">&quot;other&quot;</span>)</span></code></pre></div>
 <p>Let’s run a simple regression model with just <code>female</code> as a covariate to see how the regression output differs from other models we have used thus far.</p>
-<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb609-1"><a href="running-multinomial-logit-in-r.html#cb609-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;nnet&quot;)</span></span>
-<span id="cb609-2"><a href="running-multinomial-logit-in-r.html#cb609-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nnet)</span>
-<span id="cb609-3"><a href="running-multinomial-logit-in-r.html#cb609-3" aria-hidden="true" tabindex="-1"></a>fit0 <span class="ot">&lt;-</span> <span class="fu">multinom</span>(genderimmedambcat3 <span class="sc">~</span> <span class="fu">factor</span>(female), <span class="at">data =</span> ker)</span></code></pre></div>
+<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb659-1"><a href="running-multinomial-logit-in-r.html#cb659-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;nnet&quot;)</span></span>
+<span id="cb659-2"><a href="running-multinomial-logit-in-r.html#cb659-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nnet)</span>
+<span id="cb659-3"><a href="running-multinomial-logit-in-r.html#cb659-3" aria-hidden="true" tabindex="-1"></a>fit0 <span class="ot">&lt;-</span> <span class="fu">multinom</span>(genderimmedambcat3 <span class="sc">~</span> <span class="fu">factor</span>(female), <span class="at">data =</span> ker)</span></code></pre></div>
 <pre><code># weights:  18 (10 variable)
 initial  value 3153.496666 
 iter  10 value 2849.378831
@@ -512,9 +516,9 @@ final  value 2837.879460
 converged</code></pre>
 <p>You can see that there is now a set of coefficients– Intercept and for female, for each outcome category-baseline comparison. We also do not automatically have the p-values for the output.</p>
 <p>We can find the p-values the same way we have done before by calculating z-scores through the division of the coefficients over the standard errors. Once we have the z-scores we can use <code>pnorm</code> the same way we did in the ordinal section.</p>
-<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb611-1"><a href="running-multinomial-logit-in-r.html#cb611-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit0)<span class="sc">$</span>coefficients<span class="sc">/</span><span class="fu">summary</span>(fit0)<span class="sc">$</span>standard.errors</span>
-<span id="cb611-2"><a href="running-multinomial-logit-in-r.html#cb611-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="dv">2</span><span class="sc">*</span>(<span class="fu">pnorm</span>(<span class="fu">abs</span>(z), <span class="at">lower.tail =</span> F)))</span>
-<span id="cb611-3"><a href="running-multinomial-logit-in-r.html#cb611-3" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div>
+<div class="sourceCode" id="cb661"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb661-1"><a href="running-multinomial-logit-in-r.html#cb661-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit0)<span class="sc">$</span>coefficients<span class="sc">/</span><span class="fu">summary</span>(fit0)<span class="sc">$</span>standard.errors</span>
+<span id="cb661-2"><a href="running-multinomial-logit-in-r.html#cb661-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="dv">2</span><span class="sc">*</span>(<span class="fu">pnorm</span>(<span class="fu">abs</span>(z), <span class="at">lower.tail =</span> F)))</span>
+<span id="cb661-3"><a href="running-multinomial-logit-in-r.html#cb661-3" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div>
 <pre><code>                              (Intercept) factor(female)1
 deputy/regidor ballot access 8.040554e-39      0.10711432
 senate ballot access         1.096025e-57      0.03803764
@@ -535,48 +539,48 @@ bur appt                     2.383587e-26      0.01908118</code></pre>
 </ul></li>
 </ul>
 <p>Let’s take an example of finding the predicted probability of <span class="math inline">\(C_j\)</span> = Senate ballot access when <span class="math inline">\(x_i\)</span> is set to be female = 1.</p>
-<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb613-1"><a href="running-multinomial-logit-in-r.html#cb613-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Create the model matrix</span></span>
-<span id="cb613-2"><a href="running-multinomial-logit-in-r.html#cb613-2" aria-hidden="true" tabindex="-1"></a>Xfemale <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, <span class="dv">1</span>) <span class="co"># 1 for intercept, 1 for female</span></span>
-<span id="cb613-3"><a href="running-multinomial-logit-in-r.html#cb613-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb613-4"><a href="running-multinomial-logit-in-r.html#cb613-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Extract coefficients and give them informative labels</span></span>
-<span id="cb613-5"><a href="running-multinomial-logit-in-r.html#cb613-5" aria-hidden="true" tabindex="-1"></a>Bsenate <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit0)[<span class="dv">2</span>,] <span class="co"># 2nd row of coefficients</span></span>
-<span id="cb613-6"><a href="running-multinomial-logit-in-r.html#cb613-6" aria-hidden="true" tabindex="-1"></a>Bdep <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit0)[<span class="dv">1</span>,]</span>
-<span id="cb613-7"><a href="running-multinomial-logit-in-r.html#cb613-7" aria-hidden="true" tabindex="-1"></a>Bmayor <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit0)[<span class="dv">3</span>,]</span>
-<span id="cb613-8"><a href="running-multinomial-logit-in-r.html#cb613-8" aria-hidden="true" tabindex="-1"></a>Bcabinet <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit0)[<span class="dv">4</span>,]</span>
-<span id="cb613-9"><a href="running-multinomial-logit-in-r.html#cb613-9" aria-hidden="true" tabindex="-1"></a>Bbur <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit0)[<span class="dv">5</span>,]</span>
-<span id="cb613-10"><a href="running-multinomial-logit-in-r.html#cb613-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb613-11"><a href="running-multinomial-logit-in-r.html#cb613-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Probability of senate ballot access for female</span></span>
-<span id="cb613-12"><a href="running-multinomial-logit-in-r.html#cb613-12" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bsenate)<span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bsenate) <span class="sc">+</span> <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bdep) <span class="sc">+</span></span>
-<span id="cb613-13"><a href="running-multinomial-logit-in-r.html#cb613-13" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bmayor) <span class="sc">+</span> <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bcabinet) <span class="sc">+</span></span>
-<span id="cb613-14"><a href="running-multinomial-logit-in-r.html#cb613-14" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bbur))</span></code></pre></div>
+<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="running-multinomial-logit-in-r.html#cb663-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Create the model matrix</span></span>
+<span id="cb663-2"><a href="running-multinomial-logit-in-r.html#cb663-2" aria-hidden="true" tabindex="-1"></a>Xfemale <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, <span class="dv">1</span>) <span class="co"># 1 for intercept, 1 for female</span></span>
+<span id="cb663-3"><a href="running-multinomial-logit-in-r.html#cb663-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb663-4"><a href="running-multinomial-logit-in-r.html#cb663-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Extract coefficients and give them informative labels</span></span>
+<span id="cb663-5"><a href="running-multinomial-logit-in-r.html#cb663-5" aria-hidden="true" tabindex="-1"></a>Bsenate <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit0)[<span class="dv">2</span>,] <span class="co"># 2nd row of coefficients</span></span>
+<span id="cb663-6"><a href="running-multinomial-logit-in-r.html#cb663-6" aria-hidden="true" tabindex="-1"></a>Bdep <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit0)[<span class="dv">1</span>,]</span>
+<span id="cb663-7"><a href="running-multinomial-logit-in-r.html#cb663-7" aria-hidden="true" tabindex="-1"></a>Bmayor <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit0)[<span class="dv">3</span>,]</span>
+<span id="cb663-8"><a href="running-multinomial-logit-in-r.html#cb663-8" aria-hidden="true" tabindex="-1"></a>Bcabinet <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit0)[<span class="dv">4</span>,]</span>
+<span id="cb663-9"><a href="running-multinomial-logit-in-r.html#cb663-9" aria-hidden="true" tabindex="-1"></a>Bbur <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit0)[<span class="dv">5</span>,]</span>
+<span id="cb663-10"><a href="running-multinomial-logit-in-r.html#cb663-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb663-11"><a href="running-multinomial-logit-in-r.html#cb663-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Probability of senate ballot access for female</span></span>
+<span id="cb663-12"><a href="running-multinomial-logit-in-r.html#cb663-12" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bsenate)<span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bsenate) <span class="sc">+</span> <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bdep) <span class="sc">+</span></span>
+<span id="cb663-13"><a href="running-multinomial-logit-in-r.html#cb663-13" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bmayor) <span class="sc">+</span> <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bcabinet) <span class="sc">+</span></span>
+<span id="cb663-14"><a href="running-multinomial-logit-in-r.html#cb663-14" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bbur))</span></code></pre></div>
 <pre><code>           [,1]
 [1,] 0.09846309</code></pre>
 <p>Let’s do the same for female = 0. We just need to change X.</p>
-<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb615-1"><a href="running-multinomial-logit-in-r.html#cb615-1" aria-hidden="true" tabindex="-1"></a>Xnfemale <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb615-2"><a href="running-multinomial-logit-in-r.html#cb615-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(Xnfemale <span class="sc">%*%</span> Bsenate)<span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(Xnfemale <span class="sc">%*%</span> Bsenate) <span class="sc">+</span> <span class="fu">exp</span>(Xnfemale <span class="sc">%*%</span> Bdep) <span class="sc">+</span></span>
-<span id="cb615-3"><a href="running-multinomial-logit-in-r.html#cb615-3" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">exp</span>(Xnfemale <span class="sc">%*%</span> Bmayor) <span class="sc">+</span> <span class="fu">exp</span>(Xnfemale <span class="sc">%*%</span> Bcabinet) <span class="sc">+</span></span>
-<span id="cb615-4"><a href="running-multinomial-logit-in-r.html#cb615-4" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">exp</span>(Xnfemale <span class="sc">%*%</span> Bbur))</span></code></pre></div>
+<div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb665-1"><a href="running-multinomial-logit-in-r.html#cb665-1" aria-hidden="true" tabindex="-1"></a>Xnfemale <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb665-2"><a href="running-multinomial-logit-in-r.html#cb665-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(Xnfemale <span class="sc">%*%</span> Bsenate)<span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(Xnfemale <span class="sc">%*%</span> Bsenate) <span class="sc">+</span> <span class="fu">exp</span>(Xnfemale <span class="sc">%*%</span> Bdep) <span class="sc">+</span></span>
+<span id="cb665-3"><a href="running-multinomial-logit-in-r.html#cb665-3" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">exp</span>(Xnfemale <span class="sc">%*%</span> Bmayor) <span class="sc">+</span> <span class="fu">exp</span>(Xnfemale <span class="sc">%*%</span> Bcabinet) <span class="sc">+</span></span>
+<span id="cb665-4"><a href="running-multinomial-logit-in-r.html#cb665-4" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">exp</span>(Xnfemale <span class="sc">%*%</span> Bbur))</span></code></pre></div>
 <pre><code>           [,1]
 [1,] 0.06829273</code></pre>
 <p>We might also be interested in the probability of <span class="math inline">\(C_j\)</span> = other. The syntax here will look slightly different because “other” was the baseline category. The denominator stays the same, but the numerator is just 1.</p>
-<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="running-multinomial-logit-in-r.html#cb617-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Manual- probability of other for female (the base category)</span></span>
-<span id="cb617-2"><a href="running-multinomial-logit-in-r.html#cb617-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bsenate) <span class="sc">+</span> <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bdep) <span class="sc">+</span></span>
-<span id="cb617-3"><a href="running-multinomial-logit-in-r.html#cb617-3" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bmayor) <span class="sc">+</span> <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bcabinet) <span class="sc">+</span></span>
-<span id="cb617-4"><a href="running-multinomial-logit-in-r.html#cb617-4" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bbur))</span></code></pre></div>
+<div class="sourceCode" id="cb667"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb667-1"><a href="running-multinomial-logit-in-r.html#cb667-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Manual- probability of other for female (the base category)</span></span>
+<span id="cb667-2"><a href="running-multinomial-logit-in-r.html#cb667-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bsenate) <span class="sc">+</span> <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bdep) <span class="sc">+</span></span>
+<span id="cb667-3"><a href="running-multinomial-logit-in-r.html#cb667-3" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bmayor) <span class="sc">+</span> <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bcabinet) <span class="sc">+</span></span>
+<span id="cb667-4"><a href="running-multinomial-logit-in-r.html#cb667-4" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">exp</span>(Xfemale <span class="sc">%*%</span> Bbur))</span></code></pre></div>
 <pre><code>          [,1]
 [1,] 0.3538449</code></pre>
 <p>Just like in the other models, we can rely on outside packages, too. For some models, these packages are not going to have full capabilities– they might not be able to calculate standard errors, for example. These are “living packages” so you can always check the documentation and update the packages to see if new capabilities have been added.</p>
-<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="running-multinomial-logit-in-r.html#cb619-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prediction)</span>
-<span id="cb619-2"><a href="running-multinomial-logit-in-r.html#cb619-2" aria-hidden="true" tabindex="-1"></a>p.senate <span class="ot">&lt;-</span> <span class="fu">prediction</span>(fit0, <span class="at">at  =</span> <span class="fu">list</span>(<span class="at">female =</span> <span class="dv">1</span>))</span>
-<span id="cb619-3"><a href="running-multinomial-logit-in-r.html#cb619-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p.senate<span class="sc">$</span><span class="st">`</span><span class="at">Pr(senate ballot access)</span><span class="st">`</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb669"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb669-1"><a href="running-multinomial-logit-in-r.html#cb669-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prediction)</span>
+<span id="cb669-2"><a href="running-multinomial-logit-in-r.html#cb669-2" aria-hidden="true" tabindex="-1"></a>p.senate <span class="ot">&lt;-</span> <span class="fu">prediction</span>(fit0, <span class="at">at  =</span> <span class="fu">list</span>(<span class="at">female =</span> <span class="dv">1</span>))</span>
+<span id="cb669-3"><a href="running-multinomial-logit-in-r.html#cb669-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p.senate<span class="sc">$</span><span class="st">`</span><span class="at">Pr(senate ballot access)</span><span class="st">`</span>)</span></code></pre></div>
 <pre><code>[1] 0.09846309</code></pre>
-<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="running-multinomial-logit-in-r.html#cb621-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p.senate<span class="sc">$</span><span class="st">`</span><span class="at">Pr(other)</span><span class="st">`</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb671"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb671-1"><a href="running-multinomial-logit-in-r.html#cb671-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p.senate<span class="sc">$</span><span class="st">`</span><span class="at">Pr(other)</span><span class="st">`</span>)</span></code></pre></div>
 <pre><code>[1] 0.3538449</code></pre>
 <p>We can use <code>margins</code> to calculate the difference in predicted probabilities, for example, between <code>female=1</code> and <code>female=0</code>. We should specify the category for which we want this comparison. It appears we need to set <code>vce = booststrap</code> for this to work.</p>
-<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb623-1"><a href="running-multinomial-logit-in-r.html#cb623-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(margins)</span>
-<span id="cb623-2"><a href="running-multinomial-logit-in-r.html#cb623-2" aria-hidden="true" tabindex="-1"></a>m.senate <span class="ot">&lt;-</span> <span class="fu">margins</span>(fit0, <span class="at">variables =</span> <span class="st">&quot;female&quot;</span>, <span class="at">category =</span> <span class="st">&quot;senate ballot access&quot;</span>, </span>
-<span id="cb623-3"><a href="running-multinomial-logit-in-r.html#cb623-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">vce=</span><span class="st">&quot;bootstrap&quot;</span>, <span class="at">change=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
-<span id="cb623-4"><a href="running-multinomial-logit-in-r.html#cb623-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m.senate)</span></code></pre></div>
+<div class="sourceCode" id="cb673"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb673-1"><a href="running-multinomial-logit-in-r.html#cb673-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(margins)</span>
+<span id="cb673-2"><a href="running-multinomial-logit-in-r.html#cb673-2" aria-hidden="true" tabindex="-1"></a>m.senate <span class="ot">&lt;-</span> <span class="fu">margins</span>(fit0, <span class="at">variables =</span> <span class="st">&quot;female&quot;</span>, <span class="at">category =</span> <span class="st">&quot;senate ballot access&quot;</span>, </span>
+<span id="cb673-3"><a href="running-multinomial-logit-in-r.html#cb673-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">vce=</span><span class="st">&quot;bootstrap&quot;</span>, <span class="at">change=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb673-4"><a href="running-multinomial-logit-in-r.html#cb673-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m.senate)</span></code></pre></div>
 <p>Of course, we could also do this manually, have a quantity of interest <a href="https://www.youtube.com/watch?v=M-5zlj49ugk">party</a>, and run the bootstrap ourselves.</p>
 </div>
 </div>
@@ -590,7 +594,6 @@ bur appt                     2.383587e-26      0.01908118</code></pre>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -609,6 +612,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -629,6 +633,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

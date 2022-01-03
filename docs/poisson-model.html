@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>10.2 Poisson Model | MLE for Political Science</title>
   <meta name="description" content="10.2 Poisson Model | MLE for Political Science" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="10.2 Poisson Model | MLE for Political Science" />
   <meta property="og:type" content="book" />
@@ -32,8 +32,9 @@
   
 <link rel="prev" href="overview-of-count-data.html"/>
 <link rel="next" href="motivating-example-for-count-data.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,7 +50,8 @@
 
 
 
-
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <link href="libs/vembedr-0.1.4/css/vembedr.css" rel="stylesheet" />
 
 
@@ -57,6 +59,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -116,6 +119,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
@@ -229,7 +233,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.6" data-path="generating-predictions-from-regression-models.html"><a href="generating-predictions-from-regression-models.html"><i class="fa fa-check"></i><b>4.6</b> Generating predictions from regression models</a></li>
 <li class="chapter" data-level="4.7" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html"><i class="fa fa-check"></i><b>4.7</b> Wrapping up OLS</a>
 <ul>
-<li class="chapter" data-level="4.7.1" data-path="practice-problems.html"><a href="practice-problems.html#practice-problems"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
+<li class="chapter" data-level="4.7.1" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problems-1"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
 <li class="chapter" data-level="4.7.2" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problem-code-for-solutions"><i class="fa fa-check"></i><b>4.7.2</b> Practice Problem Code for Solutions</a></li>
 </ul></li>
 <li class="chapter" data-level="4.8" data-path="week-2-thursday-example.html"><a href="week-2-thursday-example.html"><i class="fa fa-check"></i><b>4.8</b> Week 2 Thursday Example</a></li>
@@ -263,7 +267,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="6.1" data-path="data-generating-process.html"><a href="data-generating-process.html"><i class="fa fa-check"></i><b>6.1</b> Data Generating Process</a>
 <ul>
-<li class="chapter" data-level="6.1.1" data-path="mle-estimation.html"><a href="mle-estimation.html#mle-estimation"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
+<li class="chapter" data-level="6.1.1" data-path="data-generating-process.html"><a href="data-generating-process.html#mle-estimation-1"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="r-code-for-fitting-logistic-regression.html"><a href="r-code-for-fitting-logistic-regression.html"><i class="fa fa-check"></i><b>6.2</b> R code for fitting logistic regression</a>
 <ul>
@@ -466,7 +470,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="15.1.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html#how-to-predict-or-classify"><i class="fa fa-check"></i><b>15.1.1</b> How to predict or classify</a></li>
 </ul></li>
-<li class="chapter" data-level="15.2" data-path="in-sample-vs-out-of-sample.html"><a href="in-sample-vs-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
+<li class="chapter" data-level="15.2" data-path="in-sample-vs.-out-of-sample.html"><a href="in-sample-vs.-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
 <li class="chapter" data-level="15.3" data-path="cross-validation.html"><a href="cross-validation.html"><i class="fa fa-check"></i><b>15.3</b> Cross-Validation</a>
 <ul>
 <li class="chapter" data-level="15.3.1" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>15.3.1</b> k-fold cross-validation</a></li>
@@ -520,35 +524,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Try to remember this detail, because it will come up later when we assess if a Poisson process is actually a good approximation of the data generating process. It’s often not the case that a mean is the same as the variance. It can actually be a quite bad approximation of the variance.</li>
 </ul>
 <p>Let’s look at an example of Poisson data to prove to ourselves that if data are Poisson the mean and variance are equivalent:</p>
-<div class="sourceCode" id="cb644"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb644-1"><a href="poisson-model.html#cb644-1" aria-hidden="true" tabindex="-1"></a><span class="do">## We use rpois() to generate some count data according to the Poisson distribution. </span></span>
-<span id="cb644-2"><a href="poisson-model.html#cb644-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s specify lambda = 4</span></span>
-<span id="cb644-3"><a href="poisson-model.html#cb644-3" aria-hidden="true" tabindex="-1"></a><span class="do">## This means the mean of the distribution will be 4 and the variance will be 4</span></span>
-<span id="cb644-4"><a href="poisson-model.html#cb644-4" aria-hidden="true" tabindex="-1"></a><span class="do">## In any given sample, it might be slightly off from this</span></span>
-<span id="cb644-5"><a href="poisson-model.html#cb644-5" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n=</span><span class="dv">100000</span>, <span class="at">lambda =</span> <span class="dv">4</span>)</span>
-<span id="cb644-6"><a href="poisson-model.html#cb644-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(Y)</span></code></pre></div>
-<pre><code>[1] 4.00034</code></pre>
-<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb646-1"><a href="poisson-model.html#cb646-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(Y)</span></code></pre></div>
-<pre><code>[1] 4.00326</code></pre>
+<div class="sourceCode" id="cb694"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb694-1"><a href="poisson-model.html#cb694-1" aria-hidden="true" tabindex="-1"></a><span class="do">## We use rpois() to generate some count data according to the Poisson distribution. </span></span>
+<span id="cb694-2"><a href="poisson-model.html#cb694-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s specify lambda = 4</span></span>
+<span id="cb694-3"><a href="poisson-model.html#cb694-3" aria-hidden="true" tabindex="-1"></a><span class="do">## This means the mean of the distribution will be 4 and the variance will be 4</span></span>
+<span id="cb694-4"><a href="poisson-model.html#cb694-4" aria-hidden="true" tabindex="-1"></a><span class="do">## In any given sample, it might be slightly off from this</span></span>
+<span id="cb694-5"><a href="poisson-model.html#cb694-5" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="at">n=</span><span class="dv">100000</span>, <span class="at">lambda =</span> <span class="dv">4</span>)</span>
+<span id="cb694-6"><a href="poisson-model.html#cb694-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(Y)</span></code></pre></div>
+<pre><code>[1] 3.99614</code></pre>
+<div class="sourceCode" id="cb696"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb696-1"><a href="poisson-model.html#cb696-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(Y)</span></code></pre></div>
+<pre><code>[1] 4.020165</code></pre>
 <p>The pmf above describes the probability that <code>Y</code> takes a particular outcome.</p>
-<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb648-1"><a href="poisson-model.html#cb648-1" aria-hidden="true" tabindex="-1"></a><span class="do">## For example given a Y ~ Pois(lambda = 4), let&#39;s look at the probability of getting particular counts using dpois, the pmf function for poisson</span></span>
-<span id="cb648-2"><a href="poisson-model.html#cb648-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb648-3"><a href="poisson-model.html#cb648-3" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">16</span></span>
-<span id="cb648-4"><a href="poisson-model.html#cb648-4" aria-hidden="true" tabindex="-1"></a>probs <span class="ot">&lt;-</span> <span class="fu">dpois</span>(counts, <span class="at">lambda =</span> <span class="dv">4</span>)</span>
-<span id="cb648-5"><a href="poisson-model.html#cb648-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(probs) <span class="ot">&lt;-</span> counts</span>
-<span id="cb648-6"><a href="poisson-model.html#cb648-6" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(probs, <span class="at">digits=</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb698"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb698-1"><a href="poisson-model.html#cb698-1" aria-hidden="true" tabindex="-1"></a><span class="do">## For example given a Y ~ Pois(lambda = 4), let&#39;s look at the probability of getting particular counts using dpois, the pmf function for poisson</span></span>
+<span id="cb698-2"><a href="poisson-model.html#cb698-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb698-3"><a href="poisson-model.html#cb698-3" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">16</span></span>
+<span id="cb698-4"><a href="poisson-model.html#cb698-4" aria-hidden="true" tabindex="-1"></a>probs <span class="ot">&lt;-</span> <span class="fu">dpois</span>(counts, <span class="at">lambda =</span> <span class="dv">4</span>)</span>
+<span id="cb698-5"><a href="poisson-model.html#cb698-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(probs) <span class="ot">&lt;-</span> counts</span>
+<span id="cb698-6"><a href="poisson-model.html#cb698-6" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(probs, <span class="at">digits=</span><span class="dv">3</span>)</span></code></pre></div>
 <pre><code>    0     1     2     3     4     5     6     7     8     9    10    11    12 
 0.018 0.073 0.147 0.195 0.195 0.156 0.104 0.060 0.030 0.013 0.005 0.002 0.001 
    13    14    15    16 
 0.000 0.000 0.000 0.000 </code></pre>
-<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb650-1"><a href="poisson-model.html#cb650-1" aria-hidden="true" tabindex="-1"></a><span class="do">## The probability is higher the closer we are to 4, the mean of the distribution</span></span>
-<span id="cb650-2"><a href="poisson-model.html#cb650-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s check our formula from above for the probability Y = 2</span></span>
-<span id="cb650-3"><a href="poisson-model.html#cb650-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb650-4"><a href="poisson-model.html#cb650-4" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb650-5"><a href="poisson-model.html#cb650-5" aria-hidden="true" tabindex="-1"></a>yi <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb650-6"><a href="poisson-model.html#cb650-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(yi, <span class="at">lambda=</span><span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb700"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb700-1"><a href="poisson-model.html#cb700-1" aria-hidden="true" tabindex="-1"></a><span class="do">## The probability is higher the closer we are to 4, the mean of the distribution</span></span>
+<span id="cb700-2"><a href="poisson-model.html#cb700-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s check our formula from above for the probability Y = 2</span></span>
+<span id="cb700-3"><a href="poisson-model.html#cb700-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb700-4"><a href="poisson-model.html#cb700-4" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb700-5"><a href="poisson-model.html#cb700-5" aria-hidden="true" tabindex="-1"></a>yi <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb700-6"><a href="poisson-model.html#cb700-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(yi, <span class="at">lambda=</span><span class="dv">4</span>)</span></code></pre></div>
 <pre><code>[1] 0.1465251</code></pre>
-<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb652-1"><a href="poisson-model.html#cb652-1" aria-hidden="true" tabindex="-1"></a><span class="do">## formula from above</span></span>
-<span id="cb652-2"><a href="poisson-model.html#cb652-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span>lambda)<span class="sc">*</span>lambda<span class="sc">^</span>yi<span class="sc">/</span><span class="fu">factorial</span>(yi)</span></code></pre></div>
+<div class="sourceCode" id="cb702"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb702-1"><a href="poisson-model.html#cb702-1" aria-hidden="true" tabindex="-1"></a><span class="do">## formula from above</span></span>
+<span id="cb702-2"><a href="poisson-model.html#cb702-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span>lambda)<span class="sc">*</span>lambda<span class="sc">^</span>yi<span class="sc">/</span><span class="fu">factorial</span>(yi)</span></code></pre></div>
 <pre><code>[1] 0.1465251</code></pre>
 <p>The expected count here is 4, the mean of the distribution. The probability of any given count is specified according to the pmf above.</p>
 <p><strong>Adding covariates</strong></p>
@@ -625,7 +629,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -644,6 +647,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -664,6 +668,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

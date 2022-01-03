@@ -52,7 +52,7 @@ Take the UK population of 70 million. We have a sample of this, and in our sampl
  
   - For example, we can now plug this into our Bernoulli function for the two possible cases of values for $y_i$.
       + $f(1|p) = p^1(1-p)^{1-1} = p$  probability an individual is male
-      + $f(0 |p) p ^0(1-p)^{1-0} = 1-p$ probability individual is female
+      + $f(0 |p)= p ^0(1-p)^{1-0} = 1-p$ probability individual is female
 
   - Now we want an estimate using our entire sample of observations, not just a single $i$. What if we have $n$ observations? $f(y_1, y_2, ... y_n | p)$. We can write the joint probability as all individual probabilities multiplied together if we assume our observations are independent. This will now represent the likelihood for all observations. 
       + $L = P(Y_1 = y_1, Y_2=y_2, ..., Y_n = y_n)= \prod_{i=1}^n p^y_i(1 - p)^{1-y_i}$

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>7.4 Visualizing Results | MLE for Political Science</title>
   <meta name="description" content="7.4 Visualizing Results | MLE for Political Science" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="7.4 Visualizing Results | MLE for Political Science" />
   <meta property="og:type" content="book" />
@@ -32,8 +32,9 @@
   
 <link rel="prev" href="uncertainty.html"/>
 <link rel="next" href="additional-r-shortcuts.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,7 +50,8 @@
 
 
 
-
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <link href="libs/vembedr-0.1.4/css/vembedr.css" rel="stylesheet" />
 
 
@@ -57,6 +59,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -116,6 +119,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
@@ -229,7 +233,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.6" data-path="generating-predictions-from-regression-models.html"><a href="generating-predictions-from-regression-models.html"><i class="fa fa-check"></i><b>4.6</b> Generating predictions from regression models</a></li>
 <li class="chapter" data-level="4.7" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html"><i class="fa fa-check"></i><b>4.7</b> Wrapping up OLS</a>
 <ul>
-<li class="chapter" data-level="4.7.1" data-path="practice-problems.html"><a href="practice-problems.html#practice-problems"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
+<li class="chapter" data-level="4.7.1" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problems-1"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
 <li class="chapter" data-level="4.7.2" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problem-code-for-solutions"><i class="fa fa-check"></i><b>4.7.2</b> Practice Problem Code for Solutions</a></li>
 </ul></li>
 <li class="chapter" data-level="4.8" data-path="week-2-thursday-example.html"><a href="week-2-thursday-example.html"><i class="fa fa-check"></i><b>4.8</b> Week 2 Thursday Example</a></li>
@@ -263,7 +267,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="6.1" data-path="data-generating-process.html"><a href="data-generating-process.html"><i class="fa fa-check"></i><b>6.1</b> Data Generating Process</a>
 <ul>
-<li class="chapter" data-level="6.1.1" data-path="mle-estimation.html"><a href="mle-estimation.html#mle-estimation"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
+<li class="chapter" data-level="6.1.1" data-path="data-generating-process.html"><a href="data-generating-process.html#mle-estimation-1"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="r-code-for-fitting-logistic-regression.html"><a href="r-code-for-fitting-logistic-regression.html"><i class="fa fa-check"></i><b>6.2</b> R code for fitting logistic regression</a>
 <ul>
@@ -466,7 +470,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="15.1.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html#how-to-predict-or-classify"><i class="fa fa-check"></i><b>15.1.1</b> How to predict or classify</a></li>
 </ul></li>
-<li class="chapter" data-level="15.2" data-path="in-sample-vs-out-of-sample.html"><a href="in-sample-vs-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
+<li class="chapter" data-level="15.2" data-path="in-sample-vs.-out-of-sample.html"><a href="in-sample-vs.-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
 <li class="chapter" data-level="15.3" data-path="cross-validation.html"><a href="cross-validation.html"><i class="fa fa-check"></i><b>15.3</b> Cross-Validation</a>
 <ul>
 <li class="chapter" data-level="15.3.1" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>15.3.1</b> k-fold cross-validation</a></li>
@@ -496,46 +500,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">7.4</span> Visualizing Results</h2>
 <p>Now that we have our point estimates of our quantities of interest and our confidence intervals, we can <a href="https://www.youtube.com/watch/XvazQUYG1kE">kick it up a notch</a> by visualizing these results.</p>
 <p>Let’s plot our predicted probability when Allies = 1 with percentile Quasi-Bayesian CI’s and Bias-Corrected Bootstrap CI’s</p>
-<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="visualizing-results.html#cb463-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">y=</span> <span class="fu">c</span>(pe1, pe1),</span>
-<span id="cb463-2"><a href="visualizing-results.html#cb463-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, .<span class="dv">004</span>),</span>
-<span id="cb463-3"><a href="visualizing-results.html#cb463-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">2.5</span>),</span>
-<span id="cb463-4"><a href="visualizing-results.html#cb463-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">cex =</span> <span class="fl">1.6</span>,</span>
-<span id="cb463-5"><a href="visualizing-results.html#cb463-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Average Predicted Probability of Dispute when Allies&quot;</span>,</span>
-<span id="cb463-6"><a href="visualizing-results.html#cb463-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.main =</span> .<span class="dv">7</span>, <span class="at">cex.lab =</span> .<span class="dv">7</span>, <span class="at">cex.axis =</span> .<span class="dv">7</span>,</span>
-<span id="cb463-7"><a href="visualizing-results.html#cb463-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Predicted Probability&quot;</span>,</span>
-<span id="cb463-8"><a href="visualizing-results.html#cb463-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, </span>
-<span id="cb463-9"><a href="visualizing-results.html#cb463-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>) <span class="co"># removes x-axis</span></span>
-<span id="cb463-10"><a href="visualizing-results.html#cb463-10" aria-hidden="true" tabindex="-1"></a><span class="co"># add lines from c(x1, x2) on the x-axis and from c(y1, y2) on the y-axis</span></span>
-<span id="cb463-11"><a href="visualizing-results.html#cb463-11" aria-hidden="true" tabindex="-1"></a><span class="co"># note, we don&#39;t want any horizontal movement, so we keep x1 and x2 the same c(1,1)</span></span>
-<span id="cb463-12"><a href="visualizing-results.html#cb463-12" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="fu">c</span>(<span class="fu">quantile</span>(qestimates, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))), <span class="at">lwd =</span> <span class="fl">1.5</span>)</span>
-<span id="cb463-13"><a href="visualizing-results.html#cb463-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="fu">c</span>(<span class="fu">quantile</span>(bc, <span class="fu">c</span>(<span class="fl">0.025</span>, .<span class="dv">975</span>))), <span class="at">lwd =</span> <span class="fl">1.5</span>)</span>
-<span id="cb463-14"><a href="visualizing-results.html#cb463-14" aria-hidden="true" tabindex="-1"></a><span class="co"># add text a</span></span>
-<span id="cb463-15"><a href="visualizing-results.html#cb463-15" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.001</span>), <span class="fu">c</span>(<span class="st">&quot;Quasi-Bayesian&quot;</span>, <span class="st">&quot;BC Bootstrap&quot;</span>), <span class="at">cex =</span> .<span class="dv">7</span> )</span></code></pre></div>
+<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="visualizing-results.html#cb465-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">y=</span> <span class="fu">c</span>(pe1, pe1),</span>
+<span id="cb465-2"><a href="visualizing-results.html#cb465-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, .<span class="dv">004</span>),</span>
+<span id="cb465-3"><a href="visualizing-results.html#cb465-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">2.5</span>),</span>
+<span id="cb465-4"><a href="visualizing-results.html#cb465-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">cex =</span> <span class="fl">1.6</span>,</span>
+<span id="cb465-5"><a href="visualizing-results.html#cb465-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Average Predicted Probability of Dispute when Allies&quot;</span>,</span>
+<span id="cb465-6"><a href="visualizing-results.html#cb465-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.main =</span> .<span class="dv">7</span>, <span class="at">cex.lab =</span> .<span class="dv">7</span>, <span class="at">cex.axis =</span> .<span class="dv">7</span>,</span>
+<span id="cb465-7"><a href="visualizing-results.html#cb465-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Predicted Probability&quot;</span>,</span>
+<span id="cb465-8"><a href="visualizing-results.html#cb465-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>, </span>
+<span id="cb465-9"><a href="visualizing-results.html#cb465-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>) <span class="co"># removes x-axis</span></span>
+<span id="cb465-10"><a href="visualizing-results.html#cb465-10" aria-hidden="true" tabindex="-1"></a><span class="co"># add lines from c(x1, x2) on the x-axis and from c(y1, y2) on the y-axis</span></span>
+<span id="cb465-11"><a href="visualizing-results.html#cb465-11" aria-hidden="true" tabindex="-1"></a><span class="co"># note, we don&#39;t want any horizontal movement, so we keep x1 and x2 the same c(1,1)</span></span>
+<span id="cb465-12"><a href="visualizing-results.html#cb465-12" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="fu">c</span>(<span class="fu">quantile</span>(qestimates, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))), <span class="at">lwd =</span> <span class="fl">1.5</span>)</span>
+<span id="cb465-13"><a href="visualizing-results.html#cb465-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="fu">c</span>(<span class="fu">quantile</span>(bc, <span class="fu">c</span>(<span class="fl">0.025</span>, .<span class="dv">975</span>))), <span class="at">lwd =</span> <span class="fl">1.5</span>)</span>
+<span id="cb465-14"><a href="visualizing-results.html#cb465-14" aria-hidden="true" tabindex="-1"></a><span class="co"># add text a</span></span>
+<span id="cb465-15"><a href="visualizing-results.html#cb465-15" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="fl">0.001</span>, <span class="fl">0.001</span>), <span class="fu">c</span>(<span class="st">&quot;Quasi-Bayesian&quot;</span>, <span class="st">&quot;BC Bootstrap&quot;</span>), <span class="at">cex =</span> .<span class="dv">7</span> )</span></code></pre></div>
 <p><img src="mlebookout_files/figure-html/unnamed-chunk-211-1.svg" width="672" /></p>
 <p>Here is the same but in <code>ggplot</code> form.</p>
-<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="visualizing-results.html#cb464-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ggplot works best if you create a dataframe of the data you want to plot</span></span>
-<span id="cb464-2"><a href="visualizing-results.html#cb464-2" aria-hidden="true" tabindex="-1"></a>myg <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(pe1, <span class="fu">quantile</span>(qestimates, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))),</span>
-<span id="cb464-3"><a href="visualizing-results.html#cb464-3" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">c</span>(pe1, <span class="fu">quantile</span>(bc, <span class="fu">c</span>(<span class="fl">0.025</span>, .<span class="dv">975</span>)))))</span>
-<span id="cb464-4"><a href="visualizing-results.html#cb464-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(myg) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;pp&quot;</span>, <span class="st">&quot;qb&quot;</span>, <span class="st">&quot;bc&quot;</span>) </span>
-<span id="cb464-5"><a href="visualizing-results.html#cb464-5" aria-hidden="true" tabindex="-1"></a>myg</span></code></pre></div>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="visualizing-results.html#cb466-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ggplot works best if you create a dataframe of the data you want to plot</span></span>
+<span id="cb466-2"><a href="visualizing-results.html#cb466-2" aria-hidden="true" tabindex="-1"></a>myg <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(pe1, <span class="fu">quantile</span>(qestimates, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))),</span>
+<span id="cb466-3"><a href="visualizing-results.html#cb466-3" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">c</span>(pe1, <span class="fu">quantile</span>(bc, <span class="fu">c</span>(<span class="fl">0.025</span>, .<span class="dv">975</span>)))))</span>
+<span id="cb466-4"><a href="visualizing-results.html#cb466-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(myg) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;pp&quot;</span>, <span class="st">&quot;qb&quot;</span>, <span class="st">&quot;bc&quot;</span>) </span>
+<span id="cb466-5"><a href="visualizing-results.html#cb466-5" aria-hidden="true" tabindex="-1"></a>myg</span></code></pre></div>
 <pre><code>           pp          qb          bc
 1 0.002759902 0.002314344 0.003419644
 2 0.002759902 0.002088520 0.003244449</code></pre>
-<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="visualizing-results.html#cb466-1" aria-hidden="true" tabindex="-1"></a><span class="do">## now provide this dataframe to ggplot</span></span>
-<span id="cb466-2"><a href="visualizing-results.html#cb466-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(myg, <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(myg), <span class="at">y =</span> pp))<span class="sc">+</span> </span>
-<span id="cb466-3"><a href="visualizing-results.html#cb466-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb466-4"><a href="visualizing-results.html#cb466-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data=</span>myg, <span class="fu">aes</span>(<span class="at">x =</span><span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(myg),  </span>
-<span id="cb466-5"><a href="visualizing-results.html#cb466-5" aria-hidden="true" tabindex="-1"></a>                         <span class="at">ymin =</span> qb, <span class="at">ymax =</span> bc), </span>
-<span id="cb466-6"><a href="visualizing-results.html#cb466-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
-<span id="cb466-7"><a href="visualizing-results.html#cb466-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(.<span class="dv">5</span>, <span class="fl">2.5</span>) <span class="sc">+</span></span>
-<span id="cb466-8"><a href="visualizing-results.html#cb466-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, .<span class="dv">005</span>) <span class="sc">+</span></span>
-<span id="cb466-9"><a href="visualizing-results.html#cb466-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x=</span><span class="fu">element_blank</span>(),</span>
-<span id="cb466-10"><a href="visualizing-results.html#cb466-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x=</span><span class="fu">element_blank</span>(),</span>
-<span id="cb466-11"><a href="visualizing-results.html#cb466-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.x=</span><span class="fu">element_blank</span>(),</span>
-<span id="cb466-12"><a href="visualizing-results.html#cb466-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
-<span id="cb466-13"><a href="visualizing-results.html#cb466-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Predicted Probability&quot;</span>) <span class="sc">+</span></span>
-<span id="cb466-14"><a href="visualizing-results.html#cb466-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Average Predicted Probability of Dispute when Allies&quot;</span>) <span class="sc">+</span></span>
-<span id="cb466-15"><a href="visualizing-results.html#cb466-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">y =</span> .<span class="dv">004</span>, <span class="at">label =</span> <span class="fu">c</span>(<span class="st">&quot;Quasi-Bayesian&quot;</span>, <span class="st">&quot;BC Bootstrap&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="visualizing-results.html#cb468-1" aria-hidden="true" tabindex="-1"></a><span class="do">## now provide this dataframe to ggplot</span></span>
+<span id="cb468-2"><a href="visualizing-results.html#cb468-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(myg, <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(myg), <span class="at">y =</span> pp))<span class="sc">+</span> </span>
+<span id="cb468-3"><a href="visualizing-results.html#cb468-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb468-4"><a href="visualizing-results.html#cb468-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data=</span>myg, <span class="fu">aes</span>(<span class="at">x =</span><span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(myg),  </span>
+<span id="cb468-5"><a href="visualizing-results.html#cb468-5" aria-hidden="true" tabindex="-1"></a>                         <span class="at">ymin =</span> qb, <span class="at">ymax =</span> bc), </span>
+<span id="cb468-6"><a href="visualizing-results.html#cb468-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="fl">1.1</span>) <span class="sc">+</span></span>
+<span id="cb468-7"><a href="visualizing-results.html#cb468-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(.<span class="dv">5</span>, <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb468-8"><a href="visualizing-results.html#cb468-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, .<span class="dv">005</span>) <span class="sc">+</span></span>
+<span id="cb468-9"><a href="visualizing-results.html#cb468-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x=</span><span class="fu">element_blank</span>(),</span>
+<span id="cb468-10"><a href="visualizing-results.html#cb468-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x=</span><span class="fu">element_blank</span>(),</span>
+<span id="cb468-11"><a href="visualizing-results.html#cb468-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.x=</span><span class="fu">element_blank</span>(),</span>
+<span id="cb468-12"><a href="visualizing-results.html#cb468-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb468-13"><a href="visualizing-results.html#cb468-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Predicted Probability&quot;</span>) <span class="sc">+</span></span>
+<span id="cb468-14"><a href="visualizing-results.html#cb468-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Average Predicted Probability of Dispute when Allies&quot;</span>) <span class="sc">+</span></span>
+<span id="cb468-15"><a href="visualizing-results.html#cb468-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">y =</span> .<span class="dv">004</span>, <span class="at">label =</span> <span class="fu">c</span>(<span class="st">&quot;Quasi-Bayesian&quot;</span>, <span class="st">&quot;BC Bootstrap&quot;</span>))</span></code></pre></div>
 <p><img src="mlebookout_files/figure-html/unnamed-chunk-212-1.svg" width="672" /></p>
 </div>
             </section>
@@ -548,7 +552,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -567,6 +570,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -587,6 +591,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

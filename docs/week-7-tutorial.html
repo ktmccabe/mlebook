@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>9.5 Week 7 Tutorial | MLE for Political Science</title>
   <meta name="description" content="9.5 Week 7 Tutorial | MLE for Political Science" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="9.5 Week 7 Tutorial | MLE for Political Science" />
   <meta property="og:type" content="book" />
@@ -32,8 +32,9 @@
   
 <link rel="prev" href="practice-problems-for-multinomial.html"/>
 <link rel="next" href="count.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,7 +50,8 @@
 
 
 
-
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <link href="libs/vembedr-0.1.4/css/vembedr.css" rel="stylesheet" />
 
 
@@ -57,6 +59,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -116,6 +119,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
@@ -229,7 +233,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.6" data-path="generating-predictions-from-regression-models.html"><a href="generating-predictions-from-regression-models.html"><i class="fa fa-check"></i><b>4.6</b> Generating predictions from regression models</a></li>
 <li class="chapter" data-level="4.7" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html"><i class="fa fa-check"></i><b>4.7</b> Wrapping up OLS</a>
 <ul>
-<li class="chapter" data-level="4.7.1" data-path="practice-problems.html"><a href="practice-problems.html#practice-problems"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
+<li class="chapter" data-level="4.7.1" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problems-1"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
 <li class="chapter" data-level="4.7.2" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problem-code-for-solutions"><i class="fa fa-check"></i><b>4.7.2</b> Practice Problem Code for Solutions</a></li>
 </ul></li>
 <li class="chapter" data-level="4.8" data-path="week-2-thursday-example.html"><a href="week-2-thursday-example.html"><i class="fa fa-check"></i><b>4.8</b> Week 2 Thursday Example</a></li>
@@ -263,7 +267,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="6.1" data-path="data-generating-process.html"><a href="data-generating-process.html"><i class="fa fa-check"></i><b>6.1</b> Data Generating Process</a>
 <ul>
-<li class="chapter" data-level="6.1.1" data-path="mle-estimation.html"><a href="mle-estimation.html#mle-estimation"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
+<li class="chapter" data-level="6.1.1" data-path="data-generating-process.html"><a href="data-generating-process.html#mle-estimation-1"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="r-code-for-fitting-logistic-regression.html"><a href="r-code-for-fitting-logistic-regression.html"><i class="fa fa-check"></i><b>6.2</b> R code for fitting logistic regression</a>
 <ul>
@@ -466,7 +470,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="15.1.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html#how-to-predict-or-classify"><i class="fa fa-check"></i><b>15.1.1</b> How to predict or classify</a></li>
 </ul></li>
-<li class="chapter" data-level="15.2" data-path="in-sample-vs-out-of-sample.html"><a href="in-sample-vs-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
+<li class="chapter" data-level="15.2" data-path="in-sample-vs.-out-of-sample.html"><a href="in-sample-vs.-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
 <li class="chapter" data-level="15.3" data-path="cross-validation.html"><a href="cross-validation.html"><i class="fa fa-check"></i><b>15.3</b> Cross-Validation</a>
 <ul>
 <li class="chapter" data-level="15.3.1" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>15.3.1</b> k-fold cross-validation</a></li>
@@ -512,10 +516,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>date</code>: date of the survey poll</li>
 </ul>
 <p>Let’s load the data and look at the outcome <code>ins</code>.</p>
-<div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb628-1"><a href="week-7-tutorial.html#cb628-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
-<span id="cb628-2"><a href="week-7-tutorial.html#cb628-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nnet) <span class="co"># install this package</span></span>
-<span id="cb628-3"><a href="week-7-tutorial.html#cb628-3" aria-hidden="true" tabindex="-1"></a>lst <span class="ot">&lt;-</span> <span class="fu">read.dta</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/lst.dta?raw=true&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb629-1"><a href="week-7-tutorial.html#cb629-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(lst<span class="sc">$</span>ins)</span></code></pre></div>
+<div class="sourceCode" id="cb678"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb678-1"><a href="week-7-tutorial.html#cb678-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
+<span id="cb678-2"><a href="week-7-tutorial.html#cb678-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nnet) <span class="co"># install this package</span></span>
+<span id="cb678-3"><a href="week-7-tutorial.html#cb678-3" aria-hidden="true" tabindex="-1"></a>lst <span class="ot">&lt;-</span> <span class="fu">read.dta</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/lst.dta?raw=true&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb679-1"><a href="week-7-tutorial.html#cb679-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(lst<span class="sc">$</span>ins)</span></code></pre></div>
 <pre><code>
    1    3    4 
 2100  724  904 </code></pre>
@@ -533,12 +537,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Go ahead and recode the variable as necessary.
 </summary>
 <p>Even if your variable is a factor, I would recommend giving it informative labels instead of numbers so that it is easier to interpret the regression outcome.</p>
-<div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb631-1"><a href="week-7-tutorial.html#cb631-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(lst<span class="sc">$</span>ins)</span></code></pre></div>
+<div class="sourceCode" id="cb681"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb681-1"><a href="week-7-tutorial.html#cb681-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(lst<span class="sc">$</span>ins)</span></code></pre></div>
 <pre><code>[1] &quot;numeric&quot;</code></pre>
-<div class="sourceCode" id="cb633"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb633-1"><a href="week-7-tutorial.html#cb633-1" aria-hidden="true" tabindex="-1"></a>lst<span class="sc">$</span>ins <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(<span class="fu">ifelse</span>(lst<span class="sc">$</span>ins <span class="sc">==</span> <span class="dv">1</span>, <span class="st">&quot;uninsured&quot;</span>,</span>
-<span id="cb633-2"><a href="week-7-tutorial.html#cb633-2" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">ifelse</span>(lst<span class="sc">$</span>ins <span class="sc">==</span> <span class="dv">3</span>, <span class="st">&quot;marketplace&quot;</span>,</span>
-<span id="cb633-3"><a href="week-7-tutorial.html#cb633-3" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">ifelse</span>(lst<span class="sc">$</span>ins <span class="sc">==</span> <span class="dv">4</span>, <span class="st">&quot;private&quot;</span>, <span class="cn">NA</span>))))</span>
-<span id="cb633-4"><a href="week-7-tutorial.html#cb633-4" aria-hidden="true" tabindex="-1"></a>lst<span class="sc">$</span>ins <span class="ot">&lt;-</span> <span class="fu">relevel</span>(lst<span class="sc">$</span>ins, <span class="at">ref =</span> <span class="st">&quot;marketplace&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb683"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb683-1"><a href="week-7-tutorial.html#cb683-1" aria-hidden="true" tabindex="-1"></a>lst<span class="sc">$</span>ins <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(<span class="fu">ifelse</span>(lst<span class="sc">$</span>ins <span class="sc">==</span> <span class="dv">1</span>, <span class="st">&quot;uninsured&quot;</span>,</span>
+<span id="cb683-2"><a href="week-7-tutorial.html#cb683-2" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">ifelse</span>(lst<span class="sc">$</span>ins <span class="sc">==</span> <span class="dv">3</span>, <span class="st">&quot;marketplace&quot;</span>,</span>
+<span id="cb683-3"><a href="week-7-tutorial.html#cb683-3" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">ifelse</span>(lst<span class="sc">$</span>ins <span class="sc">==</span> <span class="dv">4</span>, <span class="st">&quot;private&quot;</span>, <span class="cn">NA</span>))))</span>
+<span id="cb683-4"><a href="week-7-tutorial.html#cb683-4" aria-hidden="true" tabindex="-1"></a>lst<span class="sc">$</span>ins <span class="ot">&lt;-</span> <span class="fu">relevel</span>(lst<span class="sc">$</span>ins, <span class="at">ref =</span> <span class="st">&quot;marketplace&quot;</span>)</span></code></pre></div>
 </details>
 <p>Let’s conduct a multinomial logistic regression of the following form:</p>
 <p><span class="math display">\[\begin{align*}
@@ -550,10 +554,10 @@ age2_i \beta_{2j} + ed_i\boldsymbol{ \beta_{kj}} \\ &amp; + racethn_i \boldsymbo
 <summary>
 Run the model.
 </summary>
-<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb634-1"><a href="week-7-tutorial.html#cb634-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">multinom</span>(<span class="fu">as.factor</span>(ins) <span class="sc">~</span> republican <span class="sc">+</span> age2 <span class="sc">+</span> <span class="fu">factor</span>(ed)</span>
-<span id="cb634-2"><a href="week-7-tutorial.html#cb634-2" aria-hidden="true" tabindex="-1"></a>                <span class="sc">+</span> <span class="fu">factor</span>(racethn) <span class="sc">+</span> <span class="fu">factor</span>(income2)</span>
-<span id="cb634-3"><a href="week-7-tutorial.html#cb634-3" aria-hidden="true" tabindex="-1"></a>                <span class="sc">+</span> <span class="fu">as.factor</span>(sex) </span>
-<span id="cb634-4"><a href="week-7-tutorial.html#cb634-4" aria-hidden="true" tabindex="-1"></a>                <span class="sc">+</span> <span class="fu">as.factor</span>(empl2), <span class="at">data =</span> lst)</span></code></pre></div>
+<div class="sourceCode" id="cb684"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb684-1"><a href="week-7-tutorial.html#cb684-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">multinom</span>(<span class="fu">as.factor</span>(ins) <span class="sc">~</span> republican <span class="sc">+</span> age2 <span class="sc">+</span> <span class="fu">factor</span>(ed)</span>
+<span id="cb684-2"><a href="week-7-tutorial.html#cb684-2" aria-hidden="true" tabindex="-1"></a>                <span class="sc">+</span> <span class="fu">factor</span>(racethn) <span class="sc">+</span> <span class="fu">factor</span>(income2)</span>
+<span id="cb684-3"><a href="week-7-tutorial.html#cb684-3" aria-hidden="true" tabindex="-1"></a>                <span class="sc">+</span> <span class="fu">as.factor</span>(sex) </span>
+<span id="cb684-4"><a href="week-7-tutorial.html#cb684-4" aria-hidden="true" tabindex="-1"></a>                <span class="sc">+</span> <span class="fu">as.factor</span>(empl2), <span class="at">data =</span> lst)</span></code></pre></div>
 <pre><code># weights:  60 (38 variable)
 initial  value 4095.626612 
 iter  10 value 3475.264179
@@ -574,7 +578,7 @@ converged</code></pre>
 <summary>
 Expand for one example.
 </summary>
-<p>The key assumption is the IIA assumption. The authors consider potential violations to this assumption in footnote 4. “Consistent estimation using the multinomial logistic model relies on the Independence of Irrelevant Alternatives (IIA) assumption, which requires that the choice of one of the available options does not depend on whether some alternative option is present. While this assumption is hard to test (Allison 2012), there is some evidence that it could be violated in this case, with the presence of the”uninsured" option affecting the distribution of choices across private and marketplace insurance. Thus, as a robustness check, we also estimate a model in which we first analyze the decision to insure (for the study population), and second, conditional on having insurance, analyze the private versus marketplace choice."</p>
+<p>The key assumption is the IIA assumption. The authors consider potential violations to this assumption in footnote 4. “Consistent estimation using the multinomial logistic model relies on the Independence of Irrelevant Alternatives (IIA) assumption, which requires that the choice of one of the available options does not depend on whether some alternative option is present. While this assumption is hard to test (Allison 2012), there is some evidence that it could be violated in this case, with the presence of the”uninsured” option affecting the distribution of choices across private and marketplace insurance. Thus, as a robustness check, we also estimate a model in which we first analyze the decision to insure (for the study population), and second, conditional on having insurance, analyze the private versus marketplace choice.”</p>
 </details>
 <p>Let’s assume we are okay with our assumptions. Let’s now try to use the model to evaluate the research hypothesis.</p>
 <ol start="4" style="list-style-type: decimal">
@@ -587,14 +591,14 @@ Expand for one example.
 </ul></li>
 </ol>
 <p>Note that <code>coef(fit)</code> is now a matrix of output. We want to extract the <code>republican</code> column.</p>
-<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="week-7-tutorial.html#cb636-1" aria-hidden="true" tabindex="-1"></a>repcoef <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit)[, <span class="st">&quot;republican&quot;</span>]</span>
-<span id="cb636-2"><a href="week-7-tutorial.html#cb636-2" aria-hidden="true" tabindex="-1"></a>repse <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit)<span class="sc">$</span>standard.errors[, <span class="st">&quot;republican&quot;</span>]</span>
-<span id="cb636-3"><a href="week-7-tutorial.html#cb636-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb636-4"><a href="week-7-tutorial.html#cb636-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Calculate z-scores</span></span>
-<span id="cb636-5"><a href="week-7-tutorial.html#cb636-5" aria-hidden="true" tabindex="-1"></a>rep.zs <span class="ot">&lt;-</span> repcoef<span class="sc">/</span>repse</span>
-<span id="cb636-6"><a href="week-7-tutorial.html#cb636-6" aria-hidden="true" tabindex="-1"></a>rep.ps <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>(<span class="fu">pnorm</span>(<span class="fu">abs</span>(rep.zs), <span class="at">lower.tail =</span> F))</span>
-<span id="cb636-7"><a href="week-7-tutorial.html#cb636-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb636-8"><a href="week-7-tutorial.html#cb636-8" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cbind</span>(repcoef, rep.zs, rep.ps), <span class="at">digits=</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb686"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb686-1"><a href="week-7-tutorial.html#cb686-1" aria-hidden="true" tabindex="-1"></a>repcoef <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit)[, <span class="st">&quot;republican&quot;</span>]</span>
+<span id="cb686-2"><a href="week-7-tutorial.html#cb686-2" aria-hidden="true" tabindex="-1"></a>repse <span class="ot">&lt;-</span> <span class="fu">summary</span>(fit)<span class="sc">$</span>standard.errors[, <span class="st">&quot;republican&quot;</span>]</span>
+<span id="cb686-3"><a href="week-7-tutorial.html#cb686-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb686-4"><a href="week-7-tutorial.html#cb686-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Calculate z-scores</span></span>
+<span id="cb686-5"><a href="week-7-tutorial.html#cb686-5" aria-hidden="true" tabindex="-1"></a>rep.zs <span class="ot">&lt;-</span> repcoef<span class="sc">/</span>repse</span>
+<span id="cb686-6"><a href="week-7-tutorial.html#cb686-6" aria-hidden="true" tabindex="-1"></a>rep.ps <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>(<span class="fu">pnorm</span>(<span class="fu">abs</span>(rep.zs), <span class="at">lower.tail =</span> F))</span>
+<span id="cb686-7"><a href="week-7-tutorial.html#cb686-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb686-8"><a href="week-7-tutorial.html#cb686-8" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cbind</span>(repcoef, rep.zs, rep.ps), <span class="at">digits=</span><span class="dv">3</span>)</span></code></pre></div>
 <pre><code>          repcoef rep.zs rep.ps
 private     0.942  8.368      0
 uninsured   0.966  9.044      0</code></pre>
@@ -620,88 +624,88 @@ Pr(Y_i = C_j |X) &amp;= \frac{\exp(\mathbf x_i^T\beta_j)}{1 + \sum_{j=1}^{J-1} \
 <p><span class="math display">\[\begin{align*}
 Pr(Y_i = Marketplace | X) &amp;= \frac{1}{1 + \sum_{j=1}^{J-1} \exp(\mathbf x_i^T\beta_j)}
 \end{align*}\]</span></p>
-<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="week-7-tutorial.html#cb638-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Point estimates</span></span>
-<span id="cb638-2"><a href="week-7-tutorial.html#cb638-2" aria-hidden="true" tabindex="-1"></a>Xrep <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit)</span>
-<span id="cb638-3"><a href="week-7-tutorial.html#cb638-3" aria-hidden="true" tabindex="-1"></a>Xrep[, <span class="st">&quot;republican&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb638-4"><a href="week-7-tutorial.html#cb638-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb638-5"><a href="week-7-tutorial.html#cb638-5" aria-hidden="true" tabindex="-1"></a>Xdem <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit)</span>
-<span id="cb638-6"><a href="week-7-tutorial.html#cb638-6" aria-hidden="true" tabindex="-1"></a>Xdem[, <span class="st">&quot;republican&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb638-7"><a href="week-7-tutorial.html#cb638-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb638-8"><a href="week-7-tutorial.html#cb638-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Extract all coefficients</span></span>
-<span id="cb638-9"><a href="week-7-tutorial.html#cb638-9" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">coef</span>(fit))</span>
-<span id="cb638-10"><a href="week-7-tutorial.html#cb638-10" aria-hidden="true" tabindex="-1"></a>Bprivate <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit)[<span class="dv">1</span>, ]</span>
-<span id="cb638-11"><a href="week-7-tutorial.html#cb638-11" aria-hidden="true" tabindex="-1"></a>Buninsured <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit)[<span class="dv">2</span>, ]</span>
-<span id="cb638-12"><a href="week-7-tutorial.html#cb638-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb638-13"><a href="week-7-tutorial.html#cb638-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb638-14"><a href="week-7-tutorial.html#cb638-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Approach one</span></span>
-<span id="cb638-15"><a href="week-7-tutorial.html#cb638-15" aria-hidden="true" tabindex="-1"></a>repmarket.p <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(Xrep <span class="sc">%*%</span> Bprivate) <span class="sc">+</span> <span class="fu">exp</span>(Xrep <span class="sc">%*%</span> Buninsured)))</span>
-<span id="cb638-16"><a href="week-7-tutorial.html#cb638-16" aria-hidden="true" tabindex="-1"></a>demmarket.p <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(Xdem <span class="sc">%*%</span> Bprivate) <span class="sc">+</span> <span class="fu">exp</span>(Xdem <span class="sc">%*%</span> Buninsured)))</span>
-<span id="cb638-17"><a href="week-7-tutorial.html#cb638-17" aria-hidden="true" tabindex="-1"></a>diffmarket.p <span class="ot">&lt;-</span> repmarket.p<span class="sc">-</span> demmarket.p</span>
-<span id="cb638-18"><a href="week-7-tutorial.html#cb638-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb638-19"><a href="week-7-tutorial.html#cb638-19" aria-hidden="true" tabindex="-1"></a><span class="do">## Approach two (easier when you have a lot of outcome categories)</span></span>
-<span id="cb638-20"><a href="week-7-tutorial.html#cb638-20" aria-hidden="true" tabindex="-1"></a>repmarket.p <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">rowSums</span>(<span class="fu">exp</span>(Xrep <span class="sc">%*%</span> B))))</span>
-<span id="cb638-21"><a href="week-7-tutorial.html#cb638-21" aria-hidden="true" tabindex="-1"></a>demmarket.p <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">rowSums</span>(<span class="fu">exp</span>(Xdem <span class="sc">%*%</span> B))))</span>
-<span id="cb638-22"><a href="week-7-tutorial.html#cb638-22" aria-hidden="true" tabindex="-1"></a>diffmarket.p <span class="ot">&lt;-</span> repmarket.p <span class="sc">-</span> demmarket.p</span>
-<span id="cb638-23"><a href="week-7-tutorial.html#cb638-23" aria-hidden="true" tabindex="-1"></a>diffmarket.p </span></code></pre></div>
+<div class="sourceCode" id="cb688"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb688-1"><a href="week-7-tutorial.html#cb688-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Point estimates</span></span>
+<span id="cb688-2"><a href="week-7-tutorial.html#cb688-2" aria-hidden="true" tabindex="-1"></a>Xrep <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit)</span>
+<span id="cb688-3"><a href="week-7-tutorial.html#cb688-3" aria-hidden="true" tabindex="-1"></a>Xrep[, <span class="st">&quot;republican&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb688-4"><a href="week-7-tutorial.html#cb688-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb688-5"><a href="week-7-tutorial.html#cb688-5" aria-hidden="true" tabindex="-1"></a>Xdem <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit)</span>
+<span id="cb688-6"><a href="week-7-tutorial.html#cb688-6" aria-hidden="true" tabindex="-1"></a>Xdem[, <span class="st">&quot;republican&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb688-7"><a href="week-7-tutorial.html#cb688-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb688-8"><a href="week-7-tutorial.html#cb688-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Extract all coefficients</span></span>
+<span id="cb688-9"><a href="week-7-tutorial.html#cb688-9" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">coef</span>(fit))</span>
+<span id="cb688-10"><a href="week-7-tutorial.html#cb688-10" aria-hidden="true" tabindex="-1"></a>Bprivate <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit)[<span class="dv">1</span>, ]</span>
+<span id="cb688-11"><a href="week-7-tutorial.html#cb688-11" aria-hidden="true" tabindex="-1"></a>Buninsured <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit)[<span class="dv">2</span>, ]</span>
+<span id="cb688-12"><a href="week-7-tutorial.html#cb688-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb688-13"><a href="week-7-tutorial.html#cb688-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb688-14"><a href="week-7-tutorial.html#cb688-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Approach one</span></span>
+<span id="cb688-15"><a href="week-7-tutorial.html#cb688-15" aria-hidden="true" tabindex="-1"></a>repmarket.p <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(Xrep <span class="sc">%*%</span> Bprivate) <span class="sc">+</span> <span class="fu">exp</span>(Xrep <span class="sc">%*%</span> Buninsured)))</span>
+<span id="cb688-16"><a href="week-7-tutorial.html#cb688-16" aria-hidden="true" tabindex="-1"></a>demmarket.p <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(Xdem <span class="sc">%*%</span> Bprivate) <span class="sc">+</span> <span class="fu">exp</span>(Xdem <span class="sc">%*%</span> Buninsured)))</span>
+<span id="cb688-17"><a href="week-7-tutorial.html#cb688-17" aria-hidden="true" tabindex="-1"></a>diffmarket.p <span class="ot">&lt;-</span> repmarket.p<span class="sc">-</span> demmarket.p</span>
+<span id="cb688-18"><a href="week-7-tutorial.html#cb688-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb688-19"><a href="week-7-tutorial.html#cb688-19" aria-hidden="true" tabindex="-1"></a><span class="do">## Approach two (easier when you have a lot of outcome categories)</span></span>
+<span id="cb688-20"><a href="week-7-tutorial.html#cb688-20" aria-hidden="true" tabindex="-1"></a>repmarket.p <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">rowSums</span>(<span class="fu">exp</span>(Xrep <span class="sc">%*%</span> B))))</span>
+<span id="cb688-21"><a href="week-7-tutorial.html#cb688-21" aria-hidden="true" tabindex="-1"></a>demmarket.p <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">rowSums</span>(<span class="fu">exp</span>(Xdem <span class="sc">%*%</span> B))))</span>
+<span id="cb688-22"><a href="week-7-tutorial.html#cb688-22" aria-hidden="true" tabindex="-1"></a>diffmarket.p <span class="ot">&lt;-</span> repmarket.p <span class="sc">-</span> demmarket.p</span>
+<span id="cb688-23"><a href="week-7-tutorial.html#cb688-23" aria-hidden="true" tabindex="-1"></a>diffmarket.p </span></code></pre></div>
 <pre><code>[1] -0.1313263</code></pre>
-<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="week-7-tutorial.html#cb640-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Approach three</span></span>
-<span id="cb640-2"><a href="week-7-tutorial.html#cb640-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(margins)</span>
-<span id="cb640-3"><a href="week-7-tutorial.html#cb640-3" aria-hidden="true" tabindex="-1"></a>marg.effect.market <span class="ot">&lt;-</span> <span class="fu">margins</span>(fit, <span class="at">variables=</span><span class="st">&quot;republican&quot;</span>, <span class="at">change=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), </span>
-<span id="cb640-4"><a href="week-7-tutorial.html#cb640-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">vce=</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">category=</span><span class="st">&quot;marketplace&quot;</span>)</span>
-<span id="cb640-5"><a href="week-7-tutorial.html#cb640-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(marg.effect.market)</span></code></pre></div>
+<div class="sourceCode" id="cb690"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb690-1"><a href="week-7-tutorial.html#cb690-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Approach three</span></span>
+<span id="cb690-2"><a href="week-7-tutorial.html#cb690-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(margins)</span>
+<span id="cb690-3"><a href="week-7-tutorial.html#cb690-3" aria-hidden="true" tabindex="-1"></a>marg.effect.market <span class="ot">&lt;-</span> <span class="fu">margins</span>(fit, <span class="at">variables=</span><span class="st">&quot;republican&quot;</span>, <span class="at">change=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb690-4"><a href="week-7-tutorial.html#cb690-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">vce=</span> <span class="st">&quot;bootstrap&quot;</span>, <span class="at">category=</span><span class="st">&quot;marketplace&quot;</span>)</span>
+<span id="cb690-5"><a href="week-7-tutorial.html#cb690-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(marg.effect.market)</span></code></pre></div>
 </details>
 <details>
 <summary>
 Uncertainty calculation.
 </summary>
 <p>We can use the simulation or bootstrap approach like before to calculate uncertainty. We will use the bootstrap because the syntax for the simulation approach is more complicated because our coefficients are in a matrix. The package <a href="http://docs.zeligproject.org/articles/zeligchoice_mlogit.html">Zelig</a> has this capability. Simulation can be more faster given the multinomial model takes a moment to run.</p>
-<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="week-7-tutorial.html#cb641-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Bootstrap</span></span>
-<span id="cb641-2"><a href="week-7-tutorial.html#cb641-2" aria-hidden="true" tabindex="-1"></a>myboot <span class="ot">&lt;-</span> <span class="cf">function</span>(df){</span>
-<span id="cb641-3"><a href="week-7-tutorial.html#cb641-3" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb641-4"><a href="week-7-tutorial.html#cb641-4" aria-hidden="true" tabindex="-1"></a>  wrows <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df), <span class="at">size=</span><span class="fu">nrow</span>(df), <span class="at">replace =</span> T)</span>
-<span id="cb641-5"><a href="week-7-tutorial.html#cb641-5" aria-hidden="true" tabindex="-1"></a>  subdata <span class="ot">&lt;-</span> df[wrows, ]</span>
-<span id="cb641-6"><a href="week-7-tutorial.html#cb641-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb641-7"><a href="week-7-tutorial.html#cb641-7" aria-hidden="true" tabindex="-1"></a>  fit.boot <span class="ot">&lt;-</span> <span class="fu">multinom</span>(<span class="fu">as.factor</span>(ins) <span class="sc">~</span> republican <span class="sc">+</span> age2 <span class="sc">+</span> <span class="fu">factor</span>(ed)</span>
-<span id="cb641-8"><a href="week-7-tutorial.html#cb641-8" aria-hidden="true" tabindex="-1"></a>                <span class="sc">+</span> <span class="fu">factor</span>(racethn) <span class="sc">+</span> <span class="fu">factor</span>(income2)</span>
-<span id="cb641-9"><a href="week-7-tutorial.html#cb641-9" aria-hidden="true" tabindex="-1"></a>                <span class="sc">+</span> <span class="fu">as.factor</span>(sex) </span>
-<span id="cb641-10"><a href="week-7-tutorial.html#cb641-10" aria-hidden="true" tabindex="-1"></a>                <span class="sc">+</span> <span class="fu">as.factor</span>(empl2), <span class="at">data =</span> subdata)</span>
-<span id="cb641-11"><a href="week-7-tutorial.html#cb641-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb641-12"><a href="week-7-tutorial.html#cb641-12" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Point estimates</span></span>
-<span id="cb641-13"><a href="week-7-tutorial.html#cb641-13" aria-hidden="true" tabindex="-1"></a>  Xrep <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit.boot)</span>
-<span id="cb641-14"><a href="week-7-tutorial.html#cb641-14" aria-hidden="true" tabindex="-1"></a>  Xrep[, <span class="st">&quot;republican&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb641-15"><a href="week-7-tutorial.html#cb641-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb641-16"><a href="week-7-tutorial.html#cb641-16" aria-hidden="true" tabindex="-1"></a>  Xdem <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit.boot)</span>
-<span id="cb641-17"><a href="week-7-tutorial.html#cb641-17" aria-hidden="true" tabindex="-1"></a>  Xdem[, <span class="st">&quot;republican&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb641-18"><a href="week-7-tutorial.html#cb641-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb641-19"><a href="week-7-tutorial.html#cb641-19" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Extract all coefficients</span></span>
-<span id="cb641-20"><a href="week-7-tutorial.html#cb641-20" aria-hidden="true" tabindex="-1"></a>  B <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">coef</span>(fit.boot))</span>
-<span id="cb641-21"><a href="week-7-tutorial.html#cb641-21" aria-hidden="true" tabindex="-1"></a>  Bprivate <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit.boot)[<span class="dv">1</span>, ]</span>
-<span id="cb641-22"><a href="week-7-tutorial.html#cb641-22" aria-hidden="true" tabindex="-1"></a>  Buninsured <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit.boot)[<span class="dv">2</span>, ]</span>
-<span id="cb641-23"><a href="week-7-tutorial.html#cb641-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb641-24"><a href="week-7-tutorial.html#cb641-24" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Approach one</span></span>
-<span id="cb641-25"><a href="week-7-tutorial.html#cb641-25" aria-hidden="true" tabindex="-1"></a>  repmarket.p <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(Xrep <span class="sc">%*%</span> Bprivate) <span class="sc">+</span> <span class="fu">exp</span>(Xrep <span class="sc">%*%</span> Buninsured)))</span>
-<span id="cb641-26"><a href="week-7-tutorial.html#cb641-26" aria-hidden="true" tabindex="-1"></a>  demmarket.p <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(Xdem <span class="sc">%*%</span> Bprivate) <span class="sc">+</span> <span class="fu">exp</span>(Xdem <span class="sc">%*%</span> Buninsured)))</span>
-<span id="cb641-27"><a href="week-7-tutorial.html#cb641-27" aria-hidden="true" tabindex="-1"></a>  diffmarket.p.boot <span class="ot">&lt;-</span> repmarket.p<span class="sc">-</span> demmarket.p</span>
-<span id="cb641-28"><a href="week-7-tutorial.html#cb641-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb641-29"><a href="week-7-tutorial.html#cb641-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">cbind</span>(repmarket.p, demmarket.p, diffmarket.p.boot))</span>
-<span id="cb641-30"><a href="week-7-tutorial.html#cb641-30" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb641-31"><a href="week-7-tutorial.html#cb641-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb641-32"><a href="week-7-tutorial.html#cb641-32" aria-hidden="true" tabindex="-1"></a>myboot.ests <span class="ot">&lt;-</span> <span class="fu">do.call</span>(<span class="st">&quot;rbind&quot;</span>, <span class="fu">replicate</span>(<span class="dv">1000</span>, <span class="fu">myboot</span>(lst), <span class="at">simplify =</span> F))</span>
-<span id="cb641-33"><a href="week-7-tutorial.html#cb641-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb641-34"><a href="week-7-tutorial.html#cb641-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb641-35"><a href="week-7-tutorial.html#cb641-35" aria-hidden="true" tabindex="-1"></a><span class="do">## Confidence intervals around the difference</span></span>
-<span id="cb641-36"><a href="week-7-tutorial.html#cb641-36" aria-hidden="true" tabindex="-1"></a>cis.diff <span class="ot">&lt;-</span> <span class="fu">quantile</span>(myboot.ests[, <span class="st">&quot;diffmarket.p.boot&quot;</span>], <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span>
-<span id="cb641-37"><a href="week-7-tutorial.html#cb641-37" aria-hidden="true" tabindex="-1"></a>cis.diff</span>
-<span id="cb641-38"><a href="week-7-tutorial.html#cb641-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb641-39"><a href="week-7-tutorial.html#cb641-39" aria-hidden="true" tabindex="-1"></a><span class="do">## Visualize the two distributions</span></span>
-<span id="cb641-40"><a href="week-7-tutorial.html#cb641-40" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="st">&quot;images/boostrappid.png&quot;</span>, <span class="at">res=</span><span class="dv">300</span>, <span class="at">width=</span><span class="dv">5</span>, <span class="at">height=</span><span class="dv">4</span>, <span class="at">units=</span><span class="st">&quot;in&quot;</span>)</span>
-<span id="cb641-41"><a href="week-7-tutorial.html#cb641-41" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(myboot.ests[, <span class="st">&quot;repmarket.p&quot;</span>]), <span class="at">col=</span><span class="st">&quot;red&quot;</span>,</span>
-<span id="cb641-42"><a href="week-7-tutorial.html#cb641-42" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Bootstrap Distribution for Republican and Democrats </span><span class="sc">\n</span><span class="st"> Marketplace Uptake Probability&quot;</span>,</span>
-<span id="cb641-43"><a href="week-7-tutorial.html#cb641-43" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.main =</span> .<span class="dv">7</span>,</span>
-<span id="cb641-44"><a href="week-7-tutorial.html#cb641-44" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, .<span class="dv">3</span>),</span>
-<span id="cb641-45"><a href="week-7-tutorial.html#cb641-45" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Estimated Probability of Uptake through Marketplace&quot;</span>)</span>
-<span id="cb641-46"><a href="week-7-tutorial.html#cb641-46" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">density</span>(myboot.ests[, <span class="st">&quot;demmarket.p&quot;</span>]), <span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span>
-<span id="cb641-47"><a href="week-7-tutorial.html#cb641-47" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb691"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb691-1"><a href="week-7-tutorial.html#cb691-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Bootstrap</span></span>
+<span id="cb691-2"><a href="week-7-tutorial.html#cb691-2" aria-hidden="true" tabindex="-1"></a>myboot <span class="ot">&lt;-</span> <span class="cf">function</span>(df){</span>
+<span id="cb691-3"><a href="week-7-tutorial.html#cb691-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb691-4"><a href="week-7-tutorial.html#cb691-4" aria-hidden="true" tabindex="-1"></a>  wrows <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df), <span class="at">size=</span><span class="fu">nrow</span>(df), <span class="at">replace =</span> T)</span>
+<span id="cb691-5"><a href="week-7-tutorial.html#cb691-5" aria-hidden="true" tabindex="-1"></a>  subdata <span class="ot">&lt;-</span> df[wrows, ]</span>
+<span id="cb691-6"><a href="week-7-tutorial.html#cb691-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb691-7"><a href="week-7-tutorial.html#cb691-7" aria-hidden="true" tabindex="-1"></a>  fit.boot <span class="ot">&lt;-</span> <span class="fu">multinom</span>(<span class="fu">as.factor</span>(ins) <span class="sc">~</span> republican <span class="sc">+</span> age2 <span class="sc">+</span> <span class="fu">factor</span>(ed)</span>
+<span id="cb691-8"><a href="week-7-tutorial.html#cb691-8" aria-hidden="true" tabindex="-1"></a>                <span class="sc">+</span> <span class="fu">factor</span>(racethn) <span class="sc">+</span> <span class="fu">factor</span>(income2)</span>
+<span id="cb691-9"><a href="week-7-tutorial.html#cb691-9" aria-hidden="true" tabindex="-1"></a>                <span class="sc">+</span> <span class="fu">as.factor</span>(sex) </span>
+<span id="cb691-10"><a href="week-7-tutorial.html#cb691-10" aria-hidden="true" tabindex="-1"></a>                <span class="sc">+</span> <span class="fu">as.factor</span>(empl2), <span class="at">data =</span> subdata)</span>
+<span id="cb691-11"><a href="week-7-tutorial.html#cb691-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb691-12"><a href="week-7-tutorial.html#cb691-12" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Point estimates</span></span>
+<span id="cb691-13"><a href="week-7-tutorial.html#cb691-13" aria-hidden="true" tabindex="-1"></a>  Xrep <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit.boot)</span>
+<span id="cb691-14"><a href="week-7-tutorial.html#cb691-14" aria-hidden="true" tabindex="-1"></a>  Xrep[, <span class="st">&quot;republican&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb691-15"><a href="week-7-tutorial.html#cb691-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb691-16"><a href="week-7-tutorial.html#cb691-16" aria-hidden="true" tabindex="-1"></a>  Xdem <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit.boot)</span>
+<span id="cb691-17"><a href="week-7-tutorial.html#cb691-17" aria-hidden="true" tabindex="-1"></a>  Xdem[, <span class="st">&quot;republican&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb691-18"><a href="week-7-tutorial.html#cb691-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb691-19"><a href="week-7-tutorial.html#cb691-19" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Extract all coefficients</span></span>
+<span id="cb691-20"><a href="week-7-tutorial.html#cb691-20" aria-hidden="true" tabindex="-1"></a>  B <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">coef</span>(fit.boot))</span>
+<span id="cb691-21"><a href="week-7-tutorial.html#cb691-21" aria-hidden="true" tabindex="-1"></a>  Bprivate <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit.boot)[<span class="dv">1</span>, ]</span>
+<span id="cb691-22"><a href="week-7-tutorial.html#cb691-22" aria-hidden="true" tabindex="-1"></a>  Buninsured <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit.boot)[<span class="dv">2</span>, ]</span>
+<span id="cb691-23"><a href="week-7-tutorial.html#cb691-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb691-24"><a href="week-7-tutorial.html#cb691-24" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Approach one</span></span>
+<span id="cb691-25"><a href="week-7-tutorial.html#cb691-25" aria-hidden="true" tabindex="-1"></a>  repmarket.p <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(Xrep <span class="sc">%*%</span> Bprivate) <span class="sc">+</span> <span class="fu">exp</span>(Xrep <span class="sc">%*%</span> Buninsured)))</span>
+<span id="cb691-26"><a href="week-7-tutorial.html#cb691-26" aria-hidden="true" tabindex="-1"></a>  demmarket.p <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(Xdem <span class="sc">%*%</span> Bprivate) <span class="sc">+</span> <span class="fu">exp</span>(Xdem <span class="sc">%*%</span> Buninsured)))</span>
+<span id="cb691-27"><a href="week-7-tutorial.html#cb691-27" aria-hidden="true" tabindex="-1"></a>  diffmarket.p.boot <span class="ot">&lt;-</span> repmarket.p<span class="sc">-</span> demmarket.p</span>
+<span id="cb691-28"><a href="week-7-tutorial.html#cb691-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb691-29"><a href="week-7-tutorial.html#cb691-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">cbind</span>(repmarket.p, demmarket.p, diffmarket.p.boot))</span>
+<span id="cb691-30"><a href="week-7-tutorial.html#cb691-30" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb691-31"><a href="week-7-tutorial.html#cb691-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb691-32"><a href="week-7-tutorial.html#cb691-32" aria-hidden="true" tabindex="-1"></a>myboot.ests <span class="ot">&lt;-</span> <span class="fu">do.call</span>(<span class="st">&quot;rbind&quot;</span>, <span class="fu">replicate</span>(<span class="dv">1000</span>, <span class="fu">myboot</span>(lst), <span class="at">simplify =</span> F))</span>
+<span id="cb691-33"><a href="week-7-tutorial.html#cb691-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb691-34"><a href="week-7-tutorial.html#cb691-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb691-35"><a href="week-7-tutorial.html#cb691-35" aria-hidden="true" tabindex="-1"></a><span class="do">## Confidence intervals around the difference</span></span>
+<span id="cb691-36"><a href="week-7-tutorial.html#cb691-36" aria-hidden="true" tabindex="-1"></a>cis.diff <span class="ot">&lt;-</span> <span class="fu">quantile</span>(myboot.ests[, <span class="st">&quot;diffmarket.p.boot&quot;</span>], <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span>
+<span id="cb691-37"><a href="week-7-tutorial.html#cb691-37" aria-hidden="true" tabindex="-1"></a>cis.diff</span>
+<span id="cb691-38"><a href="week-7-tutorial.html#cb691-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb691-39"><a href="week-7-tutorial.html#cb691-39" aria-hidden="true" tabindex="-1"></a><span class="do">## Visualize the two distributions</span></span>
+<span id="cb691-40"><a href="week-7-tutorial.html#cb691-40" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="st">&quot;images/boostrappid.png&quot;</span>, <span class="at">res=</span><span class="dv">300</span>, <span class="at">width=</span><span class="dv">5</span>, <span class="at">height=</span><span class="dv">4</span>, <span class="at">units=</span><span class="st">&quot;in&quot;</span>)</span>
+<span id="cb691-41"><a href="week-7-tutorial.html#cb691-41" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(myboot.ests[, <span class="st">&quot;repmarket.p&quot;</span>]), <span class="at">col=</span><span class="st">&quot;red&quot;</span>,</span>
+<span id="cb691-42"><a href="week-7-tutorial.html#cb691-42" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Bootstrap Distribution for Republican and Democrats </span><span class="sc">\n</span><span class="st"> Marketplace Uptake Probability&quot;</span>,</span>
+<span id="cb691-43"><a href="week-7-tutorial.html#cb691-43" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.main =</span> .<span class="dv">7</span>,</span>
+<span id="cb691-44"><a href="week-7-tutorial.html#cb691-44" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, .<span class="dv">3</span>),</span>
+<span id="cb691-45"><a href="week-7-tutorial.html#cb691-45" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Estimated Probability of Uptake through Marketplace&quot;</span>)</span>
+<span id="cb691-46"><a href="week-7-tutorial.html#cb691-46" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">density</span>(myboot.ests[, <span class="st">&quot;demmarket.p&quot;</span>]), <span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span>
+<span id="cb691-47"><a href="week-7-tutorial.html#cb691-47" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
 <p><img src="images/boostrappid.png" /></p>
 </details>
 
@@ -717,7 +721,6 @@ Uncertainty calculation.
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -736,6 +739,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -756,6 +760,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

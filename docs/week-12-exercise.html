@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>12.7 Week 12 Exercise | MLE for Political Science</title>
   <meta name="description" content="12.7 Week 12 Exercise | MLE for Political Science" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="12.7 Week 12 Exercise | MLE for Political Science" />
   <meta property="og:type" content="book" />
@@ -32,8 +32,9 @@
   
 <link rel="prev" href="summing-up.html"/>
 <link rel="next" href="survey.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,7 +50,8 @@
 
 
 
-
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <link href="libs/vembedr-0.1.4/css/vembedr.css" rel="stylesheet" />
 
 
@@ -57,6 +59,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -116,6 +119,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
@@ -229,7 +233,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.6" data-path="generating-predictions-from-regression-models.html"><a href="generating-predictions-from-regression-models.html"><i class="fa fa-check"></i><b>4.6</b> Generating predictions from regression models</a></li>
 <li class="chapter" data-level="4.7" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html"><i class="fa fa-check"></i><b>4.7</b> Wrapping up OLS</a>
 <ul>
-<li class="chapter" data-level="4.7.1" data-path="practice-problems.html"><a href="practice-problems.html#practice-problems"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
+<li class="chapter" data-level="4.7.1" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problems-1"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
 <li class="chapter" data-level="4.7.2" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problem-code-for-solutions"><i class="fa fa-check"></i><b>4.7.2</b> Practice Problem Code for Solutions</a></li>
 </ul></li>
 <li class="chapter" data-level="4.8" data-path="week-2-thursday-example.html"><a href="week-2-thursday-example.html"><i class="fa fa-check"></i><b>4.8</b> Week 2 Thursday Example</a></li>
@@ -263,7 +267,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="6.1" data-path="data-generating-process.html"><a href="data-generating-process.html"><i class="fa fa-check"></i><b>6.1</b> Data Generating Process</a>
 <ul>
-<li class="chapter" data-level="6.1.1" data-path="mle-estimation.html"><a href="mle-estimation.html#mle-estimation"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
+<li class="chapter" data-level="6.1.1" data-path="data-generating-process.html"><a href="data-generating-process.html#mle-estimation-1"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="r-code-for-fitting-logistic-regression.html"><a href="r-code-for-fitting-logistic-regression.html"><i class="fa fa-check"></i><b>6.2</b> R code for fitting logistic regression</a>
 <ul>
@@ -466,7 +470,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="15.1.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html#how-to-predict-or-classify"><i class="fa fa-check"></i><b>15.1.1</b> How to predict or classify</a></li>
 </ul></li>
-<li class="chapter" data-level="15.2" data-path="in-sample-vs-out-of-sample.html"><a href="in-sample-vs-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
+<li class="chapter" data-level="15.2" data-path="in-sample-vs.-out-of-sample.html"><a href="in-sample-vs.-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
 <li class="chapter" data-level="15.3" data-path="cross-validation.html"><a href="cross-validation.html"><i class="fa fa-check"></i><b>15.3</b> Cross-Validation</a>
 <ul>
 <li class="chapter" data-level="15.3.1" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>15.3.1</b> k-fold cross-validation</a></li>
@@ -495,8 +499,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="week-12-exercise" class="section level2" number="12.7">
 <h2><span class="header-section-number">12.7</span> Week 12 Exercise</h2>
 <p>Please load <code>donation.dta</code>. This is a data set that includes an original survey of 2815 past campaign donors in the United States.</p>
-<div class="sourceCode" id="cb868"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb868-1"><a href="week-12-exercise.html#cb868-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
-<span id="cb868-2"><a href="week-12-exercise.html#cb868-2" aria-hidden="true" tabindex="-1"></a>don <span class="ot">&lt;-</span> <span class="fu">read.dta</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/donation.dta?raw=true&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb917"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb917-1"><a href="week-12-exercise.html#cb917-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
+<span id="cb917-2"><a href="week-12-exercise.html#cb917-2" aria-hidden="true" tabindex="-1"></a>don <span class="ot">&lt;-</span> <span class="fu">read.dta</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/donation.dta?raw=true&quot;</span>)</span></code></pre></div>
 <p>The researchers randomly sampled survey respondents based on a list from the FEC, which contained the names of anyone who gave $200 or more to a candidate in the two years prior to 2012. The sampling process was designed to focus on donation behavior to the 22 senators who sought reelection in 2013–selecting people who might donate or might be pursued for a donation by one of these senators. The idea was that this sample would represent the senators’ potential “donorate”. Each observation is a senator-donor dyad: with 22 incumbent senators running for reelection and 2815 respondents, there are approximately 61,930 dyads (observations). For each observation, the data contain variables that indicate whether or not a respondent donated to the senator and how much that donation was, as well as the respondent’s total donations. Senators are required to record donations above $200, but some senators voluntarily report donations below this amount. Therefore, the data may include some donation totals between 0 and $200.</p>
 <p>Key Variables include:</p>
 <ul>
@@ -544,35 +548,35 @@ Try on your own, then expand to see the authors’ approach.
 </ul>
 <p>In our live discussion, we came up with several different possibles approaches, frequently using binary logistic regression with <code>donation</code> as the outcome or a linear model with <code>total_donation</code> as the outcome. Some suggested specifications also included fixed effects for the donors using the <code>plm</code> package and fitting a <code>within</code> model. Finally, we explored using random effects in <code>plm</code> or <code>lme4</code>, though the <code>lme4</code> approach appeared very stressful for our computers!</p>
 <p>Overall, we came up with consistent support for the positive relationship between policy agreement and giving to campaigns. Here are a few approaches developed:</p>
-<div class="sourceCode" id="cb869"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb869-1"><a href="week-12-exercise.html#cb869-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(donation <span class="sc">~</span> peragsen <span class="sc">+</span> </span>
-<span id="cb869-2"><a href="week-12-exercise.html#cb869-2" aria-hidden="true" tabindex="-1"></a>             terms <span class="sc">+</span> same_state <span class="sc">+</span> </span>
-<span id="cb869-3"><a href="week-12-exercise.html#cb869-3" aria-hidden="true" tabindex="-1"></a>             idfold2, <span class="at">data=</span>don, </span>
-<span id="cb869-4"><a href="week-12-exercise.html#cb869-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
-<span id="cb869-5"><a href="week-12-exercise.html#cb869-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb869-6"><a href="week-12-exercise.html#cb869-6" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(donation <span class="sc">~</span> peragsen <span class="sc">+</span> cook <span class="sc">+</span></span>
-<span id="cb869-7"><a href="week-12-exercise.html#cb869-7" aria-hidden="true" tabindex="-1"></a>              NetWorth <span class="sc">+</span> idfold2 <span class="sc">+</span> notwhite <span class="sc">+</span> malerespondent <span class="sc">+</span> terms,</span>
-<span id="cb869-8"><a href="week-12-exercise.html#cb869-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">data=</span>don, </span>
-<span id="cb869-9"><a href="week-12-exercise.html#cb869-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
-<span id="cb869-10"><a href="week-12-exercise.html#cb869-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb869-11"><a href="week-12-exercise.html#cb869-11" aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(donation <span class="sc">~</span> peragsen <span class="sc">+</span> cook <span class="sc">+</span></span>
-<span id="cb869-12"><a href="week-12-exercise.html#cb869-12" aria-hidden="true" tabindex="-1"></a>              NetWorth <span class="sc">+</span> idfold2 <span class="sc">+</span> notwhite <span class="sc">+</span> malerespondent <span class="sc">+</span> terms <span class="sc">+</span> sameparty,</span>
-<span id="cb869-13"><a href="week-12-exercise.html#cb869-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">data=</span>don, </span>
-<span id="cb869-14"><a href="week-12-exercise.html#cb869-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
-<span id="cb869-15"><a href="week-12-exercise.html#cb869-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb869-16"><a href="week-12-exercise.html#cb869-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plm)</span>
-<span id="cb869-17"><a href="week-12-exercise.html#cb869-17" aria-hidden="true" tabindex="-1"></a><span class="do">## remove missing data from the fixed effect to get plm to work</span></span>
-<span id="cb869-18"><a href="week-12-exercise.html#cb869-18" aria-hidden="true" tabindex="-1"></a>don2 <span class="ot">&lt;-</span> <span class="fu">subset</span>(don, <span class="fu">is.na</span>(donor_id) <span class="sc">==</span>F)</span>
-<span id="cb869-19"><a href="week-12-exercise.html#cb869-19" aria-hidden="true" tabindex="-1"></a>fit5 <span class="ot">&lt;-</span> <span class="fu">plm</span>(total_donation <span class="sc">~</span> peragsen, <span class="at">data =</span> don2,</span>
-<span id="cb869-20"><a href="week-12-exercise.html#cb869-20" aria-hidden="true" tabindex="-1"></a>            <span class="at">model =</span> <span class="st">&quot;within&quot;</span>,</span>
-<span id="cb869-21"><a href="week-12-exercise.html#cb869-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">index =</span> <span class="fu">c</span>(<span class="st">&quot;donor_id&quot;</span>))</span>
-<span id="cb869-22"><a href="week-12-exercise.html#cb869-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb869-23"><a href="week-12-exercise.html#cb869-23" aria-hidden="true" tabindex="-1"></a><span class="do">## random effects</span></span>
-<span id="cb869-24"><a href="week-12-exercise.html#cb869-24" aria-hidden="true" tabindex="-1"></a>fit6 <span class="ot">&lt;-</span> <span class="fu">plm</span>(total_donation <span class="sc">~</span> peragsen, <span class="at">data =</span> don2,</span>
-<span id="cb869-25"><a href="week-12-exercise.html#cb869-25" aria-hidden="true" tabindex="-1"></a>            <span class="at">model =</span> <span class="st">&quot;random&quot;</span>,</span>
-<span id="cb869-26"><a href="week-12-exercise.html#cb869-26" aria-hidden="true" tabindex="-1"></a>            <span class="at">index =</span> <span class="fu">c</span>(<span class="st">&quot;donor_id&quot;</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb870"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb870-1"><a href="week-12-exercise.html#cb870-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreg)</span>
-<span id="cb870-2"><a href="week-12-exercise.html#cb870-2" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(<span class="fu">list</span>(fit, fit2, fit3, fit5, fit6),</span>
-<span id="cb870-3"><a href="week-12-exercise.html#cb870-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">&quot;Logit&quot;</span>, <span class="st">&quot;logit&quot;</span>, <span class="st">&quot;logit&quot;</span>, <span class="st">&quot;Lin. FE&quot;</span>, <span class="st">&quot;Lin. RE&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb918"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb918-1"><a href="week-12-exercise.html#cb918-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(donation <span class="sc">~</span> peragsen <span class="sc">+</span> </span>
+<span id="cb918-2"><a href="week-12-exercise.html#cb918-2" aria-hidden="true" tabindex="-1"></a>             terms <span class="sc">+</span> same_state <span class="sc">+</span> </span>
+<span id="cb918-3"><a href="week-12-exercise.html#cb918-3" aria-hidden="true" tabindex="-1"></a>             idfold2, <span class="at">data=</span>don, </span>
+<span id="cb918-4"><a href="week-12-exercise.html#cb918-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb918-5"><a href="week-12-exercise.html#cb918-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb918-6"><a href="week-12-exercise.html#cb918-6" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(donation <span class="sc">~</span> peragsen <span class="sc">+</span> cook <span class="sc">+</span></span>
+<span id="cb918-7"><a href="week-12-exercise.html#cb918-7" aria-hidden="true" tabindex="-1"></a>              NetWorth <span class="sc">+</span> idfold2 <span class="sc">+</span> notwhite <span class="sc">+</span> malerespondent <span class="sc">+</span> terms,</span>
+<span id="cb918-8"><a href="week-12-exercise.html#cb918-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">data=</span>don, </span>
+<span id="cb918-9"><a href="week-12-exercise.html#cb918-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb918-10"><a href="week-12-exercise.html#cb918-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb918-11"><a href="week-12-exercise.html#cb918-11" aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(donation <span class="sc">~</span> peragsen <span class="sc">+</span> cook <span class="sc">+</span></span>
+<span id="cb918-12"><a href="week-12-exercise.html#cb918-12" aria-hidden="true" tabindex="-1"></a>              NetWorth <span class="sc">+</span> idfold2 <span class="sc">+</span> notwhite <span class="sc">+</span> malerespondent <span class="sc">+</span> terms <span class="sc">+</span> sameparty,</span>
+<span id="cb918-13"><a href="week-12-exercise.html#cb918-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">data=</span>don, </span>
+<span id="cb918-14"><a href="week-12-exercise.html#cb918-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb918-15"><a href="week-12-exercise.html#cb918-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb918-16"><a href="week-12-exercise.html#cb918-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plm)</span>
+<span id="cb918-17"><a href="week-12-exercise.html#cb918-17" aria-hidden="true" tabindex="-1"></a><span class="do">## remove missing data from the fixed effect to get plm to work</span></span>
+<span id="cb918-18"><a href="week-12-exercise.html#cb918-18" aria-hidden="true" tabindex="-1"></a>don2 <span class="ot">&lt;-</span> <span class="fu">subset</span>(don, <span class="fu">is.na</span>(donor_id) <span class="sc">==</span>F)</span>
+<span id="cb918-19"><a href="week-12-exercise.html#cb918-19" aria-hidden="true" tabindex="-1"></a>fit5 <span class="ot">&lt;-</span> <span class="fu">plm</span>(total_donation <span class="sc">~</span> peragsen, <span class="at">data =</span> don2,</span>
+<span id="cb918-20"><a href="week-12-exercise.html#cb918-20" aria-hidden="true" tabindex="-1"></a>            <span class="at">model =</span> <span class="st">&quot;within&quot;</span>,</span>
+<span id="cb918-21"><a href="week-12-exercise.html#cb918-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">index =</span> <span class="fu">c</span>(<span class="st">&quot;donor_id&quot;</span>))</span>
+<span id="cb918-22"><a href="week-12-exercise.html#cb918-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb918-23"><a href="week-12-exercise.html#cb918-23" aria-hidden="true" tabindex="-1"></a><span class="do">## random effects</span></span>
+<span id="cb918-24"><a href="week-12-exercise.html#cb918-24" aria-hidden="true" tabindex="-1"></a>fit6 <span class="ot">&lt;-</span> <span class="fu">plm</span>(total_donation <span class="sc">~</span> peragsen, <span class="at">data =</span> don2,</span>
+<span id="cb918-25"><a href="week-12-exercise.html#cb918-25" aria-hidden="true" tabindex="-1"></a>            <span class="at">model =</span> <span class="st">&quot;random&quot;</span>,</span>
+<span id="cb918-26"><a href="week-12-exercise.html#cb918-26" aria-hidden="true" tabindex="-1"></a>            <span class="at">index =</span> <span class="fu">c</span>(<span class="st">&quot;donor_id&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb919"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb919-1"><a href="week-12-exercise.html#cb919-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(texreg)</span>
+<span id="cb919-2"><a href="week-12-exercise.html#cb919-2" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(<span class="fu">list</span>(fit, fit2, fit3, fit5, fit6),</span>
+<span id="cb919-3"><a href="week-12-exercise.html#cb919-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">custom.model.names =</span> <span class="fu">c</span>(<span class="st">&quot;Logit&quot;</span>, <span class="st">&quot;logit&quot;</span>, <span class="st">&quot;logit&quot;</span>, <span class="st">&quot;Lin. FE&quot;</span>, <span class="st">&quot;Lin. RE&quot;</span>))</span></code></pre></div>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -1190,19 +1194,19 @@ s_id
 </tfoot>
 </table>
 <p>We also discussed that one could use clustered standard errors like the authors after fitting a logistic regression model. Here is an example using <code>fit3</code>.</p>
-<div class="sourceCode" id="cb871"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb871-1"><a href="week-12-exercise.html#cb871-1" aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(donation <span class="sc">~</span> peragsen <span class="sc">+</span> cook <span class="sc">+</span></span>
-<span id="cb871-2"><a href="week-12-exercise.html#cb871-2" aria-hidden="true" tabindex="-1"></a>              NetWorth <span class="sc">+</span> idfold2 <span class="sc">+</span> notwhite <span class="sc">+</span> malerespondent <span class="sc">+</span> terms <span class="sc">+</span> sameparty,</span>
-<span id="cb871-3"><a href="week-12-exercise.html#cb871-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data=</span>don, </span>
-<span id="cb871-4"><a href="week-12-exercise.html#cb871-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
-<span id="cb871-5"><a href="week-12-exercise.html#cb871-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb871-6"><a href="week-12-exercise.html#cb871-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
-<span id="cb871-7"><a href="week-12-exercise.html#cb871-7" aria-hidden="true" tabindex="-1"></a>clval <span class="ot">&lt;-</span> <span class="fu">vcovCL</span>(fit3, <span class="at">type=</span><span class="st">&quot;HC0&quot;</span>, <span class="at">cluster =</span> don<span class="sc">$</span>donor_id)</span>
-<span id="cb871-8"><a href="week-12-exercise.html#cb871-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb871-9"><a href="week-12-exercise.html#cb871-9" aria-hidden="true" tabindex="-1"></a>newfit3sum <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(fit3, <span class="at">vcov=</span>clval)</span></code></pre></div>
+<div class="sourceCode" id="cb920"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb920-1"><a href="week-12-exercise.html#cb920-1" aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(donation <span class="sc">~</span> peragsen <span class="sc">+</span> cook <span class="sc">+</span></span>
+<span id="cb920-2"><a href="week-12-exercise.html#cb920-2" aria-hidden="true" tabindex="-1"></a>              NetWorth <span class="sc">+</span> idfold2 <span class="sc">+</span> notwhite <span class="sc">+</span> malerespondent <span class="sc">+</span> terms <span class="sc">+</span> sameparty,</span>
+<span id="cb920-3"><a href="week-12-exercise.html#cb920-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data=</span>don, </span>
+<span id="cb920-4"><a href="week-12-exercise.html#cb920-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">family=</span><span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb920-5"><a href="week-12-exercise.html#cb920-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb920-6"><a href="week-12-exercise.html#cb920-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
+<span id="cb920-7"><a href="week-12-exercise.html#cb920-7" aria-hidden="true" tabindex="-1"></a>clval <span class="ot">&lt;-</span> <span class="fu">vcovCL</span>(fit3, <span class="at">type=</span><span class="st">&quot;HC0&quot;</span>, <span class="at">cluster =</span> don<span class="sc">$</span>donor_id)</span>
+<span id="cb920-8"><a href="week-12-exercise.html#cb920-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb920-9"><a href="week-12-exercise.html#cb920-9" aria-hidden="true" tabindex="-1"></a>newfit3sum <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(fit3, <span class="at">vcov=</span>clval)</span></code></pre></div>
 <p>You can override the inputs in the <code>texreg</code> functions to incorporate these adjustments. For example:</p>
-<div class="sourceCode" id="cb872"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb872-1"><a href="week-12-exercise.html#cb872-1" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(<span class="fu">list</span>(fit3),</span>
-<span id="cb872-2"><a href="week-12-exercise.html#cb872-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">override.se =</span> newfit3sum[, <span class="dv">2</span>],</span>
-<span id="cb872-3"><a href="week-12-exercise.html#cb872-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">override.pvalues =</span> newfit3sum[, <span class="dv">4</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb921"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb921-1"><a href="week-12-exercise.html#cb921-1" aria-hidden="true" tabindex="-1"></a><span class="fu">htmlreg</span>(<span class="fu">list</span>(fit3),</span>
+<span id="cb921-2"><a href="week-12-exercise.html#cb921-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">override.se =</span> newfit3sum[, <span class="dv">2</span>],</span>
+<span id="cb921-3"><a href="week-12-exercise.html#cb921-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">override.pvalues =</span> newfit3sum[, <span class="dv">4</span>])</span></code></pre></div>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -1425,7 +1429,6 @@ Num. obs.
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -1444,6 +1447,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -1464,6 +1468,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

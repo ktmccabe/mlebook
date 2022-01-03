@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>13.2 Survey R package | MLE for Political Science</title>
   <meta name="description" content="13.2 Survey R package | MLE for Political Science" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="13.2 Survey R package | MLE for Political Science" />
   <meta property="og:type" content="book" />
@@ -32,8 +32,9 @@
   
 <link rel="prev" href="whats-the-fuss.html"/>
 <link rel="next" href="constructing-your-own-weights.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,7 +50,8 @@
 
 
 
-
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <link href="libs/vembedr-0.1.4/css/vembedr.css" rel="stylesheet" />
 
 
@@ -57,6 +59,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -116,6 +119,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
@@ -229,7 +233,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.6" data-path="generating-predictions-from-regression-models.html"><a href="generating-predictions-from-regression-models.html"><i class="fa fa-check"></i><b>4.6</b> Generating predictions from regression models</a></li>
 <li class="chapter" data-level="4.7" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html"><i class="fa fa-check"></i><b>4.7</b> Wrapping up OLS</a>
 <ul>
-<li class="chapter" data-level="4.7.1" data-path="practice-problems.html"><a href="practice-problems.html#practice-problems"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
+<li class="chapter" data-level="4.7.1" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problems-1"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
 <li class="chapter" data-level="4.7.2" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problem-code-for-solutions"><i class="fa fa-check"></i><b>4.7.2</b> Practice Problem Code for Solutions</a></li>
 </ul></li>
 <li class="chapter" data-level="4.8" data-path="week-2-thursday-example.html"><a href="week-2-thursday-example.html"><i class="fa fa-check"></i><b>4.8</b> Week 2 Thursday Example</a></li>
@@ -263,7 +267,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="6.1" data-path="data-generating-process.html"><a href="data-generating-process.html"><i class="fa fa-check"></i><b>6.1</b> Data Generating Process</a>
 <ul>
-<li class="chapter" data-level="6.1.1" data-path="mle-estimation.html"><a href="mle-estimation.html#mle-estimation"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
+<li class="chapter" data-level="6.1.1" data-path="data-generating-process.html"><a href="data-generating-process.html#mle-estimation-1"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="r-code-for-fitting-logistic-regression.html"><a href="r-code-for-fitting-logistic-regression.html"><i class="fa fa-check"></i><b>6.2</b> R code for fitting logistic regression</a>
 <ul>
@@ -466,7 +470,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="15.1.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html#how-to-predict-or-classify"><i class="fa fa-check"></i><b>15.1.1</b> How to predict or classify</a></li>
 </ul></li>
-<li class="chapter" data-level="15.2" data-path="in-sample-vs-out-of-sample.html"><a href="in-sample-vs-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
+<li class="chapter" data-level="15.2" data-path="in-sample-vs.-out-of-sample.html"><a href="in-sample-vs.-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
 <li class="chapter" data-level="15.3" data-path="cross-validation.html"><a href="cross-validation.html"><i class="fa fa-check"></i><b>15.3</b> Cross-Validation</a>
 <ul>
 <li class="chapter" data-level="15.3.1" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>15.3.1</b> k-fold cross-validation</a></li>
@@ -522,11 +526,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>See also, a detailed <a href="https://medium.com/pew-research-center-decoded/how-to-analyze-pew-research-center-survey-data-in-r-f326df360713">example</a> from Pew analyzing one of their datasets with the survey package.</li>
 </ul>
 <p><em>Example: Sample of students in California.</em></p>
-<div class="sourceCode" id="cb873"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb873-1"><a href="survey-r-package.html#cb873-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
-<span id="cb873-2"><a href="survey-r-package.html#cb873-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(api) <span class="co"># loads several dataframes </span></span>
-<span id="cb873-3"><a href="survey-r-package.html#cb873-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb873-4"><a href="survey-r-package.html#cb873-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Sample with just weights, no clusters/strata</span></span>
-<span id="cb873-5"><a href="survey-r-package.html#cb873-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(apisrs)</span></code></pre></div>
+<div class="sourceCode" id="cb922"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb922-1"><a href="survey-r-package.html#cb922-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
+<span id="cb922-2"><a href="survey-r-package.html#cb922-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(api) <span class="co"># loads several dataframes </span></span>
+<span id="cb922-3"><a href="survey-r-package.html#cb922-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb922-4"><a href="survey-r-package.html#cb922-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Sample with just weights, no clusters/strata</span></span>
+<span id="cb922-5"><a href="survey-r-package.html#cb922-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(apisrs)</span></code></pre></div>
 <pre><code>                cds stype            name                         sname snum
 1039 15739081534155     H  McFarland High                McFarland High 1039
 1124 19642126066716     E Stowers (Cecil  Stowers (Cecil B.) Elementary 1124
@@ -562,18 +566,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 1273        1   1.96   85   18    342     291 30.97 6194
 4926       10   3.17  100    0    217     189 30.97 6194
 2463       34   3.96   75   20    258     211 30.97 6194</code></pre>
-<div class="sourceCode" id="cb875"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb875-1"><a href="survey-r-package.html#cb875-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Specify design</span></span>
-<span id="cb875-2"><a href="survey-r-package.html#cb875-2" aria-hidden="true" tabindex="-1"></a>apisrs_design <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">data =</span> apisrs, </span>
-<span id="cb875-3"><a href="survey-r-package.html#cb875-3" aria-hidden="true" tabindex="-1"></a>                             <span class="at">weights =</span> <span class="sc">~</span>pw, </span>
-<span id="cb875-4"><a href="survey-r-package.html#cb875-4" aria-hidden="true" tabindex="-1"></a>                             <span class="at">id =</span> <span class="sc">~</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb924"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb924-1"><a href="survey-r-package.html#cb924-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Specify design</span></span>
+<span id="cb924-2"><a href="survey-r-package.html#cb924-2" aria-hidden="true" tabindex="-1"></a>apisrs_design <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">data =</span> apisrs, </span>
+<span id="cb924-3"><a href="survey-r-package.html#cb924-3" aria-hidden="true" tabindex="-1"></a>                             <span class="at">weights =</span> <span class="sc">~</span>pw, </span>
+<span id="cb924-4"><a href="survey-r-package.html#cb924-4" aria-hidden="true" tabindex="-1"></a>                             <span class="at">id =</span> <span class="sc">~</span><span class="dv">1</span>)</span></code></pre></div>
 <p><em>Example: Sample of students in California. Samples stratified by School type</em></p>
 <p>Here is an example with a stratified random sample with a known finite population variable. Here, we had the <code>fpc</code> column and strata column <code>stype</code>. We still supply the weights <code>pw</code>.</p>
-<div class="sourceCode" id="cb876"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb876-1"><a href="survey-r-package.html#cb876-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Use apistrat</span></span>
-<span id="cb876-2"><a href="survey-r-package.html#cb876-2" aria-hidden="true" tabindex="-1"></a>apistrat_design <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">data =</span> apistrat, </span>
-<span id="cb876-3"><a href="survey-r-package.html#cb876-3" aria-hidden="true" tabindex="-1"></a>                             <span class="at">weights =</span> <span class="sc">~</span>pw, </span>
-<span id="cb876-4"><a href="survey-r-package.html#cb876-4" aria-hidden="true" tabindex="-1"></a>                             <span class="at">fpc =</span> <span class="sc">~</span>fpc, <span class="co"># population of school types known</span></span>
-<span id="cb876-5"><a href="survey-r-package.html#cb876-5" aria-hidden="true" tabindex="-1"></a>                             <span class="at">id =</span> <span class="sc">~</span><span class="dv">1</span>, <span class="co"># no clusters</span></span>
-<span id="cb876-6"><a href="survey-r-package.html#cb876-6" aria-hidden="true" tabindex="-1"></a>                             <span class="at">strata =</span> <span class="sc">~</span>stype)</span></code></pre></div>
+<div class="sourceCode" id="cb925"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb925-1"><a href="survey-r-package.html#cb925-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Use apistrat</span></span>
+<span id="cb925-2"><a href="survey-r-package.html#cb925-2" aria-hidden="true" tabindex="-1"></a>apistrat_design <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">data =</span> apistrat, </span>
+<span id="cb925-3"><a href="survey-r-package.html#cb925-3" aria-hidden="true" tabindex="-1"></a>                             <span class="at">weights =</span> <span class="sc">~</span>pw, </span>
+<span id="cb925-4"><a href="survey-r-package.html#cb925-4" aria-hidden="true" tabindex="-1"></a>                             <span class="at">fpc =</span> <span class="sc">~</span>fpc, <span class="co"># population of school types known</span></span>
+<span id="cb925-5"><a href="survey-r-package.html#cb925-5" aria-hidden="true" tabindex="-1"></a>                             <span class="at">id =</span> <span class="sc">~</span><span class="dv">1</span>, <span class="co"># no clusters</span></span>
+<span id="cb925-6"><a href="survey-r-package.html#cb925-6" aria-hidden="true" tabindex="-1"></a>                             <span class="at">strata =</span> <span class="sc">~</span>stype)</span></code></pre></div>
 <p><em>Example: Sample of students in California by clustering.</em></p>
 <p>Here is a more complex example.</p>
 <ul>
@@ -581,18 +585,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Within district, five schools were sampled <code>snum</code>.</li>
 <li>Fpc for district and school are <code>fpc1</code> and <code>fpc2</code></li>
 </ul>
-<div class="sourceCode" id="cb877"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb877-1"><a href="survey-r-package.html#cb877-1" aria-hidden="true" tabindex="-1"></a>apiclus_design <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">data =</span> apiclus2, </span>
-<span id="cb877-2"><a href="survey-r-package.html#cb877-2" aria-hidden="true" tabindex="-1"></a>                             <span class="at">weights =</span> <span class="sc">~</span>pw, </span>
-<span id="cb877-3"><a href="survey-r-package.html#cb877-3" aria-hidden="true" tabindex="-1"></a>                             <span class="at">fpc =</span> <span class="sc">~</span>fpc1 <span class="sc">+</span> fpc2, </span>
-<span id="cb877-4"><a href="survey-r-package.html#cb877-4" aria-hidden="true" tabindex="-1"></a>                             <span class="at">id =</span> <span class="sc">~</span>dnum <span class="sc">+</span> snum) <span class="co"># start from biggest clu</span></span></code></pre></div>
+<div class="sourceCode" id="cb926"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb926-1"><a href="survey-r-package.html#cb926-1" aria-hidden="true" tabindex="-1"></a>apiclus_design <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">data =</span> apiclus2, </span>
+<span id="cb926-2"><a href="survey-r-package.html#cb926-2" aria-hidden="true" tabindex="-1"></a>                             <span class="at">weights =</span> <span class="sc">~</span>pw, </span>
+<span id="cb926-3"><a href="survey-r-package.html#cb926-3" aria-hidden="true" tabindex="-1"></a>                             <span class="at">fpc =</span> <span class="sc">~</span>fpc1 <span class="sc">+</span> fpc2, </span>
+<span id="cb926-4"><a href="survey-r-package.html#cb926-4" aria-hidden="true" tabindex="-1"></a>                             <span class="at">id =</span> <span class="sc">~</span>dnum <span class="sc">+</span> snum) <span class="co"># start from biggest clu</span></span></code></pre></div>
 <p>For more established surveys, often the codebook might include documentation on how to account for survey weights and sampling design. For example, the American National Election Study will generally include this guidance in recent codebooks. Here is an example accounting for the sampling design in the <a href="https://electionstudies.org/wp-content/uploads/2018/12/anes_timeseries_2016_userguidecodebook.pdf">2016 ANES</a>.</p>
 <p>You can use <code>foreign</code>, <code>rio</code>, or what we will use here, <code>haven</code> to load the .dta data.</p>
-<div class="sourceCode" id="cb878"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb878-1"><a href="survey-r-package.html#cb878-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
-<span id="cb878-2"><a href="survey-r-package.html#cb878-2" aria-hidden="true" tabindex="-1"></a>an <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/anes_timeseries_2016_Stata12.dta?raw=true&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb927"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb927-1"><a href="survey-r-package.html#cb927-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb927-2"><a href="survey-r-package.html#cb927-2" aria-hidden="true" tabindex="-1"></a>an <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/anes_timeseries_2016_Stata12.dta?raw=true&quot;</span>)</span></code></pre></div>
 <p>One benefit of loading data through <code>haven</code> and some of the newer packages is it will help retain value labels from the original data that R might not otherwise load. (E.g., labels that would show up in SPSS or Stata but seem lost in R.)</p>
-<p>Let’s check this for an example: "How well does feminist describe you?</p>
-<div class="sourceCode" id="cb879"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb879-1"><a href="survey-r-package.html#cb879-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb879-2"><a href="survey-r-package.html#cb879-2" aria-hidden="true" tabindex="-1"></a>an<span class="sc">$</span>V161346 <span class="sc">%&gt;%</span> <span class="fu">attr</span>(<span class="st">&quot;labels&quot;</span>)</span></code></pre></div>
+<p>Let’s check this for an example: “How well does feminist describe you?</p>
+<div class="sourceCode" id="cb928"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb928-1"><a href="survey-r-package.html#cb928-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb928-2"><a href="survey-r-package.html#cb928-2" aria-hidden="true" tabindex="-1"></a>an<span class="sc">$</span>V161346 <span class="sc">%&gt;%</span> <span class="fu">attr</span>(<span class="st">&quot;labels&quot;</span>)</span></code></pre></div>
 <pre><code>                                   -9. Refused 
                                             -9 
 -5. Interview breakoff (sufficient partial IW) 
@@ -608,42 +612,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
                                  5. Not at all 
                                              5 </code></pre>
 <p>OK enough about that. Let’s specify the survey design.</p>
-<div class="sourceCode" id="cb881"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb881-1"><a href="survey-r-package.html#cb881-1" aria-hidden="true" tabindex="-1"></a>anes_design <span class="ot">&lt;-</span></span>
-<span id="cb881-2"><a href="survey-r-package.html#cb881-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">svydesign</span>( </span>
-<span id="cb881-3"><a href="survey-r-package.html#cb881-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">ids =</span> <span class="sc">~</span>V160202 , </span>
-<span id="cb881-4"><a href="survey-r-package.html#cb881-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">strata =</span> <span class="sc">~</span>V160201 , </span>
-<span id="cb881-5"><a href="survey-r-package.html#cb881-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> an, </span>
-<span id="cb881-6"><a href="survey-r-package.html#cb881-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">weights =</span> <span class="sc">~</span>V160102,</span>
-<span id="cb881-7"><a href="survey-r-package.html#cb881-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">nest =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb930"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb930-1"><a href="survey-r-package.html#cb930-1" aria-hidden="true" tabindex="-1"></a>anes_design <span class="ot">&lt;-</span></span>
+<span id="cb930-2"><a href="survey-r-package.html#cb930-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">svydesign</span>( </span>
+<span id="cb930-3"><a href="survey-r-package.html#cb930-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">ids =</span> <span class="sc">~</span>V160202 , </span>
+<span id="cb930-4"><a href="survey-r-package.html#cb930-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">strata =</span> <span class="sc">~</span>V160201 , </span>
+<span id="cb930-5"><a href="survey-r-package.html#cb930-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> an, </span>
+<span id="cb930-6"><a href="survey-r-package.html#cb930-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">weights =</span> <span class="sc">~</span>V160102,</span>
+<span id="cb930-7"><a href="survey-r-package.html#cb930-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">nest =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>The <code>nest</code> argument indicates if cluster ids should be relabeled to align with strata.</p>
 </div>
 <div id="working-with-survey-designs" class="section level3" number="13.2.2">
 <h3><span class="header-section-number">13.2.2</span> Working with survey designs</h3>
 <p>The good news is that once you have specified the survey design, the rest of the analysis will flow similarly across types of survey designs. The bad news is that you will need to use special functions to analyze the data instead of the functions we are used to working with. These generally start with <code>svy</code>….. but the good news is, they are not that different from our normal functions!</p>
 <p>Here are a few examples of common functions using the survey design.</p>
-<div class="sourceCode" id="cb882"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb882-1"><a href="survey-r-package.html#cb882-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Means and uncertainty of variables</span></span>
-<span id="cb882-2"><a href="survey-r-package.html#cb882-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Note: we put design where you would normally see data</span></span>
-<span id="cb882-3"><a href="survey-r-package.html#cb882-3" aria-hidden="true" tabindex="-1"></a><span class="fu">svymean</span>(<span class="sc">~</span>mobility, <span class="at">design =</span> apiclus_design)</span></code></pre></div>
+<div class="sourceCode" id="cb931"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb931-1"><a href="survey-r-package.html#cb931-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Means and uncertainty of variables</span></span>
+<span id="cb931-2"><a href="survey-r-package.html#cb931-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Note: we put design where you would normally see data</span></span>
+<span id="cb931-3"><a href="survey-r-package.html#cb931-3" aria-hidden="true" tabindex="-1"></a><span class="fu">svymean</span>(<span class="sc">~</span>mobility, <span class="at">design =</span> apiclus_design)</span></code></pre></div>
 <pre><code>           mean    SE
 mobility 18.154 1.471</code></pre>
-<div class="sourceCode" id="cb884"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb884-1"><a href="survey-r-package.html#cb884-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SE</span>(<span class="fu">svymean</span>(<span class="sc">~</span>mobility, <span class="at">design =</span> apiclus_design))</span></code></pre></div>
+<div class="sourceCode" id="cb933"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb933-1"><a href="survey-r-package.html#cb933-1" aria-hidden="true" tabindex="-1"></a><span class="fu">SE</span>(<span class="fu">svymean</span>(<span class="sc">~</span>mobility, <span class="at">design =</span> apiclus_design))</span></code></pre></div>
 <pre><code>         mobility
 mobility 1.471006</code></pre>
-<div class="sourceCode" id="cb886"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb886-1"><a href="survey-r-package.html#cb886-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(<span class="fu">svymean</span>(<span class="sc">~</span>mobility, <span class="at">design =</span> apiclus_design))</span></code></pre></div>
+<div class="sourceCode" id="cb935"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb935-1"><a href="survey-r-package.html#cb935-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(<span class="fu">svymean</span>(<span class="sc">~</span>mobility, <span class="at">design =</span> apiclus_design))</span></code></pre></div>
 <pre><code>            2.5 %   97.5 %
 mobility 15.27039 21.03662</code></pre>
-<div class="sourceCode" id="cb888"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb888-1"><a href="survey-r-package.html#cb888-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Linear Regression</span></span>
-<span id="cb888-2"><a href="survey-r-package.html#cb888-2" aria-hidden="true" tabindex="-1"></a>fit.lin <span class="ot">&lt;-</span> <span class="fu">svyglm</span>(mobility <span class="sc">~</span> meals <span class="sc">+</span> awards, <span class="at">family =</span> <span class="st">&quot;gaussian&quot;</span>,</span>
-<span id="cb888-3"><a href="survey-r-package.html#cb888-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">design =</span> apiclus_design)</span>
-<span id="cb888-4"><a href="survey-r-package.html#cb888-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb888-5"><a href="survey-r-package.html#cb888-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Logit Regression</span></span>
-<span id="cb888-6"><a href="survey-r-package.html#cb888-6" aria-hidden="true" tabindex="-1"></a>fit.logit <span class="ot">&lt;-</span> <span class="fu">svyglm</span>(awards <span class="sc">~</span> meals, </span>
-<span id="cb888-7"><a href="survey-r-package.html#cb888-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>),</span>
-<span id="cb888-8"><a href="survey-r-package.html#cb888-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">design =</span> apiclus_design)</span></code></pre></div>
+<div class="sourceCode" id="cb937"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb937-1"><a href="survey-r-package.html#cb937-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Linear Regression</span></span>
+<span id="cb937-2"><a href="survey-r-package.html#cb937-2" aria-hidden="true" tabindex="-1"></a>fit.lin <span class="ot">&lt;-</span> <span class="fu">svyglm</span>(mobility <span class="sc">~</span> meals <span class="sc">+</span> awards, <span class="at">family =</span> <span class="st">&quot;gaussian&quot;</span>,</span>
+<span id="cb937-3"><a href="survey-r-package.html#cb937-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">design =</span> apiclus_design)</span>
+<span id="cb937-4"><a href="survey-r-package.html#cb937-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb937-5"><a href="survey-r-package.html#cb937-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Logit Regression</span></span>
+<span id="cb937-6"><a href="survey-r-package.html#cb937-6" aria-hidden="true" tabindex="-1"></a>fit.logit <span class="ot">&lt;-</span> <span class="fu">svyglm</span>(awards <span class="sc">~</span> meals, </span>
+<span id="cb937-7"><a href="survey-r-package.html#cb937-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>),</span>
+<span id="cb937-8"><a href="survey-r-package.html#cb937-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">design =</span> apiclus_design)</span></code></pre></div>
 <pre><code>Warning in eval(family$initialize): non-integer #successes in a binomial glm!</code></pre>
 <p>For an example of ordinal logistic regression see section 8.6 of the course notes.</p>
-<div class="sourceCode" id="cb890"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb890-1"><a href="survey-r-package.html#cb890-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Can also subset like normal with subset command</span></span>
-<span id="cb890-2"><a href="survey-r-package.html#cb890-2" aria-hidden="true" tabindex="-1"></a>apiclus_design2 <span class="ot">&lt;-</span> <span class="fu">subset</span>(apiclus_design, meals <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb939"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb939-1"><a href="survey-r-package.html#cb939-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Can also subset like normal with subset command</span></span>
+<span id="cb939-2"><a href="survey-r-package.html#cb939-2" aria-hidden="true" tabindex="-1"></a>apiclus_design2 <span class="ot">&lt;-</span> <span class="fu">subset</span>(apiclus_design, meals <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code></pre></div>
 <ul>
 <li>The Pew research center has also written a tutorial for using various <code>tidyverse</code> tools with survey data. See <a href="https://medium.com/pew-research-center-decoded/using-tidyverse-tools-with-pew-research-center-survey-data-in-r-bdfe61de0909">here</a> for details.</li>
 <li>In addition, there has been a package <code>srvyr</code> recently developed that incorporates more tidyverse language with the same set of survey tools. See this <a href="https://cran.r-project.org/web/packages/srvyr/vignettes/srvyr-vs-survey.html">tutorial</a> for details and some analysis examples.</li>
@@ -652,11 +656,11 @@ mobility 15.27039 21.03662</code></pre>
 <li>With the <code>margins</code> package, you will want to specify the <code>design</code> in order to make sure the average marginal effects reported are based on the survey design object. Example:</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb891"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb891-1"><a href="survey-r-package.html#cb891-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(margins)</span>
-<span id="cb891-2"><a href="survey-r-package.html#cb891-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span><span class="fu">margins</span>(fit.logit, <span class="at">variables =</span> <span class="st">&quot;meals&quot;</span>,</span>
-<span id="cb891-3"><a href="survey-r-package.html#cb891-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">design=</span>apiclus_design, </span>
-<span id="cb891-4"><a href="survey-r-package.html#cb891-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">change=</span><span class="st">&quot;iqr&quot;</span>)</span>
-<span id="cb891-5"><a href="survey-r-package.html#cb891-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(res)</span></code></pre></div>
+<div class="sourceCode" id="cb940"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb940-1"><a href="survey-r-package.html#cb940-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(margins)</span>
+<span id="cb940-2"><a href="survey-r-package.html#cb940-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span><span class="fu">margins</span>(fit.logit, <span class="at">variables =</span> <span class="st">&quot;meals&quot;</span>,</span>
+<span id="cb940-3"><a href="survey-r-package.html#cb940-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">design=</span>apiclus_design, </span>
+<span id="cb940-4"><a href="survey-r-package.html#cb940-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">change=</span><span class="st">&quot;iqr&quot;</span>)</span>
+<span id="cb940-5"><a href="survey-r-package.html#cb940-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(res)</span></code></pre></div>
 <pre><code> factor     AME     SE       z      p   lower  upper
   meals -0.1018 0.0592 -1.7208 0.0853 -0.2178 0.0142</code></pre>
 </div>
@@ -664,9 +668,9 @@ mobility 15.27039 21.03662</code></pre>
 <h3><span class="header-section-number">13.2.3</span> Why do we need the <code>survey</code> package?</h3>
 <p>The benefits of the survey package really come from the tool’s specialty in calculating appropriate variances for the survey design and accounting for very complex stratified or clustered designs. There are other weighting functions in R that will allow you to recover the same point estimates as the survey tools in some cases. However, it won’t always be the case that they will give you accurate measures of uncertainty.</p>
 <p>If you don’t need measures of uncertainty, then other functions from base R, such as <code>weighted.mean</code> can also work in cases where you just have a column of survey weights.</p>
-<div class="sourceCode" id="cb893"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb893-1"><a href="survey-r-package.html#cb893-1" aria-hidden="true" tabindex="-1"></a><span class="fu">weighted.mean</span>(apisrs<span class="sc">$</span>mobility, <span class="at">w=</span>apisrs<span class="sc">$</span>pw)</span></code></pre></div>
+<div class="sourceCode" id="cb942"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb942-1"><a href="survey-r-package.html#cb942-1" aria-hidden="true" tabindex="-1"></a><span class="fu">weighted.mean</span>(apisrs<span class="sc">$</span>mobility, <span class="at">w=</span>apisrs<span class="sc">$</span>pw)</span></code></pre></div>
 <pre><code>[1] 17.46</code></pre>
-<div class="sourceCode" id="cb895"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb895-1"><a href="survey-r-package.html#cb895-1" aria-hidden="true" tabindex="-1"></a><span class="fu">svymean</span>(<span class="sc">~</span>mobility, <span class="at">design =</span> apisrs_design)</span></code></pre></div>
+<div class="sourceCode" id="cb944"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb944-1"><a href="survey-r-package.html#cb944-1" aria-hidden="true" tabindex="-1"></a><span class="fu">svymean</span>(<span class="sc">~</span>mobility, <span class="at">design =</span> apisrs_design)</span></code></pre></div>
 <pre><code>          mean     SE
 mobility 17.46 0.6529</code></pre>
 </div>
@@ -681,7 +685,6 @@ mobility 17.46 0.6529</code></pre>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -700,6 +703,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -720,6 +724,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

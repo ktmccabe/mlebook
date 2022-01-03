@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>12.4 Additional considerations for fixed effects | MLE for Political Science</title>
   <meta name="description" content="12.4 Additional considerations for fixed effects | MLE for Political Science" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="12.4 Additional considerations for fixed effects | MLE for Political Science" />
   <meta property="og:type" content="book" />
@@ -32,8 +32,9 @@
   
 <link rel="prev" href="fixed-effects.html"/>
 <link rel="next" href="random-effects.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,7 +50,8 @@
 
 
 
-
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <link href="libs/vembedr-0.1.4/css/vembedr.css" rel="stylesheet" />
 
 
@@ -57,6 +59,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -116,6 +119,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
@@ -229,7 +233,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.6" data-path="generating-predictions-from-regression-models.html"><a href="generating-predictions-from-regression-models.html"><i class="fa fa-check"></i><b>4.6</b> Generating predictions from regression models</a></li>
 <li class="chapter" data-level="4.7" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html"><i class="fa fa-check"></i><b>4.7</b> Wrapping up OLS</a>
 <ul>
-<li class="chapter" data-level="4.7.1" data-path="practice-problems.html"><a href="practice-problems.html#practice-problems"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
+<li class="chapter" data-level="4.7.1" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problems-1"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
 <li class="chapter" data-level="4.7.2" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problem-code-for-solutions"><i class="fa fa-check"></i><b>4.7.2</b> Practice Problem Code for Solutions</a></li>
 </ul></li>
 <li class="chapter" data-level="4.8" data-path="week-2-thursday-example.html"><a href="week-2-thursday-example.html"><i class="fa fa-check"></i><b>4.8</b> Week 2 Thursday Example</a></li>
@@ -263,7 +267,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="6.1" data-path="data-generating-process.html"><a href="data-generating-process.html"><i class="fa fa-check"></i><b>6.1</b> Data Generating Process</a>
 <ul>
-<li class="chapter" data-level="6.1.1" data-path="mle-estimation.html"><a href="mle-estimation.html#mle-estimation"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
+<li class="chapter" data-level="6.1.1" data-path="data-generating-process.html"><a href="data-generating-process.html#mle-estimation-1"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="r-code-for-fitting-logistic-regression.html"><a href="r-code-for-fitting-logistic-regression.html"><i class="fa fa-check"></i><b>6.2</b> R code for fitting logistic regression</a>
 <ul>
@@ -466,7 +470,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="15.1.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html#how-to-predict-or-classify"><i class="fa fa-check"></i><b>15.1.1</b> How to predict or classify</a></li>
 </ul></li>
-<li class="chapter" data-level="15.2" data-path="in-sample-vs-out-of-sample.html"><a href="in-sample-vs-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
+<li class="chapter" data-level="15.2" data-path="in-sample-vs.-out-of-sample.html"><a href="in-sample-vs.-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
 <li class="chapter" data-level="15.3" data-path="cross-validation.html"><a href="cross-validation.html"><i class="fa fa-check"></i><b>15.3</b> Cross-Validation</a>
 <ul>
 <li class="chapter" data-level="15.3.1" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>15.3.1</b> k-fold cross-validation</a></li>
@@ -542,19 +546,19 @@ Y_{it} =  \alpha_i + \beta_1 x_{it}+ \beta_2 year_{t} + \beta_3 year_{t}^2 + \be
 </div>
 <div id="additional-models-in-r" class="section level3" number="12.4.4">
 <h3><span class="header-section-number">12.4.4</span> Additional Models in R</h3>
-<div class="sourceCode" id="cb809"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb809-1"><a href="additional-considerations-for-fixed-effects.html#cb809-1" aria-hidden="true" tabindex="-1"></a><span class="do">## first differences</span></span>
-<span id="cb809-2"><a href="additional-considerations-for-fixed-effects.html#cb809-2" aria-hidden="true" tabindex="-1"></a>fit.fd <span class="ot">&lt;-</span> <span class="fu">plm</span>(inv<span class="sc">~</span>value<span class="sc">+</span>capital, <span class="at">data =</span> Grunfeld, <span class="at">model =</span> <span class="st">&quot;fd&quot;</span>, </span>
-<span id="cb809-3"><a href="additional-considerations-for-fixed-effects.html#cb809-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">index =</span> <span class="fu">c</span>(<span class="st">&quot;firm&quot;</span>, <span class="st">&quot;year&quot;</span>),</span>
-<span id="cb809-4"><a href="additional-considerations-for-fixed-effects.html#cb809-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">effect =</span> <span class="st">&quot;individual&quot;</span>)</span>
-<span id="cb809-5"><a href="additional-considerations-for-fixed-effects.html#cb809-5" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.fd)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb858"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb858-1"><a href="additional-considerations-for-fixed-effects.html#cb858-1" aria-hidden="true" tabindex="-1"></a><span class="do">## first differences</span></span>
+<span id="cb858-2"><a href="additional-considerations-for-fixed-effects.html#cb858-2" aria-hidden="true" tabindex="-1"></a>fit.fd <span class="ot">&lt;-</span> <span class="fu">plm</span>(inv<span class="sc">~</span>value<span class="sc">+</span>capital, <span class="at">data =</span> Grunfeld, <span class="at">model =</span> <span class="st">&quot;fd&quot;</span>, </span>
+<span id="cb858-3"><a href="additional-considerations-for-fixed-effects.html#cb858-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">index =</span> <span class="fu">c</span>(<span class="st">&quot;firm&quot;</span>, <span class="st">&quot;year&quot;</span>),</span>
+<span id="cb858-4"><a href="additional-considerations-for-fixed-effects.html#cb858-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">effect =</span> <span class="st">&quot;individual&quot;</span>)</span>
+<span id="cb858-5"><a href="additional-considerations-for-fixed-effects.html#cb858-5" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.fd)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
 <pre><code>  capital 
 0.2917667 </code></pre>
-<div class="sourceCode" id="cb811"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb811-1"><a href="additional-considerations-for-fixed-effects.html#cb811-1" aria-hidden="true" tabindex="-1"></a><span class="do">## firm and year effects</span></span>
-<span id="cb811-2"><a href="additional-considerations-for-fixed-effects.html#cb811-2" aria-hidden="true" tabindex="-1"></a>fit.twoway <span class="ot">&lt;-</span> <span class="fu">plm</span>(inv<span class="sc">~</span>value<span class="sc">+</span>capital, <span class="at">data =</span> Grunfeld, <span class="at">model =</span> <span class="st">&quot;within&quot;</span>,</span>
-<span id="cb811-3"><a href="additional-considerations-for-fixed-effects.html#cb811-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">index =</span> <span class="fu">c</span>(<span class="st">&quot;firm&quot;</span>, <span class="st">&quot;year&quot;</span>),</span>
-<span id="cb811-4"><a href="additional-considerations-for-fixed-effects.html#cb811-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">effect =</span> <span class="st">&quot;twoways&quot;</span>)</span>
-<span id="cb811-5"><a href="additional-considerations-for-fixed-effects.html#cb811-5" aria-hidden="true" tabindex="-1"></a>                  </span>
-<span id="cb811-6"><a href="additional-considerations-for-fixed-effects.html#cb811-6" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.twoway)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb860"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb860-1"><a href="additional-considerations-for-fixed-effects.html#cb860-1" aria-hidden="true" tabindex="-1"></a><span class="do">## firm and year effects</span></span>
+<span id="cb860-2"><a href="additional-considerations-for-fixed-effects.html#cb860-2" aria-hidden="true" tabindex="-1"></a>fit.twoway <span class="ot">&lt;-</span> <span class="fu">plm</span>(inv<span class="sc">~</span>value<span class="sc">+</span>capital, <span class="at">data =</span> Grunfeld, <span class="at">model =</span> <span class="st">&quot;within&quot;</span>,</span>
+<span id="cb860-3"><a href="additional-considerations-for-fixed-effects.html#cb860-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">index =</span> <span class="fu">c</span>(<span class="st">&quot;firm&quot;</span>, <span class="st">&quot;year&quot;</span>),</span>
+<span id="cb860-4"><a href="additional-considerations-for-fixed-effects.html#cb860-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">effect =</span> <span class="st">&quot;twoways&quot;</span>)</span>
+<span id="cb860-5"><a href="additional-considerations-for-fixed-effects.html#cb860-5" aria-hidden="true" tabindex="-1"></a>                  </span>
+<span id="cb860-6"><a href="additional-considerations-for-fixed-effects.html#cb860-6" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.twoway)[<span class="st">&quot;capital&quot;</span>]</span></code></pre></div>
 <pre><code>  capital 
 0.3579163 </code></pre>
 </div>
@@ -569,7 +573,6 @@ Y_{it} =  \alpha_i + \beta_1 x_{it}+ \beta_2 year_{t} + \beta_3 year_{t}^2 + \be
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -588,6 +591,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -608,6 +612,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>15.4 Examples of Prediction and Classification | MLE for Political Science</title>
   <meta name="description" content="15.4 Examples of Prediction and Classification | MLE for Political Science" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="15.4 Examples of Prediction and Classification | MLE for Political Science" />
   <meta property="og:type" content="book" />
@@ -32,8 +32,9 @@
   
 <link rel="prev" href="cross-validation.html"/>
 <link rel="next" href="extending-machine-learning.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,7 +50,8 @@
 
 
 
-
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <link href="libs/vembedr-0.1.4/css/vembedr.css" rel="stylesheet" />
 
 
@@ -57,6 +59,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -116,6 +119,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
@@ -229,7 +233,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.6" data-path="generating-predictions-from-regression-models.html"><a href="generating-predictions-from-regression-models.html"><i class="fa fa-check"></i><b>4.6</b> Generating predictions from regression models</a></li>
 <li class="chapter" data-level="4.7" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html"><i class="fa fa-check"></i><b>4.7</b> Wrapping up OLS</a>
 <ul>
-<li class="chapter" data-level="4.7.1" data-path="practice-problems.html"><a href="practice-problems.html#practice-problems"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
+<li class="chapter" data-level="4.7.1" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problems-1"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
 <li class="chapter" data-level="4.7.2" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problem-code-for-solutions"><i class="fa fa-check"></i><b>4.7.2</b> Practice Problem Code for Solutions</a></li>
 </ul></li>
 <li class="chapter" data-level="4.8" data-path="week-2-thursday-example.html"><a href="week-2-thursday-example.html"><i class="fa fa-check"></i><b>4.8</b> Week 2 Thursday Example</a></li>
@@ -263,7 +267,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="6.1" data-path="data-generating-process.html"><a href="data-generating-process.html"><i class="fa fa-check"></i><b>6.1</b> Data Generating Process</a>
 <ul>
-<li class="chapter" data-level="6.1.1" data-path="mle-estimation.html"><a href="mle-estimation.html#mle-estimation"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
+<li class="chapter" data-level="6.1.1" data-path="data-generating-process.html"><a href="data-generating-process.html#mle-estimation-1"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="r-code-for-fitting-logistic-regression.html"><a href="r-code-for-fitting-logistic-regression.html"><i class="fa fa-check"></i><b>6.2</b> R code for fitting logistic regression</a>
 <ul>
@@ -466,7 +470,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="15.1.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html#how-to-predict-or-classify"><i class="fa fa-check"></i><b>15.1.1</b> How to predict or classify</a></li>
 </ul></li>
-<li class="chapter" data-level="15.2" data-path="in-sample-vs-out-of-sample.html"><a href="in-sample-vs-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
+<li class="chapter" data-level="15.2" data-path="in-sample-vs.-out-of-sample.html"><a href="in-sample-vs.-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
 <li class="chapter" data-level="15.3" data-path="cross-validation.html"><a href="cross-validation.html"><i class="fa fa-check"></i><b>15.3</b> Cross-Validation</a>
 <ul>
 <li class="chapter" data-level="15.3.1" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>15.3.1</b> k-fold cross-validation</a></li>
@@ -496,10 +500,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">15.4</span> Examples of Prediction and Classification</h2>
 <p>You may be wondering why we are covering these topics in a maximum likelihood course. Well, one of the most fundamental types of classification relies on logistic regression. We are just going to reframe the tools we have already learned for a different purpose.</p>
 <p>Let’s use an example with the <code>donation</code> data from <a href="https://ktmccabe.github.io/mlebook/week-12-exercise.html">12.7</a></p>
-<div class="sourceCode" id="cb910"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb910-1"><a href="examples-of-prediction-and-classification.html#cb910-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
-<span id="cb910-2"><a href="examples-of-prediction-and-classification.html#cb910-2" aria-hidden="true" tabindex="-1"></a>don <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/donation.dta?raw=true&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb959"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb959-1"><a href="examples-of-prediction-and-classification.html#cb959-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
+<span id="cb959-2"><a href="examples-of-prediction-and-classification.html#cb959-2" aria-hidden="true" tabindex="-1"></a>don <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/donation.dta?raw=true&quot;</span>)</span></code></pre></div>
 <p>Recall that a key outcome variable here was <code>donation</code> indicating if a particular member of the donorate donated to a given senator (=1) or not (=0)</p>
-<div class="sourceCode" id="cb911"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb911-1"><a href="examples-of-prediction-and-classification.html#cb911-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(don<span class="sc">$</span>donation)</span></code></pre></div>
+<div class="sourceCode" id="cb960"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb960-1"><a href="examples-of-prediction-and-classification.html#cb960-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(don<span class="sc">$</span>donation)</span></code></pre></div>
 <pre><code>
     0     1 
 61533  2377 </code></pre>
@@ -518,115 +522,115 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ol>
 <p>Let’s go!</p>
-<div class="sourceCode" id="cb913"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb913-1"><a href="examples-of-prediction-and-classification.html#cb913-1" aria-hidden="true" tabindex="-1"></a><span class="do">## build a model (choose &quot;features&quot; you think will be good for prediction)</span></span>
-<span id="cb913-2"><a href="examples-of-prediction-and-classification.html#cb913-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb913-3"><a href="examples-of-prediction-and-classification.html#cb913-3" aria-hidden="true" tabindex="-1"></a><span class="do">## you will want to remove missing data first</span></span>
-<span id="cb913-4"><a href="examples-of-prediction-and-classification.html#cb913-4" aria-hidden="true" tabindex="-1"></a>donsub <span class="ot">&lt;-</span> don[, <span class="fu">c</span>(<span class="st">&quot;donation&quot;</span>, <span class="st">&quot;NetWorth&quot;</span>, <span class="st">&quot;Edsum&quot;</span>)]</span>
-<span id="cb913-5"><a href="examples-of-prediction-and-classification.html#cb913-5" aria-hidden="true" tabindex="-1"></a>donsub <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(donsub)</span>
-<span id="cb913-6"><a href="examples-of-prediction-and-classification.html#cb913-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb913-7"><a href="examples-of-prediction-and-classification.html#cb913-7" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(donation <span class="sc">~</span> NetWorth <span class="sc">+</span> Edsum, </span>
-<span id="cb913-8"><a href="examples-of-prediction-and-classification.html#cb913-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>), <span class="at">data =</span> donsub)</span></code></pre></div>
+<div class="sourceCode" id="cb962"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb962-1"><a href="examples-of-prediction-and-classification.html#cb962-1" aria-hidden="true" tabindex="-1"></a><span class="do">## build a model (choose &quot;features&quot; you think will be good for prediction)</span></span>
+<span id="cb962-2"><a href="examples-of-prediction-and-classification.html#cb962-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb962-3"><a href="examples-of-prediction-and-classification.html#cb962-3" aria-hidden="true" tabindex="-1"></a><span class="do">## you will want to remove missing data first</span></span>
+<span id="cb962-4"><a href="examples-of-prediction-and-classification.html#cb962-4" aria-hidden="true" tabindex="-1"></a>donsub <span class="ot">&lt;-</span> don[, <span class="fu">c</span>(<span class="st">&quot;donation&quot;</span>, <span class="st">&quot;NetWorth&quot;</span>, <span class="st">&quot;Edsum&quot;</span>)]</span>
+<span id="cb962-5"><a href="examples-of-prediction-and-classification.html#cb962-5" aria-hidden="true" tabindex="-1"></a>donsub <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(donsub)</span>
+<span id="cb962-6"><a href="examples-of-prediction-and-classification.html#cb962-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb962-7"><a href="examples-of-prediction-and-classification.html#cb962-7" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(donation <span class="sc">~</span> NetWorth <span class="sc">+</span> Edsum, </span>
+<span id="cb962-8"><a href="examples-of-prediction-and-classification.html#cb962-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>), <span class="at">data =</span> donsub)</span></code></pre></div>
 <p>In-Sample Accuracy Assessments</p>
-<div class="sourceCode" id="cb914"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb914-1"><a href="examples-of-prediction-and-classification.html#cb914-1" aria-hidden="true" tabindex="-1"></a><span class="do">## generate probability of donation for each observation</span></span>
-<span id="cb914-2"><a href="examples-of-prediction-and-classification.html#cb914-2" aria-hidden="true" tabindex="-1"></a>donsub<span class="sc">$</span>prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
-<span id="cb914-3"><a href="examples-of-prediction-and-classification.html#cb914-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb914-4"><a href="examples-of-prediction-and-classification.html#cb914-4" aria-hidden="true" tabindex="-1"></a><span class="do">## set a prediction threshold</span></span>
-<span id="cb914-5"><a href="examples-of-prediction-and-classification.html#cb914-5" aria-hidden="true" tabindex="-1"></a>donsub<span class="sc">$</span>pred <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(donsub<span class="sc">$</span>prob <span class="sc">&gt;</span> <span class="fu">mean</span>(donsub<span class="sc">$</span>donation), <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb914-6"><a href="examples-of-prediction-and-classification.html#cb914-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb914-7"><a href="examples-of-prediction-and-classification.html#cb914-7" aria-hidden="true" tabindex="-1"></a><span class="do">## accuracy- proportion where prediction matches reality</span></span>
-<span id="cb914-8"><a href="examples-of-prediction-and-classification.html#cb914-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(donsub<span class="sc">$</span>pred <span class="sc">==</span> donsub<span class="sc">$</span>donation)</span></code></pre></div>
+<div class="sourceCode" id="cb963"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb963-1"><a href="examples-of-prediction-and-classification.html#cb963-1" aria-hidden="true" tabindex="-1"></a><span class="do">## generate probability of donation for each observation</span></span>
+<span id="cb963-2"><a href="examples-of-prediction-and-classification.html#cb963-2" aria-hidden="true" tabindex="-1"></a>donsub<span class="sc">$</span>prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb963-3"><a href="examples-of-prediction-and-classification.html#cb963-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb963-4"><a href="examples-of-prediction-and-classification.html#cb963-4" aria-hidden="true" tabindex="-1"></a><span class="do">## set a prediction threshold</span></span>
+<span id="cb963-5"><a href="examples-of-prediction-and-classification.html#cb963-5" aria-hidden="true" tabindex="-1"></a>donsub<span class="sc">$</span>pred <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(donsub<span class="sc">$</span>prob <span class="sc">&gt;</span> <span class="fu">mean</span>(donsub<span class="sc">$</span>donation), <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb963-6"><a href="examples-of-prediction-and-classification.html#cb963-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb963-7"><a href="examples-of-prediction-and-classification.html#cb963-7" aria-hidden="true" tabindex="-1"></a><span class="do">## accuracy- proportion where prediction matches reality</span></span>
+<span id="cb963-8"><a href="examples-of-prediction-and-classification.html#cb963-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(donsub<span class="sc">$</span>pred <span class="sc">==</span> donsub<span class="sc">$</span>donation)</span></code></pre></div>
 <pre><code>[1] 0.6210679</code></pre>
-<div class="sourceCode" id="cb916"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb916-1"><a href="examples-of-prediction-and-classification.html#cb916-1" aria-hidden="true" tabindex="-1"></a><span class="do">## confusion matrix</span></span>
-<span id="cb916-2"><a href="examples-of-prediction-and-classification.html#cb916-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="at">truth =</span> donsub<span class="sc">$</span>donation, <span class="at">predicted =</span> donsub<span class="sc">$</span>pred)</span></code></pre></div>
+<div class="sourceCode" id="cb965"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb965-1"><a href="examples-of-prediction-and-classification.html#cb965-1" aria-hidden="true" tabindex="-1"></a><span class="do">## confusion matrix</span></span>
+<span id="cb965-2"><a href="examples-of-prediction-and-classification.html#cb965-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="at">truth =</span> donsub<span class="sc">$</span>donation, <span class="at">predicted =</span> donsub<span class="sc">$</span>pred)</span></code></pre></div>
 <pre><code>     predicted
 truth     0     1
     0 31928 19311
     1   830  1083</code></pre>
 <p>There are different measures for accuracy that focus on particular types of errors:</p>
-<div class="sourceCode" id="cb918"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb918-1"><a href="examples-of-prediction-and-classification.html#cb918-1" aria-hidden="true" tabindex="-1"></a><span class="do">## where did we miss</span></span>
-<span id="cb918-2"><a href="examples-of-prediction-and-classification.html#cb918-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="at">actual =</span> donsub<span class="sc">$</span>donation, <span class="at">pred =</span> donsub<span class="sc">$</span>pred)</span></code></pre></div>
+<div class="sourceCode" id="cb967"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb967-1"><a href="examples-of-prediction-and-classification.html#cb967-1" aria-hidden="true" tabindex="-1"></a><span class="do">## where did we miss</span></span>
+<span id="cb967-2"><a href="examples-of-prediction-and-classification.html#cb967-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="at">actual =</span> donsub<span class="sc">$</span>donation, <span class="at">pred =</span> donsub<span class="sc">$</span>pred)</span></code></pre></div>
 <pre><code>      pred
 actual     0     1
      0 31928 19311
      1   830  1083</code></pre>
-<div class="sourceCode" id="cb920"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb920-1"><a href="examples-of-prediction-and-classification.html#cb920-1" aria-hidden="true" tabindex="-1"></a>truepos <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="at">actual =</span> donsub<span class="sc">$</span>donation, <span class="at">pred =</span> donsub<span class="sc">$</span>pred)[<span class="dv">2</span>,<span class="dv">2</span>]</span>
-<span id="cb920-2"><a href="examples-of-prediction-and-classification.html#cb920-2" aria-hidden="true" tabindex="-1"></a>falsepos <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="at">actual =</span> donsub<span class="sc">$</span>donation, <span class="at">pred =</span> donsub<span class="sc">$</span>pred)[<span class="dv">1</span>,<span class="dv">2</span>]</span>
-<span id="cb920-3"><a href="examples-of-prediction-and-classification.html#cb920-3" aria-hidden="true" tabindex="-1"></a>trueneg <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="at">actual =</span> donsub<span class="sc">$</span>donation, <span class="at">pred =</span> donsub<span class="sc">$</span>pred)[<span class="dv">1</span>,<span class="dv">1</span>]</span>
-<span id="cb920-4"><a href="examples-of-prediction-and-classification.html#cb920-4" aria-hidden="true" tabindex="-1"></a>falseneg <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="at">actual =</span> donsub<span class="sc">$</span>donation, <span class="at">pred =</span> donsub<span class="sc">$</span>pred)[<span class="dv">2</span>,<span class="dv">2</span>]</span>
-<span id="cb920-5"><a href="examples-of-prediction-and-classification.html#cb920-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb920-6"><a href="examples-of-prediction-and-classification.html#cb920-6" aria-hidden="true" tabindex="-1"></a><span class="do">## precision</span></span>
-<span id="cb920-7"><a href="examples-of-prediction-and-classification.html#cb920-7" aria-hidden="true" tabindex="-1"></a>precision <span class="ot">&lt;-</span> truepos<span class="sc">/</span>(truepos <span class="sc">+</span> falsepos)</span>
-<span id="cb920-8"><a href="examples-of-prediction-and-classification.html#cb920-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb920-9"><a href="examples-of-prediction-and-classification.html#cb920-9" aria-hidden="true" tabindex="-1"></a><span class="do">## specificity</span></span>
-<span id="cb920-10"><a href="examples-of-prediction-and-classification.html#cb920-10" aria-hidden="true" tabindex="-1"></a>specificity <span class="ot">&lt;-</span> trueneg <span class="sc">/</span> (trueneg <span class="sc">+</span> falsepos)</span>
-<span id="cb920-11"><a href="examples-of-prediction-and-classification.html#cb920-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb920-12"><a href="examples-of-prediction-and-classification.html#cb920-12" aria-hidden="true" tabindex="-1"></a><span class="do">## false positive rate</span></span>
-<span id="cb920-13"><a href="examples-of-prediction-and-classification.html#cb920-13" aria-hidden="true" tabindex="-1"></a>falsepos <span class="ot">&lt;-</span> falsepos<span class="sc">/</span>(trueneg<span class="sc">+</span> falsepos)</span>
-<span id="cb920-14"><a href="examples-of-prediction-and-classification.html#cb920-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb920-15"><a href="examples-of-prediction-and-classification.html#cb920-15" aria-hidden="true" tabindex="-1"></a><span class="do">## recall aka sensitivity</span></span>
-<span id="cb920-16"><a href="examples-of-prediction-and-classification.html#cb920-16" aria-hidden="true" tabindex="-1"></a>recall <span class="ot">&lt;-</span> truepos<span class="sc">/</span>(truepos <span class="sc">+</span> falseneg)</span>
-<span id="cb920-17"><a href="examples-of-prediction-and-classification.html#cb920-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb920-18"><a href="examples-of-prediction-and-classification.html#cb920-18" aria-hidden="true" tabindex="-1"></a><span class="do">## f-score, combination of precision/recall</span></span>
-<span id="cb920-19"><a href="examples-of-prediction-and-classification.html#cb920-19" aria-hidden="true" tabindex="-1"></a>F1 <span class="ot">&lt;-</span> (<span class="dv">2</span> <span class="sc">*</span> precision <span class="sc">*</span> recall) <span class="sc">/</span> (precision <span class="sc">+</span> recall)</span></code></pre></div>
+<div class="sourceCode" id="cb969"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb969-1"><a href="examples-of-prediction-and-classification.html#cb969-1" aria-hidden="true" tabindex="-1"></a>truepos <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="at">actual =</span> donsub<span class="sc">$</span>donation, <span class="at">pred =</span> donsub<span class="sc">$</span>pred)[<span class="dv">2</span>,<span class="dv">2</span>]</span>
+<span id="cb969-2"><a href="examples-of-prediction-and-classification.html#cb969-2" aria-hidden="true" tabindex="-1"></a>falsepos <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="at">actual =</span> donsub<span class="sc">$</span>donation, <span class="at">pred =</span> donsub<span class="sc">$</span>pred)[<span class="dv">1</span>,<span class="dv">2</span>]</span>
+<span id="cb969-3"><a href="examples-of-prediction-and-classification.html#cb969-3" aria-hidden="true" tabindex="-1"></a>trueneg <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="at">actual =</span> donsub<span class="sc">$</span>donation, <span class="at">pred =</span> donsub<span class="sc">$</span>pred)[<span class="dv">1</span>,<span class="dv">1</span>]</span>
+<span id="cb969-4"><a href="examples-of-prediction-and-classification.html#cb969-4" aria-hidden="true" tabindex="-1"></a>falseneg <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="at">actual =</span> donsub<span class="sc">$</span>donation, <span class="at">pred =</span> donsub<span class="sc">$</span>pred)[<span class="dv">2</span>,<span class="dv">1</span>]</span>
+<span id="cb969-5"><a href="examples-of-prediction-and-classification.html#cb969-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb969-6"><a href="examples-of-prediction-and-classification.html#cb969-6" aria-hidden="true" tabindex="-1"></a><span class="do">## precision</span></span>
+<span id="cb969-7"><a href="examples-of-prediction-and-classification.html#cb969-7" aria-hidden="true" tabindex="-1"></a>precision <span class="ot">&lt;-</span> truepos<span class="sc">/</span>(truepos <span class="sc">+</span> falsepos)</span>
+<span id="cb969-8"><a href="examples-of-prediction-and-classification.html#cb969-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb969-9"><a href="examples-of-prediction-and-classification.html#cb969-9" aria-hidden="true" tabindex="-1"></a><span class="do">## specificity</span></span>
+<span id="cb969-10"><a href="examples-of-prediction-and-classification.html#cb969-10" aria-hidden="true" tabindex="-1"></a>specificity <span class="ot">&lt;-</span> trueneg <span class="sc">/</span> (trueneg <span class="sc">+</span> falsepos)</span>
+<span id="cb969-11"><a href="examples-of-prediction-and-classification.html#cb969-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb969-12"><a href="examples-of-prediction-and-classification.html#cb969-12" aria-hidden="true" tabindex="-1"></a><span class="do">## false positive rate</span></span>
+<span id="cb969-13"><a href="examples-of-prediction-and-classification.html#cb969-13" aria-hidden="true" tabindex="-1"></a>falsepos <span class="ot">&lt;-</span> falsepos<span class="sc">/</span>(trueneg<span class="sc">+</span> falsepos)</span>
+<span id="cb969-14"><a href="examples-of-prediction-and-classification.html#cb969-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb969-15"><a href="examples-of-prediction-and-classification.html#cb969-15" aria-hidden="true" tabindex="-1"></a><span class="do">## recall aka sensitivity</span></span>
+<span id="cb969-16"><a href="examples-of-prediction-and-classification.html#cb969-16" aria-hidden="true" tabindex="-1"></a>recall <span class="ot">&lt;-</span> truepos<span class="sc">/</span>(truepos <span class="sc">+</span> falseneg)</span>
+<span id="cb969-17"><a href="examples-of-prediction-and-classification.html#cb969-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb969-18"><a href="examples-of-prediction-and-classification.html#cb969-18" aria-hidden="true" tabindex="-1"></a><span class="do">## f-score, combination of precision/recall</span></span>
+<span id="cb969-19"><a href="examples-of-prediction-and-classification.html#cb969-19" aria-hidden="true" tabindex="-1"></a>F1 <span class="ot">&lt;-</span> (<span class="dv">2</span> <span class="sc">*</span> precision <span class="sc">*</span> recall) <span class="sc">/</span> (precision <span class="sc">+</span> recall)</span></code></pre></div>
 <p>See <a href="https://towardsdatascience.com/accuracy-recall-precision-f-score-specificity-which-to-optimize-on-867d3f11124">this post</a> for more details and guidance on which one to choose.</p>
 <p>Another common way to assess accuracy is through an ROC curve</p>
 <p>ROC curves plot the true positive rate/precision (y) vs. 1 - false positive (x) rates. Want the curve to be away from the diagonal, increasing the area under the curive (AUC).</p>
-<div class="sourceCode" id="cb921"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb921-1"><a href="examples-of-prediction-and-classification.html#cb921-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;pROC&quot;)</span></span>
-<span id="cb921-2"><a href="examples-of-prediction-and-classification.html#cb921-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pROC)</span>
-<span id="cb921-3"><a href="examples-of-prediction-and-classification.html#cb921-3" aria-hidden="true" tabindex="-1"></a>ROC <span class="ot">&lt;-</span> <span class="fu">roc</span>(<span class="at">response =</span> donsub<span class="sc">$</span>donation,</span>
-<span id="cb921-4"><a href="examples-of-prediction-and-classification.html#cb921-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">predictor =</span> donsub<span class="sc">$</span>pred)</span>
-<span id="cb921-5"><a href="examples-of-prediction-and-classification.html#cb921-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ROC, <span class="at">print.thres =</span> <span class="st">&quot;best&quot;</span>)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-430-1.svg" width="672" /></p>
-<div class="sourceCode" id="cb922"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb922-1"><a href="examples-of-prediction-and-classification.html#cb922-1" aria-hidden="true" tabindex="-1"></a><span class="fu">auc</span>(ROC)</span></code></pre></div>
+<div class="sourceCode" id="cb970"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb970-1"><a href="examples-of-prediction-and-classification.html#cb970-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;pROC&quot;)</span></span>
+<span id="cb970-2"><a href="examples-of-prediction-and-classification.html#cb970-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pROC)</span>
+<span id="cb970-3"><a href="examples-of-prediction-and-classification.html#cb970-3" aria-hidden="true" tabindex="-1"></a>ROC <span class="ot">&lt;-</span> <span class="fu">roc</span>(<span class="at">response =</span> donsub<span class="sc">$</span>donation,</span>
+<span id="cb970-4"><a href="examples-of-prediction-and-classification.html#cb970-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">predictor =</span> donsub<span class="sc">$</span>pred)</span>
+<span id="cb970-5"><a href="examples-of-prediction-and-classification.html#cb970-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ROC, <span class="at">print.thres =</span> <span class="st">&quot;best&quot;</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-438-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb971"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb971-1"><a href="examples-of-prediction-and-classification.html#cb971-1" aria-hidden="true" tabindex="-1"></a><span class="fu">auc</span>(ROC)</span></code></pre></div>
 <pre><code>Area under the curve: 0.5946</code></pre>
 <p>For more information, see <a href="http://fouryears.eu/2011/10/12/roc-area-under-the-curve-explained/">here</a>.</p>
 <p>Out-of-Sample Tests: Cross-Validation</p>
-<div class="sourceCode" id="cb924"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb924-1"><a href="examples-of-prediction-and-classification.html#cb924-1" aria-hidden="true" tabindex="-1"></a><span class="do">## split data into k folds</span></span>
-<span id="cb924-2"><a href="examples-of-prediction-and-classification.html#cb924-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cvTools)</span>
-<span id="cb924-3"><a href="examples-of-prediction-and-classification.html#cb924-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb924-4"><a href="examples-of-prediction-and-classification.html#cb924-4" aria-hidden="true" tabindex="-1"></a>folds <span class="ot">&lt;-</span> <span class="fu">cvFolds</span>(<span class="fu">nrow</span>(donsub), <span class="at">K =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb973"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb973-1"><a href="examples-of-prediction-and-classification.html#cb973-1" aria-hidden="true" tabindex="-1"></a><span class="do">## split data into k folds</span></span>
+<span id="cb973-2"><a href="examples-of-prediction-and-classification.html#cb973-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cvTools)</span>
+<span id="cb973-3"><a href="examples-of-prediction-and-classification.html#cb973-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb973-4"><a href="examples-of-prediction-and-classification.html#cb973-4" aria-hidden="true" tabindex="-1"></a>folds <span class="ot">&lt;-</span> <span class="fu">cvFolds</span>(<span class="fu">nrow</span>(donsub), <span class="at">K =</span> <span class="dv">10</span>)</span></code></pre></div>
 <p>Let’s run through the process for one fold</p>
-<div class="sourceCode" id="cb925"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb925-1"><a href="examples-of-prediction-and-classification.html#cb925-1" aria-hidden="true" tabindex="-1"></a><span class="do">## leave one fold out != i</span></span>
-<span id="cb925-2"><a href="examples-of-prediction-and-classification.html#cb925-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(donation <span class="sc">~</span> NetWorth <span class="sc">+</span> Edsum, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>), </span>
-<span id="cb925-3"><a href="examples-of-prediction-and-classification.html#cb925-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> donsub[folds<span class="sc">$</span>subsets[folds<span class="sc">$</span>which <span class="sc">!=</span> <span class="dv">1</span>],])</span>
-<span id="cb925-4"><a href="examples-of-prediction-and-classification.html#cb925-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb925-5"><a href="examples-of-prediction-and-classification.html#cb925-5" aria-hidden="true" tabindex="-1"></a><span class="do">## out of sample prediction on left out fold == i</span></span>
-<span id="cb925-6"><a href="examples-of-prediction-and-classification.html#cb925-6" aria-hidden="true" tabindex="-1"></a>testdata <span class="ot">&lt;-</span> donsub[folds<span class="sc">$</span>subsets[folds<span class="sc">$</span>which <span class="sc">==</span> <span class="dv">1</span>],]</span>
-<span id="cb925-7"><a href="examples-of-prediction-and-classification.html#cb925-7" aria-hidden="true" tabindex="-1"></a>testdata<span class="sc">$</span>prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">newdata =</span> testdata, </span>
-<span id="cb925-8"><a href="examples-of-prediction-and-classification.html#cb925-8" aria-hidden="true" tabindex="-1"></a>                       <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
-<span id="cb925-9"><a href="examples-of-prediction-and-classification.html#cb925-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb925-10"><a href="examples-of-prediction-and-classification.html#cb925-10" aria-hidden="true" tabindex="-1"></a><span class="do">## choose some criteria to assess accuracy</span></span>
-<span id="cb925-11"><a href="examples-of-prediction-and-classification.html#cb925-11" aria-hidden="true" tabindex="-1"></a><span class="do">## we will just assess basic matches, but you may want a different one</span></span>
-<span id="cb925-12"><a href="examples-of-prediction-and-classification.html#cb925-12" aria-hidden="true" tabindex="-1"></a><span class="do">## set a prediction threshold</span></span>
-<span id="cb925-13"><a href="examples-of-prediction-and-classification.html#cb925-13" aria-hidden="true" tabindex="-1"></a>testdata<span class="sc">$</span>pred <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(testdata<span class="sc">$</span>prob <span class="sc">&gt;</span> .<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb925-14"><a href="examples-of-prediction-and-classification.html#cb925-14" aria-hidden="true" tabindex="-1"></a>acc <span class="ot">&lt;-</span> <span class="fu">mean</span>(testdata<span class="sc">$</span>pred <span class="sc">==</span> testdata<span class="sc">$</span>donation)</span>
-<span id="cb925-15"><a href="examples-of-prediction-and-classification.html#cb925-15" aria-hidden="true" tabindex="-1"></a>acc</span></code></pre></div>
+<div class="sourceCode" id="cb974"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb974-1"><a href="examples-of-prediction-and-classification.html#cb974-1" aria-hidden="true" tabindex="-1"></a><span class="do">## leave one fold out != i</span></span>
+<span id="cb974-2"><a href="examples-of-prediction-and-classification.html#cb974-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(donation <span class="sc">~</span> NetWorth <span class="sc">+</span> Edsum, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>), </span>
+<span id="cb974-3"><a href="examples-of-prediction-and-classification.html#cb974-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> donsub[folds<span class="sc">$</span>subsets[folds<span class="sc">$</span>which <span class="sc">!=</span> <span class="dv">1</span>],])</span>
+<span id="cb974-4"><a href="examples-of-prediction-and-classification.html#cb974-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb974-5"><a href="examples-of-prediction-and-classification.html#cb974-5" aria-hidden="true" tabindex="-1"></a><span class="do">## out of sample prediction on left out fold == i</span></span>
+<span id="cb974-6"><a href="examples-of-prediction-and-classification.html#cb974-6" aria-hidden="true" tabindex="-1"></a>testdata <span class="ot">&lt;-</span> donsub[folds<span class="sc">$</span>subsets[folds<span class="sc">$</span>which <span class="sc">==</span> <span class="dv">1</span>],]</span>
+<span id="cb974-7"><a href="examples-of-prediction-and-classification.html#cb974-7" aria-hidden="true" tabindex="-1"></a>testdata<span class="sc">$</span>prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">newdata =</span> testdata, </span>
+<span id="cb974-8"><a href="examples-of-prediction-and-classification.html#cb974-8" aria-hidden="true" tabindex="-1"></a>                       <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb974-9"><a href="examples-of-prediction-and-classification.html#cb974-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb974-10"><a href="examples-of-prediction-and-classification.html#cb974-10" aria-hidden="true" tabindex="-1"></a><span class="do">## choose some criteria to assess accuracy</span></span>
+<span id="cb974-11"><a href="examples-of-prediction-and-classification.html#cb974-11" aria-hidden="true" tabindex="-1"></a><span class="do">## we will just assess basic matches, but you may want a different one</span></span>
+<span id="cb974-12"><a href="examples-of-prediction-and-classification.html#cb974-12" aria-hidden="true" tabindex="-1"></a><span class="do">## set a prediction threshold</span></span>
+<span id="cb974-13"><a href="examples-of-prediction-and-classification.html#cb974-13" aria-hidden="true" tabindex="-1"></a>testdata<span class="sc">$</span>pred <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(testdata<span class="sc">$</span>prob <span class="sc">&gt;</span> .<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb974-14"><a href="examples-of-prediction-and-classification.html#cb974-14" aria-hidden="true" tabindex="-1"></a>acc <span class="ot">&lt;-</span> <span class="fu">mean</span>(testdata<span class="sc">$</span>pred <span class="sc">==</span> testdata<span class="sc">$</span>donation)</span>
+<span id="cb974-15"><a href="examples-of-prediction-and-classification.html#cb974-15" aria-hidden="true" tabindex="-1"></a>acc</span></code></pre></div>
 <pre><code>[1] 0.9683973</code></pre>
 <p>Let’s make a loop to repeat this process for each fold.</p>
-<div class="sourceCode" id="cb927"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb927-1"><a href="examples-of-prediction-and-classification.html#cb927-1" aria-hidden="true" tabindex="-1"></a><span class="do">## container vector for assessment criteria</span></span>
-<span id="cb927-2"><a href="examples-of-prediction-and-classification.html#cb927-2" aria-hidden="true" tabindex="-1"></a>accs <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">10</span>)</span>
-<span id="cb927-3"><a href="examples-of-prediction-and-classification.html#cb927-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb927-4"><a href="examples-of-prediction-and-classification.html#cb927-4" aria-hidden="true" tabindex="-1"></a><span class="do">## set to length of container</span></span>
-<span id="cb927-5"><a href="examples-of-prediction-and-classification.html#cb927-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>){</span>
-<span id="cb927-6"><a href="examples-of-prediction-and-classification.html#cb927-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb927-7"><a href="examples-of-prediction-and-classification.html#cb927-7" aria-hidden="true" tabindex="-1"></a>  <span class="do">## leave one fold out != i</span></span>
-<span id="cb927-8"><a href="examples-of-prediction-and-classification.html#cb927-8" aria-hidden="true" tabindex="-1"></a>  fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(donation <span class="sc">~</span> NetWorth <span class="sc">+</span> Edsum, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>), </span>
-<span id="cb927-9"><a href="examples-of-prediction-and-classification.html#cb927-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> donsub[folds<span class="sc">$</span>subsets[folds<span class="sc">$</span>which <span class="sc">!=</span> i],])</span>
-<span id="cb927-10"><a href="examples-of-prediction-and-classification.html#cb927-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb927-11"><a href="examples-of-prediction-and-classification.html#cb927-11" aria-hidden="true" tabindex="-1"></a>  <span class="do">## out of sample prediction on left out fold == i</span></span>
-<span id="cb927-12"><a href="examples-of-prediction-and-classification.html#cb927-12" aria-hidden="true" tabindex="-1"></a>  testdata <span class="ot">&lt;-</span> donsub[folds<span class="sc">$</span>subsets[folds<span class="sc">$</span>which <span class="sc">==</span> i],]</span>
-<span id="cb927-13"><a href="examples-of-prediction-and-classification.html#cb927-13" aria-hidden="true" tabindex="-1"></a>  testdata<span class="sc">$</span>prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">newdata =</span> testdata, </span>
-<span id="cb927-14"><a href="examples-of-prediction-and-classification.html#cb927-14" aria-hidden="true" tabindex="-1"></a>                       <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
-<span id="cb927-15"><a href="examples-of-prediction-and-classification.html#cb927-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb927-16"><a href="examples-of-prediction-and-classification.html#cb927-16" aria-hidden="true" tabindex="-1"></a>  <span class="do">## choose some criteria to assess accuracy</span></span>
-<span id="cb927-17"><a href="examples-of-prediction-and-classification.html#cb927-17" aria-hidden="true" tabindex="-1"></a>  <span class="do">## set a prediction threshold</span></span>
-<span id="cb927-18"><a href="examples-of-prediction-and-classification.html#cb927-18" aria-hidden="true" tabindex="-1"></a>  testdata<span class="sc">$</span>pred <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(testdata<span class="sc">$</span>prob <span class="sc">&gt;</span> .<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb927-19"><a href="examples-of-prediction-and-classification.html#cb927-19" aria-hidden="true" tabindex="-1"></a>  accs[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(testdata<span class="sc">$</span>pred <span class="sc">==</span> testdata<span class="sc">$</span>donation)</span>
-<span id="cb927-20"><a href="examples-of-prediction-and-classification.html#cb927-20" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb927-21"><a href="examples-of-prediction-and-classification.html#cb927-21" aria-hidden="true" tabindex="-1"></a>accs</span></code></pre></div>
+<div class="sourceCode" id="cb976"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb976-1"><a href="examples-of-prediction-and-classification.html#cb976-1" aria-hidden="true" tabindex="-1"></a><span class="do">## container vector for assessment criteria</span></span>
+<span id="cb976-2"><a href="examples-of-prediction-and-classification.html#cb976-2" aria-hidden="true" tabindex="-1"></a>accs <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">10</span>)</span>
+<span id="cb976-3"><a href="examples-of-prediction-and-classification.html#cb976-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb976-4"><a href="examples-of-prediction-and-classification.html#cb976-4" aria-hidden="true" tabindex="-1"></a><span class="do">## set to length of container</span></span>
+<span id="cb976-5"><a href="examples-of-prediction-and-classification.html#cb976-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>){</span>
+<span id="cb976-6"><a href="examples-of-prediction-and-classification.html#cb976-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb976-7"><a href="examples-of-prediction-and-classification.html#cb976-7" aria-hidden="true" tabindex="-1"></a>  <span class="do">## leave one fold out != i</span></span>
+<span id="cb976-8"><a href="examples-of-prediction-and-classification.html#cb976-8" aria-hidden="true" tabindex="-1"></a>  fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(donation <span class="sc">~</span> NetWorth <span class="sc">+</span> Edsum, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>), </span>
+<span id="cb976-9"><a href="examples-of-prediction-and-classification.html#cb976-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> donsub[folds<span class="sc">$</span>subsets[folds<span class="sc">$</span>which <span class="sc">!=</span> i],])</span>
+<span id="cb976-10"><a href="examples-of-prediction-and-classification.html#cb976-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb976-11"><a href="examples-of-prediction-and-classification.html#cb976-11" aria-hidden="true" tabindex="-1"></a>  <span class="do">## out of sample prediction on left out fold == i</span></span>
+<span id="cb976-12"><a href="examples-of-prediction-and-classification.html#cb976-12" aria-hidden="true" tabindex="-1"></a>  testdata <span class="ot">&lt;-</span> donsub[folds<span class="sc">$</span>subsets[folds<span class="sc">$</span>which <span class="sc">==</span> i],]</span>
+<span id="cb976-13"><a href="examples-of-prediction-and-classification.html#cb976-13" aria-hidden="true" tabindex="-1"></a>  testdata<span class="sc">$</span>prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">newdata =</span> testdata, </span>
+<span id="cb976-14"><a href="examples-of-prediction-and-classification.html#cb976-14" aria-hidden="true" tabindex="-1"></a>                       <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb976-15"><a href="examples-of-prediction-and-classification.html#cb976-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb976-16"><a href="examples-of-prediction-and-classification.html#cb976-16" aria-hidden="true" tabindex="-1"></a>  <span class="do">## choose some criteria to assess accuracy</span></span>
+<span id="cb976-17"><a href="examples-of-prediction-and-classification.html#cb976-17" aria-hidden="true" tabindex="-1"></a>  <span class="do">## set a prediction threshold</span></span>
+<span id="cb976-18"><a href="examples-of-prediction-and-classification.html#cb976-18" aria-hidden="true" tabindex="-1"></a>  testdata<span class="sc">$</span>pred <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(testdata<span class="sc">$</span>prob <span class="sc">&gt;</span> .<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb976-19"><a href="examples-of-prediction-and-classification.html#cb976-19" aria-hidden="true" tabindex="-1"></a>  accs[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(testdata<span class="sc">$</span>pred <span class="sc">==</span> testdata<span class="sc">$</span>donation)</span>
+<span id="cb976-20"><a href="examples-of-prediction-and-classification.html#cb976-20" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb976-21"><a href="examples-of-prediction-and-classification.html#cb976-21" aria-hidden="true" tabindex="-1"></a>accs</span></code></pre></div>
 <pre><code> [1] 0.9683973 0.9665162 0.9616181 0.9589840 0.9674506 0.9616181 0.9678269
  [8] 0.9668862 0.9595484 0.9612418</code></pre>
-<div class="sourceCode" id="cb929"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb929-1"><a href="examples-of-prediction-and-classification.html#cb929-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(accs)</span></code></pre></div>
+<div class="sourceCode" id="cb978"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb978-1"><a href="examples-of-prediction-and-classification.html#cb978-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(accs)</span></code></pre></div>
 <pre><code>[1] 0.9640088</code></pre>
 <p>We’ve done it! If we are satisfied with this level of accuracy, we could stop here and apply our model with any new data. If we are not satisfied, we would start by building a new model and repeat the process.</p>
 <ul>
@@ -635,11 +639,11 @@ actual     0     1
 <p><strong><em>Continuous Outcome</em></strong></p>
 <p>Let’s now try an example with a continuous outcome: How much will someone donate to a Senator? One way to judge accuracy of a linear model is the root mean squared error</p>
 <p>One basic approach would be to use a linear regression model. Other than that, it’s the same process as before, but we will use a different assessment for accuracy.</p>
-<div class="sourceCode" id="cb931"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb931-1"><a href="examples-of-prediction-and-classification.html#cb931-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(total_donation <span class="sc">~</span> NetWorth <span class="sc">+</span> Edsum, <span class="at">data =</span> don)</span>
-<span id="cb931-2"><a href="examples-of-prediction-and-classification.html#cb931-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb931-3"><a href="examples-of-prediction-and-classification.html#cb931-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Root mean squared error</span></span>
-<span id="cb931-4"><a href="examples-of-prediction-and-classification.html#cb931-4" aria-hidden="true" tabindex="-1"></a>rmse <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(<span class="fu">residuals</span>(fit)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>fit<span class="sc">$</span>df.residual)</span>
-<span id="cb931-5"><a href="examples-of-prediction-and-classification.html#cb931-5" aria-hidden="true" tabindex="-1"></a>rmse</span></code></pre></div>
+<div class="sourceCode" id="cb980"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb980-1"><a href="examples-of-prediction-and-classification.html#cb980-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(total_donation <span class="sc">~</span> NetWorth <span class="sc">+</span> Edsum, <span class="at">data =</span> don)</span>
+<span id="cb980-2"><a href="examples-of-prediction-and-classification.html#cb980-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb980-3"><a href="examples-of-prediction-and-classification.html#cb980-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Root mean squared error</span></span>
+<span id="cb980-4"><a href="examples-of-prediction-and-classification.html#cb980-4" aria-hidden="true" tabindex="-1"></a>rmse <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(<span class="fu">residuals</span>(fit)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>fit<span class="sc">$</span>df.residual)</span>
+<span id="cb980-5"><a href="examples-of-prediction-and-classification.html#cb980-5" aria-hidden="true" tabindex="-1"></a>rmse</span></code></pre></div>
 <pre><code>[1] 324.081</code></pre>
 </div>
             </section>
@@ -652,7 +656,6 @@ actual     0     1
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -671,6 +674,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -691,6 +695,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

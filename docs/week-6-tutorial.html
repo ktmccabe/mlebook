@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>8.6 Week 6 Tutorial | MLE for Political Science</title>
   <meta name="description" content="8.6 Week 6 Tutorial | MLE for Political Science" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="8.6 Week 6 Tutorial | MLE for Political Science" />
   <meta property="og:type" content="book" />
@@ -32,8 +32,9 @@
   
 <link rel="prev" href="ordinal-practice-problems.html"/>
 <link rel="next" href="ml.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,13 +50,16 @@
 
 
 
-
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/vembedr-0.1.4/css/vembedr.css" rel="stylesheet" />
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -115,6 +119,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
@@ -228,7 +233,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.6" data-path="generating-predictions-from-regression-models.html"><a href="generating-predictions-from-regression-models.html"><i class="fa fa-check"></i><b>4.6</b> Generating predictions from regression models</a></li>
 <li class="chapter" data-level="4.7" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html"><i class="fa fa-check"></i><b>4.7</b> Wrapping up OLS</a>
 <ul>
-<li class="chapter" data-level="4.7.1" data-path="practice-problems.html"><a href="practice-problems.html#practice-problems"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
+<li class="chapter" data-level="4.7.1" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problems-1"><i class="fa fa-check"></i><b>4.7.1</b> Practice Problems</a></li>
 <li class="chapter" data-level="4.7.2" data-path="wrapping-up-ols.html"><a href="wrapping-up-ols.html#practice-problem-code-for-solutions"><i class="fa fa-check"></i><b>4.7.2</b> Practice Problem Code for Solutions</a></li>
 </ul></li>
 <li class="chapter" data-level="4.8" data-path="week-2-thursday-example.html"><a href="week-2-thursday-example.html"><i class="fa fa-check"></i><b>4.8</b> Week 2 Thursday Example</a></li>
@@ -262,7 +267,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="6.1" data-path="data-generating-process.html"><a href="data-generating-process.html"><i class="fa fa-check"></i><b>6.1</b> Data Generating Process</a>
 <ul>
-<li class="chapter" data-level="6.1.1" data-path="mle-estimation.html"><a href="mle-estimation.html#mle-estimation"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
+<li class="chapter" data-level="6.1.1" data-path="data-generating-process.html"><a href="data-generating-process.html#mle-estimation-1"><i class="fa fa-check"></i><b>6.1.1</b> MLE Estimation</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="r-code-for-fitting-logistic-regression.html"><a href="r-code-for-fitting-logistic-regression.html"><i class="fa fa-check"></i><b>6.2</b> R code for fitting logistic regression</a>
 <ul>
@@ -465,7 +470,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="15.1.1" data-path="overview-of-prediction-and-classification.html"><a href="overview-of-prediction-and-classification.html#how-to-predict-or-classify"><i class="fa fa-check"></i><b>15.1.1</b> How to predict or classify</a></li>
 </ul></li>
-<li class="chapter" data-level="15.2" data-path="in-sample-vs-out-of-sample.html"><a href="in-sample-vs-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
+<li class="chapter" data-level="15.2" data-path="in-sample-vs.-out-of-sample.html"><a href="in-sample-vs.-out-of-sample.html"><i class="fa fa-check"></i><b>15.2</b> In-sample vs. Out-of-Sample</a></li>
 <li class="chapter" data-level="15.3" data-path="cross-validation.html"><a href="cross-validation.html"><i class="fa fa-check"></i><b>15.3</b> Cross-Validation</a>
 <ul>
 <li class="chapter" data-level="15.3.1" data-path="cross-validation.html"><a href="cross-validation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>15.3.1</b> k-fold cross-validation</a></li>
@@ -493,23 +498,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="week-6-tutorial" class="section level2" number="8.6">
 <h2><span class="header-section-number">8.6</span> Week 6 Tutorial</h2>
-<p>For this example, we will replicate a portion of the article“How Empathic Concern Fuels Partisan Polarization” by Elizabeth N. Simas, Scott Clifford, and Justin H. Kirkland.published in 2020 in the <em>American Political Science Review</em>. Replication files are available <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/RJL2DK">here</a></p>
+<p>For this example, we will replicate a portion of the article”How Empathic Concern Fuels Partisan Polarization” by Elizabeth N. Simas, Scott Clifford, and Justin H. Kirkland.published in 2020 in the <em>American Political Science Review</em>. Replication files are available <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/RJL2DK">here</a></p>
 <p>Abstract. <em>Over the past two decades, there has been a marked increase in partisan social polarization, leaving scholars in search of solutions to partisan conflict. The psychology of intergroup relations identifies empathy as one of the key mechanisms that reduces intergroup conflict, and some have suggested that a lack of empathy has contributed to partisan polarization. Yet, empathy may not always live up to this promise. We argue that, in practice, the experience of empathy is biased toward one’s ingroup and can actually exacerbate political polarization. First, using a large, national sample, we demonstrate that higher levels of dispositional empathic concern are associated with higher levels of affective polarization. Second, using an experimental design, we show that individuals high in empathic concern show greater partisan bias in evaluating contentious political events. Taken together, our results suggest that, contrary to popular views, higher levels of dispositional empathy actually facilitate partisan polarization.</em></p>
 <p>We are going to replicate Study 1’s analysis testing Hypotheses 1 and 2. Here, the authors conduct an original survey fielded by YouGov during May 2016 with 1000 respondents.</p>
 <p>Let’s load the data.</p>
 <ul>
 <li>How many observations do we have?</li>
 </ul>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="week-6-tutorial.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
-<span id="cb93-2"><a href="week-6-tutorial.html#cb93-2" aria-hidden="true" tabindex="-1"></a>emp <span class="ot">&lt;-</span> <span class="fu">read.dta</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/week6.dta?raw=true&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb614"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb614-1"><a href="week-6-tutorial.html#cb614-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
+<span id="cb614-2"><a href="week-6-tutorial.html#cb614-2" aria-hidden="true" tabindex="-1"></a>emp <span class="ot">&lt;-</span> <span class="fu">read.dta</span>(<span class="st">&quot;https://github.com/ktmccabe/teachingdata/blob/main/week6.dta?raw=true&quot;</span>)</span></code></pre></div>
 <p>The authors’ first two hypotheses are:</p>
 <ul>
 <li>Empathic concern should predict more positive affect for copartisans, relative to outpartisans (H1).</li>
 <li>Empathic concern should increase negative affect for outpartisans (H2).</li>
 </ul>
-<p>Outcome Measure: “To examine this type of partisan favoritism, we utilize responses to two questions asking respondents to rate the Democratic and Republican Parties on a seven-point scale ranging from”very favorable" to “very unfavorable.” We then subtract respondents’ ratings of the opposite party from their ratings of their own party to create an ordinal measure that ranges from six (highest inparty rating, lowest outparty rating) to −6 (lowest inparty rating and highest outparty rating)"</p>
+<p>Outcome Measure: “To examine this type of partisan favoritism, we utilize responses to two questions asking respondents to rate the Democratic and Republican Parties on a seven-point scale ranging from”very favorable” to “very unfavorable.” We then subtract respondents’ ratings of the opposite party from their ratings of their own party to create an ordinal measure that ranges from six (highest inparty rating, lowest outparty rating) to −6 (lowest inparty rating and highest outparty rating)”</p>
 <ul>
-<li><code>affectpol</code>: an ordinal measure that ranges from six (highest inparty rating, lowest outparty rating) to −6 (lowest inparty rating and highest outparty rating)"</li>
+<li><code>affectpol</code>: an ordinal measure that ranges from six (highest inparty rating, lowest outparty rating) to −6 (lowest inparty rating and highest outparty rating)”</li>
 <li><code>outfav</code>: rating of opposing party on a seven-point scale ranging from “very favorable” to “very unfavorable.”</li>
 </ul>
 <p>Let’s take a look at these variables.</p>
@@ -517,18 +522,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Are they coded as the authors describe?</li>
 <li>What class are they currently?</li>
 </ul>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="week-6-tutorial.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(emp<span class="sc">$</span>affectpol)</span></code></pre></div>
-<pre><code>## 
-##  -6  -4  -3  -2  -1   0   1   2   3   4   5   6 
-##   1   1   4   5  11 106  80  80 103 148 137 116</code></pre>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="week-6-tutorial.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(emp<span class="sc">$</span>affectpol)</span></code></pre></div>
-<pre><code>## [1] &quot;numeric&quot;</code></pre>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="week-6-tutorial.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(emp<span class="sc">$</span>outfav)</span></code></pre></div>
-<pre><code>## 
-##   1   2   3   4   5   6   7 
-## 431 163  73  85  16  16   8</code></pre>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="week-6-tutorial.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(emp<span class="sc">$</span>outfav)</span></code></pre></div>
-<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb615-1"><a href="week-6-tutorial.html#cb615-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(emp<span class="sc">$</span>affectpol)</span></code></pre></div>
+<pre><code>
+ -6  -4  -3  -2  -1   0   1   2   3   4   5   6 
+  1   1   4   5  11 106  80  80 103 148 137 116 </code></pre>
+<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="week-6-tutorial.html#cb617-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(emp<span class="sc">$</span>affectpol)</span></code></pre></div>
+<pre><code>[1] &quot;numeric&quot;</code></pre>
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="week-6-tutorial.html#cb619-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(emp<span class="sc">$</span>outfav)</span></code></pre></div>
+<pre><code>
+  1   2   3   4   5   6   7 
+431 163  73  85  16  16   8 </code></pre>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="week-6-tutorial.html#cb621-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(emp<span class="sc">$</span>outfav)</span></code></pre></div>
+<pre><code>[1] &quot;numeric&quot;</code></pre>
 <p>Independent Variables.</p>
 <ul>
 <li><code>empconc</code>: Mean of empathetic concern items from the Interpersonal Reactivity Index (IRI)</li>
@@ -540,59 +545,59 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>What type of model could they use to test H1 and H2?</p>
 <p>They choose to run an ordinal logistic regression. Let’s do as they do. To run an ordinal model in R, we need to make sure our outcome is ordinal! (meaning a factor variable)</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="week-6-tutorial.html#cb102-1" aria-hidden="true" tabindex="-1"></a>emp<span class="sc">$</span>outfav <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(emp<span class="sc">$</span>outfav)</span>
-<span id="cb102-2"><a href="week-6-tutorial.html#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(emp<span class="sc">$</span>outfav)</span></code></pre></div>
-<pre><code>## 
-##   1   2   3   4   5   6   7 
-## 431 163  73  85  16  16   8</code></pre>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="week-6-tutorial.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(emp<span class="sc">$</span>outfav)</span></code></pre></div>
-<pre><code>## [1] &quot;factor&quot;</code></pre>
+<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb623-1"><a href="week-6-tutorial.html#cb623-1" aria-hidden="true" tabindex="-1"></a>emp<span class="sc">$</span>outfav <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(emp<span class="sc">$</span>outfav)</span>
+<span id="cb623-2"><a href="week-6-tutorial.html#cb623-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(emp<span class="sc">$</span>outfav)</span></code></pre></div>
+<pre><code>
+  1   2   3   4   5   6   7 
+431 163  73  85  16  16   8 </code></pre>
+<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="week-6-tutorial.html#cb625-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(emp<span class="sc">$</span>outfav)</span></code></pre></div>
+<pre><code>[1] &quot;factor&quot;</code></pre>
 <p>Go ahead and replicate the first regression in the table with all of the controls, making sure to treat income as a factor variable but education as a numeric variable.</p>
 <p><img src="images/simas1.png" /></p>
 <ul>
 <li>Note: your coefficients will not exactly match because the authors weight their data using survey weights.</li>
 </ul>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="week-6-tutorial.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb106-2"><a href="week-6-tutorial.html#cb106-2" aria-hidden="true" tabindex="-1"></a>fit.emp <span class="ot">&lt;-</span> <span class="fu">polr</span>(outfav <span class="sc">~</span> empconc <span class="sc">+</span> empdist <span class="sc">+</span> emppers <span class="sc">+</span> empfant <span class="sc">+</span></span>
-<span id="cb106-3"><a href="week-6-tutorial.html#cb106-3" aria-hidden="true" tabindex="-1"></a>                  <span class="sc">+</span> pidext <span class="sc">+</span> ideoext <span class="sc">+</span> news <span class="sc">+</span> dem <span class="sc">+</span></span>
-<span id="cb106-4"><a href="week-6-tutorial.html#cb106-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">as.numeric</span>(educ) <span class="sc">+</span> age <span class="sc">+</span> male <span class="sc">+</span> white <span class="sc">+</span> <span class="fu">factor</span>(inc3miss),</span>
-<span id="cb106-5"><a href="week-6-tutorial.html#cb106-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>emp, <span class="at">Hess=</span>T, <span class="at">method=</span><span class="st">&quot;logistic&quot;</span>)</span>
-<span id="cb106-6"><a href="week-6-tutorial.html#cb106-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.emp)</span></code></pre></div>
-<pre><code>## Call:
-## polr(formula = outfav ~ empconc + empdist + emppers + empfant + 
-##     +pidext + ideoext + news + dem + as.numeric(educ) + age + 
-##     male + white + factor(inc3miss), data = emp, Hess = T, method = &quot;logistic&quot;)
-## 
-## Coefficients:
-##                       Value Std. Error  t value
-## empconc           -0.805771   0.492455 -1.63623
-## empdist            0.321857   0.413656  0.77808
-## emppers            0.433013   0.528121  0.81991
-## empfant           -0.020821   0.408769 -0.05093
-## pidext            -0.246698   0.095193 -2.59155
-## ideoext           -0.556725   0.072652 -7.66288
-## news              -0.557133   0.094192 -5.91487
-## dem                0.002573   0.156964  0.01639
-## as.numeric(educ)   0.071461   0.054630  1.30809
-## age               -0.004130   0.004784 -0.86345
-## male              -0.310108   0.160583 -1.93114
-## white             -0.015491   0.176718 -0.08766
-## factor(inc3miss)2 -0.049340   0.196223 -0.25145
-## factor(inc3miss)3 -0.127770   0.200626 -0.63686
-## factor(inc3miss)4 -0.148389   0.242841 -0.61105
-## 
-## Intercepts:
-##     Value   Std. Error t value
-## 1|2 -3.4355  0.6385    -5.3808
-## 2|3 -2.3032  0.6308    -3.6513
-## 3|4 -1.5674  0.6259    -2.5042
-## 4|5 -0.2119  0.6325    -0.3351
-## 5|6  0.3713  0.6467     0.5741
-## 6|7  1.5460  0.7177     2.1541
-## 
-## Residual Deviance: 1828.862 
-## AIC: 1870.862 
-## (245 observations deleted due to missingness)</code></pre>
+<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="week-6-tutorial.html#cb627-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb627-2"><a href="week-6-tutorial.html#cb627-2" aria-hidden="true" tabindex="-1"></a>fit.emp <span class="ot">&lt;-</span> <span class="fu">polr</span>(outfav <span class="sc">~</span> empconc <span class="sc">+</span> empdist <span class="sc">+</span> emppers <span class="sc">+</span> empfant <span class="sc">+</span></span>
+<span id="cb627-3"><a href="week-6-tutorial.html#cb627-3" aria-hidden="true" tabindex="-1"></a>                  <span class="sc">+</span> pidext <span class="sc">+</span> ideoext <span class="sc">+</span> news <span class="sc">+</span> dem <span class="sc">+</span></span>
+<span id="cb627-4"><a href="week-6-tutorial.html#cb627-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">as.numeric</span>(educ) <span class="sc">+</span> age <span class="sc">+</span> male <span class="sc">+</span> white <span class="sc">+</span> <span class="fu">factor</span>(inc3miss),</span>
+<span id="cb627-5"><a href="week-6-tutorial.html#cb627-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>emp, <span class="at">Hess=</span>T, <span class="at">method=</span><span class="st">&quot;logistic&quot;</span>)</span>
+<span id="cb627-6"><a href="week-6-tutorial.html#cb627-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.emp)</span></code></pre></div>
+<pre><code>Call:
+polr(formula = outfav ~ empconc + empdist + emppers + empfant + 
+    +pidext + ideoext + news + dem + as.numeric(educ) + age + 
+    male + white + factor(inc3miss), data = emp, Hess = T, method = &quot;logistic&quot;)
+
+Coefficients:
+                      Value Std. Error  t value
+empconc           -0.805771   0.492455 -1.63623
+empdist            0.321857   0.413656  0.77808
+emppers            0.433013   0.528121  0.81991
+empfant           -0.020821   0.408769 -0.05093
+pidext            -0.246698   0.095193 -2.59155
+ideoext           -0.556725   0.072652 -7.66288
+news              -0.557133   0.094192 -5.91487
+dem                0.002573   0.156964  0.01639
+as.numeric(educ)   0.071461   0.054630  1.30809
+age               -0.004130   0.004784 -0.86345
+male              -0.310108   0.160583 -1.93114
+white             -0.015491   0.176718 -0.08766
+factor(inc3miss)2 -0.049340   0.196223 -0.25145
+factor(inc3miss)3 -0.127770   0.200626 -0.63686
+factor(inc3miss)4 -0.148389   0.242841 -0.61105
+
+Intercepts:
+    Value   Std. Error t value
+1|2 -3.4355  0.6385    -5.3808
+2|3 -2.3032  0.6308    -3.6513
+3|4 -1.5674  0.6259    -2.5042
+4|5 -0.2119  0.6325    -0.3351
+5|6  0.3713  0.6467     0.5741
+6|7  1.5460  0.7177     2.1541
+
+Residual Deviance: 1828.862 
+AIC: 1870.862 
+(245 observations deleted due to missingness)</code></pre>
 <ul>
 <li>Let’s take a look out how the weights affect the result by using the <code>survey</code> package.
 <ul>
@@ -600,47 +605,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Once we establish an <code>svydesign</code> object, we now need to use <code>svy</code> commands for our operations, such as <code>svymean</code> or <code>svyglm</code> or <code>svyolr</code></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="week-6-tutorial.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;survey&quot;, dependencies =T)</span></span>
-<span id="cb108-2"><a href="week-6-tutorial.html#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
-<span id="cb108-3"><a href="week-6-tutorial.html#cb108-3" aria-hidden="true" tabindex="-1"></a>empd <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">ids=</span><span class="sc">~</span><span class="dv">1</span>, <span class="at">weights =</span> emp<span class="sc">$</span>weight_group, <span class="at">data=</span>emp)</span>
-<span id="cb108-4"><a href="week-6-tutorial.html#cb108-4" aria-hidden="true" tabindex="-1"></a>fit.empw2 <span class="ot">&lt;-</span> <span class="fu">svyolr</span>(outfav <span class="sc">~</span> empconc <span class="sc">+</span> empdist <span class="sc">+</span> emppers <span class="sc">+</span> empfant <span class="sc">+</span></span>
-<span id="cb108-5"><a href="week-6-tutorial.html#cb108-5" aria-hidden="true" tabindex="-1"></a>                  <span class="sc">+</span> pidext <span class="sc">+</span> ideoext <span class="sc">+</span> news <span class="sc">+</span> dem <span class="sc">+</span></span>
-<span id="cb108-6"><a href="week-6-tutorial.html#cb108-6" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">as.numeric</span>(educ) <span class="sc">+</span> age <span class="sc">+</span> </span>
-<span id="cb108-7"><a href="week-6-tutorial.html#cb108-7" aria-hidden="true" tabindex="-1"></a>                    male <span class="sc">+</span> white <span class="sc">+</span> <span class="fu">factor</span>(inc3miss), </span>
-<span id="cb108-8"><a href="week-6-tutorial.html#cb108-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">design=</span>empd, <span class="at">method=</span><span class="st">&quot;logistic&quot;</span>)</span>
-<span id="cb108-9"><a href="week-6-tutorial.html#cb108-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.empw2)</span></code></pre></div>
-<pre><code>## Call:
-## svyolr(outfav ~ empconc + empdist + emppers + empfant + +pidext + 
-##     ideoext + news + dem + as.numeric(educ) + age + male + white + 
-##     factor(inc3miss), design = empd, method = &quot;logistic&quot;)
-## 
-## Coefficients:
-##                           Value  Std. Error    t value
-## empconc           -1.4141333759 0.585070456 -2.4170309
-## empdist            0.7759996312 0.561768870  1.3813504
-## emppers            1.1700466598 0.672754809  1.7391874
-## empfant            0.9733692488 0.475484526  2.0471103
-## pidext            -0.3281938237 0.124714241 -2.6315665
-## ideoext           -0.4970353573 0.106530714 -4.6656531
-## news              -0.5759629296 0.130609880 -4.4097960
-## dem               -0.0456812052 0.195236242 -0.2339791
-## as.numeric(educ)   0.0284167135 0.065624317  0.4330211
-## age               -0.0007305433 0.005493873 -0.1329742
-## male              -0.1759866726 0.212493495 -0.8281979
-## white              0.0366164598 0.215144017  0.1701951
-## factor(inc3miss)2 -0.0470362687 0.226737718 -0.2074479
-## factor(inc3miss)3 -0.0794217660 0.246811912 -0.3217907
-## factor(inc3miss)4 -0.0588030650 0.330225820 -0.1780693
-## 
-## Intercepts:
-##     Value   Std. Error t value
-## 1|2 -2.9118  0.9199    -3.1652
-## 2|3 -1.7749  0.9029    -1.9658
-## 3|4 -1.0853  0.9058    -1.1982
-## 4|5  0.3080  0.8948     0.3442
-## 5|6  0.9101  0.9006     1.0106
-## 6|7  2.8740  0.9296     3.0918
-## (245 observations deleted due to missingness)</code></pre>
+<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb629-1"><a href="week-6-tutorial.html#cb629-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;survey&quot;, dependencies =T)</span></span>
+<span id="cb629-2"><a href="week-6-tutorial.html#cb629-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
+<span id="cb629-3"><a href="week-6-tutorial.html#cb629-3" aria-hidden="true" tabindex="-1"></a>empd <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">ids=</span><span class="sc">~</span><span class="dv">1</span>, <span class="at">weights =</span> emp<span class="sc">$</span>weight_group, <span class="at">data=</span>emp)</span>
+<span id="cb629-4"><a href="week-6-tutorial.html#cb629-4" aria-hidden="true" tabindex="-1"></a>fit.empw2 <span class="ot">&lt;-</span> <span class="fu">svyolr</span>(outfav <span class="sc">~</span> empconc <span class="sc">+</span> empdist <span class="sc">+</span> emppers <span class="sc">+</span> empfant <span class="sc">+</span></span>
+<span id="cb629-5"><a href="week-6-tutorial.html#cb629-5" aria-hidden="true" tabindex="-1"></a>                  <span class="sc">+</span> pidext <span class="sc">+</span> ideoext <span class="sc">+</span> news <span class="sc">+</span> dem <span class="sc">+</span></span>
+<span id="cb629-6"><a href="week-6-tutorial.html#cb629-6" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">as.numeric</span>(educ) <span class="sc">+</span> age <span class="sc">+</span> </span>
+<span id="cb629-7"><a href="week-6-tutorial.html#cb629-7" aria-hidden="true" tabindex="-1"></a>                    male <span class="sc">+</span> white <span class="sc">+</span> <span class="fu">factor</span>(inc3miss), </span>
+<span id="cb629-8"><a href="week-6-tutorial.html#cb629-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">design=</span>empd, <span class="at">method=</span><span class="st">&quot;logistic&quot;</span>)</span>
+<span id="cb629-9"><a href="week-6-tutorial.html#cb629-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.empw2)</span></code></pre></div>
+<pre><code>Call:
+svyolr(outfav ~ empconc + empdist + emppers + empfant + +pidext + 
+    ideoext + news + dem + as.numeric(educ) + age + male + white + 
+    factor(inc3miss), design = empd, method = &quot;logistic&quot;)
+
+Coefficients:
+                          Value  Std. Error    t value
+empconc           -1.4141333759 0.585070456 -2.4170309
+empdist            0.7759996312 0.561768870  1.3813504
+emppers            1.1700466598 0.672754809  1.7391874
+empfant            0.9733692488 0.475484526  2.0471103
+pidext            -0.3281938237 0.124714241 -2.6315665
+ideoext           -0.4970353573 0.106530714 -4.6656531
+news              -0.5759629296 0.130609880 -4.4097960
+dem               -0.0456812052 0.195236242 -0.2339791
+as.numeric(educ)   0.0284167135 0.065624317  0.4330211
+age               -0.0007305433 0.005493873 -0.1329742
+male              -0.1759866726 0.212493495 -0.8281979
+white              0.0366164598 0.215144017  0.1701951
+factor(inc3miss)2 -0.0470362687 0.226737718 -0.2074479
+factor(inc3miss)3 -0.0794217660 0.246811912 -0.3217907
+factor(inc3miss)4 -0.0588030650 0.330225820 -0.1780693
+
+Intercepts:
+    Value   Std. Error t value
+1|2 -2.9118  0.9199    -3.1652
+2|3 -1.7749  0.9029    -1.9658
+3|4 -1.0853  0.9058    -1.1982
+4|5  0.3080  0.8948     0.3442
+5|6  0.9101  0.9006     1.0106
+6|7  2.8740  0.9296     3.0918
+(245 observations deleted due to missingness)</code></pre>
 <p>The weights seem to make a difference! Now we are closely matching what the authors report. The use of survey weights represents yet another point of researcher discretion.</p>
 <p>Let’s use the weighted results and proceed to make them easier to interpret. Recall, H2 was:
 <em>Empathic concern should increase negative affect for outpartisans (H2).</em></p>
@@ -656,174 +661,174 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>We could do this in <code>predict</code> or manually. We will do it manually for now.</li>
 </ul>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="week-6-tutorial.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Set covariates to particular values (here, we hold at observed)</span></span>
-<span id="cb110-2"><a href="week-6-tutorial.html#cb110-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit.empw2)</span>
-<span id="cb110-3"><a href="week-6-tutorial.html#cb110-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> X[, <span class="sc">-</span><span class="dv">1</span>] <span class="co">#remove intercept</span></span>
-<span id="cb110-4"><a href="week-6-tutorial.html#cb110-4" aria-hidden="true" tabindex="-1"></a>X[,<span class="st">&quot;empconc&quot;</span> ] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb110-5"><a href="week-6-tutorial.html#cb110-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb110-6"><a href="week-6-tutorial.html#cb110-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Find Xb and zeta</span></span>
-<span id="cb110-7"><a href="week-6-tutorial.html#cb110-7" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.empw2)</span></code></pre></div>
-<pre><code>##           empconc           empdist           emppers           empfant 
-##     -1.4141333759      0.7759996312      1.1700466598      0.9733692488 
-##            pidext           ideoext              news               dem 
-##     -0.3281938237     -0.4970353573     -0.5759629296     -0.0456812052 
-##  as.numeric(educ)               age              male             white 
-##      0.0284167135     -0.0007305433     -0.1759866726      0.0366164598 
-## factor(inc3miss)2 factor(inc3miss)3 factor(inc3miss)4               1|2 
-##     -0.0470362687     -0.0794217660     -0.0588030650     -2.9118275702 
-##               2|3               3|4               4|5               5|6 
-##     -1.7749101884     -1.0852947154      0.3080104278      0.9101173775 
-##               6|7 
-##      2.8740344326</code></pre>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="week-6-tutorial.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this piece [1:ncol(X)] makes sure we omit the zetas</span></span>
-<span id="cb112-2"><a href="week-6-tutorial.html#cb112-2" aria-hidden="true" tabindex="-1"></a><span class="co"># this is only necessary for svyolr. The polr function already omits zetas from coef()</span></span>
-<span id="cb112-3"><a href="week-6-tutorial.html#cb112-3" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit.empw2)[<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(X)]</span>
-<span id="cb112-4"><a href="week-6-tutorial.html#cb112-4" aria-hidden="true" tabindex="-1"></a>eta <span class="ot">&lt;-</span> X <span class="sc">%*%</span> b</span>
-<span id="cb112-5"><a href="week-6-tutorial.html#cb112-5" aria-hidden="true" tabindex="-1"></a>zeta <span class="ot">&lt;-</span> fit.empw2<span class="sc">$</span>zeta</span>
-<span id="cb112-6"><a href="week-6-tutorial.html#cb112-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb112-7"><a href="week-6-tutorial.html#cb112-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Find Pr(lowest category)</span></span>
-<span id="cb112-8"><a href="week-6-tutorial.html#cb112-8" aria-hidden="true" tabindex="-1"></a>emp0 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(zeta[<span class="dv">1</span>] <span class="sc">-</span> eta))</span>
-<span id="cb112-9"><a href="week-6-tutorial.html#cb112-9" aria-hidden="true" tabindex="-1"></a>emp0</span></code></pre></div>
-<pre><code>## [1] 0.3025648</code></pre>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="week-6-tutorial.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Repeat for each value of empconc of interest</span></span>
-<span id="cb114-2"><a href="week-6-tutorial.html#cb114-2" aria-hidden="true" tabindex="-1"></a>X[,<span class="st">&quot;empconc&quot;</span>] <span class="ot">&lt;-</span> .<span class="dv">2</span></span>
-<span id="cb114-3"><a href="week-6-tutorial.html#cb114-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Find Xb and zeta</span></span>
-<span id="cb114-4"><a href="week-6-tutorial.html#cb114-4" aria-hidden="true" tabindex="-1"></a>eta <span class="ot">&lt;-</span> X <span class="sc">%*%</span> <span class="fu">coef</span>(fit.empw2)[<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(X)]</span>
-<span id="cb114-5"><a href="week-6-tutorial.html#cb114-5" aria-hidden="true" tabindex="-1"></a>zeta <span class="ot">&lt;-</span> fit.empw2<span class="sc">$</span>zeta</span>
-<span id="cb114-6"><a href="week-6-tutorial.html#cb114-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Find Pr(lowest category)</span></span>
-<span id="cb114-7"><a href="week-6-tutorial.html#cb114-7" aria-hidden="true" tabindex="-1"></a>emp2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(zeta[<span class="dv">1</span>] <span class="sc">-</span> eta))</span>
-<span id="cb114-8"><a href="week-6-tutorial.html#cb114-8" aria-hidden="true" tabindex="-1"></a>emp2</span></code></pre></div>
-<pre><code>## [1] 0.3555723</code></pre>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="week-6-tutorial.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Or put it in a function to be faster</span></span>
-<span id="cb116-2"><a href="week-6-tutorial.html#cb116-2" aria-hidden="true" tabindex="-1"></a>findpr <span class="ot">&lt;-</span> <span class="cf">function</span>(val){</span>
-<span id="cb116-3"><a href="week-6-tutorial.html#cb116-3" aria-hidden="true" tabindex="-1"></a>  X[,<span class="st">&quot;empconc&quot;</span>] <span class="ot">&lt;-</span> val</span>
-<span id="cb116-4"><a href="week-6-tutorial.html#cb116-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Find Xb and zeta</span></span>
-<span id="cb116-5"><a href="week-6-tutorial.html#cb116-5" aria-hidden="true" tabindex="-1"></a>  eta <span class="ot">&lt;-</span> X <span class="sc">%*%</span> <span class="fu">coef</span>(fit.empw2)[<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(X)]</span>
-<span id="cb116-6"><a href="week-6-tutorial.html#cb116-6" aria-hidden="true" tabindex="-1"></a>  zeta <span class="ot">&lt;-</span> fit.empw2<span class="sc">$</span>zeta</span>
-<span id="cb116-7"><a href="week-6-tutorial.html#cb116-7" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Find Pr(lowest category)</span></span>
-<span id="cb116-8"><a href="week-6-tutorial.html#cb116-8" aria-hidden="true" tabindex="-1"></a>  pr <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(zeta[<span class="dv">1</span>] <span class="sc">-</span> eta))</span>
-<span id="cb116-9"><a href="week-6-tutorial.html#cb116-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(pr)</span>
-<span id="cb116-10"><a href="week-6-tutorial.html#cb116-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb116-11"><a href="week-6-tutorial.html#cb116-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Does it work? Test</span></span>
-<span id="cb116-12"><a href="week-6-tutorial.html#cb116-12" aria-hidden="true" tabindex="-1"></a><span class="fu">findpr</span>(<span class="dv">0</span>)</span></code></pre></div>
-<pre><code>## [1] 0.3025648</code></pre>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="week-6-tutorial.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Repeat for all values of empathy</span></span>
-<span id="cb118-2"><a href="week-6-tutorial.html#cb118-2" aria-hidden="true" tabindex="-1"></a>emp.prs <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">2</span>), findpr)</span>
-<span id="cb118-3"><a href="week-6-tutorial.html#cb118-3" aria-hidden="true" tabindex="-1"></a>emp.prs</span></code></pre></div>
-<pre><code>## [1] 0.3025648 0.3555723 0.4116936 0.4696702 0.5281235 0.5856687</code></pre>
+<div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb631-1"><a href="week-6-tutorial.html#cb631-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Set covariates to particular values (here, we hold at observed)</span></span>
+<span id="cb631-2"><a href="week-6-tutorial.html#cb631-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit.empw2)</span>
+<span id="cb631-3"><a href="week-6-tutorial.html#cb631-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> X[, <span class="sc">-</span><span class="dv">1</span>] <span class="co">#remove intercept</span></span>
+<span id="cb631-4"><a href="week-6-tutorial.html#cb631-4" aria-hidden="true" tabindex="-1"></a>X[,<span class="st">&quot;empconc&quot;</span> ] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb631-5"><a href="week-6-tutorial.html#cb631-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb631-6"><a href="week-6-tutorial.html#cb631-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Find Xb and zeta</span></span>
+<span id="cb631-7"><a href="week-6-tutorial.html#cb631-7" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit.empw2)</span></code></pre></div>
+<pre><code>          empconc           empdist           emppers           empfant 
+    -1.4141333759      0.7759996312      1.1700466598      0.9733692488 
+           pidext           ideoext              news               dem 
+    -0.3281938237     -0.4970353573     -0.5759629296     -0.0456812052 
+ as.numeric(educ)               age              male             white 
+     0.0284167135     -0.0007305433     -0.1759866726      0.0366164598 
+factor(inc3miss)2 factor(inc3miss)3 factor(inc3miss)4               1|2 
+    -0.0470362687     -0.0794217660     -0.0588030650     -2.9118275702 
+              2|3               3|4               4|5               5|6 
+    -1.7749101884     -1.0852947154      0.3080104278      0.9101173775 
+              6|7 
+     2.8740344326 </code></pre>
+<div class="sourceCode" id="cb633"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb633-1"><a href="week-6-tutorial.html#cb633-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this piece [1:ncol(X)] makes sure we omit the zetas</span></span>
+<span id="cb633-2"><a href="week-6-tutorial.html#cb633-2" aria-hidden="true" tabindex="-1"></a><span class="co"># this is only necessary for svyolr. The polr function already omits zetas from coef()</span></span>
+<span id="cb633-3"><a href="week-6-tutorial.html#cb633-3" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit.empw2)[<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(X)]</span>
+<span id="cb633-4"><a href="week-6-tutorial.html#cb633-4" aria-hidden="true" tabindex="-1"></a>eta <span class="ot">&lt;-</span> X <span class="sc">%*%</span> b</span>
+<span id="cb633-5"><a href="week-6-tutorial.html#cb633-5" aria-hidden="true" tabindex="-1"></a>zeta <span class="ot">&lt;-</span> fit.empw2<span class="sc">$</span>zeta</span>
+<span id="cb633-6"><a href="week-6-tutorial.html#cb633-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb633-7"><a href="week-6-tutorial.html#cb633-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Find Pr(lowest category)</span></span>
+<span id="cb633-8"><a href="week-6-tutorial.html#cb633-8" aria-hidden="true" tabindex="-1"></a>emp0 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(zeta[<span class="dv">1</span>] <span class="sc">-</span> eta))</span>
+<span id="cb633-9"><a href="week-6-tutorial.html#cb633-9" aria-hidden="true" tabindex="-1"></a>emp0</span></code></pre></div>
+<pre><code>[1] 0.3025648</code></pre>
+<div class="sourceCode" id="cb635"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb635-1"><a href="week-6-tutorial.html#cb635-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Repeat for each value of empconc of interest</span></span>
+<span id="cb635-2"><a href="week-6-tutorial.html#cb635-2" aria-hidden="true" tabindex="-1"></a>X[,<span class="st">&quot;empconc&quot;</span>] <span class="ot">&lt;-</span> .<span class="dv">2</span></span>
+<span id="cb635-3"><a href="week-6-tutorial.html#cb635-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Find Xb and zeta</span></span>
+<span id="cb635-4"><a href="week-6-tutorial.html#cb635-4" aria-hidden="true" tabindex="-1"></a>eta <span class="ot">&lt;-</span> X <span class="sc">%*%</span> <span class="fu">coef</span>(fit.empw2)[<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(X)]</span>
+<span id="cb635-5"><a href="week-6-tutorial.html#cb635-5" aria-hidden="true" tabindex="-1"></a>zeta <span class="ot">&lt;-</span> fit.empw2<span class="sc">$</span>zeta</span>
+<span id="cb635-6"><a href="week-6-tutorial.html#cb635-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Find Pr(lowest category)</span></span>
+<span id="cb635-7"><a href="week-6-tutorial.html#cb635-7" aria-hidden="true" tabindex="-1"></a>emp2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(zeta[<span class="dv">1</span>] <span class="sc">-</span> eta))</span>
+<span id="cb635-8"><a href="week-6-tutorial.html#cb635-8" aria-hidden="true" tabindex="-1"></a>emp2</span></code></pre></div>
+<pre><code>[1] 0.3555723</code></pre>
+<div class="sourceCode" id="cb637"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb637-1"><a href="week-6-tutorial.html#cb637-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Or put it in a function to be faster</span></span>
+<span id="cb637-2"><a href="week-6-tutorial.html#cb637-2" aria-hidden="true" tabindex="-1"></a>findpr <span class="ot">&lt;-</span> <span class="cf">function</span>(val){</span>
+<span id="cb637-3"><a href="week-6-tutorial.html#cb637-3" aria-hidden="true" tabindex="-1"></a>  X[,<span class="st">&quot;empconc&quot;</span>] <span class="ot">&lt;-</span> val</span>
+<span id="cb637-4"><a href="week-6-tutorial.html#cb637-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Find Xb and zeta</span></span>
+<span id="cb637-5"><a href="week-6-tutorial.html#cb637-5" aria-hidden="true" tabindex="-1"></a>  eta <span class="ot">&lt;-</span> X <span class="sc">%*%</span> <span class="fu">coef</span>(fit.empw2)[<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(X)]</span>
+<span id="cb637-6"><a href="week-6-tutorial.html#cb637-6" aria-hidden="true" tabindex="-1"></a>  zeta <span class="ot">&lt;-</span> fit.empw2<span class="sc">$</span>zeta</span>
+<span id="cb637-7"><a href="week-6-tutorial.html#cb637-7" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Find Pr(lowest category)</span></span>
+<span id="cb637-8"><a href="week-6-tutorial.html#cb637-8" aria-hidden="true" tabindex="-1"></a>  pr <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(zeta[<span class="dv">1</span>] <span class="sc">-</span> eta))</span>
+<span id="cb637-9"><a href="week-6-tutorial.html#cb637-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(pr)</span>
+<span id="cb637-10"><a href="week-6-tutorial.html#cb637-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb637-11"><a href="week-6-tutorial.html#cb637-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Does it work? Test</span></span>
+<span id="cb637-12"><a href="week-6-tutorial.html#cb637-12" aria-hidden="true" tabindex="-1"></a><span class="fu">findpr</span>(<span class="dv">0</span>)</span></code></pre></div>
+<pre><code>[1] 0.3025648</code></pre>
+<div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb639-1"><a href="week-6-tutorial.html#cb639-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Repeat for all values of empathy</span></span>
+<span id="cb639-2"><a href="week-6-tutorial.html#cb639-2" aria-hidden="true" tabindex="-1"></a>emp.prs <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">2</span>), findpr)</span>
+<span id="cb639-3"><a href="week-6-tutorial.html#cb639-3" aria-hidden="true" tabindex="-1"></a>emp.prs</span></code></pre></div>
+<pre><code>[1] 0.3025648 0.3555723 0.4116936 0.4696702 0.5281235 0.5856687</code></pre>
 <p>We can visualize these estimates similar to the authors.</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="week-6-tutorial.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">2</span>),</span>
-<span id="cb120-2"><a href="week-6-tutorial.html#cb120-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">y=</span>emp.prs,</span>
-<span id="cb120-3"><a href="week-6-tutorial.html#cb120-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(.<span class="dv">1</span>, .<span class="dv">7</span>),</span>
-<span id="cb120-4"><a href="week-6-tutorial.html#cb120-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">type=</span><span class="st">&quot;l&quot;</span>,</span>
-<span id="cb120-5"><a href="week-6-tutorial.html#cb120-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Empathic Concern&quot;</span>,</span>
-<span id="cb120-6"><a href="week-6-tutorial.html#cb120-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>,</span>
-<span id="cb120-7"><a href="week-6-tutorial.html#cb120-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Outparty Favorability </span><span class="sc">\n</span><span class="st"> Pr(Outparty Very Unfavorable)&quot;</span>,</span>
-<span id="cb120-8"><a href="week-6-tutorial.html#cb120-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.main=</span>.<span class="dv">8</span>)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-34-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="week-6-tutorial.html#cb641-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">2</span>),</span>
+<span id="cb641-2"><a href="week-6-tutorial.html#cb641-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">y=</span>emp.prs,</span>
+<span id="cb641-3"><a href="week-6-tutorial.html#cb641-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(.<span class="dv">1</span>, .<span class="dv">7</span>),</span>
+<span id="cb641-4"><a href="week-6-tutorial.html#cb641-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">type=</span><span class="st">&quot;l&quot;</span>,</span>
+<span id="cb641-5"><a href="week-6-tutorial.html#cb641-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Empathic Concern&quot;</span>,</span>
+<span id="cb641-6"><a href="week-6-tutorial.html#cb641-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb641-7"><a href="week-6-tutorial.html#cb641-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Outparty Favorability </span><span class="sc">\n</span><span class="st"> Pr(Outparty Very Unfavorable)&quot;</span>,</span>
+<span id="cb641-8"><a href="week-6-tutorial.html#cb641-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.main=</span>.<span class="dv">8</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-278-1.svg" width="672" /></p>
 <p>We could add lines for all categories. We’ll just add it to the function for now.</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="week-6-tutorial.html#cb121-1" aria-hidden="true" tabindex="-1"></a>findprall <span class="ot">&lt;-</span> <span class="cf">function</span>(val){</span>
-<span id="cb121-2"><a href="week-6-tutorial.html#cb121-2" aria-hidden="true" tabindex="-1"></a>  X[,<span class="st">&quot;empconc&quot;</span>] <span class="ot">&lt;-</span> val</span>
-<span id="cb121-3"><a href="week-6-tutorial.html#cb121-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Find Xb and zeta</span></span>
-<span id="cb121-4"><a href="week-6-tutorial.html#cb121-4" aria-hidden="true" tabindex="-1"></a>  eta <span class="ot">&lt;-</span> X <span class="sc">%*%</span> <span class="fu">coef</span>(fit.empw2)[<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(X)]</span>
-<span id="cb121-5"><a href="week-6-tutorial.html#cb121-5" aria-hidden="true" tabindex="-1"></a>  zeta <span class="ot">&lt;-</span> fit.empw2<span class="sc">$</span>zeta</span>
-<span id="cb121-6"><a href="week-6-tutorial.html#cb121-6" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Find Pr(7th lowest category)</span></span>
-<span id="cb121-7"><a href="week-6-tutorial.html#cb121-7" aria-hidden="true" tabindex="-1"></a>  pr7 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">plogis</span>(zeta[<span class="dv">6</span>] <span class="sc">-</span> eta))</span>
-<span id="cb121-8"><a href="week-6-tutorial.html#cb121-8" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Find Pr(6th lowest category)</span></span>
-<span id="cb121-9"><a href="week-6-tutorial.html#cb121-9" aria-hidden="true" tabindex="-1"></a>  pr6 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(zeta[<span class="dv">6</span>] <span class="sc">-</span> eta) <span class="sc">-</span> <span class="fu">plogis</span>(zeta[<span class="dv">5</span>] <span class="sc">-</span> eta))</span>
-<span id="cb121-10"><a href="week-6-tutorial.html#cb121-10" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Find Pr(5th lowest category)</span></span>
-<span id="cb121-11"><a href="week-6-tutorial.html#cb121-11" aria-hidden="true" tabindex="-1"></a>  pr5 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(zeta[<span class="dv">5</span>] <span class="sc">-</span> eta) <span class="sc">-</span> <span class="fu">plogis</span>(zeta[<span class="dv">4</span>] <span class="sc">-</span> eta))</span>
-<span id="cb121-12"><a href="week-6-tutorial.html#cb121-12" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Find Pr(4th lowest category)</span></span>
-<span id="cb121-13"><a href="week-6-tutorial.html#cb121-13" aria-hidden="true" tabindex="-1"></a>  pr4 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(zeta[<span class="dv">4</span>] <span class="sc">-</span> eta) <span class="sc">-</span> <span class="fu">plogis</span>(zeta[<span class="dv">3</span>] <span class="sc">-</span> eta))</span>
-<span id="cb121-14"><a href="week-6-tutorial.html#cb121-14" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Find Pr(3rd lowest category)</span></span>
-<span id="cb121-15"><a href="week-6-tutorial.html#cb121-15" aria-hidden="true" tabindex="-1"></a>  pr3 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(zeta[<span class="dv">3</span>] <span class="sc">-</span> eta) <span class="sc">-</span> <span class="fu">plogis</span>(zeta[<span class="dv">2</span>] <span class="sc">-</span> eta))</span>
-<span id="cb121-16"><a href="week-6-tutorial.html#cb121-16" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Find Pr(2nd lowest category)</span></span>
-<span id="cb121-17"><a href="week-6-tutorial.html#cb121-17" aria-hidden="true" tabindex="-1"></a>  pr2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(zeta[<span class="dv">2</span>] <span class="sc">-</span> eta) <span class="sc">-</span> <span class="fu">plogis</span>(zeta[<span class="dv">1</span>] <span class="sc">-</span> eta))</span>
-<span id="cb121-18"><a href="week-6-tutorial.html#cb121-18" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Find Pr(lowest category)</span></span>
-<span id="cb121-19"><a href="week-6-tutorial.html#cb121-19" aria-hidden="true" tabindex="-1"></a>  pr1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(zeta[<span class="dv">1</span>] <span class="sc">-</span> eta))</span>
-<span id="cb121-20"><a href="week-6-tutorial.html#cb121-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">c</span>(pr1, pr2, pr3, pr4, pr5, pr6, pr7))</span>
-<span id="cb121-21"><a href="week-6-tutorial.html#cb121-21" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb121-22"><a href="week-6-tutorial.html#cb121-22" aria-hidden="true" tabindex="-1"></a><span class="do">## Repeat for all values of empathy</span></span>
-<span id="cb121-23"><a href="week-6-tutorial.html#cb121-23" aria-hidden="true" tabindex="-1"></a>emp.prsall <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">2</span>), findprall)</span></code></pre></div>
+<div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb642-1"><a href="week-6-tutorial.html#cb642-1" aria-hidden="true" tabindex="-1"></a>findprall <span class="ot">&lt;-</span> <span class="cf">function</span>(val){</span>
+<span id="cb642-2"><a href="week-6-tutorial.html#cb642-2" aria-hidden="true" tabindex="-1"></a>  X[,<span class="st">&quot;empconc&quot;</span>] <span class="ot">&lt;-</span> val</span>
+<span id="cb642-3"><a href="week-6-tutorial.html#cb642-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Find Xb and zeta</span></span>
+<span id="cb642-4"><a href="week-6-tutorial.html#cb642-4" aria-hidden="true" tabindex="-1"></a>  eta <span class="ot">&lt;-</span> X <span class="sc">%*%</span> <span class="fu">coef</span>(fit.empw2)[<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(X)]</span>
+<span id="cb642-5"><a href="week-6-tutorial.html#cb642-5" aria-hidden="true" tabindex="-1"></a>  zeta <span class="ot">&lt;-</span> fit.empw2<span class="sc">$</span>zeta</span>
+<span id="cb642-6"><a href="week-6-tutorial.html#cb642-6" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Find Pr(7th lowest category)</span></span>
+<span id="cb642-7"><a href="week-6-tutorial.html#cb642-7" aria-hidden="true" tabindex="-1"></a>  pr7 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">plogis</span>(zeta[<span class="dv">6</span>] <span class="sc">-</span> eta))</span>
+<span id="cb642-8"><a href="week-6-tutorial.html#cb642-8" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Find Pr(6th lowest category)</span></span>
+<span id="cb642-9"><a href="week-6-tutorial.html#cb642-9" aria-hidden="true" tabindex="-1"></a>  pr6 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(zeta[<span class="dv">6</span>] <span class="sc">-</span> eta) <span class="sc">-</span> <span class="fu">plogis</span>(zeta[<span class="dv">5</span>] <span class="sc">-</span> eta))</span>
+<span id="cb642-10"><a href="week-6-tutorial.html#cb642-10" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Find Pr(5th lowest category)</span></span>
+<span id="cb642-11"><a href="week-6-tutorial.html#cb642-11" aria-hidden="true" tabindex="-1"></a>  pr5 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(zeta[<span class="dv">5</span>] <span class="sc">-</span> eta) <span class="sc">-</span> <span class="fu">plogis</span>(zeta[<span class="dv">4</span>] <span class="sc">-</span> eta))</span>
+<span id="cb642-12"><a href="week-6-tutorial.html#cb642-12" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Find Pr(4th lowest category)</span></span>
+<span id="cb642-13"><a href="week-6-tutorial.html#cb642-13" aria-hidden="true" tabindex="-1"></a>  pr4 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(zeta[<span class="dv">4</span>] <span class="sc">-</span> eta) <span class="sc">-</span> <span class="fu">plogis</span>(zeta[<span class="dv">3</span>] <span class="sc">-</span> eta))</span>
+<span id="cb642-14"><a href="week-6-tutorial.html#cb642-14" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Find Pr(3rd lowest category)</span></span>
+<span id="cb642-15"><a href="week-6-tutorial.html#cb642-15" aria-hidden="true" tabindex="-1"></a>  pr3 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(zeta[<span class="dv">3</span>] <span class="sc">-</span> eta) <span class="sc">-</span> <span class="fu">plogis</span>(zeta[<span class="dv">2</span>] <span class="sc">-</span> eta))</span>
+<span id="cb642-16"><a href="week-6-tutorial.html#cb642-16" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Find Pr(2nd lowest category)</span></span>
+<span id="cb642-17"><a href="week-6-tutorial.html#cb642-17" aria-hidden="true" tabindex="-1"></a>  pr2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(zeta[<span class="dv">2</span>] <span class="sc">-</span> eta) <span class="sc">-</span> <span class="fu">plogis</span>(zeta[<span class="dv">1</span>] <span class="sc">-</span> eta))</span>
+<span id="cb642-18"><a href="week-6-tutorial.html#cb642-18" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Find Pr(lowest category)</span></span>
+<span id="cb642-19"><a href="week-6-tutorial.html#cb642-19" aria-hidden="true" tabindex="-1"></a>  pr1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">plogis</span>(zeta[<span class="dv">1</span>] <span class="sc">-</span> eta))</span>
+<span id="cb642-20"><a href="week-6-tutorial.html#cb642-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">c</span>(pr1, pr2, pr3, pr4, pr5, pr6, pr7))</span>
+<span id="cb642-21"><a href="week-6-tutorial.html#cb642-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb642-22"><a href="week-6-tutorial.html#cb642-22" aria-hidden="true" tabindex="-1"></a><span class="do">## Repeat for all values of empathy</span></span>
+<span id="cb642-23"><a href="week-6-tutorial.html#cb642-23" aria-hidden="true" tabindex="-1"></a>emp.prsall <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">2</span>), findprall)</span></code></pre></div>
 <p>A note on the survey weights:</p>
 <ul>
 <li>When we take the <code>mean()</code> of our estimates for each observation, we are treating each row of our <span class="math inline">\(X\)</span> matrix as if it should have equal weight in this mean. This is normally fine, but with weighted data, we might instead want to weight the mean, according to the survey weights we used in our regression. The function <code>weighted.mean</code> can facilitate this. Either approach is valid, but you may want to remember this distinction and the possibility that you could even incorporate the survey weights at this final stage.</li>
 </ul>
 <p>We can add these lines to the plot. Yikes! A bit messy. You can see why they focus on the first category only.</p>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="week-6-tutorial.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">2</span>),</span>
-<span id="cb122-2"><a href="week-6-tutorial.html#cb122-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">y=</span>emp.prsall[<span class="dv">1</span>,],</span>
-<span id="cb122-3"><a href="week-6-tutorial.html#cb122-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb122-4"><a href="week-6-tutorial.html#cb122-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">type=</span><span class="st">&quot;l&quot;</span>,</span>
-<span id="cb122-5"><a href="week-6-tutorial.html#cb122-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Empathic Concern&quot;</span>,</span>
-<span id="cb122-6"><a href="week-6-tutorial.html#cb122-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>,</span>
-<span id="cb122-7"><a href="week-6-tutorial.html#cb122-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Outparty Favorability </span><span class="sc">\n</span><span class="st"> Pr(Outparty Very Unfavorable)&quot;</span>,</span>
-<span id="cb122-8"><a href="week-6-tutorial.html#cb122-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.main=</span>.<span class="dv">8</span>)</span>
-<span id="cb122-9"><a href="week-6-tutorial.html#cb122-9" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">2</span>), <span class="at">y=</span>emp.prsall[<span class="dv">2</span>,], <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
-<span id="cb122-10"><a href="week-6-tutorial.html#cb122-10" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">2</span>), <span class="at">y=</span>emp.prsall[<span class="dv">3</span>,], <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lty=</span><span class="dv">3</span>)</span>
-<span id="cb122-11"><a href="week-6-tutorial.html#cb122-11" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">2</span>), <span class="at">y=</span>emp.prsall[<span class="dv">4</span>,], <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lty=</span><span class="dv">4</span>)</span>
-<span id="cb122-12"><a href="week-6-tutorial.html#cb122-12" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">2</span>), <span class="at">y=</span>emp.prsall[<span class="dv">5</span>,], <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lty=</span><span class="dv">5</span>)</span>
-<span id="cb122-13"><a href="week-6-tutorial.html#cb122-13" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">2</span>), <span class="at">y=</span>emp.prsall[<span class="dv">6</span>,], <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lty=</span><span class="dv">6</span>)</span>
-<span id="cb122-14"><a href="week-6-tutorial.html#cb122-14" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">2</span>), <span class="at">y=</span>emp.prsall[<span class="dv">7</span>,], <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lty=</span><span class="dv">7</span>)</span>
-<span id="cb122-15"><a href="week-6-tutorial.html#cb122-15" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>,  <span class="at">lty=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="fu">c</span>(<span class="st">&quot;Very Unfav&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;4&quot;</span>, <span class="st">&quot;5&quot;</span>, <span class="st">&quot;6&quot;</span>, <span class="st">&quot;Very Fav&quot;</span>), <span class="at">cex=</span>.<span class="dv">6</span>)</span></code></pre></div>
-<p><img src="mlebookout_files/figure-html/unnamed-chunk-36-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="week-6-tutorial.html#cb643-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">2</span>),</span>
+<span id="cb643-2"><a href="week-6-tutorial.html#cb643-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">y=</span>emp.prsall[<span class="dv">1</span>,],</span>
+<span id="cb643-3"><a href="week-6-tutorial.html#cb643-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb643-4"><a href="week-6-tutorial.html#cb643-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">type=</span><span class="st">&quot;l&quot;</span>,</span>
+<span id="cb643-5"><a href="week-6-tutorial.html#cb643-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Empathic Concern&quot;</span>,</span>
+<span id="cb643-6"><a href="week-6-tutorial.html#cb643-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb643-7"><a href="week-6-tutorial.html#cb643-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Outparty Favorability </span><span class="sc">\n</span><span class="st"> Pr(Outparty Very Unfavorable)&quot;</span>,</span>
+<span id="cb643-8"><a href="week-6-tutorial.html#cb643-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex.main=</span>.<span class="dv">8</span>)</span>
+<span id="cb643-9"><a href="week-6-tutorial.html#cb643-9" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">2</span>), <span class="at">y=</span>emp.prsall[<span class="dv">2</span>,], <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb643-10"><a href="week-6-tutorial.html#cb643-10" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">2</span>), <span class="at">y=</span>emp.prsall[<span class="dv">3</span>,], <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lty=</span><span class="dv">3</span>)</span>
+<span id="cb643-11"><a href="week-6-tutorial.html#cb643-11" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">2</span>), <span class="at">y=</span>emp.prsall[<span class="dv">4</span>,], <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lty=</span><span class="dv">4</span>)</span>
+<span id="cb643-12"><a href="week-6-tutorial.html#cb643-12" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">2</span>), <span class="at">y=</span>emp.prsall[<span class="dv">5</span>,], <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lty=</span><span class="dv">5</span>)</span>
+<span id="cb643-13"><a href="week-6-tutorial.html#cb643-13" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">2</span>), <span class="at">y=</span>emp.prsall[<span class="dv">6</span>,], <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lty=</span><span class="dv">6</span>)</span>
+<span id="cb643-14"><a href="week-6-tutorial.html#cb643-14" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">2</span>), <span class="at">y=</span>emp.prsall[<span class="dv">7</span>,], <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">lty=</span><span class="dv">7</span>)</span>
+<span id="cb643-15"><a href="week-6-tutorial.html#cb643-15" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>,  <span class="at">lty=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="fu">c</span>(<span class="st">&quot;Very Unfav&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;4&quot;</span>, <span class="st">&quot;5&quot;</span>, <span class="st">&quot;6&quot;</span>, <span class="st">&quot;Very Fav&quot;</span>), <span class="at">cex=</span>.<span class="dv">6</span>)</span></code></pre></div>
+<p><img src="mlebookout_files/figure-html/unnamed-chunk-280-1.svg" width="672" /></p>
 <p>A last step would be to calculate uncertainty. Just like before, we could use simulation or the bootstrap method. In the bootstrap method, the manual calculations would be the “meat” of the bootstrap function that you used in the previous course notes section.</p>
 <p>A special note: The <code>svyolr</code> function does not appear compatible with the <code>prediction</code> function. As an alternative, we could fit the <code>polr</code> model with an extra argument for weights. These should produce the same coefficient estimates, though the standard errors might be incorrect. You could potentially use this to generate the raw probability estimates. See for example, estimates for being in category 1 below:</p>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="week-6-tutorial.html#cb123-1" aria-hidden="true" tabindex="-1"></a>fit.emp2 <span class="ot">&lt;-</span> <span class="fu">polr</span>(outfav <span class="sc">~</span> empconc <span class="sc">+</span> empdist <span class="sc">+</span> emppers <span class="sc">+</span> empfant <span class="sc">+</span></span>
-<span id="cb123-2"><a href="week-6-tutorial.html#cb123-2" aria-hidden="true" tabindex="-1"></a>                  <span class="sc">+</span> pidext <span class="sc">+</span> ideoext <span class="sc">+</span> news <span class="sc">+</span> dem <span class="sc">+</span></span>
-<span id="cb123-3"><a href="week-6-tutorial.html#cb123-3" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">as.numeric</span>(educ) <span class="sc">+</span> age <span class="sc">+</span> male <span class="sc">+</span> white <span class="sc">+</span> <span class="fu">factor</span>(inc3miss),</span>
-<span id="cb123-4"><a href="week-6-tutorial.html#cb123-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>emp, <span class="at">Hess=</span>T, <span class="at">method=</span><span class="st">&quot;logistic&quot;</span>, <span class="at">weights =</span> emp<span class="sc">$</span>weight_group)</span></code></pre></div>
-<pre><code>## Warning in eval(family$initialize): non-integer #successes in a binomial glm!</code></pre>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="week-6-tutorial.html#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.emp2)</span></code></pre></div>
-<pre><code>## Call:
-## polr(formula = outfav ~ empconc + empdist + emppers + empfant + 
-##     +pidext + ideoext + news + dem + as.numeric(educ) + age + 
-##     male + white + factor(inc3miss), data = emp, weights = emp$weight_group, 
-##     Hess = T, method = &quot;logistic&quot;)
-## 
-## Coefficients:
-##                        Value Std. Error t value
-## empconc           -1.4141936   0.479987 -2.9463
-## empdist            0.7759968   0.412555  1.8810
-## emppers            1.1700975   0.527905  2.2165
-## empfant            0.9733691   0.406788  2.3928
-## pidext            -0.3281915   0.097894 -3.3525
-## ideoext           -0.4970277   0.078991 -6.2922
-## news              -0.5759557   0.094099 -6.1207
-## dem               -0.0456691   0.161136 -0.2834
-## as.numeric(educ)   0.0284158   0.056125  0.5063
-## age               -0.0007309   0.004667 -0.1566
-## male              -0.1759908   0.164116 -1.0724
-## white              0.0366286   0.168809  0.2170
-## factor(inc3miss)2 -0.0470201   0.205414 -0.2289
-## factor(inc3miss)3 -0.0794134   0.207121 -0.3834
-## factor(inc3miss)4 -0.0587784   0.233469 -0.2518
-## 
-## Intercepts:
-##     Value   Std. Error t value
-## 1|2 -2.9118  0.6315    -4.6109
-## 2|3 -1.7749  0.6251    -2.8394
-## 3|4 -1.0853  0.6211    -1.7473
-## 4|5  0.3080  0.6257     0.4923
-## 5|6  0.9101  0.6363     1.4303
-## 6|7  2.8741  0.7763     3.7022
-## 
-## Residual Deviance: 1862.152 
-## AIC: 1904.152 
-## (245 observations deleted due to missingness)</code></pre>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="week-6-tutorial.html#cb127-1" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> <span class="fu">prediction</span>(fit.emp2, <span class="at">at=</span><span class="fu">list</span>(<span class="at">empconc =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,.<span class="dv">2</span>)), <span class="at">category=</span><span class="dv">1</span>)</span></code></pre></div>
-<pre><code>## Warning in check_values(data, at): A &#39;at&#39; value for &#39;empconc&#39; is outside
-## observed data range (0.0357142873108387,1)!</code></pre>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="week-6-tutorial.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">summary</span>(preds), <span class="at">digits=</span><span class="dv">3</span>)</span></code></pre></div>
-<pre><code>##  at(empconc) Prediction SE  z  p lower upper
-##          0.0      0.303 NA NA NA    NA    NA
-##          0.2      0.356 NA NA NA    NA    NA
-##          0.4      0.412 NA NA NA    NA    NA
-##          0.6      0.470 NA NA NA    NA    NA
-##          0.8      0.528 NA NA NA    NA    NA
-##          1.0      0.586 NA NA NA    NA    NA</code></pre>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="week-6-tutorial.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Compare with the manual approach</span></span>
-<span id="cb131-2"><a href="week-6-tutorial.html#cb131-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(emp.prsall[<span class="dv">1</span>,], <span class="at">digits=</span><span class="dv">3</span>) <span class="co"># category 1</span></span></code></pre></div>
-<pre><code>## [1] 0.303 0.356 0.412 0.470 0.528 0.586</code></pre>
+<div class="sourceCode" id="cb644"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb644-1"><a href="week-6-tutorial.html#cb644-1" aria-hidden="true" tabindex="-1"></a>fit.emp2 <span class="ot">&lt;-</span> <span class="fu">polr</span>(outfav <span class="sc">~</span> empconc <span class="sc">+</span> empdist <span class="sc">+</span> emppers <span class="sc">+</span> empfant <span class="sc">+</span></span>
+<span id="cb644-2"><a href="week-6-tutorial.html#cb644-2" aria-hidden="true" tabindex="-1"></a>                  <span class="sc">+</span> pidext <span class="sc">+</span> ideoext <span class="sc">+</span> news <span class="sc">+</span> dem <span class="sc">+</span></span>
+<span id="cb644-3"><a href="week-6-tutorial.html#cb644-3" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">as.numeric</span>(educ) <span class="sc">+</span> age <span class="sc">+</span> male <span class="sc">+</span> white <span class="sc">+</span> <span class="fu">factor</span>(inc3miss),</span>
+<span id="cb644-4"><a href="week-6-tutorial.html#cb644-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>emp, <span class="at">Hess=</span>T, <span class="at">method=</span><span class="st">&quot;logistic&quot;</span>, <span class="at">weights =</span> emp<span class="sc">$</span>weight_group)</span></code></pre></div>
+<pre><code>Warning in eval(family$initialize): non-integer #successes in a binomial glm!</code></pre>
+<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb646-1"><a href="week-6-tutorial.html#cb646-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit.emp2)</span></code></pre></div>
+<pre><code>Call:
+polr(formula = outfav ~ empconc + empdist + emppers + empfant + 
+    +pidext + ideoext + news + dem + as.numeric(educ) + age + 
+    male + white + factor(inc3miss), data = emp, weights = emp$weight_group, 
+    Hess = T, method = &quot;logistic&quot;)
+
+Coefficients:
+                       Value Std. Error t value
+empconc           -1.4141936   0.479987 -2.9463
+empdist            0.7759968   0.412555  1.8810
+emppers            1.1700975   0.527905  2.2165
+empfant            0.9733691   0.406788  2.3928
+pidext            -0.3281915   0.097894 -3.3525
+ideoext           -0.4970277   0.078991 -6.2922
+news              -0.5759557   0.094099 -6.1207
+dem               -0.0456691   0.161136 -0.2834
+as.numeric(educ)   0.0284158   0.056125  0.5063
+age               -0.0007309   0.004667 -0.1566
+male              -0.1759908   0.164116 -1.0724
+white              0.0366286   0.168809  0.2170
+factor(inc3miss)2 -0.0470201   0.205414 -0.2289
+factor(inc3miss)3 -0.0794134   0.207121 -0.3834
+factor(inc3miss)4 -0.0587784   0.233469 -0.2518
+
+Intercepts:
+    Value   Std. Error t value
+1|2 -2.9118  0.6315    -4.6109
+2|3 -1.7749  0.6251    -2.8394
+3|4 -1.0853  0.6211    -1.7473
+4|5  0.3080  0.6257     0.4923
+5|6  0.9101  0.6363     1.4303
+6|7  2.8741  0.7763     3.7022
+
+Residual Deviance: 1862.152 
+AIC: 1904.152 
+(245 observations deleted due to missingness)</code></pre>
+<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb648-1"><a href="week-6-tutorial.html#cb648-1" aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> <span class="fu">prediction</span>(fit.emp2, <span class="at">at=</span><span class="fu">list</span>(<span class="at">empconc =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,.<span class="dv">2</span>)), <span class="at">category=</span><span class="dv">1</span>)</span></code></pre></div>
+<pre><code>Warning in check_values(data, at): A &#39;at&#39; value for &#39;empconc&#39; is outside
+observed data range (0.0357142873108387,1)!</code></pre>
+<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb650-1"><a href="week-6-tutorial.html#cb650-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">summary</span>(preds), <span class="at">digits=</span><span class="dv">3</span>)</span></code></pre></div>
+<pre><code> at(empconc) Prediction SE  z  p lower upper
+         0.0      0.303 NA NA NA    NA    NA
+         0.2      0.356 NA NA NA    NA    NA
+         0.4      0.412 NA NA NA    NA    NA
+         0.6      0.470 NA NA NA    NA    NA
+         0.8      0.528 NA NA NA    NA    NA
+         1.0      0.586 NA NA NA    NA    NA</code></pre>
+<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb652-1"><a href="week-6-tutorial.html#cb652-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Compare with the manual approach</span></span>
+<span id="cb652-2"><a href="week-6-tutorial.html#cb652-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(emp.prsall[<span class="dv">1</span>,], <span class="at">digits=</span><span class="dv">3</span>) <span class="co"># category 1</span></span></code></pre></div>
+<pre><code>[1] 0.303 0.356 0.412 0.470 0.528 0.586</code></pre>
 
 </div>
 <!-- </div> -->
@@ -837,7 +842,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -856,6 +860,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -876,6 +881,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
